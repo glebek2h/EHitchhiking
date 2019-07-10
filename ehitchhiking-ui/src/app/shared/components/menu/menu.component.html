@@ -1,12 +1,10 @@
-<mat-sidenav-container class="example-container" >
+
+<mat-sidenav-container class="sidenav-container" >
   <mat-sidenav class="menu" #sidenav mode="side" [(opened)]="opened">
-
-
     <!--TODO split this into components:-->
-
     <div class="header">
       <i class="material-icons">account_circle</i>
-      <p><span>name</span></p>
+      <p class="mat-subheading-2"><span >name</span></p>
       <i class="material-icons settings">
         settings
       </i>
@@ -31,10 +29,7 @@
       </p>
       <p><time datetime="2019-03-21">2019-07-08</time></p>
     </footer>
-
-
   </mat-sidenav>
-
   <mat-sidenav-content>
     <p><button mat-button (click)="sidenav.toggle()">Open</button></p>
   </mat-sidenav-content>
