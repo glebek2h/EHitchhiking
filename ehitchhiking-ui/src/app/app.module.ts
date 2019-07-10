@@ -8,12 +8,14 @@ import {FormsModule} from '@angular/forms';
 import { MenuComponent } from './shared/components/menu/menu.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MainScreenModule} from './main-screen/main-screen.module';
+import { BlacklistComponent } from './shared/components/blacklist/blacklist.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
+    BlacklistComponent,
   ],
   imports: [
     BrowserModule,

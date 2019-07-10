@@ -11,8 +11,26 @@
     </div>
 
     <div class="buttons">
-      <li *ngFor="let but of buttonsArray">
-        <button mat-raised-button color="primary">{{but}}</button>
+      <li>
+        <button mat-raised-button color="primary">history</button>
+      </li>
+      <li>
+        <button mat-raised-button color="primary">history</button>
+      </li>
+      <li>
+        <button mat-raised-button color="primary">saved</button>
+      </li>
+      <li>
+        <button mat-raised-button color="primary">active</button>
+      </li>
+      <li>
+        <button mat-raised-button color="primary">notifications</button>
+      </li>
+      <li>
+        <button (click)="newMassage()" mat-raised-button color="primary">blacklist</button>
+      </li>
+      <li>
+        <button mat-raised-button color="primary">admin functionality</button>
       </li>
       <button mat-stroked-button color="primary"class="log-out">log out</button>
     </div>

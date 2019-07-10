@@ -1,0 +1,39 @@
+.blacklist-window
+  position: relative
+  z-index: 1
+  margin-left: 19rem
+  width: 20rem
+  height: 25rem
+  text-align: center
+  padding: 1rem
+  border: 1px solid black
+  display: block
+  margin-top: 3rem
+  p
+    margin-top: 0rem
+    font-weight: bold
+    font-size: 2rem
+  .blacklist
+    height: 20rem
+    overflow-y: scroll
+    overflow-x: hidden
+    .blacklist-user
+      border: 1px solid black
+      display: flex
+      justify-content: space-around
+      align-items: center
+      .profile-photo
+        font-size: 4rem
+      .remove-icon
+        font-size: 2rem
+        display: table
+        vertical-align: middle
+        color: #990000
+      .blacklist-user-name
+        font-size: 1rem
+        font-weight: normal
+        margin-top: 1rem
+        width: 200px
+        white-space: nowrap
+        overflow: hidden
+        text-overflow: ellipsis
