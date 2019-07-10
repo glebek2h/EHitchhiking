@@ -29,7 +29,7 @@
             ],
             "styles": [
               "src/assets/css/fonts.css",
-              "src/app/shared/common/styles/colour-theme.sass"
+              "src/styles.sass"
             ],
             "scripts": []
           },
@@ -89,6 +89,7 @@
               "src/assets"
             ],
             "styles": [
+              "src/assets/css/fonts.css",
               "src/styles.sass"
             ],
             "scripts": []

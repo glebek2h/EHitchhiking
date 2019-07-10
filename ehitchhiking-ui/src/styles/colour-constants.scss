@@ -14,7 +14,7 @@ $light-red: #FB5B74;
 $red: #F20026;
 $dark-red: #B5001D;
 
-$custom-primary-colour: (
+$ehitchhiking-primary-color-setting: (
   50 : $light-green,
   100 :$green,
   200 :$dark-green,
@@ -30,24 +30,24 @@ $custom-primary-colour: (
   A400 : $brown,
   A700 : $dark-brown,
   contrast: (
-    50 : #000000,
-    100 : #000000,
-    200 : #000000,
-    300 : #000000,
-    400 : #000000,
+    50 : #ffffff,
+    100 : #ffffff,
+    200 : #ffffff,
+    300 : #ffffff,
+    400 : #ffffff,
     500 : #ffffff,
     600 : #ffffff,
     700 : #ffffff,
     800 : #ffffff,
     900 : #ffffff,
-    A100 : #000000,
-    A200 : #000000,
-    A400 : #000000,
-    A700 : #000000,
+    A100 : #ffffff,
+    A200 : #ffffff,
+    A400 : #ffffff,
+    A700 : #ffffff,
   )
 );
 
-$custom-accent-colour: (
+$ehitchhiking-accent-color-setting: (
   50 : $light-blue,
   100 :$light-blue,
   200 :$light-blue,
@@ -63,24 +63,24 @@ $custom-accent-colour: (
   A400 : $dark-blue,
   A700 : $dark-blue,
   contrast: (
-    50 : #000000,
-    100 : #000000,
-    200 : #000000,
-    300 : #000000,
-    400 : #000000,
+    50 : #ffffff,
+    100 : #ffffff,
+    200 : #ffffff,
+    300 : #ffffff,
+    400 : #ffffff,
     500 : #ffffff,
     600 : #ffffff,
     700 : #ffffff,
     800 : #ffffff,
     900 : #ffffff,
-    A100 : #000000,
-    A200 : #000000,
-    A400 : #000000,
-    A700 : #000000,
+    A100 : #ffffff,
+    A200 : #ffffff,
+    A400 : #ffffff,
+    A700 : #ffffff,
   )
 );
 
-$custom-warn-colour: (
+$ehitchhiking-warn-color-setting: (
   50 : $light-red,
   100 :$light-red,
   200 :$light-red,
@@ -96,52 +96,19 @@ $custom-warn-colour: (
   A400 : $red,
   A700 : $red,
   contrast: (
-    50 : #000000,
-    100 : #000000,
-    200 : #000000,
-    300 : #000000,
-    400 : #000000,
+    50 : #ffffff,
+    100 : #ffffff,
+    200 : #ffffff,
+    300 : #ffffff,
+    400 : #ffffff,
     500 : #ffffff,
     600 : #ffffff,
     700 : #ffffff,
     800 : #ffffff,
     900 : #ffffff,
-    A100 : #000000,
-    A200 : #000000,
-    A400 : #000000,
-    A700 : #000000,
-  )
-);
-
-$custom-base-colour: (
-  50 : white,
-  100 : white,
-  200 : white,
-  300 : white,
-  400 : white,
-  500 : white,
-  600 : white,
-  700 : black,
-  800 : black,
-  900 : black,
-  A100 : black,
-  A200 : black,
-  A400 : black,
-  A700 : black,
-  contrast: (
-    50 : #000000,
-    100 : #000000,
-    200 : #000000,
-    300 : #000000,
-    400 : #000000,
-    500 : #ffffff,
-    600 : #ffffff,
-    700 : #ffffff,
-    800 : #ffffff,
-    900 : #ffffff,
-    A100 : #000000,
-    A200 : #000000,
-    A400 : #000000,
-    A700 : #000000,
+    A100 : #ffffff,
+    A200 : #ffffff,
+    A400 : #ffffff,
+    A700 : #ffffff,
   )
 );
