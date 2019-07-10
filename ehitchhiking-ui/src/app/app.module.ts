@@ -7,6 +7,7 @@ import {MatCheckboxModule, MatIconModule, MatMenuModule, MatSidenavModule} from 
 import {FormsModule} from '@angular/forms';
 import { MenuComponent } from './shared/components/menu/menu.component';
 import {MatButtonModule} from '@angular/material/button';
+import {MainScreenModule} from './main-screen/main-screen.module';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import {MatButtonModule} from '@angular/material/button';
     MatCheckboxModule,
     MatSidenavModule,
     FormsModule,
-    MatButtonModule
+    MatButtonModule,
+    MainScreenModule
   ],
   providers: [],
   bootstrap: [AppComponent]
