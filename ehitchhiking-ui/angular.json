@@ -28,7 +28,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.sass"
+              "src/assets/css/fonts.css",
+              "src/app/shared/common/styles/colour-theme.sass"
             ],
             "scripts": []
           },
