@@ -10,7 +10,8 @@
         "e2e": "ng e2e",
         "format": "prettier",
         "tslint-check": "tslint-config-prettier-check ./tslint.json",
-        "pretty-quick": "pretty-quick"
+        "pretty-quick": "pretty-quick",
+        "prettier-watch": "onchange '**/*.js' -- prettier --write {{changed}}"
     },
     "private": true,
     "dependencies": {
