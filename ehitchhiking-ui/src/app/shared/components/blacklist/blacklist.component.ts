@@ -1,5 +1,10 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
-import {DataService} from '../../services/data.service';
+import {Component, OnInit, Inject} from '@angular/core';
+import {BLACKLISTUSERS} from './blacklist-users';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+
+export interface DialogData {
+  message: string;
+}
 
 @Component({
   selector: 'app-blacklist',
@@ -8,9 +13,15 @@ import {DataService} from '../../services/data.service';
 })
 export class BlacklistComponent implements OnInit {
   message: boolean;
-  constructor(private data: DataService) { }
+  blacklistUsersArray = [];
+  constructor( public dialogRef: MatDialogRef<BlacklistComponent>) {}
 
   ngOnInit() {
-    this.data.currentMessage.subscribe(message => this.message = message);
+    this.blacklistUsersArray = BLACKLISTUSERS;
+    // this.data.currentMessage.subscribe(message => this.message = message);
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }

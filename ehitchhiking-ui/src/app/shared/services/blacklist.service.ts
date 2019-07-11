@@ -4,7 +4,7 @@ import {BehaviorSubject} from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class DataService {
+export class BlacklistService {
 
   private messageSource = new BehaviorSubject<boolean>(false);
   currentMessage = this.messageSource.asObservable();

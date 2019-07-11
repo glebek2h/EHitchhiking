@@ -1,40 +1,19 @@
-<div *ngIf="message" class="blacklist-window">
+<!--<div *ngIf="message" class="blacklist-window">
   <p>Blacklist</p>
-  <div class="blacklist">
-    <div class="blacklist-user">
+  <div class="blacklist" >
+    <div class="blacklist-user" *ngFor="let blacklistuser of blacklistUsersArray">
       <i class="material-icons profile-photo">account_circle</i>
-      <p class="blacklist-user-name">Name Surnameорпрмрамрпсмрссрпспсрпсрпспрспр</p>
-      <i class="material-icons remove-icon">remove_circle</i>
-    </div>
-
-    <div class="blacklist-user">
-      <i class="material-icons profile-photo">account_circle</i>
-      <p class="blacklist-user-name">Name Surname</p>
-      <i class="material-icons remove-icon">remove_circle</i>
-    </div>
-
-    <div class="blacklist-user">
-      <i class="material-icons profile-photo">account_circle</i>
-      <p class="blacklist-user-name">Name Surnamejhjhvjhvjhhjbbjhb</p>
-      <i class="material-icons remove-icon">remove_circle</i>
-    </div>
-
-    <div class="blacklist-user">
-      <i class="material-icons profile-photo">account_circle</i>
-      <p class="blacklist-user-name">Name Surname</p>
-      <i class="material-icons remove-icon">remove_circle</i>
-    </div>
-
-    <div class="blacklist-user">
-      <i class="material-icons profile-photo">account_circle</i>
-      <p class="blacklist-user-name">Name Surname</p>
-      <i class="material-icons remove-icon">remove_circle</i>
-    </div>
-
-    <div class="blacklist-user">
-      <i class="material-icons profile-photo">account_circle</i>
-      <p class="blacklist-user-name">Name Surname</p>
+      <p class="blacklist-user-name">{{blacklistuser}}</p>
       <i class="material-icons remove-icon">remove_circle</i>
     </div>
   </div>
+</div>-->
+<h1 mat-dialog-title>Hi </h1>
+<div mat-dialog-content>
+  <p>What's your favorite animal?</p>
 </div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button  cdkFocusInitial>Ok</button>
+</div>
+

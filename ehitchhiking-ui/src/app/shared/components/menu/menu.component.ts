@@ -1,7 +1,7 @@
-import {Component, OnInit, HostListener, Input} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { BUTTONS } from './buttons';
 import {BlacklistComponent} from '../blacklist/blacklist.component';
-import {DataService} from "../../services/data.service";
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'app-menu',
@@ -9,20 +9,33 @@ import {DataService} from "../../services/data.service";
   styleUrls: ['./menu.component.sass']
 })
 export class MenuComponent implements OnInit {
-  events: string[] = [];
   opened: boolean;
   buttonsArray = [];
   message: boolean;
-  constructor(private data: DataService) { }
+  constructor(public dialog: MatDialog) { }
 
 
   ngOnInit() {
     this.buttonsArray = BUTTONS;
-    this.data.currentMessage.subscribe(message => this.message = message);
+    // this.data.currentMessage.subscribe(message => this.message = message);
   }
-  newMassage() {
+  // newMassage() {
+  //   this.message = !this.message;
+  //   this.data.changeMessage(this.message);
+  // }
+
+  newMassage(): void {
     this.message = !this.message;
-    this.data.changeMessage(this.message);
+    const dialogRef = this.dialog.open(BlacklistComponent, {
+      width: '250px',
+      data: {
+        message: this.message
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.message = true;
+    });
   }
 
 }

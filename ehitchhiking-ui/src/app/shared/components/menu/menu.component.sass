@@ -1,10 +1,7 @@
-@import "../../../../app/shared/constants/constants"
-@import "../../../../scss/fonts/fonts"
-
-//@include mat-base-typography($custom-typography)
+@import "../../../../styles/fonts-constants"
 
 .sidenav-container
-  position: absolute
+  position: fixed
   top: 0
   bottom: 0
   left: 0
@@ -20,10 +17,8 @@
 .header
   display: flex
   justify-content: space-around
-  p
-    margin-top: 1.5rem
-    span
-      font: 100% $font-stack
+  span
+    font: 100% $app-font
   .settings
     font-size: 2rem
     margin-top: 1rem

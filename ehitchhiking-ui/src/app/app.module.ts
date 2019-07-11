@@ -3,7 +3,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatCheckboxModule, MatIconModule, MatMenuModule, MatSidenavModule} from '@angular/material';
+import {
+  MatCheckboxModule,
+  MatDialogModule,
+  MatDialogRef,
+  MatIconModule,
+  MatMenuModule,
+  MatSidenavModule
+} from '@angular/material';
 import {FormsModule} from '@angular/forms';
 import { MenuComponent } from './shared/components/menu/menu.component';
 import {MatButtonModule} from '@angular/material/button';
@@ -25,9 +32,13 @@ import { BlacklistComponent } from './shared/components/blacklist/blacklist.comp
     MatSidenavModule,
     FormsModule,
     MatButtonModule,
-    MainScreenModule
+    MainScreenModule,
+    MatDialogModule,
   ],
-  providers: [],
+  entryComponents: [
+    BlacklistComponent,
+  ],
+  providers: [MatDialogRef],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
