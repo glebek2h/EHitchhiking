@@ -1,19 +1,16 @@
 <!--<div *ngIf="message" class="blacklist-window">
   <p>Blacklist</p>
-  <div class="blacklist" >
+
+</div>-->
+<h1 mat-dialog-title class="blacklist-title">Blacklist</h1>
+<div mat-dialog-content class="blacklist">
     <div class="blacklist-user" *ngFor="let blacklistuser of blacklistUsersArray">
       <i class="material-icons profile-photo">account_circle</i>
       <p class="blacklist-user-name">{{blacklistuser}}</p>
-      <i class="material-icons remove-icon">remove_circle</i>
+      <i class="material-icons remove-icon" (click)="removePerson()">remove_circle</i>
     </div>
-  </div>
-</div>-->
-<h1 mat-dialog-title>Hi </h1>
-<div mat-dialog-content>
-  <p>What's your favorite animal?</p>
 </div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button  cdkFocusInitial>Ok</button>
+<div mat-dialog-actions class="blacklist-back-btn">
+  <button mat-button (click)="onNoClick()">Back</button>
 </div>
 

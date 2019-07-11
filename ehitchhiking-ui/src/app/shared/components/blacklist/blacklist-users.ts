@@ -1,5 +1,5 @@
 export const BLACKLISTUSERS: string[] = [
-  'Anastasia Harostjhbvhgvhvhjhjvh' ,
+  'Anastasia Harostjhbvhgv' ,
   'Gleb Kazachinsky' ,
   'Julia Romanova' ,
   'Yana ' ,

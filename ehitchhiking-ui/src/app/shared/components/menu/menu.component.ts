@@ -27,7 +27,7 @@ export class MenuComponent implements OnInit {
   newMassage(): void {
     this.message = !this.message;
     const dialogRef = this.dialog.open(BlacklistComponent, {
-      width: '250px',
+      width: '400px',
       data: {
         message: this.message
       }

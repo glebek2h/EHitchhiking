@@ -36,9 +36,9 @@ import { BlacklistComponent } from './shared/components/blacklist/blacklist.comp
     MatDialogModule,
   ],
   entryComponents: [
-    BlacklistComponent,
+    BlacklistComponent, // todo: move BlacklistComponent to separate module
   ],
-  providers: [MatDialogRef],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
