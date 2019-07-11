@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {MainScreenComponentComponent} from './main-screen-component/main-screen-component.component';
+import {MainScreenComponent} from './main-screen-component/main-screen.component';
 import {MatButtonModule, MatButtonToggleModule} from '@angular/material';
 
 @NgModule({
-	declarations: [MainScreenComponentComponent],
+	declarations: [MainScreenComponent],
 	imports: [CommonModule, MatButtonToggleModule, MatButtonModule],
-	exports: [MainScreenComponentComponent],
+	exports: [MainScreenComponent],
 })
 export class MainScreenModule {}
