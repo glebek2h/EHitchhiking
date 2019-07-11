@@ -23,7 +23,7 @@ import {MainScreenModule} from './main-screen/main-screen.module';
     MatSidenavModule,
     FormsModule,
     MatButtonModule,
-    MainScreenModule
+    MainScreenModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
