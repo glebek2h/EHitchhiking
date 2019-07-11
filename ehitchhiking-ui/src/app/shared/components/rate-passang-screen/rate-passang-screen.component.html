@@ -1,0 +1,34 @@
+<div class="table-content" *ngIf="message">
+  <!--The content below is only a placeholder and can be replaced.-->
+    <div class='container'>
+      <h2>Rate Passangers</h2>
+      <div class="panel panel-primary">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+            <tr>
+              <th>Passanger</th>
+              <th>Contact</th>
+              <th>Rating</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of items">
+              <td>
+                {{item.name}}
+              </td>
+              <td>
+                <app-rating [rating]='item.rating' [itemId]='item.id' (ratingClick)='ratingComponentClick($event)'></app-rating>
+              </td>
+              <td>
+                {{item.rating}} Stars
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  <button mat-raised-button color="primary" (click)="exitTripFunction()">exit trip</button>
+</div>
+

@@ -1,7 +1,6 @@
-
 <mat-sidenav-container class="sidenav-container" >
   <mat-sidenav class="menu" #sidenav mode="side" [(opened)]="opened">
-    <!--TODO split this into components:-->
+
     <div class="header">
       <i class="material-icons">account_circle</i>
       <p class="mat-subheading-2"><span >name</span></p>
@@ -14,7 +13,7 @@
       <li *ngFor="let but of buttonsArray">
         <button mat-raised-button color="primary">{{but}}</button>
       </li>
-      <button mat-stroked-button color="primary"class="log-out">log out</button>
+      <button mat-stroked-button color="primary" class="log-out" (click)="newMessage()">log out</button>
     </div>
 
     <footer>
@@ -27,7 +26,7 @@
         <a href = "mailto: garost99@mail.ru">garost99@mail.ru</a>
         <a href = "mailto: youliaromanova99@mail.ru">youliaromanova99@mail.ru</a>
       </p>
-      <p><time datetime="2019-03-21">2019-07-08</time></p>
+      <p class="date"><time datetime="2019-03-21">2019-07-08</time></p>
     </footer>
   </mat-sidenav>
   <mat-sidenav-content>
