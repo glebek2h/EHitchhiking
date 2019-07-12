@@ -7,7 +7,7 @@ import {MatCheckboxModule, MatIconModule, MatMenuModule, MatSidenavModule, MatTa
 import {FormsModule} from '@angular/forms';
 import { MenuComponent } from './shared/components/menu/menu.component';
 import {MatButtonModule} from '@angular/material/button';
-import {MainScreenModule} from './main-screen/main-screen.module';
+import {MainScreenModule} from './pages/main-screen/main-screen.module';
 import {RatePassangScreenComponent} from './shared/components/rate-passang-screen/rate-passang-screen.component';
 import { RatingComponent } from './shared/components/rating/rating.component';
 
