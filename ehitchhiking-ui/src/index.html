@@ -26,7 +26,6 @@
         ></script>
         <script type="text/javascript">
             ymaps.ready(init)
-
             function init() {
                 var geolocation = ymaps.geolocation,
                     myMap = new ymaps.Map(
@@ -39,10 +38,8 @@
                             searchControlProvider: 'yandex#search',
                         }
                     )
-
                 // Сравним положение, вычисленное по ip пользователя и
                 // положение, вычисленное средствами браузера.
-
                 geolocation
                     .get({
                         provider: 'browser',
@@ -59,19 +56,9 @@
                     })
             }
         </script>
-        <style>
-            html,
-            body,
-            #map {
-                width: 100%;
-                height: 100%;
-                padding: 0;
-                margin: 0;
-            }
-        </style>
     </head>
     <body>
-        <div id="map"></div>
+        <!--<div id="map"></div>-->
         <app-root></app-root>
     </body>
 </html>
