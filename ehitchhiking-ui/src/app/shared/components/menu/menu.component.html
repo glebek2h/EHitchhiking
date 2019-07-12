@@ -1,48 +1,47 @@
-<!--<mat-sidenav-container class="sidenav-container">
-    <mat-sidenav class="menu" #sidenav mode="side" [(opened)]="opened">-->
-      //TODO: There should be mat-sidenav
-<div class="kostil-menu">
-  <div class="header">
-    <i class="material-icons">account_circle</i>
-    <p class="mat-subheading-2"><span>name</span></p>
-    <i class="material-icons settings">
-      settings
-    </i>
-  </div>
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav class="menu" #sidenav mode="side" [(opened)]="opened">
+      <div class="header">
+        <i class="material-icons">account_circle</i>
+        <span class="mat-subheading-2 header-span">name</span>
+        <i class="material-icons settings">
+          settings
+        </i>
+      </div>
+      <div class="buttons">
+        <li *ngFor="let but of buttonsArray" class="li-buttons">
+          <button mat-raised-button color="primary" class="li-button">{{ but }}</button>
+        </li>
+        <button mat-stroked-button color="primary" class="log-out">
+          log out
+        </button>
+      </div>
+      <footer class="footer-meta">
+        <img src="assets/images/footer.png" alt="exadel-logo" />
+        <p class="footer-p">
+          <a class="footer-a" href="mailto: raul221299@gmail.com">raul221299@gmail.com</a>
+          <a class="footer-a" href="mailto:  elizabeth.kemerov@gmail.com">
+            elizabeth.kemerov@gmail.com</a
+          >
+          <a class="footer-a" href="mailto: yana.bernachkaya@gmail.com"
+          >yana.bernachkaya@gmail.com</a
+          >
+          <a class="footer-a" href="mailto:  alexey.chernyakov00@gmail.com">
+            alexey.chernyakov00@gmail.com</a
+          >
+          <a class="footer-a" href="mailto: garost99@mail.ru">garost99@mail.ru</a>
+          <a class="footer-a" href="mailto: youliaromanova99@mail.ru"
+          >youliaromanova99@mail.ru</a
+          >
+        </p>
+        <p><time datetime="2019-03-21" class="footer-date">2019-07-08</time></p>
+      </footer>
+    </mat-sidenav>
 
-  <div class="buttons">
-    <li *ngFor="let but of buttonsArray">
-      <button mat-raised-button color="primary">{{ but }}</button>
-    </li>
-    <button mat-stroked-button color="primary" class="log-out">
-      log out
-    </button>
-  </div>
+    <mat-sidenav-content>
+        <button mat-button (click)="sidenav.toggle()" class="toggle-button">
+          <i class="material-icons">
+          reorder
+        </i></button>
+    </mat-sidenav-content>
 
-  <footer>
-    <img src="assets/images/footer.png" alt="exadel-logo" />
-    <p>
-      <a href="mailto: raul221299@gmail.com">raul221299@gmail.com</a>
-      <a href="mailto:  elizabeth.kemerov@gmail.com">
-        elizabeth.kemerov@gmail.com</a
-      >
-      <a href="mailto: yana.bernachkaya@gmail.com"
-      >yana.bernachkaya@gmail.com</a
-      >
-      <a href="mailto:  alexey.chernyakov00@gmail.com">
-        alexey.chernyakov00@gmail.com</a
-      >
-      <a href="mailto: garost99@mail.ru">garost99@mail.ru</a>
-      <a href="mailto: youliaromanova99@mail.ru"
-      >youliaromanova99@mail.ru</a
-      >
-    </p>
-    <p><time datetime="2019-03-21">2019-07-08</time></p>
-  </footer>
-</div>
-
-   <!-- </mat-sidenav>-->
-   <!-- <mat-sidenav-content>-->
-       <!-- <p><button mat-button (click)="sidenav.toggle()">Open</button></p>-->
-    <!--</mat-sidenav-content>
-</mat-sidenav-container>-->
+</mat-sidenav-container>
