@@ -2,11 +2,12 @@
 @import "../../../../styles/colour-constants"
 
 .sidenav-container
+  height: 100%
   position: fixed
   top: 0
-  left: 0
+  background-color: $white
 
-.menu
+menu
   width: 20%
 
 .material-icons
@@ -41,6 +42,18 @@ footer
       display: block
   time
     margin: 25%
+
+.toggle-button
+  margin-top: 2.2rem
+  padding: 0
+  min-width: 1.5rem
+  z-index: 3
+  position: fixed
+  .material-icons
+    height: 1.9rem!important
+    width: 1.9rem!important
+    font-size: 1.9rem!important
+
 
 // TODO: remove
 .kostil-menu
