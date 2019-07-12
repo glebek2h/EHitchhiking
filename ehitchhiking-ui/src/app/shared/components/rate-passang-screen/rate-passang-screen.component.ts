@@ -1,5 +1,6 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {MenuRatePassangersService} from '../../services/menu-rate-passangers.service';
+import {MatDialogRef} from '@angular/material';
 
 export interface Passanger {
   id: number;
@@ -11,7 +12,7 @@ export interface Passanger {
   templateUrl: './rate-passang-screen.component.html',
   styleUrls: ['./rate-passang-screen.component.sass']
 })
-export class RatePassangScreenComponent implements OnInit {
+export class RatePassangScreenComponent {
   ratingClicked: number;
 
   items: Passanger[] = [
@@ -23,11 +24,18 @@ export class RatePassangScreenComponent implements OnInit {
 
   message: boolean;
 
-  constructor(private data: MenuRatePassangersService) { }
+  /*constructor(private data: MenuRatePassangersService) { }
 
   ngOnInit() {
     this.data.currentMessage.subscribe(message => this.message = message);
   }
+  exitTripFunction() {
+    this.message = false;
+  }*/
+
+  constructor( public dialogRef: MatDialogRef<RatePassangScreenComponent>,
+               private menuRatePassangersService: MenuRatePassangersService) {}
+
   ratingComponentClick(clickObj: any): void {
     const item = this.items.find(((i: any) => i.id === clickObj.itemId));
     if (!!item) {
@@ -35,8 +43,8 @@ export class RatePassangScreenComponent implements OnInit {
       this.ratingClicked = clickObj.rating;
     }
   }
-  exitTripFunction() {
-    this.message = false;
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
 }

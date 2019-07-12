@@ -1,14 +1,13 @@
-<div class="table-content" *ngIf="true">
-  <!--The content below is only a placeholder and can be replaced.-->
+<div class="table-content" >
     <div class='container'>
-      <h2>Rate Passangers</h2>
+      <h2 class="title">Rate Passangers</h2>
       <div class="panel panel-primary">
         <div class="table-responsive">
           <table class="table">
             <thead>
-            <tr>
+            <tr class="table-tr">
               <th>Passanger</th>
-              <th>Contact</th>
+              <th>Stars</th>
               <th>Rating</th>
             </tr>
             </thead>
@@ -29,6 +28,6 @@
         </div>
       </div>
     </div>
-  <button mat-raised-button color="primary" (click)="exitTripFunction()">exit trip</button>
+  <button mat-raised-button color="primary" (click)="onNoClick()">exit trip</button>
 </div>
 

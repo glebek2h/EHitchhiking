@@ -3,7 +3,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatCheckboxModule, MatIconModule, MatMenuModule, MatSidenavModule, MatTableModule} from '@angular/material';
+import {
+  MatCheckboxModule,
+  MatDialogModule,
+  MatIconModule,
+  MatMenuModule,
+  MatSidenavModule,
+  MatTableModule
+} from '@angular/material';
 import {FormsModule} from '@angular/forms';
 import { MenuComponent } from './shared/components/menu/menu.component';
 import {MatButtonModule} from '@angular/material/button';
@@ -29,6 +36,10 @@ import { RatingComponent } from './shared/components/rating/rating.component';
     MatButtonModule,
     MainScreenModule,
     MatTableModule,
+    MatDialogModule
+  ],
+  entryComponents: [
+    RatePassangScreenComponent, // todo: move RatePassangScreenComponent to separate module
   ],
   providers: [],
   bootstrap: [AppComponent]
