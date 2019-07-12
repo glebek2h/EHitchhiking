@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { BUTTONS } from './buttons';
-import { MenuRatePassangersService } from '../../services/menu-rate-passangers.service';
+import { BUTTONS_NAMES } from './buttons-names';
 import {MatDialog} from '@angular/material';
-import {RatePassangScreenComponent} from '../rate-passang-screen/rate-passang-screen.component';
+import {RatePassangersModalComponent} from '../rate-passangers-modal/rate-passangers-modal.component';
 
 @Component({
   selector: 'app-menu',
@@ -10,36 +9,22 @@ import {RatePassangScreenComponent} from '../rate-passang-screen/rate-passang-sc
   styleUrls: ['./menu.component.sass']
 })
 export class MenuComponent implements OnInit {
-  events: string[] = [];
   opened: boolean;
   buttonsArray = [];
-  message: boolean;
-
- /* constructor(private data: MenuRatePassangersService) { }*/
-
- /* newMessage() {
-    this.message = !this.message;
-    this.data.changeMessage(this.message);
-  }*/
 
   constructor(public dialog: MatDialog) { }
 
-  newMessage(): void {
-    this.message = !this.message;
-    const dialogRef = this.dialog.open(RatePassangScreenComponent, {
-      width: '400px',
-      data: {
-        message: this.message
-      }
+  openDialog(): void {
+    const dialogRef = this.dialog.open(RatePassangersModalComponent, {
+      width: '400px'
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.message = true;
     });
   }
 
     ngOnInit() {
-      this.buttonsArray = BUTTONS;
+      this.buttonsArray = BUTTONS_NAMES;
     }
 
 }

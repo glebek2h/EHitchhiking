@@ -1,4 +1,10 @@
 <fieldset class="rating">
+
+ <!-- <div *ngFor="let title of titles; let i = index">
+    <input type="radio" [name]="inputName" [value]="i" [checked]="rating===i" />
+    <label [title]="title" (click)='onClick(i)'>{{ i }} stars</label>
+  </div>-->
+
   <input type="radio" [name]="inputName" value="5" [checked]="rating===5" />
   <label title="Rocks!" (click)='onClick(5)'>5 stars</label>
 
@@ -13,4 +19,5 @@
 
   <input type="radio" [name]="inputName" value="1" [checked]="rating===1" />
   <label title="Sucks big time" (click)='onClick(1)'>1 star</label>
+
 </fieldset>

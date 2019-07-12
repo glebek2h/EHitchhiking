@@ -12,6 +12,14 @@ export class RatingComponent implements OnInit {
   @Output() ratingClick: EventEmitter<any> = new EventEmitter<any>();
   inputName: string;
 
+  titles: string[] = [
+    'Rocks',
+    'Pretty good',
+    'Meh',
+    'Kinda bad',
+    'Sucks big time'
+  ];
+
   constructor() {
   }
 

@@ -15,7 +15,7 @@ import {FormsModule} from '@angular/forms';
 import { MenuComponent } from './shared/components/menu/menu.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MainScreenModule} from './pages/main-screen/main-screen.module';
-import {RatePassangScreenComponent} from './shared/components/rate-passang-screen/rate-passang-screen.component';
+import {RatePassangersModalComponent} from './shared/components/rate-passangers-modal/rate-passangers-modal.component';
 import { RatingComponent } from './shared/components/rating/rating.component';
 
 
@@ -23,7 +23,7 @@ import { RatingComponent } from './shared/components/rating/rating.component';
   declarations: [
     AppComponent,
     MenuComponent,
-    RatePassangScreenComponent,
+    RatePassangersModalComponent,
     RatingComponent,
   ],
   imports: [
@@ -39,7 +39,7 @@ import { RatingComponent } from './shared/components/rating/rating.component';
     MatDialogModule
   ],
   entryComponents: [
-    RatePassangScreenComponent, // todo: move RatePassangScreenComponent to separate module
+    RatePassangersModalComponent, // todo: move RatePassangersModalComponent to separate module
   ],
   providers: [],
   bootstrap: [AppComponent]
