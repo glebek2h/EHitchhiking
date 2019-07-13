@@ -1,33 +1,38 @@
-<div class="table-content" >
-    <div class='container'>
-      <h2 class="title">Rate Passangers</h2>
-      <div class="panel panel-primary">
-        <div class="table-responsive">
-          <table class="table">
-            <thead>
-            <tr class="table-tr">
-              <th class="table-th">Passanger</th>
-              <th class="table-th">Stars</th>
-              <th class="table-th">Rating</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let passsanger of passangers">
-              <td>
-                {{passsanger.name}}
-              </td>
-              <td>
-                <app-rating [rating]='passsanger.rating' [itemId]='passsanger.id' (ratingClick)='rateUser($event)'></app-rating>
-              </td>
-              <td>
-                {{passsanger.rating}} Stars
-              </td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  <button class="exit-button" mat-raised-button color="primary" (click)="exitTrip()">exit trip</button>
-</div>
+<div class="table-content">
+	<h2 class="title">Rate Passangers</h2>
 
+	<table class="table">
+		<thead>
+			<tr class="table-tr">
+				<th class="table-th">Passanger</th>
+				<th class="table-th">Stars</th>
+				<th class="table-th">Rating</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let passsanger of passangers; trackBy: trackByFn">
+				<td>
+					{{ passsanger.name }}
+				</td>
+				<td>
+					<app-rating
+						[rating]="passsanger.rating"
+						[itemId]="passsanger.id"
+						(ratingClick)="rateUser($event)"
+					></app-rating>
+				</td>
+				<td>{{ passsanger.rating }} Stars</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="button-container">
+		<button
+			class="exit-button"
+			mat-raised-button
+			color="primary"
+			(click)="exitTrip()"
+		>
+			exit trip
+		</button>
+	</div>
+</div>

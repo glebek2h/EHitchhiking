@@ -8,7 +8,6 @@ import {Passanger} from './passanger';
   styleUrls: ['./rate-passangers-modal.component.sass']
 })
 export class RatePassangersModalComponent {
-  ratingClicked: number;
 
   passangers: Passanger[] = [
     {id: 0, name: 'Ivan', rating: 0},
@@ -23,11 +22,14 @@ export class RatePassangersModalComponent {
     const passanger = this.passangers.find(((i: Passanger) => i.id === clickObj.itemId));
     if (!!passanger) {
       passanger.rating = clickObj.rating;
-      this.ratingClicked = clickObj.rating;
     }
   }
   exitTrip(): void {
     this.dialogRef.close();
+  }
+
+  trackByFn(index, item) {
+    return item.id;
   }
 
 }
