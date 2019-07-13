@@ -8,26 +8,33 @@
   background-color: $white
   .header
     display: flex
-    justify-content: space-around
-    .header-span
-      font: 100% $app-font
-    .settings
-      font-size: 2rem
-      margin-top: 1rem
-  .material-icons
-    font-size: $headline
-    margin: 0.5rem
+    align-items: center
+    justify-content: space-between
+    margin-top: 1rem
+    span 
+      flex-grow: 2
+      text-align: center
+      padding: 10px
+      font-size: $headline
+      margin: 0
+    button
+      position: relative
+    &-button
+      height: 100%
+      width: 100%
+      font-size: $display-3
+      
   .buttons
-    .li-buttons
+    li
       display: block
       margin: 0.5rem
-      .li-button
+      button
         width: 100%
         height: 3rem
         font-size: $button
-  .log-out
-    margin-left: 10%
-    width: 80%
+    .log-out
+      margin-left: 10%
+      width: 80%
   .footer-meta
     .footer-p
       margin: 0.5rem
@@ -40,4 +47,5 @@
     padding: 0
     min-width: 1.5rem
     position: fixed
-
+    .material-icons
+      font-size: $display-3
