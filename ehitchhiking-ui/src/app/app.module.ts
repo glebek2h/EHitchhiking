@@ -17,7 +17,7 @@ import {RatePassengersModalModule} from './shared/components/rate-passengers-mod
 		FormsModule,
 		MainScreenModule,
 		MenuModule,
-    RatePassengersModalModule
+		RatePassengersModalModule,
 	],
 	providers: [],
 	bootstrap: [AppComponent],

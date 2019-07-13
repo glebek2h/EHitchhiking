@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {rate} from './rate';
-import {starClickMeta} from './starClickMeta';
+import {Rate} from './rate';
+import {StarClickMeta} from './starClickMeta';
 
 @Component({
 	selector: 'app-rating',
@@ -10,10 +10,12 @@ import {starClickMeta} from './starClickMeta';
 export class RatingComponent implements OnInit {
 	@Input() rating: number;
 	@Input() itemId: number;
-	@Output() ratingClick: EventEmitter<starClickMeta> = new EventEmitter<starClickMeta>();
+	@Output() ratingClick: EventEmitter<StarClickMeta> = new EventEmitter<
+		StarClickMeta
+	>();
 	inputName: string;
 
-	ratings: rate[] = [
+	ratings: Rate[] = [
 		{title: 'Rocks', value: 5},
 		{title: 'Pretty good', value: 4},
 		{title: 'Meh', value: 3},
@@ -34,7 +36,7 @@ export class RatingComponent implements OnInit {
 			rating,
 		});
 	}
-  trackById(index, item) {
-    return item.id;
-  }
+	trackById(index, item) {
+		return item.id;
+	}
 }

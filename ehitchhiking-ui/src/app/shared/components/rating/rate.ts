@@ -1,4 +1,4 @@
-export interface rate {
-  title: string;
-  value: number;
+export interface Rate {
+	title: string;
+	value: number;
 }
