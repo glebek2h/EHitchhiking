@@ -1,4 +1,4 @@
-export interface emitValue {
+export interface starClickMeta {
   itemId: number;
   rating: number;
 }

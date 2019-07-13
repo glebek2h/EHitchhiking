@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BUTTONS_NAMES } from './buttons-names';
 import {MatDialog} from '@angular/material';
-import {RatePassangersModalComponent} from '../rate-passangers-modal/rate-passangers-modal.component';
+import {RatePassengersModalComponent} from '../rate-passengers-modal/rate-passengers-modal.component';
 
 @Component({
   selector: 'app-menu',
@@ -14,8 +14,8 @@ export class MenuComponent implements OnInit {
 
   constructor(public dialog: MatDialog) { }
 
-  openRatePassangersDialog(): void {
-    const dialogRef = this.dialog.open(RatePassangersModalComponent, {
+  openRatePassengersDialog(): void {
+    const dialogRef = this.dialog.open(RatePassengersModalComponent, {
       width: '400px'
     });
     dialogRef.afterClosed().subscribe(result => {

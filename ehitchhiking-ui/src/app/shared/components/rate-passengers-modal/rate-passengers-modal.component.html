@@ -1,27 +1,27 @@
 <div class="table-content">
-	<h2 class="title">Rate Passangers</h2>
+	<h2 class="title">Rate Passengers</h2>
 
 	<table class="table">
 		<thead>
 			<tr class="table-tr">
-				<th class="table-th">Passanger</th>
+				<th class="table-th">Passenger</th>
 				<th class="table-th">Stars</th>
 				<th class="table-th">Rating</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr *ngFor="let passsanger of passangers; trackBy: trackByFn">
+			<tr *ngFor="let passenger of passengers; trackBy: trackById">
 				<td>
-					{{ passsanger.name }}
+					{{ passenger.name }}
 				</td>
 				<td>
 					<app-rating
-						[rating]="passsanger.rating"
-						[itemId]="passsanger.id"
+						[rating]="passenger.rating"
+						[itemId]="passenger.id"
 						(ratingClick)="rateUser($event)"
 					></app-rating>
 				</td>
-				<td>{{ passsanger.rating }} Stars</td>
+				<td>{{ passenger.rating }} Stars</td>
 			</tr>
 		</tbody>
 	</table>

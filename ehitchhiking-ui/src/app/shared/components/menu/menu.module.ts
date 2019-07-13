@@ -7,11 +7,10 @@ import {
   MatSidenavModule, MatTableModule,
 } from '@angular/material';
 import {FormsModule} from '@angular/forms';
-import {RatePassangersModalComponent} from '../rate-passangers-modal/rate-passangers-modal.component';
-import {RatingComponent} from '../rating/rating.component';
+
 
 @NgModule({
-	declarations: [ MenuComponent, RatePassangersModalComponent, RatingComponent ],
+	declarations: [ MenuComponent],
 	imports: [
 		CommonModule,
 		MatCheckboxModule,
@@ -22,8 +21,5 @@ import {RatingComponent} from '../rating/rating.component';
     MatDialogModule
 	],
 	exports: [MenuComponent],
-  entryComponents: [
-    RatePassangersModalComponent, // todo: move RatePassangersModalComponent to separate module
-  ],
 })
 export class MenuModule {}
