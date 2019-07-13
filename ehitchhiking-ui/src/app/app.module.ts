@@ -6,6 +6,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule} from '@angular/forms';
 import {MainScreenModule} from './pages/main-screen/main-screen.module';
 import {MenuModule} from './shared/components/menu/menu.module';
+import {RatePassengersModalModule} from './shared/components/rate-passengers-modal/rate-passengers-modal.module';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -16,6 +17,7 @@ import {MenuModule} from './shared/components/menu/menu.module';
 		FormsModule,
 		MainScreenModule,
 		MenuModule,
+		RatePassengersModalModule,
 	],
 	providers: [],
 	bootstrap: [AppComponent],

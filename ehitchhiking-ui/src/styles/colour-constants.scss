@@ -1,6 +1,7 @@
 $light-blue: #172651;
 $blue: #0a1339;
 $dark-blue: #0a122a;
+$grey: #d3d3d3;
 
 $green: #698f3f;
 $light-green: #84b149;
@@ -10,108 +11,111 @@ $beige: #e7decd;
 $brown: #804e49;
 $dark-brown: #4b2f24;
 
-$light-red: #FB5B74;
-$red: #F20026;
-$dark-red: #B5001D;
+$light-red: #fb5b74;
+$red: #f20026;
+$dark-red: #b5001d;
+$gold: #ffdf00;
+$orange: #ffa500;
+$light-orange: #ffc04c;
 
 $white: #ffffff;
 $black: #000000;
 
 $ehitchhiking-primary-color-setting: (
-  50 : $light-green,
-  100 :$green,
-  200 :$dark-green,
-  300 : $green,
-  400 : $green,
-  500 : $green,
-  600 : $green,
-  700 : $dark-green,
-  800 : $dark-green,
-  900 : $dark-green,
-  A100 : $beige,
-  A200 : $brown,
-  A400 : $brown,
-  A700 : $dark-brown,
-  contrast: (
-    50 : $white,
-    100 : $white,
-    200 : $white,
-    300 : $white,
-    400 : $white,
-    500 : $white,
-    600 : $white,
-    700 : $white,
-    800 : $white,
-    900 : $white,
-    A100 : $white,
-    A200 : $white,
-    A400 : $white,
-    A700 : $white,
-  )
+	50: $light-green,
+	100: $green,
+	200: $dark-green,
+	300: $green,
+	400: $green,
+	500: $green,
+	600: $green,
+	700: $dark-green,
+	800: $dark-green,
+	900: $dark-green,
+	A100: $beige,
+	A200: $brown,
+	A400: $brown,
+	A700: $dark-brown,
+	contrast: (
+		50: $white,
+		100: $white,
+		200: $white,
+		300: $white,
+		400: $white,
+		500: $white,
+		600: $white,
+		700: $white,
+		800: $white,
+		900: $white,
+		A100: $white,
+		A200: $white,
+		A400: $white,
+		A700: $white,
+	),
 );
 
 $ehitchhiking-accent-color-setting: (
-  50 : $light-blue,
-  100 :$light-blue,
-  200 :$light-blue,
-  300 : $blue,
-  400 : $blue,
-  500 : $blue,
-  600 : $blue,
-  700 : $dark-blue,
-  800 : $dark-blue,
-  900 : $dark-blue,
-  A100 : $dark-blue,
-  A200 : $dark-blue,
-  A400 : $dark-blue,
-  A700 : $dark-blue,
-  contrast: (
-    50 : $black,
-    100 : $black,
-    200 : $black,
-    300 : $black,
-    400 : $black,
-    500 : $black,
-    600 : $black,
-    700 : $black,
-    800 : $black,
-    900 : $black,
-    A100 : $black,
-    A200 : $black,
-    A400 : $black,
-    A700 : $black,
-  )
+	50: $light-blue,
+	100: $light-blue,
+	200: $light-blue,
+	300: $blue,
+	400: $blue,
+	500: $blue,
+	600: $blue,
+	700: $dark-blue,
+	800: $dark-blue,
+	900: $dark-blue,
+	A100: $dark-blue,
+	A200: $dark-blue,
+	A400: $dark-blue,
+	A700: $dark-blue,
+	contrast: (
+		50: $black,
+		100: $black,
+		200: $black,
+		300: $black,
+		400: $black,
+		500: $black,
+		600: $black,
+		700: $black,
+		800: $black,
+		900: $black,
+		A100: $black,
+		A200: $black,
+		A400: $black,
+		A700: $black,
+	),
 );
 
 $ehitchhiking-warn-color-setting: (
-  50 : $light-red,
-  100 :$light-red,
-  200 :$light-red,
-  300 :$red,
-  400 : $red,
-  500 : $red,
-  600 : $red,
-  700 : $dark-red,
-  800 : $dark-red,
-  900 : $dark-red,
-  A100 : $red,
-  A200 : $red,
-  A400 : $red,
-  A700 : $red,
-  contrast: (
-    50 : $white,
-    100 : $white,
-    200 : $white,
-    300 : $white,
-    400 : $white,
-    500 : $white,
-    600 : $white,
-    700 : $white,
-    800 : $white,
-    900 : $white,
-    A100 : $white,
-    A200 : $white,
-    A400 : $white,
-    A700 : $white,
-  )
+	50: $light-red,
+	100: $light-red,
+	200: $light-red,
+	300: $red,
+	400: $red,
+	500: $red,
+	600: $red,
+	700: $dark-red,
+	800: $dark-red,
+	900: $dark-red,
+	A100: $red,
+	A200: $red,
+	A400: $red,
+	A700: $red,
+	contrast: (
+		50: $white,
+		100: $white,
+		200: $white,
+		300: $white,
+		400: $white,
+		500: $white,
+		600: $white,
+		700: $white,
+		800: $white,
+		900: $white,
+		A100: $white,
+		A200: $white,
+		A400: $white,
+		A700: $white,
+	),
 );
