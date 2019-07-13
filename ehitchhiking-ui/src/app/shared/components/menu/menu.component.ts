@@ -14,7 +14,7 @@ export class MenuComponent implements OnInit {
 
   constructor(public dialog: MatDialog) { }
 
-  openDialog(): void {
+  openRatePassangersDialog(): void {
     const dialogRef = this.dialog.open(RatePassangersModalComponent, {
       width: '400px'
     });

@@ -6,21 +6,21 @@
           <table class="table">
             <thead>
             <tr class="table-tr">
-              <th>Passanger</th>
-              <th>Stars</th>
-              <th>Rating</th>
+              <th class="table-th">Passanger</th>
+              <th class="table-th">Stars</th>
+              <th class="table-th">Rating</th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let item of items">
+            <tr *ngFor="let passsanger of passangers">
               <td>
-                {{item.name}}
+                {{passsanger.name}}
               </td>
               <td>
-                <app-rating [rating]='item.rating' [itemId]='item.id' (ratingClick)='ratingComponentClick($event)'></app-rating>
+                <app-rating [rating]='passsanger.rating' [itemId]='passsanger.id' (ratingClick)='rateUser($event)'></app-rating>
               </td>
               <td>
-                {{item.rating}} Stars
+                {{passsanger.rating}} Stars
               </td>
             </tr>
             </tbody>
@@ -28,6 +28,6 @@
         </div>
       </div>
     </div>
-  <button mat-raised-button color="primary" (click)="onNoClick()">exit trip</button>
+  <button class="exit-button" mat-raised-button color="primary" (click)="exitTrip()">exit trip</button>
 </div>
 

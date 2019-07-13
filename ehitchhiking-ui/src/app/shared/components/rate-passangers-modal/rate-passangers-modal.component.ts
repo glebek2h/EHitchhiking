@@ -1,20 +1,16 @@
 import {Component} from '@angular/core';
 import {MatDialogRef} from '@angular/material';
+import {Passanger} from './passanger';
 
-export interface Passanger {
-  id: number;
-  name: string;
-  rating: number;
-}
 @Component({
-  selector: 'app-rate-passang-screen',
+  selector: 'rate-passangers-modal',
   templateUrl: './rate-passangers-modal.component.html',
   styleUrls: ['./rate-passangers-modal.component.sass']
 })
 export class RatePassangersModalComponent {
   ratingClicked: number;
 
-  items: Passanger[] = [
+  passangers: Passanger[] = [
     {id: 0, name: 'Ivan', rating: 0},
     {id: 1, name: 'Egor', rating: 0},
     {id: 2, name: 'Semen', rating: 0},
@@ -23,14 +19,14 @@ export class RatePassangersModalComponent {
 
   constructor( public dialogRef: MatDialogRef<RatePassangersModalComponent>) {}
 
-  ratingComponentClick(clickObj): void {
-    const item = this.items.find(((i: Passanger) => i.id === clickObj.itemId));
-    if (!!item) {
-      item.rating = clickObj.rating;
+  rateUser(clickObj): void {
+    const passanger = this.passangers.find(((i: Passanger) => i.id === clickObj.itemId));
+    if (!!passanger) {
+      passanger.rating = clickObj.rating;
       this.ratingClicked = clickObj.rating;
     }
   }
-  onNoClick(): void {
+  exitTrip(): void {
     this.dialogRef.close();
   }
 
