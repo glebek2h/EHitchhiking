@@ -1,4 +1,4 @@
-class Car {
+export class Car {
 	model: string;
 	color: string;
 	number: string;

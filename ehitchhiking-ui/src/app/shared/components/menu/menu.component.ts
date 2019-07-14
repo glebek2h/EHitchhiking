@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import {BUTTONS} from './buttons';
 import {MatDialog} from '@angular/material';
 import {ProfileModalComponent} from '../../modals/profile-modal/profile-modal.component';
+import '../../models/user';
 
 @Component({
 	selector: 'app-menu',
@@ -12,6 +13,7 @@ export class MenuComponent implements OnInit {
 	events: string[] = [];
 	opened: boolean;
 	buttonsArray = [];
+	@Input() user: User;
 	constructor(public dialog: MatDialog) {}
 
 	ngOnInit() {
@@ -19,10 +21,6 @@ export class MenuComponent implements OnInit {
 	}
 
 	openProfileDialog(): void {
-		const dialogRef = this.dialog.open(ProfileModalComponent);
-
-		dialogRef.afterClosed().subscribe((result) => {
-			console.log('The dialog was closed');
-		});
+		this.dialog.open(ProfileModalComponent, {data: {user: this.user}});
 	}
 }

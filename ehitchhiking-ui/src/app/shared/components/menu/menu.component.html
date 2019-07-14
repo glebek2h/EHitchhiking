@@ -1,7 +1,7 @@
 <mat-sidenav-container class="sidenav-container">
 	<mat-sidenav class="menu" #sidenav mode="side" [(opened)]="opened">
 		<div class="header">
-			<button mat-icon-button>
+			<button mat-icon-button (click)="openProfileDialog()">
 				<mat-icon class="header-button">account_circle</mat-icon>
 			</button>
 			<span class="header-span">name</span>

@@ -27,5 +27,6 @@ import {MatIconModule} from '@angular/material/icon';
 	],
 	providers: [],
 	bootstrap: [AppComponent],
+	entryComponents: [ProfileModalComponent],
 })
 export class AppModule {}
