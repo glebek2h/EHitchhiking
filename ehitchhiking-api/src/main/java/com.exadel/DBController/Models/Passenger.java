@@ -1,17 +1,24 @@
 package com.exadel.DBController.Models;
 
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "driver", schema = "public")
 public class Passenger{
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.PRIVATE)
+    @Getter
     private int pass_id;
 
+    @Getter
+    @Setter
     private int user_id;
 
     public Passenger(){}

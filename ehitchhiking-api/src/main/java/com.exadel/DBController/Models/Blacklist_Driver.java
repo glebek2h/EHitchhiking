@@ -19,7 +19,6 @@ public class Blacklist_Driver {
     @Setter
     private int pass_id;
 
-    @Id
     @Getter
     @Setter
     private int driver_id;
