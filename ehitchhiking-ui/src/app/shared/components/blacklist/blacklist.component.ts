@@ -1,10 +1,6 @@
-import {Component, OnInit, Inject} from '@angular/core';
+import {Component, OnInit } from '@angular/core';
 import {BLACKLISTUSERS} from './blacklist-users';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-
-export interface DialogData {
-  message: string;
-}
+import { MatDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-blacklist',
@@ -18,7 +14,6 @@ export class BlacklistComponent implements OnInit {
 
   ngOnInit() {
     this.blacklistUsersArray = BLACKLISTUSERS;
-    // this.data.currentMessage.subscribe(message => this.message = message);
   }
 
   onNoClick(): void {
