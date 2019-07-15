@@ -1,5 +1,12 @@
-=flexbox-template($justify, $aligin, $direction)
+@mixin flexbox($justify: center, $aligin: center, $direction: row)
     display: flex
     justify-content: $justify
     align-items: $aligin
     flex-direction: $direction
+
+@mixin padding($top: 0, $right: 0, $bottom: 0, $left: 0)
+    padding:
+        top: $top
+        right: $right
+        bottom: $bottom
+        left: $left

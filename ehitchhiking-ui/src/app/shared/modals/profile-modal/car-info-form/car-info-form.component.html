@@ -8,20 +8,3 @@
 	<label for="experience">Experience</label>
 	<input type="text" formControlName="experience" />
 </form> -->
-<div class="add-car-profile-button">
-	<button mat-icon-button>
-		<mat-icon>add</mat-icon>
-	</button>
-</div>
-<mat-list class="car-info-container">
-	<div mat-list-item class="profile-cars-info" *ngFor="let car of cars">
-		<button mat-flat-button>
-			<span class="profile-car-info">{{ car.model }} {{ car.color }} {{ car.number }} {{ car.experience }} </span>
-		</button>
-		<div class="edit-car-profile-button">
-			<button mat-icon-button>
-				<mat-icon>edit</mat-icon>
-			</button>
-		</div>
-	</div>
-</mat-list>

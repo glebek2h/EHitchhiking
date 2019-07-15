@@ -1,21 +1,39 @@
 <div class="profile-container">
 	<div class="profile-header">
-		<span>{{ user.name | uppercase}}</span>
+		<span>{{ user.name | uppercase }}</span>
 	</div>
 	<div class="profile-data">
 		<div class="profile-user-info">
-			<img class="profile-user-photo" [src]="user.photoPath">
+			<img class="profile-user-photo" [src]="user.photoPath" />
 			<div class="profile-user-contacts">
 				<p>Phone: {{ user.phone }}</p>
-				<p>Email: {{ user.email }}</p>		
+				<p>Email: {{ user.email }}</p>
 			</div>
 		</div>
-		<hr>
-		<app-car-info-form [cars]="user.cars"></app-car-info-form>
-	</div>
-	<div class="close-profile-button">
-			<button mat-icon-button (click)="close()">
-				<mat-icon>close</mat-icon>
+		<hr />
+		<div class="add-car-profile-button">
+			<button mat-icon-button>
+				<mat-icon>add</mat-icon>
 			</button>
 		</div>
+		<mat-list class="car-info-container">
+			<div mat-list-item class="profile-cars-info" *ngFor="let car of user.cars">
+				<button mat-flat-button color="primary">
+					<span class="profile-car-info"
+						>{{ car.model }} {{ car.color }} {{ car.number }} {{ car.experience }}
+					</span>
+				</button>
+				<div class="edit-car-profile-button">
+					<button mat-icon-button color="primary">
+						<mat-icon>edit</mat-icon>
+					</button>
+				</div>
+			</div>
+		</mat-list>
+	</div>
+	<div class="close-profile-button">
+		<button mat-icon-button (click)="close()">
+			<mat-icon>close</mat-icon>
+		</button>
+	</div>
 </div>
