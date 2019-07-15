@@ -1,16 +1,17 @@
 package com.exadel.DBController.Models;
 
 
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import java.sql.*;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
-@Table(name = "trip_driver")
-public class Trip_Driver {
+@Table(name = "trip_pass")
+public class Trip_Pass {
 
 
 
@@ -18,11 +19,8 @@ public class Trip_Driver {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.PRIVATE)
     @Getter
-    private  int trip_driver_id;
+    private  int trip_pass_id;
 
-    @Getter
-    @Setter
-    private int trip_pass_id;
 
     @Getter
     @Setter
@@ -42,7 +40,7 @@ public class Trip_Driver {
 
     @Getter
     @Setter
-    private int car_id;
+    private int pass_id;
 
     @Setter
     @Getter
@@ -60,12 +58,12 @@ public class Trip_Driver {
 
 
     // empty constructor
-    public Trip_Driver(){}
+    public Trip_Pass(){}
 
 
     // constructor
-    public Trip_Driver(int id_pass_trip, String startingPoint, String endingPoint,
-                       Timestamp startingTime, Timestamp endingTime, int id_of_car, boolean is_Active,
+    public Trip_Pass(int id_pass_trip, String startingPoint, String endingPoint,
+                       Timestamp startingTime, Timestamp endingTime, int id_of_pass, boolean is_Active,
                        boolean is_Finished, boolean is_Saved){
 
         this.trip_pass_id = id_pass_trip;
@@ -73,9 +71,10 @@ public class Trip_Driver {
         this.point_end = endingPoint;
         this.time_start = startingTime;
         this.time_end = endingTime;
-        this.car_id = id_of_car;
+        this.pass_id = id_of_pass;
         this.issaved = is_Saved;
         this.isactive = is_Active;
         this.isfinished = is_Finished;
     }
+
 }

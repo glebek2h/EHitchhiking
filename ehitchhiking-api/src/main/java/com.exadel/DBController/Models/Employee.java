@@ -2,7 +2,7 @@ package com.exadel.DBController.Models;
 
 
 
-import lombok.AccessLevel;
+
 import lombok.*;
 
 import javax.persistence.*;
@@ -25,6 +25,7 @@ public class Employee {
 
     @Getter
     @Setter
+    //@Column(name = "username")
     private  String username;
 
     @Getter
@@ -54,6 +55,7 @@ public class Employee {
 
     @Setter
     @Getter
+
     @Column(name = "rate_driver")
     private float rate_driver;
 
