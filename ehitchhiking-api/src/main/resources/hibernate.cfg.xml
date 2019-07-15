@@ -7,14 +7,22 @@
     <session-factory>
         <property name="connection.url">jdbc:postgresql://localhost:5432/postgres</property>
         <property name="connection.driver_class">org.postgresql.Driver</property>
-        <property name="connection.username">*</property>
-        <property name="connection.password">*</property>
+        <property name="connection.username">postgres</property>
+        <property name="connection.password">28omavos</property>
         <property name="dialect">org.hibernate.dialect.PostgreSQL95Dialect</property>
         <property name="show_sql">true</property>
         <property name="connection.pool_size">1</property>
 
         <property name="hbm2ddl.auto">update</property>
 
+        <mapping class="com.exadel.DBController.Models.Employee"/>
+        <mapping class="com.exadel.DBController.Models.Trip_Driver"/>
+        <mapping class="com.exadel.DBController.Models.Trip_Pass"/>
+        <mapping class="com.exadel.DBController.Models.Blacklist_Driver"/>
+        <mapping class="com.exadel.DBController.Models.Blacklist_Pass"/>
+        <mapping class="com.exadel.DBController.Models.Cars"/>
+        <mapping class="com.exadel.DBController.Models.Passenger"/>
+        <mapping class="com.exadel.DBController.Models.Driver"/>
 
     </session-factory>
 </hibernate-configuration>
