@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {BUTTONS} from './buttons';
+import {BUTTONS_NAMES} from './buttons-names';
+import {MatDialog} from '@angular/material';
+import {RatePassengersModalComponent} from '../rate-passengers-modal/rate-passengers-modal.component';
 
 @Component({
 	selector: 'app-menu',
@@ -7,12 +9,21 @@ import {BUTTONS} from './buttons';
 	styleUrls: ['./menu.component.sass'],
 })
 export class MenuComponent implements OnInit {
-	events: string[] = [];
 	opened: boolean;
 	buttonsArray = [];
-	constructor() {}
+
+	constructor(public dialog: MatDialog) {}
+
+	openRatePassengersDialog(): void {
+		const dialogRef = this.dialog.open(RatePassengersModalComponent, {
+			width: '400px',
+		});
+		dialogRef.afterClosed().subscribe((result) => {
+			console.log('The dialog was closed');
+		});
+	}
 
 	ngOnInit() {
-		this.buttonsArray = BUTTONS;
+		this.buttonsArray = BUTTONS_NAMES;
 	}
 }
