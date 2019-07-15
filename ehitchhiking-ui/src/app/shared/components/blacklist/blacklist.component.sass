@@ -1,5 +1,10 @@
 @import "../../../../styles/colour-constants"
+@import "../../../../styles/fonts-constants"
 
+.truncated
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
 .blacklist-title
   position: relative
   left: 40%
@@ -15,7 +20,7 @@
     justify-content: space-around
     align-items: center
     .profile-photo
-      font-size: 4rem
+      font-size: $display-2
     .remove-icon
       font-size: 2rem
       display: table
@@ -25,9 +30,7 @@
       font-size: 1rem
       margin-top: 1rem
       width: 10rem
-      white-space: nowrap
-      overflow: hidden
-      text-overflow: ellipsis
+      @extend .truncated
 .blacklist-back-btn
   left: 40%
   position: relative
