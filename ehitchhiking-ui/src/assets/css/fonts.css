@@ -1,0 +1,12 @@
+@font-face {
+	font-family: Montserrat-Regular;
+	src: url(~src/assets/fonts/Montserrat-Regular.ttf);
+}
+@font-face {
+	font-family: Montserrat-Light;
+	src: url(~src/assets/fonts/Montserrat-Light.ttf);
+}
+@font-face {
+	font-family: Montserrat-Bold;
+	src: url(~src/assets/fonts/Montserrat-SemiBold.ttf);
+}
