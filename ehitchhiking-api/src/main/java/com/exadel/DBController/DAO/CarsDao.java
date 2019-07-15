@@ -1,44 +1,43 @@
 package com.exadel.DBController.DAO;
 
-import com.exadel.DBController.Models.Employee;
+import com.exadel.DBController.Models.Cars;
 import com.exadel.DBController.Utils.HibernateSessionFactoryUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
 
-public class EmployeeDao implements Dao<Employee> {
-
-    public void save(Employee emp) {
+public class CarsDao implements Dao<Cars>{
+    public void save(Cars car) {
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         Transaction tx1 = session.beginTransaction();
-        session.save(emp);
+        session.save(car);
         tx1.commit();
         session.close();
     }
 
-    public void update(Employee emp) {
+    public void update(Cars car) {
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         Transaction tx1 = session.beginTransaction();
-        session.update(emp);
+        session.update(car);
         tx1.commit();
         session.close();
     }
 
-    public void delete(Employee emp) {
+    public void delete(Cars car) {
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         Transaction tx1 = session.beginTransaction();
-        session.delete(emp);
+        session.delete(car);
         tx1.commit();
         session.close();
     }
 
-    public Employee get(long id) {
-        return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Employee.class, id);
+    public Cars get(long id) {
+        return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Cars.class, id);
     }
 
-    public List<Employee> getAll() {
-        List<Employee> emps = (List<Employee>)  HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From com.exadel.DBController.Models.Employee").list();
-        return emps;
+    public List<Cars> getAll() {
+        List<Cars> cars = (List<Cars>)  HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From com.exadel.DBController.Models.Cars").list();
+        return cars;
     }
 }
