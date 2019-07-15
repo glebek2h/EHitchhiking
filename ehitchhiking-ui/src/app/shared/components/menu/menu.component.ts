@@ -3,6 +3,8 @@ import {BUTTONS_NAMES} from './buttons-names';
 import {MatDialog} from '@angular/material';
 import {RatePassengersModalComponent} from '../rate-passengers-modal/rate-passengers-modal.component';
 import {ProfileModalComponent} from '../../modals/profile-modal/profile-modal.component';
+import {BlockScrollStrategy} from '@angular/cdk/overlay';
+import {FixedSizeVirtualScrollStrategy} from '@angular/cdk/scrolling';
 
 @Component({
 	selector: 'app-menu',
@@ -29,6 +31,6 @@ export class MenuComponent implements OnInit {
 	}
 
 	openProfileDialog(): void {
-		this.dialog.open(ProfileModalComponent);
+		this.dialog.open(ProfileModalComponent, {panelClass: 'mat-dialog-no-padding', autoFocus: false});
 	}
 }

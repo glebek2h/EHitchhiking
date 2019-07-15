@@ -4,8 +4,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatCheckboxModule, MatSidenavModule, MatIconModule, MatButtonModule} from '@angular/material';
-import {FormsModule} from '@angular/forms';
+import {MatCheckboxModule, MatSidenavModule} from '@angular/material';
 import {MainScreenModule} from './pages/main-screen/main-screen.module';
 
 @NgModule({
@@ -16,7 +15,6 @@ import {MainScreenModule} from './pages/main-screen/main-screen.module';
 		BrowserAnimationsModule,
 		MatCheckboxModule,
 		MatSidenavModule,
-		FormsModule,
 		MainScreenModule,
 		MenuModule,
 	],

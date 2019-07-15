@@ -4,22 +4,22 @@ import {Car} from 'src/app/shared/models/car';
 @Component({
 	selector: 'app-car-info-form',
 	templateUrl: './car-info-form.component.html',
-	styleUrls: ['./car-info-form.component.css'],
+	styleUrls: ['./car-info-form.component.sass'],
 })
 export class CarInfoFormComponent {
 	carInfoForm: FormGroup;
 	@Input() cars: Car[];
 
 	constructor(private formBuilder: FormBuilder) {
-		this.initForm();
+		// this.initForm();
 	}
 
-	initForm() {
-		this.carInfoForm = this.formBuilder.group({
-			model: ' ',
-			color: ' ',
-			number: ' ',
-			experience: 0,
-		});
-	}
+	// initForm() {
+	// 	this.carInfoForm = this.formBuilder.group({
+	// 		model: '',
+	// 		color: '',
+	// 		number: '',
+	// 		experience: null,
+	// 	});
+	// }
 }

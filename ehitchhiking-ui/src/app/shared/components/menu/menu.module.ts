@@ -9,24 +9,23 @@ import {
 	MatIconModule,
 	MatButtonModule,
 } from '@angular/material';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {ProfileModalComponent} from '../../modals/profile-modal/profile-modal.component';
-import {CarInfoFormComponent} from '../../modals/profile-modal/car-info-form/car-info-form.component';
+import {RatePassengersModalModule} from '../rate-passengers-modal/rate-passengers-modal.module';
+import {ProfileModalModule} from '../../modals/profile-modal/profile-modal.module';
 
 @NgModule({
-	declarations: [MenuComponent, ProfileModalComponent, CarInfoFormComponent],
+	declarations: [MenuComponent],
 	imports: [
 		CommonModule,
 		MatCheckboxModule,
 		MatSidenavModule,
-		FormsModule,
 		MatTableModule,
 		MatDialogModule,
-		ReactiveFormsModule,
 		MatIconModule,
 		MatButtonModule,
+		RatePassengersModalModule,
+		ProfileModalModule,
 	],
 	exports: [MenuComponent],
-	entryComponents: [ProfileModalComponent],
+	entryComponents: [],
 })
 export class MenuModule {}

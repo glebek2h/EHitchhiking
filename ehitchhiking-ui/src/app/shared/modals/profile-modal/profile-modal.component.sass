@@ -1,0 +1,47 @@
+@import '../../../../styles.sass'
+
+.profile-container
+    position: relative
+    font-family: $app-font
+    height: 30rem
+    width: 40rem
+
+    .profile-header
+        width: 100%
+        height: 10%
+        font-size: $headline
+        +flexbox-template(center, center, row)
+        background-color: mat-color($primary, 700)
+        color: mat-color($primary, A100)
+
+    .profile-data
+        padding:
+            left: $default-offset
+            right: $default-offset
+
+        .profile-user-info
+            +flexbox-template(space-around, center, row)
+            font-size: $subheading-2
+
+            .profile-user-photo
+                flex-grow: 1
+                padding-right: $default-offset
+                object-fit: cover
+            .profile-user-contacts
+                +flexbox-template(space-around, center, column)
+                flex-grow: 2
+        hr
+            margin-top: $little-offset
+            margin-bottom: $big-offset
+            color: mat-color($primary, A200)
+
+    .close-profile-button
+        position: absolute
+        top: $little-offset
+        right: $little-offset
+        +flexbox-template(center, center, row)
+        color: mat-color($primary, A100)
+
+        button:hover
+            background-color: mat-color($primary, 400)
+

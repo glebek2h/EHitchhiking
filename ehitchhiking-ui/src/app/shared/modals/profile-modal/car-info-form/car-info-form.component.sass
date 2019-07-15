@@ -1,0 +1,32 @@
+@import '../../../../../styles.sass'
+
+.car-info-container
+    position: relative
+    +flexbox-template(center, center, column)
+    height: 100%
+    padding: 0
+    
+    .profile-cars-info
+        width: 100%
+        +flexbox-template(center, center, row)
+        border-bottom: 1px solid mat-color($primary, A100)
+        button
+            width: 90%
+            display: inline
+            padding: 0
+            font-family: $app-font
+            font-size: $subheading-2
+        &:last-child
+            border-bottom: 0
+        .edit-car-profile-button
+            display: inline
+            width: 7%
+.add-car-profile-button
+    position: absolute
+    z-index: 5
+    top: 27%
+    right: $default-offset
+    +flexbox-template(center, center, row)
+    color: mat-color($primary, 400)
+    button:hover
+        background-color: mat-color($primary, A100)
