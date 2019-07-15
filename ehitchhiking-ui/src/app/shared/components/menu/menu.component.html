@@ -1,6 +1,7 @@
 <mat-sidenav-container class="sidenav-container">
 	<mat-sidenav class="menu" #sidenav mode="side" [(opened)]="opened">
 		<div class="header">
+			<<<<<<< HEAD
 			<button mat-icon-button (click)="openProfileDialog()">
 				<mat-icon class="header-button">account_circle</mat-icon>
 			</button>
@@ -28,7 +29,13 @@
 			<li>
 				<button mat-raised-button color="primary">admin functionality</button>
 			</li>
-			<button mat-stroked-button color="primary" class="log-out">log out</button>
+			<button mat-stroked-button color="primary" class="log-out" (click)="openRatePassengersDialog()">
+				<!--TODO: it's redundant here, but not now-->
+				rate passengers
+			</button>
+			<button mat-stroked-button color="primary" class="log-out">
+				log out
+			</button>
 		</div>
 		<footer class="footer-meta">
 			<img src="assets/images/footer.png" alt="exadel-logo" />

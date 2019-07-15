@@ -7,7 +7,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatCheckboxModule, MatSidenavModule, MatDialogModule} from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MenuComponent} from './shared/components/menu/menu.component';
-import {MatButtonModule} from '@angular/material/button';
 import {MainScreenModule} from './pages/main-screen/main-screen.module';
 import {ProfileModalComponent} from './shared/modals/profile-modal/profile-modal.component';
 import {MatIconModule} from '@angular/material/icon';
@@ -22,7 +21,6 @@ import {MatIconModule} from '@angular/material/icon';
 		MatSidenavModule,
 		MatDialogModule,
 		FormsModule,
-		MatButtonModule,
 		MainScreenModule,
 		MatIconModule,
 		ReactiveFormsModule,
