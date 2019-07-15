@@ -15,7 +15,7 @@ export class BlacklistComponent implements OnInit {
 		this.blacklistUsersArray = BLACKLISTUSERS;
 	}
 
-	back(): void {
+	return(): void {
 		this.dialogRef.close();
 	}
 
