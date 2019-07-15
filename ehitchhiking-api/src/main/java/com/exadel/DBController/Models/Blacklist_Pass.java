@@ -6,7 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Set;
 
-@NoArgsConstructor
+
 @Entity
 @Table(name = "blacklist_pass", schema = "public")
 public class Blacklist_Pass {
@@ -22,15 +22,15 @@ public class Blacklist_Pass {
     private int driver_id;
 
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "pass_id")
-    private Passenger pass;
-
-
-
-    @OneToMany
-    @JoinColumn(name = "driver_id")
-    private Set<Driver> driverSet;
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "pass_id")
+//    private Passenger pass;
+//
+//
+//
+//    @OneToMany
+//    @JoinColumn(name = "driver_id")
+//    private Set<Driver> driverSet;
 
 
     public Blacklist_Pass(){}

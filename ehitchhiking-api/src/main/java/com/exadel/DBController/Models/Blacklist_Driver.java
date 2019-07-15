@@ -22,12 +22,12 @@ public class Blacklist_Driver {
     @Setter
     private int driver_id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "driver_id")
-    private Driver drive;
-
-    @OneToMany(mappedBy = "blackListDriver")
-    private Set<Passenger> passengerSet;
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "driver_id")
+//    private Driver drive;
+//
+//    @OneToMany(mappedBy = "blackListDriver")
+//    private Set<Passenger> passengerSet;
 
     public  Blacklist_Driver(){}
 

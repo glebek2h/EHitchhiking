@@ -32,7 +32,7 @@ public class BlackListPassDao implements Dao<Blacklist_Pass> {
         session.close();
     }
 
-    public Blacklist_Pass get(long id) {
+    public Blacklist_Pass get(int id) {
         return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Blacklist_Pass.class, id);
     }
 

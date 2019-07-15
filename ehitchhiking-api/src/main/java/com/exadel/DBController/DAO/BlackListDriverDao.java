@@ -33,7 +33,7 @@ public class BlackListDriverDao implements Dao<Blacklist_Driver> {
         session.close();
     }
 
-    public Blacklist_Driver get(long id) {
+    public Blacklist_Driver get(int id) {
         return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Blacklist_Driver.class, id);
     }
 

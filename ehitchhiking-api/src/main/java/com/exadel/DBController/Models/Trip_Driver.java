@@ -43,7 +43,8 @@ public class Trip_Driver {
 
     @Getter
     @Setter
-    private int car_id;
+    @Column(name = "car_id")
+    private int id_car;
 
     @Setter
     @Getter
@@ -59,15 +60,15 @@ public class Trip_Driver {
     private boolean issaved;
 
 
-    @ManyToOne
-    @JoinColumn(name = "car_id")
-    private Cars car;
+//    @ManyToOne
+//    @JoinColumn(name = "car_id")
+//    private Cars car;
 
 
 
-    @OneToMany
-    @JoinColumn(name = "trip_pass_id")
-    private Set<Trip_Pass> setTripPass;
+//    @OneToMany
+//    @JoinColumn(name = "trip_pass_id")
+//    private Set<Trip_Pass> setTripPass;
 
     // empty constructor
     public Trip_Driver(){}
@@ -83,7 +84,7 @@ public class Trip_Driver {
         this.point_end = endingPoint;
         this.time_start = startingTime;
         this.time_end = endingTime;
-        this.car_id = id_of_car;
+        this.id_car = id_of_car;
         this.issaved = is_Saved;
         this.isactive = is_Active;
         this.isfinished = is_Finished;

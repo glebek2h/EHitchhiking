@@ -38,13 +38,13 @@ public class Cars {
     @Getter
     private int driver_id;
 
-    @ManyToOne
-    @JoinColumn(name = "driver_id")
-    private Driver drive;
+//    @ManyToOne
+//    @JoinColumn(name = "driver_id")
+//    private Driver drive;
 
 
-    @OneToMany(mappedBy = "car")
-    private Set<Trip_Driver> setTripDriver;
+//    @OneToMany(mappedBy = "car")
+//    private Set<Trip_Driver> setTripDriver;
 
 
 

@@ -33,7 +33,7 @@ public class Trip_PassDao implements Dao<Trip_Pass> {
         session.close();
     }
 
-    public Trip_Pass get(long id) {
+    public Trip_Pass get(int id) {
         return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Trip_Pass.class, id);
     }
 

@@ -1,41 +1,41 @@
 package com.exadel.DBController.Models;
 
-
-
-
 import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
+@ToString
 @Table (name = "employee", schema = "public")
+@NoArgsConstructor
+@EqualsAndHashCode
 public class Employee {
 
     // declaring the attributes of the employee class (according to the database table )
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Setter(AccessLevel.PRIVATE)
     @Getter
     private  int id;
 
     @Getter
     @Setter
-    private boolean admin;
+    private boolean isadmin;
 
     @Getter
     @Setter
-    //@Column(name = "username")
+    @Column(name = "username")
     private  String username;
 
     @Getter
     @Setter
-    @Column(name = "The_First_Name")
+    @Column(name = "the_first_name")
     private String firstName;
 
     @Getter
     @Setter
-    @Column(name = "the_Last_Name")
+    @Column(name = "the_last_name")
     private String lastName;
 
     @Getter
@@ -55,29 +55,17 @@ public class Employee {
 
     @Setter
     @Getter
-
     @Column(name = "rate_driver")
     private float rate_driver;
 
     @Setter
     @Getter
     @Column(name = "phone_number")
-    private int phoneNum;
-
-
-    @OneToOne(mappedBy = "emp")
-    private Passenger pass;
-
-
-    @OneToOne(mappedBy = "emp")
-    private Driver drive;
-
-
-    public  Employee (){}
+    private String phoneNum;
 
     // init method to create a new employee
-    public Employee(boolean adm, String userName, String fname, String lname, String em,  String pass, int rt_dr, int rt_pass, int cell) {
-        this.admin = adm;
+    public Employee(boolean adm, String userName, String fname, String lname, String em,  String pass, float rt_dr, float rt_pass, String cell) {
+        this.isadmin = adm;
         this.username = userName;
         this.firstName = fname;
         this.lastName = lname;

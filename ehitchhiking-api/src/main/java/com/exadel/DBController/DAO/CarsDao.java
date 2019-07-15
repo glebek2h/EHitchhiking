@@ -32,7 +32,7 @@ public class CarsDao implements Dao<Cars>{
         session.close();
     }
 
-    public Cars get(long id) {
+    public Cars get(int id) {
         return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Cars.class, id);
     }
 

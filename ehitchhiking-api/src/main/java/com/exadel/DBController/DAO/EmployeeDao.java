@@ -33,7 +33,7 @@ public class EmployeeDao implements Dao<Employee> {
         session.close();
     }
 
-    public Employee get(long id) {
+    public Employee get(int id) {
         return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Employee.class, id);
     }
 

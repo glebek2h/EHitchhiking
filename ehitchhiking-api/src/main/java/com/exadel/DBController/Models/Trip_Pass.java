@@ -58,13 +58,13 @@ public class Trip_Pass {
 
 
 
-    @ManyToOne
-    private Trip_Driver tripDriver;
-
-
-    @ManyToOne
-    @JoinColumn(name = "pass_id")
-    private Passenger pass;
+//    @ManyToOne
+//    private Trip_Driver tripDriver;
+//
+//
+//    @ManyToOne
+//    @JoinColumn(name = "pass_id")
+//    private Passenger pass;
 
     // empty constructor
     public Trip_Pass(){}

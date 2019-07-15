@@ -1,6 +1,5 @@
 package com.exadel.DBController.DAO;
 
-import com.exadel.DBController.Models.Driver;
 import com.exadel.DBController.Models.Passenger;
 import com.exadel.DBController.Utils.HibernateSessionFactoryUtil;
 import org.hibernate.Session;
@@ -33,7 +32,7 @@ public class PassengerDao implements Dao<Passenger> {
         session.close();
     }
 
-    public Passenger get(long id) {
+    public Passenger get(int id) {
         return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Passenger.class, id);
     }
 

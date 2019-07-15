@@ -34,7 +34,7 @@ public class DriverDao implements Dao<Driver> {
         session.close();
     }
 
-    public Driver get(long id) {
+    public Driver get(int id) {
         return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Driver.class, id);
     }
 
