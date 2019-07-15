@@ -4,7 +4,9 @@ import {MenuComponent} from './menu.component';
 import {
 	MatButtonModule,
 	MatCheckboxModule,
+	MatDialogModule,
 	MatSidenavModule,
+	MatTableModule,
 } from '@angular/material';
 import {FormsModule} from '@angular/forms';
 
@@ -16,6 +18,8 @@ import {FormsModule} from '@angular/forms';
 		MatSidenavModule,
 		FormsModule,
 		MatButtonModule,
+		MatTableModule,
+		MatDialogModule,
 	],
 	exports: [MenuComponent],
 })
