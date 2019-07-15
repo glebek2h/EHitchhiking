@@ -1,7 +1,6 @@
 import {Component, OnInit, Inject} from '@angular/core';
 import {BLACKLISTUSERS} from './blacklist-users';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {BlacklistService} from '../../services/blacklist.service';
 
 export interface DialogData {
   message: string;
@@ -15,8 +14,7 @@ export interface DialogData {
 export class BlacklistComponent implements OnInit {
   message: boolean;
   blacklistUsersArray = [];
-  constructor( public dialogRef: MatDialogRef<BlacklistComponent>,
-               private blacklistService: BlacklistService) {}
+  constructor( public dialogRef: MatDialogRef<BlacklistComponent>) {}
 
   ngOnInit() {
     this.blacklistUsersArray = BLACKLISTUSERS;
@@ -27,10 +25,8 @@ export class BlacklistComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  // @ts-ignore
-/*  delete(person: BLACKLISTUSERS): void {
-    this.blacklistUsersArray = this.blacklistUsersArray.filter(h => h !== person);
-    this.blacklistService.deletePerson(person).subscribe();
-  }*/
+  removePerson(item) {
+    this.blacklistUsersArray.splice(item, 1);
+  }
 
 }
