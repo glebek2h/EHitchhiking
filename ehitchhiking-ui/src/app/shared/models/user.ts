@@ -1,3 +1,4 @@
+import {Car} from './car';
 export class User {
 	name: string;
 	email: string;

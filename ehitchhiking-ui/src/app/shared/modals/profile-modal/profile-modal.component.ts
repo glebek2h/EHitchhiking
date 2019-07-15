@@ -1,5 +1,6 @@
-import {Component, Inject} from '@angular/core';
-import {MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig} from '@angular/material';
+import {Component} from '@angular/core';
+import {MatDialogRef} from '@angular/material';
+import {User} from '../../models/user';
 
 @Component({
 	selector: 'app-profile-modal',
@@ -7,7 +8,8 @@ import {MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig} from '@angular/material'
 	styleUrls: ['./profile-modal.component.sass'],
 })
 export class ProfileModalComponent {
-	constructor(public dialogRef: MatDialogRef<ProfileModalComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {}
+	user: User = new User('yana', 'hello@gmail.com', '+375291234567');
+	constructor(public dialogRef: MatDialogRef<ProfileModalComponent>) {}
 
 	public close() {
 		this.dialogRef.close();

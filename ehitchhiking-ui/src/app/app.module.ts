@@ -1,10 +1,11 @@
+import {CarInfoFormComponent} from './shared/modals/profile-modal/car-info-form/car-info-form.component';
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatCheckboxModule, MatSidenavModule, MatDialogModule} from '@angular/material';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MenuComponent} from './shared/components/menu/menu.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MainScreenModule} from './pages/main-screen/main-screen.module';
@@ -12,7 +13,7 @@ import {ProfileModalComponent} from './shared/modals/profile-modal/profile-modal
 import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
-	declarations: [AppComponent, MenuComponent, ProfileModalComponent],
+	declarations: [AppComponent, MenuComponent, ProfileModalComponent, CarInfoFormComponent],
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
@@ -24,6 +25,7 @@ import {MatIconModule} from '@angular/material/icon';
 		MatButtonModule,
 		MainScreenModule,
 		MatIconModule,
+		ReactiveFormsModule,
 	],
 	providers: [],
 	bootstrap: [AppComponent],
