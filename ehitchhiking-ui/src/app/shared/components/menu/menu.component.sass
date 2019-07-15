@@ -6,23 +6,30 @@
   position: fixed
   top: 0
   background-color: $white
+
   .header
     display: flex
-    align-items: center
+    align-content: center
     justify-content: space-between
     margin-top: 1rem
+    padding-right: 0.5rem
     span 
       flex-grow: 2
       text-align: center
-      padding: 10px
       font-size: $headline
       margin: 0
     button
       position: relative
+    .account-icon
+      padding-left: 0.5rem
     &-button
       height: 100%
       width: 100%
       font-size: $display-3
+    > *
+      display: flex
+      align-items: center
+      justify-content: center
       
   .buttons
     li
