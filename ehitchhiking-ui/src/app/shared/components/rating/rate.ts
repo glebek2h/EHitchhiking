@@ -1,4 +1,4 @@
 export interface Rate {
-	title: string;
-	value: number;
+  title: string;
+  value: number;
 }

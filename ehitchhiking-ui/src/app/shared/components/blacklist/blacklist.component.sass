@@ -1,18 +1,13 @@
 @import "../../../../styles/colour-constants"
 @import "../../../../styles/fonts-constants"
+@import "../../../../styles"
 
-.truncated
-  white-space: nowrap
-  overflow: hidden
-  text-overflow: ellipsis
 .blacklist-title
-  position: relative
-  left: 40%
+  text-align: center
 .blacklist
   height: 20rem
   overflow-y: scroll
   overflow-x: hidden
-  padding: 0rem
   margin: 0.5rem
   .blacklist-user
     border: 1px solid $black
@@ -22,15 +17,16 @@
     .profile-photo
       font-size: $display-2
     .remove-icon
-      font-size: 2rem
+      font-size: $title
       display: table
       vertical-align: middle
       color: $dark-red
     .blacklist-user-name
-      font-size: 1rem
+      font-size: $button
       margin-top: 1rem
       width: 10rem
       @extend .truncated
 .blacklist-back-btn
-  left: 40%
-  position: relative
+  display: flex
+  justify-content: center
+
