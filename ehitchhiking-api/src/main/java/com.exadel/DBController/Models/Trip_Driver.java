@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import java.sql.*;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -58,6 +59,15 @@ public class Trip_Driver {
     private boolean issaved;
 
 
+    @ManyToOne
+    @JoinColumn(name = "car_id")
+    private Cars car;
+
+
+
+    @OneToMany
+    @JoinColumn(name = "trip_pass_id")
+    private Set<Trip_Pass> setTripPass;
 
     // empty constructor
     public Trip_Driver(){}

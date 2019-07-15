@@ -4,9 +4,8 @@ package com.exadel.DBController.Models;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
 
 
 @Entity
@@ -22,6 +21,13 @@ public class Blacklist_Driver {
     @Getter
     @Setter
     private int driver_id;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "driver_id")
+    private Driver drive;
+
+    @OneToMany(mappedBy = "blackListDriver")
+    private Set<Passenger> passengerSet;
 
     public  Blacklist_Driver(){}
 

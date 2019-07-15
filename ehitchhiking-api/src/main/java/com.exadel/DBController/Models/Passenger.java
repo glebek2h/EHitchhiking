@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "driver", schema = "public")
@@ -20,6 +21,21 @@ public class Passenger{
     @Getter
     @Setter
     private int user_id;
+
+
+    @OneToMany(mappedBy = "pass")
+    private Set<Trip_Pass> setTripPass;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private Employee emp;
+
+
+    @OneToOne(mappedBy = "pass")
+    private Blacklist_Pass blackListPassenger;
+
+    @ManyToOne
+    private Blacklist_Driver blackListDriver;
 
     public Passenger(){}
 

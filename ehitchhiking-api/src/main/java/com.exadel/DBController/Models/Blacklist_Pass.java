@@ -3,9 +3,8 @@ package com.exadel.DBController.Models;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
 
 @NoArgsConstructor
 @Entity
@@ -21,6 +20,18 @@ public class Blacklist_Pass {
     @Getter
     @Setter
     private int driver_id;
+
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "pass_id")
+    private Passenger pass;
+
+
+
+    @OneToMany
+    @JoinColumn(name = "driver_id")
+    private Set<Driver> driverSet;
+
 
     public Blacklist_Pass(){}
 

@@ -65,6 +65,14 @@ public class Employee {
     private int phoneNum;
 
 
+    @OneToOne(mappedBy = "emp")
+    private Passenger pass;
+
+
+    @OneToOne(mappedBy = "emp")
+    private Driver drive;
+
+
     public  Employee (){}
 
     // init method to create a new employee
