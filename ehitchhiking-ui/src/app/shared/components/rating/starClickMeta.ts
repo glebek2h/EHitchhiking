@@ -1,4 +1,4 @@
 export interface StarClickMeta {
-  itemId: number;
-  rating: number;
+	itemId: number;
+	rating: number;
 }

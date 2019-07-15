@@ -1,5 +1,5 @@
 export interface Passenger {
-  id: number;
-  name: string;
-  rating: number;
+	id: number;
+	name: string;
+	rating: number;
 }
