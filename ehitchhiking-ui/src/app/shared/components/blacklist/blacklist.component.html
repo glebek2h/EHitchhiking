@@ -1,0 +1,16 @@
+<h1 mat-dialog-title class="blacklist-title">Blacklist</h1>
+<div mat-dialog-content class="blacklist">
+	<div
+		class="blacklist-user"
+		*ngFor="let blacklistuser of blacklistUsersArray; let i = index"
+	>
+		<i class="material-icons profile-photo">account_circle</i>
+		<p class="blacklist-user-name truncated">{{ blacklistuser }}</p>
+		<i class="material-icons remove-icon" (click)="removePerson(i)"
+			>remove_circle</i
+		>
+	</div>
+</div>
+<div mat-dialog-actions class="blacklist-back-btn">
+	<button mat-button (click)="return()">Back</button>
+</div>
