@@ -1,0 +1,13 @@
+<fieldset class="rating">
+	<ng-container *ngFor="let rate of ratings; trackBy: trackById">
+		<input
+			type="radio"
+			[name]="inputName"
+			[value]="rate.value"
+			[checked]="rating === rate.value"
+		/>
+		<label [title]="rate.title" (click)="onClick(rate.value)"
+			>{{ rate.value }} stars</label
+		>
+	</ng-container>
+</fieldset>

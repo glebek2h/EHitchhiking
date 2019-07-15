@@ -1,4 +1,4 @@
-export const BUTTONS: string[] = [
+export const BUTTONS_NAMES: string[] = [
 	'history',
 	'saved',
 	'active',
