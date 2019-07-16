@@ -1,19 +1,19 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {PreLoadingComponent} from './pre-loading.component';
+import {BlacklistComponent} from './blacklist.component';
 
-describe('PreLoadingComponent', () => {
-	let component: PreLoadingComponent;
-	let fixture: ComponentFixture<PreLoadingComponent>;
+describe('BlacklistComponent', () => {
+	let component: BlacklistComponent;
+	let fixture: ComponentFixture<BlacklistComponent>;
 
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
-			declarations: [PreLoadingComponent],
+			declarations: [BlacklistComponent],
 		}).compileComponents();
 	}));
 
 	beforeEach(() => {
-		fixture = TestBed.createComponent(PreLoadingComponent);
+		fixture = TestBed.createComponent(BlacklistComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

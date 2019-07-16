@@ -1,19 +1,19 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {PreLoadingComponent} from './pre-loading.component';
+import {YandexMapComponent} from './yandex-map.component';
 
-describe('PreLoadingComponent', () => {
-	let component: PreLoadingComponent;
-	let fixture: ComponentFixture<PreLoadingComponent>;
+describe('YandexMapComponent', () => {
+	let component: YandexMapComponent;
+	let fixture: ComponentFixture<YandexMapComponent>;
 
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
-			declarations: [PreLoadingComponent],
+			declarations: [YandexMapComponent],
 		}).compileComponents();
 	}));
 
 	beforeEach(() => {
-		fixture = TestBed.createComponent(PreLoadingComponent);
+		fixture = TestBed.createComponent(YandexMapComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

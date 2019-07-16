@@ -1,8 +1,10 @@
-<div class="gooey">
-  <span class="dot"></span>
-  <div class="dots">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
+<div class="loading-screen-wrapper" *ngIf="isLoading">
+	<div class="gooey" [ngClass]="defineSize(size)">
+		<span class="single-dot"></span>
+		<div class="dots-block">
+			<span class="dot"></span>
+			<span class="dot"></span>
+			<span class="dot"></span>
+		</div>
+	</div>
 </div>
