@@ -1,5 +1,4 @@
-@import "../../../../styles/fonts-constants"
-@import "../../../../styles/colour-constants"
+@import "../../../../styles.sass"
 
 .sidenav-container
   height: 100%
@@ -20,6 +19,7 @@
       margin: 0
     button
       position: relative
+      @include flexbox()
     .account-icon
       padding-left: 0.5rem
     &-button

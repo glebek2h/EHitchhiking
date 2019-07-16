@@ -11,28 +11,25 @@
 			</div>
 		</div>
 		<hr />
-		<div class="add-car-profile-button">
-			<button mat-icon-button>
+		<div class="profile-add-car" (click)="openCarEditDialog()">
+			<button mat-icon-button class="profile-add-car-button">
 				<mat-icon>add</mat-icon>
 			</button>
 		</div>
 		<mat-list class="car-info-container">
-			<div mat-list-item class="profile-cars-info" *ngFor="let car of user.cars">
-				<button mat-flat-button color="primary">
-					<span class="profile-car-info"
-						>{{ car.model }} {{ car.color }} {{ car.number }} {{ car.experience }}
-					</span>
-				</button>
-				<div class="edit-car-profile-button">
-					<button mat-icon-button color="primary">
+			<div mat-list-item class="profile-car-info" *ngFor="let car of user.cars">
+				<span class="profile-car-info-text">{{ car.model }} {{ car.color }} {{ car.number }} {{ car.experience }}
+				</span>
+				<div class="profile-car-info-edit">
+					<button mat-icon-button (click)="openCarEditDialog()">
 						<mat-icon>edit</mat-icon>
 					</button>
 				</div>
 			</div>
 		</mat-list>
 	</div>
-	<div class="close-profile-button">
-		<button mat-icon-button (click)="close()">
+	<div class="close-profile">
+		<button mat-icon-button class="close-profile-button" (click)="close()">
 			<mat-icon>close</mat-icon>
 		</button>
 	</div>
