@@ -6,7 +6,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule} from '@angular/forms';
 import {MainScreenModule} from './pages/main-screen/main-screen.module';
 import {RatePassengersModalModule} from './shared/components/rate-passengers-modal/rate-passengers-modal.module';
-import {MatButtonModule} from "@angular/material";
 import {RegistrationModule} from './pages/registration/registration.module';
 
 @NgModule({
@@ -19,7 +18,6 @@ import {RegistrationModule} from './pages/registration/registration.module';
     MainScreenModule,
     RegistrationModule,
     RatePassengersModalModule,
-    MatButtonModule,
   ],
 	providers: [],
 	bootstrap: [AppComponent],

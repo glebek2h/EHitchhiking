@@ -1,30 +1,30 @@
 <div class = "page">
 <div id="login-form">
     <div class = "exadel-login">
-      <img src="../../../assets/images/FullColor_Word-1.png" alt="exadel-logo">
+      <img src="../../../assets/images/FullColor_Word-1.png" alt="exadel-logo"/>
     </div>
 
-  <fieldset class = "f-set">
+  <fieldset class = "user-info">
     <form class = "form-img">
       <form (submit)="onSubmit($event)">
-        <div class = "icon-inp">
+        <div class = "location-icon">
           <i class="material-icons">
             perm_identity
           </i>
-          <input type="login" class = "input" [(ngModel)]="login" name = "login" required placeholder="Login" >
+          <input type="login" class = "input" [(ngModel)]="login" name = "login" required placeholder="Login" />
         </div>
-        <div class = "icon-inp">
+        <div class = "location-icon">
           <i class="material-icons">
             lock
           </i>
-          <input type="password" class = "input" [(ngModel)] = "password" name = "password" >
+          <input type="password" class = "input" [(ngModel)] = "password" name = "password" />
         </div>
         <div class = "center">
           <button type="submit" class = "btn" mat-raised-button color="primary">Login</button>
         </div>
       </form>
       <footer class="clearfix">
-        <p><span class="info">?</span><a class = "forg-pass" href="#">Forget password?</a></p>
+        <p><span class="info">?</span><a class = "hover-info" href="#">Forget password?</a></p>
       </footer>
     </form>
   </fieldset>
