@@ -20,7 +20,7 @@ export class RatingComponent implements OnInit {
 		{title: 'Pretty good', value: 4},
 		{title: 'Meh', value: 3},
 		{title: 'Kinda bad', value: 2},
-		{title: 'Sucks big time', value: 2},
+		{title: 'Sucks big time', value: 1},
 	];
 
 	constructor() {}
