@@ -5,23 +5,19 @@ import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule} from '@angular/forms';
 import {MainScreenModule} from './pages/main-screen/main-screen.module';
-import {MenuModule} from './shared/components/menu/menu.module';
 import {RatePassengersModalModule} from './shared/components/rate-passengers-modal/rate-passengers-modal.module';
-import {MenuComponent} from './shared/components/menu/menu.component';
-import { RegistrationComponent } from './shared/components/registration/registration.component';
 import {MatButtonModule} from "@angular/material";
-
-
+import {RegistrationModule} from './pages/registration/registration.module';
 
 @NgModule({
-	declarations: [AppComponent, RegistrationComponent],
+	declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
     MainScreenModule,
-    MenuModule,
+    RegistrationModule,
     RatePassengersModalModule,
     MatButtonModule,
   ],

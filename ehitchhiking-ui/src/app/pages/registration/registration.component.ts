@@ -15,7 +15,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   onSubmit(event: Event){
-    if(this.login =="" || this.password == "") {
+    if(this.login ==="" || this.password === "") {
       alert("Error input!");
     }
     else {
