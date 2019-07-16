@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormGroup, FormBuilder} from '@angular/forms';
 import {Car} from '../../../models/car';
 @Component({
@@ -6,11 +6,14 @@ import {Car} from '../../../models/car';
 	templateUrl: './car-info-form.component.html',
 	styleUrls: ['./car-info-form.component.sass'],
 })
-export class CarInfoFormComponent {
+export class CarInfoFormComponent implements OnInit {
 	carInfoForm: FormGroup;
 	@Input() car: Car;
 
-	constructor(private formBuilder: FormBuilder) {
+	constructor(private formBuilder: FormBuilder) {}
+
+	ngOnInit() {
+		console.log(this.car);
 		this.initForm();
 	}
 

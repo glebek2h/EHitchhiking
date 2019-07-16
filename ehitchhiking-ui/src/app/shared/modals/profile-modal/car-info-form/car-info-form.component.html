@@ -1,14 +1,15 @@
-<form [formGroup]="carInfoForm" class="car-form">
+<form *ngIf="car" [formGroup]="carInfoForm" class="car-form">
 	<mat-form-field class="car-form-field">
-		<input 	matInput placeholder="Model" value="{{car.model}}" class="car-from-input">
+		<input 	matInput placeholder="Model" [value]="car.model" class="car-form-input">
 	</mat-form-field>
 	<mat-form-field class="car-form-field">
-		<input matInput placeholder="Color" value="{{car.color}}" class="car-from-input">
+		<input matInput placeholder="Color" [value]="car.color" class="car-form-input">
 	</mat-form-field>
 	<mat-form-field class="car-form-field">
-		<input matInput placeholder="Number" value="{{car.number}}" class="car-from-input">
+		<input matInput placeholder="Number" [value]="car.number" class="car-form-input">
 	</mat-form-field>
 	<mat-form-field class="car-form-field">
-		<input matInput placeholder="Experience" value="{{car.experience}}" class="car-from-input">
+		<input matInput placeholder="Experience" [value]="car.experience" class="car-form-input">
 	</mat-form-field>
+	<button mat-raised-button type="submit" class="car-form-submit">Submit</button>
 </form>

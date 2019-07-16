@@ -4,31 +4,40 @@
 	</div>
 	<div class="profile-data">
 		<div class="profile-user-info">
-			<img class="profile-user-photo" [src]="user.photoPath" />
+			<img class="profile-user-photo" *ngIf="user.photoPath; else elseBlock" [src]="user.photoPath"/>
+			<ng-template #elseBlock><div class="invalid-photo-icon"><i class="material-icons">account_circle</i></div></ng-template>
 			<div class="profile-user-contacts">
 				<p>Phone: {{ user.phone }}</p>
 				<p>Email: {{ user.email }}</p>
 			</div>
 		</div>
 		<hr />
-		<div class="profile-add-car">
-			<button mat-icon-button class="profile-add-car-button">
-				<mat-icon>add</mat-icon>
-			</button>
-		</div>
+		<ng-container *ngIf="user.cars.length < maxNumOfCars">
+			<div class="profile-add-car">
+				<button mat-icon-button class="profile-add-car-button" (click)="toggleAddCarForm($event)">
+					<mat-icon class="profile-car-icon-add">add</mat-icon>
+				</button>
+				<button mat-icon-button class="profile-close-car-button" (click)="toggleAddCarForm($event)" style="display: none">
+					<mat-icon class="profile-car-icon-close">close</mat-icon>
+				</button>
+			</div>
+		</ng-container>
 		<mat-accordion class="car-info-container">
-			<mat-expansion-panel class="profile-car-info" *ngFor="let car of user.cars">
+			<mat-expansion-panel class="profile-car-info" *ngFor="let curCar of user.cars">
 				<mat-expansion-panel-header>
 					<mat-panel-title>
-						{{car.model}}
+						{{curCar.model}}
 					</mat-panel-title>
 					<mat-panel-description class="profile-car-info-desc">
-						<span>{{car.number}}</span><span>{{car.color}} </span><span>{{car.experience}}</span>
+						<span>{{curCar.number}}</span><span>{{curCar.color}} </span><span>{{curCar.experience}}</span>
 					</mat-panel-description>
 				</mat-expansion-panel-header>
-				<app-car-info-form [car]="car"></app-car-info-form>
+				<app-car-info-form [car]="curCar"></app-car-info-form>
 			</mat-expansion-panel>
 		</mat-accordion>
+		<div class="add-car-container" hidden>
+			<app-car-info-form class="add-car-form"></app-car-info-form>
+		</div>
 	</div>
 	<div class="close-profile">
 		<button mat-icon-button class="close-profile-button" (click)="close()">
