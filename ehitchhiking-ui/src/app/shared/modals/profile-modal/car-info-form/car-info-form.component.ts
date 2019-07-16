@@ -1,7 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {FormGroup, FormBuilder} from '@angular/forms';
-import {Car} from 'src/app/shared/models/car';
-import {MatDialogRef} from '@angular/material';
+import {Car} from '../../../models/car';
 @Component({
 	selector: 'app-car-info-form',
 	templateUrl: './car-info-form.component.html',
@@ -9,8 +8,9 @@ import {MatDialogRef} from '@angular/material';
 })
 export class CarInfoFormComponent {
 	carInfoForm: FormGroup;
+	@Input() car: Car;
 
-	constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<CarInfoFormComponent>) {
+	constructor(private formBuilder: FormBuilder) {
 		this.initForm();
 	}
 
@@ -19,11 +19,7 @@ export class CarInfoFormComponent {
 			model: '',
 			color: '',
 			number: '',
-			experience: null,
+			experience: 0,
 		});
-	}
-
-	public close() {
-		this.dialogRef.close();
 	}
 }

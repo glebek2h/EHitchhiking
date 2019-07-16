@@ -4,7 +4,8 @@
     position: relative
     font-family: $app-font
     background-color: mat-color($primary, A100)
-    height: 30rem
+    overflow: hidden
+    height: auto
     width: 40rem
 
     .profile-header
@@ -30,45 +31,26 @@
                 @include flexbox(space-around, center, column)
                 flex-grow: 2
         hr
-            margin-top: $little-offset
-            margin-bottom: $big-offset
             color: mat-color($primary, A200)
 
-        .car-info-container
-            position: relative
-            @include flexbox(center, center, column)
-            height: 100%
-            padding: 0
-            
-            .profile-car-info
-                width: 100%
-                @include flexbox()
-                border-bottom: 1px solid mat-color($primary, A200)
-                &:hover
-                    background-color: $white
-                &-text
-                    width: 50%
-                    font: $subheading-2 $app-font
-                    color: $black
-                    text-align: center
-                &:last-child
-                    border-bottom: 0
-                &-edit
-                    margin-left: $little-offset
-                    display: inline
-                    width: 7%
-                    button:hover
-                       background-color: mat-color($primary, A200)
-                       color: mat-color($primary, A100)
+        .profile-car-info
+            &:first-child
+                margin-top: $huge-offset
+            &:last-child
+                margin-bottom: $big-offset
+            &-desc
+                @include flexbox(space-around, center, row)
+                
         .profile-add-car
             position: absolute
-            top: 32%
+            top: 12.8rem
             right: $default-offset
             @include flexbox()
-            color: $black
-            &-button:hover
-                background-color: mat-color($primary, A200)
+            &-button
                 color: mat-color($primary, A100)
+                background-color: mat-color($primary, A200)
+            &-button:hover
+                background-color: mat-color($primary, A700)
 
 
     .close-profile

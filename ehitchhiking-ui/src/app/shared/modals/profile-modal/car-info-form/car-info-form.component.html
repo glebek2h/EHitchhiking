@@ -1,10 +1,14 @@
-<form [formGroup]="carInfoForm">
-	<label for="model">Model</label>
-	<input type="text" formControlName="model" />
-	<label for="color">Color</label>
-	<input type="text" formControlName="color" />
-	<label for="number">Number</label>
-	<input type="text" formControlName="number" />
-	<label for="experience">Experience</label>
-	<input type="text" formControlName="experience" />
+<form [formGroup]="carInfoForm" class="car-form">
+	<mat-form-field class="car-form-field">
+		<input 	matInput placeholder="Model" value="{{car.model}}" class="car-from-input">
+	</mat-form-field>
+	<mat-form-field class="car-form-field">
+		<input matInput placeholder="Color" value="{{car.color}}" class="car-from-input">
+	</mat-form-field>
+	<mat-form-field class="car-form-field">
+		<input matInput placeholder="Number" value="{{car.number}}" class="car-from-input">
+	</mat-form-field>
+	<mat-form-field class="car-form-field">
+		<input matInput placeholder="Experience" value="{{car.experience}}" class="car-from-input">
+	</mat-form-field>
 </form>
