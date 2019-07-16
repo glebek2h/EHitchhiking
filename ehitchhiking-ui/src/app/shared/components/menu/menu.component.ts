@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {BUTTONS_NAMES} from './buttons-names';
+import {BlacklistComponent} from '../blacklist/blacklist.component';
 import {MatDialog} from '@angular/material';
 import {RatePassengersModalComponent} from '../rate-passengers-modal/rate-passengers-modal.component';
 import {Router} from "@angular/router";
@@ -15,8 +16,11 @@ export class MenuComponent implements OnInit {
 
 	constructor(private router: Router, public dialog: MatDialog){}
 
-	openRatePassengersDialog(): void {
-		const dialogRef = this.dialog.open(RatePassengersModalComponent, {
+	ngOnInit() {
+		this.buttonsArray = BUTTONS_NAMES;
+	}
+	openBlacklistDialog(): void {
+		const dialogRef = this.dialog.open(BlacklistComponent, {
 			width: '400px',
 		});
 		dialogRef.afterClosed().subscribe((result) => {
@@ -24,8 +28,13 @@ export class MenuComponent implements OnInit {
 		});
 	}
 
-	ngOnInit() {
-		this.buttonsArray = BUTTONS_NAMES;
+	openRatePassengersDialog(): void {
+		const dialogRef = this.dialog.open(RatePassengersModalComponent, {
+			width: '400px',
+		});
+		dialogRef.afterClosed().subscribe((result) => {
+			console.log('The dialog was closed');
+		});
 	}
 
   logOut() {

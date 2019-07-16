@@ -8,10 +8,11 @@ import {
 	MatSidenavModule,
 	MatTableModule,
 } from '@angular/material';
+import {BlacklistComponent} from '../blacklist/blacklist.component';
 import {FormsModule} from '@angular/forms';
 
 @NgModule({
-	declarations: [MenuComponent],
+	declarations: [MenuComponent, BlacklistComponent],
 	imports: [
 		CommonModule,
 		MatCheckboxModule,
@@ -21,6 +22,7 @@ import {FormsModule} from '@angular/forms';
 		MatTableModule,
 		MatDialogModule,
 	],
-	exports: [MenuComponent],
+	entryComponents: [BlacklistComponent],
+	exports: [MenuComponent, BlacklistComponent],
 })
 export class MenuModule {}
