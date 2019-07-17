@@ -3,7 +3,11 @@
 		[isLoading]="loading"
 		[size]="loaderSize"
 	></app-pre-loading>
-	<app-no-data [size]="noDataSize"></app-no-data>
+	<app-no-data
+		[size]="noDataSize"
+		[message]="noDataMessage"
+		[icon]="noDataIconName"
+	></app-no-data>
 	<h1 mat-dialog-title class="blacklist-title">Blacklist</h1>
 	<div mat-dialog-content class="blacklist">
 		<div

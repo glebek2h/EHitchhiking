@@ -8,6 +8,8 @@ import {NoDataSize} from '../../enums/no-data-sizes';
 })
 export class NoDataComponent implements OnInit {
 	@Input() size: NoDataSize = NoDataSize.Middle;
+	@Input() message;
+	@Input() icon;
 
 	constructor() {}
 
@@ -15,5 +17,15 @@ export class NoDataComponent implements OnInit {
 
 	defineSize(size: NoDataSize) {
 		return `no-data-block-${size}`;
+	}
+
+	defineMessage() {
+		if (!this.message) return 'No data!';
+		else return this.message;
+	}
+
+	defineIcon() {
+		if (!this.icon) return 'block';
+		else return this.icon;
 	}
 }

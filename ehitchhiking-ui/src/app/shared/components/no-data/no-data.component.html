@@ -1,8 +1,8 @@
 <div class="no-data-wrapper">
-	<div [ngClass]="defineSize(size)">
+	<div class="no-data-block" [ngClass]="defineSize(size)">
 		<i class="material-icons">
-			work_off
+			{{ defineIcon() }}
 		</i>
-		<p class="no-data-text">No data!</p>
+		<p class="no-data-text">{{ defineMessage() }}</p>
 	</div>
 </div>
