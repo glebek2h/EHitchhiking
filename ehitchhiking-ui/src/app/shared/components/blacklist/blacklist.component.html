@@ -1,5 +1,13 @@
 <div class="blacklist-modal-container">
-	<app-pre-loading [isLoading]="loading" [size]="size"></app-pre-loading>
+	<app-pre-loading
+		[isLoading]="loading"
+		[size]="loaderSize"
+	></app-pre-loading>
+	<app-no-data
+		[size]="noDataSize"
+		[message]="noDataMessage"
+		[icon]="noDataIconName"
+	></app-no-data>
 	<h1 mat-dialog-title class="blacklist-title">Blacklist</h1>
 	<div mat-dialog-content class="blacklist">
 		<div

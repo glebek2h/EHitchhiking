@@ -3,7 +3,7 @@ import {BUTTONS_NAMES} from './buttons-names';
 import {BlacklistComponent} from '../blacklist/blacklist.component';
 import {MatDialog} from '@angular/material';
 import {RatePassengersModalComponent} from '../rate-passengers-modal/rate-passengers-modal.component';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 @Component({
 	selector: 'app-menu',
@@ -14,7 +14,7 @@ export class MenuComponent implements OnInit {
 	opened: boolean;
 	buttonsArray = [];
 
-	constructor(private router: Router, public dialog: MatDialog){}
+	constructor(private router: Router, public dialog: MatDialog) {}
 
 	ngOnInit() {
 		this.buttonsArray = BUTTONS_NAMES;
@@ -37,7 +37,7 @@ export class MenuComponent implements OnInit {
 		});
 	}
 
-  logOut() {
-	  this.router.navigateByUrl('/login');
-  }
+	logOut() {
+		this.router.navigateByUrl('/login');
+	}
 }
