@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {loaderSize} from '../../enums/pre-loader-sizes';
 
 @Component({
 	selector: 'app-pre-loading',
@@ -7,30 +8,13 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class PreLoadingComponent implements OnInit {
 	@Input() isLoading: boolean;
-	@Input() size: string;
+	@Input() size: string = loaderSize.middle;
 
 	constructor() {}
 
 	ngOnInit() {}
 
 	defineSize(size: string) {
-		switch (size) {
-			case 'md': {
-				return 'gooey-md';
-				break;
-			}
-			case 'lg': {
-				return 'gooey-lg';
-				break;
-			}
-			case 'sm': {
-				return 'gooey-sm';
-				break;
-			}
-			default: {
-				return 'gooey-md';
-				break;
-			}
-		}
+	  return  `gooey-${size}`;
 	}
 }
