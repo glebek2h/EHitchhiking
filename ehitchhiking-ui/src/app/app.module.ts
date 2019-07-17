@@ -7,6 +7,7 @@ import {FormsModule} from '@angular/forms';
 import {MainScreenModule} from './pages/main-screen/main-screen.module';
 import {MenuModule} from './shared/components/menu/menu.module';
 import {RatePassengersModalModule} from './shared/components/rate-passengers-modal/rate-passengers-modal.module';
+import { RegistrationModule } from "./pages/registration/registration.module";
 
 @NgModule({
 	declarations: [AppComponent],
@@ -17,6 +18,7 @@ import {RatePassengersModalModule} from './shared/components/rate-passengers-mod
     FormsModule,
     MainScreenModule,
     MenuModule,
+    RegistrationModule,
     RatePassengersModalModule,
   ],
 	providers: [],
