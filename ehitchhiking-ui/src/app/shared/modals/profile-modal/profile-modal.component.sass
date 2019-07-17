@@ -44,6 +44,10 @@
                 margin-bottom: $default-offset
             &-desc
                 @include flexbox(space-around, center, row)
+                .car-info-delete:hover
+                    color: mat-color($warn)
+            &-title 
+                @include flexbox(flex-start)               
                 
         .profile-add-car
             position: absolute

@@ -16,12 +16,10 @@
 		<hr />
 		<ng-container *ngIf="user.cars.length < maxNumOfCars">
 			<div class="profile-add-car">
-				<button mat-icon-button class="profile-add-car-button" (click)="toggleAddCarForm()"
-					*ngIf="!addCarMod">
+				<button mat-icon-button class="profile-add-car-button" (click)="toggleAddCarForm()" *ngIf="!addCarMod">
 					<mat-icon class="profile-car-icon-add">add</mat-icon>
 				</button>
-				<button mat-icon-button class="profile-close-car-button" (click)="toggleAddCarForm()"
-					*ngIf="addCarMod">
+				<button mat-icon-button class="profile-close-car-button" (click)="toggleAddCarForm()" *ngIf="addCarMod">
 					<mat-icon class="profile-car-icon-close">close</mat-icon>
 				</button>
 			</div>
@@ -30,23 +28,28 @@
 			<mat-accordion class="car-info-container" *ngIf="!addCarMod">
 				<mat-expansion-panel class="profile-car-info" *ngFor="let curCar of user.cars; let index = index">
 					<mat-expansion-panel-header>
-						<mat-panel-title>
+						<mat-panel-title class="profile-car-info-title">
 							{{curCar.model}}
 						</mat-panel-title>
 						<mat-panel-description class="profile-car-info-desc">
 							<span>{{curCar.carNumber}}</span><span>{{curCar.color}}
 							</span><span>{{curCar.experience}}</span>
+							<button mat-icon-button class="car-info-delete" click="onCarDelete($event, index)">
+								<mat-icon class="car-info-delete-icon">delete</mat-icon>
+							</button>
 						</mat-panel-description>
 					</mat-expansion-panel-header>
-					<app-car-info-form [carIndex]="index" [carInfoForm]="carsInfoForm" [addCarMod]="addCarMod" (onChangeCarInfo)="onChange($event, index)"></app-car-info-form>
+					<app-car-info-form [carIndex]="index" [carInfoForm]="carsInfoForm" [addCarMod]="addCarMod"
+						(onChangeCarInfo)="onChange()"></app-car-info-form>
 				</mat-expansion-panel>
 			</mat-accordion>
 			<div class="add-car-container" *ngIf="addCarMod">
-				<app-car-info-form class="add-car-form" [addCarMod]="addCarMod" (onChangeCarInfo)="onSubmitNewCar($event)">
+				<app-car-info-form class="add-car-form" [addCarMod]="addCarMod"
+					(onChangeCarInfo)="onSubmitNewCar($event)">
 				</app-car-info-form>
 			</div>
 			<div class="cars-form-submit">
-				<button #submitChanges type="submit" mat-raised-button [disabled]="true" class="cars-form-submit-button"
+				<button #submitChanges type="submit" mat-raised-button class="cars-form-submit-button" [disabled]="true"
 					*ngIf="!addCarMod">Save changes</button>
 			</div>
 		</form>

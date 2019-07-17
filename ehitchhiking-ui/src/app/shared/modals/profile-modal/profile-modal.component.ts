@@ -29,30 +29,36 @@ export class ProfileModalComponent implements OnInit {
 		private carsInfoService: CarsInfoService
 	) {}
 
-	ngOnInit() {
+	ngOnInit(): void {
 		this.carsInfoForm = this.carsInfoService.toFormGroup(this.user.cars, this.formBuilder);
 	}
 
-	public close() {
+	public close(): void {
 		this.dialogRef.close();
 	}
 
-	public toggleAddCarForm() {
+	public toggleAddCarForm(): void {
 		this.addCarMod = !this.addCarMod;
 	}
 
-	public onSubmitNewCar(newCar: Car) {
+	public onSubmitNewCar(newCar: Car): void {
 		this.user.addCar(newCar);
 		this.carsInfoForm = this.carsInfoService.toFormGroup(this.user.cars, this.formBuilder);
 		this.addCarMod = false;
 	}
 
-	public onSubmitCarsChanges() {
+	public onSubmitCarsChanges(): void {
 		const newCars = this.carsInfoService.getCarsInfo(this.carsInfoForm, this.user.cars.length);
 		this.user.cars = newCars;
 	}
 
-	public onChange(changedCar: Car, index: number) {
+	public onChange(): void {
 		this.submitButton.disabled = this.carsInfoForm.invalid;
+	}
+
+	public onCarDelete(event: MouseEvent, index: number): void {
+		const target = event.target as HTMLElement;
+		target.closest('.profile-car-info').remove();
+		this.user.cars.splice(index, 1);
 	}
 }
