@@ -10,15 +10,15 @@ import {RatePassengersModalModule} from './shared/components/rate-passengers-mod
 
 @NgModule({
 	declarations: [AppComponent],
-	imports: [
-		BrowserModule,
-		AppRoutingModule,
-		BrowserAnimationsModule,
-		FormsModule,
-		MainScreenModule,
-		MenuModule,
-		RatePassengersModalModule,
-	],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    MainScreenModule,
+    MenuModule,
+    RatePassengersModalModule,
+  ],
 	providers: [],
 	bootstrap: [AppComponent],
 })

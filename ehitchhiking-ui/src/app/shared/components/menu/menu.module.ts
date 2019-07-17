@@ -10,9 +10,10 @@ import {
 } from '@angular/material';
 import {BlacklistComponent} from '../blacklist/blacklist.component';
 import {FormsModule} from '@angular/forms';
+import {PreLoadingComponent} from '../pre-loading/pre-loading.component';
 
 @NgModule({
-	declarations: [MenuComponent, BlacklistComponent],
+	declarations: [MenuComponent, BlacklistComponent, PreLoadingComponent],
 	imports: [
 		CommonModule,
 		MatCheckboxModule,
@@ -23,6 +24,6 @@ import {FormsModule} from '@angular/forms';
 		MatDialogModule,
 	],
 	entryComponents: [BlacklistComponent],
-	exports: [MenuComponent, BlacklistComponent],
+	exports: [MenuComponent, BlacklistComponent, PreLoadingComponent],
 })
 export class MenuModule {}

@@ -5,5 +5,3 @@ target/
 .DS_Store/
 out/
 .vscode/
-
-node-modules/

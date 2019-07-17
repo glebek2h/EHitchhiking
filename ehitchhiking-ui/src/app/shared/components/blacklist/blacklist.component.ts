@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {BLACKLISTUSERS} from './blacklist-users';
 import {MatDialogRef} from '@angular/material';
+import {LoaderSize} from '../../enums/pre-loader-sizes';
 
 @Component({
 	selector: 'app-blacklist',
@@ -9,10 +10,15 @@ import {MatDialogRef} from '@angular/material';
 })
 export class BlacklistComponent implements OnInit {
 	blacklistUsersArray = [];
+	size: LoaderSize = LoaderSize.Large;
+	loading = true;
 	constructor(public dialogRef: MatDialogRef<BlacklistComponent>) {}
 
 	ngOnInit() {
 		this.blacklistUsersArray = BLACKLISTUSERS;
+		setTimeout(() => {
+			this.loading = false;
+		}, 1000);
 	}
 
 	return(): void {
