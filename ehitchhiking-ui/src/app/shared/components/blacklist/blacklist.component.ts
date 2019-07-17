@@ -1,18 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import {BLACKLISTUSERS} from './blacklist-users';
 import {MatDialogRef} from '@angular/material';
-import {loaderSize} from '../../enums/pre-loader-sizes';
-
+import {LoaderSize} from '../../enums/pre-loader-sizes';
 
 @Component({
 	selector: 'app-blacklist',
 	templateUrl: './blacklist.component.html',
 	styleUrls: ['./blacklist.component.sass'],
 })
-
 export class BlacklistComponent implements OnInit {
 	blacklistUsersArray = [];
-  size= loaderSize.large;
+	size: LoaderSize = LoaderSize.Large;
 	loading = true;
 	constructor(public dialogRef: MatDialogRef<BlacklistComponent>) {}
 

@@ -15,6 +15,6 @@ export class PreLoadingComponent implements OnInit {
 	ngOnInit() {}
 
 	defineSize(size: LoaderSize) {
-	  return  `gooey-${size}`;
+		return `gooey-${size}`;
 	}
 }
