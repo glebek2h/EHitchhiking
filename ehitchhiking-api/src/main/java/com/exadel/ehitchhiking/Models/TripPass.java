@@ -1,22 +1,23 @@
-package com.exadel.DBController.Models;
+package com.exadel.ehitchhiking.Models;
 
 
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "trip_pass")
-public class Trip_Pass {
+@ToString
+@EqualsAndHashCode
+public class TripPass {
 
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Setter(AccessLevel.PRIVATE)
     @Getter
     private  int trip_pass_id;
@@ -40,7 +41,9 @@ public class Trip_Pass {
 
     @Getter
     @Setter
-    private int pass_id;
+    @ManyToOne
+    @JoinColumn(name ="pass_id", referencedColumnName = "pass_id")
+    private Passenger pass;
 
     @Setter
     @Getter
@@ -55,35 +58,37 @@ public class Trip_Pass {
     @Getter
     private boolean issaved;
 
+    @Setter
+    @Getter
+    private int booked_seats;
 
 
 
+//    @Getter
+//    @Setter
 //    @ManyToOne
-//    private Trip_Driver tripDriver;
-//
-//
-//    @ManyToOne
-//    @JoinColumn(name = "pass_id")
-//    private Passenger pass;
+//    @JoinColumn(name = "trip_id", referencedColumnName = "trip_driver_id")
+//    private TripDriver tripDriver;
+
 
     // empty constructor
-    public Trip_Pass(){}
+    public TripPass(){}
 
 
     // constructor
-    public Trip_Pass(int id_pass_trip, String startingPoint, String endingPoint,
-                       Timestamp startingTime, Timestamp endingTime, int id_of_pass, boolean is_Active,
-                       boolean is_Finished, boolean is_Saved){
+    public TripPass(String startingPoint, String endingPoint,
+                    Timestamp startingTime, Timestamp endingTime, boolean is_Active,
+                    boolean is_Finished, boolean is_Saved, int seats){
 
-        this.trip_pass_id = id_pass_trip;
+
         this.point_start = startingPoint;
         this.point_end = endingPoint;
         this.time_start = startingTime;
         this.time_end = endingTime;
-        this.pass_id = id_of_pass;
         this.issaved = is_Saved;
         this.isactive = is_Active;
         this.isfinished = is_Finished;
+        this.booked_seats = seats;
     }
 
 }

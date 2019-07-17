@@ -1,10 +1,8 @@
-package com.exadel.DBController.Models;
+package com.exadel.ehitchhiking.Models;
 
 
 import lombok.*;
-
-import java.io.*;
-import java.util.Set;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 
@@ -27,11 +25,20 @@ public class Driver {
     @Setter
     private Employee user;
 
+    // what is the cumulative rate of the driver
     @Getter
     @Setter
-    private float rate;
+    private float rate_driver;
 
-    public Driver(float rate){
-        this.rate = rate;
+
+    // the amount of people that have rated the driver
+    @Getter
+    @Setter
+    private int rating_people;
+
+    public Driver(float rate, int rating_people){
+
+        this.rate_driver = rate;
+        this.rating_people = rating_people;
     }
 }

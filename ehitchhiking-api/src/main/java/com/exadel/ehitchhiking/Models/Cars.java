@@ -1,15 +1,17 @@
-package com.exadel.DBController.Models;
+package com.exadel.ehitchhiking.Models;
 
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.Set;
 
+
 @Entity
 @Table(name = "cars", schema = "public")
+@ToString
+@EqualsAndHashCode
 public class Cars {
 
     @Id
@@ -33,32 +35,24 @@ public class Cars {
     @Getter
     private String model;
 
-
     @Setter
     @Getter
-    private int driver_id;
-
-//    @ManyToOne
-//    @JoinColumn(name = "driver_id")
-//    private Driver drive;
+    @ManyToOne
+    @JoinColumn(name = "driver_id", referencedColumnName = "driver_id")
+    private Driver drive;
 
 
 //    @OneToMany(mappedBy = "car")
-//    private Set<Trip_Driver> setTripDriver;
-
-
-
+//    private Set<TripDriver> setTripDriver;
 
 
     public Cars(){}
 
-    public Cars(int id_of_car, String color, String number, String car_model,
+    public Cars(String color, String number, String car_model,
                 int id_of_driver){
 
-        this.car_id = id_of_car;
         this.car_color = color;
         this.veh_number= number;
         this.model = car_model;
-        this.driver_id = id_of_driver;
     }
 }

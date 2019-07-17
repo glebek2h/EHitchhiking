@@ -1,8 +1,8 @@
-package com.exadel.DBController.DAO;
+package com.exadel.ehitchhiking.DAO;
 
 import java.util.List;
 
-public interface Dao<T> {
+public interface IBasicDAO<T> {
 
     T get(int id);
 

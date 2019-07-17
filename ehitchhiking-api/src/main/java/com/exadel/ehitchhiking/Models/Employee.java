@@ -1,4 +1,4 @@
-package com.exadel.DBController.Models;
+package com.exadel.ehitchhiking.Models;
 
 import lombok.*;
 
@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @ToString
-@Table (name = "employee", schema = "public")
+@Table(name = "employee", schema = "public")
 @NoArgsConstructor
 @EqualsAndHashCode
 public class Employee {
@@ -17,16 +17,17 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Setter(AccessLevel.PRIVATE)
     @Getter
-    private  int id;
+    private int id;
 
     @Getter
     @Setter
-    private boolean isadmin;
+    @Column(name = "isadmin")
+    private boolean isAdmin;
 
     @Getter
     @Setter
     @Column(name = "username")
-    private  String username;
+    private String userName;
 
     @Getter
     @Setter
@@ -40,7 +41,7 @@ public class Employee {
 
     @Getter
     @Setter
-    @Column(name="email")
+    @Column(name = "email")
     private String email;
 
     @Getter
@@ -48,33 +49,22 @@ public class Employee {
     @Column(name = "pass_word")
     private String password;
 
-    @Setter
-    @Getter
-    @Column(name = "rate_pass")
-    private float rate_Pass;
-
-    @Setter
-    @Getter
-    @Column(name = "rate_driver")
-    private float rate_driver;
 
     @Setter
     @Getter
     @Column(name = "phone_number")
-    private String phoneNum;
+    private String phoneNumber;
 
     // init method to create a new employee
-    public Employee(boolean adm, String userName, String fname, String lname, String em,  String pass, float rt_dr, float rt_pass, String cell) {
-        this.isadmin = adm;
-        this.username = userName;
-        this.firstName = fname;
-        this.lastName = lname;
-        this.email = em;
-        this.password = pass;
-        this.rate_driver = rt_dr;
-        this.rate_Pass = rt_pass;
-        this.phoneNum = cell;
-    }
 
+    public Employee(boolean isAdmin, String userName, String firstName, String lastName, String email, String password, String phoneNumber) {
+        this.isAdmin = isAdmin;
+        this.userName = userName;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+    }
 }
 
