@@ -26,7 +26,7 @@
 				</button>
 			</div>
 		</ng-container>
-		<form name="cars-info-form" (submit)="onSubmitCarsChanges()">
+		<form [formGroup]="carsInfoForm" name="cars-info-form" (ngSubmit)="onSubmitCarsChanges()">
 			<mat-accordion class="car-info-container" *ngIf="!addCarMod">
 				<mat-expansion-panel class="profile-car-info" *ngFor="let curCar of user.cars; let index = index">
 					<mat-expansion-panel-header>
@@ -38,15 +38,15 @@
 							</span><span>{{curCar.experience}}</span>
 						</mat-panel-description>
 					</mat-expansion-panel-header>
-					<app-car-info-form #carForm [car]="curCar" [addCarMod]="addCarMod" (onChangeCarInfo)="onChange($event, index)"></app-car-info-form>
+					<app-car-info-form [carIndex]="index" [carInfoForm]="carsInfoForm" [addCarMod]="addCarMod" (onChangeCarInfo)="onChange($event, index)"></app-car-info-form>
 				</mat-expansion-panel>
 			</mat-accordion>
 			<div class="add-car-container" *ngIf="addCarMod">
-				<app-car-info-form class="add-car-form" [addCarMod]="addCarMod" (onSubmit)="onSubmitNewCar($event)">
+				<app-car-info-form class="add-car-form" [addCarMod]="addCarMod" (onChangeCarInfo)="onSubmitNewCar($event)">
 				</app-car-info-form>
 			</div>
 			<div class="cars-form-submit">
-				<button #submitChanges form="cars-info-form" mat-raised-button type="submit" [disabled]="true" class="cars-form-submit-button"
+				<button #submitChanges type="submit" mat-raised-button [disabled]="true" class="cars-form-submit-button"
 					*ngIf="!addCarMod">Save changes</button>
 			</div>
 		</form>
