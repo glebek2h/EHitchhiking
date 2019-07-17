@@ -1,5 +1,5 @@
- export enum loaderSize {
-  small='sm',
-  large='lg',
-  middle='md',
+ export enum LoaderSize {
+  Small='sm',
+  Large='lg',
+  Middle='md',
 }
