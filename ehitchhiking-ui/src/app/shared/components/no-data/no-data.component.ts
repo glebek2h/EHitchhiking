@@ -10,6 +10,8 @@ export class NoDataComponent implements OnInit {
 	@Input() size: NoDataSize = NoDataSize.Middle;
 	@Input() message;
 	@Input() icon;
+	defaultIcon = 'block';
+	defaultMessage = 'No data!';
 
 	constructor() {}
 
