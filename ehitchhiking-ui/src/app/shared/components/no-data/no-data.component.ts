@@ -18,14 +18,4 @@ export class NoDataComponent implements OnInit {
 	defineSize(size: NoDataSize) {
 		return `no-data-block-${size}`;
 	}
-
-	defineMessage() {
-		if (!this.message) return 'No data!';
-		else return this.message;
-	}
-
-	defineIcon() {
-		if (!this.icon) return 'block';
-		else return this.icon;
-	}
 }

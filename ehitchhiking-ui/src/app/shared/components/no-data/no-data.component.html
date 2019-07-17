@@ -1,8 +1,10 @@
 <div class="no-data-wrapper">
 	<div class="no-data-block" [ngClass]="defineSize(size)">
 		<i class="material-icons">
-			{{ defineIcon() }}
+			{{ !this.icon ? 'block' : this.icon }}
 		</i>
-		<p class="no-data-text">{{ defineMessage() }}</p>
+		<p class="no-data-text">
+			{{ !this.message ? 'No data!' : this.message }}
+		</p>
 	</div>
 </div>

@@ -12,7 +12,7 @@ import {NoDataSize} from '../../enums/no-data-sizes';
 export class BlacklistComponent implements OnInit {
 	blacklistUsersArray = [];
 	loaderSize: LoaderSize = LoaderSize.Large;
-	noDataSize: NoDataSize = NoDataSize.Middle;
+	noDataSize: NoDataSize = NoDataSize.Small;
 	noDataMessage = 'kyky';
 	noDataIconName = 'accessibility';
 	loading = true;
