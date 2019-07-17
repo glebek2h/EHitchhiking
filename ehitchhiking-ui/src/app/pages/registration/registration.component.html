@@ -1,19 +1,19 @@
 <div class = "page">
 <div id="login-form">
     <div class = "exadel-login">
-      <img src="../../../assets/images/FullColor_Word-1.png" alt="exadel-logo"/>
+      <img src="../../../assets/images/exadel-logo-horizon.png" alt="exadel-logo"/>
     </div>
 
   <fieldset class = "user-info">
     <form class = "form-img">
       <form (submit)="onSubmit($event)">
-        <div class = "location-icon">
+        <div class = "form-row">
           <i class="material-icons">
             perm_identity
           </i>
           <input type="login" class = "input" [(ngModel)]="login" name = "login" required placeholder="Login" />
         </div>
-        <div class = "location-icon">
+        <div class = "form-row">
           <i class="material-icons">
             lock
           </i>
