@@ -7,9 +7,10 @@ import {FormsModule} from '@angular/forms';
 import {MainScreenModule} from './pages/main-screen/main-screen.module';
 import {MenuModule} from './shared/components/menu/menu.module';
 import {RatePassengersModalModule} from './shared/components/rate-passengers-modal/rate-passengers-modal.module';
+import { NoDataComponent } from './shared/components/no-data/no-data.component';
 
 @NgModule({
-	declarations: [AppComponent],
+	declarations: [AppComponent, NoDataComponent],
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
