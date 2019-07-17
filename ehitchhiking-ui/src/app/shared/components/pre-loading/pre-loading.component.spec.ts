@@ -1,19 +1,19 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {NoDataComponent} from './no-data.component';
+import {PreLoadingComponent} from './pre-loading.component';
 
-describe('NoDataComponent', () => {
-	let component: NoDataComponent;
-	let fixture: ComponentFixture<NoDataComponent>;
+describe('PreLoadingComponent', () => {
+	let component: PreLoadingComponent;
+	let fixture: ComponentFixture<PreLoadingComponent>;
 
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
-			declarations: [NoDataComponent],
+			declarations: [PreLoadingComponent],
 		}).compileComponents();
 	}));
 
 	beforeEach(() => {
-		fixture = TestBed.createComponent(NoDataComponent);
+		fixture = TestBed.createComponent(PreLoadingComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});
