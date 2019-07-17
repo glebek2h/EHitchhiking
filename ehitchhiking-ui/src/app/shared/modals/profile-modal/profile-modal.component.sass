@@ -41,7 +41,7 @@
             &:first-child
                 margin-top: $huge-offset
             &:last-child
-                margin-bottom: $big-offset
+                margin-bottom: $default-offset
             &-desc
                 @include flexbox(space-around, center, row)
                 
@@ -55,7 +55,10 @@
                 background-color: mat-color($primary, A200)
                 &:hover
                     background-color: mat-color($primary, A700)
-        
+        .cars-form-submit
+            width: 100%
+            @include flexbox()
+            margin-bottom: $default-offset
         .add-car-form
             padding: $default-offset
 

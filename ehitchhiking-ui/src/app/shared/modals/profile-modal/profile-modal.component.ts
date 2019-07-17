@@ -1,4 +1,5 @@
-import {Component} from '@angular/core';
+import {CarInfoFormComponent} from './car-info-form/car-info-form.component';
+import {Component, ViewChild, QueryList, ViewChildren, AfterViewInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material';
 import {User} from '../../models/user';
 import {Car} from '../../models/car';
@@ -7,30 +8,37 @@ import {Car} from '../../models/car';
 	templateUrl: './profile-modal.component.html',
 	styleUrls: ['./profile-modal.component.sass'],
 })
-export class ProfileModalComponent {
+export class ProfileModalComponent implements AfterViewInit {
 	readonly maxNumOfCars: number = 5;
 	user: User = new User('yana', '', 'hello@gmail.com', '+375291234567', [
 		new Car('ferrari', 'pink', 'A3434B', 1),
-		new Car('ferrari', 'pink', 'A3434B', 1),
-		new Car('ferrari', 'pink', 'A3434B', 1),
-		new Car('ferrari', 'pink', 'A3434B', 1),
+		new Car('lada', 'white', 'A3434B', 5),
+		new Car('tayota', 'yellow', 'A3434B', 3),
+		new Car('bmw', 'black', 'A3434B', 1),
 	]);
+	addCarMod: boolean;
+	@ViewChild('submitChanges', {static: false}) submitButton;
 
 	constructor(public dialogRef: MatDialogRef<ProfileModalComponent>) {}
+
+	ngAfterViewInit() {}
 
 	public close() {
 		this.dialogRef.close();
 	}
 
-	public toggleAddCarForm(event: MouseEvent) {
-		const target = event.target as HTMLElement;
-		const addMod = target.classList.contains('profile-car-icon-add') ? true : false;
-		const dataContainer = target.closest('.profile-data');
-		(dataContainer.querySelector('.profile-add-car-button') as HTMLElement).style.display = addMod ? 'none' : '';
-		(dataContainer.querySelector('.profile-close-car-button') as HTMLElement).style.display = addMod ? '' : 'none';
-		(dataContainer.querySelector('.car-info-container') as HTMLElement).hidden = addMod ? true : false;
-		(dataContainer.querySelector('.add-car-container') as HTMLElement).hidden = addMod ? false : true;
+	public toggleAddCarForm() {
+		this.addCarMod = !this.addCarMod;
 	}
 
-	public addCar(event: any) {}
+	public onSubmitNewCar(newCar: Car) {
+		this.user.addCar(newCar);
+		this.addCarMod = false;
+	}
+
+	public onSubmitCarsChanges() {}
+
+	public onChange(changedCar: Car, index: number) {
+		this.submitButton.disabled = false;
+	}
 }

@@ -1,15 +1,19 @@
-<form *ngIf="car" [formGroup]="carInfoForm" class="car-form">
+<form novalidate *ngIf="addCarMod || car" [formGroup]="carInfoForm" class="car-form" (ngSubmit)="sendCarData($event)" (change)="sendCarData($event)">
 	<mat-form-field class="car-form-field">
-		<input 	matInput placeholder="Model" [value]="car.model" class="car-form-input">
+		<input matInput formControlName="model" placeholder="Model" [value]="addCarMod ? '' : car.model" class="car-form-input" #model>
 	</mat-form-field>
+	<span *ngIf="hasError('model', 'pattern')" class="form-error">Car model must contain 0-9, a-z, A-Z,- 3-50 symbols</span>
 	<mat-form-field class="car-form-field">
-		<input matInput placeholder="Color" [value]="car.color" class="car-form-input">
+		<input matInput formControlName="color" placeholder="Color" [value]="addCarMod ? '' : car.color" class="car-form-input">
 	</mat-form-field>
+	<span *ngIf="hasError('color', 'pattern')" class="form-error">Car color must contain a-z, A-Z,- 3-20 symbols</span>
 	<mat-form-field class="car-form-field">
-		<input matInput placeholder="Number" [value]="car.number" class="car-form-input">
+		<input matInput formControlName="carNumber" placeholder="Number" [value]="addCarMod ? '' : car.carNumber" class="car-form-input">
 	</mat-form-field>
+	<span *ngIf="hasError('carNumber', 'pattern')" class="form-error">Car number must contain 0-9, a-z, A-Z,- 6-8 symbols</span>
 	<mat-form-field class="car-form-field">
-		<input matInput placeholder="Experience" [value]="car.experience" class="car-form-input">
+		<input matInput formControlName="experience" placeholder="Experience (years)" [value]="addCarMod ? '' : car.experience" class="car-form-input">
 	</mat-form-field>
-	<button mat-raised-button type="submit" class="car-form-submit">Submit</button>
+	<span *ngIf="hasError('experience', 'pattern')" class="form-error">Experience must be a number from 0 to 80</span>
+	<button mat-raised-button type="submit" [disabled]="carInfoForm.invalid" class="car-form-submit" *ngIf="addCarMod">Submit</button>
 </form>
