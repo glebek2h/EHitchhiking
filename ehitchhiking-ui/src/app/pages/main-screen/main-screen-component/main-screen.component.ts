@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit} from '@angular/core';
 
 @Component({
 	selector: 'app-main-screen',
@@ -8,5 +8,21 @@ import {Component, OnInit} from '@angular/core';
 export class MainScreenComponent implements OnInit {
 	constructor() {}
 
-	ngOnInit() {}
+	tripFormData: any; // TODO
+
+	isHiddenTripRegistration: boolean;
+
+  ngOnInit() {
+    this.isHiddenTripRegistration = true;
+  }
+
+  openTripRegistrationForm(): void {
+	  this.isHiddenTripRegistration = !this.isHiddenTripRegistration;
+  }
+
+  getData(data) {
+   // console.log(data);
+    this.tripFormData = data;
+
+  }
 }
