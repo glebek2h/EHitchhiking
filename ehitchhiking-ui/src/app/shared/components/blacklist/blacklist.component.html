@@ -1,4 +1,4 @@
-<div class="wrapper">
+<div class="modal-wrapper">
 	<!--<app-pre-loading
 		[isLoading]="loading"
 		[size]="loaderSize"
@@ -8,8 +8,8 @@
 		[message]="noDataMessage"
 		[icon]="noDataIconName"
 	></app-no-data>-->
-  <header>
-    <h1>Blacklist</h1>
+  <header class="modal-header">
+    <h1 class="modal-title">Blacklist</h1>
   </header>
 	<div mat-dialog-content class="blacklist">
 		<mat-card
@@ -23,7 +23,7 @@
 			>
 		</mat-card>
 	</div>
-	<div mat-dialog-actions class="footer">
-		<button mat-button (click)="return()">Back</button>
+	<div mat-dialog-actions class="modal-footer">
+		<button mat-button class="modal-action-btn" (click)="return()">Back</button>
 	</div>
 </div>

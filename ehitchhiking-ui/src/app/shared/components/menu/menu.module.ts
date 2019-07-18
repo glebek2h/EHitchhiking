@@ -4,7 +4,7 @@ import {MenuComponent} from './menu.component';
 import {
   MatButtonModule, MatCardModule,
   MatCheckboxModule,
-  MatDialogModule,
+  MatDialogModule, MatIconModule,
   MatSidenavModule,
   MatTableModule,
 } from '@angular/material';
@@ -26,6 +26,7 @@ import {NoDataModule} from '../no-data/no-data.module';
     PreLoadingModule,
     NoDataModule,
     MatCardModule,
+    MatIconModule,
   ],
 	entryComponents: [BlacklistComponent],
 	exports: [MenuComponent, BlacklistComponent],
