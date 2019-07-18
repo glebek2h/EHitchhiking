@@ -1,0 +1,23 @@
+<form novalidate [formGroup]="addCarMod ? addCarForm : carInfoForm.controls[carIndex]" class="car-form"
+	(ngSubmit)="sendCarData(true)" (change)="sendCarData(false)">
+	<mat-form-field class="car-form-field">
+		<input matInput formControlName="model" placeholder="Model" class="car-form-input">
+	</mat-form-field>
+	<span *ngIf="hasError('model', 'pattern')" class="form-error">Car model must contain 0-9, a-z, A-Z,- 3-50
+		symbols</span>
+	<mat-form-field class="car-form-field">
+		<input matInput formControlName="color" placeholder="Color" class="car-form-input">
+	</mat-form-field>
+	<span *ngIf="hasError('color', 'pattern')" class="form-error">Car color must contain a-z, A-Z,- 3-20 symbols</span>
+	<mat-form-field class="car-form-field">
+		<input matInput formControlName="carNumber" placeholder="Number" class="car-form-input">
+	</mat-form-field>
+	<span *ngIf="hasError('carNumber', 'pattern')" class="form-error">Car number must contain 0-9, a-z, A-Z,- 6-8
+		symbols</span>
+	<mat-form-field class="car-form-field">
+		<input matInput formControlName="experience" placeholder="Experience (years)" class="car-form-input">
+	</mat-form-field>
+	<span *ngIf="hasError('experience', 'pattern')" class="form-error">Experience must be a number from 0 to 80</span>
+	<button mat-raised-button type="submit" [disabled]="addCarForm.invalid" class="car-form-submit"
+		*ngIf="addCarMod">Submit</button>
+</form>
