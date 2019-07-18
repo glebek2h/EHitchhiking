@@ -32,9 +32,9 @@
 							{{curCar.model}}
 						</mat-panel-title>
 						<mat-panel-description class="profile-car-info-desc">
-							<span>{{curCar.carNumber}}</span><span>{{curCar.color}}
-							</span><span>{{curCar.experience}}</span>
-							<button mat-icon-button class="car-info-delete" click="onCarDelete($event, index)">
+							<span class="profile-car-info-desc-item">{{curCar.carNumber}}</span><span class="profile-car-info-desc-item">{{curCar.color}}
+							</span><span class="profile-car-info-desc-item">{{curCar.experience}}</span>
+							<button mat-icon-button class="car-info-delete profile-car-info-desc-item" (click)="onCarDelete($event, index)">
 								<mat-icon class="car-info-delete-icon">delete</mat-icon>
 							</button>
 						</mat-panel-description>

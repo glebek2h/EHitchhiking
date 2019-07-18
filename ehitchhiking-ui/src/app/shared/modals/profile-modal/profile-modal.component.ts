@@ -58,6 +58,7 @@ export class ProfileModalComponent implements OnInit {
 
 	public onCarDelete(event: MouseEvent, index: number): void {
 		const target = event.target as HTMLElement;
+		console.log(target.closest('.profile-car-info'));
 		target.closest('.profile-car-info').remove();
 		this.user.cars.splice(index, 1);
 	}

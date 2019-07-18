@@ -29,7 +29,7 @@
                 padding-right: $default-offset
                 object-fit: cover
             .material-icons
-                margin-left: $huge-offset
+                margin-left: $default-offset*2
                 font-size: $display-1
             .profile-user-contacts
                 @include flexbox(space-around, center, column)
@@ -39,15 +39,19 @@
 
         .profile-car-info
             &:first-child
-                margin-top: $huge-offset
+                margin-top: $default-offset*2
             &:last-child
                 margin-bottom: $default-offset
             &-desc
                 @include flexbox(space-around, center, row)
                 .car-info-delete:hover
                     color: mat-color($warn)
+                &-item
+                    width: 25%
+                    text-align: center
             &-title 
-                @include flexbox(flex-start)               
+                width: 10%
+                @include flexbox(flex-start)         
                 
         .profile-add-car
             position: absolute
@@ -69,8 +73,8 @@
 
     .close-profile
         position: absolute
-        top: $little-offset
-        right: $little-offset
+        top: $default-offset / 3
+        right: $default-offset / 3
         @include flexbox()
         color: mat-color($primary, A100)
 
