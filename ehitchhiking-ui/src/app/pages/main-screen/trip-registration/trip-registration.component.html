@@ -5,20 +5,26 @@
   <mat-form-field class="input-to">
     <input matInput placeholder="to" formControlName="to" id="suggest2" (change)="onChangeFix($event, 'to')" >
   </mat-form-field>
-  <mat-form-field >
+  <mat-form-field class="date-picker">
     <input matInput [matDatepicker]="picker" formControlName="datePicker" placeholder="Choose a date">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
-  <mat-form-field >
-    <mat-label>Number of seats</mat-label>
-    <mat-select formControlName="placesSelect">
-      <mat-option [value]="1">1</mat-option>
-      <mat-option [value]="2">2</mat-option>
-      <mat-option [value]="3">3</mat-option>
-      <mat-option [value]="4">4</mat-option>
-    </mat-select>
+  <mat-form-field class="time-picker">
+    <input matInput [ngxTimepicker]="picker1" formControlName="timePicker" placeholder="Choose a time">
+    <ngx-material-timepicker #picker1></ngx-material-timepicker>
   </mat-form-field>
-  <button mat-raised-button color="primary" type="submit" [disabled]="!nameFormGroup.valid" (click)="isShown=!isShown">Submit</button>
+  <div class="registration-form-bottom-content">
+    <mat-form-field class="places-select">
+      <mat-label>Number of seats</mat-label>
+      <mat-select formControlName="placesSelect" >
+        <mat-option [value]="1">1</mat-option>
+        <mat-option [value]="2">2</mat-option>
+        <mat-option [value]="3">3</mat-option>
+        <mat-option [value]="4">4</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button class="submit-button" color="primary" type="submit" [disabled]="!nameFormGroup.valid" (click)="isShown=!isShown">Apply</button>
+  </div>
 </form>
 

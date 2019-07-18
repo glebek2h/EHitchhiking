@@ -17,8 +17,9 @@ export class TripRegistrationComponent implements OnInit {
 		this.nameFormGroup = new FormGroup({
 			from: new FormControl('',[Validators.required]),
 			to: new FormControl('',[Validators.required]),
-      datePicker: new FormControl(),
+      datePicker: new FormControl('',[Validators.required]),
       placesSelect: new FormControl('',[Validators.required]),
+      timePicker: new FormControl('',[Validators.required]),
 		});
 	}
 

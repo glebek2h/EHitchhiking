@@ -9,7 +9,7 @@ import {
 import {YandexMapComponent} from './yandex-map/yandex-map.component';
 import {TripRegistrationComponent} from './trip-registration/trip-registration.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 @NgModule({
 	declarations: [
 		MainScreenComponent,
@@ -26,7 +26,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     MatCardModule,
     MatInputModule,
     MatDatepickerModule,
-    MatSelectModule
+    MatSelectModule,
+    NgxMaterialTimepickerModule
   ],
 	exports: [MainScreenComponent, TripRegistrationComponent],
 })
