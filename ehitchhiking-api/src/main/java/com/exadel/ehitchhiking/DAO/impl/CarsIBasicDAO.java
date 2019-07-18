@@ -15,22 +15,28 @@ import java.util.List;
 @Repository
 public class CarsIBasicDAO extends AbstractDAO<Cars> implements ICarsDAO {
 
-    public Cars get(int id) {
-        return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Cars.class, id);
-    }
 
     public List<Cars> getAll() {
-        List<Cars> cars = (List<Cars>)  HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From com.exadel.ehitchhiking.Models.Cars").list();
+        List<Cars> cars = (List<Cars>)  getCurrentSession().createQuery("From com.exadel.ehitchhiking.Models.Cars").list();
         return cars;
     }
 
     public Cars getNumber(int id){
-        List<Cars> emps = (List<Cars>)  HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("select veh_number From com.exadel.ehitchhiking.Models.Cars where car_id = '" + id + "'").list();
+        List<Cars> emps = (List<Cars>)  getCurrentSession().createQuery("select veh_number From com.exadel.ehitchhiking.Models.Cars where car_id = '" + id + "'").list();
         return emps.get(0);
     }
 
     public List<Cars> getAllUsers(String username) {
-        List<Cars> cars = (List<Cars>)  HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From com.exadel.ehitchhiking.Models.Cars where drive = (from Driver where user = (from Employee where userName = '" + username + "'))").list();
+        List<Cars> cars = (List<Cars>)  getCurrentSession().createQuery("From com.exadel.ehitchhiking.Models.Cars where drive = (from Driver where employee = (from Employee where userName = '" + username + "'))").list();
         return cars;
+    }
+
+    public List<Cars> getListCars(int idDriver){
+        List<Cars> cars = (List<Cars>)  getCurrentSession().createQuery("From com.exadel.ehitchhiking.Models.Cars where drive.id = '" + idDriver + "'").list();
+        return cars;
+    }
+
+    public CarsIBasicDAO(){
+        setAClass(Cars.class);
     }
 }

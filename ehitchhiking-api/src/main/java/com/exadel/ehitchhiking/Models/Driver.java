@@ -17,13 +17,13 @@ public class Driver {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Setter
     @Getter
-    private Integer driver_id;
+    private Integer id;
 
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName="id")
     @Getter
     @Setter
-    private Employee user;
+    private Employee employee;
 
     // what is the cumulative rate of the driver
     @Getter
@@ -36,8 +36,8 @@ public class Driver {
     @Setter
     private int rating_people;
 
-    public Driver(float rate, int rating_people){
-
+    public Driver(Employee employee, float rate, int rating_people){
+        this.employee = employee;
         this.rate_driver = rate;
         this.rating_people = rating_people;
     }

@@ -4,22 +4,32 @@ import com.exadel.ehitchhiking.DAO.impl.DriverIBasicDAO;
 
 import com.exadel.ehitchhiking.Models.Driver;
 
+import com.exadel.ehitchhiking.Models.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 
 @Service
+@Transactional(rollbackOn = Exception.class)
 public class DriverService {
 
     @Autowired
     private DriverIBasicDAO dao = new DriverIBasicDAO();
 
-    public void createDriver(){
+    public void createDriver(Employee employee){
 
 
-        dao.save(new Driver(0.0f,0));
+        dao.save(new Driver(employee, 0.0f,0));
 
     }
+
+
+    public int findDriverIdByUsername(String username){
+        return dao.getByName(username).getId();
+    }
+
 
 
     // updates rate and the amount of people

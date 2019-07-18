@@ -5,28 +5,33 @@ import com.exadel.ehitchhiking.Models.TripPass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.sql.Timestamp;
 
 @Service
+@Transactional(rollbackOn = Exception.class)
 public class TripPassengerService {
 
     @Autowired
     private TripPassIBasicDAO dao = new TripPassIBasicDAO();
 
-//    public void createTripPassenger(int pass, String startingPoint, String endingPoint,
-//                                 Timestamp startingTime, Timestamp endingTime, int seats, int tripDriver){
-//
-//
-//        TripPass trip_pass = new TripPass(startingPoint, endingPoint,
-//                startingTime, endingTime, true,
-//                false, false, seats);
-//
-//        trip_pass.setPass(dao.getPassenger(pass));
-//        trip_pass.setTripDriver(dao.getTrip(tripDriver));
-//
-//        dao.save(trip_pass);
-//
-//    }
+
+
+
+    public void createTripPassenger(int pass, String startingPoint, String endingPoint,
+                                 Timestamp startingTime, Timestamp endingTime, int seats, int idTripDriver){
+
+
+        TripPass trip_pass = new TripPass(startingPoint, endingPoint,
+                startingTime, endingTime, true,
+                false, false, seats);
+
+        trip_pass.setPass(dao.getPassenger(pass));
+        trip_pass.setTripDriver(dao.getTrip(idTripDriver));
+
+        dao.save(trip_pass);
+
+    }
 
 
     public void updateTimeStart(int id, Timestamp newStart){

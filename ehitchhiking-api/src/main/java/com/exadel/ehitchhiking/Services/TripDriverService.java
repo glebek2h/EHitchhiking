@@ -1,31 +1,38 @@
 package com.exadel.ehitchhiking.Services;
 
+import com.exadel.ehitchhiking.DAO.impl.CarsIBasicDAO;
 import com.exadel.ehitchhiking.DAO.impl.TripDriverIBasicDAO;
+import com.exadel.ehitchhiking.Models.Cars;
 import com.exadel.ehitchhiking.Models.TripDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import javax.transaction.Transactional;
 import java.sql.Timestamp;
 
 @Service
+@Transactional(rollbackOn = Exception.class)
 public class TripDriverService  {
 
     @Autowired
     private TripDriverIBasicDAO dao = new TripDriverIBasicDAO();
+    @Autowired
+    private CarsIBasicDAO carsIBasicDAO = new CarsIBasicDAO();
 
-//    public void createTripDriver(String startingPoint, String endingPoint,
-//                                 Timestamp startingTime, Timestamp endingTime, String id_of_car, int seats){
-//
-//
-//        TripDriver trip_driver = new TripDriver(startingPoint, endingPoint,
-//                startingTime, endingTime, true,
-//                false, false, seats);
-//
-//        trip_driver.setCar(dao.getCar(id_of_car));
-//        dao.save(trip_driver);
-//
-//    }
+    public void createTripDriver(String startingPoint, String endingPoint,
+                                 Timestamp startingTime, Timestamp endingTime, int id_of_car, int seats){
+
+
+
+
+        TripDriver trip_driver = new TripDriver(startingPoint, endingPoint,
+                startingTime, endingTime, true,
+                false, false, seats, carsIBasicDAO.get(id_of_car));
+
+        dao.save(trip_driver);
+
+    }
 
 
     public void updateTimeStart(int id, Timestamp newStart){
@@ -104,20 +111,24 @@ public class TripDriverService  {
 
     }
 
-//    public void addPassenger(int idTripPass, int id){
-//        TripDriver trip_driver = dao.get(id);
-//        trip_driver.getSet_trip_pass_id().add(dao.getTripPass(idTripPass));
-//        dao.update(trip_driver);
-//    }
-//
-//    public void deletePassenger(int idTripPass, int id){
-//        TripDriver trip_driver = dao.get(id);
-//        trip_driver.getSet_trip_pass_id().remove(dao.getTripPass(idTripPass));
-//        dao.update(trip_driver);
-//    }
+    public void addPassenger(int idTripPass, int id){
+        TripDriver trip_driver = dao.get(id);
+        trip_driver.getSet_trip_pass_id().add(dao.getTripPass(idTripPass));
+        dao.update(trip_driver);
+    }
+
+    public void deletePassenger(int idTripPass, int id){
+        TripDriver trip_driver = dao.get(id);
+        trip_driver.getSet_trip_pass_id().remove(dao.getTripPass(idTripPass));
+        dao.update(trip_driver);
+    }
 
 
-
+    public void updateCar(int id, int idNewCar){
+        TripDriver trip_driver = dao.get(id);
+        trip_driver.setCar(carsIBasicDAO.get(idNewCar));
+        dao.update(trip_driver);
+    }
 
 
     public void deleteDriverTrip(int id){

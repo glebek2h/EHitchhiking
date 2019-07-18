@@ -23,11 +23,11 @@ public class TripDriver {
     @Getter
     private int trip_driver_id;
 
-//    @Getter
-//    @Setter
-//    @OneToMany
-//    @JoinColumn(name = "trip_pass_id")
-//    private Set<TripPass> set_trip_pass_id;
+    @Getter
+    @Setter
+    @OneToMany
+    @JoinColumn(name = "trip_pass_id")
+    private Set<TripPass> set_trip_pass_id;
 
     @Getter
     @Setter
@@ -45,11 +45,11 @@ public class TripDriver {
     @Setter
     private Timestamp time_end;
 
-//    @Getter
-//    @Setter
-//    @ManyToOne
-//    @JoinColumn(name = "car_id")
-//    private Cars car;
+    @Getter
+    @Setter
+    @ManyToOne
+    @JoinColumn(name = "car_id")
+    private Cars car;
 
     @Setter
     @Getter
@@ -76,7 +76,7 @@ public class TripDriver {
     // constructor
     public TripDriver(String startingPoint, String endingPoint,
                       Timestamp startingTime, Timestamp endingTime, boolean is_Active,
-                      boolean is_Finished, boolean is_Saved, int seats){
+                      boolean is_Finished, boolean is_Saved, int seats, Cars car){
 
 
         this.point_start = startingPoint;
@@ -87,5 +87,6 @@ public class TripDriver {
         this.isactive = is_Active;
         this.isfinished = is_Finished;
         this.available_seats = seats;
+        this.car = car;
     }
 }

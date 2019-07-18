@@ -1,22 +1,29 @@
 package com.exadel.ehitchhiking.Services;
 
 import com.exadel.ehitchhiking.DAO.impl.PassengerIBasicDAO;
+import com.exadel.ehitchhiking.Models.Employee;
 import com.exadel.ehitchhiking.Models.Passenger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
-//@Transactional()
+@Transactional(rollbackOn = Exception.class)
 public class PassengerService {
 
 
     @Autowired
     private PassengerIBasicDAO dao = new PassengerIBasicDAO();
 
-    public void createPassenger() {
+    public void createPassenger(Employee employee) {
 
-       // dao.save(new Passenger(0.0f, 0));
+       dao.save(new Passenger(employee, 0.0f, 0));
 
+    }
+
+    public int findPassIdByUsername(String username){
+        return dao.getByName(username).getId();
     }
 
 

@@ -42,8 +42,8 @@ public class Cars {
     private Driver drive;
 
 
-//    @OneToMany(mappedBy = "car")
-//    private Set<TripDriver> setTripDriver;
+    @OneToMany(mappedBy = "car")
+    private Set<TripDriver> setTripDriver;
 
 
     public Cars(){}

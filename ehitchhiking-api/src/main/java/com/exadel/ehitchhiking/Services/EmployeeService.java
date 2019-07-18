@@ -6,22 +6,30 @@ import com.exadel.ehitchhiking.Models.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
+@Transactional(rollbackOn = Exception.class)
 public class EmployeeService {
 
     @Autowired
     private IEmployeeDAO dao = new EmployeeDAO();
 
-    public void createUser(boolean isAdmin, String username, String firstName, String lastName, String email, String password, String phoneNum) {
+    public void createEmployee(boolean isAdmin, String username, String firstName, String lastName, String email, String password, String phoneNum) {
         dao.save(new Employee(isAdmin, username, firstName, lastName, email, password, phoneNum));
     }
 
-    public Employee findUserId(int userId) {
+    public Employee findUserId(int userId){
         return dao.get(userId);
     }
 
     public Employee findUserUsername(String username) {
         return dao.getByName(username);
+    }
+
+    public int findIdByUsername (String username) {
+        Employee employee = dao.getByName(username);
+        return employee.getId();
     }
 
     public void updatePassword(String username, String password) {

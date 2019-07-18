@@ -17,21 +17,21 @@ import java.util.List;
 @Repository
 public class TripDriverIBasicDAO extends AbstractDAO<TripDriver> implements ITripDriverDAO {
 
-    public TripDriver get(int id) {
-        return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(TripDriver.class, id);
-    }
-
     public List<TripDriver> getAll() {
-        List<TripDriver> trips_drivers = (List<TripDriver>)  HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From com.exadel.ehitchhiking.Models.TripDriver").list();
+        List<TripDriver> trips_drivers = (List<TripDriver>) getCurrentSession().createQuery("From com.exadel.ehitchhiking.Models.TripDriver").list();
         return trips_drivers;
     }
 
     public Cars getCar(String id){
-        List<Cars> cars = (List<Cars>) HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("from Cars where id = '" + id + "'").list();
+        List<Cars> cars = (List<Cars>) getCurrentSession().createQuery("from Cars where id = '" + id + "'").list();
         return cars.get(0);
     }
 
     public TripPass getTripPass(int id) {
-        return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(TripPass.class, id);
+        return getCurrentSession().get(TripPass.class, id);
+    }
+
+    public TripDriverIBasicDAO(){
+        setAClass(TripDriver.class);
     }
 }

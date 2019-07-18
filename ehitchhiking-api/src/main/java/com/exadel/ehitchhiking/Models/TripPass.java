@@ -64,11 +64,11 @@ public class TripPass {
 
 
 
-//    @Getter
-//    @Setter
-//    @ManyToOne
-//    @JoinColumn(name = "trip_id", referencedColumnName = "trip_driver_id")
-//    private TripDriver tripDriver;
+    @Getter
+    @Setter
+    @ManyToOne
+    @JoinColumn(name = "trip_id", referencedColumnName = "trip_driver_id")
+    private TripDriver tripDriver;
 
 
     // empty constructor

@@ -32,7 +32,7 @@ public class BlacklistPass {
     @Setter
     @OneToMany (fetch = FetchType.LAZY)
     @JoinColumn (name = "driver_id")
-    private Set<Driver> driver_set;
+    private Set<Driver> driverSet;
 
     public BlacklistPass(){}
 

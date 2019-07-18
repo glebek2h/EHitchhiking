@@ -17,20 +17,26 @@ import java.util.List;
 @Repository
 public class BlackListPassIBasicDAO extends AbstractDAO<BlacklistPass> implements IBlackListPassDAO {
 
-    public BlacklistPass get(int id) {
-        return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(BlacklistPass.class, id);
-    }
 
     public List<BlacklistPass> getAll() {
-        List<BlacklistPass> blacklist_passes = (List<BlacklistPass>)  HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From com.exadel.ehitchhiking.Models.BlacklistPass").list();
+        List<BlacklistPass> blacklist_passes = (List<BlacklistPass>)  getCurrentSession().createQuery("From com.exadel.ehitchhiking.Models.BlacklistPass").list();
         return blacklist_passes;
     }
 
     public Driver getDriver(int id) {
-        return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Driver.class, id);
+        return getCurrentSession().get(Driver.class, id);
     }
 
     public Passenger getPassenger(int id) {
-        return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Passenger.class, id);
+        return getCurrentSession().get(Passenger.class, id);
+    }
+
+    public BlackListPassIBasicDAO(){
+        setAClass(BlacklistPass.class);
+    }
+
+    public BlacklistPass getByPassId(int idPass){
+        List<BlacklistPass> blacklistPass = (List<BlacklistPass>) getCurrentSession().createQuery("From com.exadel.ehitchhiking.Models.BlacklistPass where pass.id = '" + idPass + "'").list();
+        return blacklistPass.get(0);
     }
 }
