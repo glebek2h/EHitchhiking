@@ -16,9 +16,7 @@ export class CarInfoFormComponent implements OnInit {
 	constructor(private formBuilder: FormBuilder) {}
 
 	ngOnInit() {
-		if (this.addCarMod) {
-			this.initForm();
-		}
+		this.initForm();
 	}
 
 	initForm(): void {
