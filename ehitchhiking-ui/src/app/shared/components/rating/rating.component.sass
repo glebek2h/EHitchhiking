@@ -1,5 +1,4 @@
-@import "../../../../styles/fonts-constants"
-@import "../../../../styles/colour-constants"
+@import '../../../../styles.sass'
 
 .rating
   float: left
@@ -14,21 +13,21 @@
   padding: 0.1rem
   overflow: hidden
   white-space: nowrap
-  cursor pointer
+  cursor: pointer
   font-size: $button
   line-height: 1rem
-  color: $grey
+  color: mat-color($primary, A100)
 .rating:not(:checked) > label:before
   content: '★ '
 
 .rating > input:checked ~ label
-  color: $orange
+  color: mat-color($primary,400)
 
 .rating:not(:checked) > label:hover,
 .rating:not(:checked) > label:hover ~ label
-  color: $gold
+  color: mat-color($primary,700)
 
 .rating > input:checked ~ label:hover,
 .rating > input:checked ~ label:hover ~ label,
 .rating > label:hover ~ input:checked ~ label
-  color: $light-orange
+  color: mat-color($primary,50)

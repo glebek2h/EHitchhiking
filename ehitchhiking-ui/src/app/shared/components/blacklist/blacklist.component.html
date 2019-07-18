@@ -1,8 +1,18 @@
-<div class="blacklist-modal-container">
-	<app-pre-loading [isLoading]="loading" [size]="size"></app-pre-loading>
-	<h1 mat-dialog-title class="blacklist-title">Blacklist</h1>
+<div class="wrapper">
+	<!--<app-pre-loading
+		[isLoading]="loading"
+		[size]="loaderSize"
+	></app-pre-loading>-->
+	<!--<app-no-data
+		[size]="noDataSize"
+		[message]="noDataMessage"
+		[icon]="noDataIconName"
+	></app-no-data>-->
+  <header>
+    <h1>Blacklist</h1>
+  </header>
 	<div mat-dialog-content class="blacklist">
-		<div
+		<mat-card
 			class="blacklist-user"
 			*ngFor="let blacklistuser of blacklistUsersArray; let i = index"
 		>
@@ -11,9 +21,9 @@
 			<i class="material-icons remove-icon" (click)="removePerson(i)"
 				>remove_circle</i
 			>
-		</div>
+		</mat-card>
 	</div>
-	<div mat-dialog-actions class="blacklist-back-btn">
+	<div mat-dialog-actions class="footer">
 		<button mat-button (click)="return()">Back</button>
 	</div>
 </div>
