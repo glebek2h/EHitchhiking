@@ -1,0 +1,38 @@
+<div mat-dialog-content class="trips" >
+<div
+  class="trips-user"
+>
+  <i class="material-icons">
+    directions_car
+  </i>
+  <p class="trips-list truncated">{{trip.from_}}  ->  {{trip.to}}</p>
+  <div class = "form-row">
+    <button class = "trip-btn" >
+      <i class="material-icons" *ngIf="trip.status === 0" title="active trip">
+        event_note
+      </i>
+      <i class="material-icons" *ngIf="trip.status === 1" title = "completed trip">
+        event_available
+      </i>
+      <i class="material-icons" *ngIf="trip.status === 2" title = "declined trip">
+        event_busy
+      </i>
+    </button>
+    <button class = "trip-btn" title = "rating">
+      <i class="material-icons">
+        star_border
+      </i>
+    </button>
+    <button class = "trip-btn"
+            [class.active]="trip.isFavorite"
+            (click)="handleChange('favorite')">
+      <i class="material-icons" *ngIf="!trip.isFavorite" title = " no favorite trip">
+        favorite_border
+      </i>
+      <i class="btn-press-favorite material-icons" title = "favorite trip" *ngIf = "trip.isFavorite" >
+        favorite
+      </i>
+    </button>
+  </div>
+</div>
+</div>
