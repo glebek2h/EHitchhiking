@@ -4,8 +4,6 @@ import {BlacklistComponent} from '../blacklist/blacklist.component';
 import {MatDialog} from '@angular/material';
 import {RatePassengersModalComponent} from '../rate-passengers-modal/rate-passengers-modal.component';
 import {ProfileModalComponent} from '../../modals/profile-modal/profile-modal.component';
-import {BlockScrollStrategy} from '@angular/cdk/overlay';
-import {FixedSizeVirtualScrollStrategy} from '@angular/cdk/scrolling';
 import {Router} from '@angular/router';
 
 @Component({
