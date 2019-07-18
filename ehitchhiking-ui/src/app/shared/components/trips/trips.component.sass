@@ -1,0 +1,50 @@
+@import '~src/styles.sass'
+
+.form
+  height: 100%
+  display: flex
+.center
+  margin: auto
+  text-align: center
+.trips-modal-container
+  position: relative
+.trips-title
+  text-align: center
+  margin-bottom: 0
+.form-row
+  display: flex
+  justify-content: center
+  align-items: center
+.trips
+  height: 17rem
+  overflow-x: hidden
+  margin: 0.5rem
+  display: flex
+  flex-direction: column
+  align-items: center
+  .trips-user
+    border: 1px solid $grey
+    display: flex
+    justify-content: space-around
+    align-items: center
+    width: 100%
+    .profile-photo
+      font-size: $display-2
+    .remove-icon
+      font-size: $title
+      display: table
+      vertical-align: middle
+      color: $dark-red
+    .trips-list
+      font-size: $button
+      margin-top: 1rem
+      width: 12rem
+.trips-btn
+  display: flex
+  justify-content: center
+.trip-btn
+  background: none
+  outline: none
+  border: none
+  .btn-press-favorite
+    color: red

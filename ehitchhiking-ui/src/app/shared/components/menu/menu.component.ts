@@ -4,6 +4,7 @@ import {BlacklistComponent} from '../blacklist/blacklist.component';
 import {MatDialog} from '@angular/material';
 import {RatePassengersModalComponent} from '../rate-passengers-modal/rate-passengers-modal.component';
 import {Router} from "@angular/router";
+import { TripsComponent } from "../trips/trips.component";
 
 @Component({
 	selector: 'app-menu',
@@ -39,5 +40,14 @@ export class MenuComponent implements OnInit {
 
   logOut() {
 	  this.router.navigateByUrl('/login');
+  }
+
+  openHistoryDialog(){
+    const dialogRef = this.dialog.open(TripsComponent, {
+      width: '600px',
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+    });
   }
 }
