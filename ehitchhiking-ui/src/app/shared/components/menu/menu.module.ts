@@ -11,9 +11,13 @@ import {
 } from '@angular/material';
 import {RatePassengersModalModule} from '../rate-passengers-modal/rate-passengers-modal.module';
 import {ProfileModalModule} from '../../modals/profile-modal/profile-modal.module';
+import {BlacklistComponent} from '../blacklist/blacklist.component';
+import {FormsModule} from '@angular/forms';
+import {PreLoadingModule} from '../pre-loading/pre-loading.module';
+import {NoDataModule} from '../no-data/no-data.module';
 
 @NgModule({
-	declarations: [MenuComponent],
+	declarations: [MenuComponent, BlacklistComponent],
 	imports: [
 		CommonModule,
 		MatCheckboxModule,
@@ -24,8 +28,9 @@ import {ProfileModalModule} from '../../modals/profile-modal/profile-modal.modul
 		MatButtonModule,
 		RatePassengersModalModule,
 		ProfileModalModule,
+		FormsModule,
 	],
-	exports: [MenuComponent],
-	entryComponents: [],
+	exports: [MenuComponent, BlacklistComponent],
+	entryComponents: [PreLoadingModule, NoDataModule, BlacklistComponent],
 })
 export class MenuModule {}

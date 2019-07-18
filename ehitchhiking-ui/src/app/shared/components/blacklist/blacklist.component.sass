@@ -1,0 +1,32 @@
+@import "../../../../styles/colour-constants"
+@import "../../../../styles/fonts-constants"
+
+.blacklist-modal-container
+  position: relative
+.blacklist-title
+  text-align: center
+.blacklist
+  height: 20rem
+  overflow-y: scroll
+  overflow-x: hidden
+  margin: 0.5rem
+  .blacklist-user
+    border: 1px solid $black
+    display: flex
+    justify-content: space-around
+    align-items: center
+    .profile-photo
+      font-size: $display-2
+    .remove-icon
+      font-size: $title
+      display: table
+      vertical-align: middle
+      color: $dark-red
+    .blacklist-user-name
+      font-size: $button
+      margin-top: 1rem
+      width: 10rem
+.blacklist-back-btn
+  display: flex
+  justify-content: center
+

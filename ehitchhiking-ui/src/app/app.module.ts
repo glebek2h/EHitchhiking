@@ -1,11 +1,12 @@
-import {MenuModule} from './shared/components/menu/menu.module';
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatCheckboxModule, MatSidenavModule} from '@angular/material';
 import {MainScreenModule} from './pages/main-screen/main-screen.module';
+import {MenuModule} from './shared/components/menu/menu.module';
+import {RatePassengersModalModule} from './shared/components/rate-passengers-modal/rate-passengers-modal.module';
+import {RegistrationModule} from './pages/registration/registration.module';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -13,10 +14,10 @@ import {MainScreenModule} from './pages/main-screen/main-screen.module';
 		BrowserModule,
 		AppRoutingModule,
 		BrowserAnimationsModule,
-		MatCheckboxModule,
-		MatSidenavModule,
 		MainScreenModule,
 		MenuModule,
+		RegistrationModule,
+		RatePassengersModalModule,
 	],
 	providers: [],
 	bootstrap: [AppComponent],

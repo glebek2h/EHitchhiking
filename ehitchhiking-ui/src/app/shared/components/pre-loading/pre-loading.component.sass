@@ -1,0 +1,67 @@
+@import "../../../../styles/colour-constants"
+
+.gooey-md
+  $dot-size: 0.5rem
+  .single-dot, .dot
+    width: $dot-size
+    height: $dot-size
+  .single-dot
+    right: 5.5rem
+  .dot
+    margin-left: 0.5rem
+
+.gooey-sm
+  $dot-size: 0.3rem
+  .single-dot, .dot
+    width: $dot-size
+    height: $dot-size
+  .single-dot
+    right: 5rem
+  .dot
+    margin-left: 0.8rem
+
+.gooey-lg
+  $dot-size: 1rem
+  .single-dot, .dot
+    width: $dot-size
+    height: $dot-size
+  .single-dot
+    right: 6rem
+  .dot
+    margin-left: 1rem
+
+.loading-screen-wrapper
+  z-index: 100000
+  position: absolute
+  width: 100%
+  height: 100%
+  background-color: rgba(255, 255, 255, 0.6)
+  display: block
+  .gooey
+    position: absolute
+    top: 50%
+    left: 50%
+    display: flex
+    justify-content: center
+    .single-dot
+      position: absolute
+      top: 0.75rem
+      background: $black
+      border-radius: 50%
+      animation: single-dot-move 2.8s infinite
+    .dots-block
+      margin-top: 0.75rem
+      animation: dots-block-move 2.8s infinite
+      .dot
+        display: block
+        float: left
+        background: $black
+        border-radius: 50%
+        filter: contrast(20)
+
+@keyframes single-dot-move
+  50%
+    transform: translateX(6rem)
+@keyframes dots-block-move
+  50%
+    transform: translateX(-2rem)
