@@ -29,8 +29,10 @@ import {NoDataModule} from '../no-data/no-data.module';
 		RatePassengersModalModule,
 		ProfileModalModule,
 		FormsModule,
+		PreLoadingModule,
+		NoDataModule,
 	],
 	exports: [MenuComponent, BlacklistComponent],
-	entryComponents: [PreLoadingModule, NoDataModule, BlacklistComponent],
+	entryComponents: [BlacklistComponent],
 })
 export class MenuModule {}

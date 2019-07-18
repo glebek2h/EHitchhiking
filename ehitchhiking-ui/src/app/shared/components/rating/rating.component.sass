@@ -1,5 +1,4 @@
-@import "../../../../styles/fonts-constants"
-@import "../../../../styles/colour-constants"
+@import "../../../../styles.sass"
 
 .rating
   float: left
@@ -11,12 +10,12 @@
 .rating:not(:checked) > label
   float: right
   width: 1rem
-  padding: 0.1rem
+  padding: $default-offset * 0.1
   overflow: hidden
   white-space: nowrap
   cursor pointer
   font-size: $button
-  line-height: 1rem
+  line-height: $default-offset
   color: $grey
 .rating:not(:checked) > label:before
   content: '★ '

@@ -1,4 +1,4 @@
-@import "../../../../styles/colour-constants"
+@import "../../../../styles.sass"
 
 .gooey-md
   $dot-size: 0.5rem
@@ -6,9 +6,9 @@
     width: $dot-size
     height: $dot-size
   .single-dot
-    right: 5.5rem
+    right: $default-offset * 5.5
   .dot
-    margin-left: 0.5rem
+    margin-left: $default-offset * 0.5
 
 .gooey-sm
   $dot-size: 0.3rem
@@ -16,9 +16,9 @@
     width: $dot-size
     height: $dot-size
   .single-dot
-    right: 5rem
+    right: $default-offset * 5
   .dot
-    margin-left: 0.8rem
+    margin-left: $default-offset * 0.8
 
 .gooey-lg
   $dot-size: 1rem
@@ -26,9 +26,9 @@
     width: $dot-size
     height: $dot-size
   .single-dot
-    right: 6rem
+    right:$default-offset * 6
   .dot
-    margin-left: 1rem
+    margin-left: $default-offset
 
 .loading-screen-wrapper
   z-index: 100000
@@ -45,12 +45,12 @@
     justify-content: center
     .single-dot
       position: absolute
-      top: 0.75rem
+      top: $default-offset * 0.75
       background: $black
       border-radius: 50%
       animation: single-dot-move 2.8s infinite
     .dots-block
-      margin-top: 0.75rem
+      margin-top: $default-offset * 0.75
       animation: dots-block-move 2.8s infinite
       .dot
         display: block
