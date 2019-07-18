@@ -38,18 +38,19 @@ export class CarInfoFormComponent implements OnInit {
 	}
 
 	sendCarData(event: any, ifSubmit: boolean): void {
-		if ((ifSubmit && this.addCarMod) || !this.addCarMod) {
-			const inputs = event.target.classList.contains('car-form-input')
-				? event.target.closest('.car-form').getElementsByClassName('car-form-input')
-				: event.target.getElementsByClassName('car-form-input');
-
-			const model = inputs[0].value;
-			const color = inputs[1].value;
-			const carNumber = inputs[2].value;
-			const experience = inputs[3].value;
-
-			const newCar = new Car(model, color, carNumber, experience);
-			this.onChangeCarInfo.emit(newCar);
+		if (!(ifSubmit && this.addCarMod) && this.addCarMod) {
+			return;
 		}
+		const inputs = event.target.classList.contains('car-form-input')
+			? event.target.closest('.car-form').getElementsByClassName('car-form-input')
+			: event.target.getElementsByClassName('car-form-input');
+
+		const model = inputs[0].value;
+		const color = inputs[1].value;
+		const carNumber = inputs[2].value;
+		const experience = inputs[3].value;
+
+		const newCar = new Car(model, color, carNumber, experience);
+		this.onChangeCarInfo.emit(newCar);
 	}
 }
