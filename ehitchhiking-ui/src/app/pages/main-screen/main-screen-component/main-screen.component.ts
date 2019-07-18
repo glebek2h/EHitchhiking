@@ -9,8 +9,9 @@ export class MainScreenComponent implements OnInit {
 	constructor() {}
 
 	tripFormData: any; // TODO
-
 	isHiddenTripRegistration: boolean;
+	userState: string;
+	isSavedRoute: boolean;
 
   ngOnInit() {
     this.isHiddenTripRegistration = true;
@@ -23,6 +24,9 @@ export class MainScreenComponent implements OnInit {
   getData(data) {
    // console.log(data);
     this.tripFormData = data;
+  }
 
+  saveRoute() {
+    this.isSavedRoute = !this.isSavedRoute;
   }
 }

@@ -1,17 +1,18 @@
-<yandex-map [tripData]="tripFormData"></yandex-map>
+<yandex-map [tripData]="tripFormData" [userState]="userState" [isSavedRoute]="isSavedRoute"></yandex-map>
 <app-trip-registration [isShown]="isHiddenTripRegistration" (formData)="getData($event)"></app-trip-registration>
 <mat-button-toggle-group
 	class="btn-group"
 	name="fontStyle"
 	aria-label="Font Style"
 >
-	<mat-button-toggle class="passanger-btn" value="bold"
+	<mat-button-toggle class="passanger-btn" value="bold" (click)="userState = 'passenger'"
 		>Passenger</mat-button-toggle
 	>
-	<mat-button-toggle class="driver-btn" value="italic"
+	<mat-button-toggle class="driver-btn" value="italic" (click)="userState = 'driver'"
 		>Driver</mat-button-toggle
 	>
 </mat-button-toggle-group>
+<button mat-raised-button class="save-route" (click)="saveRoute()">save-route</button>
 <button class="plus-btn" mat-fab color="primary" (click)="openTripRegistrationForm()">
 	<i class="material-icons">
 		add

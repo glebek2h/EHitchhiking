@@ -23,18 +23,67 @@ export class YandexMapComponent implements OnInit, OnChanges {
 	tripDuration: string;
 
 	currentMultiRoute;
+	currentGeoPosition;
+	activeRoutesCollection: any[] = []; // TODO
 
+	@Input() userState: string;
 	@Input() tripData: any; // TODO
+	@Input() isSavedRoute: boolean;
 
 	ngOnInit() {
 		this.ymapsPromise = ymaps.load(this.apiURL);
 		this.createMap();
+		this.userState = 'passenger';
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
 		if (changes.tripData && changes.tripData.currentValue) {
-      this.myMap.geoObjects.remove(this.currentMultiRoute);
-			this.addMultiRoute();
+		  if(this.userState === 'driver')
+      {
+        this.myMap.geoObjects.remove(this.currentMultiRoute);
+        this.addMultiRoute();
+      }
+		}
+		if (changes.userState && changes.userState.currentValue) {
+		  console.log(this.userState);
+			if (this.userState === 'driver') {
+				this.myMap.geoObjects.remove(this.currentGeoPosition);
+				this.ymapsPromise.then((maps) => {
+					maps.geolocation
+						.get({
+							mapStateAutoApply: true,
+						})
+						.then((result) => {
+							result.geoObjects.options.set(
+								'preset',
+								'islands#redAutoCircleIcon'
+							);
+							this.currentGeoPosition = result.geoObjects;
+							this.myMap.geoObjects.add(this.currentGeoPosition);
+						});
+				});
+			}
+			if (this.userState === 'passenger') {
+				this.myMap.geoObjects.remove(this.currentGeoPosition);
+				this.ymapsPromise.then((maps) => {
+					maps.geolocation
+						.get({
+							mapStateAutoApply: true,
+						})
+						.then((result) => {
+							result.geoObjects.options.set(
+								'preset',
+								'islands#redPersonCircleIcon'
+							);
+							this.currentGeoPosition = result.geoObjects;
+							this.myMap.geoObjects.add(this.currentGeoPosition);
+						});
+				});
+			}
+		}
+		if (changes.isSavedRoute && this.currentMultiRoute) {
+			this.activeRoutesCollection.push(this.currentMultiRoute);
+			this.myMap.geoObjects.remove(this.currentMultiRoute);
 		}
 	}
 	createMap() {
@@ -53,7 +102,12 @@ export class YandexMapComponent implements OnInit, OnChanges {
 						mapStateAutoApply: true,
 					})
 					.then((result) => {
-						this.myMap.geoObjects.add(result.geoObjects);
+						this.currentGeoPosition = result.geoObjects;
+						result.geoObjects.options.set(
+							'preset',
+							'islands#redPersonCircleIcon'
+						);
+						this.myMap.geoObjects.add(this.currentGeoPosition);
 					});
 				new maps.SuggestView('suggest1');
 				new maps.SuggestView('suggest2');
@@ -93,9 +147,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
 	getInfoAboutRoute(multiRoute) {
 		multiRoute.events.add('update', (e) => {
 			const activeRoute = multiRoute.getActiveRoute();
-			this.tripDuration = activeRoute.properties.get(
-				'duration'
-			).text;
+			this.tripDuration = activeRoute.properties.get('duration').text;
 			activeRoute.events.add('mouseenter', () => {
 				activeRoute.options.set('strokeWidth', 5);
 				activeRoute.options.set('strokeColor', '#fb5b74');
