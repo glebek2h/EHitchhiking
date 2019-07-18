@@ -30,14 +30,14 @@ export class CarInfoFormComponent implements OnInit {
 		});
 	}
 
-	public hasError(controlName: string, errorName: string) {
+	hasError(controlName: string, errorName: string) {
 		if (this.addCarMod) {
 			return this.addCarForm.controls[controlName].hasError(errorName);
 		}
 		return (this.carInfoForm.controls[this.carIndex] as FormGroup).controls[controlName].hasError(errorName);
 	}
 
-	public sendCarData(event: any, ifSubmit: boolean): void {
+	sendCarData(event: any, ifSubmit: boolean): void {
 		if ((ifSubmit && this.addCarMod) || !this.addCarMod) {
 			const inputs = event.target.classList.contains('car-form-input')
 				? event.target.closest('.car-form').getElementsByClassName('car-form-input')

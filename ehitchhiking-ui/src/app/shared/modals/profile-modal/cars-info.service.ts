@@ -6,7 +6,7 @@ import {Car} from '../../models/car';
 export class CarsInfoService {
 	constructor() {}
 
-	public toFormGroup(cars: Car[], formBuilder: FormBuilder): FormGroup {
+	toFormGroup(cars: Car[], formBuilder: FormBuilder): FormGroup {
 		const group: any = {};
 		cars.forEach(function(car, index) {
 			group[index] = formBuilder.group({
@@ -22,7 +22,7 @@ export class CarsInfoService {
 		return new FormGroup(group);
 	}
 
-	public getCarsInfo(carsInfoForm: FormGroup, numOfCars: number): Car[] {
+	getCarsInfo(carsInfoForm: FormGroup, numOfCars: number): Car[] {
 		let car: any;
 		const cars: Car[] = [];
 		for (let i = 0; i < numOfCars; ++i) {

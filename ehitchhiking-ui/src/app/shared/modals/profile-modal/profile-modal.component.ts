@@ -33,30 +33,30 @@ export class ProfileModalComponent implements OnInit {
 		this.carsInfoForm = this.carsInfoService.toFormGroup(this.user.cars, this.formBuilder);
 	}
 
-	public close(): void {
+	close(): void {
 		this.dialogRef.close();
 	}
 
-	public toggleAddCarForm(): void {
+	toggleAddCarForm(): void {
 		this.addCarMod = !this.addCarMod;
 	}
 
-	public onSubmitNewCar(newCar: Car): void {
+	onSubmitNewCar(newCar: Car): void {
 		this.user.addCar(newCar);
 		this.carsInfoForm = this.carsInfoService.toFormGroup(this.user.cars, this.formBuilder);
 		this.addCarMod = false;
 	}
 
-	public onSubmitCarsChanges(): void {
+	onSubmitCarsChanges(): void {
 		const newCars = this.carsInfoService.getCarsInfo(this.carsInfoForm, this.user.cars.length);
 		this.user.cars = newCars;
 	}
 
-	public onChange(): void {
+	onChange(): void {
 		this.submitButton.disabled = this.carsInfoForm.invalid;
 	}
 
-	public onCarDelete(event: MouseEvent, index: number): void {
+	onCarDelete(event: MouseEvent, index: number): void {
 		const target = event.target as HTMLElement;
 		console.log(target.closest('.profile-car-info'));
 		target.closest('.profile-car-info').remove();
