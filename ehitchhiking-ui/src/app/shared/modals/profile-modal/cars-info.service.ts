@@ -18,7 +18,7 @@ export class CarsInfoService {
 				],
 			});
 		});
-		return new FormGroup(group as any); //group type is [key:string]: FormGroup
+		return new FormGroup(group as any); // group type is [key:string]: FormGroup
 	}
 
 	getCarsInfo(carsInfoForm: FormGroup, numOfCars: number): Car[] {
