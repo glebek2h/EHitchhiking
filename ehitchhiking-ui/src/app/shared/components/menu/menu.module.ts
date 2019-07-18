@@ -10,10 +10,11 @@ import {
 } from '@angular/material';
 import {BlacklistComponent} from '../blacklist/blacklist.component';
 import {FormsModule} from '@angular/forms';
-import {PreLoadingComponent} from '../pre-loading/pre-loading.component';
+import {PreLoadingModule} from '../pre-loading/pre-loading.module';
+import {NoDataModule} from '../no-data/no-data.module';
 
 @NgModule({
-	declarations: [MenuComponent, BlacklistComponent, PreLoadingComponent],
+	declarations: [MenuComponent, BlacklistComponent],
 	imports: [
 		CommonModule,
 		MatCheckboxModule,
@@ -22,8 +23,10 @@ import {PreLoadingComponent} from '../pre-loading/pre-loading.component';
 		MatButtonModule,
 		MatTableModule,
 		MatDialogModule,
+		PreLoadingModule,
+		NoDataModule,
 	],
 	entryComponents: [BlacklistComponent],
-	exports: [MenuComponent, BlacklistComponent, PreLoadingComponent],
+	exports: [MenuComponent, BlacklistComponent],
 })
 export class MenuModule {}

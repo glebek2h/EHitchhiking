@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {BLACKLISTUSERS} from './blacklist-users';
 import {MatDialogRef} from '@angular/material';
 import {LoaderSize} from '../../enums/pre-loader-sizes';
+import {NoDataSize} from '../../enums/no-data-sizes';
 
 @Component({
 	selector: 'app-blacklist',
@@ -10,7 +11,10 @@ import {LoaderSize} from '../../enums/pre-loader-sizes';
 })
 export class BlacklistComponent implements OnInit {
 	blacklistUsersArray = [];
-	size: LoaderSize = LoaderSize.Large;
+	loaderSize: LoaderSize = LoaderSize.Large;
+	noDataSize: NoDataSize = NoDataSize.Small;
+	noDataMessage = 'kyky';
+	noDataIconName = 'accessibility';
 	loading = true;
 	constructor(public dialogRef: MatDialogRef<BlacklistComponent>) {}
 

@@ -5,43 +5,27 @@
       history
     </i>
   </header>
-  <div mat-dialog-content class="trips" >
+  <div mat-dialog-content class="trips"
+       >
     <div
       class="trips-user"
-      *ngFor="let trip of tripsArray; let i = index"
+      *ngFor="let trip of tripsArray; trackBy: trackByFn"
     >
-      <i class="material-icons">
-        directions_car
-      </i>
-      <p class="trips-list truncated">{{ trip }}</p>
-      <div class = "form row">
-        <button class = "trip-btn">
-          <i class="material-icons" >
-            event_available
-          </i>
-        </button>
-        <button class = "trip-btn">
-          <i class="material-icons">
-            star_border
-          </i>
-        </button>
-        <button class = "trip-btn" id = "favorite-{{i}}" data-favorite="0" (click)="favorite(i)">
-          <i class="material-icons">
-            favorite_border
-          </i>
-        </button>
-      </div>
+      <app-trip class = "trip" [trip]=trip (change)="tripChange($event)"></app-trip>
     </div>
-    <div class = "form" *ngIf="!tripsArray.length">
-      <span class="center" >List is empty!</span>
-    </div>
+
+      <app-no-data class = "no-date" *ngIf="!tripsArray.length"></app-no-data>
+
+<!--    <div class = "form" *ngIf="!tripsArray.length">-->
+<!--      <span class="center" >List is empty!</span>-->
+<!--    </div>-->
 
   </div>
   <footer>
     <div mat-dialog-actions class="trips-btn">
       <button mat-button (click)="exit()">Back</button>
-      <button mat-button (click) = "replase_all()">Replase all</button>
-      <button mat-button>More</button>
+      <button mat-button (click) = "replase_all()" *ngIf="tripsArray.length">Replase all</button>
+      <button mat-button (click) = "downloadMore()" *ngIf="tripsArray.length">More</button>
     </div>
   </footer>
 

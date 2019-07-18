@@ -6,9 +6,11 @@ import {
   MatDialogModule,
   MatTableModule,
 } from '@angular/material';
+import { TripModule } from "../trip/trip.module";
+import { NoDataModule } from "../no-data/no-data.module";
 @NgModule({
   declarations: [TripsComponent],
-  imports: [CommonModule, MatButtonModule, MatDialogModule, MatTableModule],
+  imports: [CommonModule, MatButtonModule, MatDialogModule, MatTableModule, TripModule, NoDataModule],
   entryComponents: [TripsComponent],
   exports: [TripsComponent],
 })

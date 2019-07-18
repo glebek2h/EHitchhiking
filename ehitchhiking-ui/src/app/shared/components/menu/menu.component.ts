@@ -15,7 +15,7 @@ export class MenuComponent implements OnInit {
 	opened: boolean;
 	buttonsArray = [];
 
-	constructor(private router: Router, public dialog: MatDialog){}
+	constructor(private router: Router, public dialog: MatDialog) {}
 
 	ngOnInit() {
 		this.buttonsArray = BUTTONS_NAMES;
@@ -38,9 +38,9 @@ export class MenuComponent implements OnInit {
 		});
 	}
 
-  logOut() {
-	  this.router.navigateByUrl('/login');
-  }
+	logOut() {
+		this.router.navigateByUrl('/login');
+	}
 
   openHistoryDialog(){
     const dialogRef = this.dialog.open(TripsComponent, {

@@ -1,7 +1,7 @@
-export const HISTORIES: string[] = [
-  'Mstislavca -> Turovsky',
-  'Mstislavca -> Turovsky',
-  'Mstislavca -> Turovsky',
-  'Mstislavca -> Turovsky',
-  'Mstislavca -> Turovsky'
-];
+export interface Trip {
+  id: number;
+  from_: string;
+  to: string;
+  isFavorite: boolean;
+  status: number;
+}
