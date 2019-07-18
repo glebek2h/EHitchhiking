@@ -35,20 +35,12 @@ export class CarInfoFormComponent implements OnInit {
 		return (this.carInfoForm.controls[this.carIndex] as FormGroup).controls[controlName].hasError(errorName);
 	}
 
-	sendCarData(event: any, ifSubmit: boolean): void {
+	sendCarData(ifSubmit: boolean): void {
 		if (!(ifSubmit && this.addCarMod) && this.addCarMod) {
 			return;
 		}
-		const inputs = event.target.classList.contains('car-form-input')
-			? event.target.closest('.car-form').getElementsByClassName('car-form-input')
-			: event.target.getElementsByClassName('car-form-input');
-
-		const model = inputs[0].value;
-		const color = inputs[1].value;
-		const carNumber = inputs[2].value;
-		const experience = inputs[3].value;
-
-		const newCar = new Car(model, color, carNumber, experience);
+		const data = ifSubmit ? this.addCarForm.value : this.carInfoForm.value;
+		const newCar = new Car(data.model, data.color, data.carNumber, data.experience);
 		this.onChangeCarInfo.emit(newCar);
 	}
 }

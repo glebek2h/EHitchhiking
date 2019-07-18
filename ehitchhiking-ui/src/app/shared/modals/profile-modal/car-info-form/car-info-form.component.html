@@ -1,5 +1,5 @@
 <form novalidate [formGroup]="addCarMod ? addCarForm : carInfoForm.controls[carIndex]" class="car-form"
-	(ngSubmit)="sendCarData($event, true)" (change)="sendCarData($event, false)">
+	(ngSubmit)="sendCarData(true)" (change)="sendCarData(false)">
 	<mat-form-field class="car-form-field">
 		<input matInput formControlName="model" placeholder="Model" class="car-form-input">
 	</mat-form-field>
