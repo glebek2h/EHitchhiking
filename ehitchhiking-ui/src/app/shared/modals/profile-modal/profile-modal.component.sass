@@ -1,4 +1,7 @@
-@import '../../../../styles'
+@import '../../../../styles/colors'
+@import '../../../../styles/fonts-constants'
+@import '../../../../styles/constants'
+@import '../../../../styles/mixins'
 
 .profile-container
     position: relative
@@ -62,10 +65,10 @@
             right: $default-offset
             @include flexbox()
             .profile-add-car-button, .profile-close-car-button
-                color: mat-color($primary, A100)
-                background-color: mat-color($primary, A200)
+                color: mat-color($primary)
+                background-color: mat-color($accent, 400)
                 &:hover
-                    background-color: mat-color($primary, A700)
+                    background-color: mat-color($accent, 700)
         .cars-form-submit
             width: 100%
             @include flexbox()
@@ -83,4 +86,3 @@
 
         &-button:hover
             background-color: mat-color($accent, 50)
-
