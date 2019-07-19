@@ -1,13 +1,6 @@
 <div class="modal-wrapper">
-	<!--<app-pre-loading
-        [isLoading]="loading"
-        [size]="loaderSize"
-    ></app-pre-loading>-->
-	<!--<app-no-data
-        [size]="noDataSize"
-        [message]="noDataMessage"
-        [icon]="noDataIconName"
-    ></app-no-data>-->
+	<app-pre-loading [isLoading]="loading" [size]="loaderSize"></app-pre-loading>
+	<app-no-data [size]="noDataSize" [message]="noDataMessage" [icon]="noDataIconName"></app-no-data>
 	<header class="modal-header">
 		<span>Blacklist</span>
 	</header>
@@ -18,8 +11,8 @@
 			<i class="material-icons remove-icon" (click)="removePerson(i)">remove_circle</i>
 		</mat-card>
 	</div>
-	<div class="modal-close">
-		<button class="modal-close-btn" mat-icon-button (click)="close()">
+	<div class="modal-close-control">
+		<button class="modal-close-control-btn" mat-icon-button (click)="close()">
 			<mat-icon>close</mat-icon>
 		</button>
 	</div>

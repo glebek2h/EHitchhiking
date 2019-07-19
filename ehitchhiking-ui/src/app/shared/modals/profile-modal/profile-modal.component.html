@@ -1,6 +1,6 @@
 <div class="modal-wrapper">
 	<div class="modal-header">
-		<span>{{ user.name | uppercase }}</span>
+		<span>{{ user.name }}</span>
 	</div>
 	<div class="modal-content">
 		<div class="profile-user-info">
@@ -74,8 +74,8 @@
 			</div>
 		</form>
 	</div>
-	<div class="modal-close">
-		<button mat-icon-button class="modal-close-btn" (click)="close()">
+	<div class="modal-close-control">
+		<button mat-icon-button class="modal-close-control-btn" (click)="close()">
 			<mat-icon>close</mat-icon>
 		</button>
 	</div>
