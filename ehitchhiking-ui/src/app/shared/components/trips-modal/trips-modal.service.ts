@@ -4,7 +4,7 @@ import { Trip } from "./trips";
 @Injectable({
   providedIn: 'root'
 })
-export class TripsService {
+export class TripsModalService {
 
   constructor() { }
   StatusEnum = Object.freeze({"active":0, "completed":1, "declined":2});

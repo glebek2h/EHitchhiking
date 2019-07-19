@@ -5,7 +5,7 @@ import {MatDialog} from '@angular/material';
 import {RatePassengersModalComponent} from '../rate-passengers-modal/rate-passengers-modal.component';
 import {ProfileModalComponent} from '../../modals/profile-modal/profile-modal.component';
 import {Router} from '@angular/router';
-import { TripsComponent } from "../trips/trips.component";
+import { TripsModalComponent } from "../trips-modal/trips-modal.component";
 
 @Component({
 	selector: 'app-menu',
@@ -44,7 +44,7 @@ export class MenuComponent implements OnInit {
 	}
 
   openHistoryDialog(){
-    const dialogRef = this.dialog.open(TripsComponent, {
+    const dialogRef = this.dialog.open(TripsModalComponent, {
       width: '600px',
     });
     dialogRef.afterClosed().subscribe((result) => {

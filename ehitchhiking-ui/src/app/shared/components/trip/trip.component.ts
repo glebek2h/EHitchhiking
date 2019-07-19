@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { Trip } from "../trips/trips";
+import { Trip } from "../trips-modal/trips";
 
 @Component({
   selector: 'app-trip',

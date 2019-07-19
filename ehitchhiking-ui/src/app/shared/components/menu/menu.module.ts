@@ -15,8 +15,9 @@ import {BlacklistComponent} from '../blacklist/blacklist.component';
 import {FormsModule} from '@angular/forms';
 import {PreLoadingModule} from '../pre-loading/pre-loading.module';
 import {NoDataModule} from '../no-data/no-data.module';
+import { TripsModalModule } from "../trips-modal/trips-modal.module";
 import { TripModule } from "../trip/trip.module";
-import { TripsModule } from "../trips/trips.module";
+import { TripsModalComponent } from "../trips-modal/trips-modal.component";
 
 @NgModule({
 	declarations: [MenuComponent, BlacklistComponent],
@@ -34,9 +35,9 @@ import { TripsModule } from "../trips/trips.module";
 		PreLoadingModule,
 		NoDataModule,
     TripModule,
-    TripsModule
+    TripsModalModule
 	],
 	exports: [MenuComponent, BlacklistComponent],
-	entryComponents: [BlacklistComponent],
+	entryComponents: [BlacklistComponent, TripsModalComponent],
 })
 export class MenuModule {}

@@ -1,0 +1,32 @@
+<div class="trips-modal-container">
+  <app-pre-loading
+    [isLoading]="loading"
+    [size]="loaderSize"
+  ></app-pre-loading>
+  <header class = "form-row">
+    <h1 mat-dialog-title class = "trips-title">History</h1>
+    <i class="material-icons">
+      history
+    </i>
+  </header>
+  <div mat-dialog-content class="trips"
+       >
+    <div
+      class="trips-user"
+      *ngFor="let trip of tripsArray; trackBy: trackByFn"
+    >
+      <app-trip class = "trip" [trip]=trip (change)="tripChange($event)"></app-trip>
+    </div>
+
+      <app-no-data *ngIf="!tripsArray.length"></app-no-data>
+
+  </div>
+  <footer>
+    <div mat-dialog-actions class="trips-btn">
+      <button mat-button (click)="exit()">Back</button>
+      <button mat-button (click) = "replaceAll()" *ngIf="tripsArray.length">Replase all</button>
+      <button mat-button (click) = "downloadMore()" *ngIf="tripsArrayLenght > end && tripsArray.length">More</button>
+    </div>
+  </footer>
+
+</div>
