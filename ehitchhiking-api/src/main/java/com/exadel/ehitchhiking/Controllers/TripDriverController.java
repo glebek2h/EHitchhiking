@@ -1,6 +1,6 @@
 package com.exadel.ehitchhiking.Controllers;
 
-import com.exadel.ehitchhiking.Services.TripDriverService;
+import com.exadel.ehitchhiking.Services.impl.TripDriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -14,8 +14,7 @@ import java.sql.Timestamp;
 public class TripDriverController {
 
     @Autowired
-    TripDriverService tripDriverService = new TripDriverService();
-
+    private TripDriverService tripDriverService;
 
     @PostMapping("/createTrip")
     public void createTrip(String startingPoint, String endingPoint,
@@ -29,7 +28,6 @@ public class TripDriverController {
             //TODO: return
         }
     }
-
 
     @PutMapping("/updateStartingPlace")
     public void updateStartingPlace(String tripId, String number) {
@@ -122,7 +120,6 @@ public class TripDriverController {
         }
     }
 
-
     @PutMapping("/finishedTrip")
     public void addToFinished(String tripId) {
         try {
@@ -132,7 +129,6 @@ public class TripDriverController {
             //TODO: figure out the return
         }
     }
-
 
     @PutMapping("/changeCar")
     public void changeCar(String tripId, String newCarId) {

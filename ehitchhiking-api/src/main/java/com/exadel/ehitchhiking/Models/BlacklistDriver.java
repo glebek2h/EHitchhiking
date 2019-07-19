@@ -10,9 +10,10 @@ import java.util.Set;
 
 
 @Entity
-@Table(name = "blacklist_driver", schema = "public")
+@Table(name = "blacklist_driver")
 @ToString
 @EqualsAndHashCode
+@NoArgsConstructor
 public class BlacklistDriver  {
 
     @Id
@@ -24,8 +25,7 @@ public class BlacklistDriver  {
 
     @Getter
     @Setter
-    @OneToOne (fetch = FetchType.LAZY)
-    @JoinColumn(name = "driver_id")
+    @OneToOne (fetch = FetchType.LAZY, mappedBy = "driver_id")
     private Driver driver;
 
     @Getter
@@ -33,6 +33,7 @@ public class BlacklistDriver  {
     @OneToMany(fetch = FetchType.LAZY)
     private Set<Passenger> passSet;
 
-    public BlacklistDriver(){}
-
+    public BlacklistDriver(Driver driver){
+        this.driver = driver;
+    }
 }

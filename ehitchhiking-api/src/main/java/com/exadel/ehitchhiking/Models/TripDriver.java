@@ -2,9 +2,7 @@ package com.exadel.ehitchhiking.Models;
 
 
 import lombok.*;
-import org.springframework.stereotype.Component;
 
-import java.io.Serializable;
 import java.sql.*;
 import java.util.Set;
 
@@ -14,6 +12,7 @@ import javax.persistence.*;
 @Table(name = "trip_driver")
 @ToString
 @EqualsAndHashCode
+@NoArgsConstructor
 public class TripDriver {
 
 
@@ -22,72 +21,71 @@ public class TripDriver {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Setter(AccessLevel.PRIVATE)
     @Getter
-    private int trip_driver_id;
+    @Column(name = "trip_driver_id")
+    private Integer id;
 
     @Getter
     @Setter
-    @OneToMany
-    //@JoinColumn(name = "trip_pass_id")
-    private Set<TripPass> set_trip_pass_id;
+    @OneToMany(mappedBy = "trip_pass_id")
+    private Set<TripPass> tripPassSet;
 
     @Getter
     @Setter
-    private  String point_start;
+    @Column(name = "point_start")
+    private String startPoint;
 
     @Getter
     @Setter
-    private String point_end;
+    @Column(name = "point_end")
+    private String endPoint;
 
     @Getter
     @Setter
-    private Timestamp time_start;
+    @Column(name = "time_start")
+    private Timestamp startTime;
 
     @Getter
     @Setter
-    private Timestamp time_end;
+    @Column(name = "time_end")
+    private Timestamp endTime;
 
     @Getter
     @Setter
     @ManyToOne
-    //@JoinColumn(name = "car_id")
-    private Cars car;
+    @Column(name = "cer_id")
+    private Car car;
 
     @Setter
     @Getter
-
-    private boolean isactive;
-
-    @Setter
-    @Getter
-    private boolean isfinished;
+    @Column(name = "isactive")
+    private boolean isActive;
 
     @Setter
     @Getter
-    private boolean issaved;
+    @Column(name = "isfinished")
+    private boolean isFinished;
+
+    @Setter
+    @Getter
+    @Column(name = "issaved")
+    private boolean isSaved;
 
     @Getter
     @Setter
-    private int available_seats;
+    @Column(name = "available_seats")
+    private int availableSeats;
 
-
-    // empty constructor
-    public TripDriver(){}
-
-
-    // constructor
-    public TripDriver(String startingPoint, String endingPoint,
-                      Timestamp startingTime, Timestamp endingTime, boolean is_Active,
-                      boolean is_Finished, boolean is_Saved, int seats, Cars car){
-
-
-        this.point_start = startingPoint;
-        this.point_end = endingPoint;
-        this.time_start = startingTime;
-        this.time_end = endingTime;
-        this.issaved = is_Saved;
-        this.isactive = is_Active;
-        this.isfinished = is_Finished;
-        this.available_seats = seats;
+    public TripDriver(String startPoint, String endPoint,
+                      Timestamp startTime, Timestamp endTime, boolean isActive,
+                      boolean isFinished, boolean isSaved, int seats, Car car){
+        this.startPoint = startPoint;
+        this.endPoint = endPoint;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.isActive = isActive;
+        this.isFinished = isFinished;
+        this.isSaved = isSaved;
+        this.availableSeats = seats;
         this.car = car;
     }
 }

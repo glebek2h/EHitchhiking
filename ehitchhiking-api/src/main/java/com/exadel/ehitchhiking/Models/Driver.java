@@ -9,9 +9,9 @@ import java.io.Serializable;
 
 @Entity
 @ToString
-@Table(name = "driver", schema = "public")
-@NoArgsConstructor
+@Table(name = "driver")
 @EqualsAndHashCode
+@NoArgsConstructor
 public class Driver {
 
     @Id
@@ -21,26 +21,24 @@ public class Driver {
     @Column(name = "driver_id")
     private Integer id;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
     @Getter
     @Setter
+    @OneToOne(mappedBy = "user_id")
     private Employee employee;
 
-    // what is the cumulative rate of the driver
     @Getter
     @Setter
-    private float rate_driver;
+    @Column(name = "rate_driver")
+    private float rate;
 
-
-    // the amount of people that have rated the driver
     @Getter
     @Setter
-    private int rating_people;
+    @Column(name = "rating_people")
+    private int ratedPeoples;
 
-    public Driver(Employee employee, float rate, int rating_people){
+    public Driver(Employee employee, float rate, int ratedPeoples){
         this.employee = employee;
-        this.rate_driver = rate;
-        this.rating_people = rating_people;
+        this.rate = rate;
+        this.ratedPeoples = ratedPeoples;
     }
 }

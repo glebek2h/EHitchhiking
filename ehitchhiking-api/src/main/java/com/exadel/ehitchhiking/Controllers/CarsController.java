@@ -1,18 +1,15 @@
 package com.exadel.ehitchhiking.Controllers;
 
-import com.exadel.ehitchhiking.Services.CarsService;
+import com.exadel.ehitchhiking.Services.impl.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/Cars")
+@RequestMapping("/Car")
 public class CarsController {
 
     @Autowired
-    CarsService carsService;
+    private CarService carsService;
 
 
     @PutMapping("/updateColor")
@@ -35,37 +32,21 @@ public class CarsController {
         }
     }
 
-    @PostMapping("/newCar")
+    @PostMapping
     public void addNewCar(String color, String number, String car_model,
                           String id_of_driver) {
-        System.out.println(color);
-        System.out.println(number);
-        System.out.println(car_model);
-        System.out.println(id_of_driver);
-        System.out.println(carsService);
-        carsService.createCar(color, number, car_model,
-                Integer.getInteger(id_of_driver));
         try {
-            /*System.out.println(carsService.getAmountCars(Integer.getInteger(id_of_driver)));
-            if (carsService.getAmountCars(Integer.getInteger(id_of_driver)) < 5) {
-
-            } else {
-                // TODO: return failed status
-
-            }*/
-
+            carsService.createCar(color, number, car_model,
+                    Integer.getInteger(id_of_driver));
         } catch (Exception e) {
         }
     }
 
-
-    @PostMapping("/deleteCar")
+    @DeleteMapping
     public void deleteCar(String carId) {
         try {
             carsService.deleteCarId(Integer.getInteger(carId));
-
         } catch (Exception e) {
         }
     }
-
 }

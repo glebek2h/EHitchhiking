@@ -7,18 +7,17 @@ import java.io.Serializable;
 
 @Entity
 @ToString
-@Table(name = "employee", schema = "public")
-@NoArgsConstructor
+@Table(name = "employee")
 @EqualsAndHashCode
+@NoArgsConstructor
 public class Employee {
-
-    // declaring the attributes of the employee class (according to the database table )
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Setter(AccessLevel.PRIVATE)
     @Getter
-    private int id;
+    @Column(name = "id")
+    private Integer id;
 
     @Getter
     @Setter
@@ -28,7 +27,7 @@ public class Employee {
     @Getter
     @Setter
     @Column(name = "username")
-    private String userName;
+    private String username;
 
     @Getter
     @Setter
@@ -56,11 +55,9 @@ public class Employee {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    // init method to create a new employee
-
-    public Employee(boolean isAdmin, String userName, String firstName, String lastName, String email, String password, String phoneNumber) {
+    public Employee(boolean isAdmin, String username, String firstName, String lastName, String email, String password, String phoneNumber) {
         this.isAdmin = isAdmin;
-        this.userName = userName;
+        this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

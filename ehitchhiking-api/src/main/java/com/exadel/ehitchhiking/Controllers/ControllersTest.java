@@ -1,16 +1,12 @@
 package com.exadel.ehitchhiking.Controllers;
 
 
-import com.exadel.ehitchhiking.Models.Driver;
 import com.exadel.ehitchhiking.Models.Employee;
-import com.exadel.ehitchhiking.Services.*;
+import com.exadel.ehitchhiking.Services.impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.sql.Timestamp;
 
 @RestController
 @RequestMapping("/test")
@@ -18,23 +14,21 @@ public class ControllersTest {
 
     // creates the services for empl, pass and driver
     @Autowired
-    EmployeeService employeeService = new EmployeeService();
+    private EmployeeService employeeService;
     @Autowired
-    PassengerService passengerService = new PassengerService();
+    private PassengerService passengerService;
     @Autowired
-    DriverService driverService = new DriverService();
+    private DriverService driverService;
     @Autowired
-    BlackListDriverService blackListDriverService = new BlackListDriverService();
+    private BlackListDriverService blackListDriverService;
     @Autowired
-    BlackListPassengerService blackListPassengerService = new BlackListPassengerService();
+    private BlackListPassengerService blackListPassengerService;
     @Autowired
-    TripPassengerService tripPassService = new TripPassengerService();
+    private TripPassengerService tripPassService;
 
     @PostMapping("/addEmployee")
-
     public void createEmployee(String isAdmin, String userName, String firstName,
                                String lastName, String email, String password, String phoneNumber) {
-
 
 
         // creates the employee by the parameters that were passed in the func
@@ -56,7 +50,4 @@ public class ControllersTest {
         int idDriver = driverService.findDriverIdByUsername(userName);
         blackListDriverService.createBlackList(idDriver);
     }
-
-
-
 }

@@ -1,8 +1,9 @@
-package com.exadel.ehitchhiking.Services;
+package com.exadel.ehitchhiking.Services.impl;
 
 
 import com.exadel.ehitchhiking.DAO.IBlackListDriverDAO;
 import com.exadel.ehitchhiking.Models.Passenger;
+import com.exadel.ehitchhiking.Services.IBlackListDriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,10 +16,10 @@ import java.util.Set;
 
 @Service
 @Transactional(rollbackOn = Exception.class)
-public class BlackListDriverService {
+public class BlackListDriverService implements IBlackListDriverService {
 
     @Autowired
-    private IBlackListDriverDAO dao = new BlackListDriverIBasicDAO();
+    private IBlackListDriverDAO dao;
 
 
     public void createBlackList(int userId){
@@ -38,15 +39,10 @@ public class BlackListDriverService {
         dao.update(blacklist_driver);
     }
 
-
     public void deletePass(int driverId, int passId){
         BlacklistDriver blacklist_driver = dao.get(driverId);
         blacklist_driver.getPassSet().remove(dao.getPassenger(passId));
         dao.update(blacklist_driver);
     }
-
-   // public Set<Passenger> findAllPass(int driverId){
-  //      return dao.getByDriverId(driverId).getPassSet();
-  //  }
 }
 

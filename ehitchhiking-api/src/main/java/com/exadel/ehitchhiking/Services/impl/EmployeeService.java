@@ -1,8 +1,9 @@
-package com.exadel.ehitchhiking.Services;
+package com.exadel.ehitchhiking.Services.impl;
 
 import com.exadel.ehitchhiking.DAO.IEmployeeDAO;
 import com.exadel.ehitchhiking.DAO.impl.EmployeeDAO;
 import com.exadel.ehitchhiking.Models.Employee;
+import com.exadel.ehitchhiking.Services.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,16 +11,16 @@ import javax.transaction.Transactional;
 
 @Service
 @Transactional(rollbackOn = Exception.class)
-public class EmployeeService {
+public class EmployeeService implements IEmployeeService {
 
     @Autowired
-    private IEmployeeDAO dao = new EmployeeDAO();
+    private IEmployeeDAO dao;
 
     public void createEmployee(boolean isAdmin, String username, String firstName, String lastName, String email, String password, String phoneNum) {
         dao.save(new Employee(isAdmin, username, firstName, lastName, email, password, phoneNum));
     }
 
-    public Employee findUserId(int userId){
+    public Employee findUserId(int userId) {
         return dao.get(userId);
     }
 
@@ -27,7 +28,7 @@ public class EmployeeService {
         return dao.getByName(username);
     }
 
-    public int findIdByUsername (String username) {
+    public int findIdByUsername(String username) {
         Employee employee = dao.getByName(username);
         return employee.getId();
     }
@@ -38,13 +39,11 @@ public class EmployeeService {
         dao.update(employee);
     }
 
-
     public void updateEmail(String username, String email) {
         Employee employee = dao.getByName(username);
         employee.setPassword(email);
         dao.update(employee);
     }
-
 
     public void updateFirstName(String username, String firstName) {
         Employee employee = dao.getByName(username);
@@ -65,7 +64,6 @@ public class EmployeeService {
         employee.setPassword(phone);
         dao.update(employee);
     }
-
 
     public void deleteUser(String username) {
         dao.delete(dao.getByName(username));

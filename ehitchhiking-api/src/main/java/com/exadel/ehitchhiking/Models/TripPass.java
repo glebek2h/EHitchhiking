@@ -13,83 +13,83 @@ import java.sql.Timestamp;
 @Table(name = "trip_pass")
 @ToString
 @EqualsAndHashCode
+@NoArgsConstructor
 public class TripPass {
-
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Setter(AccessLevel.PRIVATE)
     @Getter
-    private  int trip_pass_id;
+    @Column(name = "trip_pass_id")
+    private  Integer id;
 
 
     @Getter
     @Setter
-    private  String point_start;
+    @Column(name = "point_start")
+    private String startPoint;
 
     @Getter
     @Setter
-    private String point_end;
+    @Column(name = "point_end")
+    private String endPoint;
 
     @Getter
     @Setter
-    private Timestamp time_start;
+    @Column(name = "time_start")
+    private Timestamp startTime;
 
     @Getter
     @Setter
-    private Timestamp time_end;
-
-    @Getter
-    @Setter
-    @ManyToOne
-    @JoinColumn(name ="pass_id", referencedColumnName = "pass_id")
-    private Passenger pass;
-
-    @Setter
-    @Getter
-
-    private boolean isactive;
-
-    @Setter
-    @Getter
-    private boolean isfinished;
-
-    @Setter
-    @Getter
-    private boolean issaved;
-
-    @Setter
-    @Getter
-    private int booked_seats;
-
-
+    @Column(name = "time_end")
+    private Timestamp endTime;
 
     @Getter
     @Setter
     @ManyToOne
-    //@JoinColumn(name = "trip_id", referencedColumnName = "trip_driver_id")
+    @Column(name = "pass_id")
+    private Passenger passenger;
+
+    @Setter
+    @Getter
+    @Column(name = "isactive")
+    private boolean isActive;
+
+    @Setter
+    @Getter
+    @Column(name = "isfinished")
+    private boolean isFinished;
+
+    @Setter
+    @Getter
+    @Column(name = "issaved")
+    private boolean isSaved;
+
+    @Setter
+    @Getter
+    @Column(name = "booked_seats")
+    private int bookedSeats;
+
+    @Getter
+    @Setter
+    @ManyToOne
+    @Column(name = "trip_id")
     private TripDriver tripDriver;
 
-
-    // empty constructor
-    public TripPass(){}
-
-
-    // constructor
-    public TripPass(String startingPoint, String endingPoint,
-                    Timestamp startingTime, Timestamp endingTime, boolean is_Active,
-                    boolean is_Finished, boolean is_Saved, int seats){
-
-
-        this.point_start = startingPoint;
-        this.point_end = endingPoint;
-        this.time_start = startingTime;
-        this.time_end = endingTime;
-        this.issaved = is_Saved;
-        this.isactive = is_Active;
-        this.isfinished = is_Finished;
-        this.booked_seats = seats;
+    public TripPass(String startPoint, String endPoint,
+                    Timestamp startTime, Timestamp endTime, boolean isActive,
+                    boolean isFinished, boolean isSaved, int seats,
+                    Passenger passenger, TripDriver tripDriver){
+        this.startPoint = startPoint;
+        this.endPoint = endPoint;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.isActive = isActive;
+        this.isFinished = isFinished;
+        this.isSaved = isSaved;
+        this.bookedSeats = seats;
+        this.passenger = passenger;
+        this.tripDriver = tripDriver;
     }
 
 }

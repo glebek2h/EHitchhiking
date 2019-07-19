@@ -1,7 +1,7 @@
 package com.exadel.ehitchhiking.Controllers;
 
 
-import com.exadel.ehitchhiking.Services.TripPassengerService;
+import com.exadel.ehitchhiking.Services.impl.TripPassengerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -15,8 +15,7 @@ import java.sql.Timestamp;
 public class TripPassengerController {
 
     @Autowired
-    TripPassengerService tripPassengerService = new TripPassengerService();
-
+    private TripPassengerService tripPassengerService;
 
     @PostMapping("/createTrip")
     public void createTrip(String pass_id, String startingPoint, String endingPoint,
@@ -40,7 +39,6 @@ public class TripPassengerController {
             //TODO: figure out the return
         }
     }
-
 
     @PutMapping("/updateEndingPlace")
     public void updateEndingPlace(String tripId, String number) {
@@ -102,16 +100,6 @@ public class TripPassengerController {
         }
     }
 
-    @PutMapping("/addToHistory")
-    public void addToHistory(String tripId) {
-        try {
-            tripPassengerService.updateHistory(Integer.getInteger(tripId), true);
-            //TODO: return
-        } catch (Exception e) {
-            //TODO: figure out the return
-        }
-    }
-
     @PutMapping("/cancelledTrip")
     public void addToCancelled(String tripId) {
         try {
@@ -122,7 +110,6 @@ public class TripPassengerController {
         }
     }
 
-
     @PutMapping("/finishedTrip")
     public void addToFinished(String tripId) {
         try {
@@ -132,5 +119,4 @@ public class TripPassengerController {
             //TODO: figure out the return
         }
     }
-
 }

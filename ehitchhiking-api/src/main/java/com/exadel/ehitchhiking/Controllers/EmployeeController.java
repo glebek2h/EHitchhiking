@@ -1,16 +1,18 @@
 package com.exadel.ehitchhiking.Controllers;
 
 
-import com.exadel.ehitchhiking.Services.EmployeeService;
+import com.exadel.ehitchhiking.Services.impl.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController("/Employee")
+@RestController
+@RequestMapping("/Employee")
 public class EmployeeController {
 
     @Autowired
-    EmployeeService employeeService = new EmployeeService();
+    EmployeeService employeeService;
 
     @PutMapping("/updatePassword")
     public void updatePassword(String username, String password){

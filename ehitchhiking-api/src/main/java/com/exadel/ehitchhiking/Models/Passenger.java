@@ -8,39 +8,38 @@ import java.io.Serializable;
 
 @Entity
 @ToString
-@Table(name = "passenger", schema = "public")
-@NoArgsConstructor
+@Table(name = "passenger")
 @EqualsAndHashCode
+@NoArgsConstructor
 public class Passenger  {
 
     @Id
-    @Column(name = "pass_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Setter
     @Getter
+    @Column(name = "pass_id")
     private Integer id;
 
     @Getter
     @Setter
-    @OneToOne
-    @JoinColumn(name = "user_id")
+    @OneToOne(mappedBy = "user_id")
     private Employee employee;
 
 
     @Getter
     @Setter
-    @Column(name = "rate_pass")
-    private double passengerRate;
+    @Column(name = "rate_passenger")
+    private float rate;
 
     //this is the amount of people that have rated the pass
     @Getter
     @Setter
     @Column(name = "rating_people")
-    private int ratingAmount;
+    private int ratedPeoples;
 
-    public Passenger(Employee employee, double passengerRate, int ratingAmount) {
+    public Passenger(Employee employee, float rate, int ratedPeoples) {
         this.employee = employee;
-        this.passengerRate = passengerRate;
-        this.ratingAmount = ratingAmount;
+        this.rate = rate;
+        this.ratedPeoples = ratedPeoples;
     }
 }

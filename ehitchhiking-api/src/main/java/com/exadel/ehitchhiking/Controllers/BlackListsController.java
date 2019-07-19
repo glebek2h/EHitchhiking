@@ -1,30 +1,23 @@
 package com.exadel.ehitchhiking.Controllers;
 
-import com.exadel.ehitchhiking.Models.Passenger;
-import com.exadel.ehitchhiking.Services.BlackListDriverService;
-import com.exadel.ehitchhiking.Services.BlackListPassengerService;
+import com.exadel.ehitchhiking.Services.IBlackListDriverService;
+import com.exadel.ehitchhiking.Services.IBlackListPassengerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Array;
-import java.util.List;
-import java.util.Set;
-
 @RestController
-@RequestMapping(value = "/BlackList")
+@RequestMapping("/BlackList")
 public class BlackListsController {
 
     @Autowired
-    BlackListDriverService blackListDriverService = new BlackListDriverService();
+    private IBlackListDriverService blackListDriverService;
 
     @Autowired
-    BlackListPassengerService blackListPassengerService = new BlackListPassengerService();
+    private IBlackListPassengerService blackListPassengerService;
 
-    // adding the passenger to the black list of the driver
     @PostMapping("/Driver")
     public boolean addPassToBlackListDriver(String idDriver, String idPass) {
         try {
-            System.out.println(idDriver);
             blackListDriverService.addPass(Integer.getInteger(idDriver), Integer.getInteger(idPass));
         } catch (Exception e) {
             return false;
@@ -49,7 +42,7 @@ public class BlackListsController {
     @PostMapping("/Passenger")
     public boolean addDriverToBlackListPass(String idPass, String idDriver) {
         try {
-            blackListDriverService.addPass(Integer.getInteger(idPass), Integer.getInteger(idDriver));
+            blackListPassengerService.addPass(Integer.getInteger(idPass), Integer.getInteger(idDriver));
         } catch (Exception e) {
             return false;
         }
@@ -60,7 +53,7 @@ public class BlackListsController {
     @DeleteMapping("/Passenger")
     public boolean deleteDriverFromBlackListPass(String idPass, String idDriver) {
         try {
-            blackListDriverService.deletePass(Integer.getInteger(idPass), Integer.getInteger(idDriver));
+            blackListPassengerService.deletePass(Integer.getInteger(idPass), Integer.getInteger(idDriver));
         } catch (Exception e) {
             return false;
         }
