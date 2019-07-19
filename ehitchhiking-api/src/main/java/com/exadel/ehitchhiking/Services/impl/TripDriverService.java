@@ -1,11 +1,10 @@
 package com.exadel.ehitchhiking.Services.impl;
 
-import com.exadel.ehitchhiking.DAO.ICarsDAO;
+import com.exadel.ehitchhiking.DAO.ICarDAO;
 import com.exadel.ehitchhiking.DAO.ITripDriverDAO;
-import com.exadel.ehitchhiking.DAO.impl.CarsIBasicDAO;
-import com.exadel.ehitchhiking.DAO.impl.TripDriverIBasicDAO;
 import com.exadel.ehitchhiking.Models.TripDriver;
 import com.exadel.ehitchhiking.Services.ITripDriverService;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +14,14 @@ import java.sql.Timestamp;
 
 @Service
 @Transactional(rollbackOn = Exception.class)
+@NoArgsConstructor
 public class TripDriverService  implements ITripDriverService {
 
     @Autowired
     private ITripDriverDAO dao;
+
     @Autowired
-    private ICarsDAO carsIBasicDAO;
+    private ICarDAO carsIBasicDAO;
 
     public void createTripDriver(String startingPoint, String endingPoint,
                                  Timestamp startingTime, Timestamp endingTime, int id_of_car, int seats){

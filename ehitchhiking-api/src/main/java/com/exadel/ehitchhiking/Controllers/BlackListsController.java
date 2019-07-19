@@ -2,6 +2,9 @@ package com.exadel.ehitchhiking.Controllers;
 
 import com.exadel.ehitchhiking.Services.IBlackListDriverService;
 import com.exadel.ehitchhiking.Services.IBlackListPassengerService;
+import com.exadel.ehitchhiking.Services.impl.BlackListDriverService;
+import com.exadel.ehitchhiking.Services.impl.BlackListPassengerService;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,8 +20,9 @@ public class BlackListsController {
 
     @PostMapping("/Driver")
     public boolean addPassToBlackListDriver(String idDriver, String idPass) {
-        try {
             blackListDriverService.addPass(Integer.getInteger(idDriver), Integer.getInteger(idPass));
+        try {
+            //hm...
         } catch (Exception e) {
             return false;
         }
@@ -29,8 +33,9 @@ public class BlackListsController {
     // deleting the passenger from the balck list driver
     @DeleteMapping("/Driver")
     public boolean deletePassFromBlackListDriver(String idDriver, String idPass) {
-        try {
             blackListDriverService.deletePass(Integer.getInteger(idDriver), Integer.getInteger(idPass));
+        try {
+            //hm...
         } catch (Exception e) {
             return false;
         }

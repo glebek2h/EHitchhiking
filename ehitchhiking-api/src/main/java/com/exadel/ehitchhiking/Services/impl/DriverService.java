@@ -1,12 +1,12 @@
 package com.exadel.ehitchhiking.Services.impl;
 
 import com.exadel.ehitchhiking.DAO.IDriverDAO;
-import com.exadel.ehitchhiking.DAO.impl.DriverIBasicDAO;
 
 import com.exadel.ehitchhiking.Models.Driver;
 
 import com.exadel.ehitchhiking.Models.Employee;
 import com.exadel.ehitchhiking.Services.IDriverService;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +14,7 @@ import javax.transaction.Transactional;
 
 @Service
 @Transactional(rollbackOn = Exception.class)
+@NoArgsConstructor
 public class DriverService implements IDriverService {
 
     @Autowired

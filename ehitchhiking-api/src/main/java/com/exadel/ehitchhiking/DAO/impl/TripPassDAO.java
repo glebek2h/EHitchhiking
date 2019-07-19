@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Repository("TripPassIBasicDAO")
-public class TripPassIBasicDAO extends AbstractDAO<TripPass> implements ITripPassDAO {
+public class TripPassDAO extends AbstractDAO<TripPass> implements ITripPassDAO {
 
     public List<TripPass> getAll() {
         List<TripPass> trip_passes = (List<TripPass>)  getCurrentSession().createQuery("From com.exadel.ehitchhiking.Models.TripPass").list();
@@ -26,7 +26,7 @@ public class TripPassIBasicDAO extends AbstractDAO<TripPass> implements ITripPas
         return getCurrentSession().get(TripDriver.class, id);
     }
 
-    public TripPassIBasicDAO(){
+    public TripPassDAO(){
         setAClass(TripPass.class);
     }
 }

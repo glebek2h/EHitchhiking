@@ -1,9 +1,9 @@
 package com.exadel.ehitchhiking.Services.impl;
 
 import com.exadel.ehitchhiking.DAO.ITripPassDAO;
-import com.exadel.ehitchhiking.DAO.impl.TripPassIBasicDAO;
 import com.exadel.ehitchhiking.Models.TripPass;
 import com.exadel.ehitchhiking.Services.ITripPassengerService;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +12,7 @@ import java.sql.Timestamp;
 
 @Service
 @Transactional(rollbackOn = Exception.class)
+@NoArgsConstructor
 public class TripPassengerService implements ITripPassengerService {
 
     @Autowired

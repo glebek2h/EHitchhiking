@@ -47,7 +47,6 @@ public class TripPass {
     @Getter
     @Setter
     @ManyToOne
-    @Column(name = "pass_id")
     private Passenger passenger;
 
     @Setter
@@ -73,7 +72,6 @@ public class TripPass {
     @Getter
     @Setter
     @ManyToOne
-    @Column(name = "trip_id")
     private TripDriver tripDriver;
 
     public TripPass(String startPoint, String endPoint,

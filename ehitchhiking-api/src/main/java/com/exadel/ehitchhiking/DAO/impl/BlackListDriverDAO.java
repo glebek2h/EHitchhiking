@@ -12,11 +12,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Repository("BlackListDriverIBasicDAO")
-public class BlackListDriverIBasicDAO extends AbstractDAO<BlacklistDriver> implements IBlackListDriverDAO {
+public class BlackListDriverDAO extends AbstractDAO<BlacklistDriver> implements IBlackListDriverDAO {
 
     public List<BlacklistDriver> getAll() {
-        List<BlacklistDriver> blacklist_drivers = (List<BlacklistDriver>)  getCurrentSession().createQuery("From com.exadel.ehitchhiking.Models.BlacklistDriver").list();
-        return blacklist_drivers;
+        List<BlacklistDriver> blacklistDrivers = (List<BlacklistDriver>)  getCurrentSession().createQuery("From com.exadel.ehitchhiking.Models.BlacklistDriver").list();
+        return blacklistDrivers;
     }
 
     public Driver getDriver(int id) {
@@ -27,7 +27,7 @@ public class BlackListDriverIBasicDAO extends AbstractDAO<BlacklistDriver> imple
         return getCurrentSession().get(Passenger.class, id);
     }
 
-    public BlackListDriverIBasicDAO(){
+    public BlackListDriverDAO(){
         setAClass(BlacklistDriver.class);
     }
 

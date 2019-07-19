@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/Car")
-public class CarsController {
+public class CarController {
 
     @Autowired
     private CarService carsService;
@@ -33,11 +33,11 @@ public class CarsController {
     }
 
     @PostMapping
-    public void addNewCar(String color, String number, String car_model,
-                          String id_of_driver) {
+    public void addNewCar(String color, String number, String carModel,
+                          String idOfDriver) {
         try {
-            carsService.createCar(color, number, car_model,
-                    Integer.getInteger(id_of_driver));
+            carsService.createCar(color, number, carModel,
+                    Integer.getInteger(idOfDriver));
         } catch (Exception e) {
         }
     }

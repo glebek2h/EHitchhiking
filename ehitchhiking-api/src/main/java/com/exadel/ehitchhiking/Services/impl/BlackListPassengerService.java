@@ -1,19 +1,16 @@
 package com.exadel.ehitchhiking.Services.impl;
 import com.exadel.ehitchhiking.DAO.IBlackListPassDAO;
 import com.exadel.ehitchhiking.Models.BlacklistPass;
-import com.exadel.ehitchhiking.Models.Driver;
-import com.exadel.ehitchhiking.Services.IBlackListDriverService;
 import com.exadel.ehitchhiking.Services.IBlackListPassengerService;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.exadel.ehitchhiking.DAO.impl.BlackListPassIBasicDAO;
-
 import javax.transaction.Transactional;
-import java.util.Set;
 
 @Service
 @Transactional(rollbackOn = Exception.class)
+@NoArgsConstructor
 public class BlackListPassengerService implements IBlackListPassengerService {
 
     @Autowired

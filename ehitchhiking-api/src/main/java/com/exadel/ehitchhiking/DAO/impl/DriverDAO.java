@@ -9,7 +9,7 @@ import java.util.List;
 
 
 @Repository("DriverIBasicDAO")
-public class DriverIBasicDAO extends AbstractDAO<Driver> implements IDriverDAO {
+public class DriverDAO extends AbstractDAO<Driver> implements IDriverDAO {
 
 
     public List<Driver> getAll() {
@@ -18,10 +18,10 @@ public class DriverIBasicDAO extends AbstractDAO<Driver> implements IDriverDAO {
     }
 
     public Driver getByName(String username) {
-        List<Driver> drivers = (List<Driver>)  getCurrentSession().createQuery("from Driver where employee = (from Employee where userName = '" + username + "')").list();
+        List<Driver> drivers = (List<Driver>)  getCurrentSession().createQuery("from Driver where employee = (from Employee where username = '" + username + "')").list();
         return drivers.get(0);
     }
-    public DriverIBasicDAO(){
+    public DriverDAO(){
         setAClass(Driver.class);
     }
 }

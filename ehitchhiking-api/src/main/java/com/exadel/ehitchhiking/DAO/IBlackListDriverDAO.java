@@ -3,6 +3,7 @@ package com.exadel.ehitchhiking.DAO;
 import com.exadel.ehitchhiking.Models.BlacklistDriver;
 import com.exadel.ehitchhiking.Models.Driver;
 import com.exadel.ehitchhiking.Models.Passenger;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 

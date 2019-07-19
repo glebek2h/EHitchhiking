@@ -1,9 +1,10 @@
 package com.exadel.ehitchhiking.Services.impl;
 
-import com.exadel.ehitchhiking.DAO.ICarsDAO;
+import com.exadel.ehitchhiking.DAO.ICarDAO;
 import com.exadel.ehitchhiking.DAO.IDriverDAO;
 import com.exadel.ehitchhiking.Models.Car;
 import com.exadel.ehitchhiking.Services.ICarService;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +13,11 @@ import java.util.List;
 
 @Service
 @Transactional(rollbackOn = Exception.class)
+@NoArgsConstructor
 public class CarService implements ICarService {
 
     @Autowired
-    private ICarsDAO dao;
+    private ICarDAO dao;
 
     @Autowired
     private IDriverDAO driverDao;

@@ -25,7 +25,8 @@ public class BlacklistDriver  {
 
     @Getter
     @Setter
-    @OneToOne (fetch = FetchType.LAZY, mappedBy = "driver_id")
+    @OneToOne (fetch = FetchType.LAZY)
+    @JoinColumn(name = "driver_id")
     private Driver driver;
 
     @Getter

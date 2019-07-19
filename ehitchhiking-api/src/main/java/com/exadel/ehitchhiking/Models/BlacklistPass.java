@@ -25,7 +25,8 @@ public class BlacklistPass  {
 
     @Getter
     @Setter
-    @OneToOne (fetch = FetchType.LAZY, mappedBy = "pass_id")
+    @OneToOne (fetch = FetchType.LAZY)
+    @JoinColumn(name = "pass_id")
     private Passenger passenger;
 
 

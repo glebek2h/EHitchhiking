@@ -49,7 +49,6 @@ public class Employee {
     @Column(name = "pass_word")
     private String password;
 
-
     @Setter
     @Getter
     @Column(name = "phone_number")

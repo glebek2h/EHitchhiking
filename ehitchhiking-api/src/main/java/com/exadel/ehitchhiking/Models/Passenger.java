@@ -22,7 +22,8 @@ public class Passenger  {
 
     @Getter
     @Setter
-    @OneToOne(mappedBy = "user_id")
+    @OneToOne
+    @JoinColumn(name = "user_id" ,referencedColumnName = "id")
     private Employee employee;
 
 

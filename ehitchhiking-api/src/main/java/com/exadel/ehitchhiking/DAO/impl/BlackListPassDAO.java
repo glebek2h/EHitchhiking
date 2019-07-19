@@ -13,12 +13,12 @@ import java.util.List;
 
 
 @Repository("BlackListPassIBasicDAO")
-public class BlackListPassIBasicDAO extends AbstractDAO<BlacklistPass> implements IBlackListPassDAO {
+public class BlackListPassDAO extends AbstractDAO<BlacklistPass> implements IBlackListPassDAO {
 
 
     public List<BlacklistPass> getAll() {
-        List<BlacklistPass> blacklist_passes = (List<BlacklistPass>)  getCurrentSession().createQuery("From com.exadel.ehitchhiking.Models.BlacklistPass").list();
-        return blacklist_passes;
+        List<BlacklistPass> blacklistPasses = (List<BlacklistPass>)  getCurrentSession().createQuery("From com.exadel.ehitchhiking.Models.BlacklistPass").list();
+        return blacklistPasses;
     }
 
     public Driver getDriver(int id) {
@@ -29,12 +29,12 @@ public class BlackListPassIBasicDAO extends AbstractDAO<BlacklistPass> implement
         return getCurrentSession().get(Passenger.class, id);
     }
 
-    public BlackListPassIBasicDAO(){
+    public BlackListPassDAO(){
         setAClass(BlacklistPass.class);
     }
 
     public BlacklistPass getByPassId(int idPass){
-        List<BlacklistPass> blacklistPass = (List<BlacklistPass>) getCurrentSession().createQuery("From com.exadel.ehitchhiking.Models.BlacklistPass where pass.id = '" + idPass + "'").list();
+        List<BlacklistPass> blacklistPass = (List<BlacklistPass>) getCurrentSession().createQuery("From com.exadel.ehitchhiking.Models.BlacklistPass where passenger.id = '" + idPass + "'").list();
         return blacklistPass.get(0);
     }
 }

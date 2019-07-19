@@ -26,7 +26,7 @@ public class TripDriver {
 
     @Getter
     @Setter
-    @OneToMany(mappedBy = "trip_pass_id")
+    @OneToMany(mappedBy = "id")
     private Set<TripPass> tripPassSet;
 
     @Getter
@@ -52,7 +52,6 @@ public class TripDriver {
     @Getter
     @Setter
     @ManyToOne
-    @Column(name = "cer_id")
     private Car car;
 
     @Setter

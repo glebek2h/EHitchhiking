@@ -4,6 +4,7 @@ import com.exadel.ehitchhiking.DAO.IEmployeeDAO;
 import com.exadel.ehitchhiking.DAO.impl.EmployeeDAO;
 import com.exadel.ehitchhiking.Models.Employee;
 import com.exadel.ehitchhiking.Services.IEmployeeService;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,7 @@ import javax.transaction.Transactional;
 
 @Service
 @Transactional(rollbackOn = Exception.class)
+@NoArgsConstructor
 public class EmployeeService implements IEmployeeService {
 
     @Autowired

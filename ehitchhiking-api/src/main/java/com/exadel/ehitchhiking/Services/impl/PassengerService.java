@@ -1,10 +1,10 @@
 package com.exadel.ehitchhiking.Services.impl;
 
 import com.exadel.ehitchhiking.DAO.IPassengerDAO;
-import com.exadel.ehitchhiking.DAO.impl.PassengerIBasicDAO;
 import com.exadel.ehitchhiking.Models.Employee;
 import com.exadel.ehitchhiking.Models.Passenger;
 import com.exadel.ehitchhiking.Services.IPassengerService;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +12,7 @@ import javax.transaction.Transactional;
 
 @Service
 @Transactional(rollbackOn = Exception.class)
+@NoArgsConstructor
 public class PassengerService implements IPassengerService {
 
 

@@ -9,7 +9,7 @@ import java.util.List;
 
 
 @Repository("PassengerIBasicDAO")
-public class PassengerIBasicDAO extends AbstractDAO<Passenger> implements IPassengerDAO {
+public class PassengerDAO extends AbstractDAO<Passenger> implements IPassengerDAO {
 
     public List<Passenger> getAll() {
         List<Passenger> passs = (List<Passenger>)  getCurrentSession().createQuery("From com.exadel.ehitchhiking.Models.Passenger").list();
@@ -17,11 +17,11 @@ public class PassengerIBasicDAO extends AbstractDAO<Passenger> implements IPasse
     }
 
     public Passenger getByName(String username) {
-        List<Passenger> passengers = (List<Passenger>)  getCurrentSession().createQuery("from Passenger where employee = (from Employee where userName = '" + username + "')").list();
+        List<Passenger> passengers = (List<Passenger>)  getCurrentSession().createQuery("from Passenger where employee = (from Employee where username = '" + username + "')").list();
         return passengers.size() > 0 ? passengers.get(0) : null;
     }
 
-    public PassengerIBasicDAO(){
+    public PassengerDAO(){
         setAClass(Passenger.class);
     }
 }

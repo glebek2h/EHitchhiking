@@ -11,7 +11,7 @@ import java.util.List;
 
 
 @Repository("TripDriverIBasicDAO")
-public class TripDriverIBasicDAO extends AbstractDAO<TripDriver> implements ITripDriverDAO {
+public class TripDriverDAO extends AbstractDAO<TripDriver> implements ITripDriverDAO {
 
     public List<TripDriver> getAll() {
         List<TripDriver> trips_drivers = (List<TripDriver>) getCurrentSession().createQuery("From com.exadel.ehitchhiking.Models.TripDriver").list();
@@ -27,7 +27,7 @@ public class TripDriverIBasicDAO extends AbstractDAO<TripDriver> implements ITri
         return getCurrentSession().get(TripPass.class, id);
     }
 
-    public TripDriverIBasicDAO(){
+    public TripDriverDAO(){
         setAClass(TripDriver.class);
     }
 }

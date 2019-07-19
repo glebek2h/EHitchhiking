@@ -18,11 +18,11 @@ public class TripPassengerController {
     private TripPassengerService tripPassengerService;
 
     @PostMapping("/createTrip")
-    public void createTrip(String pass_id, String startingPoint, String endingPoint,
+    public void createTrip(String passId, String startingPoint, String endingPoint,
                            Timestamp startingTime, Timestamp endingTime,
                            String seats, String tripDriverId) {
         try {
-            tripPassengerService.createTripPassenger(Integer.getInteger(pass_id), startingPoint, endingPoint,
+            tripPassengerService.createTripPassenger(Integer.getInteger(passId), startingPoint, endingPoint,
                     startingTime, endingTime,
                     Integer.getInteger(seats), Integer.getInteger(tripDriverId));
         } catch (Exception e) {

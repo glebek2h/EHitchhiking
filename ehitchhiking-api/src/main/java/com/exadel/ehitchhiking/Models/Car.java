@@ -44,7 +44,6 @@ public class Car {
     @Setter
     @Getter
     @ManyToOne
-    @Column(name = "driver_id")
     private Driver driver;
 
     public Car(String color, String number, String model,

@@ -19,11 +19,11 @@ public class TripDriverController {
     @PostMapping("/createTrip")
     public void createTrip(String startingPoint, String endingPoint,
                            Timestamp startingTime, Timestamp endingTime,
-                           String id_of_car, String seats) {
+                           String idOfCar, String seats) {
         try {
             tripDriverService.createTripDriver(startingPoint, endingPoint,
                     startingTime, endingTime,
-                    Integer.getInteger(id_of_car), Integer.getInteger(seats));
+                    Integer.getInteger(idOfCar), Integer.getInteger(seats));
         } catch (Exception e) {
             //TODO: return
         }

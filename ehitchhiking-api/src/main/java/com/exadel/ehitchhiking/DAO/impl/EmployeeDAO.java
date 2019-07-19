@@ -19,11 +19,11 @@ public class EmployeeDAO extends AbstractDAO<Employee> implements IEmployeeDAO {
     }
 
     public Employee getByName(String name){
-        return (Employee) getCurrentSession().createQuery("from Employee where userName = '" + name + "'").uniqueResult();
+        return (Employee) getCurrentSession().createQuery("from Employee where username = '" + name + "'").uniqueResult();
     }
 
     public String getPassword(String username) {
-        List<String> emps = (List<String>) getCurrentSession().createQuery("select password From com.exadel.ehitchhiking.Models.Employee where userName = '" + username + "'").list();
+        List<String> emps = (List<String>) getCurrentSession().createQuery("select password From com.exadel.ehitchhiking.Models.Employee where username = '" + username + "'").list();
         return emps.get(0);
     }
 
