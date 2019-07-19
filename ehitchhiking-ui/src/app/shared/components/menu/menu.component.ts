@@ -5,7 +5,6 @@ import {MatDialog} from '@angular/material';
 import {RatePassengersModalComponent} from '../rate-passengers-modal/rate-passengers-modal.component';
 import {ProfileModalComponent} from '../../modals/profile-modal/profile-modal.component';
 import {Router} from '@angular/router';
-import {Router} from "@angular/router";
 import { TripsComponent } from "../trips/trips.component";
 
 @Component({

@@ -1,7 +1,7 @@
 export interface Trip {
   id: number;
-  from_: string;
-  to: string;
+  startPoint: string;
+  endPoint: string;
   isFavorite: boolean;
   status: number;
 }

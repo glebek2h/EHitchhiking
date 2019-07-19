@@ -1,5 +1,4 @@
-import {CarInfoFormComponent} from './car-info-form/car-info-form.component';
-import {Component, ViewChild, QueryList, ViewChildren, AfterViewInit, OnInit} from '@angular/core';
+import {Component, ViewChild, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material';
 import {User} from '../../models/user';
 import {Car} from '../../models/car';

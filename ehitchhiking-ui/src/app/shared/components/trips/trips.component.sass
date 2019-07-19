@@ -1,4 +1,5 @@
-@import '~src/styles.sass'
+@import '../../../../styles/fonts-constants'
+@import '../../../../styles/colors'
 
 .form
   height: 100%
@@ -23,7 +24,7 @@
   flex-direction: column
   position: relative
   .trips-user
-    border: 1px solid $grey
+    border: 1px solid mat-color($primary, A100)
     display: flex
     justify-content: space-around
     align-items: center
@@ -47,7 +48,7 @@
   outline: none
   border: none
   .btn-press-favorite
-    color: red
+    color: mat-color($warn)
 .trip
   padding: 0
   margin: 0

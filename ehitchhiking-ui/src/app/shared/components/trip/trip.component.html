@@ -1,11 +1,11 @@
-<div mat-dialog-content class="trips" >
+<div class="trips" >
 <div
   class="trips-user"
 >
   <i class="material-icons">
     directions_car
   </i>
-  <p class="trips-list truncated">{{trip.from_}}  ->  {{trip.to}}</p>
+  <p class="trips-list truncated">{{trip.startPoint}}  ->  {{trip.endPoint}}</p>
   <div class = "form-row">
     <button class = "trip-btn" >
       <i class="material-icons" *ngIf="trip.status === 0" title="active trip">
