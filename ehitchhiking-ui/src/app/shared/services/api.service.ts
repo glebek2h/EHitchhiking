@@ -1,3 +1,4 @@
+import {Requests} from './../enums/request-enum';
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpRequest, HttpEvent} from '@angular/common/http';
 import {Observable} from 'rxjs';
@@ -9,24 +10,20 @@ export class ApiService {
 	readonly apiUrl: string = '';
 	constructor(private http: HttpClient) {}
 
-	doGet(urlPath: string, data: any): Observable<HttpEvent<any>> {
-		return this.generateRequest('GET', urlPath, data);
+	doGet(urlPath: string, data: any): Observable<HttpEvent<any>> | undefined {
+		return this.generateRequest(Requests.GET, urlPath, data);
 	}
-	doPost(urlPath: string, data: any): Observable<HttpEvent<any>> {
-		return this.generateRequest('POST', urlPath, data);
+	doPost(urlPath: string, data: any): Observable<HttpEvent<any>> | undefined {
+		return this.generateRequest(Requests.POST, urlPath, data);
 	}
-	doDelete(urlPath: string, data: any): Observable<HttpEvent<any>> {
-		return this.generateRequest('DELETE', urlPath, data);
+	doDelete(urlPath: string, data: any): Observable<HttpEvent<any>> | undefined {
+		return this.generateRequest(Requests.DEL, urlPath, data);
 	}
-	getPut(urlPath: string, data: any): Observable<HttpEvent<any>> {
-		return this.generateRequest('PUT', urlPath, data);
+	getPut(urlPath: string, data: any): Observable<HttpEvent<any>> | undefined {
+		return this.generateRequest(Requests.PUT, urlPath, data);
 	}
 
-	private generateRequest(
-		type: 'GET' | 'POST' | 'DELETE' | 'PUT',
-		urlPath: string,
-		data: any
-	): Observable<HttpEvent<any>> {
+	private generateRequest(type: Requests, urlPath: string, data: any): Observable<HttpEvent<any>> {
 		const body = JSON.stringify(data);
 		const url = this.apiUrl + urlPath;
 		if (data) {
