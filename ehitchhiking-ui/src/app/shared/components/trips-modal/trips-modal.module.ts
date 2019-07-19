@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {TripsComponent} from './/trips.component';
+
 import {
   MatButtonModule,
   MatDialogModule,
@@ -9,10 +9,11 @@ import {
 import { TripModule } from "../trip/trip.module";
 import { NoDataModule } from "../no-data/no-data.module";
 import { PreLoadingModule } from "../pre-loading/pre-loading.module";
+import { TripsModalComponent } from "./trips-modal.component";
 @NgModule({
-  declarations: [TripsComponent],
+  declarations: [TripsModalComponent],
   imports: [CommonModule, MatButtonModule, MatDialogModule, MatTableModule, TripModule, NoDataModule, PreLoadingModule],
-  entryComponents: [TripsComponent],
-  exports: [TripsComponent],
+  entryComponents: [TripsModalComponent],
+  exports: [TripsModalComponent],
 })
-export class TripsModule {}
+export class TripsModalModule {}
