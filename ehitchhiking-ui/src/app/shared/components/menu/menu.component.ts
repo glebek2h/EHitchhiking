@@ -22,7 +22,9 @@ export class MenuComponent implements OnInit {
 	}
 	openBlacklistDialog(): void {
 		const dialogRef = this.dialog.open(BlacklistComponent, {
-			width: '400px',
+			width: '23rem',
+			panelClass: 'mat-dialog-no-padding',
+			autoFocus: false,
 		});
 		dialogRef.afterClosed().subscribe((result) => {
 			console.log('The dialog was closed');
@@ -31,7 +33,9 @@ export class MenuComponent implements OnInit {
 
 	openRatePassengersDialog(): void {
 		const dialogRef = this.dialog.open(RatePassengersModalComponent, {
-			width: '400px',
+			width: '23rem',
+			panelClass: 'mat-dialog-no-padding',
+			autoFocus: false,
 		});
 		dialogRef.afterClosed().subscribe((result) => {
 			console.log('The dialog was closed');

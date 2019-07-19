@@ -25,7 +25,7 @@ export class BlacklistComponent implements OnInit {
 		}, 1000);
 	}
 
-	return(): void {
+	close(): void {
 		this.dialogRef.close();
 	}
 

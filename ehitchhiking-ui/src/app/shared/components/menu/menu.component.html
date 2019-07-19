@@ -11,52 +11,40 @@
 		</div>
 		<div class="buttons">
 			<li class="li-buttons">
-				<button mat-raised-button color="primary" class="li-button">
+				<button mat-raised-button class="li-button">
 					history
 				</button>
 			</li>
 			<li class="li-buttons">
-				<button mat-raised-button color="primary" class="li-button">
+				<button mat-raised-button class="li-button">
 					saved
 				</button>
 			</li>
 			<li class="li-buttons">
-				<button mat-raised-button color="primary" class="li-button">
+				<button mat-raised-button class="li-button">
 					active
 				</button>
 			</li>
 			<li class="li-buttons">
-				<button mat-raised-button color="primary" class="li-button">
+				<button mat-raised-button class="li-button">
 					notifications
 				</button>
 			</li>
 			<li class="li-buttons">
-				<button
-					(click)="openBlacklistDialog()"
-					mat-raised-button
-					class="li-button"
-					color="primary"
-					class="li-button"
-				>
+				<button (click)="openBlacklistDialog()" mat-raised-button class="li-button">
 					blacklist
 				</button>
 			</li>
 			<li class="li-buttons">
-				<button mat-raised-button color="primary" class="li-button">
+				<button mat-raised-button class="li-button">
 					admin functionality
 				</button>
 			</li>
-			<button mat-stroked-button color="primary" class="log-out" (click)="openRatePassengersDialog()">
+			<button mat-stroked-button class="log-out" (click)="openRatePassengersDialog()">
 				<!--TODO: it's redundant here, but not now-->
 				rate passengers
 			</button>
-			<button
-				mat-stroked-button
-				color="primary"
-				class="log-out"
-				(click)="logOut()"
-				routerLink="/login"
-			>
+			<button mat-stroked-button class="log-out" (click)="logOut()" routerLink="/login">
 				log out
 			</button>
 		</div>
@@ -80,10 +68,10 @@
 				reorder
 			</i>
 		</button>
-    <button class="chat-btn" mat-button color="primary">
-      <i class="material-icons">
-        forum
-      </i>
-    </button>
+		<button class="chat-btn" mat-button color="primary">
+			<i class="material-icons">
+				forum
+			</i>
+		</button>
 	</mat-sidenav-content>
 </mat-sidenav-container>
