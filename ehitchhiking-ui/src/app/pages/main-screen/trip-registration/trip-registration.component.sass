@@ -1,9 +1,12 @@
-.registration-form
+@import "../../../../styles/colors"
+$trip-registration-form-height: 18rem
+$trip-registration-form-width: 20rem
+.trip-registration-form
   position: relative
-  z-index: 2
-  background-color: white
-  height: 18rem
-  width: 20rem
+  z-index: 2 // more than map z-index, and menu z-index
+  background-color: $white
+  height: $trip-registration-form-height
+  width: $trip-registration-form-width
   margin-left: auto
   margin-right: auto
   box-shadow: 0 0 9px rgba(0, 0, 0, 0.2)
@@ -26,7 +29,7 @@
     justify-content: space-between
     align-items: center
   .submit-button
-    background-color: #ffdb4d
+    background-color: $yellow
     margin-left: auto
     margin-right: auto
   .places-select

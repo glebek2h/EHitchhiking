@@ -1,5 +1,5 @@
-@import "../../../../styles/fonts-constants"
-@import "../../../../styles/colour-constants"
+@import '../../../../styles/colors'
+@import '../../../../styles/fonts-constants'
 
 .rating
   float: left
@@ -17,18 +17,20 @@
   cursor pointer
   font-size: $button
   line-height: 1rem
-  color: $grey
+  color: $gray
 .rating:not(:checked) > label:before
   content: '★ '
 
 .rating > input:checked ~ label
-  color: $orange
+  color: $blue
 
 .rating:not(:checked) > label:hover,
 .rating:not(:checked) > label:hover ~ label
-  color: $gold
+  color: $dark-blue
 
 .rating > input:checked ~ label:hover,
 .rating > input:checked ~ label:hover ~ label,
 .rating > label:hover ~ input:checked ~ label
-  color: $light-orange
+  color: $light-blue
+.rating
+  width: 6rem

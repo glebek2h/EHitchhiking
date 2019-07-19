@@ -1,4 +1,4 @@
-<form [hidden]="isShown" [formGroup]="nameFormGroup" (ngSubmit)="onSubmit()" class="registration-form">
+<form [hidden]="isShown" [formGroup]="nameFormGroup" (ngSubmit)="onSubmit()" class="trip-registration-form">
   <mat-form-field  class="input-from">
     <input matInput placeholder="from" formControlName="from" id="suggest1" #inp (change)="onChangeFix($event, 'from')">
   </mat-form-field>

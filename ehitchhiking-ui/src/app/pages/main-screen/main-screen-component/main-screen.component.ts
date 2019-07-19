@@ -1,4 +1,5 @@
-import {Component, OnInit, SimpleChanges} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {UserState} from '../../../shared/enums/UserState';
 
 @Component({
 	selector: 'app-main-screen',
@@ -74,13 +75,13 @@ export class MainScreenComponent implements OnInit {
   }
 
   getIsShown(data) {
-    if (this.userState === 'passenger') {
+    if (this.userState === UserState.passenger) {
     this.isShownViewRoutesButton = data;
     }
   }
 
   getIsShownSaveRoute(data) {
-    if (this.userState === 'driver') {
+    if (this.userState === UserState.driver) {
       this.isShownSaveRouteButton = data;
     }
   }

@@ -1,12 +1,7 @@
-import {
-	Component,
-	Input,
-	OnChanges,
-	OnInit,
-	SimpleChanges,
-} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import ymaps from 'ymaps';
-
+import {UserState} from '../../../shared/enums/UserState';
+import {YandexMapService} from './yandex-map.service';
 
 @Component({
 	selector: 'yandex-map',
@@ -16,80 +11,61 @@ import ymaps from 'ymaps';
 export class YandexMapComponent implements OnInit, OnChanges {
 	constructor() {}
 
-	apiURL =
-		'https://api-maps.yandex.ru/2.1/?apikey=05c4e476-2248-4d27-836c-4a6c7c45e485&lang=en_US';
+	apiURL = 'https://api-maps.yandex.ru/2.1/?apikey=05c4e476-2248-4d27-836c-4a6c7c45e485&lang=en_US';
 	myMap: any; // TODO: which type should i use?
 	ymapsPromise;
 
 	currentMultiRoute;
 	currentGeoPosition;
 
+	colors: string[] = [
+		'#6da2e1',
+		'#f20026',
+		'#ff00d8',
+		'#c06100',
+		'#12c000',
+		'#0008c0',
+		'#c0bf68',
+		'#00c09b',
+		'#b500c0',
+		'#7f4dc0',
+	];
+
 	@Input() activeRoutesCollection: Partial<Route>[];
 	@Input() userState: string;
 	@Input() tripData: Route;
 	@Input() isSavedRoute: boolean;
 
-	static generateColor() {
+	/*static generateColor() {
 		return '#' + Math.floor(Math.random() * 16777215).toString(16);
-	}
+	}*/
 
 	ngOnInit() {
 		this.ymapsPromise = ymaps.load(this.apiURL);
 		this.createMap();
-		this.userState = 'passenger';
+		this.userState = UserState.passenger;
+	}
+
+	getRandomInt(min, max) {
+		return Math.floor(Math.random() * (max - min)) + min;
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
 		if (changes.tripData && changes.tripData.currentValue) {
-			if (this.userState === 'driver') {
+			if (this.userState === UserState.driver) {
 				this.myMap.geoObjects.remove(this.currentMultiRoute);
 				console.log(this.tripData);
 				this.addMultiRoute(this.tripData);
 			}
-			if (this.userState === 'passenger') {
-				// нарисовать на карте 3 лучших маршрута и добавить кнопку "показать-больше"
+			if (this.userState === UserState.passenger) {
 				// фильтрация коллекции activeRoutesCollection
-				for (let i = 0; i < 3; i++){
-          this.addMultiRoute(this.activeRoutesCollection[i]);
-        }
+				for (let i = 0; i < 3; i++) {
+					this.addMultiRoute(this.activeRoutesCollection[i]);
+				}
 			}
 		}
 		if (changes.userState && changes.userState.currentValue) {
-			console.log(this.userState);
-			if (this.userState === 'driver') {
-				this.myMap.geoObjects.remove(this.currentGeoPosition);
-				this.ymapsPromise.then((maps) => {
-					maps.geolocation
-						.get({
-							mapStateAutoApply: true,
-						})
-						.then((result) => {
-							result.geoObjects.options.set(
-								'preset',
-								'islands#redAutoCircleIcon'
-							);
-							this.currentGeoPosition = result.geoObjects;
-							this.myMap.geoObjects.add(this.currentGeoPosition);
-						});
-				});
-			}
-			if (this.userState === 'passenger') {
-				this.myMap.geoObjects.remove(this.currentGeoPosition);
-				this.ymapsPromise.then((maps) => {
-					maps.geolocation
-						.get({
-							mapStateAutoApply: true,
-						})
-						.then((result) => {
-							result.geoObjects.options.set(
-								'preset',
-								'islands#redPersonCircleIcon'
-							);
-							this.currentGeoPosition = result.geoObjects;
-							this.myMap.geoObjects.add(this.currentGeoPosition);
-						});
-				});
-			}
+			this.setUserIconToMapAccordingUserState();
 		}
 		if (changes.isSavedRoute && this.currentMultiRoute) {
 			this.activeRoutesCollection.push(this.tripData);
@@ -114,10 +90,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
 					})
 					.then((result) => {
 						this.currentGeoPosition = result.geoObjects;
-						result.geoObjects.options.set(
-							'preset',
-							'islands#redPersonCircleIcon'
-						);
+						result.geoObjects.options.set('preset', 'islands#redPersonCircleIcon');
 						this.myMap.geoObjects.add(this.currentGeoPosition);
 					});
 				new maps.SuggestView('suggest1');
@@ -127,28 +100,18 @@ export class YandexMapComponent implements OnInit, OnChanges {
 	}
 
 	addMultiRoute(data: Partial<Route>) {
-		const color = YandexMapComponent.generateColor();
+		const color = this.colors[this.getRandomInt(0, 10)];
 		data.routeColor = color;
 		this.ymapsPromise
 			.then((maps) => {
 				const multiRoute = new maps.multiRouter.MultiRoute(
 					{
-						referencePoints: [data.from, data.to], //
+						referencePoints: [data.from, data.to],
 						params: {
-							results: 2,
+							results: 1,
 						},
 					},
-					{
-						wayPointDraggable: true,
-						boundsAutoApply: true,
-						editorMidPointsType: 'via',
-						editorDrawOver: false,
-						routeActiveStrokeWidth: 8,
-						routeActiveStrokeStyle: 'solid',
-						routeActiveStrokeColor: color,
-						routeStrokeStyle: 'dot',
-						routeStrokeWidth: 3,
-					}
+					YandexMapService.routeOptions(color)
 				);
 				console.log(data);
 				this.setInfoAboutRoute(multiRoute, data);
@@ -172,34 +135,31 @@ export class YandexMapComponent implements OnInit, OnChanges {
 			activeRoute.events.add('click', (event) => {
 				if (!this.myMap.balloon.isOpen()) {
 					const coords = event.get('coords');
-					this.myMap.balloon.open(coords, {
-						contentHeader: 'Info about route',
-						contentBody:
-							'<p>' +
-							'<span>Departure time: </span>' +
-							data.timePicker +
-							'</p>' +
-							'<p>' +
-							'<span>Departure date: </span>' +
-							data.datePicker.toLocaleString('en-US', {
-								year: 'numeric',
-								month: 'long',
-								day: 'numeric',
-								weekday: 'long',
-							}) +
-							'</p>' +
-							'<p>' +
-							'<span>Places: </span>' +
-							data.placesSelect +
-							'</p>' +
-							'<p>' +
-							'<span>Trip duration: </span>' +
-							data.tripDuration,
-					});
+					this.myMap.balloon.open(coords, YandexMapService.baloonInfo(data));
 				} else {
 					this.myMap.balloon.close();
 				}
 			});
+		});
+	}
+
+	setUserIconToMapAccordingUserState() {
+		this.myMap.geoObjects.remove(this.currentGeoPosition);
+		this.ymapsPromise.then((maps) => {
+			maps.geolocation
+				.get({
+					mapStateAutoApply: true,
+				})
+				.then((result) => {
+					if (this.userState === UserState.driver) {
+						result.geoObjects.options.set('preset', 'islands#redAutoCircleIcon');
+					}
+					if (this.userState === UserState.passenger) {
+						result.geoObjects.options.set('preset', 'islands#redPersonCircleIcon');
+					}
+					this.currentGeoPosition = result.geoObjects;
+					this.myMap.geoObjects.add(this.currentGeoPosition);
+				});
 		});
 	}
 }

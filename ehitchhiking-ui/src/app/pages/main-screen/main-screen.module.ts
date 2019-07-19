@@ -7,6 +7,7 @@ import {
   MatFormFieldModule, MatInputModule, MatSelectModule,
 } from '@angular/material';
 import {YandexMapComponent} from './yandex-map/yandex-map.component';
+
 import {TripRegistrationComponent} from './trip-registration/trip-registration.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
