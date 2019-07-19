@@ -3,6 +3,8 @@ import {BUTTONS_NAMES} from './buttons-names';
 import {BlacklistComponent} from '../blacklist/blacklist.component';
 import {MatDialog} from '@angular/material';
 import {RatePassengersModalComponent} from '../rate-passengers-modal/rate-passengers-modal.component';
+import {ProfileModalComponent} from '../../modals/profile-modal/profile-modal.component';
+import {Router} from '@angular/router';
 import {Router} from "@angular/router";
 import { TripsComponent } from "../trips/trips.component";
 
@@ -50,4 +52,8 @@ export class MenuComponent implements OnInit {
       console.log('The dialog was closed');
     });
   }
+
+	openProfileDialog(): void {
+		this.dialog.open(ProfileModalComponent, {panelClass: 'mat-dialog-no-padding', autoFocus: false});
+	}
 }

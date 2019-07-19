@@ -1,5 +1,6 @@
-@import "../../../../styles/colour-constants"
-@import "../../../../styles/fonts-constants"
+@import '../../../../styles/colors'
+@import '../../../../styles/fonts-constants'
+@import '../../../../styles/constants'
 
 .blacklist-modal-container
   position: relative
@@ -9,7 +10,7 @@
   height: 20rem
   overflow-y: scroll
   overflow-x: hidden
-  margin: 0.5rem
+  margin: $default-offset * 0.5
   .blacklist-user
     border: 1px solid $black
     display: flex
@@ -24,7 +25,7 @@
       color: $dark-red
     .blacklist-user-name
       font-size: $button
-      margin-top: 1rem
+      margin-top: $default-offset
       width: 10rem
 .blacklist-back-btn
   display: flex
