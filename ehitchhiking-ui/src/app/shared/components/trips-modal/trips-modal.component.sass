@@ -1,5 +1,6 @@
 @import '../../../../styles/fonts-constants'
 @import '../../../../styles/colors'
+@import '../../../../styles/mixins'
 
 .form
   height: 100%
@@ -17,45 +18,30 @@
   justify-content: center
   align-items: center
 .trips
-  height: 23rem
+  height: 25rem
   overflow-x: hidden
   margin: 0.5rem
   display: flex
   flex-direction: column
   position: relative
-  .trips-user
+  .trips-container
     border: 1px solid mat-color($primary, A100)
     display: flex
     justify-content: space-around
     align-items: center
     width: 100%
-    .profile-photo
-      font-size: $display-2
-    .remove-icon
-      font-size: $title
-      display: table
-      vertical-align: middle
-      color: $dark-red
-    .trips-list
-      font-size: $button
-      margin-top: 1rem
-      width: 12rem
 .trips-btn
   display: flex
   justify-content: center
-.trip-btn
-  background: none
-  outline: none
-  border: none
-  .btn-press-favorite
-    color: mat-color($warn)
 .trip
   padding: 0
   margin: 0
   width: 100%
-.trip:hover
-  box-shadow: 0 0 0.5rem 0.1rem rgba(221, 221, 221, 1)
+  @include flexbox(space-between)
+  height: 4.5rem
 .no-date
   position: relative
   width: 100%
   height: 100%
+.trips-container:hover
+  box-shadow: 0 0 0.5rem 0.1rem rgba(221, 221, 221, 1)

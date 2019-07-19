@@ -16,6 +16,11 @@ export class TripsModalService {
     {id: 4, startPoint: 'Mstislavca5', endPoint: 'Turovsky', isFavorite: false, status: this.StatusEnum.declined},
     {id: 5, startPoint: 'Mstislavca5', endPoint: 'Turovsky', isFavorite: false, status: this.StatusEnum.completed},
     {id: 6, startPoint: 'Mstislavca6', endPoint: 'Turovsky', isFavorite: false, status: this.StatusEnum.declined},
+    {id: 7, startPoint: 'Mstislavca6', endPoint: 'Turovsky', isFavorite: false, status: this.StatusEnum.declined},
+    {id: 8, startPoint: 'Mstislavca6', endPoint: 'Turovsky', isFavorite: false, status: this.StatusEnum.declined},
+    {id: 9, startPoint: 'Mstislavca6', endPoint: 'Turovsky', isFavorite: false, status: this.StatusEnum.declined},
+    {id: 10, startPoint: 'Mstislavca11', endPoint: 'Turovsky', isFavorite: false, status: this.StatusEnum.declined},
+    {id: 11, startPoint: 'Mstislavca12', endPoint: 'Turovsky', isFavorite: false, status: this.StatusEnum.declined},
   ];
 
   getTrips(){

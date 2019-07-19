@@ -1,20 +1,17 @@
-<div class="trips" >
-<div
-  class="trips-user"
->
-  <i class="material-icons">
+
+  <i class="position-car material-icons">
     directions_car
   </i>
-  <p class="trips-list truncated">{{trip.startPoint}}  ->  {{trip.endPoint}}</p>
-  <div class = "form-row">
-    <button class = "trip-btn" >
-      <i class="material-icons" *ngIf="trip.status === 0" title="active trip">
+  <p class="truncated">{{trip.startPoint}}  ->  {{trip.endPoint}}</p>
+  <div class = "form-row" >
+    <button class = "trip-btn"  [ngSwitch]="trip.status">
+      <i class="material-icons" *ngSwitchCase = "0" title="active trip">
         event_note
       </i>
-      <i class="material-icons" *ngIf="trip.status === 1" title = "completed trip">
+      <i class="material-icons" *ngSwitchCase="1" title = "completed trip">
         event_available
       </i>
-      <i class="material-icons" *ngIf="trip.status === 2" title = "declined trip">
+      <i class="material-icons" *ngSwitchCase="2" title = "declined trip">
         event_busy
       </i>
     </button>
@@ -25,7 +22,7 @@
     </button>
     <button class = "trip-btn"
             [class.active]="trip.isFavorite"
-            (click)="handleChange('favorite')">
+            (click)="makeFavorite('favorite')">
       <i class="material-icons" *ngIf="!trip.isFavorite" title = " no favorite trip">
         favorite_border
       </i>
@@ -34,5 +31,3 @@
       </i>
     </button>
   </div>
-</div>
-</div>

@@ -2,25 +2,15 @@
 @import '../../../../styles/colors'
 @import '../../../../styles/constants'
 
-.trips
-  overflow-x: hidden
-  margin: $default-offset*0.5
+.position-car
+  margin-left: $default-offset*2
+.trips-list
+  font-size: $button
+.form-row
   display: flex
-  flex-direction: column
+  justify-content: center
   align-items: center
-  .trips-user
-    display: flex
-    justify-content: space-around
-    align-items: center
-    width: 100%
-    .trips-list
-      font-size: $button
-      margin-top: $default-offset
-      width: 12rem
-    .form-row
-      display: flex
-      justify-content: center
-      align-items: center
+  margin-right: $default-offset*2
 .trip-btn
   background: none
   outline: none
@@ -29,6 +19,7 @@
     color: mat-color($primary)
   .btn-press-favorite
     color: mat-color($warn)
+
 
 
 

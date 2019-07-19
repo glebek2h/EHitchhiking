@@ -11,8 +11,7 @@ import { TripsModalService } from "./trips-modal.service";
 })
 export class TripsModalComponent implements OnInit {
 
-  begin = 0;
-  end = 5;
+  limit = 5;
   tripsArray = [];
   tripsArrayLenght = 0;
   loaderSize: LoaderSize = LoaderSize.Large;
@@ -26,7 +25,7 @@ export class TripsModalComponent implements OnInit {
     this.fetchTrips();
   }
   fetchTrips(){
-    this.tripsArray = this.tripService.getTrips().slice(this.begin, this.end);
+    this.tripsArray = this.tripService.getTrips();
     setTimeout(() => {
       this.loading = false;
     }, 1000);
@@ -39,7 +38,7 @@ export class TripsModalComponent implements OnInit {
     this.fetchTrips();
   }
 
-  trackByFn(index, trip) {
+  trackById(index, trip) {
     return trip.id;
   }
 
@@ -48,7 +47,6 @@ export class TripsModalComponent implements OnInit {
   }
 
   downloadMore(){
-    this.end+=5;
-    this.fetchTrips();
+    this.limit+=5;
   }
 }
