@@ -7,8 +7,12 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 	styleUrls: ['./trip-registration.component.sass'],
 })
 export class TripRegistrationComponent implements OnInit {
+
 	@Input() isShown: boolean;
   @Output() formData = new EventEmitter<any>(); // TODO
+  @Output() isShownViewListButton = new EventEmitter<any>(); // TODO
+  @Output() isShownSaveRouteButton = new EventEmitter<any>(); // TODO
+
 	nameFormGroup: FormGroup;
 
 	constructor() {}
@@ -30,7 +34,9 @@ export class TripRegistrationComponent implements OnInit {
 
   onSubmit() {
     this.formData.emit(this.nameFormGroup.value);
-  
+    this.isShownViewListButton.emit(true);
+    this.isShownSaveRouteButton.emit(true);
+
   }
 
 }

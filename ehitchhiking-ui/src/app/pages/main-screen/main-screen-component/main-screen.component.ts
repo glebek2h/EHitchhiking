@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit} from '@angular/core';
+import {Component, OnInit, SimpleChanges} from '@angular/core';
 
 @Component({
 	selector: 'app-main-screen',
@@ -12,9 +12,49 @@ export class MainScreenComponent implements OnInit {
 	isHiddenTripRegistration: boolean;
 	userState: string;
 	isSavedRoute: boolean;
+  isShownRoutesList: boolean;
+  isShownViewRoutesButton: boolean;
+  isShownSaveRouteButton: boolean;
+
+  routes: Partial<Route>[] = [];
 
   ngOnInit() {
     this.isHiddenTripRegistration = true;
+    this.routes.push({
+      from: 'Рождественская 106, Минск',
+      to: 'Проспект Независимости 4, Минск',
+      datePicker: new Date(),
+      timePicker: '12:00 am',
+      placesSelect: 2,
+    });
+    this.routes.push({
+      from: 'Пионерская 30Б, Минск',
+      to: 'Проспект Независимости 4, Минск',
+      datePicker: new Date(),
+      timePicker: '12:00 am',
+      placesSelect: 4,
+    });
+    this.routes.push({
+      from: 'Шаранговича 62, Минск',
+      to: 'Проспект Независимости 4, Минск',
+      datePicker: new Date(),
+      timePicker: '15:00 am',
+      placesSelect: 1,
+    });
+    this.routes.push({
+      from: 'Магнитная 8, Минск',
+      to: 'Проспект Независимости 4, Минск',
+      datePicker: new Date(),
+      timePicker: '15:00 am',
+      placesSelect: 1,
+    });
+    this.routes.push({
+      from: 'Подгорная 29, Минск',
+      to: 'Проспект Независимости 4, Минск',
+      datePicker: new Date(),
+      timePicker: '15:00 am',
+      placesSelect: 1,
+    });
   }
 
   openTripRegistrationForm(): void {
@@ -22,11 +62,27 @@ export class MainScreenComponent implements OnInit {
   }
 
   getData(data) {
-   // console.log(data);
     this.tripFormData = data;
   }
 
   saveRoute() {
     this.isSavedRoute = !this.isSavedRoute;
   }
+
+  viewRoutes() {
+    this.isShownRoutesList = !this.isShownRoutesList;
+  }
+
+  getIsShown(data) {
+    if (this.userState === 'passenger') {
+    this.isShownViewRoutesButton = data;
+    }
+  }
+
+  getIsShownSaveRoute(data) {
+    if (this.userState === 'driver') {
+      this.isShownSaveRouteButton = data;
+    }
+  }
+
 }

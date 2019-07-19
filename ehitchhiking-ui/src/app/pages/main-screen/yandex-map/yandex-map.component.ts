@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import ymaps from 'ymaps';
 
+
 @Component({
 	selector: 'yandex-map',
 	templateUrl: './yandex-map.component.html',
@@ -20,15 +21,17 @@ export class YandexMapComponent implements OnInit, OnChanges {
 	myMap: any; // TODO: which type should i use?
 	ymapsPromise;
 
-	tripDuration: string;
-
 	currentMultiRoute;
 	currentGeoPosition;
-	activeRoutesCollection: any[] = []; // TODO
 
+	@Input() activeRoutesCollection: Partial<Route>[];
 	@Input() userState: string;
-	@Input() tripData: any; // TODO
+	@Input() tripData: Route;
 	@Input() isSavedRoute: boolean;
+
+	static generateColor() {
+		return '#' + Math.floor(Math.random() * 16777215).toString(16);
+	}
 
 	ngOnInit() {
 		this.ymapsPromise = ymaps.load(this.apiURL);
@@ -38,14 +41,21 @@ export class YandexMapComponent implements OnInit, OnChanges {
 
 	ngOnChanges(changes: SimpleChanges) {
 		if (changes.tripData && changes.tripData.currentValue) {
-		  if(this.userState === 'driver')
-      {
-        this.myMap.geoObjects.remove(this.currentMultiRoute);
-        this.addMultiRoute();
-      }
+			if (this.userState === 'driver') {
+				this.myMap.geoObjects.remove(this.currentMultiRoute);
+				console.log(this.tripData);
+				this.addMultiRoute(this.tripData);
+			}
+			if (this.userState === 'passenger') {
+				// нарисовать на карте 3 лучших маршрута и добавить кнопку "показать-больше"
+				// фильтрация коллекции activeRoutesCollection
+				for (let i = 0; i < 3; i++){
+          this.addMultiRoute(this.activeRoutesCollection[i]);
+        }
+			}
 		}
 		if (changes.userState && changes.userState.currentValue) {
-		  console.log(this.userState);
+			console.log(this.userState);
 			if (this.userState === 'driver') {
 				this.myMap.geoObjects.remove(this.currentGeoPosition);
 				this.ymapsPromise.then((maps) => {
@@ -82,10 +92,11 @@ export class YandexMapComponent implements OnInit, OnChanges {
 			}
 		}
 		if (changes.isSavedRoute && this.currentMultiRoute) {
-			this.activeRoutesCollection.push(this.currentMultiRoute);
+			this.activeRoutesCollection.push(this.tripData);
 			this.myMap.geoObjects.remove(this.currentMultiRoute);
 		}
 	}
+
 	createMap() {
 		this.ymapsPromise
 			.then((maps) => {
@@ -115,12 +126,14 @@ export class YandexMapComponent implements OnInit, OnChanges {
 			.catch((error) => console.log('Failed to load Yandex Maps', error));
 	}
 
-	addMultiRoute() {
+	addMultiRoute(data: Partial<Route>) {
+		const color = YandexMapComponent.generateColor();
+		data.routeColor = color;
 		this.ymapsPromise
 			.then((maps) => {
 				const multiRoute = new maps.multiRouter.MultiRoute(
 					{
-						referencePoints: [this.tripData.from, this.tripData.to],
+						referencePoints: [data.from, data.to], //
 						params: {
 							results: 2,
 						},
@@ -132,22 +145,23 @@ export class YandexMapComponent implements OnInit, OnChanges {
 						editorDrawOver: false,
 						routeActiveStrokeWidth: 8,
 						routeActiveStrokeStyle: 'solid',
-						routeActiveStrokeColor: '#55773a',
+						routeActiveStrokeColor: color,
 						routeStrokeStyle: 'dot',
 						routeStrokeWidth: 3,
 					}
 				);
-				this.getInfoAboutRoute(multiRoute);
+				console.log(data);
+				this.setInfoAboutRoute(multiRoute, data);
 				this.myMap.geoObjects.add(multiRoute);
 				this.currentMultiRoute = multiRoute;
 			})
 			.catch((error) => console.log('Failed to load Yandex Maps', error));
 	}
 
-	getInfoAboutRoute(multiRoute) {
+	setInfoAboutRoute(multiRoute, data: Partial<Route>) {
 		multiRoute.events.add('update', (e) => {
 			const activeRoute = multiRoute.getActiveRoute();
-			this.tripDuration = activeRoute.properties.get('duration').text;
+			data.tripDuration = activeRoute.properties.get('duration').text;
 			activeRoute.events.add('mouseenter', () => {
 				activeRoute.options.set('strokeWidth', 5);
 				activeRoute.options.set('strokeColor', '#fb5b74');
@@ -163,11 +177,11 @@ export class YandexMapComponent implements OnInit, OnChanges {
 						contentBody:
 							'<p>' +
 							'<span>Departure time: </span>' +
-							this.tripData.timePicker +
+							data.timePicker +
 							'</p>' +
 							'<p>' +
 							'<span>Departure date: </span>' +
-							this.tripData.datePicker.toLocaleString('en-US', {
+							data.datePicker.toLocaleString('en-US', {
 								year: 'numeric',
 								month: 'long',
 								day: 'numeric',
@@ -176,11 +190,11 @@ export class YandexMapComponent implements OnInit, OnChanges {
 							'</p>' +
 							'<p>' +
 							'<span>Places: </span>' +
-							this.tripData.placesSelect +
+							data.placesSelect +
 							'</p>' +
 							'<p>' +
 							'<span>Trip duration: </span>' +
-							this.tripDuration,
+							data.tripDuration,
 					});
 				} else {
 					this.myMap.balloon.close();
