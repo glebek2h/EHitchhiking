@@ -14,7 +14,7 @@
       <app-trip class = "trip" [trip]=trip (change)="tripChange($event)"></app-trip>
     </div>
 
-      <app-no-data class = "no-date" *ngIf="!tripsArray.length"></app-no-data>
+      <app-no-data *ngIf="!tripsArray.length"></app-no-data>
 
 <!--    <div class = "form" *ngIf="!tripsArray.length">-->
 <!--      <span class="center" >List is empty!</span>-->
