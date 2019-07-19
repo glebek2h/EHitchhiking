@@ -4,13 +4,14 @@ package com.exadel.ehitchhiking.Models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @ToString
 @Table(name = "passenger", schema = "public")
 @NoArgsConstructor
 @EqualsAndHashCode
-public class Passenger{
+public class Passenger  {
 
     @Id
     @Column(name = "pass_id")
@@ -22,7 +23,7 @@ public class Passenger{
     @Getter
     @Setter
     @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName="id")
+    @JoinColumn(name = "user_id")
     private Employee employee;
 
 

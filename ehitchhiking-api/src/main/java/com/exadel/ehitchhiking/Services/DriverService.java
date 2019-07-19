@@ -1,5 +1,6 @@
 package com.exadel.ehitchhiking.Services;
 
+import com.exadel.ehitchhiking.DAO.IDriverDAO;
 import com.exadel.ehitchhiking.DAO.impl.DriverIBasicDAO;
 
 import com.exadel.ehitchhiking.Models.Driver;
@@ -16,10 +17,9 @@ import javax.transaction.Transactional;
 public class DriverService {
 
     @Autowired
-    private DriverIBasicDAO dao = new DriverIBasicDAO();
+    private IDriverDAO dao = new DriverIBasicDAO();
 
     public void createDriver(Employee employee){
-
 
         dao.save(new Driver(employee, 0.0f,0));
 

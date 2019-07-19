@@ -5,115 +5,36 @@ import com.exadel.ehitchhiking.Services.TripPassengerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Timestamp;
 
 @RestController
+@RequestMapping("/TripPassenger")
 public class TripPassengerController {
 
     @Autowired
     TripPassengerService tripPassengerService = new TripPassengerService();
 
 
-    @PostMapping("/TripDriver/createTrip")
-    public void createTrip(int pass_id, String startingPoint, String endingPoint,
+    @PostMapping("/createTrip")
+    public void createTrip(String pass_id, String startingPoint, String endingPoint,
                            Timestamp startingTime, Timestamp endingTime,
-                           int seats, int tripDriverId) {
+                           String seats, String tripDriverId) {
         try {
-            tripPassengerService.createTripPassenger(pass_id, startingPoint, endingPoint,
+            tripPassengerService.createTripPassenger(Integer.getInteger(pass_id), startingPoint, endingPoint,
                     startingTime, endingTime,
-                    seats, tripDriverId);
+                    Integer.getInteger(seats), Integer.getInteger(tripDriverId));
         } catch (Exception e) {
             //TODO: return
         }
     }
 
-    @PutMapping("/TripPassenger/updateStartingPlace")
-    public void updateStartingPlace(int tripId, String number) {
+    @PutMapping("/updateStartingPlace")
+    public void updateStartingPlace(String tripId, String number) {
         try {
-            tripPassengerService.updatePointStart(tripId, number);
-            //TODO: return
-        } catch (Exception e) {
-            //TODO: figure out the return
-        }
-    }
-
-
-    @PutMapping("/TripPassenger/updateEndingPlace")
-    public void updateEndingPlace(int tripId, String number) {
-        try {
-            tripPassengerService.updatePointEnd(tripId, number);
-            //TODO: return
-        } catch (Exception e) {
-            //TODO: figure out the return
-        }
-    }
-
-    @PutMapping("/TripPassenger/updateStartingTime")
-    public void updateStartingTime(int tripId, Timestamp timeStart) {
-        try {
-            tripPassengerService.updateTimeStart(tripId, timeStart);
-            //TODO: return
-        } catch (Exception e) {
-            //TODO: figure out the return
-        }
-    }
-
-    @PutMapping("/TripPassenger/updateEndingTime")
-    public void updateEndingTime(int tripId, Timestamp timeEnd) {
-        try {
-            tripPassengerService.updateTimeStart(tripId, timeEnd);
-            //TODO: return
-        } catch (Exception e) {
-            //TODO: figure out the return
-        }
-    }
-
-    @PutMapping("/TripPassenger/updateSeats")
-    public void updateSeats(int tripId, int seats) {
-        try {
-            tripPassengerService.updateSeats(tripId, seats);
-            //TODO: return
-        } catch (Exception e) {
-            //TODO: figure out the return
-        }
-    }
-
-    @PutMapping("/TripPassenger/addToSaved")
-    public void addToSaved(int tripId) {
-        try {
-            tripPassengerService.updateSave(tripId, true);
-            //TODO: return
-        } catch (Exception e) {
-            //TODO: figure out the return
-        }
-    }
-
-    @PutMapping("/TripPassenger/removeFromSaved")
-    public void removedFromSaved(int tripId) {
-        try {
-            tripPassengerService.updateSave(tripId, false);
-            //TODO: return
-        } catch (Exception e) {
-            //TODO: figure out the return
-        }
-    }
-
-    @PutMapping("/TripPassenger/addToHistory")
-    public void addToHistory(int tripId) {
-        try {
-            tripPassengerService.updateHistory(tripId, true);
-            //TODO: return
-        } catch (Exception e) {
-            //TODO: figure out the return
-        }
-    }
-
-    @PutMapping("/TripPassenger/cancelledTrip")
-    public void addToCancelled(int tripId) {
-        try {
-            tripPassengerService.updateFinished(tripId, false);
+            tripPassengerService.updatePointStart(Integer.getInteger(tripId), number);
             //TODO: return
         } catch (Exception e) {
             //TODO: figure out the return
@@ -121,10 +42,91 @@ public class TripPassengerController {
     }
 
 
-    @PutMapping("/TripPassenger/finishedTrip")
-    public void addToFinished(int tripId) {
+    @PutMapping("/updateEndingPlace")
+    public void updateEndingPlace(String tripId, String number) {
         try {
-            tripPassengerService.updateFinished(tripId, true);
+            tripPassengerService.updatePointEnd(Integer.getInteger(tripId), number);
+            //TODO: return
+        } catch (Exception e) {
+            //TODO: figure out the return
+        }
+    }
+
+    @PutMapping("/updateStartingTime")
+    public void updateStartingTime(String tripId, Timestamp timeStart) {
+        try {
+            tripPassengerService.updateTimeStart(Integer.getInteger(tripId), timeStart);
+            //TODO: return
+        } catch (Exception e) {
+            //TODO: figure out the return
+        }
+    }
+
+    @PutMapping("/updateEndingTime")
+    public void updateEndingTime(String tripId, Timestamp timeEnd) {
+        try {
+            tripPassengerService.updateTimeStart(Integer.getInteger(tripId), timeEnd);
+            //TODO: return
+        } catch (Exception e) {
+            //TODO: figure out the return
+        }
+    }
+
+    @PutMapping("/updateSeats")
+    public void updateSeats(String tripId, String seats) {
+        try {
+            tripPassengerService.updateSeats(Integer.getInteger(tripId), Integer.getInteger(seats));
+            //TODO: return
+        } catch (Exception e) {
+            //TODO: figure out the return
+        }
+    }
+
+    @PutMapping("/addToSaved")
+    public void addToSaved(String tripId) {
+        try {
+            tripPassengerService.updateSave(Integer.getInteger(tripId), true);
+            //TODO: return
+        } catch (Exception e) {
+            //TODO: figure out the return
+        }
+    }
+
+    @PutMapping("/removeFromSaved")
+    public void removedFromSaved(String tripId) {
+        try {
+            tripPassengerService.updateSave(Integer.getInteger(tripId), false);
+            //TODO: return
+        } catch (Exception e) {
+            //TODO: figure out the return
+        }
+    }
+
+    @PutMapping("/addToHistory")
+    public void addToHistory(String tripId) {
+        try {
+            tripPassengerService.updateHistory(Integer.getInteger(tripId), true);
+            //TODO: return
+        } catch (Exception e) {
+            //TODO: figure out the return
+        }
+    }
+
+    @PutMapping("/cancelledTrip")
+    public void addToCancelled(String tripId) {
+        try {
+            tripPassengerService.updateFinished(Integer.getInteger(tripId), false);
+            //TODO: return
+        } catch (Exception e) {
+            //TODO: figure out the return
+        }
+    }
+
+
+    @PutMapping("/finishedTrip")
+    public void addToFinished(String tripId) {
+        try {
+            tripPassengerService.updateFinished(Integer.getInteger(tripId), true);
             //TODO: return
         } catch (Exception e) {
             //TODO: figure out the return

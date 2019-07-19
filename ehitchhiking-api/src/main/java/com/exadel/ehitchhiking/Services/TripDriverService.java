@@ -1,5 +1,7 @@
 package com.exadel.ehitchhiking.Services;
 
+import com.exadel.ehitchhiking.DAO.ICarsDAO;
+import com.exadel.ehitchhiking.DAO.ITripDriverDAO;
 import com.exadel.ehitchhiking.DAO.impl.CarsIBasicDAO;
 import com.exadel.ehitchhiking.DAO.impl.TripDriverIBasicDAO;
 import com.exadel.ehitchhiking.Models.Cars;
@@ -16,9 +18,9 @@ import java.sql.Timestamp;
 public class TripDriverService  {
 
     @Autowired
-    private TripDriverIBasicDAO dao = new TripDriverIBasicDAO();
+    private ITripDriverDAO dao = new TripDriverIBasicDAO();
     @Autowired
-    private CarsIBasicDAO carsIBasicDAO = new CarsIBasicDAO();
+    private ICarsDAO carsIBasicDAO = new CarsIBasicDAO();
 
     public void createTripDriver(String startingPoint, String endingPoint,
                                  Timestamp startingTime, Timestamp endingTime, int id_of_car, int seats){

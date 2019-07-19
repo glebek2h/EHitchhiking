@@ -5,6 +5,7 @@ import lombok.*;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 
@@ -12,7 +13,7 @@ import java.util.Set;
 @Table(name = "blacklist_pass", schema = "public")
 @ToString
 @EqualsAndHashCode
-public class BlacklistPass {
+public class BlacklistPass  {
 
     @Id
     @Column(name = "blp_id")
@@ -31,7 +32,6 @@ public class BlacklistPass {
     @Getter
     @Setter
     @OneToMany (fetch = FetchType.LAZY)
-    @JoinColumn (name = "driver_id")
     private Set<Driver> driverSet;
 
     public BlacklistPass(){}

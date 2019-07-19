@@ -6,7 +6,7 @@ import com.exadel.ehitchhiking.Models.TripPass;
 
 import java.util.List;
 
-public interface ITripDriverDAO {
+public interface ITripDriverDAO extends IBasicDAO<TripDriver> {
 
     List<TripDriver> getAll();
     Cars getCar(String id);

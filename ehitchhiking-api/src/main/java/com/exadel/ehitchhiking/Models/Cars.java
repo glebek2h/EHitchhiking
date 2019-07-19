@@ -5,6 +5,7 @@ import lombok.*;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 
@@ -15,7 +16,7 @@ import java.util.Set;
 public class Cars {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Setter(AccessLevel.PRIVATE)
     @Getter
     private int car_id;
@@ -38,7 +39,7 @@ public class Cars {
     @Setter
     @Getter
     @ManyToOne
-    @JoinColumn(name = "driver_id", referencedColumnName = "driver_id")
+    @JoinColumn(name = "driver_id")
     private Driver drive;
 
 
@@ -49,10 +50,11 @@ public class Cars {
     public Cars(){}
 
     public Cars(String color, String number, String car_model,
-                int id_of_driver){
+                Driver driver){
 
         this.car_color = color;
         this.veh_number= number;
         this.model = car_model;
+        this.drive = driver;
     }
 }

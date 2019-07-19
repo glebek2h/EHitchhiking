@@ -6,11 +6,14 @@ import com.exadel.ehitchhiking.Models.Employee;
 import com.exadel.ehitchhiking.Services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Timestamp;
 
 @RestController
+@RequestMapping("/test")
 public class ControllersTest {
 
     // creates the services for empl, pass and driver
@@ -27,13 +30,15 @@ public class ControllersTest {
     @Autowired
     TripPassengerService tripPassService = new TripPassengerService();
 
-    @GetMapping("/addEmployee")
-    public void createEmployee(boolean isAdmin, String userName, String firstName,
+    @PostMapping("/addEmployee")
+
+    public void createEmployee(String isAdmin, String userName, String firstName,
                                String lastName, String email, String password, String phoneNumber) {
 
 
+
         // creates the employee by the parameters that were passed in the func
-        employeeService.createEmployee(isAdmin, userName, firstName,
+        employeeService.createEmployee(isAdmin.equals("t"), userName, firstName,
                 lastName, email, password, phoneNumber);
 
         // getting the employee by the username
@@ -52,22 +57,6 @@ public class ControllersTest {
         blackListDriverService.createBlackList(idDriver);
     }
 
-    public void createTripDriver(String stratingPoint, String endingPoint, Timestamp startngTime,
-                                 Timestamp endignTime, int avaliableSeats, int car_id) {
-
-        TripDriverService tripDriverService = new TripDriverService();
-
-        tripDriverService.createTripDriver(stratingPoint, endingPoint, startngTime,
-                endignTime, avaliableSeats, car_id);
-    }
-
-    public void createTripPass(int passID, String stratingPoint, String endingPoint, Timestamp startngTime,
-                               Timestamp endignTime, int neededSeats, int idTripDriver) {
-        tripPassService.createTripPassenger(passID, stratingPoint, endingPoint, startngTime,
-                endignTime, neededSeats, idTripDriver);
-    }
-
-    /// TODO: ask about the @Autowired
 
 
 }

@@ -2,14 +2,13 @@ package com.exadel.ehitchhiking.DAO.impl;
 
 import com.exadel.ehitchhiking.DAO.IPassengerDAO;
 import com.exadel.ehitchhiking.Models.Passenger;
-import com.exadel.ehitchhiking.Utils.HibernateSessionFactoryUtil;
-import org.hibernate.Session;
+
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 
-@Repository
+@Repository("PassengerIBasicDAO")
 public class PassengerIBasicDAO extends AbstractDAO<Passenger> implements IPassengerDAO {
 
     public List<Passenger> getAll() {

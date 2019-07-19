@@ -1,5 +1,7 @@
 package com.exadel.ehitchhiking.Services;
 
+import com.exadel.ehitchhiking.DAO.ICarsDAO;
+import com.exadel.ehitchhiking.DAO.IDriverDAO;
 import com.exadel.ehitchhiking.DAO.impl.CarsIBasicDAO;
 import com.exadel.ehitchhiking.DAO.impl.DriverIBasicDAO;
 import com.exadel.ehitchhiking.Models.Cars;
@@ -14,14 +16,17 @@ import java.util.List;
 public class CarsService {
 
     @Autowired
-    private CarsIBasicDAO dao = new CarsIBasicDAO();
+    private ICarsDAO dao = new CarsIBasicDAO();
+
     @Autowired
-    private DriverIBasicDAO driverDao = new DriverIBasicDAO();
+    private IDriverDAO driverDao = new DriverIBasicDAO();
 
     public void createCar(String color, String number, String car_model,
                            int id_of_driver){
+        System.out.println(color);
+        System.out.println(number);
         dao.save(new Cars(color, number, car_model,
-                          id_of_driver));
+                          driverDao.get(id_of_driver)));
 
     }
 

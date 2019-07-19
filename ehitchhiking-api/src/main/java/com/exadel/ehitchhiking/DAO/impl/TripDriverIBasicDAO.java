@@ -5,16 +5,14 @@ import com.exadel.ehitchhiking.DAO.ITripDriverDAO;
 import com.exadel.ehitchhiking.Models.Cars;
 import com.exadel.ehitchhiking.Models.TripDriver;
 import com.exadel.ehitchhiking.Models.TripPass;
-import com.exadel.ehitchhiking.Utils.HibernateSessionFactoryUtil;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 
-@Repository
+@Repository("TripDriverIBasicDAO")
 public class TripDriverIBasicDAO extends AbstractDAO<TripDriver> implements ITripDriverDAO {
 
     public List<TripDriver> getAll() {

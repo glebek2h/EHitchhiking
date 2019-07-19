@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@RestController("/Employee")
 public class EmployeeController {
 
     @Autowired
     EmployeeService employeeService = new EmployeeService();
 
-    @PutMapping("/Employee/updatePassword")
+    @PutMapping("/updatePassword")
     public void updatePassword(String username, String password){
         try{
             employeeService.updatePassword(username, password);
@@ -22,7 +22,7 @@ public class EmployeeController {
             //TODO: figure out the return
         }
     }
-    @PutMapping("/Employee/updatePhone")
+    @PutMapping("/updatePhone")
     public void updatePhone(String username, String cell) {
         try {
             employeeService.updatePhone(username, cell);
@@ -32,7 +32,7 @@ public class EmployeeController {
         }
     }
 
-    @PutMapping("/Employee/updateEmail")
+    @PutMapping("/updateEmail")
     public void updateEmail(String username, String email) {
         try {
             employeeService.updateEmail(username, email);
@@ -42,7 +42,7 @@ public class EmployeeController {
         }
     }
 
-    @PutMapping("/Employee/updateFirstName")
+    @PutMapping("/updateFirstName")
     public void updateFirstName(String username, String firstName) {
         try {
             employeeService.updateFirstName(username, firstName);
@@ -52,7 +52,7 @@ public class EmployeeController {
         }
     }
 
-    @PutMapping("/Employee/updateLastName")
+    @PutMapping("/updateLastName")
     public void updateLastName(String username, String lastName) {
         try {
             employeeService.updateLastName(username, lastName);

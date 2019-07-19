@@ -4,56 +4,65 @@ import com.exadel.ehitchhiking.Services.CarsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping(value = "/Cars")
 public class CarsController {
 
     @Autowired
-    CarsService carsService = new CarsService();
+    CarsService carsService;
 
 
-    @PutMapping("/Cars/updateColor")
-    public void updateColor(int carId, String color) {
+    @PutMapping("/updateColor")
+    public void updateColor(String carId, String color) {
         try {
-            carsService.updateColor(carId, color);
+            carsService.updateColor(Integer.getInteger(carId), color);
             //TODO: return
         } catch (Exception e) {
             //TODO: figure out the return
         }
     }
 
-    @PutMapping("/Cars/updateNumber")
-    public void updateNumber(int carId, String number) {
+    @PutMapping("/updateNumber")
+    public void updateNumber(String carId, String number) {
         try {
-            carsService.updateNumber(carId, number);
+            carsService.updateNumber(Integer.getInteger(carId), number);
             //TODO: return
         } catch (Exception e) {
             //TODO: figure out the return
         }
     }
 
-    @PostMapping("/Cars/newCar")
+    @PostMapping("/newCar")
     public void addNewCar(String color, String number, String car_model,
-                          int id_of_driver) {
+                          String id_of_driver) {
+        System.out.println(color);
+        System.out.println(number);
+        System.out.println(car_model);
+        System.out.println(id_of_driver);
+        System.out.println(carsService);
+        carsService.createCar(color, number, car_model,
+                Integer.getInteger(id_of_driver));
         try {
-            if (carsService.getAmountCars(id_of_driver) < 5) {
-                carsService.createCar(color, number, car_model,
-                        id_of_driver);
+            /*System.out.println(carsService.getAmountCars(Integer.getInteger(id_of_driver)));
+            if (carsService.getAmountCars(Integer.getInteger(id_of_driver)) < 5) {
+
             } else {
                 // TODO: return failed status
 
-            }
+            }*/
 
         } catch (Exception e) {
         }
     }
 
 
-    @PostMapping("/Cars/deleteCar")
-    public void addNewCar(int carId) {
+    @PostMapping("/deleteCar")
+    public void deleteCar(String carId) {
         try {
-            carsService.deleteCarId(carId);
+            carsService.deleteCarId(Integer.getInteger(carId));
 
         } catch (Exception e) {
         }

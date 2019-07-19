@@ -5,6 +5,7 @@ package com.exadel.ehitchhiking.Models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 
@@ -12,7 +13,7 @@ import java.util.Set;
 @Table(name = "blacklist_driver", schema = "public")
 @ToString
 @EqualsAndHashCode
-public class BlacklistDriver {
+public class BlacklistDriver  {
 
     @Id
     @Column(name = "bld_id")
@@ -24,7 +25,7 @@ public class BlacklistDriver {
     @Getter
     @Setter
     @OneToOne (fetch = FetchType.LAZY)
-    @JoinColumn(name = "driver_id", referencedColumnName = "driver_id")
+    @JoinColumn(name = "driver_id")
     private Driver driver;
 
     @Getter

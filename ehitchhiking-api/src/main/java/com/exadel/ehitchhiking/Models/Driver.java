@@ -5,6 +5,7 @@ import lombok.*;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @ToString
@@ -17,10 +18,11 @@ public class Driver {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Setter
     @Getter
+    @Column(name = "driver_id")
     private Integer id;
 
     @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName="id")
+    @JoinColumn(name = "user_id")
     @Getter
     @Setter
     private Employee employee;

@@ -1,4 +1,5 @@
 package com.exadel.ehitchhiking.Services;
+import com.exadel.ehitchhiking.DAO.IBlackListPassDAO;
 import com.exadel.ehitchhiking.Models.BlacklistPass;
 import com.exadel.ehitchhiking.Models.Driver;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import java.util.Set;
 public class BlackListPassengerService {
 
     @Autowired
-    BlackListPassIBasicDAO dao = new BlackListPassIBasicDAO();
+    private IBlackListPassDAO dao = new BlackListPassIBasicDAO();
 
 
     public void createBlackList(int userId){
@@ -45,8 +46,8 @@ public class BlackListPassengerService {
     }
 
 
-    public Set<Driver> findAllDrivers(int passId){
-
-        return dao.getByPassId(passId).getDriverSet();
-    }
+//    public Set<Driver> findAllDrivers(int passId){
+//
+//        return dao.getByPassId(passId).getDriverSet();
+//    }
 }

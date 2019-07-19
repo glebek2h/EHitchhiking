@@ -6,6 +6,7 @@ import lombok.*;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity
@@ -67,7 +68,7 @@ public class TripPass {
     @Getter
     @Setter
     @ManyToOne
-    @JoinColumn(name = "trip_id", referencedColumnName = "trip_driver_id")
+    //@JoinColumn(name = "trip_id", referencedColumnName = "trip_driver_id")
     private TripDriver tripDriver;
 
 

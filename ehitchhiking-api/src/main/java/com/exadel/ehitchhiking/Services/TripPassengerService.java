@@ -1,5 +1,6 @@
 package com.exadel.ehitchhiking.Services;
 
+import com.exadel.ehitchhiking.DAO.ITripPassDAO;
 import com.exadel.ehitchhiking.DAO.impl.TripPassIBasicDAO;
 import com.exadel.ehitchhiking.Models.TripPass;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +14,7 @@ import java.sql.Timestamp;
 public class TripPassengerService {
 
     @Autowired
-    private TripPassIBasicDAO dao = new TripPassIBasicDAO();
-
-
+    private ITripPassDAO dao = new TripPassIBasicDAO();
 
 
     public void createTripPassenger(int pass, String startingPoint, String endingPoint,

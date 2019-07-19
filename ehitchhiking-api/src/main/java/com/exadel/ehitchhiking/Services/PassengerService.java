@@ -1,5 +1,6 @@
 package com.exadel.ehitchhiking.Services;
 
+import com.exadel.ehitchhiking.DAO.IPassengerDAO;
 import com.exadel.ehitchhiking.DAO.impl.PassengerIBasicDAO;
 import com.exadel.ehitchhiking.Models.Employee;
 import com.exadel.ehitchhiking.Models.Passenger;
@@ -14,7 +15,7 @@ public class PassengerService {
 
 
     @Autowired
-    private PassengerIBasicDAO dao = new PassengerIBasicDAO();
+    private IPassengerDAO dao = new PassengerIBasicDAO();
 
     public void createPassenger(Employee employee) {
 

@@ -2,15 +2,16 @@ package com.exadel.ehitchhiking.DAO.impl;
 
 import com.exadel.ehitchhiking.DAO.IEmployeeDAO;
 import com.exadel.ehitchhiking.Models.Employee;
-import com.exadel.ehitchhiking.Utils.HibernateSessionFactoryUtil;
+
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 
-@Repository
-public class EmployeeDAO extends AbstractDAO<Employee> implements IEmployeeDAO {  //IEmployeeDAO
+@Repository("EmployeeDAO")
+public class EmployeeDAO extends AbstractDAO<Employee> implements IEmployeeDAO {
 
     public List<Employee> getAll() {
         List<Employee> emps = (List<Employee>) getCurrentSession().createQuery("From com.exadel.ehitchhiking.Models.Employee").list();
@@ -29,4 +30,5 @@ public class EmployeeDAO extends AbstractDAO<Employee> implements IEmployeeDAO {
     public EmployeeDAO(){
         setAClass(Employee.class);
     }
+
 }

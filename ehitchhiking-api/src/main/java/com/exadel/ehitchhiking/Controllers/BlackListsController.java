@@ -16,37 +16,41 @@ public class BlackListsController {
 
     @Autowired
     BlackListDriverService blackListDriverService = new BlackListDriverService();
+
     @Autowired
     BlackListPassengerService blackListPassengerService = new BlackListPassengerService();
 
     // adding the passenger to the black list of the driver
     @PostMapping("/Driver")
-    public boolean addPassToBlackListDriver (int idDriver, int idPass){
+    public boolean addPassToBlackListDriver(String idDriver, String idPass) {
         try {
-            blackListDriverService.addPass(idDriver, idPass);
+            System.out.println(idDriver);
+            blackListDriverService.addPass(Integer.getInteger(idDriver), Integer.getInteger(idPass));
+        } catch (Exception e) {
+            return false;
         }
-        catch (Exception e){return false;}
         return true;
 
     }
 
     // deleting the passenger from the balck list driver
     @DeleteMapping("/Driver")
-    public boolean deletePassFromBlackListDriver (int idDriver, int idPass){
+    public boolean deletePassFromBlackListDriver(String idDriver, String idPass) {
         try {
-            blackListDriverService.deletePass(idDriver, idPass);
+            blackListDriverService.deletePass(Integer.getInteger(idDriver), Integer.getInteger(idPass));
+        } catch (Exception e) {
+            return false;
         }
-        catch (Exception e){return false;}
         return true;
     }
 
 
     // adding the passenger to the black list of the driver
     @PostMapping("/Passenger")
-    public boolean addDriverToBlackListPass (int idPass, int idDriver){
-        try{
-        blackListDriverService.addPass(idPass, idDriver);}
-        catch (Exception e){
+    public boolean addDriverToBlackListPass(String idPass, String idDriver) {
+        try {
+            blackListDriverService.addPass(Integer.getInteger(idPass), Integer.getInteger(idDriver));
+        } catch (Exception e) {
             return false;
         }
         return true;
@@ -54,31 +58,30 @@ public class BlackListsController {
 
     // deleting the passenger from the balck list driver
     @DeleteMapping("/Passenger")
-    public boolean deleteDriverFromBlackListPass (int idPass, int idDriver){
-        try {blackListDriverService.deletePass(idPass, idDriver);}
-        catch (Exception e){
+    public boolean deleteDriverFromBlackListPass(String idPass, String idDriver) {
+        try {
+            blackListDriverService.deletePass(Integer.getInteger(idPass), Integer.getInteger(idDriver));
+        } catch (Exception e) {
             return false;
         }
         return true;
     }
 
-    @GetMapping("/Driver")
-    public Object[] getListOfPassengers(int idDriver){
-        try{
-        return blackListDriverService.findAllPass(idDriver).toArray();}
-        catch (Exception e){return null;}
-    }
+    /*@GetMapping("/Driver")
+    public Object[] getListOfPassengers(String idDriver) {
+        try {
+          //  return blackListDriverService.findAllPass(Integer.getInteger(idDriver)).toArray();
+        } catch (Exception e) {
+            return null;
+        }
+    }*/
 
-    @GetMapping("/Passenger")
-    public Object[] getListOfDrivers(int idPass){
-        try{
-        return blackListPassengerService.findAllDrivers(idPass).toArray();}
-        catch(Exception e) {return null;}
-    }
-
-    @GetMapping("/test")
-    public String test(){
-        return "ok";
-    }
-
+    /*@GetMapping("/Passenger")
+    public Object[] getListOfDrivers(String idPass) {
+        try {
+          //  return blackListPassengerService.findAllDrivers(Integer.getInteger(idPass)).toArray();
+        } catch (Exception e) {
+            return null;
+        }
+    }*/
 }

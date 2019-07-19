@@ -4,6 +4,7 @@ package com.exadel.ehitchhiking.Models;
 import lombok.*;
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
 import java.sql.*;
 import java.util.Set;
 
@@ -26,7 +27,7 @@ public class TripDriver {
     @Getter
     @Setter
     @OneToMany
-    @JoinColumn(name = "trip_pass_id")
+    //@JoinColumn(name = "trip_pass_id")
     private Set<TripPass> set_trip_pass_id;
 
     @Getter
@@ -48,7 +49,7 @@ public class TripDriver {
     @Getter
     @Setter
     @ManyToOne
-    @JoinColumn(name = "car_id")
+    //@JoinColumn(name = "car_id")
     private Cars car;
 
     @Setter
