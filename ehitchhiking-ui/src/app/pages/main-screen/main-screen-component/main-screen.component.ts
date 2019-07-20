@@ -21,6 +21,7 @@ export class MainScreenComponent implements OnInit {
 
   ngOnInit() {
     this.isHiddenTripRegistration = true;
+    this.userState = UserState.passenger;
     this.routes.push({
       from: 'Рождественская 106, Минск',
       to: 'Проспект Независимости 4, Минск',

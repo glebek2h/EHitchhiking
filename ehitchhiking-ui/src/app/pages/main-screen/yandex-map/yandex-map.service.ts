@@ -7,9 +7,9 @@ export class YandexMapService {
 
   constructor() { }
 
-  static routeOptions(color : string) {
+  static routeOptions(color : string, pointDraggable: boolean) {
     return {
-      wayPointDraggable: true,
+      wayPointDraggable: pointDraggable,
       boundsAutoApply: true,
       editorMidPointsType: 'via',
       editorDrawOver: false,

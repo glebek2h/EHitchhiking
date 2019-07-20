@@ -55,12 +55,12 @@ export class YandexMapComponent implements OnInit, OnChanges {
 			if (this.userState === UserState.driver) {
 				this.myMap.geoObjects.remove(this.currentMultiRoute);
 				console.log(this.tripData);
-				this.addMultiRoute(this.tripData);
+				this.addMultiRoute(this.tripData, true);
 			}
 			if (this.userState === UserState.passenger) {
 				// фильтрация коллекции activeRoutesCollection
 				for (let i = 0; i < 3; i++) {
-					this.addMultiRoute(this.activeRoutesCollection[i]);
+					this.addMultiRoute(this.activeRoutesCollection[i], false);
 				}
 			}
 		}
@@ -99,7 +99,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
 			.catch((error) => console.log('Failed to load Yandex Maps', error));
 	}
 
-	addMultiRoute(data: Partial<Route>) {
+	addMultiRoute(data: Partial<Route>, pointDraggable: boolean) {
 		const color = this.colors[this.getRandomInt(0, 10)];
 		data.routeColor = color;
 		this.ymapsPromise
@@ -111,7 +111,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
 							results: 1,
 						},
 					},
-					YandexMapService.routeOptions(color)
+					YandexMapService.routeOptions(color, pointDraggable)
 				);
 				console.log(data);
 				this.setInfoAboutRoute(multiRoute, data);
@@ -144,22 +144,24 @@ export class YandexMapComponent implements OnInit, OnChanges {
 	}
 
 	setUserIconToMapAccordingUserState() {
-		this.myMap.geoObjects.remove(this.currentGeoPosition);
-		this.ymapsPromise.then((maps) => {
-			maps.geolocation
-				.get({
-					mapStateAutoApply: true,
-				})
-				.then((result) => {
-					if (this.userState === UserState.driver) {
-						result.geoObjects.options.set('preset', 'islands#redAutoCircleIcon');
-					}
-					if (this.userState === UserState.passenger) {
-						result.geoObjects.options.set('preset', 'islands#redPersonCircleIcon');
-					}
-					this.currentGeoPosition = result.geoObjects;
-					this.myMap.geoObjects.add(this.currentGeoPosition);
-				});
-		});
-	}
+    if (this.myMap) {
+      this.myMap.geoObjects.remove(this.currentGeoPosition);
+      this.ymapsPromise.then((maps) => {
+        maps.geolocation
+          .get({
+            mapStateAutoApply: true,
+          })
+          .then((result) => {
+            if (this.userState === UserState.driver) {
+              result.geoObjects.options.set('preset', 'islands#redAutoCircleIcon');
+            }
+            if (this.userState === UserState.passenger) {
+              result.geoObjects.options.set('preset', 'islands#redPersonCircleIcon');
+            }
+            this.currentGeoPosition = result.geoObjects;
+            this.myMap.geoObjects.add(this.currentGeoPosition);
+          });
+      });
+    }
+  }
 }
