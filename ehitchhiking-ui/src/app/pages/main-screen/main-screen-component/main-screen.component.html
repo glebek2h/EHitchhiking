@@ -10,8 +10,8 @@
 <app-trip-registration
 	[isShown]="isHiddenTripRegistration"
 	(formData)="getData($event)"
-	(isShownViewListButton)="getIsShown($event)"
-	(isShownSaveRouteButton)="getIsShownSaveRoute($event)"
+	(isShownViewListButton)="setIsShownViewRoutesButtonFlag($event)"
+	(isShownSaveRouteButton)="setIsShownSaveRouteButtonFlag($event)"
 ></app-trip-registration>
 <app-routes-list *ngIf="isShownRoutesList" [activeRoutesCollection]="routes"></app-routes-list>
 <mat-button-toggle-group class="btn-group" name="fontStyle" aria-label="Font Style">

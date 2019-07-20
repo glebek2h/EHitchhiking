@@ -44,13 +44,13 @@ export class MainScreenComponent implements OnInit {
 		this.isShownRoutesList = !this.isShownRoutesList;
 	}
 
-	getIsShown(data) {
+  setIsShownViewRoutesButtonFlag(data) {
 		if (this.userState === UserState.passenger) {
 			this.isShownViewRoutesButton = data;
 		}
 	}
 
-	getIsShownSaveRoute(data) {
+  setIsShownSaveRouteButtonFlag(data) {
 		if (this.userState === UserState.driver) {
 			this.isShownSaveRouteButton = data;
 		}

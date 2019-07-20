@@ -13,15 +13,13 @@ import MultiRouteModel = ymaps.multiRouter.MultiRouteModel;
 export class YandexMapComponent implements OnInit, OnChanges {
 	constructor() {}
 
-	apiURL = 'https://api-maps.yandex.ru/2.1/?apikey=05c4e476-2248-4d27-836c-4a6c7c45e485&lang=en_US';
+  static readonly API_URL = 'https://api-maps.yandex.ru/2.1/?apikey=05c4e476-2248-4d27-836c-4a6c7c45e485&lang=en_US';
+	static readonly ROUTES_ON_MAP_COUNT = 3;
+
 	myMap;
 	ymapsPromise;
-
 	currentMultiRoute: MultiRouteModel;
 	currentGeoPosition;
-
-	ROUTES_ON_MAP_COUNT = 3;
-
 	colors: string[] = YandexMapService.COLORS;
 
 	@Input() routes: Partial<Route>[];
@@ -31,7 +29,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
 	@Input() isSavedRoute: boolean;
 
 	ngOnInit() {
-		this.ymapsPromise = ymaps.load(this.apiURL);
+		this.ymapsPromise = ymaps.load(YandexMapComponent.API_URL);
 		this.createMap();
 		this.userState = UserState.passenger;
 	}
@@ -50,7 +48,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
 			}
 			if (this.userState === UserState.passenger) {
 				// фильтрация коллекции activeRoutesCollection
-				for (let i = 0; i < this.ROUTES_ON_MAP_COUNT; i++) {
+				for (let i = 0; i < YandexMapComponent.ROUTES_ON_MAP_COUNT; i++) {
 					this.addMultiRoute(this.routes[i], false);
 				}
 			}
