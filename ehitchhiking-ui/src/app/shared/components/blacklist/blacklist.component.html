@@ -1,8 +1,8 @@
 <div class="modal-wrapper">
 	<app-pre-loading [isLoading]="loading" [size]="loaderSize"></app-pre-loading>
-	<app-no-data [size]="noDataSize" [message]="noDataMessage" [icon]="noDataIconName"></app-no-data>
+	<app-no-data [isEmpty]="empty" [size]="noDataSize" [message]="noDataMessage" [icon]="noDataIconName"></app-no-data>
 	<header class="modal-header">
-		<span>Blacklist</span>
+		<span class="modal-title">blacklist</span>
 	</header>
 	<div mat-dialog-content class="modal-content">
 		<mat-card class="blacklist-user" *ngFor="let blacklistuser of blacklistUsersArray; let i = index">

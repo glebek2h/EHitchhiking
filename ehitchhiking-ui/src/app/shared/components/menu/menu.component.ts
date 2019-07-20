@@ -14,6 +14,8 @@ import {Router} from '@angular/router';
 export class MenuComponent implements OnInit {
 	opened: boolean;
 	buttonsArray = [];
+	DIALOG_WINDOW_WIDTH = '23rem';
+	DIALOG_PANEL_CLASS = 'mat-dialog-no-padding';
 
 	constructor(private router: Router, public dialog: MatDialog) {}
 
@@ -22,8 +24,8 @@ export class MenuComponent implements OnInit {
 	}
 	openBlacklistDialog(): void {
 		const dialogRef = this.dialog.open(BlacklistComponent, {
-			width: '23rem',
-			panelClass: 'mat-dialog-no-padding',
+			width: this.DIALOG_WINDOW_WIDTH,
+			panelClass: this.DIALOG_PANEL_CLASS,
 			autoFocus: false,
 		});
 		dialogRef.afterClosed().subscribe((result) => {
@@ -33,8 +35,8 @@ export class MenuComponent implements OnInit {
 
 	openRatePassengersDialog(): void {
 		const dialogRef = this.dialog.open(RatePassengersModalComponent, {
-			width: '23rem',
-			panelClass: 'mat-dialog-no-padding',
+			width: this.DIALOG_WINDOW_WIDTH,
+			panelClass: this.DIALOG_PANEL_CLASS,
 			autoFocus: false,
 		});
 		dialogRef.afterClosed().subscribe((result) => {
