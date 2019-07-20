@@ -10,9 +10,7 @@ import {StarClickMeta} from './starClickMeta';
 export class RatingComponent implements OnInit {
 	@Input() rating: number;
 	@Input() itemId: number;
-	@Output() ratingClick: EventEmitter<StarClickMeta> = new EventEmitter<
-		StarClickMeta
-	>();
+	@Output() ratingClick: EventEmitter<StarClickMeta> = new EventEmitter<StarClickMeta>();
 	inputName: string;
 
 	ratings: Rate[] = [

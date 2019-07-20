@@ -1,8 +1,8 @@
-<div class="profile-container">
-	<div class="profile-header">
-		<span>{{ user.name | uppercase }}</span>
+<div class="modal-wrapper">
+	<div class="modal-header">
+		<span class="modal-title">{{ user.name }}</span>
 	</div>
-	<div class="profile-data">
+	<div class="modal-content">
 		<div class="profile-user-info">
 			<img class="profile-user-photo" *ngIf="user.photoPath; else elseBlock" [src]="user.photoPath" />
 			<ng-template #elseBlock>
@@ -29,33 +29,53 @@
 				<mat-expansion-panel class="profile-car-info" *ngFor="let curCar of user.cars; let index = index">
 					<mat-expansion-panel-header>
 						<mat-panel-title class="profile-car-info-title">
-							{{curCar.model}}
+							{{ curCar.model }}
 						</mat-panel-title>
 						<mat-panel-description class="profile-car-info-desc">
-							<span class="profile-car-info-desc-item">{{curCar.carNumber}}</span><span class="profile-car-info-desc-item">{{curCar.color}}
-							</span><span class="profile-car-info-desc-item">{{curCar.experience}}</span>
-							<button mat-icon-button class="car-info-delete profile-car-info-desc-item" (click)="onCarDelete($event, index)">
+							<span class="profile-car-info-desc-item">{{ curCar.carNumber }}</span
+							><span class="profile-car-info-desc-item">{{ curCar.color }} </span
+							><span class="profile-car-info-desc-item">{{ curCar.experience }}</span>
+							<button
+								mat-icon-button
+								class="car-info-delete profile-car-info-desc-item"
+								(click)="onCarDelete($event, index)"
+							>
 								<mat-icon class="car-info-delete-icon">delete</mat-icon>
 							</button>
 						</mat-panel-description>
 					</mat-expansion-panel-header>
-					<app-car-info-form [carIndex]="index" [carInfoForm]="carsInfoForm" [addCarMod]="addCarMod"
-						(onChangeCarInfo)="onChange()"></app-car-info-form>
+					<app-car-info-form
+						[carIndex]="index"
+						[carInfoForm]="carsInfoForm"
+						[addCarMod]="addCarMod"
+						(onChangeCarInfo)="onChange()"
+					></app-car-info-form>
 				</mat-expansion-panel>
 			</mat-accordion>
 			<div class="add-car-container" *ngIf="addCarMod">
-				<app-car-info-form class="add-car-form" [addCarMod]="addCarMod"
-					(onChangeCarInfo)="onSubmitNewCar($event)">
+				<app-car-info-form
+					class="add-car-form"
+					[addCarMod]="addCarMod"
+					(onChangeCarInfo)="onSubmitNewCar($event)"
+				>
 				</app-car-info-form>
 			</div>
 			<div class="cars-form-submit">
-				<button #submitChanges type="submit" mat-raised-button class="cars-form-submit-button" [disabled]="true"
-					*ngIf="!addCarMod">Save changes</button>
+				<button
+					#submitChanges
+					type="submit"
+					mat-raised-button
+					class="cars-form-submit-button"
+					[disabled]="true"
+					*ngIf="!addCarMod"
+				>
+					Save changes
+				</button>
 			</div>
 		</form>
 	</div>
-	<div class="close-profile">
-		<button mat-icon-button class="close-profile-button" (click)="close()">
+	<div class="modal-close-control">
+		<button mat-icon-button class="modal-close-control-btn" (click)="close()">
 			<mat-icon>close</mat-icon>
 		</button>
 	</div>

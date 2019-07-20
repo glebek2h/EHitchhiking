@@ -7,6 +7,7 @@ import {NoDataSize} from '../../enums/no-data-sizes';
 	styleUrls: ['./no-data.component.sass'],
 })
 export class NoDataComponent implements OnInit {
+	@Input() isEmpty: boolean;
 	@Input() size: NoDataSize = NoDataSize.Middle;
 	@Input() message;
 	@Input() icon;

@@ -1,4 +1,4 @@
-<div class="no-data-wrapper">
+<div class="no-data-wrapper" *ngIf="isEmpty">
 	<div class="no-data-block" [ngClass]="defineSize(size)">
 		<i class="material-icons">
 			{{ this.icon || this.defaultIcon }}
