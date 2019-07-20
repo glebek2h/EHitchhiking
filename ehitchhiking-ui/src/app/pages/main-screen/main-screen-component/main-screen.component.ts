@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UserState} from '../../../shared/enums/UserState';
-import {YandexMapService} from "../yandex-map/yandex-map.service";
+import {YandexMapService} from '../yandex-map/yandex-map.service';
 
 @Component({
 	selector: 'app-main-screen',
