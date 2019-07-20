@@ -1,26 +1,32 @@
 <div class="routes-list">
-  <mat-accordion *ngFor="let route of activeRoutesCollection" class="route-info">
-    <mat-expansion-panel>
-      <mat-expansion-panel-header class="header">
-        <mat-panel-title class="title">
-          <i class="material-icons" [style.color]="route.routeColor">
-            label
-          </i>Departure date, time, places
-        </mat-panel-title>
-        <mat-panel-description>
-          <p class="right-span">date: {{parseDate(route.datePicker)}}</p> <p class="right-span">time: {{route.timePicker}}</p> <p class="right-span">places: {{route.placesSelect}}</p>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
+	<mat-accordion *ngFor="let route of activeRoutesCollection" class="route-info">
+		<mat-expansion-panel>
+			<mat-expansion-panel-header class="header">
+				<mat-panel-title class="title">
+					<i class="material-icons" [style.color]="route.routeColor">
+						label </i
+					>Departure date, time, places
+				</mat-panel-title>
+				<mat-panel-description>
+					<p class="right-span">date: {{ parseDate(route.datePicker) }}</p>
+					<p class="right-span">time: {{ route.timePicker }}</p>
+					<p class="right-span">places: {{ route.placesSelect }}</p>
+				</mat-panel-description>
+			</mat-expansion-panel-header>
 
-      <p class="routes-list-p"><span>From:</span><span>{{route.from}}</span></p>
-      <p class="routes-list-p"><span>To:</span><span>{{route.to}}</span></p>
-      <p class="routes-list-p"><span>Trip Duration:</span><span>{{route.tripDuration}}</span></p>
+			<p class="routes-list-p">
+				<span>From:</span><span>{{ route.from }}</span>
+			</p>
+			<p class="routes-list-p">
+				<span>To:</span><span>{{ route.to }}</span>
+			</p>
+			<p class="routes-list-p">
+				<span>Trip Duration:</span><span>{{ route.tripDuration }}</span>
+			</p>
+		</mat-expansion-panel>
+	</mat-accordion>
 
-
-    </mat-expansion-panel>
-  </mat-accordion>
-
-<!--  <mat-card *ngFor="let route of activeRoutesCollection" class="route-info">
+	<!--  <mat-card *ngFor="let route of activeRoutesCollection" class="route-info">
     <i class="material-icons" [style.color]="route.routeColor">
       label
     </i>
@@ -32,4 +38,4 @@
     <p class="routes-list-p"><span>Trip Duration:</span><span class="right-span">{{route.tripDuration}}</span></p>
   </mat-card>
 </div>-->
-
+</div>

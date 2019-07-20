@@ -29,28 +29,48 @@
 				<mat-expansion-panel class="profile-car-info" *ngFor="let curCar of user.cars; let index = index">
 					<mat-expansion-panel-header>
 						<mat-panel-title class="profile-car-info-title">
-							{{curCar.model}}
+							{{ curCar.model }}
 						</mat-panel-title>
 						<mat-panel-description class="profile-car-info-desc">
-							<span class="profile-car-info-desc-item">{{curCar.carNumber}}</span><span class="profile-car-info-desc-item">{{curCar.color}}
-							</span><span class="profile-car-info-desc-item">{{curCar.experience}}</span>
-							<button mat-icon-button class="car-info-delete profile-car-info-desc-item" (click)="onCarDelete($event, index)">
+							<span class="profile-car-info-desc-item">{{ curCar.carNumber }}</span
+							><span class="profile-car-info-desc-item">{{ curCar.color }} </span
+							><span class="profile-car-info-desc-item">{{ curCar.experience }}</span>
+							<button
+								mat-icon-button
+								class="car-info-delete profile-car-info-desc-item"
+								(click)="onCarDelete($event, index)"
+							>
 								<mat-icon class="car-info-delete-icon">delete</mat-icon>
 							</button>
 						</mat-panel-description>
 					</mat-expansion-panel-header>
-					<app-car-info-form [carIndex]="index" [carInfoForm]="carsInfoForm" [addCarMod]="addCarMod"
-						(onChangeCarInfo)="onChange()"></app-car-info-form>
+					<app-car-info-form
+						[carIndex]="index"
+						[carInfoForm]="carsInfoForm"
+						[addCarMod]="addCarMod"
+						(onChangeCarInfo)="onChange()"
+					></app-car-info-form>
 				</mat-expansion-panel>
 			</mat-accordion>
 			<div class="add-car-container" *ngIf="addCarMod">
-				<app-car-info-form class="add-car-form" [addCarMod]="addCarMod"
-					(onChangeCarInfo)="onSubmitNewCar($event)">
+				<app-car-info-form
+					class="add-car-form"
+					[addCarMod]="addCarMod"
+					(onChangeCarInfo)="onSubmitNewCar($event)"
+				>
 				</app-car-info-form>
 			</div>
 			<div class="cars-form-submit">
-				<button #submitChanges type="submit" mat-raised-button class="cars-form-submit-button" [disabled]="true"
-					*ngIf="!addCarMod">Save changes</button>
+				<button
+					#submitChanges
+					type="submit"
+					mat-raised-button
+					class="cars-form-submit-button"
+					[disabled]="true"
+					*ngIf="!addCarMod"
+				>
+					Save changes
+				</button>
 			</div>
 		</form>
 	</div>

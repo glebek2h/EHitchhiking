@@ -19,9 +19,7 @@ export class RatePassengersModalComponent {
 	constructor(public dialogRef: MatDialogRef<RatePassengersModalComponent>) {}
 
 	rateUser(clickObj: StarClickMeta): void {
-		const passenger = this.passengers.find(
-			(i: Passenger) => i.id === clickObj.itemId
-		);
+		const passenger = this.passengers.find((i: Passenger) => i.id === clickObj.itemId);
 		if (!!passenger) {
 			passenger.rating = clickObj.rating;
 		}

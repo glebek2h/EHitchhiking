@@ -19,7 +19,7 @@ import {MatNativeDateModule} from '@angular/material';
 		MenuModule,
 		RegistrationModule,
 		RatePassengersModalModule,
-    MatNativeDateModule
+		MatNativeDateModule,
 	],
 	providers: [],
 	bootstrap: [AppComponent],

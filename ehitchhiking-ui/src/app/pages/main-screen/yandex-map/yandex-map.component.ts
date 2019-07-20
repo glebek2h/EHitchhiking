@@ -2,8 +2,10 @@ import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core'
 import ymaps from 'ymaps';
 import {UserState} from '../../../shared/enums/UserState';
 import {YandexMapService} from './yandex-map.service';
+import MultiRouteModel = ymaps.multiRouter.MultiRouteModel;
 
 @Component({
+	// tslint:disable-next-line:component-selector
 	selector: 'yandex-map',
 	templateUrl: './yandex-map.component.html',
 	styleUrls: ['./yandex-map.component.sass'],
@@ -12,10 +14,10 @@ export class YandexMapComponent implements OnInit, OnChanges {
 	constructor() {}
 
 	apiURL = 'https://api-maps.yandex.ru/2.1/?apikey=05c4e476-2248-4d27-836c-4a6c7c45e485&lang=en_US';
-	myMap: any; // TODO: which type should i use?
+	myMap;
 	ymapsPromise;
 
-	currentMultiRoute;
+	currentMultiRoute: MultiRouteModel;
 	currentGeoPosition;
 
 	colors: string[] = [
@@ -35,10 +37,6 @@ export class YandexMapComponent implements OnInit, OnChanges {
 	@Input() userState: string;
 	@Input() tripData: Route;
 	@Input() isSavedRoute: boolean;
-
-	/*static generateColor() {
-		return '#' + Math.floor(Math.random() * 16777215).toString(16);
-	}*/
 
 	ngOnInit() {
 		this.ymapsPromise = ymaps.load(this.apiURL);
@@ -90,6 +88,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
 					})
 					.then((result) => {
 						this.currentGeoPosition = result.geoObjects;
+						console.log(result.geoObjects); //
 						result.geoObjects.options.set('preset', 'islands#redPersonCircleIcon');
 						this.myMap.geoObjects.add(this.currentGeoPosition);
 					});
@@ -144,24 +143,24 @@ export class YandexMapComponent implements OnInit, OnChanges {
 	}
 
 	setUserIconToMapAccordingUserState() {
-    if (this.myMap) {
-      this.myMap.geoObjects.remove(this.currentGeoPosition);
-      this.ymapsPromise.then((maps) => {
-        maps.geolocation
-          .get({
-            mapStateAutoApply: true,
-          })
-          .then((result) => {
-            if (this.userState === UserState.driver) {
-              result.geoObjects.options.set('preset', 'islands#redAutoCircleIcon');
-            }
-            if (this.userState === UserState.passenger) {
-              result.geoObjects.options.set('preset', 'islands#redPersonCircleIcon');
-            }
-            this.currentGeoPosition = result.geoObjects;
-            this.myMap.geoObjects.add(this.currentGeoPosition);
-          });
-      });
-    }
-  }
+		if (this.myMap) {
+			this.myMap.geoObjects.remove(this.currentGeoPosition);
+			this.ymapsPromise.then((maps) => {
+				maps.geolocation
+					.get({
+						mapStateAutoApply: true,
+					})
+					.then((result) => {
+						if (this.userState === UserState.driver) {
+							result.geoObjects.options.set('preset', 'islands#redAutoCircleIcon');
+						}
+						if (this.userState === UserState.passenger) {
+							result.geoObjects.options.set('preset', 'islands#redPersonCircleIcon');
+						}
+						this.currentGeoPosition = result.geoObjects;
+						this.myMap.geoObjects.add(this.currentGeoPosition);
+					});
+			});
+		}
+	}
 }

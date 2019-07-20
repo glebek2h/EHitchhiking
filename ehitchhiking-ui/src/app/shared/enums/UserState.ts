@@ -1,4 +1,4 @@
 export enum UserState {
-  passenger = 'passenger',
-  driver = 'driver'
+	passenger = 'passenger',
+	driver = 'driver',
 }

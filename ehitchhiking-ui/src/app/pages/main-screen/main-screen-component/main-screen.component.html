@@ -1,21 +1,26 @@
-
-<yandex-map [tripData]="tripFormData" [userState]="userState" [isSavedRoute]="isSavedRoute" [activeRoutesCollection]="routes"></yandex-map>
-<app-trip-registration [isShown]="isHiddenTripRegistration" (formData)="getData($event)" (isShownViewListButton)="getIsShown($event)" (isShownSaveRouteButton)="getIsShownSaveRoute($event)"></app-trip-registration>
+<yandex-map
+	[tripData]="tripFormData"
+	[userState]="userState"
+	[isSavedRoute]="isSavedRoute"
+	[activeRoutesCollection]="routes"
+></yandex-map>
+<app-trip-registration
+	[isShown]="isHiddenTripRegistration"
+	(formData)="getData($event)"
+	(isShownViewListButton)="getIsShown($event)"
+	(isShownSaveRouteButton)="getIsShownSaveRoute($event)"
+></app-trip-registration>
 <app-routes-list *ngIf="isShownRoutesList" [activeRoutesCollection]="routes"></app-routes-list>
-<mat-button-toggle-group
-	class="btn-group"
-	name="fontStyle"
-	aria-label="Font Style"
->
+<mat-button-toggle-group class="btn-group" name="fontStyle" aria-label="Font Style">
 	<mat-button-toggle class="passanger-btn" value="bold" (click)="userState = 'passenger'"
 		>Passenger</mat-button-toggle
 	>
-	<mat-button-toggle class="driver-btn" value="italic" (click)="userState = 'driver'"
-		>Driver</mat-button-toggle
-	>
+	<mat-button-toggle class="driver-btn" value="italic" (click)="userState = 'driver'">Driver</mat-button-toggle>
 </mat-button-toggle-group>
 <button mat-raised-button class="save-route" (click)="saveRoute()" *ngIf="isShownSaveRouteButton">save-route</button>
-<button mat-raised-button class="view-routes" (click)="viewRoutes()" *ngIf="isShownViewRoutesButton">view-routes</button>
+<button mat-raised-button class="view-routes" (click)="viewRoutes()" *ngIf="isShownViewRoutesButton">
+	view-routes
+</button>
 <button class="plus-btn" mat-fab color="primary" (click)="openTripRegistrationForm()">
 	<i class="material-icons">
 		add
