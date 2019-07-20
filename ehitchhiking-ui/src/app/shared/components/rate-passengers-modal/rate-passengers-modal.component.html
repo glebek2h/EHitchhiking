@@ -1,7 +1,9 @@
-<div class="table-content">
-	<h2 class="title">Rate Passengers</h2>
+<div class="modal-wrapper">
+	<header class="modal-header">
+		<span class="modal-title">Rate Passengers</span>
+	</header>
 
-	<table class="table">
+	<table class="modal-content">
 		<thead>
 			<tr class="table-tr">
 				<th class="table-th">Passenger</th>
@@ -11,7 +13,7 @@
 		</thead>
 		<tbody>
 			<tr *ngFor="let passenger of passengers; trackBy: trackById">
-				<td>
+				<td class="table-passenger-name">
 					{{ passenger.name }}
 				</td>
 				<td>
@@ -21,12 +23,13 @@
 						(ratingClick)="rateUser($event)"
 					></app-rating>
 				</td>
-				<td>{{ passenger.rating }} Stars</td>
+				<td class="table-count-stars">{{ passenger.rating }} Stars</td>
 			</tr>
 		</tbody>
 	</table>
-	<div class="button-container">
-		<button class="exit-button" mat-raised-button color="primary" (click)="exitTrip()">
+
+	<div class="modal-footer">
+		<button class="modal-action-btn" mat-raised-button (click)="exitTrip()">
 			exit trip
 		</button>
 	</div>

@@ -13,7 +13,7 @@ export class BlacklistComponent implements OnInit {
 	blacklistUsersArray = [];
 	loaderSize: LoaderSize = LoaderSize.Large;
 	noDataSize: NoDataSize = NoDataSize.Small;
-	noDataMessage = 'kyky';
+	noDataMessage = 'No users!';
 	noDataIconName = 'accessibility';
 	loading = true;
 	constructor(public dialogRef: MatDialogRef<BlacklistComponent>) {}
@@ -25,7 +25,7 @@ export class BlacklistComponent implements OnInit {
 		}, 1000);
 	}
 
-	return(): void {
+	close(): void {
 		this.dialogRef.close();
 	}
 

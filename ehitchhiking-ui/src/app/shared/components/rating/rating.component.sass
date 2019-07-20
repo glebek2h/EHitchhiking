@@ -7,7 +7,6 @@
 .rating:not(:checked) > input
   position: absolute
   clip: rect(0,0,0,0)
-
 .rating:not(:checked) > label
   float: right
   width: 1rem
@@ -22,15 +21,13 @@
   content: '★ '
 
 .rating > input:checked ~ label
-  color: $blue
+  color: mat-color($primary,300)
 
 .rating:not(:checked) > label:hover,
 .rating:not(:checked) > label:hover ~ label
-  color: $dark-blue
+  color: mat-color($primary,500)
 
 .rating > input:checked ~ label:hover,
 .rating > input:checked ~ label:hover ~ label,
 .rating > label:hover ~ input:checked ~ label
-  color: $light-blue
-.rating
-  width: 6rem
+  color: mat-color($primary,100)

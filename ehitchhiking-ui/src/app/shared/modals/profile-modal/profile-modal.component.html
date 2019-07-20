@@ -1,8 +1,8 @@
-<div class="profile-container">
-	<div class="profile-header">
-		<span>{{ user.name | uppercase }}</span>
+<div class="modal-wrapper">
+	<div class="modal-header">
+		<span class="modal-title">{{ user.name }}</span>
 	</div>
-	<div class="profile-data">
+	<div class="modal-content">
 		<div class="profile-user-info">
 			<img class="profile-user-photo" *ngIf="user.photoPath; else elseBlock" [src]="user.photoPath" />
 			<ng-template #elseBlock>
@@ -74,8 +74,8 @@
 			</div>
 		</form>
 	</div>
-	<div class="close-profile">
-		<button mat-icon-button class="close-profile-button" (click)="close()">
+	<div class="modal-close-control">
+		<button mat-icon-button class="modal-close-control-btn" (click)="close()">
 			<mat-icon>close</mat-icon>
 		</button>
 	</div>
