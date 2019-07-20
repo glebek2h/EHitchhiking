@@ -17,22 +17,24 @@ import {TripRegistrationComponent} from './trip-registration/trip-registration.c
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import {RoutesListComponent} from './routes-list/routes-list.component';
+import {MenuModule} from "../../shared/components/menu/menu.module";
 @NgModule({
 	declarations: [MainScreenComponent, YandexMapComponent, TripRegistrationComponent, RoutesListComponent],
-	imports: [
-		CommonModule,
-		MatButtonToggleModule,
-		MatButtonModule,
-		MatFormFieldModule,
-		FormsModule,
-		ReactiveFormsModule,
-		MatCardModule,
-		MatInputModule,
-		MatDatepickerModule,
-		MatSelectModule,
-		NgxMaterialTimepickerModule,
-		MatExpansionModule,
-	],
+  imports: [
+    CommonModule,
+    MatButtonToggleModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatCardModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatSelectModule,
+    NgxMaterialTimepickerModule,
+    MatExpansionModule,
+    MenuModule,
+  ],
 	exports: [MainScreenComponent, TripRegistrationComponent],
 })
 export class MainScreenModule {}

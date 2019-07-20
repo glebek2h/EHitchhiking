@@ -65,6 +65,7 @@ export class MainScreenComponent implements OnInit {
 
 	getData(data) {
 		this.tripFormData = data;
+    this.isHiddenTripRegistration = true;
 	}
 
 	saveRoute() {
