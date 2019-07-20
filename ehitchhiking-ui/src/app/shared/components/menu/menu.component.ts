@@ -5,6 +5,7 @@ import {MatDialog} from '@angular/material';
 import {RatePassengersModalComponent} from '../rate-passengers-modal/rate-passengers-modal.component';
 import {ProfileModalComponent} from '../../modals/profile-modal/profile-modal.component';
 import {Router} from '@angular/router';
+import {DEFUALT_MAT_DIALOG_CLASS, MAT_DIALOG_WIDTH_SM} from '../../constants/modal-constants';
 
 @Component({
 	selector: 'app-menu',
@@ -24,8 +25,8 @@ export class MenuComponent implements OnInit {
 	}
 	openBlacklistDialog(): void {
 		const dialogRef = this.dialog.open(BlacklistComponent, {
-			width: this.DIALOG_WINDOW_WIDTH,
-			panelClass: this.DIALOG_PANEL_CLASS,
+			width: MAT_DIALOG_WIDTH_SM,
+			panelClass: DEFUALT_MAT_DIALOG_CLASS,
 			autoFocus: false,
 		});
 		dialogRef.afterClosed().subscribe((result) => {
@@ -35,8 +36,8 @@ export class MenuComponent implements OnInit {
 
 	openRatePassengersDialog(): void {
 		const dialogRef = this.dialog.open(RatePassengersModalComponent, {
-			width: this.DIALOG_WINDOW_WIDTH,
-			panelClass: this.DIALOG_PANEL_CLASS,
+			width: MAT_DIALOG_WIDTH_SM,
+			panelClass: DEFUALT_MAT_DIALOG_CLASS,
 			autoFocus: false,
 		});
 		dialogRef.afterClosed().subscribe((result) => {

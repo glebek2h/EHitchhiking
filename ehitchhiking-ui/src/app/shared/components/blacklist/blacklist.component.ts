@@ -13,15 +13,13 @@ export class BlacklistComponent implements OnInit {
 	blacklistUsersArray = [];
 	loaderSize: LoaderSize = LoaderSize.Large;
 	noDataSize: NoDataSize = NoDataSize.Small;
-	noDataMessage = 'kyky';
+	noDataMessage = 'No users!';
 	noDataIconName = 'accessibility';
 	loading = true;
-	empty = false;
 	constructor(public dialogRef: MatDialogRef<BlacklistComponent>) {}
 
 	ngOnInit() {
 		this.blacklistUsersArray = BLACKLISTUSERS;
-		this.isEmpty();
 		setTimeout(() => {
 			this.loading = false;
 		}, 1000);
@@ -31,12 +29,7 @@ export class BlacklistComponent implements OnInit {
 		this.dialogRef.close();
 	}
 
-	isEmpty() {
-		if (!this.blacklistUsersArray.length) return (this.empty = true);
-	}
-
 	removePerson(item) {
 		this.blacklistUsersArray.splice(item, 1);
-		this.isEmpty();
 	}
 }
