@@ -15,8 +15,6 @@ import {DEFUALT_MAT_DIALOG_CLASS, MAT_DIALOG_WIDTH_SM} from '../../constants/mod
 export class MenuComponent implements OnInit {
 	opened: boolean;
 	buttonsArray = [];
-	DIALOG_WINDOW_WIDTH = '23rem';
-	DIALOG_PANEL_CLASS = 'mat-dialog-no-padding';
 
 	constructor(private router: Router, public dialog: MatDialog) {}
 
