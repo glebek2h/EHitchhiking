@@ -1,27 +1,27 @@
 <form [hidden]="isShown" [formGroup]="nameFormGroup" (ngSubmit)="onSubmit()" class="trip-registration-form">
-	<mat-form-field class="input-from">
+	<mat-form-field class="input-from form-control">
 		<input
 			matInput
 			placeholder="from"
 			formControlName="from"
-			id="suggest1"
+			id="suggestions-to-input-from"
 			#inp
 			(change)="onChangeFix($event, 'from')"
 		/>
 	</mat-form-field>
-	<mat-form-field class="input-to">
-		<input matInput placeholder="to" formControlName="to" id="suggest2" (change)="onChangeFix($event, 'to')" />
+	<mat-form-field class="input-to form-control">
+		<input matInput placeholder="to" formControlName="to" id="suggestions-to-input-to" (change)="onChangeFix($event, 'to')" />
 	</mat-form-field>
-	<mat-form-field class="date-picker">
-		<input matInput [matDatepicker]="picker" formControlName="datePicker" placeholder="Choose a date" />
+	<mat-form-field class="date-picker form-control">
+		<input matInput [matDatepicker]="picker" formControlName="departureDate" placeholder="Choose a date" />
 		<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
 		<mat-datepicker #picker></mat-datepicker>
 	</mat-form-field>
-	<mat-form-field class="time-picker">
-		<input matInput [ngxTimepicker]="picker1" formControlName="timePicker" placeholder="Choose a time" />
+	<mat-form-field class="time-picker form-control">
+		<input matInput [ngxTimepicker]="picker1" formControlName="departureTime" placeholder="Choose a time" />
 		<ngx-material-timepicker #picker1></ngx-material-timepicker>
 	</mat-form-field>
-	<div class="registration-form-bottom-content">
+	<div class="registration-form-bottom-content form-control">
 		<mat-form-field class="places-select">
 			<mat-label>Number of seats</mat-label>
 			<mat-select formControlName="placesSelect">

@@ -1,6 +1,9 @@
+@import "../../../../styles/colors"
+@import "../../../../styles/constants"
+@import "../../../../styles/fonts-constants"
 .routes-list
   z-index: 1
-  background-color: white
+  background-color: $white
   height: 22.5rem
   width: 26rem
   box-shadow: 0 0 9px rgba(0, 0, 0, 0.2)
@@ -15,17 +18,17 @@
     display: flex
     justify-content: space-between
   .route-info
-    margin: 1rem
+    margin: $default-offset
     .material-icons
-     font-size: 2rem
+     font-size: $headline
   .right-span
     text-align: center
     display: flex
     align-items: center
     justify-content: center
 .header
-  height: 5rem!important
-  padding: 0.5rem
+  height: 5rem!important // default <mat-expansion-panel-header> height = 48px
+  padding: $default-offset/2
 .title
   display: flex
   align-items: center

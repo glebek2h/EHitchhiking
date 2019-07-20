@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {UtilsService} from "../../../shared/services/utils.service";
 
 @Component({
 	selector: 'app-routes-list',
@@ -13,11 +14,6 @@ export class RoutesListComponent implements OnInit {
 	ngOnInit() {}
 
 	parseDate(date: Date): string {
-		return date.toLocaleString('en-US', {
-			year: 'numeric',
-			month: 'long',
-			day: 'numeric',
-			weekday: 'long',
-		});
+		return UtilsService.formatDate(date);
 	}
 }

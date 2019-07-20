@@ -9,8 +9,8 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 export class TripRegistrationComponent implements OnInit {
 	@Input() isShown: boolean;
 	@Output() formData = new EventEmitter<any>(); // TODO
-	@Output() isShownViewListButton = new EventEmitter<any>(); // TODO
-	@Output() isShownSaveRouteButton = new EventEmitter<any>(); // TODO
+	@Output() isShownViewListButton = new EventEmitter<boolean>();
+	@Output() isShownSaveRouteButton = new EventEmitter<boolean>();
 
 	nameFormGroup: FormGroup;
 
@@ -20,9 +20,9 @@ export class TripRegistrationComponent implements OnInit {
 		this.nameFormGroup = new FormGroup({
 			from: new FormControl('', [Validators.required]),
 			to: new FormControl('', [Validators.required]),
-			datePicker: new FormControl('', [Validators.required]),
+			departureDate: new FormControl('', [Validators.required]),
 			placesSelect: new FormControl('', [Validators.required]),
-			timePicker: new FormControl('', [Validators.required]),
+			departureTime: new FormControl('', [Validators.required]),
 		});
 	}
 

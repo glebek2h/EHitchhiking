@@ -20,21 +20,13 @@ export class YandexMapComponent implements OnInit, OnChanges {
 	currentMultiRoute: MultiRouteModel;
 	currentGeoPosition;
 
-	colors: string[] = [
-		'#6da2e1',
-		'#f20026',
-		'#ff00d8',
-		'#c06100',
-		'#12c000',
-		'#0008c0',
-		'#c0bf68',
-		'#00c09b',
-		'#b500c0',
-		'#7f4dc0',
-	];
+	ROUTES_ON_MAP_COUNT = 3;
 
-	@Input() activeRoutesCollection: Partial<Route>[];
+	colors: string[] = YandexMapService.COLORS;
+
+	@Input() routes: Partial<Route>[];
 	@Input() userState: string;
+	@Input() tripState: number;
 	@Input() tripData: Route;
 	@Input() isSavedRoute: boolean;
 
@@ -50,15 +42,16 @@ export class YandexMapComponent implements OnInit, OnChanges {
 
 	ngOnChanges(changes: SimpleChanges) {
 		if (changes.tripData && changes.tripData.currentValue) {
+		  console.log(this.tripData)
 			if (this.userState === UserState.driver) {
 				this.myMap.geoObjects.remove(this.currentMultiRoute);
-				console.log(this.tripData);
 				this.addMultiRoute(this.tripData, true);
+				return;
 			}
 			if (this.userState === UserState.passenger) {
 				// фильтрация коллекции activeRoutesCollection
-				for (let i = 0; i < 3; i++) {
-					this.addMultiRoute(this.activeRoutesCollection[i], false);
+				for (let i = 0; i < this.ROUTES_ON_MAP_COUNT; i++) {
+					this.addMultiRoute(this.routes[i], false);
 				}
 			}
 		}
@@ -66,7 +59,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
 			this.setUserIconToMapAccordingUserState();
 		}
 		if (changes.isSavedRoute && this.currentMultiRoute) {
-			this.activeRoutesCollection.push(this.tripData);
+			this.routes.push(this.tripData);
 			this.myMap.geoObjects.remove(this.currentMultiRoute);
 		}
 	}
@@ -92,8 +85,8 @@ export class YandexMapComponent implements OnInit, OnChanges {
 						result.geoObjects.options.set('preset', 'islands#redPersonCircleIcon');
 						this.myMap.geoObjects.add(this.currentGeoPosition);
 					});
-				new maps.SuggestView('suggest1');
-				new maps.SuggestView('suggest2');
+				new maps.SuggestView('suggestions-to-input-from');
+				new maps.SuggestView('suggestions-to-input-to');
 			})
 			.catch((error) => console.log('Failed to load Yandex Maps', error));
 	}
@@ -126,41 +119,41 @@ export class YandexMapComponent implements OnInit, OnChanges {
 			data.tripDuration = activeRoute.properties.get('duration').text;
 			activeRoute.events.add('mouseenter', () => {
 				activeRoute.options.set('strokeWidth', 5);
-				activeRoute.options.set('strokeColor', '#fb5b74');
+				activeRoute.options.set('strokeColor', YandexMapService.ACTIVE_ROUTE_COLOR);
 			});
 			activeRoute.events.add('mouseleave', () => {
 				activeRoute.options.unset('strokeColor');
 			});
 			activeRoute.events.add('click', (event) => {
 				if (!this.myMap.balloon.isOpen()) {
-					const coords = event.get('coords');
-					this.myMap.balloon.open(coords, YandexMapService.baloonInfo(data));
-				} else {
-					this.myMap.balloon.close();
-				}
+          const coords = event.get('coords');
+          this.myMap.balloon.open(coords, YandexMapService.baloonInfo(data));
+          return;
+        }
 			});
 		});
 	}
 
 	setUserIconToMapAccordingUserState() {
-		if (this.myMap) {
-			this.myMap.geoObjects.remove(this.currentGeoPosition);
-			this.ymapsPromise.then((maps) => {
-				maps.geolocation
-					.get({
-						mapStateAutoApply: true,
-					})
-					.then((result) => {
-						if (this.userState === UserState.driver) {
-							result.geoObjects.options.set('preset', 'islands#redAutoCircleIcon');
-						}
-						if (this.userState === UserState.passenger) {
-							result.geoObjects.options.set('preset', 'islands#redPersonCircleIcon');
-						}
-						this.currentGeoPosition = result.geoObjects;
-						this.myMap.geoObjects.add(this.currentGeoPosition);
-					});
-			});
-		}
-	}
+    if (!this.myMap) {
+      return;
+    }
+    this.myMap.geoObjects.remove(this.currentGeoPosition);
+    this.ymapsPromise.then((maps) => {
+      maps.geolocation
+        .get({
+          mapStateAutoApply: true,
+        })
+        .then((result) => {
+          if (this.userState === UserState.driver) {
+            result.geoObjects.options.set('preset', 'islands#redAutoCircleIcon');
+          }
+          if (this.userState === UserState.passenger) {
+            result.geoObjects.options.set('preset', 'islands#redPersonCircleIcon');
+          }
+          this.currentGeoPosition = result.geoObjects;
+          this.myMap.geoObjects.add(this.currentGeoPosition);
+        });
+    });
+  }
 }

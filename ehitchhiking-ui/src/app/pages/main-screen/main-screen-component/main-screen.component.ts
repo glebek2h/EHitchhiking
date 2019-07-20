@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UserState} from '../../../shared/enums/UserState';
+import {YandexMapService} from "../yandex-map/yandex-map.service";
 
 @Component({
 	selector: 'app-main-screen',
@@ -22,41 +23,7 @@ export class MainScreenComponent implements OnInit {
 	ngOnInit() {
 		this.isHiddenTripRegistration = true;
 		this.userState = UserState.passenger;
-		this.routes.push({
-			from: 'Рождественская 106, Минск',
-			to: 'Проспект Независимости 4, Минск',
-			datePicker: new Date(),
-			timePicker: '12:00 am',
-			placesSelect: 2,
-		});
-		this.routes.push({
-			from: 'Пионерская 30Б, Минск',
-			to: 'Проспект Независимости 4, Минск',
-			datePicker: new Date(),
-			timePicker: '12:00 am',
-			placesSelect: 4,
-		});
-		this.routes.push({
-			from: 'Шаранговича 62, Минск',
-			to: 'Проспект Независимости 4, Минск',
-			datePicker: new Date(),
-			timePicker: '15:00 am',
-			placesSelect: 1,
-		});
-		this.routes.push({
-			from: 'Магнитная 8, Минск',
-			to: 'Проспект Независимости 4, Минск',
-			datePicker: new Date(),
-			timePicker: '15:00 am',
-			placesSelect: 1,
-		});
-		this.routes.push({
-			from: 'Подгорная 29, Минск',
-			to: 'Проспект Независимости 4, Минск',
-			datePicker: new Date(),
-			timePicker: '15:00 am',
-			placesSelect: 1,
-		});
+		this.routes = YandexMapService.getSomeRoutes();
 	}
 
 	openTripRegistrationForm(): void {
@@ -88,4 +55,12 @@ export class MainScreenComponent implements OnInit {
 			this.isShownSaveRouteButton = data;
 		}
 	}
+
+	toggleStateToPassenger() {
+	  this.userState = UserState.passenger;
+  }
+
+  toggleStateToDriver() {
+	  this.userState = UserState.driver;
+  }
 }
