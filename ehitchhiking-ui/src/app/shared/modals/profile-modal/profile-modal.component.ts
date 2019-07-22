@@ -1,5 +1,5 @@
-import {CarInfoFormComponent} from './car-info-form/car-info-form.component';
-import {Component, ViewChild, QueryList, ViewChildren, AfterViewInit, OnInit} from '@angular/core';
+import {ApiService} from './../../services/api.service';
+import {Component, ViewChild, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material';
 import {User} from '../../models/user';
 import {Car} from '../../models/car';
@@ -26,10 +26,12 @@ export class ProfileModalComponent implements OnInit {
 	constructor(
 		public dialogRef: MatDialogRef<ProfileModalComponent>,
 		private formBuilder: FormBuilder,
-		private carsInfoService: CarsInfoService
+		private carsInfoService: CarsInfoService,
+		private apiService: ApiService
 	) {}
 
 	ngOnInit(): void {
+		this.apiService.doGet('', true).subscribe((data) => console.log(data));
 		this.carsInfoForm = this.carsInfoService.toFormGroup(this.user.cars, this.formBuilder);
 	}
 

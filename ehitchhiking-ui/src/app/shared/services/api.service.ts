@@ -10,16 +10,16 @@ export class ApiService {
 
 	constructor(private http: HttpClient) {}
 
-	doGet(urlPath: string, data: any, isCacheable: boolean = false): Observable<HttpEvent<any>> | null {
+	doGet(urlPath: string, isCacheable: boolean = false, data: any = null): Observable<HttpEvent<any>> | null {
 		return this.generateRequest(RequestMethods.GET, urlPath, data, isCacheable);
 	}
-	doPost(urlPath: string, data: any, isCacheable: boolean = false): Observable<HttpEvent<any>> | null {
+	doPost(urlPath: string, isCacheable: boolean = false, data: any = null): Observable<HttpEvent<any>> | null {
 		return this.generateRequest(RequestMethods.POST, urlPath, data, isCacheable);
 	}
-	doDelete(urlPath: string, data: any, isCacheable: boolean = false): Observable<HttpEvent<any>> | null {
+	doDelete(urlPath: string, isCacheable: boolean = false, data: any = null): Observable<HttpEvent<any>> | null {
 		return this.generateRequest(RequestMethods.DEL, urlPath, data, isCacheable);
 	}
-	getPut(urlPath: string, data: any, isCacheable: boolean = false): Observable<HttpEvent<any>> | null {
+	getPut(urlPath: string, isCacheable: boolean = false, data: any = null): Observable<HttpEvent<any>> | null {
 		return this.generateRequest(RequestMethods.PUT, urlPath, data, isCacheable);
 	}
 

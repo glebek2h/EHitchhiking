@@ -1,9 +1,9 @@
-import {RequestCache} from '@shared/services/request.cache.service';
+import {RequestCache} from '../../../shared/services/request.cache.service';
 import {Injectable} from '@angular/core';
 import {HttpInterceptor, HttpHandler, HttpRequest, HttpHeaders, HttpResponse, HttpEvent} from '@angular/common/http';
 import {of, Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
-import {CachingHttpParams} from '@shared/models/caching.http.params';
+import {CachingHttpParams} from '../../../shared/models/caching.http.params';
 
 @Injectable()
 export class CachingInterceptor implements HttpInterceptor {
