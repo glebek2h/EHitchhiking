@@ -1,43 +1,69 @@
-@import "../../../../styles/fonts-constants"
-@import "../../../../styles/colour-constants"
+@import '../../../../styles/colors'
+@import '../../../../styles/fonts-constants'
+@import '../../../../styles/constants'
+@import '../../../../styles/mixins'
 
 .sidenav-container
   height: 100%
   position: fixed
   top: 0
   background-color: $white
+
   .header
     display: flex
-    justify-content: space-around
-    .header-span
-      font: 100% $app-font
-    .settings
-      font-size: 2rem
-      margin-top: 1rem
-  .material-icons
-    font-size: $headline
-    margin: 0.5rem
+    align-content: center
+    justify-content: space-between
+    margin-top: $default-offset
+    padding-right: $default-offset * 0.5
+    &-span 
+      flex-grow: 2
+      text-align: center
+      font-size: $headline
+      margin: 0
+    &-button
+      position: relative
+      @include flexbox()
+      &-icon
+        height: 100%
+        width: 100%
+        font-size: $display-3
+    .account-icon
+      padding-left:  $default-offset * 0.5
+    > *
+      display: flex
+      align-items: center
+      justify-content: center
+      
   .buttons
     .li-buttons
       display: block
-      margin: 0.5rem
+      margin:  $default-offset * 0.5
       .li-button
         width: 100%
         height: 3rem
         font-size: $button
-  .log-out
-    margin-left: 10%
-    width: 80%
+        color: $white
+        background-color: mat-color($accent)
+    .log-out
+      margin-left: 10%
+      width: 80%
+      color: mat-color($accent)
   .footer-meta
     .footer-p
-      margin: 0.5rem
+      margin:  $default-offset * 0.5
       .footer-a
         display: block
     .footer-date
       margin: 25%
   .toggle-button
-    margin-top: 2.2rem
+    margin-top:  $default-offset * 3.5
     padding: 0
-    min-width: 1.5rem
+    min-width:  1.5rem
     position: fixed
-
+    .material-icons
+      font-size: $display-3
+  .chat-btn
+    position: fixed
+    bottom: 5rem
+    .material-icons
+      font-size: $headline

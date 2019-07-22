@@ -1,0 +1,61 @@
+@import '../../../../styles/colors'
+@import '../../../../styles/fonts-constants'
+@import '../../../../styles/constants'
+@import '../../../../styles/mixins'
+
+.modal-wrapper
+    font-family: $app-font
+    background-color: $white
+    height: auto
+    width: 40rem
+    .modal-content
+        .profile-user-info
+            position: relative
+            @include flexbox(space-around)
+            font-size: $subheading-2
+
+            .profile-user-photo
+                flex-grow: 1
+                padding-right: $default-offset
+                object-fit: cover
+            .material-icons
+                margin-left: $default-offset*2
+                font-size: $display-1
+            .profile-user-contacts
+                @include flexbox(space-around, center, column)
+                flex-grow: 2
+        hr
+            color: mat-color($primary, A200)
+
+        .profile-car-info
+            &:first-child
+                margin-top: $default-offset*2
+            &:last-child
+                margin-bottom: $default-offset
+            &-desc
+                @include flexbox(space-around, center, row)
+                .car-info-delete:hover
+                    color: mat-color($warn)
+                &-item
+                    width: 25%
+                    text-align: center
+            &-title
+                width: 10%
+                @include flexbox(flex-start)
+
+        .profile-add-car
+            position: absolute
+            top: 13.8rem //Button is exactly on line
+            right: $default-offset
+            @include flexbox()
+            .profile-add-car-button, .profile-close-car-button
+                color: mat-color($primary)
+                background-color: mat-color($accent, 400)
+                &:hover
+                    background-color: mat-color($accent, 50)
+        .cars-form-submit
+            width: 100%
+            @include flexbox()
+            margin-bottom: $default-offset
+        .add-car-form
+            padding: $default-offset

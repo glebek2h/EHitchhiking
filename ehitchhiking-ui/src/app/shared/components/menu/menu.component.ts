@@ -1,7 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {BUTTONS_NAMES} from './buttons-names';
+import {BlacklistComponent} from '../blacklist/blacklist.component';
 import {MatDialog} from '@angular/material';
 import {RatePassengersModalComponent} from '../rate-passengers-modal/rate-passengers-modal.component';
+import {ProfileModalComponent} from '../../modals/profile-modal/profile-modal.component';
+import {Router} from '@angular/router';
+import {DEFUALT_MAT_DIALOG_CLASS, MAT_DIALOG_WIDTH_SM} from '../../constants/modal-constants';
 
 @Component({
 	selector: 'app-menu',
@@ -12,18 +16,38 @@ export class MenuComponent implements OnInit {
 	opened: boolean;
 	buttonsArray = [];
 
-	constructor(public dialog: MatDialog) {}
+	constructor(private router: Router, public dialog: MatDialog) {}
 
-	openRatePassengersDialog(): void {
-		const dialogRef = this.dialog.open(RatePassengersModalComponent, {
-			width: '400px',
+	ngOnInit() {
+		this.buttonsArray = BUTTONS_NAMES;
+	}
+	openBlacklistDialog(): void {
+		const dialogRef = this.dialog.open(BlacklistComponent, {
+			width: MAT_DIALOG_WIDTH_SM,
+			panelClass: DEFUALT_MAT_DIALOG_CLASS,
+			autoFocus: false,
 		});
 		dialogRef.afterClosed().subscribe((result) => {
 			console.log('The dialog was closed');
 		});
 	}
 
-	ngOnInit() {
-		this.buttonsArray = BUTTONS_NAMES;
+	openRatePassengersDialog(): void {
+		const dialogRef = this.dialog.open(RatePassengersModalComponent, {
+			width: MAT_DIALOG_WIDTH_SM,
+			panelClass: DEFUALT_MAT_DIALOG_CLASS,
+			autoFocus: false,
+		});
+		dialogRef.afterClosed().subscribe((result) => {
+			console.log('The dialog was closed');
+		});
+	}
+
+	logOut() {
+		this.router.navigateByUrl('/login');
+	}
+
+	openProfileDialog(): void {
+		this.dialog.open(ProfileModalComponent, {panelClass: 'mat-dialog-no-padding', autoFocus: false});
 	}
 }

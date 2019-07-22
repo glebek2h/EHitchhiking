@@ -1,61 +1,64 @@
 <mat-sidenav-container class="sidenav-container">
 	<mat-sidenav class="menu" #sidenav mode="side" [(opened)]="opened">
 		<div class="header">
-			<i class="material-icons">account_circle</i>
-			<span class="mat-subheading-2 header-span">name</span>
-			<i class="material-icons settings">
-				settings
-			</i>
+			<button mat-icon-button (click)="openProfileDialog()" class="header-button">
+				<mat-icon class="header-button-icon account-icon">account_circle</mat-icon>
+			</button>
+			<span class="header-span">name</span>
+			<button mat-icon-button class="header-button">
+				<mat-icon class="header-button-icon setting-icon">settings</mat-icon>
+			</button>
 		</div>
 		<div class="buttons">
-			<li *ngFor="let but of buttonsArray" class="li-buttons">
-				<button mat-raised-button color="primary" class="li-button">
-					{{ but }}
+			<li class="li-buttons">
+				<button mat-raised-button class="li-button">
+					history
 				</button>
 			</li>
-			<button
-				mat-stroked-button
-				color="primary"
-				class="log-out"
-				(click)="openRatePassengersDialog()"
-			>
+			<li class="li-buttons">
+				<button mat-raised-button class="li-button">
+					saved
+				</button>
+			</li>
+			<li class="li-buttons">
+				<button mat-raised-button class="li-button">
+					active
+				</button>
+			</li>
+			<li class="li-buttons">
+				<button mat-raised-button class="li-button">
+					notifications
+				</button>
+			</li>
+			<li class="li-buttons">
+				<button (click)="openBlacklistDialog()" mat-raised-button class="li-button">
+					blacklist
+				</button>
+			</li>
+			<li class="li-buttons">
+				<button mat-raised-button class="li-button">
+					admin functionality
+				</button>
+			</li>
+			<button mat-stroked-button class="log-out" (click)="openRatePassengersDialog()">
 				<!--TODO: it's redundant here, but not now-->
 				rate passengers
 			</button>
-			<button mat-stroked-button color="primary" class="log-out">
+			<button mat-stroked-button class="log-out" (click)="logOut()" routerLink="/login">
 				log out
 			</button>
 		</div>
 		<footer class="footer-meta">
 			<img src="assets/images/footer.png" alt="exadel-logo" />
 			<p class="footer-p">
-				<a class="footer-a" href="mailto: raul221299@gmail.com"
-					>raul221299@gmail.com</a
-				>
-				<a class="footer-a" href="mailto:  elizabeth.kemerov@gmail.com">
-					elizabeth.kemerov@gmail.com</a
-				>
-				<a class="footer-a" href="mailto: yana.bernachkaya@gmail.com"
-					>yana.bernachkaya@gmail.com</a
-				>
-				<a
-					class="footer-a"
-					href="mailto:  alexey.chernyakov00@gmail.com"
-				>
-					alexey.chernyakov00@gmail.com</a
-				>
-				<a class="footer-a" href="mailto: garost99@mail.ru"
-					>garost99@mail.ru</a
-				>
-				<a class="footer-a" href="mailto: youliaromanova99@mail.ru"
-					>youliaromanova99@mail.ru</a
-				>
+				<a class="footer-a" href="mailto: raul221299@gmail.com">raul221299@gmail.com</a>
+				<a class="footer-a" href="mailto:  elizabeth.kemerov@gmail.com"> elizabeth.kemerov@gmail.com</a>
+				<a class="footer-a" href="mailto: yana.bernachkaya@gmail.com">yana.bernachkaya@gmail.com</a>
+				<a class="footer-a" href="mailto:  alexey.chernyakov00@gmail.com"> alexey.chernyakov00@gmail.com</a>
+				<a class="footer-a" href="mailto: garost99@mail.ru">garost99@mail.ru</a>
+				<a class="footer-a" href="mailto: youliaromanova99@mail.ru">youliaromanova99@mail.ru</a>
 			</p>
-			<p>
-				<time datetime="2019-03-21" class="footer-date"
-					>2019-07-08</time
-				>
-			</p>
+			<p><time datetime="2019-03-21" class="footer-date">2019-07-08</time></p>
 		</footer>
 	</mat-sidenav>
 
@@ -63,6 +66,11 @@
 		<button mat-button (click)="sidenav.toggle()" class="toggle-button">
 			<i class="material-icons">
 				reorder
+			</i>
+		</button>
+		<button class="chat-btn" mat-button color="primary">
+			<i class="material-icons">
+				forum
 			</i>
 		</button>
 	</mat-sidenav-content>
