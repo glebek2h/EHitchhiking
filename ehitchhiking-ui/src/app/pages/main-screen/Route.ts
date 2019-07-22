@@ -6,4 +6,5 @@ interface Route {
 	placesSelect: number;
 	tripDuration: string;
 	routeColor: string;
+	usersCoordinates: any[];
 }

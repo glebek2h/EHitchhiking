@@ -17,6 +17,10 @@ export class MainScreenComponent implements OnInit {
 	isShownRoutesList: boolean;
 	isShownViewRoutesButton: boolean;
 	isShownSaveRouteButton: boolean;
+	isPensilStateOfPlusButton: boolean;
+	isNeedCleanMap: boolean; // Нужно ли удалить все маршруты с карты
+  indexRouteToDisplay: number;
+  mapTriggers = {};
 
 	routes: Partial<Route>[] = [];
 
@@ -33,6 +37,8 @@ export class MainScreenComponent implements OnInit {
 	getData(data) {
 		this.tripFormData = data;
     this.isHiddenTripRegistration = true;
+    this.isPensilStateOfPlusButton = true;
+    this.mapTriggers = {reset:true};
 	}
 
 	saveRoute() {
@@ -58,9 +64,23 @@ export class MainScreenComponent implements OnInit {
 
 	toggleStateToPassenger() {
 	  this.userState = UserState.passenger;
+	  this.isPensilStateOfPlusButton = false;
+	  this.isShownSaveRouteButton = false;
+	  this.isNeedCleanMap = true;
+	  this.mapTriggers = {reset:true};
   }
 
   toggleStateToDriver() {
 	  this.userState = UserState.driver;
+    this.isPensilStateOfPlusButton = false;
+    this.isShownViewRoutesButton = false;
+    this.isNeedCleanMap = true;
+    this.mapTriggers = {reset:true};
+  }
+
+  getIndexToDisplay(data) {
+    this.indexRouteToDisplay = data;
+    this.isNeedCleanMap = true;
+    this.mapTriggers = {reset:true};
   }
 }

@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {UtilsService} from "../../../shared/services/utils.service";
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {UtilsService} from '../../../shared/services/utils.service';
 
 @Component({
 	selector: 'app-routes-list',
@@ -8,12 +8,31 @@ import {UtilsService} from "../../../shared/services/utils.service";
 })
 export class RoutesListComponent implements OnInit {
 	@Input() activeRoutesCollection: Partial<Route>[];
+	@Output() routeToDisplay = new EventEmitter<any>(); // TODO
+	isChecked: boolean;
 
 	constructor() {}
 
-	ngOnInit() {}
+	ngOnInit() {
+	  this.isChecked = false;
+  }
 
 	parseDate(date: Date): string {
 		return UtilsService.formatDate(date);
 	}
+
+  displayRoute(index: number) {
+    this.isChecked = !this.isChecked;
+    if (this.isChecked) {
+      this.routeToDisplay.emit(index);
+    }
+    else {
+      this.routeToDisplay.emit(-99);
+    }
+  }
+
+  submitRoute(index: number) {
+    console.log(this.activeRoutesCollection[index]);
+  }
+
 }

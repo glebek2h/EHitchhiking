@@ -6,6 +6,9 @@
 	[userState]="userState"
 	[isSavedRoute]="isSavedRoute"
 	[routes]="routes"
+  [isNeedCleanMap]="isNeedCleanMap"
+  [triggers]="mapTriggers"
+  [indexRouteToDisplay]="indexRouteToDisplay"
 ></yandex-map>
 <app-trip-registration
 	[isShown]="isHiddenTripRegistration"
@@ -13,7 +16,7 @@
 	(isShownViewListButton)="setIsShownViewRoutesButtonFlag($event)"
 	(isShownSaveRouteButton)="setIsShownSaveRouteButtonFlag($event)"
 ></app-trip-registration>
-<app-routes-list *ngIf="isShownRoutesList" [activeRoutesCollection]="routes"></app-routes-list>
+<app-routes-list *ngIf="isShownRoutesList" [activeRoutesCollection]="routes" (routeToDisplay)="getIndexToDisplay($event)"></app-routes-list>
 <mat-button-toggle-group class="btn-group" name="fontStyle" aria-label="Font Style">
 	<mat-button-toggle class="passanger-btn" value="bold" (click)="toggleStateToPassenger()"
 		>Passenger</mat-button-toggle
@@ -25,7 +28,11 @@
 	view-trips
 </button>
 <button class="plus-btn" mat-fab color="primary" (click)="openTripRegistrationForm()">
-	<i class="material-icons">
+	<i *ngIf="!isPensilStateOfPlusButton" class="material-icons">
 		add
 	</i>
+  <i *ngIf="isPensilStateOfPlusButton" class="material-icons">
+    edit
+  </i>
+
 </button>
