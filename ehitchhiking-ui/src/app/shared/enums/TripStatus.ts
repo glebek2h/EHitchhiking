@@ -1,5 +1,5 @@
 export enum TripStatus {
-  active =  0,
-  completed = 1,
-  declined = 2,
+  Active =  0,
+  Completed = 1,
+  Declined = 2,
 }

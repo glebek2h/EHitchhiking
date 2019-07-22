@@ -52,7 +52,7 @@ export class TripsModalComponent implements OnInit {
     this.dialogRef.close();
   }
   replaceAll(): void{
-    this.tripService.setService();
+    this.tripService.resetTripsList();
     this.fetchTrips();
   }
 

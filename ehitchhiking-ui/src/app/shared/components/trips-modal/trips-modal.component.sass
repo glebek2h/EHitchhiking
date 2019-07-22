@@ -2,6 +2,7 @@
 @import '../../../../styles/colors'
 @import '../../../../styles/mixins'
 @import '../../../../styles/modals'
+@import  '../../../../styles/constants'
 
 .form
   height: 100%
@@ -22,9 +23,10 @@
   .icon-size
     width: 5rem
 .scroll-marker
-  min-height: 20px
+  min-height: $height-empty-block
 .trips
-  height: calc(22.5rem + 10px)
+  height: calc(#{$trip-card-height}*5 + #{$height-empty-block})
+  //5 - number of trips
   overflow-x: hidden
   margin: 1rem
   margin-bottom: 0
