@@ -1,28 +1,23 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { Trip } from "../trips-modal/trips";
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Trip} from '../trips-modal/trips';
 
 @Component({
-  selector: 'app-trip',
-  templateUrl: './trip.component.html',
-  styleUrls: ['./trip.component.sass']
+	selector: 'app-trip',
+	templateUrl: './trip.component.html',
+	styleUrls: ['./trip.component.sass'],
 })
 export class TripComponent implements OnInit {
+	@Input() trip: Trip;
 
-  @Input() trip: Trip;
+	@Output() onChange: EventEmitter<Trip> = new EventEmitter();
 
-  @Output() change: EventEmitter<Trip>;
+	constructor() {
+		this.onChange = new EventEmitter();
+	}
 
-  constructor() {
-    this.change = new EventEmitter();
-  }
+	ngOnInit() {}
 
-  ngOnInit() {
-  }
-
-  makeFavorite() {
-     this.trip.isFavorite = !this.trip.isFavorite;
-    }
-    //this.change.emit(this.trip);
-
-
+	makeFavorite() {
+		this.trip.isFavorite = !this.trip.isFavorite;
+	}
 }

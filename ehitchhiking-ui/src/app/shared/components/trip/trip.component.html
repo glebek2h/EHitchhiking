@@ -1,33 +1,30 @@
-
-  <i class="position-car material-icons">
-    directions_car
-  </i>
-  <p class="truncated">{{trip.startPoint}}  ->  {{trip.endPoint}}</p>
-  <div class = "form-row" >
-    <button class = "trip-btn"  [ngSwitch]="trip.status">
-      <i class="material-icons" *ngSwitchCase = "0" title="active trip">
-        event_note
-      </i>
-      <i class="material-icons" *ngSwitchCase="1" title = "completed trip">
-        event_available
-      </i>
-      <i class="material-icons" *ngSwitchCase="2" title = "declined trip">
-        event_busy
-      </i>
-    </button>
-    <button class = "trip-btn" title = "rating">
-      <i class="material-icons">
-        star_border
-      </i>
-    </button>
-    <button class = "trip-btn"
-            [class.active]="trip.isFavorite"
-            (click)="makeFavorite()">
-      <i class="material-icons" *ngIf="!trip.isFavorite" title = " no favorite trip">
-        favorite_border
-      </i>
-      <i class="btn-press-favorite material-icons" title = "favorite trip" *ngIf = "trip.isFavorite" >
-        favorite
-      </i>
-    </button>
-  </div>
+<i class="position-car material-icons">
+	directions_car
+</i>
+<p class="truncated">{{ trip.startPoint }} -> {{ trip.endPoint }}</p>
+<div class="form-row">
+	<button class="trip-btn" [ngSwitch]="trip.status">
+		<i class="material-icons" *ngSwitchCase="0" title="active trip">
+			event_note
+		</i>
+		<i class="material-icons" *ngSwitchCase="1" title="completed trip">
+			event_available
+		</i>
+		<i class="material-icons" *ngSwitchCase="2" title="declined trip">
+			event_busy
+		</i>
+	</button>
+	<button class="trip-btn" title="rating">
+		<i class="material-icons">
+			star_border
+		</i>
+	</button>
+	<button class="trip-btn" [class.active]="trip.isFavorite" (click)="makeFavorite()">
+		<i class="material-icons" *ngIf="!trip.isFavorite" title=" no favorite trip">
+			favorite_border
+		</i>
+		<i class="btn-press-favorite material-icons" title="favorite trip" *ngIf="trip.isFavorite">
+			favorite
+		</i>
+	</button>
+</div>

@@ -1,38 +1,30 @@
 <div class="modal-wrapper trips-modal-container">
-  <app-pre-loading
-    [isLoading]="loading"
-    [size]="loaderSize"
-  ></app-pre-loading>
-  <header class = "modal-header form-row">
-    <span mat-dialog-title class = "trips-title">History</span>
-    <i class="material-icons icon-size">
-      history
-    </i>
-  </header>
-  <div mat-dialog-content class="trips"
-       >
-    <div
-      class="trips-container"
-      *ngFor="let trip of tripsArray | slice:0:limit ; trackBy: trackById"
-    >
+	<app-pre-loading [isLoading]="loading" [size]="loaderSize"></app-pre-loading>
+	<header class="modal-header form-row">
+		<span mat-dialog-title class="trips-title">History</span>
+		<i class="material-icons icon-size">
+			history
+		</i>
+	</header>
+	<div mat-dialog-content class="trips">
+		<div class="trips-container" *ngFor="let trip of tripsArray | slice: 0:limit; trackBy: trackById">
+			<app-trip class="trip" [trip]="trip" (change)="tripChange($event)"></app-trip>
+		</div>
+		<div class="scroll-marker" #sMarker></div>
 
-      <app-trip class = "trip" [trip]=trip (change)="tripChange($event)"></app-trip>
-    </div>
-    <div class = "scroll-marker" #sMarker></div>
-
-      <app-no-data *ngIf="!tripsArray.length" isEmpty="true"></app-no-data>
-
-  </div>
-  <footer>
-    <div mat-dialog-actions class="trips-btn">
-      <button mat-button (click) = "replaceAll()" *ngIf="tripsArray.length">Replase all</button>
-      <button mat-button (click) = "downloadMore()" *ngIf="tripsArrayLenght > limit && tripsArray.length">More</button>
-    </div>
-  </footer>
-  <div class="modal-close-control">
-    <button class="modal-close-control-btn" mat-icon-button (click)="exit()">
-      <mat-icon>close</mat-icon>
-    </button>
-  </div>
-
+		<app-no-data *ngIf="!tripsArray.length" isEmpty="true"></app-no-data>
+	</div>
+	<footer>
+		<div mat-dialog-actions class="trips-btn">
+			<button mat-button (click)="replaceAll()" *ngIf="tripsArray.length">Replase all</button>
+			<button mat-button (click)="downloadMore()" *ngIf="tripsArrayLenght > limit && tripsArray.length">
+				More
+			</button>
+		</div>
+	</footer>
+	<div class="modal-close-control">
+		<button class="modal-close-control-btn" mat-icon-button (click)="exit()">
+			<mat-icon>close</mat-icon>
+		</button>
+	</div>
 </div>
