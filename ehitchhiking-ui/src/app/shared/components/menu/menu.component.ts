@@ -5,6 +5,7 @@ import {MatDialog} from '@angular/material';
 import {RatePassengersModalComponent} from '../rate-passengers-modal/rate-passengers-modal.component';
 import {ProfileModalComponent} from '../../modals/profile-modal/profile-modal.component';
 import {Router} from '@angular/router';
+import {DEFUALT_MAT_DIALOG_CLASS, MAT_DIALOG_WIDTH_SM} from '../../constants/modal-constants';
 import { TripsModalComponent } from "../trips-modal/trips-modal.component";
 
 @Component({
@@ -23,7 +24,9 @@ export class MenuComponent implements OnInit {
 	}
 	openBlacklistDialog(): void {
 		const dialogRef = this.dialog.open(BlacklistComponent, {
-			width: '400px',
+			width: MAT_DIALOG_WIDTH_SM,
+			panelClass: DEFUALT_MAT_DIALOG_CLASS,
+			autoFocus: false,
 		});
 		dialogRef.afterClosed().subscribe((result) => {
 			console.log('The dialog was closed');
@@ -32,7 +35,9 @@ export class MenuComponent implements OnInit {
 
 	openRatePassengersDialog(): void {
 		const dialogRef = this.dialog.open(RatePassengersModalComponent, {
-			width: '400px',
+			width: MAT_DIALOG_WIDTH_SM,
+			panelClass: DEFUALT_MAT_DIALOG_CLASS,
+			autoFocus: false,
 		});
 		dialogRef.afterClosed().subscribe((result) => {
 			console.log('The dialog was closed');
@@ -45,6 +50,8 @@ export class MenuComponent implements OnInit {
 
   openHistoryDialog(){
     const dialogRef = this.dialog.open(TripsModalComponent, {
+      panelClass: 'mat-dialog-no-padding',
+      autoFocus: false,
       width: '600px',
     });
     dialogRef.afterClosed().subscribe((result) => {

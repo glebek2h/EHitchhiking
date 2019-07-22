@@ -8,6 +8,7 @@ import {
 	MatTableModule,
 	MatIconModule,
 	MatButtonModule,
+	MatCardModule,
 } from '@angular/material';
 import {RatePassengersModalModule} from '../rate-passengers-modal/rate-passengers-modal.module';
 import {ProfileModalModule} from '../../modals/profile-modal/profile-modal.module';
@@ -35,7 +36,8 @@ import { TripsModalComponent } from "../trips-modal/trips-modal.component";
 		PreLoadingModule,
 		NoDataModule,
     TripModule,
-    TripsModalModule
+    TripsModalModule,
+		MatCardModule,
 	],
 	exports: [MenuComponent, BlacklistComponent],
 	entryComponents: [BlacklistComponent, TripsModalComponent],
