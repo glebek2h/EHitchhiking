@@ -1,5 +1,5 @@
 <div class="routes-list">
-	<mat-accordion *ngFor="let route of activeRoutesCollection" class="route-info">
+	<mat-accordion *ngFor="let route of activeRoutesCollection; let i = index" class="route-info">
 		<mat-expansion-panel>
 			<mat-expansion-panel-header class="header">
 				<mat-panel-title class="title">
@@ -13,7 +13,6 @@
 					<p class="right-span">places: {{ route.placesSelect }}</p>
 				</mat-panel-description>
 			</mat-expansion-panel-header>
-
 			<p class="routes-list-p">
 				<span>From:</span><span>{{ route.from }}</span>
 			</p>
@@ -23,6 +22,10 @@
 			<p class="routes-list-p">
 				<span>Trip Duration:</span><span>{{ route.tripDuration }}</span>
 			</p>
+      <div class="routes-interface">
+        <mat-checkbox color="primary" (click)="displayRoute(i)">Display route</mat-checkbox>
+        <button mat-raised-button color="primary" [disabled]="!isChecked" (click)="submitRoute(i)">Apply</button>
+      </div>
 		</mat-expansion-panel>
 	</mat-accordion>
 </div>
