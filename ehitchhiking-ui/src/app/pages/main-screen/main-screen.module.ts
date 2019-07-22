@@ -1,3 +1,4 @@
+import {ToastyModule} from 'ng2-toasty';
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MainScreenComponent} from './main-screen-component/main-screen.component';
@@ -17,24 +18,25 @@ import {TripRegistrationComponent} from './trip-registration/trip-registration.c
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import {RoutesListComponent} from './routes-list/routes-list.component';
-import {MenuModule} from "../../shared/components/menu/menu.module";
+import {MenuModule} from '../../shared/components/menu/menu.module';
 @NgModule({
 	declarations: [MainScreenComponent, YandexMapComponent, TripRegistrationComponent, RoutesListComponent],
-  imports: [
-    CommonModule,
-    MatButtonToggleModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatCardModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatSelectModule,
-    NgxMaterialTimepickerModule,
-    MatExpansionModule,
-    MenuModule,
-  ],
+	imports: [
+		CommonModule,
+		MatButtonToggleModule,
+		MatButtonModule,
+		MatFormFieldModule,
+		FormsModule,
+		ReactiveFormsModule,
+		MatCardModule,
+		MatInputModule,
+		MatDatepickerModule,
+		MatSelectModule,
+		NgxMaterialTimepickerModule,
+		MatExpansionModule,
+		MenuModule,
+		ToastyModule,
+	],
 	exports: [MainScreenComponent, TripRegistrationComponent],
 })
 export class MainScreenModule {}

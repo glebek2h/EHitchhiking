@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserState} from '../../../shared/enums/UserState';
 import {YandexMapService} from '../yandex-map/yandex-map.service';
+import {NotificationService} from '../../../shared/services/notification.service';
 
 @Component({
 	selector: 'app-main-screen',
@@ -8,7 +9,7 @@ import {YandexMapService} from '../yandex-map/yandex-map.service';
 	styleUrls: ['./main-screen.component.sass'],
 })
 export class MainScreenComponent implements OnInit {
-	constructor() {}
+	constructor(private notifService: NotificationService) {}
 
 	tripFormData: any; // TODO
 	isHiddenTripRegistration: boolean;
@@ -32,7 +33,7 @@ export class MainScreenComponent implements OnInit {
 
 	getData(data) {
 		this.tripFormData = data;
-    this.isHiddenTripRegistration = true;
+		this.isHiddenTripRegistration = true;
 	}
 
 	saveRoute() {
@@ -44,23 +45,27 @@ export class MainScreenComponent implements OnInit {
 		this.isShownRoutesList = !this.isShownRoutesList;
 	}
 
-  setIsShownViewRoutesButtonFlag(data) {
+	setIsShownViewRoutesButtonFlag(data) {
 		if (this.userState === UserState.passenger) {
 			this.isShownViewRoutesButton = data;
 		}
 	}
 
-  setIsShownSaveRouteButtonFlag(data) {
+	setIsShownSaveRouteButtonFlag(data) {
 		if (this.userState === UserState.driver) {
 			this.isShownSaveRouteButton = data;
 		}
 	}
 
 	toggleStateToPassenger() {
-	  this.userState = UserState.passenger;
-  }
+		this.userState = UserState.passenger;
+	}
 
-  toggleStateToDriver() {
-	  this.userState = UserState.driver;
-  }
+	toggleStateToDriver() {
+		this.userState = UserState.driver;
+	}
+
+	doNotify() {
+		this.notifService.doNotification('Hello!', 'Here!');
+	}
 }
