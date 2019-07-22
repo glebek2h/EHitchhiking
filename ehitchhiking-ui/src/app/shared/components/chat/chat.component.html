@@ -21,7 +21,9 @@
 				<input matInput #message maxlength="256" placeholder="Message" id="input-text" />
 				<mat-hint align="end">{{ message.value.length }} / 256</mat-hint>
 			</mat-form-field>
-			<button class="send-btn" mat-raised-button (click)="onInput(message.value)">Send</button>
+			<button class="send-btn" mat-raised-button (click)="onInput(message.value); message.value = ''">
+				Send
+			</button>
 		</form>
 	</div>
 
