@@ -16,9 +16,10 @@ import {BlacklistComponent} from '../blacklist/blacklist.component';
 import {FormsModule} from '@angular/forms';
 import {PreLoadingModule} from '../pre-loading/pre-loading.module';
 import {NoDataModule} from '../no-data/no-data.module';
+import {ChatComponent} from '../chat/chat.component';
 
 @NgModule({
-	declarations: [MenuComponent, BlacklistComponent],
+	declarations: [MenuComponent, BlacklistComponent,ChatComponent],
 	imports: [
 		CommonModule,
 		MatCheckboxModule,
@@ -34,7 +35,7 @@ import {NoDataModule} from '../no-data/no-data.module';
 		NoDataModule,
 		MatCardModule,
 	],
-	exports: [MenuComponent, BlacklistComponent],
-	entryComponents: [BlacklistComponent],
+	exports: [MenuComponent, BlacklistComponent,ChatComponent],
+	entryComponents: [BlacklistComponent,ChatComponent],
 })
 export class MenuModule {}

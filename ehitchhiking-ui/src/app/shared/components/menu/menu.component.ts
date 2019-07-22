@@ -6,6 +6,7 @@ import {RatePassengersModalComponent} from '../rate-passengers-modal/rate-passen
 import {ProfileModalComponent} from '../../modals/profile-modal/profile-modal.component';
 import {Router} from '@angular/router';
 import {DEFUALT_MAT_DIALOG_CLASS, MAT_DIALOG_WIDTH_SM} from '../../constants/modal-constants';
+import {ChatComponent} from "../chat/chat.component";
 
 @Component({
 	selector: 'app-menu',
@@ -50,4 +51,14 @@ export class MenuComponent implements OnInit {
 	openProfileDialog(): void {
 		this.dialog.open(ProfileModalComponent, {panelClass: 'mat-dialog-no-padding', autoFocus: false});
 	}
+
+  openChatDialog(): void {
+    const dialogRef = this.dialog.open(ChatComponent, {
+      width: MAT_DIALOG_WIDTH_SM,
+      panelClass: DEFUALT_MAT_DIALOG_CLASS,
+      autoFocus: false,});
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+    });
+  }
 }
