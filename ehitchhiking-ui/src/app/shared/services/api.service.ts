@@ -1,19 +1,17 @@
-import {CachingHttpParams} from './../models/caching.http.params';
-import {RequestMethods} from '@shared/enums/request-enum';
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpRequest, HttpEvent} from '@angular/common/http';
+import {HttpClient, HttpRequest, HttpEvent, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {CachingHttpParams} from '../models/caching.http.params';
+import {RequestMethods} from '../enums/request-enum';
 
-@Injectable({
-	providedIn: 'root',
-})
+@Injectable()
 export class ApiService {
 	static readonly apiUrl: string = '';
 
 	constructor(private http: HttpClient) {}
 
 	doGet(urlPath: string, data: any, isCacheable: boolean = false): Observable<HttpEvent<any>> | null {
-		return this.generateRequest(RequestMethods.GET, urlPath, data);
+		return this.generateRequest(RequestMethods.GET, urlPath, data, isCacheable);
 	}
 	doPost(urlPath: string, data: any, isCacheable: boolean = false): Observable<HttpEvent<any>> | null {
 		return this.generateRequest(RequestMethods.POST, urlPath, data, isCacheable);
@@ -41,11 +39,11 @@ export class ApiService {
 
 	private getRequestOptions(cacheFlag: boolean = false) {
 		return {
-			headers: undefined,
-			reportProgress: undefined,
+			headers: new HttpHeaders(),
+			reportProgress: false,
 			params: new CachingHttpParams(cacheFlag),
 			responseType: 'json',
-			withCredentials: undefined,
+			withCredentials: false,
 		};
 	}
 }
