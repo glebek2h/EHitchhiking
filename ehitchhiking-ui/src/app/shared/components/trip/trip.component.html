@@ -22,7 +22,7 @@
     </button>
     <button class = "trip-btn"
             [class.active]="trip.isFavorite"
-            (click)="makeFavorite('favorite')">
+            (click)="makeFavorite()">
       <i class="material-icons" *ngIf="!trip.isFavorite" title = " no favorite trip">
         favorite_border
       </i>

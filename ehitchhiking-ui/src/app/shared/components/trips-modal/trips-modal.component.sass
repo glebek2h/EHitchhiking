@@ -1,6 +1,7 @@
 @import '../../../../styles/fonts-constants'
 @import '../../../../styles/colors'
 @import '../../../../styles/mixins'
+@import '../../../../styles/modals'
 
 .form
   height: 100%
@@ -13,14 +14,20 @@
 .trips-title
   text-align: center
   margin-bottom: 0
+  font-size: $title
 .form-row
   display: flex
   justify-content: center
   align-items: center
+  .icon-size
+    width: 5rem
+.scroll-marker
+  min-height: 20px
 .trips
-  height: 25rem
+  height: calc(22.5rem + 10px)
   overflow-x: hidden
-  margin: 0.5rem
+  margin: 1rem
+  margin-bottom: 0
   display: flex
   flex-direction: column
   position: relative
@@ -33,12 +40,14 @@
 .trips-btn
   display: flex
   justify-content: center
+  padding-bottom: 5%
 .trip
   padding: 0
   margin: 0
   width: 100%
   @include flexbox(space-between)
   height: 4.5rem
+  box-sizing: border-box
 .no-date
   position: relative
   width: 100%

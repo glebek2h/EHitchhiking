@@ -19,14 +19,10 @@ export class TripComponent implements OnInit {
   ngOnInit() {
   }
 
-  makeFavorite(mode: string) {
-    switch (mode) {
-      case 'favorite':
-        this.trip.isFavorite = !this.trip.isFavorite;
-        break;
-      default: break;
+  makeFavorite() {
+     this.trip.isFavorite = !this.trip.isFavorite;
     }
-    this.change.emit(this.trip);
-  }
+    //this.change.emit(this.trip);
+
 
 }
