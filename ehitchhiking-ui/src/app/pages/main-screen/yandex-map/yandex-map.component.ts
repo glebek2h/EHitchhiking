@@ -3,7 +3,6 @@ import ymaps from 'ymaps';
 import {UserState} from '../../../shared/enums/UserState';
 import {YandexMapService} from './yandex-map.service';
 import MultiRouteModel = ymaps.multiRouter.MultiRouteModel;
-
 @Component({
 	// tslint:disable-next-line:component-selector
 	selector: 'yandex-map',
@@ -54,19 +53,18 @@ export class YandexMapComponent implements OnInit, OnChanges {
             coordinates: [53.9, 27.5666]
           },
           properties: {
-            iconContent: 'Я тащусь',
             hintContent: 'Ну давай уже тащи'
           }
         }, {
-          preset: 'islands#blackStretchyIcon',
+          preset: 'islands#yellowPersonIcon',
           draggable: true
         });
         this.myMap.geoObjects
           .add(myGeoObject);
         this.myMark = myGeoObject;
 
-        myGeoObject.events.add('click', (event) => {
-          this.currentRoute.usersCoordinates.push(event.get('coords'));
+        myGeoObject.events.add('dragend', (event) => {
+          this.currentRoute.passengers[0] = {passanger: 'gleb',coordinates: this.myMark.geometry._coordinates};// TODO:0 is bad
         });
       });
   }
@@ -151,7 +149,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
 				this.myMap.geoObjects.add(multiRoute);
 				this.yandexRoutesObjects.push(multiRoute);
 				this.currentMultiRoute = multiRoute;
-				this.currentRoute = data; this.currentRoute.usersCoordinates = [];
+				this.currentRoute = data; this.currentRoute.passengers = [];
 			})
 			.catch((error) => console.log('Failed to load Yandex Maps', error));
 	}
