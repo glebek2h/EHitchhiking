@@ -1,4 +1,5 @@
-import {Requests} from './../enums/request-enum';
+import {CachingHttpParams} from './../models/caching.http.params';
+import {RequestMethods} from '@shared/enums/request-enum';
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpRequest, HttpEvent} from '@angular/common/http';
 import {Observable} from 'rxjs';
@@ -7,29 +8,44 @@ import {Observable} from 'rxjs';
 	providedIn: 'root',
 })
 export class ApiService {
-	readonly apiUrl: string = '';
+	static readonly apiUrl: string = '';
+
 	constructor(private http: HttpClient) {}
 
-	doGet(urlPath: string, data: any): Observable<HttpEvent<any>> | undefined {
-		return this.generateRequest(Requests.GET, urlPath, data);
+	doGet(urlPath: string, data: any, isCacheable: boolean = false): Observable<HttpEvent<any>> | null {
+		return this.generateRequest(RequestMethods.GET, urlPath, data);
 	}
-	doPost(urlPath: string, data: any): Observable<HttpEvent<any>> | undefined {
-		return this.generateRequest(Requests.POST, urlPath, data);
+	doPost(urlPath: string, data: any, isCacheable: boolean = false): Observable<HttpEvent<any>> | null {
+		return this.generateRequest(RequestMethods.POST, urlPath, data, isCacheable);
 	}
-	doDelete(urlPath: string, data: any): Observable<HttpEvent<any>> | undefined {
-		return this.generateRequest(Requests.DEL, urlPath, data);
+	doDelete(urlPath: string, data: any, isCacheable: boolean = false): Observable<HttpEvent<any>> | null {
+		return this.generateRequest(RequestMethods.DEL, urlPath, data, isCacheable);
 	}
-	getPut(urlPath: string, data: any): Observable<HttpEvent<any>> | undefined {
-		return this.generateRequest(Requests.PUT, urlPath, data);
+	getPut(urlPath: string, data: any, isCacheable: boolean = false): Observable<HttpEvent<any>> | null {
+		return this.generateRequest(RequestMethods.PUT, urlPath, data, isCacheable);
 	}
 
-	private generateRequest(type: Requests, urlPath: string, data: any): Observable<HttpEvent<any>> {
+	private generateRequest(
+		type: RequestMethods,
+		urlPath: string,
+		data: any,
+		isCacheable: boolean = false
+	): Observable<HttpEvent<any>> {
 		const body = JSON.stringify(data);
-		const url = this.apiUrl + urlPath;
+		const url = ApiService.apiUrl + urlPath;
 		if (data) {
-			return this.http.request(new HttpRequest(type, url, body, {responseType: 'json'}));
-		} else {
-			return this.http.request(new HttpRequest(type, url, {responseType: 'json'}));
+			return this.http.request(new HttpRequest(type, url, body, this.getRequestOptions(isCacheable) as any));
 		}
+		return this.http.request(new HttpRequest(type, url, this.getRequestOptions(isCacheable) as any));
+	}
+
+	private getRequestOptions(cacheFlag: boolean = false) {
+		return {
+			headers: undefined,
+			reportProgress: undefined,
+			params: new CachingHttpParams(cacheFlag),
+			responseType: 'json',
+			withCredentials: undefined,
+		};
 	}
 }
