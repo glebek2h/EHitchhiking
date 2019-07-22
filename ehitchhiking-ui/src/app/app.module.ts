@@ -8,6 +8,7 @@ import {MainScreenModule} from './pages/main-screen/main-screen.module';
 import {MenuModule} from './shared/components/menu/menu.module';
 import {RegistrationModule} from './pages/registration/registration.module';
 import {HttpClientModule} from '@angular/common/http';
+import {MatNativeDateModule} from '@angular/material';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -19,6 +20,7 @@ import {HttpClientModule} from '@angular/common/http';
 		MenuModule,
 		RegistrationModule,
 		HttpClientModule,
+		MatNativeDateModule,
 	],
 	providers: [ApiService],
 	bootstrap: [AppComponent],

@@ -1,9 +1,24 @@
-@import '~@angular/material/theming'
-@import 'styles/colour-theme'
+@import 'styles/colors'
 @import 'styles/fonts-constants'
-@import 'styles/modals'
 @import 'styles/constants'
 @import 'styles/mixins'
+@import 'styles/modals'
+
+::-webkit-scrollbar
+  width: $default-offset
+::-webkit-scrollbar-thumb
+  border-width: 1px 1px 1px 2px
+  border-color: $dark-gray
+  background-color: $gray
+::-webkit-scrollbar-thumb:hover
+  border-width: 1px 1px 1px 2px
+  border-color: $darkest-gray
+  background-color: $dark-gray
+::-webkit-scrollbar-track
+  border-width: 0
+::-webkit-scrollbar-track:hover
+  border-left: solid 1px $gray
+  background-color: $white
 
 .truncated
   white-space: nowrap
@@ -12,6 +27,5 @@
 
 html, body
   font: $body-1 $app-font
-
 
 

@@ -1,0 +1,38 @@
+@import "../../../../styles/colors"
+@import "../../../../styles/constants"
+@import "../../../../styles/fonts-constants"
+$trip-registration-form-height: 18rem
+$trip-registration-form-width: 20rem
+.trip-registration-form
+  position: relative
+  z-index: 2 // more than map z-index, and menu z-index
+  background-color: $white
+  height: $trip-registration-form-height
+  width: $trip-registration-form-width
+  margin-left: auto
+  margin-right: auto
+  box-shadow: 0 0 9px rgba(0, 0, 0, 0.2)
+  border-radius: 0.2rem
+  .form-control
+    margin-top: 0.2rem
+  .input-from,.input-to
+    display: block
+    width: 18rem
+    margin-left: auto
+    margin-right: auto
+  .date-picker,.time-picker
+    width: 8.5rem
+    margin-left: $default-offset
+  .registration-form-bottom-content
+    width: 18rem
+    margin-left: $default-offset
+    display: flex
+    justify-content: space-between
+    align-items: center
+  .submit-button
+    background-color: $yellow
+    margin-left: auto
+    margin-right: auto
+  .places-select
+    width: 8.5rem
+    margin-right: $default-offset

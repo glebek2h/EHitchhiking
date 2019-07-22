@@ -1,5 +1,4 @@
-@import '../../../../styles'
-
+@import "../../../../styles/colors"
 .btn-group
   position: fixed
   z-index: 3 // 3, because <mat-sidenav> default z-index:2
@@ -11,7 +10,6 @@
     width: 50%
 .plus-btn
   position: fixed
-  z-index: 1
   bottom: 5rem
   right: 2rem
 #map
@@ -19,5 +17,15 @@
   height: 100%
   padding: 0
   margin: 0
-
-
+.green
+  background-color: $green
+.red
+  background-color: $red
+.save-route-btn
+  position: fixed
+  right: 2.5rem
+  top: 4rem
+.view-routes-btn
+  position: fixed
+  right: 6.5rem
+  bottom: 4rem

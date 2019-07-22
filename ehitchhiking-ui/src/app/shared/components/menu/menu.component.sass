@@ -1,4 +1,7 @@
-@import "../../../../styles"
+@import '../../../../styles/colors'
+@import '../../../../styles/fonts-constants'
+@import '../../../../styles/constants'
+@import '../../../../styles/mixins'
 
 .sidenav-container
   height: 100%
@@ -39,9 +42,12 @@
         width: 100%
         height: 3rem
         font-size: $button
+        color: $white
+        background-color: mat-color($accent)
     .log-out
       margin-left: 10%
       width: 80%
+      color: mat-color($accent)
   .footer-meta
     .footer-p
       margin:  $default-offset * 0.5
@@ -50,9 +56,14 @@
     .footer-date
       margin: 25%
   .toggle-button
-    margin-top:  $default-offset * 2.2
+    margin-top:  $default-offset * 3.5
     padding: 0
     min-width:  1.5rem
     position: fixed
     .material-icons
       font-size: $display-3
+  .chat-btn
+    position: fixed
+    bottom: 5rem
+    .material-icons
+      font-size: $headline
