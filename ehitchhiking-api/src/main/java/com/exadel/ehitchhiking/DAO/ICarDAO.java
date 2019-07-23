@@ -7,7 +7,6 @@ import java.util.List;
 public interface ICarDAO extends IBasicDAO<Car>{
     List<Car> getAll();
     String getNumber(int id);
-    List<Car> getAllUsers(String username);
     List<Car> getListCars(int idDriver);
-
+    Car getCar(int id);
 }

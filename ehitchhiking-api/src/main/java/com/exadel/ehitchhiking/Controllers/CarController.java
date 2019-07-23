@@ -1,6 +1,6 @@
 package com.exadel.ehitchhiking.Controllers;
 
-import com.exadel.ehitchhiking.Services.impl.CarService;
+import com.exadel.ehitchhiking.Services.ICarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,13 +9,12 @@ import org.springframework.web.bind.annotation.*;
 public class CarController {
 
     @Autowired
-    private CarService carsService;
-
+    private ICarService carService;
 
     @PutMapping("/updateColor")
     public void updateColor(String carId, String color) {
+            carService.updateColor(Integer.getInteger(carId), color);
         try {
-            carsService.updateColor(Integer.getInteger(carId), color);
             //TODO: return
         } catch (Exception e) {
             //TODO: figure out the return
@@ -24,28 +23,27 @@ public class CarController {
 
     @PutMapping("/updateNumber")
     public void updateNumber(String carId, String number) {
+            carService.updateNumber(Integer.getInteger(carId), number);
         try {
-            carsService.updateNumber(Integer.getInteger(carId), number);
             //TODO: return
         } catch (Exception e) {
             //TODO: figure out the return
         }
     }
 
-    @PostMapping
-    public void addNewCar(String color, String number, String carModel,
-                          String idOfDriver) {
+    @PostMapping("/addCar")
+    public void createCar(String color, String number, String carModel
+                          /*String idOfDriver*/) {
+            carService.createCar(color, number, carModel);
         try {
-            carsService.createCar(color, number, carModel,
-                    Integer.getInteger(idOfDriver));
         } catch (Exception e) {
         }
     }
 
-    @DeleteMapping
+    @DeleteMapping("/deleteCar")
     public void deleteCar(String carId) {
+            carService.deleteCarId(Integer.getInteger(carId));
         try {
-            carsService.deleteCarId(Integer.getInteger(carId));
         } catch (Exception e) {
         }
     }

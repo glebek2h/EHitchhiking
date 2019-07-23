@@ -6,35 +6,35 @@ import com.exadel.ehitchhiking.Models.BlacklistPass;
 import com.exadel.ehitchhiking.Models.Driver;
 import com.exadel.ehitchhiking.Models.Passenger;
 
+import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 
-@Repository("BlackListPassIBasicDAO")
+@Repository
 public class BlackListPassDAO extends AbstractDAO<BlacklistPass> implements IBlackListPassDAO {
 
 
+    public BlackListPassDAO(SessionFactory sessionFactory) {
+        super(sessionFactory);
+    }
+
+    @Override
     public List<BlacklistPass> getAll() {
         List<BlacklistPass> blacklistPasses = (List<BlacklistPass>)  getCurrentSession().createQuery("From com.exadel.ehitchhiking.Models.BlacklistPass").list();
         return blacklistPasses;
     }
 
-    public Driver getDriver(int id) {
-        return getCurrentSession().get(Driver.class, id);
+    @Override
+    public BlacklistPass getBlacklistPass(int id) {
+        return getCurrentSession().get(BlacklistPass.class, id);
     }
 
-    public Passenger getPassenger(int id) {
-        return getCurrentSession().get(Passenger.class, id);
-    }
-
-    public BlackListPassDAO(){
-        setAClass(BlacklistPass.class);
-    }
-
+    @Override
     public BlacklistPass getByPassId(int idPass){
-        List<BlacklistPass> blacklistPass = (List<BlacklistPass>) getCurrentSession().createQuery("From com.exadel.ehitchhiking.Models.BlacklistPass where passenger.id = '" + idPass + "'").list();
-        return blacklistPass.get(0);
+        BlacklistPass blacklistPass = (BlacklistPass) getCurrentSession().createQuery("From com.exadel.ehitchhiking.Models.BlacklistPass where passenger.id = '" + idPass + "'").uniqueResult();
+        return blacklistPass;
     }
 }

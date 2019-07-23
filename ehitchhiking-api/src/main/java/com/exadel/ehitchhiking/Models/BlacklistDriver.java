@@ -3,10 +3,11 @@ package com.exadel.ehitchhiking.Models;
 
 
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -31,10 +32,12 @@ public class BlacklistDriver  {
 
     @Getter
     @Setter
-    @OneToMany(fetch = FetchType.LAZY)
-    private Set<Passenger> passSet;
+    @OneToMany (fetch = FetchType.EAGER)
+    @JoinColumn(name = "pass_id", updatable = false)
+    private List<Passenger> passList;
 
     public BlacklistDriver(Driver driver){
         this.driver = driver;
+        this.passList = new ArrayList<>();
     }
 }

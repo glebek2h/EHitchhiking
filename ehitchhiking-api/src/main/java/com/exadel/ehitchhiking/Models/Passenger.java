@@ -2,6 +2,8 @@ package com.exadel.ehitchhiking.Models;
 
 
 import lombok.*;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.ManyToAny;
 
 import javax.persistence.*;
 import java.io.Serializable;

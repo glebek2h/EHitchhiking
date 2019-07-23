@@ -1,8 +1,10 @@
 package com.exadel.ehitchhiking.Controllers;
 
 
+import com.exadel.ehitchhiking.Services.ITripPassengerService;
 import com.exadel.ehitchhiking.Services.impl.TripPassengerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +17,7 @@ import java.sql.Timestamp;
 public class TripPassengerController {
 
     @Autowired
-    private TripPassengerService tripPassengerService;
+    private ITripPassengerService tripPassengerService;
 
     @PostMapping("/createTrip")
     public void createTrip(String passId, String startingPoint, String endingPoint,
