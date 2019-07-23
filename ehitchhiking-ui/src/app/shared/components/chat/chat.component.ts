@@ -18,8 +18,8 @@ export class ChatComponent implements OnInit {
 
 	ngOnInit() {}
 
-	getChat(event: any) {
-		this.msgList = event;
+	getChat(chatInfo: any) {
+		this.msgList = chatInfo;
 	}
 
 	showContent() {

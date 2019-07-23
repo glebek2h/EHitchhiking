@@ -69,6 +69,7 @@ export class MenuComponent implements OnInit {
 			width: MAT_DIALOG_WIDTH_SM,
 			panelClass: DEFUALT_MAT_DIALOG_CLASS,
 			autoFocus: false,
+			disableClose: true,
 		});
 		dialogRef.afterClosed().subscribe((result) => {
 			console.log('The dialog was closed');

@@ -45,6 +45,16 @@ $before-right: -0.2rem
 .message-wrapper
   display: flex
   justify-content: flex-end
+  .message
+    flex-direction: column
+    flex-wrap: wrap
+    .dlg-title
+      .dlg-title-text
+        margin: 0 0 0.5rem 0
+        color: $black
+        font-size: 17px
+        line-height: 13px
+        font-weight: bold
   .message:before
     transform: translate(0, -2px)
 

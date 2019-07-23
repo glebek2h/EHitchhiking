@@ -1,16 +1,19 @@
-<div class="modal-wrapper">
+<div class="modal-wrapper" data-backdrop="static" keyboard="false">
 	<header class="modal-header">
 		<span class="modal-title">Chat</span>
 	</header>
 
 	<div class="chat" *ngIf="showChat">
-		<div class="message-zone">
+		<div class="message-zone" #scrollMe [scrollTop]="scrollMe.scrollHeight">
 			<div *ngFor="let msg of msgList" class="message-wrapper" [class.my-message]="msg.isMy">
 				<div class="person-info">
 					<img [src]="msg.avaSrc" alt="photo" class="image" />
 					<div class="date">{{ msg.time | date: 'h:mm a' }}</div>
 				</div>
 				<div class="message">
+					<div class="dlg-title">
+						<p class="dlg-title-text">{{ msg.person || 'you' }}</p>
+					</div>
 					<div class="text">{{ msg.text }}</div>
 				</div>
 			</div>

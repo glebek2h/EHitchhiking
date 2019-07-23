@@ -20,7 +20,7 @@ import {ChatComponent} from '../chat/chat.component';
 import {TripsModalModule} from '../trips-modal/trips-modal.module';
 import {TripModule} from '../trip/trip.module';
 import {TripsModalComponent} from '../trips-modal/trips-modal.component';
-import {DialogListComponent} from '../dialog/dialog.component';
+import {DialogListComponent} from '../dialog-list/dialog-list.component';
 
 @NgModule({
 	declarations: [MenuComponent, BlacklistComponent, ChatComponent, DialogListComponent],
@@ -41,7 +41,7 @@ import {DialogListComponent} from '../dialog/dialog.component';
 		TripsModalModule,
 		MatCardModule,
 	],
-	exports: [MenuComponent, BlacklistComponent, ChatComponent, DialogListComponent],
+	exports: [MenuComponent, BlacklistComponent, ChatComponent],
 	entryComponents: [BlacklistComponent, ChatComponent, TripsModalComponent, DialogListComponent],
 })
 export class MenuModule {}

@@ -1,13 +1,13 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {DialogService} from './dialog.service';
+import {DialogListService} from './dialog-list.service';
 
 @Component({
 	selector: 'app-dialog',
-	templateUrl: './dialog.component.html',
-	styleUrls: ['./dialog.component.sass'],
+	templateUrl: './dialog-list.component.html',
+	styleUrls: ['./dialog-list.component.sass'],
 })
 export class DialogListComponent implements OnInit {
-	dialogList = DialogService.dlgList;
+	dialogList = DialogListService.dlgList;
 	@Output() chatMessages = new EventEmitter<any>();
 
 	constructor() {}
