@@ -19,6 +19,7 @@ import {NoDataModule} from '../no-data/no-data.module';
 import {TripsModalModule} from '../trips-modal/trips-modal.module';
 import {TripModule} from '../trip/trip.module';
 import {TripsModalComponent} from '../trips-modal/trips-modal.component';
+import {ChatDataModule} from '@shared/components/chat-data/chat-data.module';
 
 @NgModule({
 	declarations: [MenuComponent, BlacklistComponent],
@@ -38,6 +39,7 @@ import {TripsModalComponent} from '../trips-modal/trips-modal.component';
 		TripModule,
 		TripsModalModule,
 		MatCardModule,
+		ChatDataModule,
 	],
 	exports: [MenuComponent, BlacklistComponent],
 	entryComponents: [BlacklistComponent, TripsModalComponent],
