@@ -2,6 +2,7 @@ package com.exadel.ehitchhiking.Models;
 
 
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;

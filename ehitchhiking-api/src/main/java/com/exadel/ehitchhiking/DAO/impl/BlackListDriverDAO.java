@@ -6,33 +6,33 @@ import com.exadel.ehitchhiking.Models.BlacklistDriver;
 import com.exadel.ehitchhiking.Models.Driver;
 import com.exadel.ehitchhiking.Models.Passenger;
 
+import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Repository("BlackListDriverIBasicDAO")
+@Repository
 public class BlackListDriverDAO extends AbstractDAO<BlacklistDriver> implements IBlackListDriverDAO {
 
+    public BlackListDriverDAO(SessionFactory sessionFactory) {
+        super(sessionFactory);
+    }
+
+    @Override
     public List<BlacklistDriver> getAll() {
         List<BlacklistDriver> blacklistDrivers = (List<BlacklistDriver>)  getCurrentSession().createQuery("From com.exadel.ehitchhiking.Models.BlacklistDriver").list();
         return blacklistDrivers;
     }
 
-    public Driver getDriver(int id) {
-        return getCurrentSession().get(Driver.class, id);
+    @Override
+    public BlacklistDriver getBlackList(int id){
+        return (BlacklistDriver) getCurrentSession().get(BlacklistDriver.class, id);
     }
 
-    public Passenger getPassenger(int id) {
-        return getCurrentSession().get(Passenger.class, id);
-    }
-
-    public BlackListDriverDAO(){
-        setAClass(BlacklistDriver.class);
-    }
-
+    @Override
     public BlacklistDriver getByDriverId(int idDriver){
-        List<BlacklistDriver> blacklistDriver = (List<BlacklistDriver>) getCurrentSession().createQuery("From com.exadel.ehitchhiking.Models.BlacklistDriver where driver.id = '" + idDriver + "'").list();
-        return blacklistDriver.get(0);
+        BlacklistDriver blacklistDriver = (BlacklistDriver) getCurrentSession().createQuery("From com.exadel.ehitchhiking.Models.BlacklistDriver where driver.id = '" + idDriver + "'").uniqueResult();
+        return blacklistDriver;
     }
 }

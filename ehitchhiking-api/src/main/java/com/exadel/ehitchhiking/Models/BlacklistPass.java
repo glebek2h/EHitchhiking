@@ -2,11 +2,11 @@ package com.exadel.ehitchhiking.Models;
 
 
 import lombok.*;
-import org.springframework.stereotype.Component;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -29,14 +29,15 @@ public class BlacklistPass  {
     @JoinColumn(name = "pass_id")
     private Passenger passenger;
 
-
     @Getter
     @Setter
-    @OneToMany (fetch = FetchType.LAZY)
-    private Set<Driver> driverSet;
+    @OneToMany (fetch = FetchType.EAGER)
+    @JoinColumn(name = "driver_id", updatable = false)
+    private List<Driver> driverList;
 
     public BlacklistPass(Passenger passenger){
         this.passenger = passenger;
+        this.driverList = new ArrayList<>();
     }
 
 }

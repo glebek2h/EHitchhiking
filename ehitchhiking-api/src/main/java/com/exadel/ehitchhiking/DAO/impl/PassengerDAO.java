@@ -3,25 +3,33 @@ package com.exadel.ehitchhiking.DAO.impl;
 import com.exadel.ehitchhiking.DAO.IPassengerDAO;
 import com.exadel.ehitchhiking.Models.Passenger;
 
+import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 
-@Repository("PassengerIBasicDAO")
+@Repository
 public class PassengerDAO extends AbstractDAO<Passenger> implements IPassengerDAO {
 
+    public PassengerDAO(SessionFactory sessionFactory) {
+        super(sessionFactory);
+    }
+
+    @Override
     public List<Passenger> getAll() {
         List<Passenger> passs = (List<Passenger>)  getCurrentSession().createQuery("From com.exadel.ehitchhiking.Models.Passenger").list();
         return passs;
     }
 
+    @Override
     public Passenger getByName(String username) {
-        List<Passenger> passengers = (List<Passenger>)  getCurrentSession().createQuery("from Passenger where employee = (from Employee where username = '" + username + "')").list();
-        return passengers.size() > 0 ? passengers.get(0) : null;
+        Passenger passenger = (Passenger)  getCurrentSession().createQuery("from Passenger where employee = (from Employee where username = '" + username + "')").uniqueResult();
+        return passenger;
     }
 
-    public PassengerDAO(){
-        setAClass(Passenger.class);
+    @Override
+    public Passenger getPassenger(int id) {
+        return getCurrentSession().get(Passenger.class, id);
     }
 }

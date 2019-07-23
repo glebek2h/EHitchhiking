@@ -1,45 +1,51 @@
 package com.exadel.ehitchhiking.DAO.impl;
 
 import com.exadel.ehitchhiking.DAO.IBasicDAO;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 
-@Repository("AbstractDAO")
-public abstract class AbstractDAO<T> implements IBasicDAO<T>  {
+@Repository
+@NoArgsConstructor
+public abstract class AbstractDAO<T> implements IBasicDAO<T> {
 
-     @Setter
-     public Class<T> aClass;
+    private SessionFactory sessionFactory;
 
-     @Autowired
-     private SessionFactory sessionFactory;
+    @Autowired
+    public AbstractDAO(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
-     protected Session getCurrentSession(){
-         return sessionFactory.getCurrentSession();
-     }
+    protected Session getCurrentSession() {
+        return sessionFactory.getCurrentSession();
+    }
 
-
-     public void save(T t) {
+    public void save(T t) {
         Session session = getCurrentSession();
         session.save(t);
     }
 
-     public void update(T t) {
+    @Override
+    public void saveOrUpdate(T t) {
+        Session session = getCurrentSession();
+        session.saveOrUpdate(t);
+    }
+
+    public void update(T t) {
         Session session = getCurrentSession();
         session.update(t);
     }
 
-     public void delete(T t) {
+    public void delete(T t) {
         Session session = getCurrentSession();
         session.delete(t);
     }
 
-    public T get(int id) {
-        return getCurrentSession().get(aClass, id);
-    }
-
+//    public T get(int id) {
+//        return getCurrentSession().get(aClass, id);
+//    }
 
 }

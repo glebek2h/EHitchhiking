@@ -8,7 +8,6 @@ import java.util.List;
 
 public interface IBlackListPassDAO extends IBasicDAO<BlacklistPass>{
     List<BlacklistPass> getAll();
-    Driver getDriver(int id);
-    Passenger getPassenger(int id);
     BlacklistPass getByPassId(int idPass);
+    BlacklistPass getBlacklistPass(int id);
 }

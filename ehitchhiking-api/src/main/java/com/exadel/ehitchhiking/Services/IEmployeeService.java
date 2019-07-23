@@ -2,6 +2,8 @@ package com.exadel.ehitchhiking.Services;
 
 import com.exadel.ehitchhiking.Models.Employee;
 
+import java.util.List;
+
 public interface IEmployeeService {
     void createEmployee(boolean isAdmin, String username, String firstName,
                                String lastName, String email, String password, String phoneNum);
@@ -15,4 +17,5 @@ public interface IEmployeeService {
     void updatePhone(String username, String phone);
     void deleteUser(String username);
     void deleteUserId(int id);
+    List<Employee> getAll();
 }

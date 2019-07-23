@@ -1,8 +1,10 @@
 package com.exadel.ehitchhiking.Controllers;
 
 
-import com.exadel.ehitchhiking.Services.impl.EmployeeService;
+import com.exadel.ehitchhiking.Models.Employee;
+import com.exadel.ehitchhiking.Services.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class EmployeeController {
 
     @Autowired
-    EmployeeService employeeService;
+    private IEmployeeService employeeService;
 
     @PutMapping("/updatePassword")
     public void updatePassword(String username, String password){
@@ -62,5 +64,21 @@ public class EmployeeController {
         } catch (Exception e) {
             //TODO: figure out the return
         }
+    }
+
+    @GetMapping("/getEmployee")
+    public Response<Employee> getEmployee(int id){
+        Response<Employee> response = new Response<>();
+        response.setStatus("200");
+        response.setObject(employeeService.findUserId(28));
+        return response;
+    }
+
+    @GetMapping("/getAll")
+    public ResponseMany<Employee> getAll(){
+        ResponseMany<Employee> responseMany = new ResponseMany<>();
+        responseMany.setStatus("200");
+        responseMany.setObjects(employeeService.getAll());
+        return responseMany;
     }
 }

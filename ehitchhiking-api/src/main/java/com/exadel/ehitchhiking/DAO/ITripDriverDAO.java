@@ -9,6 +9,5 @@ import java.util.List;
 public interface ITripDriverDAO extends IBasicDAO<TripDriver> {
 
     List<TripDriver> getAll();
-    Car getCar(String id);
-    TripPass getTripPass(int id);
+    TripDriver getTripDriver(int id);
 }
