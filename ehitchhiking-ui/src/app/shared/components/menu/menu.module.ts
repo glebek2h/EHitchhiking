@@ -18,6 +18,8 @@ import {FormsModule} from '@angular/forms';
 import {PreLoadingModule} from '../pre-loading/pre-loading.module';
 import {NoDataModule} from '../no-data/no-data.module';
 import {NotificationComponent} from '../notification/notification.component';
+import { TripsModalModule } from "../trips-modal/trips-modal.module";
+import { TripModule } from "../trip/trip.module";
 
 @NgModule({
 	declarations: [MenuComponent, BlacklistComponent, NotificationComponent],
@@ -34,10 +36,16 @@ import {NotificationComponent} from '../notification/notification.component';
 		FormsModule,
 		PreLoadingModule,
 		NoDataModule,
+    TripModule,
+    TripsModalModule,
 		MatCardModule,
 		MatSnackBarModule,
 	],
 	exports: [MenuComponent, BlacklistComponent],
+<<<<<<< HEAD
 	entryComponents: [BlacklistComponent, NotificationComponent],
+=======
+	entryComponents: [BlacklistComponent, TripsModalComponent],
+>>>>>>> release-2207-2807
 })
 export class MenuModule {}
