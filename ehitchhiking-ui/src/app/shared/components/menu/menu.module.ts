@@ -10,12 +10,15 @@ import {
 	MatButtonModule,
 	MatCardModule,
 } from '@angular/material';
-import {RatePassengersModalModule} from '../rate-passengers-modal/rate-passengers-modal.module';
-import {ProfileModalModule} from '../../modals/profile-modal/profile-modal.module';
-import {BlacklistComponent} from '../blacklist/blacklist.component';
+import {RatePassengersModalModule} from '@shared/components/rate-passengers-modal/rate-passengers-modal.module';
+import {ProfileModalModule} from '@shared/modals/profile-modal/profile-modal.module';
+import {BlacklistComponent} from '@shared/components/blacklist/blacklist.component';
 import {FormsModule} from '@angular/forms';
 import {PreLoadingModule} from '../pre-loading/pre-loading.module';
 import {NoDataModule} from '../no-data/no-data.module';
+import {TripsModalModule} from '../trips-modal/trips-modal.module';
+import {TripModule} from '../trip/trip.module';
+import {TripsModalComponent} from '../trips-modal/trips-modal.component';
 
 @NgModule({
 	declarations: [MenuComponent, BlacklistComponent],
@@ -32,9 +35,11 @@ import {NoDataModule} from '../no-data/no-data.module';
 		FormsModule,
 		PreLoadingModule,
 		NoDataModule,
+		TripModule,
+		TripsModalModule,
 		MatCardModule,
 	],
 	exports: [MenuComponent, BlacklistComponent],
-	entryComponents: [BlacklistComponent],
+	entryComponents: [BlacklistComponent, TripsModalComponent],
 })
 export class MenuModule {}
