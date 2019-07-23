@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpRequest, HttpEvent, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {CachingHttpParams} from '../models/caching.http.params';
+import {CachingHttpParams} from '@shared/models/caching.http.params';
 import {RequestMethods} from '../enums/request-enum';
 
 @Injectable()
