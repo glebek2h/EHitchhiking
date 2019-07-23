@@ -1,6 +1,6 @@
 import {HttpRequest, HttpResponse} from '@angular/common/http';
-import {RequestCacheInterface} from '../../shared/interfaces/request.cache.interface';
-import {RequestCacheItem} from '../../shared/models/request.cache.item';
+import {RequestCacheInterface} from '@shared/interfaces/request.cache.interface';
+import {RequestCacheItem} from '@shared/models/request.cache.item';
 
 export class RequestCache implements RequestCacheInterface {
 	static readonly maxCacheAge = 3 * Math.pow(10, 5);

@@ -1,8 +1,8 @@
-import {ApiService} from './../../services/api.service';
+import {ApiService} from '@shared/services/api.service';
 import {Component, ViewChild, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material';
-import {User} from '../../models/user';
-import {Car} from '../../models/car';
+import {User} from '@shared/models/user';
+import {Car} from '@shared/models/car';
 import {FormGroup, FormBuilder} from '@angular/forms';
 import {CarsInfoService} from './cars-info.service';
 @Component({
