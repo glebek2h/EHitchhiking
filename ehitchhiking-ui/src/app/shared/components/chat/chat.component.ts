@@ -1,12 +1,16 @@
 import {Component, OnInit} from '@angular/core';
-import {$} from 'protractor';
 
 interface ChatMessage {
 	text: string;
 	person: string;
 	avaSrc: string;
-	time?: string;
+	time?: number;
 	isMy: boolean;
+}
+
+interface Dialog {
+	title: string;
+	lastMsg: ChatMessage;
 }
 
 @Component({
@@ -15,9 +19,33 @@ interface ChatMessage {
 	styleUrls: ['./chat.component.sass'],
 })
 export class ChatComponent implements OnInit {
-	showDialog = true;
+	showChat = true;
+	showDialogs = false;
+	readonly MAX_MESSAGE_LENGTH = 256;
 
 	msgList: ChatMessage[] = [];
+	dlgList: Dialog[] = [
+		{
+			title: 'Secret chat',
+			lastMsg: {
+				text: 'Hello world 2',
+				person: 'not me',
+				avaSrc: 'http://placekitten.com/40/50',
+				time: Date.now(),
+				isMy: false,
+			},
+		},
+		{
+			title: 'Secret chat',
+			lastMsg: {
+				text: 'Hello world 2',
+				person: 'not me',
+				avaSrc: 'http://placekitten.com/40/50',
+				time: Date.now(),
+				isMy: false,
+			},
+		},
+	];
 
 	constructor() {}
 
@@ -27,32 +55,35 @@ export class ChatComponent implements OnInit {
 				text: 'Hello world',
 				person: 'not me',
 				avaSrc: 'http://placekitten.com/40/50',
-				time: '11:00',
+				time: Date.now(),
 				isMy: true,
 			},
 			{
 				text: 'Hello world 2',
 				person: 'not me',
 				avaSrc: 'http://placekitten.com/40/50',
-				time: '11:01',
+				time: Date.now(),
 				isMy: false,
 			},
 		].forEach((msg) => this.msgList.push(msg));
 	}
 
 	showContent() {
-		this.showDialog = false;
+		this.showChat = false;
+		this.showDialogs = true;
 	}
 
 	onInput(message) {
-		const currentdate = new Date();
-		const dataTime = currentdate.getHours() + ':' + currentdate.getMinutes();
 		this.msgList.push({
 			text: message,
 			person: '',
 			avaSrc: 'http://placekitten.com/40/50',
-			time: dataTime,
+			time: Date.now(),
 			isMy: true,
 		});
+	}
+
+	onSend(message: HTMLInputElement) {
+		message.value = '';
 	}
 }
