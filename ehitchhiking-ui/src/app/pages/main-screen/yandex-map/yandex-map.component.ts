@@ -3,6 +3,8 @@ import ymaps from 'ymaps';
 import {UserState} from '../../../shared/enums/UserState';
 import {YandexMapService} from './yandex-map.service';
 import MultiRouteModel = ymaps.multiRouter.MultiRouteModel;
+import {DELETE_ROUTE_MARKER} from '../../../shared/constants/modal-constants';
+
 @Component({
 	// tslint:disable-next-line:component-selector
 	selector: 'yandex-map',
@@ -30,9 +32,8 @@ export class YandexMapComponent implements OnInit, OnChanges {
 	@Input() tripState: number;
 	@Input() tripData: Route;
 	@Input() isSavedRoute: boolean;
-	@Input() isNeedCleanMap: boolean;
 	@Input() triggers: any;
-	@Input() indexRouteToDisplay: number;
+	@Input() indexRouteToDisplay: number ;
 
 	ngOnInit() {
 		this.ymapsPromise = ymaps.load(YandexMapComponent.API_URL);
@@ -70,14 +71,16 @@ export class YandexMapComponent implements OnInit, OnChanges {
   }
 
 	ngOnChanges(changes: SimpleChanges) {
-		if (changes.triggers && changes.triggers.currentValue && this.isNeedCleanMap) {
+		if (changes.triggers && changes.triggers.currentValue) {
       this.yandexRoutesObjects.forEach((route) =>
         this.myMap.geoObjects.remove(route));
-      if (this.indexRouteToDisplay !== undefined && this.indexRouteToDisplay !== -99 ) {
+    }
+    if (changes.indexRouteToDisplay) {
+      if (this.indexRouteToDisplay !== undefined && this.indexRouteToDisplay !== DELETE_ROUTE_MARKER ) {
         this.addMultiRoute(this.routes[this.indexRouteToDisplay],false);
         this.placeMarkForPassenger();
       }
-      if (this.indexRouteToDisplay === -99) {
+      if (this.indexRouteToDisplay === DELETE_ROUTE_MARKER) {
         this.myMap.geoObjects.remove(this.yandexRoutesObjects[0]);
         this.myMap.geoObjects.remove(this.myMark);
       }

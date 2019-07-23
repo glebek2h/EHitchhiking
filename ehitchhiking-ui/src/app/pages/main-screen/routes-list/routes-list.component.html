@@ -23,7 +23,7 @@
 				<span>Trip Duration:</span><span>{{ route.tripDuration }}</span>
 			</p>
       <div class="routes-interface">
-        <mat-checkbox color="primary" (click)="displayRoute(i)">Display route</mat-checkbox>
+        <mat-checkbox color="primary" [checked]="i < 3 ? true : false" (click)="displayRoute(i)">Display route</mat-checkbox>
         <button mat-raised-button color="primary" [disabled]="!isChecked" (click)="submitRoute(i)">Apply</button>
       </div>
 		</mat-expansion-panel>

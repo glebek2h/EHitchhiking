@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {UserState} from '../../../shared/enums/UserState';
 import {YandexMapService} from '../yandex-map/yandex-map.service';
 
+
 @Component({
 	selector: 'app-main-screen',
 	templateUrl: './main-screen.component.html',
@@ -17,9 +18,8 @@ export class MainScreenComponent implements OnInit {
 	isShownRoutesList: boolean;
 	isShownViewRoutesButton: boolean;
 	isShownSaveRouteButton: boolean;
-	isPensilStateOfPlusButton: boolean;
-	isNeedCleanMap: boolean; // Нужно ли удалить все маршруты с карты
-  indexRouteToDisplay: number;
+	editStatePlusButton: boolean;
+  displayedRouteIndex: number;
   mapTriggers = {};
 
 	routes: Partial<Route>[] = [];
@@ -37,7 +37,7 @@ export class MainScreenComponent implements OnInit {
 	getData(data) {
 		this.tripFormData = data;
     this.isHiddenTripRegistration = true;
-    this.isPensilStateOfPlusButton = true;
+    this.editStatePlusButton = true;
     this.mapTriggers = {reset:true};
 	}
 
@@ -64,23 +64,25 @@ export class MainScreenComponent implements OnInit {
 
 	toggleStateToPassenger() {
 	  this.userState = UserState.passenger;
-	  this.isPensilStateOfPlusButton = false;
-	  this.isShownSaveRouteButton = false;
-	  this.isNeedCleanMap = true;
-	  this.mapTriggers = {reset:true};
+    this.toggleMapInterfaceToDefault();
   }
 
   toggleStateToDriver() {
 	  this.userState = UserState.driver;
-    this.isPensilStateOfPlusButton = false;
+    this.toggleMapInterfaceToDefault();
+  }
+
+  toggleMapInterfaceToDefault() {
+    this.editStatePlusButton = false;
     this.isShownViewRoutesButton = false;
-    this.isNeedCleanMap = true;
+    this.isHiddenTripRegistration = true;
+    this.isSavedRoute = false;
+    this.isShownRoutesList = false;
     this.mapTriggers = {reset:true};
   }
 
   getIndexToDisplay(data) {
-    this.indexRouteToDisplay = data;
-    this.isNeedCleanMap = true;
+    this.displayedRouteIndex = data;
     this.mapTriggers = {reset:true};
   }
 }

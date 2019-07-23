@@ -6,9 +6,8 @@
 	[userState]="userState"
 	[isSavedRoute]="isSavedRoute"
 	[routes]="routes"
-  [isNeedCleanMap]="isNeedCleanMap"
   [triggers]="mapTriggers"
-  [indexRouteToDisplay]="indexRouteToDisplay"
+  [indexRouteToDisplay]="displayedRouteIndex"
 ></yandex-map>
 <app-trip-registration
 	[isShown]="isHiddenTripRegistration"
@@ -28,10 +27,10 @@
 	view-trips
 </button>
 <button class="plus-btn" mat-fab color="primary" (click)="openTripRegistrationForm()">
-	<i *ngIf="!isPensilStateOfPlusButton" class="material-icons">
+	<i *ngIf="!editStatePlusButton" class="material-icons">
 		add
 	</i>
-  <i *ngIf="isPensilStateOfPlusButton" class="material-icons">
+  <i *ngIf="editStatePlusButton" class="material-icons">
     edit
   </i>
 

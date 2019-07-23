@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {UtilsService} from '../../../shared/services/utils.service';
+import {DELETE_ROUTE_MARKER} from '../../../shared/constants/modal-constants';
 
 @Component({
 	selector: 'app-routes-list',
@@ -27,7 +28,7 @@ export class RoutesListComponent implements OnInit {
       this.routeToDisplay.emit(index);
     }
     else {
-      this.routeToDisplay.emit(-99);
+      this.routeToDisplay.emit(DELETE_ROUTE_MARKER);
     }
   }
 
