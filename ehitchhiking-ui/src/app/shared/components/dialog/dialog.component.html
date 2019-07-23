@@ -1,7 +1,9 @@
-<mat-card class="modal-dialog" *ngFor="let dlg of dlgList">
-	<img [src]="dlg.lastMsg.avaSrc" alt="photo" class="image" />
+<mat-card class="modal-dialog" *ngFor="let dialog of dialogList">
+	<img [src]="dialog.msgList[dialog.msgList.length - 1].avaSrc" alt="photo" class="image" />
 	<div class="dlg-content">
-		<div class="dlg-title">{{ dlg.title }}</div>
-		<div class="dlg-text">{{ dlg.lastMsg.text }}</div>
+		<div class="dlg-title">
+			<p class="dlg-title-text">{{ dialog.title }}</p>
+		</div>
+		<div class="dlg-text truncated">{{ dialog.msgList[dialog.msgList.length - 1].text }}</div>
 	</div>
 </mat-card>

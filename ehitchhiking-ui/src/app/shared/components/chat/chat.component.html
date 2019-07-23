@@ -31,10 +31,15 @@
 		<app-dialog></app-dialog>
 	</div>
 
-	<div class="modal-back" (click)="showContent()">
+	<div class="modal-back" (click)="showContent()" *ngIf="showChat">
 		<button class="modal-back-btn" mat-icon-button>
 			<mat-icon>arrow_back_ios</mat-icon>
 			<p class="btn-text">Back</p>
+		</button>
+	</div>
+	<div class="modal-close-control">
+		<button class="modal-close-control-btn" mat-icon-button (click)="close()">
+			<mat-icon>close</mat-icon>
 		</button>
 	</div>
 </div>

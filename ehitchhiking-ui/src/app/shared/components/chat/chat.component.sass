@@ -50,6 +50,8 @@ $before-right: -0.2rem
 
   .message:after
     transform: translate(-1rem, -2px)
+    width: $after-width
+    background: $white
 
 
   .message
@@ -99,8 +101,6 @@ $before-right: -0.2rem
 
       &:after
         right: -1.75rem
-        width: $after-width
-        background: $white
         border-bottom-left-radius: $after-horizontal-radius
 
   &:not(.my-message)
@@ -115,8 +115,6 @@ $before-right: -0.2rem
 
       &:after
         left: 0.125rem
-        width: $after-width
-        background: $white
         border-bottom-right-radius: $after-horizontal-radius
 
 .modal-content
