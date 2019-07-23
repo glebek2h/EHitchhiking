@@ -10,11 +10,6 @@ import {MatSnackBarConfig, MAT_SNACK_BAR_DATA} from '@angular/material';
 	encapsulation: ViewEncapsulation.None,
 })
 export class NotificationComponent {
-	static readonly headerClassMap = {
-		[NotificationTypes.success]: 'success',
-		[NotificationTypes.info]: 'info',
-		[NotificationTypes.error]: 'error',
-	};
 	type: NotificationTypes;
 	message: string;
 
