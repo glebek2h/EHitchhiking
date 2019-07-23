@@ -1,19 +1,19 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {TripsModalComponent} from './trips-modal.component';
+import {DialogListComponent} from './dialog-list.component';
 
-describe('TripsModalComponent', () => {
-	let component: TripsModalComponent;
-	let fixture: ComponentFixture<TripsModalComponent>;
+describe('DialogListComponent', () => {
+	let component: DialogListComponent;
+	let fixture: ComponentFixture<DialogListComponent>;
 
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
-			declarations: [TripsModalComponent],
+			declarations: [DialogListComponent],
 		}).compileComponents();
 	}));
 
 	beforeEach(() => {
-		fixture = TestBed.createComponent(TripsModalComponent);
+		fixture = TestBed.createComponent(DialogListComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

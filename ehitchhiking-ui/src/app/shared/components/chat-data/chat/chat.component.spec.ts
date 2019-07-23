@@ -1,19 +1,19 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {TripsModalComponent} from './trips-modal.component';
+import {ChatComponent} from './chat.component';
 
-describe('TripsModalComponent', () => {
-	let component: TripsModalComponent;
-	let fixture: ComponentFixture<TripsModalComponent>;
+describe('ChatComponent', () => {
+	let component: ChatComponent;
+	let fixture: ComponentFixture<ChatComponent>;
 
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
-			declarations: [TripsModalComponent],
+			declarations: [ChatComponent],
 		}).compileComponents();
 	}));
 
 	beforeEach(() => {
-		fixture = TestBed.createComponent(TripsModalComponent);
+		fixture = TestBed.createComponent(ChatComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

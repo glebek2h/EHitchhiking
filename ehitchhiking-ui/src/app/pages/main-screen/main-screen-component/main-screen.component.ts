@@ -32,7 +32,7 @@ export class MainScreenComponent implements OnInit {
 
 	getData(data) {
 		this.tripFormData = data;
-    this.isHiddenTripRegistration = true;
+		this.isHiddenTripRegistration = true;
 	}
 
 	saveRoute() {
@@ -44,23 +44,23 @@ export class MainScreenComponent implements OnInit {
 		this.isShownRoutesList = !this.isShownRoutesList;
 	}
 
-  setIsShownViewRoutesButtonFlag(data) {
+	setIsShownViewRoutesButtonFlag(data) {
 		if (this.userState === UserState.passenger) {
 			this.isShownViewRoutesButton = data;
 		}
 	}
 
-  setIsShownSaveRouteButtonFlag(data) {
+	setIsShownSaveRouteButtonFlag(data) {
 		if (this.userState === UserState.driver) {
 			this.isShownSaveRouteButton = data;
 		}
 	}
 
 	toggleStateToPassenger() {
-	  this.userState = UserState.passenger;
-  }
+		this.userState = UserState.passenger;
+	}
 
-  toggleStateToDriver() {
-	  this.userState = UserState.driver;
-  }
+	toggleStateToDriver() {
+		this.userState = UserState.driver;
+	}
 }
