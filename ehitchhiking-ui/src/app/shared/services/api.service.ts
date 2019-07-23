@@ -10,14 +10,14 @@ export class ApiService {
 
 	constructor(private http: HttpClient) {}
 
-	doGet(urlPath: string, isCacheable: boolean = false, data: any = null): Observable<HttpEvent<any>> | null {
-		return this.generateRequest(RequestMethods.GET, urlPath, data, isCacheable);
+	doGet(urlPath: string, isCacheable: boolean = false, parameters: any = null): Observable<HttpEvent<any>> | null {
+		return this.generateRequest(RequestMethods.GET, urlPath, parameters, isCacheable);
 	}
 	doPost(urlPath: string, isCacheable: boolean = false, data: any = null): Observable<HttpEvent<any>> | null {
 		return this.generateRequest(RequestMethods.POST, urlPath, data, isCacheable);
 	}
-	doDelete(urlPath: string, isCacheable: boolean = false, data: any = null): Observable<HttpEvent<any>> | null {
-		return this.generateRequest(RequestMethods.DEL, urlPath, data, isCacheable);
+	doDelete(urlPath: string, isCacheable: boolean = false, parameters: any = null): Observable<HttpEvent<any>> | null {
+		return this.generateRequest(RequestMethods.DEL, urlPath, parameters, isCacheable);
 	}
 	getPut(urlPath: string, isCacheable: boolean = false, data: any = null): Observable<HttpEvent<any>> | null {
 		return this.generateRequest(RequestMethods.PUT, urlPath, data, isCacheable);
@@ -30,11 +30,12 @@ export class ApiService {
 		isCacheable: boolean = false
 	): Observable<HttpEvent<any>> {
 		const body = JSON.stringify(data);
-		const url = ApiService.apiUrl + urlPath;
-		if (data) {
-			return this.http.request(new HttpRequest(type, url, body, this.getRequestOptions(isCacheable) as any));
+		let url = ApiService.apiUrl + urlPath;
+		if (type === RequestMethods.GET || type === RequestMethods.DEL) {
+			url = this.insertParameters(url, data);
+			return this.http.request(new HttpRequest(type, url, this.getRequestOptions(isCacheable) as any));
 		}
-		return this.http.request(new HttpRequest(type, url, this.getRequestOptions(isCacheable) as any));
+		return this.http.request(new HttpRequest(type, url, body, this.getRequestOptions(isCacheable) as any));
 	}
 
 	private getRequestOptions(cacheFlag: boolean = false) {
@@ -45,5 +46,12 @@ export class ApiService {
 			responseType: 'json',
 			withCredentials: false,
 		};
+	}
+
+	private insertParameters(urlTemplate: string, data: any): string {
+		Object.keys(data).forEach((key) => {
+			urlTemplate = urlTemplate.replace(`{{${key}}}`, data[key]);
+		});
+		return urlTemplate;
 	}
 }

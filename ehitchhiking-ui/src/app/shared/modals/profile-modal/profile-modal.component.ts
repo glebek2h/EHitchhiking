@@ -5,7 +5,6 @@ import {User} from '@shared/models/user';
 import {Car} from '@shared/models/car';
 import {FormGroup, FormBuilder} from '@angular/forms';
 import {CarsInfoService} from './cars-info.service';
-
 @Component({
 	selector: 'app-profile-modal',
 	templateUrl: './profile-modal.component.html',
@@ -32,7 +31,6 @@ export class ProfileModalComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		this.apiService.doGet('', true).subscribe((data) => console.log(data));
 		this.carsInfoForm = this.carsInfoService.toFormGroup(this.user.cars, this.formBuilder);
 	}
 
