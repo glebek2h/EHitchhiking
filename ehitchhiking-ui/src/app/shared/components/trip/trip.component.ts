@@ -9,11 +9,7 @@ import {Trip} from '../trips-modal/trips';
 export class TripComponent implements OnInit {
 	@Input() trip: Trip;
 
-	@Output() onChange: EventEmitter<Trip> = new EventEmitter();
-
-	constructor() {
-		this.onChange = new EventEmitter();
-	}
+	constructor() {}
 
 	ngOnInit() {}
 

@@ -2,6 +2,7 @@ import {ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angu
 import {LoaderSize} from '../../enums/pre-loader-sizes';
 import {MatDialogRef} from '@angular/material';
 import {TripsModalService} from './trips-modal.service';
+import { Trip } from "./trips";
 
 @Component({
 	selector: 'app-trips',
@@ -54,13 +55,5 @@ export class TripsModalComponent implements OnInit {
 
 	trackById(index, trip) {
 		return trip.id;
-	}
-
-	tripChange(trip) {
-		console.log('Change', trip);
-	}
-
-	downloadMore() {
-		this.limit += 5;
 	}
 }
