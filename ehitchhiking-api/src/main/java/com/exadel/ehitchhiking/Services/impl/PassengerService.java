@@ -1,6 +1,8 @@
 package com.exadel.ehitchhiking.Services.impl;
 
+import com.exadel.ehitchhiking.DAO.IDriverDAO;
 import com.exadel.ehitchhiking.DAO.IPassengerDAO;
+import com.exadel.ehitchhiking.Models.Driver;
 import com.exadel.ehitchhiking.Models.Employee;
 import com.exadel.ehitchhiking.Models.Passenger;
 import com.exadel.ehitchhiking.Services.IPassengerService;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional(rollbackOn = Exception.class)
@@ -20,6 +23,9 @@ public class PassengerService implements IPassengerService {
 
     @Autowired
     private IPassengerDAO dao;
+
+    @Autowired
+    private IDriverDAO driverDAO;
 
     @Override
     public void createPassenger(Employee employee) {
@@ -48,5 +54,24 @@ public class PassengerService implements IPassengerService {
     @Override
     public void deletePassengerId(int id) {
         dao.delete(dao.getPassenger(id));
+    }
+
+    @Override
+    public void addDriverToBL(int idPass, int idDriver) {
+        Passenger passenger = dao.getPassenger(idPass);
+        passenger.getDrivers().add(driverDAO.getDriver(idDriver));
+        dao.saveOrUpdate(passenger);
+    }
+
+    @Override
+    public void deleteDriverToBL(int idPass, int idDriver) {
+        Passenger passenger = dao.getPassenger(idPass);
+        passenger.getDrivers().remove(driverDAO.getDriver(idDriver));
+        dao.saveOrUpdate(passenger);
+    }
+
+    @Override
+    public List<Driver> getDrivers(int idPass) {
+        return dao.getPassenger(idPass).getDrivers();
     }
 }

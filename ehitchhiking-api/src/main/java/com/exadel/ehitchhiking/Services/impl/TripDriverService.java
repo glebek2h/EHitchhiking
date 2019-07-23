@@ -17,7 +17,7 @@ import java.sql.Timestamp;
 @Service
 @Transactional(rollbackOn = Exception.class)
 @NoArgsConstructor
-public class TripDriverService  implements ITripDriverService {
+public class TripDriverService implements ITripDriverService {
 
     @Autowired
     private ITripDriverDAO dao;
@@ -25,6 +25,7 @@ public class TripDriverService  implements ITripDriverService {
     @Autowired
     private ICarDAO carDAO;
 
+    @Autowired
     private ITripPassDAO tripPassDAO;
 
     public void createTripDriver(String startingPoint, String endingPoint,
@@ -97,7 +98,7 @@ public class TripDriverService  implements ITripDriverService {
 
     public void updateCar(int id, int idNewCar){
         TripDriver tripDriver = dao.getTripDriver(id);
-        tripDriver.setCar(carDAO.getCar(idNewCar));
+        //tripDriver.setCar(carDAO.getCar(idNewCar));
         dao.update(tripDriver);
     }
 

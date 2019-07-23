@@ -13,5 +13,5 @@ public class Response<T> {
 
     @Getter
     @Setter
-    private T object;
+    private T data;
 }

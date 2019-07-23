@@ -15,5 +15,5 @@ public class ResponseMany<T> {
 
     @Getter
     @Setter
-    private List<T> objects;
+    private List<T> data;
 }

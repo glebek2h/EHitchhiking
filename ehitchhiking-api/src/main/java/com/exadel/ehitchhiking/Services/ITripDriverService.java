@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public interface ITripDriverService {
     void createTripDriver(String startingPoint, String endingPoint,
-                          Timestamp startingTime, Timestamp endingTime, int id_of_car, int seats);
+                          Timestamp startingTime, Timestamp endingTime, int idOfCar, int seats);
 
     void updateTimeStart(int id, Timestamp newStart);
 

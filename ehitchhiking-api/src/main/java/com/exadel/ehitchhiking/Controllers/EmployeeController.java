@@ -2,8 +2,11 @@ package com.exadel.ehitchhiking.Controllers;
 
 
 import com.exadel.ehitchhiking.Models.Employee;
+import com.exadel.ehitchhiking.Response.Response;
+import com.exadel.ehitchhiking.Response.ResponseMany;
 import com.exadel.ehitchhiking.Services.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,10 +19,13 @@ public class EmployeeController {
     @Autowired
     private IEmployeeService employeeService;
 
+    @Autowired
+    private PasswordEncoder encoder;
+
     @PutMapping("/updatePassword")
     public void updatePassword(String username, String password){
         try{
-            employeeService.updatePassword(username, password);
+            employeeService.updatePassword(username, encoder.encode(password));
             //TODO: return
         }
         catch(Exception e){
@@ -67,10 +73,10 @@ public class EmployeeController {
     }
 
     @GetMapping("/getEmployee")
-    public Response<Employee> getEmployee(int id){
+    public Response<Employee> getEmployee(String id){
         Response<Employee> response = new Response<>();
         response.setStatus("200");
-        response.setObject(employeeService.findUserId(28));
+        response.setData(employeeService.findUserId(Integer.parseInt(id)));
         return response;
     }
 
@@ -78,7 +84,7 @@ public class EmployeeController {
     public ResponseMany<Employee> getAll(){
         ResponseMany<Employee> responseMany = new ResponseMany<>();
         responseMany.setStatus("200");
-        responseMany.setObjects(employeeService.getAll());
+        responseMany.setData(employeeService.getAll());
         return responseMany;
     }
 }

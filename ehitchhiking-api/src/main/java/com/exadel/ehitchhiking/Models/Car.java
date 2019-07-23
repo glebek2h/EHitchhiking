@@ -48,9 +48,9 @@ public class Car {
     @JoinColumn(name = "id_driver")
     private Driver driver;
 
-    public Car(String color, String number, String model
-               /*Driver driver*/) {
-//        this.driver = driver;
+    public Car(String color, String number, String model,
+               Driver driver) {
+        this.driver = driver;
         this.color = color;
         this.number = number;
         this.model = model;

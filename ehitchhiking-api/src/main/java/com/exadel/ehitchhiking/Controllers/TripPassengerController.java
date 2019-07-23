@@ -24,9 +24,9 @@ public class TripPassengerController {
                            Timestamp startingTime, Timestamp endingTime,
                            String seats, String tripDriverId) {
         try {
-            tripPassengerService.createTripPassenger(Integer.getInteger(passId), startingPoint, endingPoint,
+            tripPassengerService.createTripPassenger(Integer.parseInt(passId), startingPoint, endingPoint,
                     startingTime, endingTime,
-                    Integer.getInteger(seats), Integer.getInteger(tripDriverId));
+                    Integer.parseInt(seats), Integer.parseInt(tripDriverId));
         } catch (Exception e) {
             //TODO: return
         }
@@ -35,7 +35,7 @@ public class TripPassengerController {
     @PutMapping("/updateStartingPlace")
     public void updateStartingPlace(String tripId, String number) {
         try {
-            tripPassengerService.updatePointStart(Integer.getInteger(tripId), number);
+            tripPassengerService.updatePointStart(Integer.parseInt(tripId), number);
             //TODO: return
         } catch (Exception e) {
             //TODO: figure out the return
@@ -45,7 +45,7 @@ public class TripPassengerController {
     @PutMapping("/updateEndingPlace")
     public void updateEndingPlace(String tripId, String number) {
         try {
-            tripPassengerService.updatePointEnd(Integer.getInteger(tripId), number);
+            tripPassengerService.updatePointEnd(Integer.parseInt(tripId), number);
             //TODO: return
         } catch (Exception e) {
             //TODO: figure out the return
@@ -55,7 +55,7 @@ public class TripPassengerController {
     @PutMapping("/updateStartingTime")
     public void updateStartingTime(String tripId, Timestamp timeStart) {
         try {
-            tripPassengerService.updateTimeStart(Integer.getInteger(tripId), timeStart);
+            tripPassengerService.updateTimeStart(Integer.parseInt(tripId), timeStart);
             //TODO: return
         } catch (Exception e) {
             //TODO: figure out the return
@@ -65,7 +65,7 @@ public class TripPassengerController {
     @PutMapping("/updateEndingTime")
     public void updateEndingTime(String tripId, Timestamp timeEnd) {
         try {
-            tripPassengerService.updateTimeStart(Integer.getInteger(tripId), timeEnd);
+            tripPassengerService.updateTimeStart(Integer.parseInt(tripId), timeEnd);
             //TODO: return
         } catch (Exception e) {
             //TODO: figure out the return
@@ -75,7 +75,7 @@ public class TripPassengerController {
     @PutMapping("/updateSeats")
     public void updateSeats(String tripId, String seats) {
         try {
-            tripPassengerService.updateSeats(Integer.getInteger(tripId), Integer.getInteger(seats));
+            tripPassengerService.updateSeats(Integer.parseInt(tripId), Integer.parseInt(seats));
             //TODO: return
         } catch (Exception e) {
             //TODO: figure out the return
@@ -85,7 +85,7 @@ public class TripPassengerController {
     @PutMapping("/addToSaved")
     public void addToSaved(String tripId) {
         try {
-            tripPassengerService.updateSave(Integer.getInteger(tripId), true);
+            tripPassengerService.updateSave(Integer.parseInt(tripId), true);
             //TODO: return
         } catch (Exception e) {
             //TODO: figure out the return
@@ -95,7 +95,7 @@ public class TripPassengerController {
     @PutMapping("/removeFromSaved")
     public void removedFromSaved(String tripId) {
         try {
-            tripPassengerService.updateSave(Integer.getInteger(tripId), false);
+            tripPassengerService.updateSave(Integer.parseInt(tripId), false);
             //TODO: return
         } catch (Exception e) {
             //TODO: figure out the return
@@ -105,7 +105,7 @@ public class TripPassengerController {
     @PutMapping("/cancelledTrip")
     public void addToCancelled(String tripId) {
         try {
-            tripPassengerService.updateFinished(Integer.getInteger(tripId), false);
+            tripPassengerService.updateFinished(Integer.parseInt(tripId), false);
             //TODO: return
         } catch (Exception e) {
             //TODO: figure out the return
@@ -115,7 +115,7 @@ public class TripPassengerController {
     @PutMapping("/finishedTrip")
     public void addToFinished(String tripId) {
         try {
-            tripPassengerService.updateFinished(Integer.getInteger(tripId), true);
+            tripPassengerService.updateFinished(Integer.parseInt(tripId), true);
             //TODO: return
         } catch (Exception e) {
             //TODO: figure out the return

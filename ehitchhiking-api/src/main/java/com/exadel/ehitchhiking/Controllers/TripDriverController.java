@@ -1,9 +1,7 @@
 package com.exadel.ehitchhiking.Controllers;
 
 import com.exadel.ehitchhiking.Services.ITripDriverService;
-import com.exadel.ehitchhiking.Services.impl.TripDriverService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +23,7 @@ public class TripDriverController {
         try {
             tripDriverService.createTripDriver(startingPoint, endingPoint,
                     startingTime, endingTime,
-                    Integer.getInteger(idOfCar), Integer.getInteger(seats));
+                    Integer.parseInt(idOfCar), Integer.parseInt(seats));
         } catch (Exception e) {
             //TODO: return
         }
@@ -34,7 +32,7 @@ public class TripDriverController {
     @PutMapping("/updateStartingPlace")
     public void updateStartingPlace(String tripId, String number) {
         try {
-            tripDriverService.updatePointStart(Integer.getInteger(tripId), number);
+            tripDriverService.updatePointStart(Integer.parseInt(tripId), number);
             //TODO: return
         } catch (Exception e) {
             //TODO: figure out the return
@@ -45,7 +43,7 @@ public class TripDriverController {
     @PutMapping("/updateEndingPlace")
     public void updateEndingPlace(String tripId, String number) {
         try {
-            tripDriverService.updatePointEnd(Integer.getInteger(tripId), number);
+            tripDriverService.updatePointEnd(Integer.parseInt(tripId), number);
             //TODO: return
         } catch (Exception e) {
             //TODO: figure out the return
@@ -55,7 +53,7 @@ public class TripDriverController {
     @PutMapping("/updateStartingTime")
     public void updateStartingTime(String tripId, Timestamp timeStart) {
         try {
-            tripDriverService.updateTimeStart(Integer.getInteger(tripId), timeStart);
+            tripDriverService.updateTimeStart(Integer.parseInt(tripId), timeStart);
             //TODO: return
         } catch (Exception e) {
             //TODO: figure out the return
@@ -65,7 +63,7 @@ public class TripDriverController {
     @PutMapping("/updateEndingTime")
     public void updateEndingTime(String tripId, Timestamp timeEnd) {
         try {
-            tripDriverService.updateTimeStart(Integer.getInteger(tripId), timeEnd);
+            tripDriverService.updateTimeStart(Integer.parseInt(tripId), timeEnd);
             //TODO: return
         } catch (Exception e) {
             //TODO: figure out the return
@@ -75,7 +73,7 @@ public class TripDriverController {
     @PutMapping("/updateSeats")
     public void updateSeats(String tripId, String seats) {
         try {
-            tripDriverService.updateSeats(Integer.getInteger(tripId), Integer.getInteger(seats));
+            tripDriverService.updateSeats(Integer.parseInt(tripId), Integer.parseInt(seats));
             //TODO: return
         } catch (Exception e) {
             //TODO: figure out the return
@@ -85,7 +83,7 @@ public class TripDriverController {
     @PutMapping("/addToSaved")
     public void addToSaved(String tripId) {
         try {
-            tripDriverService.updateSave(Integer.getInteger(tripId), true);
+            tripDriverService.updateSave(Integer.parseInt(tripId), true);
             //TODO: return
         } catch (Exception e) {
             //TODO: figure out the return
@@ -95,7 +93,7 @@ public class TripDriverController {
     @PutMapping("/removeFromSaved")
     public void removedFromSaved(String tripId) {
         try {
-            tripDriverService.updateSave(Integer.getInteger(tripId), false);
+            tripDriverService.updateSave(Integer.parseInt(tripId), false);
             //TODO: return
         } catch (Exception e) {
             //TODO: figure out the return
@@ -105,7 +103,7 @@ public class TripDriverController {
     @PutMapping("/addToHistory")
     public void addToHistory(String tripId) {
         try {
-            tripDriverService.updateHistory(Integer.getInteger(tripId), true);
+            tripDriverService.updateHistory(Integer.parseInt(tripId), true);
             //TODO: return
         } catch (Exception e) {
             //TODO: figure out the return
@@ -115,7 +113,7 @@ public class TripDriverController {
     @PutMapping("/cancelledTrip")
     public void addToCancelled(String tripId) {
         try {
-            tripDriverService.updateFinished(Integer.getInteger(tripId), false);
+            tripDriverService.updateFinished(Integer.parseInt(tripId), false);
             //TODO: return
         } catch (Exception e) {
             //TODO: figure out the return
@@ -125,7 +123,7 @@ public class TripDriverController {
     @PutMapping("/finishedTrip")
     public void addToFinished(String tripId) {
         try {
-            tripDriverService.updateFinished(Integer.getInteger(tripId), true);
+            tripDriverService.updateFinished(Integer.parseInt(tripId), true);
             //TODO: return
         } catch (Exception e) {
             //TODO: figure out the return
@@ -135,7 +133,7 @@ public class TripDriverController {
     @PutMapping("/changeCar")
     public void changeCar(String tripId, String newCarId) {
         try {
-            tripDriverService.updateCar(Integer.getInteger(tripId), Integer.getInteger(newCarId));
+            tripDriverService.updateCar(Integer.parseInt(tripId), Integer.parseInt(newCarId));
         } catch (Exception e) {
         }
     }

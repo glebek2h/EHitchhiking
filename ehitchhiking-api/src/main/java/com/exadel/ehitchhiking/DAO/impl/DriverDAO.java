@@ -31,6 +31,17 @@ public class DriverDAO extends AbstractDAO<Driver> implements IDriverDAO {
 
     @Override
     public Driver getDriver(int id) {
-        return getCurrentSession().get(Driver.class, id);
+        return (Driver) getCurrentSession().get(Driver.class, id);
+    }
+
+    @Override
+    public void addPassToBL(int idDriver, int idPass) {
+        //getCurrentSession().createQuery("insert into blacklist_driver values(\'"+ idDriver + "\', \'" + idPass +"\'");
+        getCurrentSession();
+    }
+
+    @Override
+    public void deletePassFromBL(int idDriver, int idPass) {
+        //getCurrentSession().createQuery("delete from blacklist_driver where driver_id = \'" + idDriver + "\' and pass_id = \'" + idPass + "\'");
     }
 }

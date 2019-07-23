@@ -3,6 +3,7 @@ package com.exadel.ehitchhiking.Services.impl;
 import com.exadel.ehitchhiking.DAO.ICarDAO;
 import com.exadel.ehitchhiking.DAO.IDriverDAO;
 import com.exadel.ehitchhiking.Models.Car;
+import com.exadel.ehitchhiking.Models.Driver;
 import com.exadel.ehitchhiking.Services.ICarService;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +22,13 @@ public class CarService implements ICarService {
     @Autowired
     private ICarDAO dao;
 
-//    @Autowired
-//    private IDriverDAO driverDao;
+    @Autowired
+    private IDriverDAO driverDao;
 
     @Override
-    public void createCar(String color, String number, String carModel
-                          /*int idOfDriver*/) {
-        dao.save(new Car(color, number, carModel
-                /*driverDao.getDriver(idOfDriver))*/));
+    public void createCar(String color, String number, String carModel,
+                          int idOfDriver) {
+        dao.save(new Car(color, number, carModel, driverDao.getDriver(idOfDriver)));
     }
 
     @Override

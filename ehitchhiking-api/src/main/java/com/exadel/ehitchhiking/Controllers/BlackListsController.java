@@ -1,80 +1,118 @@
 package com.exadel.ehitchhiking.Controllers;
 
-import com.exadel.ehitchhiking.Services.IBlackListDriverService;
-import com.exadel.ehitchhiking.Services.IBlackListPassengerService;
+import com.exadel.ehitchhiking.Models.Driver;
+import com.exadel.ehitchhiking.Models.Passenger;
+import com.exadel.ehitchhiking.Response.Response;
+import com.exadel.ehitchhiking.Response.ResponseMany;
+import com.exadel.ehitchhiking.Services.IDriverService;
+import com.exadel.ehitchhiking.Services.IPassengerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/BlackList")
 public class BlackListsController {
 
     @Autowired
-    private IBlackListDriverService blackListDriverService;
+    private IDriverService driverService;
 
     @Autowired
-    private IBlackListPassengerService blackListPassengerService;
+    private IPassengerService passengerService;
 
     @PostMapping("/Driver")
-    public boolean addPassToBlackListDriver(String idDriver, String idPass) {
-        System.out.println("here");
-            blackListDriverService.addPass(Integer.getInteger(idDriver), Integer.getInteger(idPass));
+    public Response<String> addPassToBlackListDriver(String idDriver, String idPass) {
+        Response<String> response = new Response<>();
         try {
-            //hm...
+            driverService.addPassToBL(Integer.parseInt(idDriver), Integer.parseInt(idPass));
         } catch (Exception e) {
-            return false;
+            response.setStatus("500");
+            response.setData("false");
+            return response;
         }
-        return true;
+        response.setStatus("200");
+        response.setData("true");
+        return response;
     }
 
     // deleting the passenger from the balck list driver
     @DeleteMapping("/Driver")
-    public boolean deletePassFromBlackListDriver(String idDriver, String idPass) {
-            blackListDriverService.deletePass(Integer.getInteger(idDriver), Integer.getInteger(idPass));
+    public Response<String> deletePassFromBlackListDriver(String idDriver, String idPass) {
+        Response<String> response = new Response<>();
         try {
-            //hm...
+            driverService.deletePassFromBL(Integer.parseInt(idDriver), Integer.parseInt(idPass));
         } catch (Exception e) {
-            return false;
+            response.setStatus("500");
+            response.setData("false");
+            return response;
         }
-        return true;
+        response.setStatus("200");
+        response.setData("true");
+        return response;
     }
 
     @PostMapping("/Passenger")
-    public boolean addDriverToBlackListPass(String idPass, String idDriver) {
+    public Response<String> addDriverToBlackListPass(String idPass, String idDriver) {
+        Response<String> response = new Response<>();
         try {
-            blackListPassengerService.addPass(Integer.getInteger(idPass), Integer.getInteger(idDriver));
+            passengerService.addDriverToBL(Integer.parseInt(idPass), Integer.parseInt(idDriver));
         } catch (Exception e) {
-            return false;
+            response.setStatus("500");
+            response.setData("false");
+            return response;
         }
-        return true;
+        response.setStatus("200");
+        response.setData("true");
+        return response;
     }
 
     // deleting the passenger from the balck list driver
     @DeleteMapping("/Passenger")
-    public boolean deleteDriverFromBlackListPass(String idPass, String idDriver) {
+    public Response<String> deleteDriverFromBlackListPass(String idPass, String idDriver) {
+        Response<String> response = new Response<>();
         try {
-            blackListPassengerService.deletePass(Integer.getInteger(idPass), Integer.getInteger(idDriver));
+            passengerService.deleteDriverToBL(Integer.parseInt(idPass), Integer.parseInt(idDriver));
         } catch (Exception e) {
-            return false;
+            response.setStatus("500");
+            response.setData("false");
+            return response;
         }
-        return true;
+        response.setStatus("200");
+        response.setData("true");
+        return response;
     }
 
-    /*@GetMapping("/Driver")
-    public Object[] getListOfPassengers(String idDriver) {
+    @GetMapping("/Driver")
+    public ResponseMany<Passenger> getListOfPassengers(String idDriver) {
+        ResponseMany<Passenger> responseMany = new ResponseMany<>();
+        List<Passenger> passengers;
         try {
-          //  return blackListDriverService.findAllPass(Integer.getInteger(idDriver)).toArray();
-        } catch (Exception e) {
-            return null;
+            passengers = driverService.getPassengers(Integer.parseInt(idDriver));
+        }catch (Exception e){
+            responseMany.setStatus("500");
+            responseMany.setData(null);
+            return responseMany;
         }
-    }*/
+        responseMany.setStatus("200");
+        responseMany.setData(passengers);
+        return responseMany;
 
-    /*@GetMapping("/Passenger")
-    public Object[] getListOfDrivers(String idPass) {
+    }
+
+    @GetMapping("/Passenger")
+    public ResponseMany<Driver> getListOfDrivers(String idPass) {
+        ResponseMany<Driver> responseMany = new ResponseMany<>();
+        List<Driver> drivers;
         try {
-          //  return blackListPassengerService.findAllDrivers(Integer.getInteger(idPass)).toArray();
+            drivers = passengerService.getDrivers(Integer.parseInt(idPass));
         } catch (Exception e) {
-            return null;
+            responseMany.setStatus("500");
+            responseMany.setData(null);
+            return responseMany;
         }
-    }*/
+        responseMany.setStatus("200");
+        responseMany.setData(drivers);
+        return responseMany;
+    }
 }

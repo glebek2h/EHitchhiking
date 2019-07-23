@@ -32,4 +32,14 @@ public class PassengerDAO extends AbstractDAO<Passenger> implements IPassengerDA
     public Passenger getPassenger(int id) {
         return getCurrentSession().get(Passenger.class, id);
     }
+
+    @Override
+    public void addDriverToBL(int idPass, int idDriver) {
+        getCurrentSession().createQuery("insert into blacklist_pass values(\'"+ idPass + "\', \'" + idDriver +"\'");
+    }
+
+    @Override
+    public void deleteDriverFromBL(int idPass, int idDriver) {
+        getCurrentSession().createQuery("delete from blacklist_pass where pass_id = \'" + idPass + "\' and driver_id = \'" + idDriver + "\'");
+    }
 }

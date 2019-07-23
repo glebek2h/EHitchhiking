@@ -3,6 +3,7 @@ package com.exadel.ehitchhiking.DAO.impl;
 import com.exadel.ehitchhiking.DAO.ICarDAO;
 import com.exadel.ehitchhiking.Models.Car;
 
+import com.exadel.ehitchhiking.Models.Driver;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 

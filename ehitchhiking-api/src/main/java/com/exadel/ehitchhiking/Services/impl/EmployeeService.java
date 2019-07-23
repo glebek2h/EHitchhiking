@@ -22,7 +22,8 @@ public class EmployeeService implements IEmployeeService {
     private IEmployeeDAO dao;
 
     @Override
-    public void createEmployee(boolean isAdmin, String username, String firstName, String lastName, String email, String password, String phoneNum) {
+    public void createEmployee(boolean isAdmin, String username, String firstName, String lastName,
+                               String email, String password, String phoneNum) {
         dao.save(new Employee(isAdmin, username, firstName, lastName, email, password, phoneNum));
     }
 

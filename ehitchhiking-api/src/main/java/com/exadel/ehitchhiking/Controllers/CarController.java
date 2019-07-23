@@ -13,8 +13,8 @@ public class CarController {
 
     @PutMapping("/updateColor")
     public void updateColor(String carId, String color) {
-            carService.updateColor(Integer.getInteger(carId), color);
         try {
+            carService.updateColor(Integer.parseInt(carId), color);
             //TODO: return
         } catch (Exception e) {
             //TODO: figure out the return
@@ -23,8 +23,8 @@ public class CarController {
 
     @PutMapping("/updateNumber")
     public void updateNumber(String carId, String number) {
-            carService.updateNumber(Integer.getInteger(carId), number);
         try {
+            carService.updateNumber(Integer.parseInt(carId), number);
             //TODO: return
         } catch (Exception e) {
             //TODO: figure out the return
@@ -32,9 +32,10 @@ public class CarController {
     }
 
     @PostMapping("/addCar")
-    public void createCar(String color, String number, String carModel
-                          /*String idOfDriver*/) {
-            carService.createCar(color, number, carModel);
+    public void createCar(String color, String number, String carModel,
+                          String idOfDriver) {
+            carService.createCar(color, number, carModel,
+                    Integer.parseInt(idOfDriver));
         try {
         } catch (Exception e) {
         }
@@ -42,8 +43,8 @@ public class CarController {
 
     @DeleteMapping("/deleteCar")
     public void deleteCar(String carId) {
-            carService.deleteCarId(Integer.getInteger(carId));
         try {
+            carService.deleteCarId(Integer.parseInt(carId));
         } catch (Exception e) {
         }
     }

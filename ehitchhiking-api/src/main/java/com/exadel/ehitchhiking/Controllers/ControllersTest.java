@@ -1,11 +1,7 @@
 package com.exadel.ehitchhiking.Controllers;
 
-
-import com.exadel.ehitchhiking.Models.BlacklistPass;
-import com.exadel.ehitchhiking.Models.Driver;
 import com.exadel.ehitchhiking.Models.Employee;
 import com.exadel.ehitchhiking.Services.*;
-import com.exadel.ehitchhiking.Services.impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,10 +17,6 @@ public class ControllersTest {
     private IPassengerService passengerService;
     @Autowired
     private IDriverService driverService;
-    @Autowired
-    private IBlackListDriverService blackListDriverService;
-    @Autowired
-    private IBlackListPassengerService blackListPassengerService;
 
     @PostMapping("/addEmployee")
     public void createEmployee(String isAdmin, String userName, String firstName,
@@ -42,12 +34,5 @@ public class ControllersTest {
         // creating the driver and the passenger that are associated with that employee
         driverService.createDriver(employee);
         passengerService.createPassenger(employee);
-
-
-        int idPass = passengerService.findPassIdByUsername(userName);
-        blackListPassengerService.createBlackList(idPass);
-
-        int idDriver = driverService.findDriverIdByUsername(userName);
-        blackListDriverService.createBlackList(idDriver);
     }
 }

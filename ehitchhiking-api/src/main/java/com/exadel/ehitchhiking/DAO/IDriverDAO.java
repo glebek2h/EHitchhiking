@@ -8,4 +8,6 @@ public interface IDriverDAO  extends IBasicDAO<Driver>{
     List<Driver> getAll();
     Driver getByName(String username);
     Driver getDriver(int id);
+    void addPassToBL(int idDriver, int idPass);
+    void deletePassFromBL(int iDriver, int idPass);
 }

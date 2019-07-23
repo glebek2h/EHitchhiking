@@ -7,6 +7,10 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @ToString
@@ -25,7 +29,7 @@ public class Driver {
     @Getter
     @Setter
     @OneToOne
-    @JoinColumn(name = "user_id" ,referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private Employee employee;
 
     @Getter
@@ -38,7 +42,14 @@ public class Driver {
     @Column(name = "rating_people")
     private int ratedPeoples;
 
-    public Driver(Employee employee, float rate, int ratedPeoples){
+    @Getter
+    @Setter
+    @ManyToMany
+    @JoinTable(name = "blacklist_driver", joinColumns = @JoinColumn(name = "driver_id"),
+            inverseJoinColumns = @JoinColumn(name = "pass_id"))
+    private List<Passenger> passengers = new ArrayList<>();
+
+    public Driver(Employee employee, float rate, int ratedPeoples) {
         this.employee = employee;
         this.rate = rate;
         this.ratedPeoples = ratedPeoples;
