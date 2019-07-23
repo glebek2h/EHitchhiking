@@ -1,4 +1,3 @@
-<div class="notification-container">
-<div class="notification-header" ngClass="'notification-header-' + getNotifTypeByInputType(type)">{{type}}</div>
+<div class="notification-header">{{type}}</div>
+<hr [noShade]="true" class="notification-line">
 <div class="notification-body">{{message}}</div>
-</div>

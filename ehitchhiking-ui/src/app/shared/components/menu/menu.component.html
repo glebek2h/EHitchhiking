@@ -47,9 +47,15 @@
 			<button mat-stroked-button class="log-out" (click)="logOut()" routerLink="/login">
 				log out
 			</button>
-			<button mat-button (click)="openSnackBar()" aria-label="Show an example snack-bar">
-				Pizza party
-			  </button>
+			<button mat-stroked-button (click)="callErrorNotification('Oh! I see we have an error!')">
+				Error notification
+			</button>
+			<button mat-stroked-button (click)="callSuccessNotification('Yeeey! You\'re the winner!')">
+				Success notification
+			</button>
+			<button mat-stroked-button (click)="callInfoNotification('Pssssss... Look at me!')">
+				Info notification
+			</button>
 		</div>
 		<footer class="footer-meta">
 			<img src="assets/images/footer.png" alt="exadel-logo" />

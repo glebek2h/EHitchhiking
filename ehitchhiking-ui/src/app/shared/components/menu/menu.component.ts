@@ -16,6 +16,7 @@ import {TripsModalComponent} from '../trips-modal/trips-modal.component';
 	styleUrls: ['./menu.component.sass'],
 })
 export class MenuComponent implements OnInit {
+	static readonly notificationDuration = 5000; // in milliseconds
 	opened: boolean;
 	buttonsArray = [];
 
@@ -65,13 +66,43 @@ export class MenuComponent implements OnInit {
 		this.dialog.open(ProfileModalComponent, {panelClass: 'mat-dialog-no-padding', autoFocus: false});
 	}
 
-	openSnackBar() {
+	private returnClass(type: NotificationTypes): string {
+		return NotificationComponent.headerClassMap[type];
+	}
+
+	callErrorNotification(notificationMessage: string) {
 		this.notificationBar.openFromComponent(NotificationComponent, {
-			duration: 500000,
+			duration: MenuComponent.notificationDuration,
 			data: {
-				message: 'Hello!',
-				type: NotificationTypes.warn,
+				message: notificationMessage,
+				type: NotificationTypes.error,
 			},
+			panelClass: [this.returnClass(NotificationTypes.error), 'notification-container'],
+			horizontalPosition: 'right',
+		});
+	}
+
+	callSuccessNotification(notificationMessage: string) {
+		this.notificationBar.openFromComponent(NotificationComponent, {
+			duration: MenuComponent.notificationDuration,
+			data: {
+				message: notificationMessage,
+				type: NotificationTypes.success,
+			},
+			panelClass: [this.returnClass(NotificationTypes.success), 'notification-container'],
+			horizontalPosition: 'right',
+		});
+	}
+
+	callInfoNotification(notificationMessage: string) {
+		this.notificationBar.openFromComponent(NotificationComponent, {
+			duration: MenuComponent.notificationDuration,
+			data: {
+				message: notificationMessage,
+				type: NotificationTypes.info,
+			},
+			panelClass: [this.returnClass(NotificationTypes.info), 'notification-container'],
+			horizontalPosition: 'right',
 		});
 	}
 }
