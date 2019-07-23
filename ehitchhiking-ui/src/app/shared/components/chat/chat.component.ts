@@ -12,28 +12,6 @@ export class ChatComponent implements OnInit {
 	readonly MAX_MESSAGE_LENGTH = 256;
 
 	msgList: ChatMessage[] = [];
-	dlgList: Dialog[] = [
-		{
-			title: 'Secret chat',
-			lastMsg: {
-				text: 'Hello world 2',
-				person: 'not me',
-				avaSrc: 'http://placekitten.com/40/50',
-				time: Date.now(),
-				isMy: false,
-			},
-		},
-		{
-			title: 'Secret chat',
-			lastMsg: {
-				text: 'Hello world 2',
-				person: 'not me',
-				avaSrc: 'http://placekitten.com/40/50',
-				time: Date.now(),
-				isMy: false,
-			},
-		},
-	];
 
 	constructor() {}
 
@@ -46,11 +24,8 @@ export class ChatComponent implements OnInit {
 		this.showDialogs = true;
 	}
 
-	onInput(message) {
-		this.msgList.push(ChatService.messageData(message));
-	}
-
-	onSend(message: HTMLInputElement) {
+	sendMessage(message: HTMLInputElement) {
+		this.msgList.push(ChatService.messageData(message.value));
 		message.value = '';
 	}
 }

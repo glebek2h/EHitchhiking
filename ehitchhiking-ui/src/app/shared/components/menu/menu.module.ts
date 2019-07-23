@@ -17,12 +17,13 @@ import {FormsModule} from '@angular/forms';
 import {PreLoadingModule} from '../pre-loading/pre-loading.module';
 import {NoDataModule} from '../no-data/no-data.module';
 import {ChatComponent} from '../chat/chat.component';
-import { TripsModalModule } from "../trips-modal/trips-modal.module";
-import { TripModule } from "../trip/trip.module";
-import { TripsModalComponent } from "../trips-modal/trips-modal.component";
+import {TripsModalModule} from '../trips-modal/trips-modal.module';
+import {TripModule} from '../trip/trip.module';
+import {TripsModalComponent} from '../trips-modal/trips-modal.component';
+import {DialogComponent} from '../dialog/dialog.component';
 
 @NgModule({
-	declarations: [MenuComponent, BlacklistComponent,ChatComponent],
+	declarations: [MenuComponent, BlacklistComponent, ChatComponent, DialogComponent],
 	imports: [
 		CommonModule,
 		MatCheckboxModule,
@@ -36,11 +37,11 @@ import { TripsModalComponent } from "../trips-modal/trips-modal.component";
 		FormsModule,
 		PreLoadingModule,
 		NoDataModule,
-    TripModule,
-    TripsModalModule,
+		TripModule,
+		TripsModalModule,
 		MatCardModule,
 	],
-	exports: [MenuComponent, BlacklistComponent,ChatComponent],
-	entryComponents: [BlacklistComponent,ChatComponent, TripsModalComponent],
+	exports: [MenuComponent, BlacklistComponent, ChatComponent, DialogComponent],
+	entryComponents: [BlacklistComponent, ChatComponent, TripsModalComponent, DialogComponent],
 })
 export class MenuModule {}

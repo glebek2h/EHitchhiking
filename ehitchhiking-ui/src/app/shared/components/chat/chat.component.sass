@@ -45,6 +45,12 @@ $before-right: -0.2rem
 .message-wrapper
   display: flex
   justify-content: flex-end
+  .message:before
+    transform: translate(0, -2px)
+
+  .message:after
+    transform: translate(-1rem, -2px)
+
 
   .message
     max-width: 8rem
@@ -90,14 +96,12 @@ $before-right: -0.2rem
         right: $before-right
         border-right: $message-border-width solid $aqua-blue
         border-bottom-left-radius: $before-horizontal-radius $before-vertical-radius
-        transform: translate(0, -2px)
 
       &:after
         right: -1.75rem
         width: $after-width
         background: $white
         border-bottom-left-radius: $after-horizontal-radius
-        transform: translate(-1rem, -2px)
 
   &:not(.my-message)
     margin-left: $default-offset/2
@@ -108,29 +112,14 @@ $before-right: -0.2rem
         left: $before-right
         border-left: $message-border-width solid $light-gray
         border-bottom-right-radius: $before-horizontal-radius $before-vertical-radius
-        transform: translate(0, -2px)
 
       &:after
         left: 0.125rem
         width: $after-width
         background: $white
         border-bottom-right-radius: $after-horizontal-radius
-        transform: translate(-1rem, -2px)
 
 .modal-content
   height: 20rem
-  .modal-dialog
-    border: 1px solid $gray
-    display: flex
-    padding: 0
-    .image
-      border-radius: 50%
-      width: 3rem
-      height: 3rem
-    .dlg-content
-      display: flex
-      flex-direction: column
-      flex-wrap: wrap
-      margin-left: 1rem
 
 
