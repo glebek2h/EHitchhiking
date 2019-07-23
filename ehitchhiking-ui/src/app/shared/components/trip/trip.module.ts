@@ -6,7 +6,7 @@ import {RatePassengersModalModule} from '../rate-passengers-modal/rate-passenger
 import {RatingModule} from '../rating/rating.module';
 @NgModule({
 	declarations: [TripComponent],
-	imports: [CommonModule, MatButtonModule, MatDialogModule, MatTableModule, RatePassengersModalModule, RatingModule],
+	imports: [CommonModule, MatButtonModule, MatDialogModule, MatTableModule, RatingModule],
 	entryComponents: [TripComponent],
 	exports: [TripComponent],
 })
