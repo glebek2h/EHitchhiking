@@ -53,26 +53,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors()
                 .and()
                 .csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeRequests()
-                .antMatchers("/Login")
-                .permitAll()
-                .antMatchers("/Admin/**").hasAuthority("Admin")
-                .antMatchers("/Employee/**", "/Passenger/**", "/Driver/**", "/Car/**").hasRole("Employee")
-                .antMatchers("/TripPassenger/**").hasRole("Passenger")
-                .antMatchers("/TripDriver/**").hasRole("Driver")
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginProcessingUrl("/Login")
-                .failureHandler((httpServletRequest, httpServletResponse, e) -> {
-                    httpServletResponse.sendError(httpServletResponse.SC_UNAUTHORIZED);
-                })
-                .permitAll()
-                .and()
-                .logout()
-                .permitAll();
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//                .and()
+//                .authorizeRequests()
+//                .antMatchers("/Login")
+//                .permitAll()
+//                .antMatchers("/Admin/**").hasAuthority("Admin")
+//                .antMatchers("/Employee/**", "/Passenger/**", "/Driver/**", "/Car/**").hasRole("Employee")
+//                .antMatchers("/TripPassenger/**").hasRole("Passenger")
+//                .antMatchers("/TripDriver/**").hasRole("Driver")
+//                .anyRequest().authenticated()
+//                .and()
+//                .formLogin()
+//                .loginProcessingUrl("/Login")
+//                .failureHandler((httpServletRequest, httpServletResponse, e) -> {
+//                    httpServletResponse.sendError(httpServletResponse.SC_UNAUTHORIZED);
+//                })
+//                .permitAll()
+//                .and()
+//                .logout()
+//                .permitAll();
 
     }
 
@@ -143,7 +143,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("https://locahhost:8080", "http://localhost:4200/"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080", "http://localhost:4200"));
         configuration.setAllowedMethods(Arrays.asList("GET","POST", "PUT", "DELETE"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

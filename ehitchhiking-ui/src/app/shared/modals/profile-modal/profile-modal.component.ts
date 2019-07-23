@@ -31,7 +31,9 @@ export class ProfileModalComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		this.apiService.doGet('', true).subscribe((data) => console.log(data));
+		this.apiService
+			.doGet('http://localhost:8080/Employee/getEmployee?id=1', true)
+			.subscribe((data) => console.log(data));
 		this.carsInfoForm = this.carsInfoService.toFormGroup(this.user.cars, this.formBuilder);
 	}
 

@@ -2,6 +2,8 @@ package com.exadel.ehitchhiking.Controllers;
 
 
 import com.exadel.ehitchhiking.Models.Employee;
+import com.exadel.ehitchhiking.Response.Response;
+import com.exadel.ehitchhiking.Response.ResponseMany;
 import com.exadel.ehitchhiking.Services.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -68,6 +70,7 @@ public class EmployeeController {
 
     @GetMapping("/getEmployee")
     public Response<Employee> getEmployee(int id){
+        System.out.println("here!");
         Response<Employee> response = new Response<>();
         response.setStatus("200");
         response.setObject(employeeService.findUserId(28));
