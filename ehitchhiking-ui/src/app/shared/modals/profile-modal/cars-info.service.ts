@@ -18,6 +18,7 @@ export class CarsInfoService {
 				],
 			});
 		});
+		// TODO: put object {child-forms: group} into FormGroup
 		return new FormGroup(group as any); // group type is [key:string]: FormGroup
 	}
 

@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {BLACKLISTUSERS} from './blacklist-users';
 import {MatDialogRef} from '@angular/material';
-import {LoaderSize} from '../../enums/pre-loader-sizes';
-import {NoDataSize} from '../../enums/no-data-sizes';
+import {LoaderSize} from '@shared/enums/pre-loader-sizes';
+import {NoDataSize} from '@shared/enums/no-data-sizes';
 
 @Component({
 	selector: 'app-blacklist',
