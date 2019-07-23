@@ -1,4 +1,4 @@
-<mat-card class="modal-dialog" *ngFor="let dialog of dialogList">
+<mat-card class="modal-dialog" *ngFor="let dialog of dialogList; let i = index" (click)="showChat(i)">
 	<img [src]="dialog.msgList[dialog.msgList.length - 1].avaSrc" alt="photo" class="image" />
 	<div class="dlg-content">
 		<div class="dlg-title">

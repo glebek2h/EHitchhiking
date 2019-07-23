@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ChatService} from './chat.service';
 import {MatDialogRef} from '@angular/material';
 
@@ -8,21 +8,23 @@ import {MatDialogRef} from '@angular/material';
 	styleUrls: ['./chat.component.sass'],
 })
 export class ChatComponent implements OnInit {
-	showDialogs = false;
-	showChat = true;
+	showChat = false;
+	showDialogs = true;
 	readonly MAX_MESSAGE_LENGTH = 256;
 
 	msgList: ChatMessage[] = [];
 
 	constructor(public dialogRef: MatDialogRef<ChatComponent>) {}
 
-	ngOnInit() {
-		ChatService.getTestData().forEach((msg) => this.msgList.push(msg));
+	ngOnInit() {}
+
+	getChat(event: any) {
+		this.msgList = event;
 	}
 
 	showContent() {
-		this.showDialogs = true;
-		this.showChat = false;
+		this.showChat = !this.showChat;
+		this.showDialogs = !this.showDialogs;
 	}
 
 	sendMessage(message: HTMLInputElement) {

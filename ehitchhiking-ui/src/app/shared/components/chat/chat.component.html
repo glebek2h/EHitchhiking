@@ -27,8 +27,8 @@
 		</form>
 	</div>
 
-	<div mat-dialog-content class="modal-content" *ngIf="showDialogs">
-		<app-dialog></app-dialog>
+	<div mat-dialog-content class="modal-content" *ngIf="showDialogs" (click)="showContent()">
+		<app-dialog (chatMessages)="getChat($event)"> </app-dialog>
 	</div>
 
 	<div class="modal-back" (click)="showContent()" *ngIf="showChat">
