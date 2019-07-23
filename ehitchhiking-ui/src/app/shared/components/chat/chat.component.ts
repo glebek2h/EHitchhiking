@@ -1,17 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-
-interface ChatMessage {
-	text: string;
-	person: string;
-	avaSrc: string;
-	time?: number;
-	isMy: boolean;
-}
-
-interface Dialog {
-	title: string;
-	lastMsg: ChatMessage;
-}
+import {ChatService} from './chat.service';
 
 @Component({
 	selector: 'app-chat',
@@ -50,22 +38,7 @@ export class ChatComponent implements OnInit {
 	constructor() {}
 
 	ngOnInit() {
-		[
-			{
-				text: 'Hello world',
-				person: 'not me',
-				avaSrc: 'http://placekitten.com/40/50',
-				time: Date.now(),
-				isMy: true,
-			},
-			{
-				text: 'Hello world 2',
-				person: 'not me',
-				avaSrc: 'http://placekitten.com/40/50',
-				time: Date.now(),
-				isMy: false,
-			},
-		].forEach((msg) => this.msgList.push(msg));
+		ChatService.getTestData().forEach((msg) => this.msgList.push(msg));
 	}
 
 	showContent() {
@@ -74,13 +47,7 @@ export class ChatComponent implements OnInit {
 	}
 
 	onInput(message) {
-		this.msgList.push({
-			text: message,
-			person: '',
-			avaSrc: 'http://placekitten.com/40/50',
-			time: Date.now(),
-			isMy: true,
-		});
+		this.msgList.push(ChatService.messageData(message));
 	}
 
 	onSend(message: HTMLInputElement) {
