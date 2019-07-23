@@ -16,16 +16,16 @@
 			</i>
 		</button>
 		<button class="trip-btn" (click)="toggleRating()">
-			<i class="material-icons" title="no-rating" *ngIf="trip.rating === 0">
+			<i class="material-icons" title="no-rate" *ngIf="trip.rating === 0">
 				star_border
 			</i>
-			<i class="btn-rating material-icons" title = "rating" *ngIf="trip.rating > 0">
+			<i class="btn-rating material-icons" title = "is-rated" *ngIf="trip.rating > 0">
 				star
 			</i>
 		</button>
 
 		<button class="trip-btn" [class.active]="trip.isFavorite" (click)="makeFavorite()">
-			<i class="material-icons" *ngIf="!trip.isFavorite" title=" no favorite trip">
+			<i class="material-icons" *ngIf="!trip.isFavorite" title=" not favorite trip">
 				favorite_border
 			</i>
 			<i class="btn-press-favorite material-icons" title="favorite trip" *ngIf="trip.isFavorite">
