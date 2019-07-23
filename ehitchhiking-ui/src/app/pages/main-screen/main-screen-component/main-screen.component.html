@@ -1,13 +1,14 @@
 <div class="menu">
-  <app-menu></app-menu>
+	<app-menu></app-menu>
 </div>
 <yandex-map
 	[tripData]="tripFormData"
 	[userState]="userState"
 	[isSavedRoute]="isSavedRoute"
 	[routes]="routes"
-  [triggers]="mapTriggers"
-  [indexRouteToDisplay]="displayedRouteIndex"
+	[triggers]="mapTriggers"
+	[indexRouteToDisplay]="displayedRouteIndex"
+  [redraw]="redrawTriggers"
 ></yandex-map>
 <app-trip-registration
 	[isShown]="isHiddenTripRegistration"
@@ -15,14 +16,26 @@
 	(isShownViewListButton)="setIsShownViewRoutesButtonFlag($event)"
 	(isShownSaveRouteButton)="setIsShownSaveRouteButtonFlag($event)"
 ></app-trip-registration>
-<app-routes-list *ngIf="isShownRoutesList" [activeRoutesCollection]="routes" (routeToDisplay)="getIndexToDisplay($event)"></app-routes-list>
+<app-routes-list
+	*ngIf="isShownRoutesList"
+	[activeRoutesCollection]="routes"
+	(routeToDisplay)="getIndexToDisplay($event)"
+  (formData)="getFilterData($event)"
+></app-routes-list>
 <mat-button-toggle-group class="btn-group" name="fontStyle" aria-label="Font Style">
 	<mat-button-toggle class="passanger-btn" value="bold" (click)="toggleStateToPassenger()"
 		>Passenger</mat-button-toggle
 	>
 	<mat-button-toggle class="driver-btn" value="italic" (click)="toggleStateToDriver()">Driver</mat-button-toggle>
 </mat-button-toggle-group>
-<button mat-raised-button class="main-screen-action-btn save-route-btn" (click)="saveRoute()" *ngIf="isShownSaveRouteButton">save-route</button>
+<button
+	mat-raised-button
+	class="main-screen-action-btn save-route-btn"
+	(click)="saveRoute()"
+	*ngIf="isShownSaveRouteButton"
+>
+	save-route
+</button>
 <button mat-raised-button class="main-screen-action-btn view-routes-btn" (click)="viewRoutes()" *ngIf="isShownViewRoutesButton">
 	view-trips
 </button>
@@ -30,8 +43,7 @@
 	<i *ngIf="!editStatePlusButton" class="material-icons">
 		add
 	</i>
-  <i *ngIf="editStatePlusButton" class="material-icons">
-    edit
-  </i>
-
+	<i *ngIf="editStatePlusButton" class="material-icons">
+		edit
+	</i>
 </button>

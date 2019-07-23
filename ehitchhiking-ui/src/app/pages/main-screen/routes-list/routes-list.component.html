@@ -1,4 +1,5 @@
 <div class="routes-list">
+  <app-filters (data)="getData($event)"></app-filters>
 	<mat-accordion *ngFor="let route of activeRoutesCollection; let i = index" class="route-info">
 		<mat-expansion-panel>
 			<mat-expansion-panel-header class="header">

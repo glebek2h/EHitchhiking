@@ -10,6 +10,7 @@ import {DELETE_ROUTE_MARKER} from '../../../shared/constants/modal-constants';
 export class RoutesListComponent implements OnInit {
 	@Input() activeRoutesCollection: Partial<Route>[];
 	@Output() routeToDisplay = new EventEmitter<any>(); // TODO
+  @Output() formData = new EventEmitter<any>();
 	isChecked: boolean;
 
 	constructor() {}
@@ -36,4 +37,7 @@ export class RoutesListComponent implements OnInit {
     console.log(this.activeRoutesCollection[index]);
   }
 
+  getData(data: any) {
+	  this.formData.emit(data);
+  }
 }

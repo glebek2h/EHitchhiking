@@ -18,9 +18,10 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import {RoutesListComponent} from './routes-list/routes-list.component';
 import {MenuModule} from '../../shared/components/menu/menu.module';
+import { FiltersComponent } from './filters/filters.component';
 
 @NgModule({
-	declarations: [MainScreenComponent, YandexMapComponent, TripRegistrationComponent, RoutesListComponent],
+	declarations: [MainScreenComponent, YandexMapComponent, TripRegistrationComponent, RoutesListComponent, FiltersComponent],
   imports: [
     CommonModule,
     MatButtonToggleModule,

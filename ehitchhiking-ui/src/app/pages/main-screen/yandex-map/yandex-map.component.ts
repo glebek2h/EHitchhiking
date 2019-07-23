@@ -33,7 +33,8 @@ export class YandexMapComponent implements OnInit, OnChanges {
 	@Input() tripData: Route;
 	@Input() isSavedRoute: boolean;
 	@Input() triggers: any;
-	@Input() indexRouteToDisplay: number ;
+  @Input() redraw: any;
+	@Input() indexRouteToDisplay: number;
 
 	ngOnInit() {
 		this.ymapsPromise = ymaps.load(YandexMapComponent.API_URL);
@@ -45,46 +46,46 @@ export class YandexMapComponent implements OnInit, OnChanges {
 		return Math.floor(Math.random() * (max - min)) + min;
 	}
 
-	placeMarkForPassenger(){
-    this.ymapsPromise
-      .then((maps) => {
-        const myGeoObject = new maps.GeoObject({
-          geometry: {
-            type: 'Point',
-            coordinates: [53.9, 27.5666]
-          },
-          properties: {
-            hintContent: 'Ну давай уже тащи'
-          }
-        }, {
-          preset: 'islands#yellowPersonIcon',
-          draggable: true
-        });
-        this.myMap.geoObjects
-          .add(myGeoObject);
-        this.myMark = myGeoObject;
+	placeMarkForPassenger() {
+		this.ymapsPromise.then((maps) => {
+			const myGeoObject = new maps.GeoObject(
+				{
+					geometry: {
+						type: 'Point',
+						coordinates: [53.9, 27.5666],
+					},
+					properties: {
+						hintContent: 'Ну давай уже тащи',
+					},
+				},
+				{
+					preset: 'islands#yellowPersonIcon',
+					draggable: true,
+				}
+			);
+			this.myMap.geoObjects.add(myGeoObject);
+			this.myMark = myGeoObject;
 
-        myGeoObject.events.add('dragend', (event) => {
-          this.currentRoute.passengers[0] = {passanger: 'gleb',coordinates: this.myMark.geometry._coordinates};// TODO:0 is bad
-        });
-      });
-  }
+			myGeoObject.events.add('dragend', (event) => {
+				this.currentRoute.passengers[0] = {passanger: 'gleb', coordinates: this.myMark.geometry._coordinates}; // TODO:0 is bad
+			});
+		});
+	}
 
 	ngOnChanges(changes: SimpleChanges) {
 		if (changes.triggers && changes.triggers.currentValue) {
-      this.yandexRoutesObjects.forEach((route) =>
-        this.myMap.geoObjects.remove(route));
-    }
-    if (changes.indexRouteToDisplay) {
-      if (this.indexRouteToDisplay !== undefined && this.indexRouteToDisplay !== DELETE_ROUTE_MARKER ) {
-        this.addMultiRoute(this.routes[this.indexRouteToDisplay],false);
-        this.placeMarkForPassenger();
-      }
-      if (this.indexRouteToDisplay === DELETE_ROUTE_MARKER) {
-        this.myMap.geoObjects.remove(this.yandexRoutesObjects[0]);
-        this.myMap.geoObjects.remove(this.myMark);
-      }
-    }
+			this.yandexRoutesObjects.forEach((route) => this.myMap.geoObjects.remove(route));
+		}
+		if (changes.indexRouteToDisplay) {
+			if (this.indexRouteToDisplay !== undefined && this.indexRouteToDisplay !== DELETE_ROUTE_MARKER) {
+				this.addMultiRoute(this.routes[this.indexRouteToDisplay], false);
+				this.placeMarkForPassenger();
+			}
+			if (this.indexRouteToDisplay === DELETE_ROUTE_MARKER) {
+				this.myMap.geoObjects.remove(this.yandexRoutesObjects[0]);
+				this.myMap.geoObjects.remove(this.myMark);
+			}
+		}
 
 		if (changes.tripData && changes.tripData.currentValue) {
 			if (this.userState === UserState.driver) {
@@ -93,12 +94,19 @@ export class YandexMapComponent implements OnInit, OnChanges {
 				return;
 			}
 			if (this.userState === UserState.passenger) {
-				// фильтрация коллекции activeRoutesCollection
 				for (let i = 0; i < YandexMapComponent.ROUTES_ON_MAP_COUNT; i++) {
+				  console.log(this.routes[i]);
 					this.addMultiRoute(this.routes[i], false);
 				}
 			}
 		}
+    if (changes.redraw && changes.redraw.currentValue || this.redraw === true) {
+      for (let i = 0; i < YandexMapComponent.ROUTES_ON_MAP_COUNT; i++) {
+        if(this.routes[i]) {
+        this.addMultiRoute(this.routes[i], false);
+        }
+      }
+    }
 		if (changes.userState && changes.userState.currentValue) {
 			this.setUserIconToMapAccordingUserState();
 		}
@@ -152,7 +160,9 @@ export class YandexMapComponent implements OnInit, OnChanges {
 				this.myMap.geoObjects.add(multiRoute);
 				this.yandexRoutesObjects.push(multiRoute);
 				this.currentMultiRoute = multiRoute;
-				this.currentRoute = data; this.currentRoute.passengers = [];
+				//console.log(multiRoute.model.getReferencePoints());
+				this.currentRoute = data;
+				this.currentRoute.passengers = [];
 			})
 			.catch((error) => console.log('Failed to load Yandex Maps', error));
 	}

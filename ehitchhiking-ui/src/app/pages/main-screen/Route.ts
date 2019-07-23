@@ -7,4 +7,5 @@ interface Route {
   tripDuration: string;
   routeColor: string;
   passengers: any[];
+  driverRating: number;
 }
