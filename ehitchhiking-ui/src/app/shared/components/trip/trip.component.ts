@@ -20,14 +20,14 @@ export class TripComponent implements OnInit {
 		this.trip.isFavorite = !this.trip.isFavorite;
 	}
 
-	rating(){
+  toggleRating(){
 	  this.isRating = !this.isRating;
   }
 
   rateTrip(clickObj: StarClickMeta): void {
     if (!!this.trip) {
       this.trip.rating = clickObj.rating;
-      this.rating();
+      this.toggleRating();
     }
   }
 }

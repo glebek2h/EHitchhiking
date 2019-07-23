@@ -3,7 +3,7 @@
 </i>
 <p class="truncated">{{ trip.startPoint }} -> {{ trip.endPoint }}</p>
 <div class="swap-btns-rating">
-	<div class="form-row" [class.active]="isRating">
+	<div class="action-btns-container" [class.active]="isRating">
 		<button class="trip-btn" [ngSwitch]="trip.status">
 			<i class="material-icons" *ngSwitchCase="0" title="active trip">
 				event_note
@@ -15,7 +15,7 @@
 				event_busy
 			</i>
 		</button>
-		<button class="trip-btn" (click)="rating()">
+		<button class="trip-btn" (click)="toggleRating()">
 			<i class="material-icons" title="no-rating" *ngIf="trip.rating === 0">
 				star_border
 			</i>
