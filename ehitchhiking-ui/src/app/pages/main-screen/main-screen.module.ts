@@ -1,4 +1,3 @@
-import {ToastyModule} from 'ng2-toasty';
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MainScreenComponent} from './main-screen-component/main-screen.component';
@@ -35,7 +34,6 @@ import {MenuModule} from '../../shared/components/menu/menu.module';
 		NgxMaterialTimepickerModule,
 		MatExpansionModule,
 		MenuModule,
-		ToastyModule,
 	],
 	exports: [MainScreenComponent, TripRegistrationComponent],
 })

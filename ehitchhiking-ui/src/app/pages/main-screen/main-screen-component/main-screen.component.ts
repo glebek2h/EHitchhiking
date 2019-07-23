@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UserState} from '../../../shared/enums/UserState';
 import {YandexMapService} from '../yandex-map/yandex-map.service';
-import {NotificationService} from '../../../shared/services/notification.service';
 
 @Component({
 	selector: 'app-main-screen',
@@ -9,7 +8,7 @@ import {NotificationService} from '../../../shared/services/notification.service
 	styleUrls: ['./main-screen.component.sass'],
 })
 export class MainScreenComponent implements OnInit {
-	constructor(private notifService: NotificationService) {}
+	constructor() {}
 
 	tripFormData: any; // TODO
 	isHiddenTripRegistration: boolean;
@@ -63,9 +62,5 @@ export class MainScreenComponent implements OnInit {
 
 	toggleStateToDriver() {
 		this.userState = UserState.driver;
-	}
-
-	doNotify() {
-		this.notifService.doNotification('Hello!', 'Here!');
 	}
 }
