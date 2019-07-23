@@ -69,13 +69,25 @@ public class EmployeeController {
     }
 
     @GetMapping("/getEmployee")
-    public Response<Employee> getEmployee(int id){
+    public Response<Employee> getEmployee(String id){
         System.out.println("here!");
         Response<Employee> response = new Response<>();
         response.setStatus("200");
-        response.setObject(employeeService.findUserId(28));
+        System.out.println(employeeService.findUserId(id));
+        response.setObject(employeeService.findUserId(id));
         return response;
     }
+
+    @GetMapping("/getEmployeeByUserName")
+    public Response<Employee> getEmployeeByUserName(String username){
+        System.out.println("here!");
+        Response<Employee> response = new Response<>();
+        response.setStatus("200");
+        response.setObject(employeeService.findUserUsername(username));
+        System.out.println(response);
+        return response;
+    }
+
 
     @GetMapping("/getAll")
     public ResponseMany<Employee> getAll(){

@@ -27,7 +27,7 @@ public class EmployeeService implements IEmployeeService {
     }
 
     @Override
-    public Employee findUserId(int userId) {
+    public Employee findUserId(String userId) {
         return dao.getEmployee(userId);
     }
 
@@ -83,7 +83,7 @@ public class EmployeeService implements IEmployeeService {
     }
 
     @Override
-    public void deleteUserId(int id) {
+    public void deleteUserId(String id) {
         dao.delete(dao.getEmployee(id));
     }
 

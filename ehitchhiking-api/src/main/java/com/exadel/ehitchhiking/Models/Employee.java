@@ -3,7 +3,6 @@ package com.exadel.ehitchhiking.Models;
 import lombok.*;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @ToString
@@ -17,7 +16,7 @@ public class Employee {
     @Setter(AccessLevel.PRIVATE)
     @Getter
     @Column(name = "id")
-    private Integer id;
+    private int id;
 
     @Getter
     @Setter
