@@ -1,13 +1,11 @@
-<<<<<<< HEAD
 import {ApiService} from '@shared/services/api.service';
-=======
->>>>>>> release-2207-2807
 import {Component, ViewChild, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material';
 import {User} from '@shared/models/user';
 import {Car} from '@shared/models/car';
 import {FormGroup, FormBuilder} from '@angular/forms';
 import {CarsInfoService} from './cars-info.service';
+
 @Component({
 	selector: 'app-profile-modal',
 	templateUrl: './profile-modal.component.html',
