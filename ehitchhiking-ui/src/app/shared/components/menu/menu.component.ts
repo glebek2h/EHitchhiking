@@ -5,7 +5,8 @@ import {MatDialog} from '@angular/material';
 import {RatePassengersModalComponent} from '@shared/components/rate-passengers-modal/rate-passengers-modal.component';
 import {ProfileModalComponent} from '@shared/modals/profile-modal/profile-modal.component';
 import {Router} from '@angular/router';
-import {DEFUALT_MAT_DIALOG_CLASS, MAT_DIALOG_WIDTH_SM} from '@shared/constants/modal-constants';
+import {DEFUALT_MAT_DIALOG_CLASS, MAT_DIALOG_WIDTH_SM, MAT_DIALOG_WIDTH_MD} from '@shared/constants/modal-constants';
+import {TripsModalComponent} from '../trips-modal/trips-modal.component';
 
 @Component({
 	selector: 'app-menu',
@@ -45,6 +46,17 @@ export class MenuComponent implements OnInit {
 
 	logOut() {
 		this.router.navigateByUrl('/login');
+	}
+
+	openHistoryDialog() {
+		const dialogRef = this.dialog.open(TripsModalComponent, {
+			panelClass: DEFUALT_MAT_DIALOG_CLASS,
+			autoFocus: false,
+			width: MAT_DIALOG_WIDTH_MD,
+		});
+		dialogRef.afterClosed().subscribe((result) => {
+			console.log('The dialog was closed');
+		});
 	}
 
 	openProfileDialog(): void {

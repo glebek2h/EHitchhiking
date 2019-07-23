@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 import {ApiService} from '@shared/services/api.service';
+=======
+>>>>>>> release-2207-2807
 import {Component, ViewChild, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material';
 import {User} from '@shared/models/user';
