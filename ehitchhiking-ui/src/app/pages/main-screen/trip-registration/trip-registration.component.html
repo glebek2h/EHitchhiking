@@ -10,7 +10,13 @@
 		/>
 	</mat-form-field>
 	<mat-form-field class="input-to form-control">
-		<input matInput placeholder="to" formControlName="to" id="suggestions-to-input-to" (change)="onChangeFix($event, 'to')" />
+		<input
+			matInput
+			placeholder="to"
+			formControlName="to"
+			id="suggestions-to-input-to"
+			(change)="onChangeFix($event, 'to')"
+		/>
 	</mat-form-field>
 	<mat-form-field class="date-picker form-control">
 		<input matInput [matDatepicker]="picker" formControlName="departureDate" placeholder="Choose a date" />

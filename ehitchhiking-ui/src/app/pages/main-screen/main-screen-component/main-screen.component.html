@@ -1,5 +1,5 @@
 <div class="menu">
-  <app-menu></app-menu>
+	<app-menu></app-menu>
 </div>
 <yandex-map
 	[tripData]="tripFormData"
@@ -20,8 +20,20 @@
 	>
 	<mat-button-toggle class="driver-btn" value="italic" (click)="toggleStateToDriver()">Driver</mat-button-toggle>
 </mat-button-toggle-group>
-<button mat-raised-button class="main-screen-action-btn save-route-btn" (click)="saveRoute()" *ngIf="isShownSaveRouteButton">save-route</button>
-<button mat-raised-button class="main-screen-action-btn view-routes-btn" (click)="viewRoutes()" *ngIf="isShownViewRoutesButton">
+<button
+	mat-raised-button
+	class="main-screen-action-btn save-route-btn"
+	(click)="saveRoute()"
+	*ngIf="isShownSaveRouteButton"
+>
+	save-route
+</button>
+<button
+	mat-raised-button
+	class="main-screen-action-btn view-routes-btn"
+	(click)="viewRoutes()"
+	*ngIf="isShownViewRoutesButton"
+>
 	view-trips
 </button>
 <button class="plus-btn" mat-fab color="primary" (click)="openTripRegistrationForm()">

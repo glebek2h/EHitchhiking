@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {UtilsService} from "../../../shared/services/utils.service";
+import {UtilsService} from '@shared/services/utils.service';
 
 @Component({
 	selector: 'app-routes-list',
