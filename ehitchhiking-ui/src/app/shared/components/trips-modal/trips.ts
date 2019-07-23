@@ -6,4 +6,5 @@ export interface Trip {
 	endPoint: string;
 	isFavorite: boolean;
 	status: TripStatus;
+	rating: number;
 }

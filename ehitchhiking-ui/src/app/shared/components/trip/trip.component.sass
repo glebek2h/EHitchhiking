@@ -6,15 +6,34 @@
   margin-left: $default-offset*2
 .trips-list
   font-size: $button
-.form-row
+.swap-btns-rating
   display: flex
   justify-content: center
   align-items: center
   margin-right: $default-offset*2
+  width: 6rem
+.form-row
+  position: absolute
+  visibility: visible
+  opacity: 1
+  transition: opacity 0.3s, visibility 0s ease 0.3s
+  &.active
+    opacity: 0
+    visibility: hidden
+.rating
+  position: absolute
+  opacity: 0
+  visibility: hidden
+  transition: opacity 0.3s, visibility 0s ease 0.3s
+  &.active
+    opacity: 1
+    visibility: visible
 .trip-btn
   background: none
   outline: none
   border: none
+  .btn-rating
+    color: mat-color($primary, 50)
   .trip-btn.active
     color: mat-color($primary)
   .btn-press-favorite
