@@ -73,8 +73,7 @@ public class EmployeeController {
         System.out.println("here!");
         Response<Employee> response = new Response<>();
         response.setStatus("200");
-        System.out.println(employeeService.findUserId(id));
-        response.setObject(employeeService.findUserId(id));
+        response.setObject(employeeService.findUserId(Integer.parseInt(id)));
         return response;
     }
 

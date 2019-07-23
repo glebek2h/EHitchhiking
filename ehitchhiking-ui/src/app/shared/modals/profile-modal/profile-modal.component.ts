@@ -29,10 +29,10 @@ export class ProfileModalComponent implements OnInit {
 		private carsInfoService: CarsInfoService,
 		private apiService: ApiService
 	) {}
-
+k
 	ngOnInit(): void {
 		this.apiService
-			.doGet('http://localhost:8080/Employee/getEmployeeByUserName?username=BulletProof', true)
+			.doGet('http://localhost:8080/Employee/getEmployee?id=72', true)
 			.subscribe((data) => console.log(data));
 		this.carsInfoForm = this.carsInfoService.toFormGroup(this.user.cars, this.formBuilder);
 	}

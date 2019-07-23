@@ -7,7 +7,7 @@ import java.util.List;
 public interface IEmployeeService {
     void createEmployee(boolean isAdmin, String username, String firstName,
                                String lastName, String email, String password, String phoneNum);
-    Employee findUserId(String userId);
+    Employee findUserId(int userId);
     Employee findUserUsername(String username);
     int findIdByUsername(String username);
     void updatePassword(String username, String password);
@@ -16,6 +16,6 @@ public interface IEmployeeService {
     void updateLastName(String username, String lastName);
     void updatePhone(String username, String phone);
     void deleteUser(String username);
-    void deleteUserId(String id);
+    void deleteUserId(int id);
     List<Employee> getAll();
 }

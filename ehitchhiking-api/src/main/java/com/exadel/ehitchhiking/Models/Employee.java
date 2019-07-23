@@ -16,7 +16,7 @@ public class Employee {
     @Setter(AccessLevel.PRIVATE)
     @Getter
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
     @Getter
     @Setter

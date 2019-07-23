@@ -36,7 +36,7 @@ public class EmployeeDAO extends AbstractDAO<Employee> implements IEmployeeDAO {
     }
 
     @Override
-    public Employee getEmployee(String id) {
-        return (Employee) getCurrentSession().createQuery("from Employee where Employee .id = " + id).uniqueResult();
+    public Employee getEmployee(int id) {
+        return getCurrentSession().get(Employee.class, id);
     }
 }
