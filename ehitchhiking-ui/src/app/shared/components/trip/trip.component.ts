@@ -10,7 +10,7 @@ import { Passenger } from "../rate-passengers-modal/passenger";
 })
 export class TripComponent implements OnInit {
 	@Input() trip: Trip;
-	isRating: boolean;
+  isRatingEditorVisible: boolean;
 
 	constructor() {}
 
@@ -21,13 +21,14 @@ export class TripComponent implements OnInit {
 	}
 
   toggleRating(){
-	  this.isRating = !this.isRating;
+	  this.isRatingEditorVisible = !this.isRatingEditorVisible;
   }
 
   rateTrip(clickObj: StarClickMeta): void {
-    if (!!this.trip) {
-      this.trip.rating = clickObj.rating;
-      this.toggleRating();
+    if (!this.trip) {
+      return;
     }
+    this.trip.rating = clickObj.rating;
+    this.toggleRating();
   }
 }

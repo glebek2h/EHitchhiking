@@ -3,7 +3,7 @@
 </i>
 <p class="truncated">{{ trip.startPoint }} -> {{ trip.endPoint }}</p>
 <div class="swap-btns-rating">
-	<div class="action-btns-container" [class.active]="isRating">
+	<div class="action-btns-container" [class.active]="isRatingEditorVisible">
 		<button class="trip-btn" [ngSwitch]="trip.status">
 			<i class="material-icons" *ngSwitchCase="0" title="active trip">
 				event_note
@@ -36,7 +36,7 @@
 
 	<app-rating
 		class="rating"
-		[class.active]="isRating"
+		[class.active]="isRatingEditorVisible"
 		[rating]="trip.rating"
 		[itemId]="trip.id"
 		(ratingClick)="rateTrip($event)"
