@@ -2,29 +2,43 @@
 	directions_car
 </i>
 <p class="truncated">{{ trip.startPoint }} -> {{ trip.endPoint }}</p>
-<div class="form-row">
-	<button class="trip-btn" [ngSwitch]="trip.status">
-		<i class="material-icons" *ngSwitchCase="0" title="active trip">
-			event_note
-		</i>
-		<i class="material-icons" *ngSwitchCase="1" title="completed trip">
-			event_available
-		</i>
-		<i class="material-icons" *ngSwitchCase="2" title="declined trip">
-			event_busy
-		</i>
-	</button>
-	<button class="trip-btn" title="rating">
-		<i class="material-icons">
-			star_border
-		</i>
-	</button>
-	<button class="trip-btn" [class.active]="trip.isFavorite" (click)="makeFavorite()">
-		<i class="material-icons" *ngIf="!trip.isFavorite" title=" no favorite trip">
-			favorite_border
-		</i>
-		<i class="btn-press-favorite material-icons" title="favorite trip" *ngIf="trip.isFavorite">
-			favorite
-		</i>
-	</button>
+<div class="swap-btns-rating">
+	<div class="action-btns-container" [class.active]="isRatingEditorVisible">
+		<button class="trip-btn" [ngSwitch]="trip.status">
+			<i class="material-icons" *ngSwitchCase="0" title="active trip">
+				event_note
+			</i>
+			<i class="material-icons" *ngSwitchCase="1" title="completed trip">
+				event_available
+			</i>
+			<i class="material-icons" *ngSwitchCase="2" title="declined trip">
+				event_busy
+			</i>
+		</button>
+		<button class="trip-btn" (click)="toggleRating()">
+			<i class="material-icons" title="no-rate" *ngIf="trip.rating === 0">
+				star_border
+			</i>
+			<i class="btn-rating material-icons" title = "is-rated" *ngIf="trip.rating > 0">
+				star
+			</i>
+		</button>
+
+		<button class="trip-btn" [class.active]="trip.isFavorite" (click)="makeFavorite()">
+			<i class="material-icons" *ngIf="!trip.isFavorite" title=" not favorite trip">
+				favorite_border
+			</i>
+			<i class="btn-press-favorite material-icons" title="favorite trip" *ngIf="trip.isFavorite">
+				favorite
+			</i>
+		</button>
+	</div>
+
+	<app-rating
+		class="rating"
+		[class.active]="isRatingEditorVisible"
+		[rating]="trip.rating"
+		[itemId]="trip.id"
+		(ratingClick)="rateTrip($event)"
+	></app-rating>
 </div>

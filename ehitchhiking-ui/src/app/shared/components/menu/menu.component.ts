@@ -15,6 +15,7 @@ import {
 } from '@shared/constants/modal-constants';
 import {BlacklistComponent} from '@shared/components/blacklist/blacklist.component';
 import {TripsModalComponent} from '../trips-modal/trips-modal.component';
+import {ChatComponent} from '@shared/components/chat-data/chat/chat.component';
 
 @Component({
 	selector: 'app-menu',
@@ -111,5 +112,17 @@ export class MenuComponent implements OnInit {
 			NotificationComponent,
 			this.generateNotificationConf(notificationMessage, NotificationTypes.Info)
 		);
+	}
+
+	openChatDialog(): void {
+		const dialogRef = this.dialog.open(ChatComponent, {
+			width: MAT_DIALOG_WIDTH_SM,
+			panelClass: DEFAULT_MAT_DIALOG_CLASS,
+			autoFocus: false,
+			disableClose: true,
+		});
+		dialogRef.afterClosed().subscribe((result) => {
+			console.log('The dialog was closed');
+		});
 	}
 }
