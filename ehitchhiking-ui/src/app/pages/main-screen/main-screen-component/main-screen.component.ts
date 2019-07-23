@@ -17,13 +17,20 @@ export class MainScreenComponent implements OnInit {
 	isShownRoutesList: boolean;
 	isShownViewRoutesButton: boolean;
 	isShownSaveRouteButton: boolean;
+	editStatePlusButton: boolean;
+	displayedRouteIndex: number;
+	mapTriggers = {};
+	redrawTriggers: boolean;
+	filterData;
 
 	routes: Partial<Route>[] = [];
+	copyRoutes: Partial<Route>[] = [];
 
 	ngOnInit() {
 		this.isHiddenTripRegistration = true;
 		this.userState = UserState.passenger;
 		this.routes = YandexMapService.getSomeRoutes();
+    this.copyRoutes = this.routes.slice();
 	}
 
 	openTripRegistrationForm(): void {
@@ -33,6 +40,9 @@ export class MainScreenComponent implements OnInit {
 	getData(data) {
 		this.tripFormData = data;
 		this.isHiddenTripRegistration = true;
+		this.editStatePlusButton = true;
+		this.mapTriggers = {reset: true};
+		console.log(this.tripFormData);
 	}
 
 	saveRoute() {
@@ -58,9 +68,32 @@ export class MainScreenComponent implements OnInit {
 
 	toggleStateToPassenger() {
 		this.userState = UserState.passenger;
+		this.toggleMapInterfaceToDefault();
 	}
 
 	toggleStateToDriver() {
 		this.userState = UserState.driver;
+		this.toggleMapInterfaceToDefault();
+	}
+
+	toggleMapInterfaceToDefault() {
+		this.editStatePlusButton = false;
+		this.isShownViewRoutesButton = false;
+		this.isHiddenTripRegistration = true;
+		this.isSavedRoute = false;
+		this.isShownRoutesList = false;
+		this.mapTriggers = {reset: true};
+	}
+
+	getIndexToDisplay(data) {
+		this.displayedRouteIndex = data;
+		this.mapTriggers = {reset: true};
+	}
+
+	getFilterData(data) {
+		this.filterData = data;
+    this.routes = YandexMapService.filterRoutes(this.copyRoutes, 0, 10, this.filterData);
+    this.mapTriggers = {reset: true};
+    this.redrawTriggers = true;
 	}
 }

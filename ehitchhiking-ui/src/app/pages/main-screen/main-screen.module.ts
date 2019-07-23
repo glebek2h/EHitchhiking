@@ -2,14 +2,14 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MainScreenComponent} from './main-screen-component/main-screen.component';
 import {
-	MatButtonModule,
-	MatButtonToggleModule,
-	MatCardModule,
-	MatDatepickerModule,
-	MatExpansionModule,
-	MatFormFieldModule,
-	MatInputModule,
-	MatSelectModule,
+  MatButtonModule,
+  MatButtonToggleModule,
+  MatCardModule, MatCheckboxModule,
+  MatDatepickerModule,
+  MatExpansionModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatSelectModule,
 } from '@angular/material';
 import {YandexMapComponent} from './yandex-map/yandex-map.component';
 
@@ -17,24 +17,27 @@ import {TripRegistrationComponent} from './trip-registration/trip-registration.c
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import {RoutesListComponent} from './routes-list/routes-list.component';
-import {MenuModule} from '@shared/components/menu/menu.module';
+import {MenuModule} from '../../shared/components/menu/menu.module';
+import { FiltersComponent } from './filters/filters.component';
+
 @NgModule({
-	declarations: [MainScreenComponent, YandexMapComponent, TripRegistrationComponent, RoutesListComponent],
-	imports: [
-		CommonModule,
-		MatButtonToggleModule,
-		MatButtonModule,
-		MatFormFieldModule,
-		FormsModule,
-		ReactiveFormsModule,
-		MatCardModule,
-		MatInputModule,
-		MatDatepickerModule,
-		MatSelectModule,
-		NgxMaterialTimepickerModule,
-		MatExpansionModule,
-		MenuModule,
-	],
+	declarations: [MainScreenComponent, YandexMapComponent, TripRegistrationComponent, RoutesListComponent, FiltersComponent],
+  imports: [
+    CommonModule,
+    MatButtonToggleModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatCardModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatSelectModule,
+    NgxMaterialTimepickerModule,
+    MatExpansionModule,
+    MenuModule,
+    MatCheckboxModule,
+  ],
 	exports: [MainScreenComponent, TripRegistrationComponent],
 })
 export class MainScreenModule {}

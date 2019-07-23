@@ -21,6 +21,13 @@ export class YandexMapService {
 	];
 	static ACTIVE_ROUTE_COLOR = '#fb5b74';
 
+	static DEFAULT_FILTER_CONFIG = {
+    departureDate: new Date(-8640000000000000),
+		_dateTo: new Date(8640000000000000),
+		placesSelect: 10, driverRating: 0
+
+  };
+
 	static routeOptions(color: string, pointDraggable: boolean) {
 		return {
 			wayPointDraggable: pointDraggable,
@@ -57,43 +64,69 @@ export class YandexMapService {
 		};
 	}
 
+	static filterRoutes(routes, skip = 0, top = 10, filterConfig = YandexMapService.DEFAULT_FILTER_CONFIG) {
+		if (typeof skip !== 'number' || typeof top !== 'number' || typeof filterConfig !== 'object') {
+			return null;
+		}
+		filterConfig = {...YandexMapService.DEFAULT_FILTER_CONFIG, ...(filterConfig || {})};
+		let filtered = routes.filter(
+			(route) =>
+				(new Date(route.departureDate) >= filterConfig.departureDate || !filterConfig.departureDate) &&
+				(new Date(route.departureDate) <= filterConfig._dateTo || !filterConfig._dateTo) &&
+				(route.placesSelect <= filterConfig.placesSelect || !filterConfig.placesSelect) &&
+        (route.driverRating >= filterConfig.driverRating || !filterConfig.driverRating)
+		);
+
+		filtered = filtered
+    // @ts-ignore
+			.sort((a, b) => new Date(b.departureDate) - new Date(a.departureDate))
+			.slice(skip, skip + top);
+		return filtered;
+	}
+
 	static getSomeRoutes(): Partial<Route>[] {
-		const routes: Partial<Route>[] = [];
+		let routes: Partial<Route>[] = [];
 		routes.push({
 			from: 'Рождественская 106, Минск',
 			to: 'Проспект Независимости 4, Минск',
-			departureDate: new Date(),
+			departureDate: new Date('4/12/2017, 9:59 PM'),
 			departureTime: '12:00 am',
 			placesSelect: 2,
+      driverRating: 1
 		});
 		routes.push({
 			from: 'Пионерская 30Б, Минск',
 			to: 'Проспект Независимости 4, Минск',
-			departureDate: new Date(),
+			departureDate: new Date('4/12/2019, 9:59 PM'),
 			departureTime: '12:00 am',
 			placesSelect: 4,
+      driverRating: 3
 		});
 		routes.push({
 			from: 'Шаранговича 62, Минск',
 			to: 'Проспект Независимости 4, Минск',
-			departureDate: new Date(),
+			departureDate: new Date('4/12/2012, 9:59 PM'),
 			departureTime: '15:00 am',
-			placesSelect: 1,
+			placesSelect: 3,
+      driverRating: 3
 		});
 		routes.push({
 			from: 'Магнитная 8, Минск',
 			to: 'Проспект Независимости 4, Минск',
-			departureDate: new Date(),
+			departureDate: new Date('4/12/2010, 9:59 PM'),
 			departureTime: '15:00 am',
-			placesSelect: 1,
+			placesSelect: 4,
+      driverRating: 4
 		});
 		routes.push({
 			from: 'Подгорная 29, Минск',
 			to: 'Проспект Независимости 4, Минск',
-			departureDate: new Date(),
+			departureDate: new Date('1/12/2019, 9:59 PM'),
 			departureTime: '15:00 am',
-			placesSelect: 1,
+			placesSelect: 5,
+      driverRating: 5
 		});
+		routes = this.filterRoutes(routes);
 		return routes;
 	}
 }
