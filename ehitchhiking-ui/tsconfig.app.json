@@ -1,16 +1,12 @@
 {
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": { "*": ["types/*"] },
-    "outDir": "./out-tsc/app",
-    "types": []
-  },
-  "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "src/test.ts",
-    "src/**/*.spec.ts"
-  ]
+	"extends": "./tsconfig.json",
+	"compilerOptions": {
+		"baseUrl": "src",
+		"paths": {"*": ["types/*"]},
+		"outDir": "./out-tsc/app",
+		"types": [],
+		"paths": {"*": ["types/*"], "@shared/*": ["app/shared/*"], "@pages/*": ["app/pages/*"]}
+	},
+	"include": ["src/**/*.ts"],
+	"exclude": ["src/test.ts", "src/**/*.spec.ts"]
 }

@@ -1,11 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {BUTTONS_NAMES} from './buttons-names';
 import {BlacklistComponent} from '../blacklist/blacklist.component';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatSnackBar} from '@angular/material';
 import {RatePassengersModalComponent} from '../rate-passengers-modal/rate-passengers-modal.component';
 import {ProfileModalComponent} from '../../modals/profile-modal/profile-modal.component';
 import {Router} from '@angular/router';
 import {DEFUALT_MAT_DIALOG_CLASS, MAT_DIALOG_WIDTH_SM} from '../../constants/modal-constants';
+import {NotificationComponent} from '../notification/notification.component';
+import {NotificationTypes} from '@shared/enums/notification.types';
 
 @Component({
 	selector: 'app-menu',
@@ -16,7 +18,7 @@ export class MenuComponent implements OnInit {
 	opened: boolean;
 	buttonsArray = [];
 
-	constructor(private router: Router, public dialog: MatDialog) {}
+	constructor(private router: Router, public dialog: MatDialog, private notificationBar: MatSnackBar) {}
 
 	ngOnInit() {
 		this.buttonsArray = BUTTONS_NAMES;
@@ -49,5 +51,15 @@ export class MenuComponent implements OnInit {
 
 	openProfileDialog(): void {
 		this.dialog.open(ProfileModalComponent, {panelClass: 'mat-dialog-no-padding', autoFocus: false});
+	}
+
+	openSnackBar() {
+		this.notificationBar.openFromComponent(NotificationComponent, {
+			duration: 500000,
+			data: {
+				message: 'Hello!',
+				type: NotificationTypes.warn,
+			},
+		});
 	}
 }
