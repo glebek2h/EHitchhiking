@@ -17,7 +17,7 @@ import {TripRegistrationComponent} from './trip-registration/trip-registration.c
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import {RoutesListComponent} from './routes-list/routes-list.component';
-import {MenuModule} from '../../shared/components/menu/menu.module';
+import {MenuModule} from '@shared/components/menu/menu.module';
 @NgModule({
 	declarations: [MainScreenComponent, YandexMapComponent, TripRegistrationComponent, RoutesListComponent],
 	imports: [

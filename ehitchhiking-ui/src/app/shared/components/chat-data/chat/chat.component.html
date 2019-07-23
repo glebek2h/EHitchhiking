@@ -11,15 +11,15 @@
 					<div class="date">{{ msg.time | date: 'h:mm a' }}</div>
 				</div>
 				<div class="message">
-					<div class="dlg-title">
-						<p class="dlg-title-text">{{ msg.person || 'you' }}</p>
+					<div class="person-name-wrapper">
+						<p class="person-name">{{ msg.person || 'you' }}</p>
 					</div>
 					<div class="text">{{ msg.text }}</div>
 				</div>
 			</div>
 		</div>
 
-		<form class="input-zone">
+		<div class="input-zone">
 			<mat-form-field class="input">
 				<input matInput #message [maxLength]="MAX_MESSAGE_LENGTH" placeholder="Message" id="message-text" />
 				<mat-hint align="end">{{ message.value.length }} / {{ MAX_MESSAGE_LENGTH }}</mat-hint>
@@ -27,7 +27,7 @@
 			<button class="send-btn" mat-raised-button (click)="sendMessage(message)">
 				Send
 			</button>
-		</form>
+		</div>
 	</div>
 
 	<div mat-dialog-content class="modal-content" *ngIf="showDialogs" (click)="showContent()">

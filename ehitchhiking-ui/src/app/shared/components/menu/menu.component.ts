@@ -2,12 +2,12 @@ import {Component, OnInit} from '@angular/core';
 import {BUTTONS_NAMES} from './buttons-names';
 import {BlacklistComponent} from '../blacklist/blacklist.component';
 import {MatDialog} from '@angular/material';
-import {RatePassengersModalComponent} from '../rate-passengers-modal/rate-passengers-modal.component';
-import {ProfileModalComponent} from '../../modals/profile-modal/profile-modal.component';
+import {RatePassengersModalComponent} from '@shared/components/rate-passengers-modal/rate-passengers-modal.component';
+import {ProfileModalComponent} from '@shared/modals/profile-modal/profile-modal.component';
 import {Router} from '@angular/router';
-import {ChatComponent} from '../chat/chat.component';
 import {DEFUALT_MAT_DIALOG_CLASS, MAT_DIALOG_WIDTH_MD, MAT_DIALOG_WIDTH_SM} from '../../constants/modal-constants';
 import {TripsModalComponent} from '../trips-modal/trips-modal.component';
+import {ChatComponent} from '@shared/components/chat-data/chat/chat.component';
 
 @Component({
 	selector: 'app-menu',

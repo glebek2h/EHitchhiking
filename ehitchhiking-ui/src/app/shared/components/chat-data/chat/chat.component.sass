@@ -1,7 +1,7 @@
-@import "../../../../styles/colors"
-@import "../../../../styles/mixins"
-@import "../../../../styles/fonts-constants"
-@import "../../../../styles/constants"
+@import "../../../../../styles/colors"
+@import "../../../../../styles/mixins"
+@import "../../../../../styles/fonts-constants"
+@import "../../../../../styles/constants"
 $image-size: 2rem
 $before-horizontal-radius: 0.5rem
 $before-vertical-radius: 0.4rem
@@ -48,8 +48,8 @@ $before-right: -0.2rem
   .message
     flex-direction: column
     flex-wrap: wrap
-    .dlg-title
-      .dlg-title-text
+    .person-name-wrapper
+      .person-name
         margin: 0 0 0.5rem 0
         color: $black
         font-size: 17px
@@ -126,7 +126,7 @@ $before-right: -0.2rem
         left: 0.125rem
         border-bottom-right-radius: $after-horizontal-radius
 
-.modal-content
-  height: 20rem
+.modal-content, .modal-wrapper
+  height: 29rem
 
 

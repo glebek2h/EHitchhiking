@@ -8,7 +8,7 @@ import {DialogListService} from './dialog-list.service';
 })
 export class DialogListComponent implements OnInit {
 	dialogList = DialogListService.dlgList;
-	@Output() chatMessages = new EventEmitter<any>();
+	@Output() chatMessages = new EventEmitter<ChatMessage[]>();
 
 	constructor() {}
 
