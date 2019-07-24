@@ -92,27 +92,9 @@ public class EmployeeService implements IEmployeeService {
         return dao.getAll();
     }
 
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        /*
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
-            UserDetails user = null;
-            if (auth != null && !(auth instanceof AnonymousAuthenticationToken)) {
-                // userDetails = auth.getPrincipal()
-
-                Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-                String username = null;
-                if (principal instanceof UserDetails) {
-                    username = ((UserDetails) principal).getUsername();
-                    user = (UserDetails) principal;
-
-                } else {
-                    username = principal.toString();
-                }
-            }*/
-
-            return findUserUsername(username);
-        }
+        return findUserUsername(username);
+    }
 
 }
