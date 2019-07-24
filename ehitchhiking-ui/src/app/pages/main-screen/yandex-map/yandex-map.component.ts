@@ -161,7 +161,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
 				this.myMap.geoObjects.add(multiRoute);
 				this.yandexRoutesObjects.push(multiRoute);
 				this.currentMultiRoute = multiRoute;
-				//console.log(multiRoute.model.getReferencePoints());
+				// console.log(multiRoute.model.getReferencePoints());
 				this.currentRoute = data;
 				this.currentRoute.passengers = [];
 			})

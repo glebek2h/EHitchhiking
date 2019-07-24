@@ -31,7 +31,7 @@
           <span>Car:</span><span>{{ route.carsSelect.model }}</span>
         </p>
         <div class="routes-interface">
-          <mat-checkbox color="primary" [checked]="i < 3 ? true : false" [disabled]="i < 3 ? true : false" (click)="displayRoute(i)">Display route</mat-checkbox>
+          <mat-checkbox color="primary" [checked]="i < ROUTES_ON_MAP_COUNT" [disabled]="i < ROUTES_ON_MAP_COUNT" (click)="displayRoute(i)">Display route</mat-checkbox>
           <button mat-raised-button color="primary" [disabled]="!isChecked" (click)="submitRoute(i)">Apply</button>
         </div>
       </mat-expansion-panel>
