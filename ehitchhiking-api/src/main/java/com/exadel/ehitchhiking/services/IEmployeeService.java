@@ -1,6 +1,7 @@
 package com.exadel.ehitchhiking.services;
 
 import com.exadel.ehitchhiking.models.Employee;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
 
@@ -18,4 +19,5 @@ public interface IEmployeeService {
     void deleteUser(String username);
     void deleteUserId(int id);
     List<Employee> getAll();
+    UserDetails loadUserByUsername(String username);
 }

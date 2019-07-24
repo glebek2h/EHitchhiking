@@ -5,6 +5,8 @@ import com.exadel.ehitchhiking.models.Employee;
 import com.exadel.ehitchhiking.services.IEmployeeService;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -89,4 +91,28 @@ public class EmployeeService implements IEmployeeService {
     public List<Employee> getAll() {
         return dao.getAll();
     }
+
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        /*
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+            UserDetails user = null;
+            if (auth != null && !(auth instanceof AnonymousAuthenticationToken)) {
+                // userDetails = auth.getPrincipal()
+
+                Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+                String username = null;
+                if (principal instanceof UserDetails) {
+                    username = ((UserDetails) principal).getUsername();
+                    user = (UserDetails) principal;
+
+                } else {
+                    username = principal.toString();
+                }
+            }*/
+
+            return findUserUsername(username);
+        }
+
 }
