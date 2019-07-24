@@ -1,15 +1,12 @@
-import {URL_REGISTRY} from './../constants/urlRegistry';
+import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 import {NotificationService} from './notification.service';
 import {ApiService} from '@shared/services/api.service';
 import {Injectable} from '@angular/core';
-import {toBase64String} from '@angular/compiler/src/output/source_map';
 import {catchError} from 'rxjs/operators';
 
 @Injectable()
 export class AuthorizationService {
-	constructor(private apiService: ApiService, private notificationService: NotificationService) {}
-
-	static authorizationStatus = false;
+	constructor(private notificationService: NotificationService, private apiService: ApiService) {}
 
 	doAuthorization(login: string, password: string): void {
 		this.apiService
@@ -20,20 +17,13 @@ export class AuthorizationService {
 					return error;
 				})
 			)
-			.subscribe(
-				() => {
-					AuthorizationService.authorizationStatus = true;
-				},
-				() => {
-					AuthorizationService.authorizationStatus = false;
-				}
-			);
+			.subscribe(() => {}, () => {});
 	}
 
-	private getAuthorizationObject(customLogin: string, customPassword: string) {
+	 private getAuthorizationObject(customLogin: string, customPassword: string) {
 		return {
 			login: customLogin,
-			password: toBase64String(customPassword),
+			password: btoa(customPassword),
 		};
-	}
+	 }
 }

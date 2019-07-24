@@ -6,12 +6,11 @@ import {Router} from '@angular/router';
 	selector: 'app-registration',
 	templateUrl: './registration.component.html',
 	styleUrls: ['./registration.component.sass'],
-	providers: [AuthorizationService],
 })
 export class RegistrationComponent {
 	login: string;
 	password: string;
-	constructor(private router: Router, private authorizationService: AuthorizationService) {}
+	constructor(private router: Router, public authorizationService: AuthorizationService) {}
 
 	onSubmit() {
 		this.authorizationService.doAuthorization(this.login, this.password);
