@@ -19,6 +19,7 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import javax.sql.DataSource;
 import java.util.Properties;
 
+
 @SpringBootApplication(exclude = { //
         DataSourceAutoConfiguration.class, //
         DataSourceTransactionManagerAutoConfiguration.class, //
@@ -30,11 +31,12 @@ public class Start {
     Environment env;
 
     public static void main(String[] args) {
+        System.out.println("here");
         SpringApplication.run(Start.class, args);
     }
 
     @Bean(name = "dataSource")
-    public DataSource getDataSource() {
+    public javax.sql.DataSource getDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
         // See: application.properties

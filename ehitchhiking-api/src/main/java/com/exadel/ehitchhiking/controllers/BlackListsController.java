@@ -36,9 +36,10 @@ public class BlackListsController {
         return response;
     }
 
-    // deleting the passenger from the balck list driver
+    // deleting the passenger from the black list driver
     @DeleteMapping("/driver")
     public Response<String> deletePassFromBlackListDriver(String idDriver, String idPass) {
+        System.out.println("here!!!");
         Response<String> response = new Response<>();
         try {
             driverService.deletePassFromBL(Integer.parseInt(idDriver), Integer.parseInt(idPass));
@@ -51,6 +52,9 @@ public class BlackListsController {
         response.setData("true");
         return response;
     }
+
+
+
 
     @PostMapping("/passenger")
     public Response<String> addDriverToBlackListPass(String idPass, String idDriver) {
@@ -67,7 +71,7 @@ public class BlackListsController {
         return response;
     }
 
-    // deleting the passenger from the balck list driver
+    // deleting the passenger from the pass list driver
     @DeleteMapping("/passenger")
     public Response<String> deleteDriverFromBlackListPass(String idPass, String idDriver) {
         Response<String> response = new Response<>();
