@@ -27,6 +27,7 @@ public class TripDriverService implements ITripDriverService {
     @Autowired
     private ITripPassDAO tripPassDAO;
 
+    @Override
     public void createTripDriver(String startingPoint, String endingPoint,
                                  Timestamp startingTime, Timestamp endingTime, int idOfCar, int seats){
         TripDriver tripDriver = new TripDriver(startingPoint, endingPoint,
@@ -35,72 +36,70 @@ public class TripDriverService implements ITripDriverService {
         dao.save(tripDriver);
     }
 
+    @Override
     public void updateTimeStart(int id, Timestamp newStart){
         TripDriver trip_driver = dao.getTripDriver(id);
         trip_driver.setStartTime(newStart);
         dao.update(trip_driver);
     }
 
+    @Override
     public void updateTimeEnd(int id, Timestamp newEnd){
         TripDriver trip_driver = dao.getTripDriver(id);
         trip_driver.setEndTime(newEnd);
         dao.update(trip_driver);
     }
 
+    @Override
     public void updatePointStart(int id, String start){
         TripDriver trip_driver = dao.getTripDriver(id);
         trip_driver.setStartPoint(start);
         dao.update(trip_driver);
     }
 
+    @Override
     public void updatePointEnd(int id, String end){
         TripDriver tripDriver = dao.getTripDriver(id);
         tripDriver.setEndPoint(end);
         dao.update(tripDriver);
     }
 
+    @Override
     public void updateSave(int id, boolean isSaved){
         TripDriver tripDriver = dao.getTripDriver(id);
         tripDriver.setSaved(isSaved);
         dao.update(tripDriver);
     }
 
+    @Override
     public void updateFinished(int id, boolean isFinished){
         TripDriver tripDriver = dao.getTripDriver(id);
         tripDriver.setSaved(isFinished);
         dao.update(tripDriver);
     }
 
+    @Override
     public void updateHistory(int id, boolean isHistory){
         TripDriver tripDriver = dao.getTripDriver(id);
         tripDriver.setSaved(isHistory);
         dao.update(tripDriver);
     }
 
+    @Override
     public void updateSeats(int id, int newSeats){
         TripDriver tripDriver = dao.getTripDriver(id);
         tripDriver.setAvailableSeats(newSeats);
         dao.update(tripDriver);
     }
 
-    public void addPassenger(int idTripPass, int id){
-        TripDriver tripDriver = dao.getTripDriver(id);
-        tripDriver.getTripPassSet().add(tripPassDAO.getTripPass(idTripPass));
-        dao.update(tripDriver);
-    }
-
-    public void deletePassenger(int idTripPass, int id){
-        TripDriver tripDriver = dao.getTripDriver(id);
-        tripDriver.getTripPassSet().remove(tripPassDAO.getTripPass(idTripPass));
-        dao.update(tripDriver);
-    }
-
+    @Override
     public void updateCar(int id, int idNewCar){
         TripDriver tripDriver = dao.getTripDriver(id);
         //tripDriver.setCar(carDAO.getCar(idNewCar));
         dao.update(tripDriver);
     }
 
+    @Override
     public void deleteDriverTrip(int id){
         dao.delete(dao.getTripDriver(id));
     }
