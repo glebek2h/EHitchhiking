@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {UserState} from '../../../shared/enums/UserState';
 import {YandexMapService} from '../yandex-map/yandex-map.service';
+import {User} from "@shared/models/user";
+import {Car} from "@shared/models/car";
 
 @Component({
 	selector: 'app-main-screen',
@@ -25,6 +27,13 @@ export class MainScreenComponent implements OnInit {
 
 	routes: Partial<Route>[] = [];
 	copyRoutes: Partial<Route>[] = [];
+
+  user: User = new User('Yana', '', 'hello@gmail.com', '+375291234567', [
+    new Car('ferrari', 'pink', 'A3434B', 1),
+    new Car('lada', 'white', 'A3434B', 5),
+    new Car('tayota', 'yellow', 'A3434B', 3),
+    new Car('bmw', 'black', 'A3434B', 1),
+  ]);
 
 	ngOnInit() {
 		this.isHiddenTripRegistration = true;
@@ -82,6 +91,8 @@ export class MainScreenComponent implements OnInit {
 		this.isHiddenTripRegistration = true;
 		this.isSavedRoute = false;
 		this.isShownRoutesList = false;
+		this.isShownSaveRouteButton = false;
+		this.redrawTriggers = false;
 		this.mapTriggers = {reset: true};
 	}
 

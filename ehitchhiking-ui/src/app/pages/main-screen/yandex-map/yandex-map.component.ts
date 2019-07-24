@@ -85,6 +85,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
 				this.myMap.geoObjects.remove(this.yandexRoutesObjects[0]);
 				this.myMap.geoObjects.remove(this.myMark);
 			}
+			return;
 		}
 
 		if (changes.tripData && changes.tripData.currentValue) {

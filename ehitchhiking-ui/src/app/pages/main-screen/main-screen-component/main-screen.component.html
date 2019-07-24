@@ -15,6 +15,8 @@
 	(formData)="getData($event)"
 	(isShownViewListButton)="setIsShownViewRoutesButtonFlag($event)"
 	(isShownSaveRouteButton)="setIsShownSaveRouteButtonFlag($event)"
+  [user]="user"
+  [userState]="userState"
 ></app-trip-registration>
 <app-routes-list
 	*ngIf="isShownRoutesList"
