@@ -12,7 +12,7 @@ export class MainScreenComponent implements OnInit {
 
 	tripFormData: any; // TODO
 	isHiddenTripRegistration: boolean;
-	userState: string;
+	userState: number;
 	isSavedRoute: boolean;
 	isShownRoutesList: boolean;
 	isShownViewRoutesButton: boolean;
@@ -22,7 +22,7 @@ export class MainScreenComponent implements OnInit {
 
 	ngOnInit() {
 		this.isHiddenTripRegistration = true;
-		this.userState = UserState.passenger;
+		this.userState = UserState.Passenger;
 		this.routes = YandexMapService.getSomeRoutes();
 	}
 
@@ -45,22 +45,22 @@ export class MainScreenComponent implements OnInit {
 	}
 
   setIsShownViewRoutesButtonFlag(data) {
-		if (this.userState === UserState.passenger) {
+		if (this.userState === UserState.Passenger) {
 			this.isShownViewRoutesButton = data;
 		}
 	}
 
   setIsShownSaveRouteButtonFlag(data) {
-		if (this.userState === UserState.driver) {
+		if (this.userState === UserState.Driver) {
 			this.isShownSaveRouteButton = data;
 		}
 	}
 
 	toggleStateToPassenger() {
-	  this.userState = UserState.passenger;
+	  this.userState = UserState.Passenger;
   }
 
   toggleStateToDriver() {
-	  this.userState = UserState.driver;
+	  this.userState = UserState.Driver;
   }
 }

@@ -3,6 +3,9 @@ import {LoaderSize} from '../../enums/pre-loader-sizes';
 import {MatDialogRef} from '@angular/material';
 import {TripsModalService} from './trips-modal.service';
 import { Trip } from "./trips";
+import { compareNumbers } from "@angular/compiler-cli/src/diagnostics/typescript_version";
+import { UserState } from "../../enums/UserState";
+import { SortState } from "../../enums/SortState";
 
 @Component({
 	selector: 'app-trips',
@@ -17,8 +20,23 @@ export class TripsModalComponent implements OnInit {
 	loaderSize: LoaderSize = LoaderSize.Large;
 	loading = true;
 	scrollObserver: IntersectionObserver;
+	order = 0;
+  role = {roleField: 'role', isEnable: false}
+  selectedRole :number;
+  selectedFavorite = false;
+  selectedSortByRating = false;
+  selectedBySort = SortState.NoSort;
 
-	@ViewChild('sMarker', {static: true}) markerRef: ElementRef;
+  roles = [
+
+    {value: 0, viewValue: 'Passenger'},
+    {value: 1, viewValue: 'Driver'},
+    {value: 2, viewValue: 'All'},
+  ];
+
+
+  @ViewChild('sMarker', {static: true}) markerRef: ElementRef;
+  rating: number;
 
 	constructor(public dialogRef: MatDialogRef<TripsModalComponent>, private tripService: TripsModalService) {
 		this.scrollObserver = new IntersectionObserver(this.onScroll.bind(this), {
@@ -56,4 +74,29 @@ export class TripsModalComponent implements OnInit {
 	trackById(index, trip) {
 		return trip.id;
 	}
+
+  filterByRole(){
+	  this.role.isEnable = true;
+	  console.log(this.role.isEnable);
+  }
+
+  changedFavorite(){
+	  console.log('selectedFavorite' + " "+ this.selectedSortByRating);
+  }
+
+  ChangeSort(){
+    if (this.selectedBySort === 0 ){
+      this.selectedBySort = 1;
+      this.order = 1;
+    }
+	  else if (this.selectedBySort === 1 ){
+	    this.selectedBySort = 2;
+	    this.order = -1;
+    }
+	  else if (this.selectedBySort ===2){
+	    this.selectedBySort = 0;
+	    this.order = 0;
+    }
+  }
+
 }
