@@ -49,11 +49,11 @@ export class ApiService {
 	}
 
 	private insertParameters(urlTemplate: string, data: any): string {
-	  if (data) {
-      Object.keys(data).forEach((key) => {
-        urlTemplate = urlTemplate.replace(`{{${key}}}`, data[key]);
-      });
-    }
+		if (data) {
+			Object.keys(data).forEach((key) => {
+				urlTemplate = urlTemplate.replace(`{{${key}}}`, data[key]);
+			});
+		}
 		return urlTemplate;
 	}
 }
