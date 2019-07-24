@@ -39,5 +39,16 @@ export class DialogListService {
 				},
 			],
 		},
+    {
+      title: 'Secret chat 1',
+      msgList: [{
+        text:
+          'Здесь уже чуть более интересная реализация — добавляется фон для заголовка в виде сплошной заливки и картинки. ',
+        person: 'not me',
+        avaSrc: 'http://placekitten.com/40/50',
+        time: Date.now(),
+        isMy: false,
+      },],
+    },
 	];
 }
