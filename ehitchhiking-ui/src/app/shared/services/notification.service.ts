@@ -18,21 +18,21 @@ export class NotificationService {
 	showErrorNotification(notificationMessage: string) {
 		this.notificationBar.openFromComponent(
 			NotificationComponent,
-			this.generateNotificationConf(notificationMessage, NotificationTypes.Error)
+			this.generateNotificationConfig(notificationMessage, NotificationTypes.Error)
 		);
 	}
 
 	showSuccessNotification(notificationMessage: string) {
 		this.notificationBar.openFromComponent(
 			NotificationComponent,
-			this.generateNotificationConf(notificationMessage, NotificationTypes.Success)
+			this.generateNotificationConfig(notificationMessage, NotificationTypes.Success)
 		);
 	}
 
 	showInfoNotification(notificationMessage: string) {
 		this.notificationBar.openFromComponent(
 			NotificationComponent,
-			this.generateNotificationConf(notificationMessage, NotificationTypes.Info)
+			this.generateNotificationConfig(notificationMessage, NotificationTypes.Info)
 		);
 	}
 
@@ -40,7 +40,7 @@ export class NotificationService {
 		return NotificationService.notificationClassMap[type];
 	}
 
-	private generateNotificationConf(
+	private generateNotificationConfig(
 		notificationMessage: string,
 		notificationType: NotificationTypes
 	): MatSnackBarConfig<any> {
