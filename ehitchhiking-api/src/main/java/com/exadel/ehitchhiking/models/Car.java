@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name = "CAR")
+@Table(name = "\"CAR\"", schema = "public")
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
@@ -17,31 +17,36 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Setter(AccessLevel.PRIVATE)
     @Getter
-    @Column(name = "ID")
+    @Column(name = "\"ID\"")
     private Integer id;
 
 
     @Setter
     @Getter
-    @Column(name = "CAR_COLOR")
+    @Column(name = "\"CAR_COLOR\"")
     private String color;
 
 
     @Setter
     @Getter
-    @Column(name = "VEH_NUMBER")
+    @Column(name = "\"VEH_NUMBER\"")
     private String number;
 
 
     @Setter
     @Getter
-    @Column(name = "MODEL")
+    @Column(name = "\"MODEL\"")
     private String model;
 
     @Setter
     @Getter
+    @Column(name = "\"IS_DELETED\"")
+    private boolean isDeleted;
+
+    @Setter
+    @Getter
     @ManyToOne
-    @JoinColumn(name = "ID_DRIVER")
+    @JoinColumn(name = "\"ID_DRIVER\"")
     private Driver driver;
 
     public Car(String color, String number, String model,
@@ -50,5 +55,6 @@ public class Car {
         this.color = color;
         this.number = number;
         this.model = model;
+        this.isDeleted = false;
     }
 }
