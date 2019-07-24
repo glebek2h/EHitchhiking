@@ -23,7 +23,7 @@ export class RoutesListComponent implements OnInit {
 		return UtilsService.formatDate(date);
 	}
 
-  displayRoute(index: number, matCheckbox) {
+  displayRoute(index: number) {
     this.isChecked = !this.isChecked;
     if (this.isChecked && index >= 3 || !this.isChecked && index < 3) {
       this.routeToDisplay.emit(index);
