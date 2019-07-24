@@ -16,4 +16,8 @@ public class ResponseMany<T> {
     @Getter
     @Setter
     private List<T> data;
+
+    @Getter
+    @Setter
+    private String msg;
 }
