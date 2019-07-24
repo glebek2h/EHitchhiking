@@ -1,10 +1,12 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {AuthorizationService} from '@shared/services/authorization.service';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 
 @Component({
 	selector: 'app-registration',
 	templateUrl: './registration.component.html',
 	styleUrls: ['./registration.component.sass'],
+	providers: [AuthorizationService],
 })
 export class RegistrationComponent implements OnInit {
 	login: string;
