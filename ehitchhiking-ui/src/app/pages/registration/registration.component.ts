@@ -1,5 +1,5 @@
 import {AuthorizationService} from '@shared/services/authorization.service';
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 
 @Component({
@@ -8,17 +8,13 @@ import {Router} from '@angular/router';
 	styleUrls: ['./registration.component.sass'],
 	providers: [AuthorizationService],
 })
-export class RegistrationComponent implements OnInit {
+export class RegistrationComponent {
 	login: string;
 	password: string;
-	constructor(private router: Router) {}
-	ngOnInit() {}
+	constructor(private router: Router, private authorizationService: AuthorizationService) {}
 
-	onSubmit(event: Event) {
-		if (this.login === '' || this.password === '') {
-			alert('Error input!');
-		} else {
-			this.router.navigateByUrl('/main');
-		}
+	onSubmit() {
+		this.authorizationService.doAuthorization(this.login, this.password);
+		this.router.navigateByUrl('/main');
 	}
 }
