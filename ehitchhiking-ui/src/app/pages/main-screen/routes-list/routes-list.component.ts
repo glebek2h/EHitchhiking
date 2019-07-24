@@ -23,9 +23,9 @@ export class RoutesListComponent implements OnInit {
 		return UtilsService.formatDate(date);
 	}
 
-  displayRoute(index: number) {
+  displayRoute(index: number, matCheckbox) {
     this.isChecked = !this.isChecked;
-    if (this.isChecked) {
+    if (this.isChecked && index >= 3 || !this.isChecked && index < 3) {
       this.routeToDisplay.emit(index);
     }
     else {
@@ -39,5 +39,13 @@ export class RoutesListComponent implements OnInit {
 
   getData(data: any) {
 	  this.formData.emit(data);
+  }
+
+  displayGetInLineButton(index: number, applybutton) {
+    if (this.activeRoutesCollection[index].placesSelect === 0) {
+      applybutton.disabled = true;
+      return true;
+    }
+    return false;
   }
 }

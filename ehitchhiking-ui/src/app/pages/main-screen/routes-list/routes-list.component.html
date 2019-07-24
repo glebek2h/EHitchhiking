@@ -28,8 +28,9 @@
           <span>Driver rating:</span><span>{{ route.driverRating }}</span>
         </p>
         <div class="routes-interface">
-          <mat-checkbox color="primary" [checked]="i < 3 ? true : false" (click)="displayRoute(i)">Display route</mat-checkbox>
-          <button mat-raised-button color="primary" [disabled]="!isChecked" (click)="submitRoute(i)">Apply</button>
+          <mat-checkbox color="primary" #matCheckbox [checked]="i < 3" (click)="displayRoute(i, matCheckbox)">Display route</mat-checkbox>
+          <button mat-raised-button color="primary" [disabled]="!isChecked" #applybutton (click)="submitRoute(i)">Apply</button>
+          <button mat-raised-button color="primary" *ngIf="displayGetInLineButton(i, applybutton)" >Get in Line</button>
         </div>
       </mat-expansion-panel>
     </mat-accordion>
