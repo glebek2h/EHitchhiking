@@ -1,6 +1,7 @@
 package com.exadel.ehitchhiking.services;
 
 import com.exadel.ehitchhiking.models.TripDriver;
+import com.exadel.ehitchhiking.models.vo.TripDriverVO;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -29,5 +30,5 @@ public interface ITripDriverService {
 
     void deleteDriverTrip(int id);
 
-    List<TripDriver> getAll();
+    List<TripDriverVO> getAll();
 }

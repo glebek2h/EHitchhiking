@@ -2,6 +2,7 @@ package com.exadel.ehitchhiking.controllers;
 
 
 import com.exadel.ehitchhiking.models.TripDriver;
+import com.exadel.ehitchhiking.models.vo.TripDriverVO;
 import com.exadel.ehitchhiking.responses.ResponseMany;
 import com.exadel.ehitchhiking.services.ITripDriverService;
 import com.exadel.ehitchhiking.services.ITripPassengerService;
@@ -123,11 +124,13 @@ public class TripPassengerController {
     }
 
     @GetMapping("/getAllDriverTrips")
-    public ResponseMany<TripDriver> getAllAvailableTrips(){
-        ResponseMany<TripDriver> responseMany = new ResponseMany<>();
+    public ResponseMany<TripDriverVO> getAllAvailableTrips(){
+        ResponseMany<TripDriverVO> responseMany = new ResponseMany<>();
         try{
             responseMany.setStatus("200");
+            System.out.println("here");
             responseMany.setData(tripDriverService.getAll());
+           // System.out.println("response"+ responseMany.getData());
             return responseMany;
 
                     //TODO: check for the excstance of the getALLtrips
