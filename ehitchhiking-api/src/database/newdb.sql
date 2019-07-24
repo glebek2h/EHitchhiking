@@ -1,158 +1,174 @@
-create sequence trip_driver_trip_pass_id_seq;
+create sequence hibernate_sequence;
 
-alter sequence trip_driver_trip_pass_id_seq owner to elizabeth;
+alter sequence hibernate_sequence owner to postgres;
 
-create table employee
+create table "EMPLOYEE"
 (
-  id             serial           not null
-    constraint user_pk
-      primary key,
-  isadmin        boolean          not null,
-  username       varchar(250)     not null,
-  the_first_name varchar(50)      not null,
-  the_last_name  varchar(50)      not null,
-  email          varchar(200)     not null,
-  pass_word      varchar(250)     not null,
-  rate_pass      double precision not null,
-  phone_number   integer          not null,
-  rate_driver    double precision not null
+    "ID"           serial       not null
+        constraint user_pk
+            primary key,
+    "IS_ADMIN"     boolean      not null,
+    "USER_NAME"    varchar(250) not null,
+    "FIRST_NAME"   varchar(50)  not null,
+    "LAST_NAME"    varchar(50)  not null,
+    "EMAIL"        varchar(200) not null,
+    "PASS_WORD"    varchar(250) not null,
+    "PHONE_NUMBER" varchar(15)  not null
 );
 
-comment on table employee is '//this is the table about the user';
+comment on table "EMPLOYEE" is '//this is the table about the user';
 
-alter table employee
-  owner to elizabeth;
+alter table "EMPLOYEE"
+    owner to postgres;
 
 create unique index user_email_uindex
-  on employee (email);
+    on "EMPLOYEE" ("EMAIL");
 
 create unique index user_id_uindex
-  on employee (id);
+    on "EMPLOYEE" ("ID");
 
 create unique index user_username_uindex
-  on employee (username);
+    on "EMPLOYEE" ("USER_NAME");
 
 create unique index "user_phone number_uindex"
-  on employee (phone_number);
+    on "EMPLOYEE" ("PHONE_NUMBER");
 
-create table passenger
+create table "PASSENGER"
 (
-  pass_id serial  not null
-    constraint pass_pk
-      primary key,
-  user_id integer not null
-    constraint pass_employee_id_fk
-      references employee
+    "ID"             serial           not null
+        constraint pass_pk
+            primary key,
+    "USER_ID"        integer          not null
+        constraint pass_employee_id_fk
+            references "EMPLOYEE",
+    "RATING_PEOPLE"  integer          not null,
+    "RATE_PASSENGER" double precision not null
 );
 
-alter table passenger
-  owner to elizabeth;
+alter table "PASSENGER"
+    owner to postgres;
 
-create table driver
+create table "DRIVER"
 (
-  driver_id serial  not null
-    constraint driver_pk
-      primary key,
-  user_id   integer not null
-    constraint driver_employee_id_fk
-      references employee
+    "ID"            serial           not null
+        constraint driver_pk
+            primary key,
+    "USER_ID"       integer          not null
+        constraint driver_employee_id_fk
+            references "EMPLOYEE",
+    "RATE_DRIVER"   double precision not null,
+    "RATING_PEOPLE" integer          not null
 );
 
-alter table driver
-  owner to elizabeth;
+alter table "DRIVER"
+    owner to postgres;
 
-create table cars
+create table "CAR"
 (
-  car_id     integer      not null
-    constraint cars_pk
-      primary key,
-  car_color  varchar(50)  not null,
-  veh_number varchar(50)  not null,
-  model      varchar(200) not null,
-  driver_id  integer      not null
-    constraint cars_driver_driver_id_fk
-      references driver
+    "ID"         integer      not null
+        constraint cars_pk
+            primary key,
+    "CAR_COLOR"  varchar(50)  not null,
+    "VEH_NUMBER" varchar(50)  not null,
+    "MODEL"      varchar(200) not null,
+    "ID_DRIVER"  integer      not null
+        constraint car_driver_driver_id_fk
+            references "DRIVER"
 );
 
-comment on table cars is '/// this is the description that every car has';
+comment on table "CAR" is '/// this is the description that every car has';
 
-alter table cars
-  owner to elizabeth;
+alter table "CAR"
+    owner to postgres;
 
 create unique index "cars_veh number_uindex"
-  on cars (veh_number);
+    on "CAR" ("VEH_NUMBER");
 
-create table trip_pass
+create table "TRIP_PASS"
 (
-  trip_pass_id serial       not null
-    constraint trip_pass_pk
-      primary key,
-  point_start  varchar(500) not null,
-  point_end    varchar(500) not null,
-  pass_id      integer      not null
-    constraint trip_pass_passenger_pass_id_fk
-      references passenger,
-  time_start   time         not null,
-  isactive     boolean      not null,
-  isfinished   boolean      not null,
-  issaved      boolean      not null
+    "ID"           serial       not null
+        constraint trip_pass_pk
+            primary key,
+    "POINT_START"  varchar(500) not null,
+    "POINT_END"    varchar(500) not null,
+    "PASS_ID"      integer      not null
+        constraint trip_pass_passenger_pass_id_fk
+            references "PASSENGER",
+    "IS_ACTIVE"    boolean      not null,
+    "IS_FINISHED"  boolean      not null,
+    "IS_SAVED"     boolean      not null,
+    "TIME_END"     timestamp    not null,
+    "TRIP_PASS"    integer      not null,
+    "BOOKED_SEATS" integer      not null,
+    "TIME_START"   timestamp    not null
 );
 
-comment on column trip_pass.isfinished is '// finishd -- true
+comment on column "TRIP_PASS"."IS_FINISHED" is '// finishd -- true
 // canceled -- false';
 
-alter table trip_pass
-  owner to elizabeth;
+alter table "TRIP_PASS"
+    owner to postgres;
 
-create table trip_driver
+create table "TRIP_DRIVER"
 (
-  trip_driver_id integer      not null
-    constraint trip_driver_pk
-      primary key,
-  trip_pass_id   integer      not null
-    constraint trip_driver_trip_pass_trip_pass_id_fk
-      references trip_pass,
-  point_start    varchar(500) not null,
-  point_end      varchar(500) not null,
-  time_start     time         not null,
-  car_id         integer      not null
-    constraint "trip_driver_cars_car_id _fk"
-      references cars,
-  isactive       boolean      not null,
-  isfinished     boolean      not null,
-  issaved        boolean      not null
+    "ID"              integer      not null
+        constraint trip_driver_pk
+            primary key,
+    "TRIP_PASS_ID"    integer      not null
+        constraint trip_driver_trip_pass_trip_pass_id_fk
+            references "TRIP_PASS",
+    "POINT_START"     varchar(500) not null,
+    "POINT_END"       varchar(500) not null,
+    "CAR_ID"          integer      not null
+        constraint "trip_driver_cars_car_id _fk"
+            references "CAR",
+    "IS_ACTIVE"       boolean      not null,
+    "IS_FINISHED"     boolean      not null,
+    "IS_SAVED"        boolean      not null,
+    "TIME_END"        timestamp,
+    "AVAILABLE_SEATS" integer      not null,
+    time_start        timestamp    not null
 );
 
-comment on column trip_driver.isfinished is '//finished -- true 
+comment on column "TRIP_DRIVER"."IS_FINISHED" is '//finished -- true
 // cancelled -- false';
 
-alter table trip_driver
-  owner to elizabeth;
+alter table "TRIP_DRIVER"
+    owner to postgres;
 
-create table blacklist_pass
+alter table "TRIP_PASS"
+    add constraint trip_pass_trip_driver_trip_driver_id_fk
+        foreign key ("TRIP_PASS") references "TRIP_DRIVER";
+
+create table "BLACKLIST_PASSENGER"
 (
-  pass_id   integer not null
-    constraint blacklist_pass_passenger_pass_id_fk
-      references passenger,
-  driver_id integer not null
-    constraint blacklist_pass_driver_driver_id_fk
-      references driver
+    "PASS_ID"   integer not null
+        constraint blacklist_pass_passenger_pass_id_fk
+            references "PASSENGER",
+    "DRIVER_ID" integer not null
+        constraint blacklist_pass_driver_driver_id_fk
+            references "DRIVER",
+    "ID"        serial  not null
+        constraint blacklist_pass_pk
+            primary key
 );
 
-alter table blacklist_pass
-  owner to elizabeth;
+alter table "BLACKLIST_PASSENGER"
+    owner to postgres;
 
-create table blacklist_driver
+create table "BLACKLIST_DRIVER"
 (
-  pass_id   integer not null
-    constraint blacklist_driver_passenger_pass_id_fk
-      references passenger,
-  driver_id integer not null
-    constraint blacklist_driver_driver_driver_id_fk
-      references driver
+    "PASS_ID"   integer not null
+        constraint blacklist_driver_passenger_pass_id_fk
+            references "PASSENGER",
+    "DRIVER_ID" integer not null
+        constraint blacklist_driver_driver_driver_id_fk
+            references "DRIVER",
+    "ID"        serial  not null
+        constraint blacklist_driver_pk
+            primary key
 );
 
-alter table blacklist_driver
-  owner to elizabeth;
-
+alter table "BLACKLIST_DRIVER"
+    owner to postgres;
 
