@@ -12,7 +12,7 @@ import java.util.Set;
 
 @Entity
 @ToString
-@Table(name = "EMPLOYEE")
+@Table(name = "\"EMPLOYEE\"", schema = "public")
 @EqualsAndHashCode
 @NoArgsConstructor
 public class Employee implements UserDetails {
@@ -21,42 +21,42 @@ public class Employee implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Setter(AccessLevel.PRIVATE)
     @Getter
-    @Column(name = "id")
+    @Column(name = "\"ID\"")
     private Integer id;
 
     @Getter
     @Setter
-    @Column(name = "IS_ADMIN")
+    @Column(name = "\"IS_ADMIN\"")
     private boolean isAdmin;
 
     @Getter
     @Setter
-    @Column(name = "USER_NAME")
+    @Column(name = "\"USER_NAME\"")
     private String username;
 
     @Getter
     @Setter
-    @Column(name = "FIRST_NAME")
+    @Column(name = "\"FIRST_NAME\"")
     private String firstName;
 
     @Getter
     @Setter
-    @Column(name = "LAST_NAME")
+    @Column(name = "\"LAST_NAME\"")
     private String lastName;
 
     @Getter
     @Setter
-    @Column(name = "EMAIL")
+    @Column(name = "\"EMAIL\"")
     private String email;
 
     @Getter
     @Setter
-    @Column(name = "PASS_WORD")
+    @Column(name = "\"PASS_WORD\"")
     private String password;
 
     @Setter
     @Getter
-    @Column(name = "PHONE_NUMBER")
+    @Column(name = "\"PHONE_NUMBER\"")
     private String phoneNumber;
 
     public Employee(boolean isAdmin, String username, String firstName, String lastName, String email, String password, String phoneNumber) {
@@ -74,22 +74,10 @@ public class Employee implements UserDetails {
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         grantedAuthorities.add(new SimpleGrantedAuthority("Admin"));
         grantedAuthorities.add(new SimpleGrantedAuthority("Employee"));
-//
-//        if (grantedAuthorities != null) {
-//            return grantedAuthorities.stream()
-//                    .map(GrantedAuthority::getAuthority)
-//                    .map(a -> authorityToPermissionMap.get(a))
-//                    .filter(Objects::nonNull)
-//                    .filter(a -> !a.isEmp())
-//                    .map(SimpleGrantedAuthority::new)
-//                    .collect(Collectors.toSet());
-//        } else {*/
-//        return null;
-//        //}
-//    }
 
-        return getAuthorities();
+        return null;
     }
+
 
     @Override
     public boolean isAccountNonExpired() {

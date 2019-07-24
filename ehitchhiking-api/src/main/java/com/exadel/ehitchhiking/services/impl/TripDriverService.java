@@ -28,6 +28,7 @@ public class TripDriverService implements ITripDriverService {
     @Autowired
     private ITripPassDAO tripPassDAO;
 
+    @Override
     public void createTripDriver(String startingPoint, String endingPoint,
                                  Timestamp startingTime, Timestamp endingTime, int idOfCar, int seats){
         TripDriver tripDriver = new TripDriver(startingPoint, endingPoint,
@@ -64,7 +65,6 @@ public class TripDriverService implements ITripDriverService {
         dao.update(tripDriver);
     }
 
-
     @Override
     public void updateSave(int id, boolean isSaved){
         TripDriver tripDriver = dao.getTripDriver(id);
@@ -79,8 +79,6 @@ public class TripDriverService implements ITripDriverService {
         dao.update(tripDriver);
     }
 
-
-
     @Override
     public void updateHistory(int id, boolean isHistory){
         TripDriver tripDriver = dao.getTripDriver(id);
@@ -94,7 +92,7 @@ public class TripDriverService implements ITripDriverService {
         tripDriver.setAvailableSeats(newSeats);
         dao.update(tripDriver);
     }
-
+/*
     @Override
     public void addPassenger(int idTripPass, int id){
         TripDriver tripDriver = dao.getTripDriver(id);
@@ -106,8 +104,8 @@ public class TripDriverService implements ITripDriverService {
     public void deletePassenger(int idTripPass, int id){
         TripDriver tripDriver = dao.getTripDriver(id);
         tripDriver.getTripPassSet().remove(tripPassDAO.getTripPass(idTripPass));
-        dao.update(tripDriver);
-    }
+        dao.update(tripDriver);*/
+    //}
 
     @Override
     public void updateCar(int id, int idNewCar){

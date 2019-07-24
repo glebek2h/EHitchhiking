@@ -9,69 +9,63 @@ import java.util.Set;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "TRIP_DRIVER")
+@Table(name = "\"TRIP_DRIVER\"", schema = "public")
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
 public class TripDriver {
 
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Setter(AccessLevel.PRIVATE)
     @Getter
-    @Column(name = "ID")
+    @Column(name = "\"ID\"")
     private Integer id;
 
     @Getter
     @Setter
-    @OneToMany
-    private Set<TripPass> tripPassSet;
-
-    @Getter
-    @Setter
-    @Column(name = "POINT_START")
+    @Column(name = "\"POINT_START\"")
     private String startPoint;
 
     @Getter
     @Setter
-    @Column(name = "POINT_END")
+    @Column(name = "\"POINT_END\"")
     private String endPoint;
 
     @Getter
     @Setter
-    @Column(name = "TIME_START")
+    @Column(name = "\"TIME_START\"")
     private Timestamp startTime;
 
     @Getter
     @Setter
-    @Column(name = "TIME_END")
+    @Column(name = "\"TIME_END\"")
     private Timestamp endTime;
 
     @Getter
     @Setter
     @ManyToOne
+    @JoinColumn(name = "\"CAR_ID\"")
     private Car car;
 
     @Setter
     @Getter
-    @Column(name = "IS_ACTIVE")
+    @Column(name = "\"IS_ACTIVE\"")
     private boolean isActive;
 
     @Setter
     @Getter
-    @Column(name = "IS_FINISHED")
+    @Column(name = "\"IS_FINISHED\"")
     private boolean isFinished;
 
     @Setter
     @Getter
-    @Column(name = "IS_SAVED")
+    @Column(name = "\"IS_SAVED\"")
     private boolean isSaved;
 
     @Getter
     @Setter
-    @Column(name = "AVAILABLE_SEATS")
+    @Column(name = "\"AVAILABLE_SEATS\"")
     private int availableSeats;
 
     public TripDriver(String startPoint, String endPoint,
