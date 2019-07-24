@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "TRIP_PASSENGER")
+@Table(name = "\"TRIP_PASSENGER\"")
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
@@ -18,28 +18,28 @@ public class TripPass {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Setter(AccessLevel.PRIVATE)
     @Getter
-    @Column(name = "ID")
+    @Column(name = "\"ID\"")
     private  Integer id;
 
 
     @Getter
     @Setter
-    @Column(name = "POINT_START")
+    @Column(name = "\"POINT_START\"")
     private String startPoint;
 
     @Getter
     @Setter
-    @Column(name = "POINT_END")
+    @Column(name = "\"POINT_END\"")
     private String endPoint;
 
     @Getter
     @Setter
-    @Column(name = "TIME_START")
+    @Column(name = "\"TIME_START\"")
     private Timestamp startTime;
 
     @Getter
     @Setter
-    @Column(name = "TIME_END")
+    @Column(name = "\"TIME_END\"")
     private Timestamp endTime;
 
     @Getter
@@ -49,22 +49,22 @@ public class TripPass {
 
     @Setter
     @Getter
-    @Column(name = "IS_ACTIVE")
+    @Column(name = "\"IS_ACTIVE\"")
     private boolean isActive;
 
     @Setter
     @Getter
-    @Column(name = "IS_FINISHED")
+    @Column(name = "\"IS_FINISHED\"")
     private boolean isFinished;
 
     @Setter
     @Getter
-    @Column(name = "IS_SAVED")
+    @Column(name = "\"IS_SAVED\"")
     private boolean isSaved;
 
     @Setter
     @Getter
-    @Column(name = "BOOKED_SEATS")
+    @Column(name = "\"BOOKED_SEATS\"")
     private int bookedSeats;
 
     @Getter
@@ -87,5 +87,4 @@ public class TripPass {
         this.passenger = passenger;
         this.tripDriver = tripDriver;
     }
-
 }

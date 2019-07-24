@@ -96,5 +96,4 @@ public class EmployeeService implements IEmployeeService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return findUserUsername(username);
     }
-
 }

@@ -25,10 +25,6 @@ public interface ITripDriverService {
 
     void updateSeats(int id, int newSeats);
 
-    void addPassenger(int idTripPass, int id);
-
-    void deletePassenger(int idTripPass, int id);
-
     void updateCar(int id, int idNewCar);
 
     void deleteDriverTrip(int id);

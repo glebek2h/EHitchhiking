@@ -1,4 +1,4 @@
-package com.exadel.ehitchhiking.Utils;
+package com.exadel.ehitchhiking.utils;
 
 import com.exadel.ehitchhiking.services.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;

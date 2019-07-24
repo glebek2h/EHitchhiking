@@ -14,4 +14,8 @@ public class Response<T> {
     @Getter
     @Setter
     private T data;
+
+    @Getter
+    @Setter
+    private String msg;
 }
