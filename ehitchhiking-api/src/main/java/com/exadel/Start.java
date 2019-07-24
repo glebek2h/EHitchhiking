@@ -17,6 +17,7 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
 import javax.sql.DataSource;
+import javax.xml.crypto.Data;
 import java.util.Properties;
 
 @SpringBootApplication(exclude = { //

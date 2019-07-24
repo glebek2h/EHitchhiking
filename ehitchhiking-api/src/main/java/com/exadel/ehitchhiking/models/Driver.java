@@ -24,7 +24,7 @@ public class Driver {
     @Getter
     @Setter
     @OneToOne
-    @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
+    @JoinColumn(name = "EMPLOYEE_ID", referencedColumnName = "ID")
     private Employee employee;
 
     @Getter

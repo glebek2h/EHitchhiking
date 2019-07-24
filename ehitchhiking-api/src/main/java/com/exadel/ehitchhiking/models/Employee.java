@@ -2,10 +2,13 @@ package com.exadel.ehitchhiking.models;
 
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @ToString
@@ -68,25 +71,25 @@ public class Employee implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-/*        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         grantedAuthorities.add(new SimpleGrantedAuthority("Admin"));
         grantedAuthorities.add(new SimpleGrantedAuthority("Employee"));
+//
+//        if (grantedAuthorities != null) {
+//            return grantedAuthorities.stream()
+//                    .map(GrantedAuthority::getAuthority)
+//                    .map(a -> authorityToPermissionMap.get(a))
+//                    .filter(Objects::nonNull)
+//                    .filter(a -> !a.isEmp())
+//                    .map(SimpleGrantedAuthority::new)
+//                    .collect(Collectors.toSet());
+//        } else {*/
+//        return null;
+//        //}
+//    }
 
-        if (grantedAuthorities != null) {
-            return grantedAuthorities.stream()
-                    .map(GrantedAuthority::getAuthority)
-                    .map(a -> authorityToPermissionMap.get(a))
-                    .filter(Objects::nonNull)
-                    .filter(a -> !a.isEmp())
-                    .map(SimpleGrantedAuthority::new)
-                    .collect(Collectors.toSet());
-        } else {*/
-        return null;
-        //}
+        return getAuthorities();
     }
-
-/*        return getAuthorities(){
-    }*/
 
     @Override
     public boolean isAccountNonExpired() {

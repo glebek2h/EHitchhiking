@@ -1,12 +1,12 @@
 package com.exadel.ehitchhiking.controllers;
 
 
+import com.exadel.ehitchhiking.models.TripDriver;
+import com.exadel.ehitchhiking.responses.ResponseMany;
+import com.exadel.ehitchhiking.services.ITripDriverService;
 import com.exadel.ehitchhiking.services.ITripPassengerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 
@@ -16,6 +16,8 @@ public class TripPassengerController {
 
     @Autowired
     private ITripPassengerService tripPassengerService;
+    @Autowired
+    private ITripDriverService tripDriverService;
 
     @PostMapping("/createTrip")
     public void createTrip(String passId, String startingPoint, String endingPoint,
@@ -117,6 +119,25 @@ public class TripPassengerController {
             //TODO: return
         } catch (Exception e) {
             //TODO: figure out the return
+        }
+    }
+
+    @GetMapping("/getAllDriverTrips")
+    public ResponseMany<TripDriver> getAllAvailableTrips(){
+        ResponseMany<TripDriver> responseMany = new ResponseMany<>();
+        try{
+            responseMany.setStatus("200");
+            responseMany.setData(tripDriverService.getAll());
+            return responseMany;
+
+                    //TODO: check for the excstance of the getALLtrips
+        }
+        catch(Exception e){
+
+            responseMany.setStatus("500");
+            responseMany.setData(null);
+            return responseMany;
+
         }
     }
 }
