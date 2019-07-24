@@ -68,7 +68,7 @@ public class Start {
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
 
         // Package contain entity classes
-        factoryBean.setPackagesToScan("com.exadel.ehitchhiking.Models");
+        factoryBean.setPackagesToScan("com.exadel.ehitchhiking.models");
         factoryBean.setDataSource(dataSource);
         factoryBean.setHibernateProperties(properties);
         factoryBean.afterPropertiesSet();

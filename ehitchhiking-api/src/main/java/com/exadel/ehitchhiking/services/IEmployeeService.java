@@ -1,10 +1,13 @@
 package com.exadel.ehitchhiking.services;
 
 import com.exadel.ehitchhiking.models.Employee;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.List;
 
-public interface IEmployeeService {
+public interface IEmployeeService extends UserDetailsService {
     void createEmployee(boolean isAdmin, String username, String firstName,
                                String lastName, String email, String password, String phoneNum);
     Employee findUserId(int userId);
@@ -18,4 +21,5 @@ public interface IEmployeeService {
     void deleteUser(String username);
     void deleteUserId(int id);
     List<Employee> getAll();
+    UserDetails loadUserByUsername(String s) throws UsernameNotFoundException;
 }
