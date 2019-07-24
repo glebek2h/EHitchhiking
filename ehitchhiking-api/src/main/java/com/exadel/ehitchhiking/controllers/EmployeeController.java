@@ -28,7 +28,9 @@ public class EmployeeController {
             employeeService.updatePassword(username, encoder.encode(password));
             //TODO: return
         }
-        catch(Exception e){
+        catch(Exception
+
+                e){
             //TODO: figure out the return
         }
     }

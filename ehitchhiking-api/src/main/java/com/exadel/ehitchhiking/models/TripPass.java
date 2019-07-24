@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "TRIP_PASS")
+@Table(name = "TRIP_PASSENGER")
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
