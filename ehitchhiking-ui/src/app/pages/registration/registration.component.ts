@@ -1,5 +1,6 @@
 import {AuthorizationService} from '@shared/services/authorization.service';
-import {Component} from '@angular/core';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 
 @Component({
@@ -7,13 +8,33 @@ import {Router} from '@angular/router';
 	templateUrl: './registration.component.html',
 	styleUrls: ['./registration.component.sass'],
 })
-export class RegistrationComponent {
+export class RegistrationComponent implements OnInit {
+	registrationForm: FormGroup;
 	login: string;
 	password: string;
-	constructor(private router: Router, public authorizationService: AuthorizationService) {}
+
+	constructor(
+		private router: Router,
+		public authorizationService: AuthorizationService,
+		private formBuilder: FormBuilder
+	) {}
+
+	ngOnInit() {
+		this.registrationForm = this.formBuilder.group({
+			login: ['', [Validators.required]],
+			password: ['', [Validators.required]],
+		});
+	}
 
 	onSubmit() {
 		this.authorizationService.doAuthorization(this.login, this.password);
 		this.router.navigateByUrl('/main');
+	}
+
+	hasError(controlName: string): boolean {
+		return (
+			this.registrationForm.controls[controlName] &&
+			this.registrationForm.controls[controlName].hasError('required')
+		);
 	}
 }
