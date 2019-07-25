@@ -19,6 +19,8 @@ import {NoDataModule} from '../no-data/no-data.module';
 import { TripsModalModule } from "../trips-modal/trips-modal.module";
 import { TripModule } from "../trip/trip.module";
 import { TripsModalComponent } from "../trips-modal/trips-modal.component";
+import { ActiveTripsModalComponent } from "../active-trips-modal/active-trips-modal.component";
+import { ActiveTripsModalModule } from "../active-trips-modal/active-trips-modal.module";
 
 @NgModule({
 	declarations: [MenuComponent, BlacklistComponent],
@@ -37,9 +39,10 @@ import { TripsModalComponent } from "../trips-modal/trips-modal.component";
 		NoDataModule,
     TripModule,
     TripsModalModule,
+    ActiveTripsModalModule,
 		MatCardModule,
 	],
 	exports: [MenuComponent, BlacklistComponent],
-	entryComponents: [BlacklistComponent, TripsModalComponent],
+	entryComponents: [BlacklistComponent],
 })
 export class MenuModule {}

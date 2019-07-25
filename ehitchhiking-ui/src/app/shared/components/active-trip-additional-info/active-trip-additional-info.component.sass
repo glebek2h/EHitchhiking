@@ -1,0 +1,12 @@
+@import '../../../../styles/colors'
+@import '../../../../styles/mixins'
+
+mat-grid-tile
+  background: mat-color($accent, 50)
+.form-row
+  display: flex
+  justify-content: center
+  align-items: center
+  @include flexbox(space-between)
+.column
+  @include flexbox(center, center, column)

@@ -7,6 +7,7 @@ import {ProfileModalComponent} from '../../modals/profile-modal/profile-modal.co
 import {Router} from '@angular/router';
 import { DEFUALT_MAT_DIALOG_CLASS, MAT_DIALOG_WIDTH_MD, MAT_DIALOG_WIDTH_SM } from "../../constants/modal-constants";
 import { TripsModalComponent } from "../trips-modal/trips-modal.component";
+import { ActiveTripsModalComponent } from "../active-trips-modal/active-trips-modal.component";
 
 @Component({
 	selector: 'app-menu',
@@ -50,6 +51,17 @@ export class MenuComponent implements OnInit {
 
   openHistoryDialog(){
     const dialogRef = this.dialog.open(TripsModalComponent, {
+      panelClass: DEFUALT_MAT_DIALOG_CLASS,
+      autoFocus: false,
+      width: MAT_DIALOG_WIDTH_MD,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  openActiveTripsDialog(){
+    const dialogRef = this.dialog.open(ActiveTripsModalComponent, {
       panelClass: DEFUALT_MAT_DIALOG_CLASS,
       autoFocus: false,
       width: MAT_DIALOG_WIDTH_MD,
