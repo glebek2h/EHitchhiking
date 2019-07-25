@@ -11,20 +11,14 @@
 						<i class="material-icons">
 							perm_identity
 						</i>
-						<input
-							type="login"
-							class="input"
-							[(ngModel)]="login"
-							name="login"
-							required
-							placeholder="Login"
-						/>
+						<input type="login" class="input" [(ngModel)]="login" name="login" required placeholder="Login"
+							pattern="[a-zA-Z][0-9a-zA-Z]{5,}" />
 					</div>
 					<div class="form-row">
 						<i class="material-icons">
 							lock
 						</i>
-						<input type="password" class="input" [(ngModel)]="password" name="password" />
+						<input type="password" class="input" [(ngModel)]="password" name="password" pattern="[a-zA-Z][0-9a-zA-Z.]{5,}" />
 					</div>
 					<div class="center">
 						<button type="submit" class="btn" mat-raised-button color="primary">
