@@ -8,6 +8,7 @@ import com.exadel.ehitchhiking.responses.Response;
 import com.exadel.ehitchhiking.responses.ResponseMany;
 import com.exadel.ehitchhiking.services.IDriverService;
 import com.exadel.ehitchhiking.services.IPassengerService;
+import org.hibernate.tool.schema.internal.exec.ScriptTargetOutputToFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -96,6 +97,7 @@ public class BlackListsController {
         ResponseMany<PassengerVO> responseMany = new ResponseMany<>();
 
         try {
+            System.out.println("foweuhfof");
             responseMany.setStatus("200");
             responseMany.setData(driverService.getPassengers(Integer.parseInt(idDriver)));
             return responseMany;

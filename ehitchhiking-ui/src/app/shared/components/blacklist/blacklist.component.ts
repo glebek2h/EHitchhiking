@@ -37,7 +37,7 @@ export class BlacklistComponent implements OnInit {
 		this.apiService.doGet(URL_REGISTRY['blacklist.get'],false,{
 		  idDr: this.curUser.id
     }).subscribe(data => {
-    //
+    console.log(data)
     });
 	}
 

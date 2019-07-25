@@ -73,7 +73,6 @@ public class PassengerService implements IPassengerService {
 
     @Override
     public List<DriverVO> getDrivers(int idPass) {
-
         return dao.getPassenger(idPass).getDrivers().stream().map(DriverVO::fromEntity).collect(Collectors.toList());
     }
 }
