@@ -20,7 +20,8 @@ public class TripDriverDAO extends AbstractDAO<TripDriver> implements ITripDrive
 
     @Override
     public List<TripDriver> getAll() {
-        List<TripDriver> trips_drivers = (List<TripDriver>) getCurrentSession().createQuery("From com.exadel.ehitchhiking.models.TripDriver").list();
+        System.out.println("here2");
+        List<TripDriver> trips_drivers = (List<TripDriver>) getCurrentSession().createQuery("From TripDriver ").list();
         return trips_drivers;
     }
 

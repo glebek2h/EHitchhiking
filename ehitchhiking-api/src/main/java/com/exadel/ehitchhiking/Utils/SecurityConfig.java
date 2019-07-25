@@ -1,5 +1,6 @@
-package com.exadel.ehitchhiking.Utils;
+package com.exadel.ehitchhiking.utils;
 
+import com.exadel.ehitchhiking.services.IEmployeeService;
 
 import com.exadel.ehitchhiking.services.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,7 +93,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     protected CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080/**", "http://localhost:4200/**"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080", "http://localhost:4200"));
         configuration.setAllowedMethods(Arrays.asList("GET","POST", "PUT", "DELETE"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

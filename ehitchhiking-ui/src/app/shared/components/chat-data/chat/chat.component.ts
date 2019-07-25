@@ -1,8 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ChatService} from './chat.service';
 import {MatDialogRef} from '@angular/material';
-import {NoDataComponent} from "@shared/components/no-data/no-data.component";
-import {NoDataSize} from "@shared/enums/no-data-sizes";
+import {NoDataSize} from '@shared/enums/no-data-sizes';
 
 @Component({
 	selector: 'app-chat',
@@ -13,18 +12,13 @@ export class ChatComponent implements OnInit {
 	showChat = false;
 	showDialogs = true;
 	readonly MAX_MESSAGE_LENGTH = 256;
-  noDataSize: NoDataSize = NoDataSize.Small;
-  noDataMessage = 'No messages!';
-  noDataIconName = 'event_busy';
-  loading = true;
-
 	msgList: ChatMessage[] = [];
+	noDataSize: NoDataSize = NoDataSize.Small;
+	noDataMessage = 'No messages!';
+	noDataIconName = 'accessibility';
+	loading = false;
 
-	constructor(public dialogRef: MatDialogRef<ChatComponent>) {
-    setTimeout(() => {
-      this.loading = false;
-    }, 1000);
-  }
+	constructor(public dialogRef: MatDialogRef<ChatComponent>) {}
 
 	ngOnInit() {}
 

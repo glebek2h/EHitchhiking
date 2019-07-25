@@ -3,6 +3,7 @@ package com.exadel.ehitchhiking.controllers;
 import com.exadel.ehitchhiking.models.Employee;
 import com.exadel.ehitchhiking.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +19,9 @@ public class ControllersTest {
     @Autowired
     private IDriverService driverService;
 
+    @Autowired
+    private PasswordEncoder encoder;
+
     @PostMapping("/addEmployee")
     public void createEmployee(String isAdmin, String userName, String firstName,
                                String lastName, String email, String password, String phoneNumber) {
@@ -25,7 +29,7 @@ public class ControllersTest {
 
         // creates the employee by the parameters that were passed in the func
         employeeService.createEmployee(isAdmin.equals("t"), userName, firstName,
-                lastName, email, password, phoneNumber);
+                lastName, email, encoder.encode(password), phoneNumber);
 
         // getting the employee by the username
         Employee employee = employeeService.findUserUsername(userName);
