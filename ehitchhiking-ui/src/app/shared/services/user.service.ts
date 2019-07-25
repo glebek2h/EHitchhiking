@@ -23,6 +23,7 @@ export class UserService {
 	}
 
 	private parseResponse(response: any) {
+		console.log('here');
 		const userData = response.body.data;
 		if (userData) {
 			return (this.currentUser = new User(
@@ -37,7 +38,7 @@ export class UserService {
 	}
 
 	getStatus(): Observable<User | boolean> {
-		if (this.currentUserObs === undefined) {
+		if (!this.currentUserObs) {
 			this.init();
 		}
 		return this.currentUserObs;
