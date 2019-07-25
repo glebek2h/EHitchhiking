@@ -6,26 +6,27 @@
 
 		<fieldset class="user-info">
 			<form class="form-img">
-				<form (submit)="onSubmit($event)">
-					<div class="form-row">
+				<form novalidate [formGroup]="registrationForm" (ngSubmit)="onSubmit($event)">
+					<mat-form-field class="form-row">
 						<i class="material-icons">
 							perm_identity
 						</i>
 						<input
-							type="login"
+							matInput
+							formControlName="login"
 							class="input"
-							[(ngModel)]="login"
 							name="login"
-							required
 							placeholder="Login"
 						/>
-					</div>
-					<div class="form-row">
+						<mat-error *ngIf="hasError('login', 'pattern')"></mat-error>
+					</mat-form-field>
+					<mat-form-field class="form-row">
 						<i class="material-icons">
 							lock
 						</i>
-						<input type="password" class="input" [(ngModel)]="password" name="password" />
-					</div>
+						<input matInput formControlName="password" class="input" name="password" />
+						<mat-error *ngIf="hasError('password', 'pattern')"></mat-error>
+					</mat-form-field>
 					<div class="center">
 						<button type="submit" class="btn" mat-raised-button color="primary">
 							Login
