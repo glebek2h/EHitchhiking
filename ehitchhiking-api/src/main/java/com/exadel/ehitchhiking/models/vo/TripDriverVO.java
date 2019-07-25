@@ -1,5 +1,7 @@
 package com.exadel.ehitchhiking.models.vo;
 
+import com.exadel.ehitchhiking.models.Car;
+import com.exadel.ehitchhiking.models.Driver;
 import com.exadel.ehitchhiking.models.TripDriver;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,6 +12,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 public class TripDriverVO {
+
 
     private Integer id;
 
@@ -22,6 +25,8 @@ public class TripDriverVO {
     private Instant endTime;
 
     private CarVO car;
+
+    private DriverVO driver;
 
     private boolean isActive;
 
@@ -39,6 +44,7 @@ public class TripDriverVO {
                 tripDriver.getStartTime().toInstant(),
                 tripDriver.getEndTime().toInstant(),
                 CarVO.fromEntity(tripDriver.getCar()),
+                DriverVO.fromEntity(tripDriver.getCar().getDriver()),
                 tripDriver.isActive(),
                 tripDriver.isFinished(),
                 tripDriver.isSaved(),

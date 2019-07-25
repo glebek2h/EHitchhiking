@@ -23,13 +23,13 @@ public class EmployeeDAO extends AbstractDAO<Employee> implements IEmployeeDAO {
     }
 
     @Override
-    public Employee getByName(String name){
-        return (Employee) getCurrentSession().createQuery("from Employee where username = '" + name + "'").uniqueResult();
+    public Employee getByEmail(String email){
+        return (Employee) getCurrentSession().createQuery("from Employee where email = '" + email + "'").uniqueResult();
     }
 
     @Override
-    public String getPassword(String username) {
-        String password = (String) getCurrentSession().createQuery("select password From com.exadel.ehitchhiking.models.Employee where username = '" + username + "'").uniqueResult();
+    public String getPassword(String email) {
+        String password = (String) getCurrentSession().createQuery("select password From com.exadel.ehitchhiking.models.Employee where email = '" + email + "'").uniqueResult();
         return password;
     }
 

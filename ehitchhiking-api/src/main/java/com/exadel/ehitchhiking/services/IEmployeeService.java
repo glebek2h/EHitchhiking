@@ -20,5 +20,5 @@ public interface IEmployeeService extends UserDetailsService {
     void deleteUser(String username);
     void deleteUserId(int id);
     List<Employee> getAll();
-    UserDetails loadUserByUsername(String username);
+    UserDetails loadUserByUsername(String email);
 }
