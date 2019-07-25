@@ -2,6 +2,7 @@ package com.exadel.ehitchhiking.services.impl;
 
 import com.exadel.ehitchhiking.daos.IEmployeeDAO;
 import com.exadel.ehitchhiking.models.Employee;
+import com.exadel.ehitchhiking.models.vo.EmployeeVO;
 import com.exadel.ehitchhiking.services.IEmployeeService;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(rollbackOn = Exception.class)
@@ -27,13 +29,13 @@ public class EmployeeService implements IEmployeeService {
     }
 
     @Override
-    public Employee findUserId(int userId) {
-        return dao.getEmployee(userId);
+    public EmployeeVO findUserId(int userId) {
+        return EmployeeVO.fromEntity(dao.getEmployee(userId));
     }
 
     @Override
-    public Employee findUserUsername(String username) {
-        return dao.getByEmail(username);
+    public EmployeeVO findUserUsername(String username) {
+        return EmployeeVO.fromEntity(dao.getByEmail(username));
     }
 
     @Override
@@ -88,9 +90,10 @@ public class EmployeeService implements IEmployeeService {
     }
 
     @Override
-    public List<Employee> getAll() {
-        return dao.getAll();
+    public List<EmployeeVO> getAll() {
+        return dao.getAll().stream().map(EmployeeVO::fromEntity).collect(Collectors.toList());
     }
+
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {

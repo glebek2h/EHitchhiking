@@ -1,5 +1,6 @@
 package com.exadel.ehitchhiking.controllers;
 
+import com.exadel.ehitchhiking.responses.Response;
 import com.exadel.ehitchhiking.services.ITripDriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,16 +18,23 @@ public class TripDriverController {
     private ITripDriverService tripDriverService;
 
     @PostMapping("/createTrip")
-    public void createTrip(String startingPoint, String endingPoint,
-                           Timestamp startingTime, Timestamp endingTime,
-                           String idOfCar, String seats) {
+    public Response<String> createTrip(String startingPoint, String endingPoint,
+                                       String startingTime, String endingTime,
+                                       String idOfCar, String seats) {
+        Response<String> response = new Response<>();
         try {
+
             tripDriverService.createTripDriver(startingPoint, endingPoint,
-                    startingTime, endingTime,
+                    Timestamp.valueOf(startingTime), Timestamp.valueOf(endingTime),
                     Integer.parseInt(idOfCar), Integer.parseInt(seats));
         } catch (Exception e) {
-            //TODO: return
+            response.setStatus("500");
+            response.setData("false");
+            return response;
         }
+        response.setStatus("200");
+        response.setData("true");
+        return response;
     }
 
     @PutMapping("/updateStartingPlace")

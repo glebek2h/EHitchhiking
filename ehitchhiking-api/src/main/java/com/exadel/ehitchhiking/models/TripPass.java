@@ -69,7 +69,7 @@ public class TripPass {
 
     @Getter
     @Setter
-    @ManyToOne
+    @ManyToOne (fetch = FetchType.EAGER)
     private TripDriver tripDriver;
 
     public TripPass(String startPoint, String endPoint,

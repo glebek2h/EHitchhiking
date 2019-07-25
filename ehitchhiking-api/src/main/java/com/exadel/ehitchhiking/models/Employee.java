@@ -15,7 +15,7 @@ import java.util.Set;
 @Table(name = "\"EMPLOYEE\"", schema = "public")
 @EqualsAndHashCode
 @NoArgsConstructor
-public class Employee implements UserDetails {
+public class Employee  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -67,39 +67,5 @@ public class Employee implements UserDetails {
         this.phoneNumber = phoneNumber;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        grantedAuthorities.add(new SimpleGrantedAuthority("Admin"));
-        grantedAuthorities.add(new SimpleGrantedAuthority("Employee"));
-
-        return null;
-    }
-
-    @Override
-    public String getUsername() {
-        return email;
-    }
-
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
 }
 
