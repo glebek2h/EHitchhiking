@@ -1,5 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {DialogListService} from './dialog-list.service';
+import {NoDataSize} from '@shared/enums/no-data-sizes';
 
 @Component({
 	selector: 'app-dialog',
@@ -9,6 +10,11 @@ import {DialogListService} from './dialog-list.service';
 export class DialogListComponent implements OnInit {
 	dialogList = DialogListService.dlgList;
 	@Output() chatMessages = new EventEmitter<ChatMessage[]>();
+	noDataSize: NoDataSize = NoDataSize.Small;
+	noDataMessage = 'No messages!';
+	noDataIconName = 'accessibility';
+	loading = false;
+	defaultImg = 'http://ust-barguzin.ucoz.ru/02-2016/polzovatel-izobrazhenie-s-chernym-fonom_318-34564..jpg';
 
 	constructor() {}
 
@@ -16,5 +22,13 @@ export class DialogListComponent implements OnInit {
 
 	showChat(index) {
 		this.chatMessages.emit(this.dialogList[index].msgList);
+	}
+
+	getImage(msgList): string {
+		return msgList.length ? msgList[msgList.length - 1].avaSrc : this.defaultImg;
+	}
+
+	getText(msgList): string {
+		return msgList.length ? msgList[msgList.length - 1].text : '';
 	}
 }
