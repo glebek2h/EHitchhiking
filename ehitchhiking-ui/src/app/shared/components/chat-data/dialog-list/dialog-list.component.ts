@@ -11,10 +11,10 @@ export class DialogListComponent implements OnInit {
 	dialogList = DialogListService.dlgList;
 	@Output() chatMessages = new EventEmitter<ChatMessage[]>();
 	noDataSize: NoDataSize = NoDataSize.Small;
-	noDataMessage = 'No messages!';
+	noDataMessage = 'No dialogs!';
 	noDataIconName = 'accessibility';
 	loading = false;
-	defaultImg = 'http://ust-barguzin.ucoz.ru/02-2016/polzovatel-izobrazhenie-s-chernym-fonom_318-34564..jpg';
+	defaultImg = 'assets/images/profile.jpg';
 
 	constructor() {}
 
