@@ -1,6 +1,10 @@
 package com.exadel.ehitchhiking.services;
 
+import com.exadel.ehitchhiking.models.TripDriver;
+import com.exadel.ehitchhiking.models.vo.TripDriverVO;
+
 import java.sql.Timestamp;
+import java.util.List;
 
 public interface ITripDriverService {
     void createTripDriver(String startingPoint, String endingPoint,
@@ -25,4 +29,6 @@ public interface ITripDriverService {
     void updateCar(int id, int idNewCar);
 
     void deleteDriverTrip(int id);
+
+    List<TripDriverVO> getAll();
 }

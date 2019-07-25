@@ -15,6 +15,8 @@ import java.util.List;
 @RequestMapping("/blackList")
 public class BlackListsController {
 
+    //TODO: rewrite all to get the userId and the role "DRIVER" -> received it we can delete or add to the driver
+
     @Autowired
     private IDriverService driverService;
 
