@@ -54,6 +54,16 @@ export class MainScreenComponent implements OnInit {
 	saveRoute() {
 		this.isSavedRoute = !this.isSavedRoute;
 		this.isShownSaveRouteButton = false;
+    this.apiService
+      .doPost(URL_REGISTRY['map.postRoute'], false, {
+        from: this.tripFormData.from,
+        to: this.tripFormData.to,
+        date: this.tripFormData.departureDate,
+        seats: this.tripFormData.placesSelect,
+        idTrip: 1234,
+        idUser: 1234,
+      })
+      .subscribe((data) => console.log(data));
 	}
 
 	viewRoutes() {
