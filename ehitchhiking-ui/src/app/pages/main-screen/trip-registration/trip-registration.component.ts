@@ -27,7 +27,7 @@ export class TripRegistrationComponent implements OnInit {
 			departureDate: new FormControl('', [Validators.required]),
 			placesSelect: new FormControl('', [Validators.required]),
 			departureTime: new FormControl('', [Validators.required]),
-      carsSelect: new FormControl(''),
+      car: new FormControl(''),
 		});
 	}
 
@@ -43,20 +43,10 @@ export class TripRegistrationComponent implements OnInit {
 	}
 
   isDriver() {
-    if (this.userState === UserState.driver) {
-      return true;
-    }
-    if (this.userState === UserState.passenger) {
-      return false;
-    }
+    return this.userState === UserState.driver;
   }
 
   isPassenger() {
-    if (this.userState === UserState.driver) {
-      return false;
-    }
-    if (this.userState === UserState.passenger) {
-      return true;
-    }
+    return this.userState === UserState.passenger;
   }
 }

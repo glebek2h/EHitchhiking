@@ -10,5 +10,5 @@ export interface Route {
   routeColor: string;
   passengers: any[];
   driverRating: number;
-  carsSelect: Car
+  car: Car
 }
