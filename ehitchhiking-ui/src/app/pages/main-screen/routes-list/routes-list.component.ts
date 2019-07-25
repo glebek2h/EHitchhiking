@@ -39,13 +39,13 @@ export class RoutesListComponent implements OnInit {
   submitRoute(index: number) {
     const route = this.activeRoutesCollection[index];
     this.apiService
-      .doPost(URL_REGISTRY['map.postRoute'], false, {
-        from: route.from,
-        to: route.to,
-        date: route.departureDate,
+      .doPost(URL_REGISTRY['map.postPassengerRoute'], false, {
+        passId: 1234,
+        startingPoint: route.from,
+        endingPoint: route.to,
+        startingTime: route.departureDate,
+        endingTime: route.departureDate,
         seats: route.placesSelect,
-        idTrip: 1234,
-        idUser: 1234,
       })
       .subscribe((data) => console.log(data));
   }

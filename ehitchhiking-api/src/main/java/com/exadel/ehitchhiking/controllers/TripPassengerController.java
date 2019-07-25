@@ -23,11 +23,11 @@ public class TripPassengerController {
     @PostMapping("/createTrip")
     public void createTrip(String passId, String startingPoint, String endingPoint,
                            Timestamp startingTime, Timestamp endingTime,
-                           String seats, String tripDriverId) {
+                           String seats/*, String tripDriverId*/) {
         try {
             tripPassengerService.createTripPassenger(Integer.parseInt(passId), startingPoint, endingPoint,
                     startingTime, endingTime,
-                    Integer.parseInt(seats), Integer.parseInt(tripDriverId));
+                    Integer.parseInt(seats)/*, Integer.parseInt(tripDriverId)*/);
         } catch (Exception e) {
             //TODO: return
         }

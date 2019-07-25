@@ -6,7 +6,7 @@ public interface ITripPassengerService {
     void createTripPassenger(int pass, String startingPoint,
                              String endingPoint,
                              Timestamp startingTime, Timestamp endingTime,
-                             int seats, int idTripDriver);
+                             int seats/*, int idTripDriver*/);
 
     void updateTimeStart(int id, Timestamp newStart);
 

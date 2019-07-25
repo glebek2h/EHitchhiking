@@ -18,11 +18,11 @@ export class TripRegistrationComponent implements OnInit {
 
 	ngOnInit() {
 		this.nameFormGroup = new FormGroup({
-			from: new FormControl('', [Validators.required]),
-			to: new FormControl('', [Validators.required]),
-			departureDate: new FormControl('', [Validators.required]),
-			placesSelect: new FormControl('', [Validators.required]),
-			departureTime: new FormControl('', [Validators.required]),
+      from: new FormControl('', /*[Validators.required]*/),
+      to: new FormControl('', /*[Validators.required]*/),
+      departureDate: new FormControl('', /*[Validators.required]*/),
+      placesSelect: new FormControl('', /*[Validators.required]*/),
+      departureTime: new FormControl('', /*[Validators.required]*/),
 		});
 	}
 

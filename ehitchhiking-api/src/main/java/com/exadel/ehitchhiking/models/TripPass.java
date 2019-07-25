@@ -75,7 +75,7 @@ public class TripPass {
     public TripPass(String startPoint, String endPoint,
                     Timestamp startTime, Timestamp endTime, boolean isActive,
                     boolean isFinished, boolean isSaved, int seats,
-                    Passenger passenger, TripDriver tripDriver){
+                    Passenger passenger/*, TripDriver tripDriver`*/) {
         this.startPoint = startPoint;
         this.endPoint = endPoint;
         this.startTime = startTime;
@@ -85,6 +85,6 @@ public class TripPass {
         this.isSaved = isSaved;
         this.bookedSeats = seats;
         this.passenger = passenger;
-        this.tripDriver = tripDriver;
+        //this.tripDriver = tripDriver;
     }
 }

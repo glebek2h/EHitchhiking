@@ -55,13 +55,13 @@ export class MainScreenComponent implements OnInit {
 		this.isSavedRoute = !this.isSavedRoute;
 		this.isShownSaveRouteButton = false;
     this.apiService
-      .doPost(URL_REGISTRY['map.postRoute'], false, {
-        from: this.tripFormData.from,
-        to: this.tripFormData.to,
-        date: this.tripFormData.departureDate,
+      .doPost(URL_REGISTRY['map.postDriverRoute'], false, {
+        startingPoint: this.tripFormData.from,
+        endingPoint: this.tripFormData.to,
+        startingTime: this.tripFormData.departureDate,
+        endingTime: this.tripFormData.departureDate,
+        idOfCar: 1234,
         seats: this.tripFormData.placesSelect,
-        idTrip: 1234,
-        idUser: 1234,
       })
       .subscribe((data) => console.log(data));
 	}
