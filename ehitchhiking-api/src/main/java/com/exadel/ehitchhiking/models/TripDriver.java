@@ -44,7 +44,7 @@ public class TripDriver {
 
     @Getter
     @Setter
-    @ManyToOne
+    @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn(name = "\"CAR_ID\"")
     private Car car;
 
@@ -65,7 +65,7 @@ public class TripDriver {
 
     @Getter
     @Setter
-    @Column(name = "\"AVAILABLE_SEATS\"")
+    @Column(name = "\"AVALIABLE_SEATS\"")
     private int availableSeats;
 
     public TripDriver(String startPoint, String endPoint,

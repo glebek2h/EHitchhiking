@@ -6,7 +6,7 @@ import {RequestMethods} from '@shared/enums/request-enum';
 
 @Injectable()
 export class ApiService {
-	static readonly apiUrl: string = '';
+	static readonly apiUrl: string = 'http://localhost:8080/';
 
 	constructor(private http: HttpClient) {}
 
