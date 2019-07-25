@@ -21,6 +21,10 @@ export class DialogListService {
 		},
 		{
 			title: 'Secret chat 2',
+			msgList: [],
+		},
+		{
+			title: 'Secret chat 3',
 			msgList: [
 				{
 					text: 'Hello world 2shgdfhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh',
@@ -38,6 +42,10 @@ export class DialogListService {
 					isMy: false,
 				},
 			],
+		},
+		{
+			title: 'Secret chat 4',
+			msgList: [],
 		},
 	];
 }
