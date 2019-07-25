@@ -1,10 +1,7 @@
-import {ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {LoaderSize} from '../../enums/pre-loader-sizes';
 import {MatDialogRef} from '@angular/material';
 import {TripsModalService} from './trips-modal.service';
-import { Trip } from "./trips";
-import { compareNumbers } from "@angular/compiler-cli/src/diagnostics/typescript_version";
-import { UserState } from "../../enums/UserState";
 import { SortState } from "../../enums/SortState";
 
 @Component({
@@ -98,5 +95,4 @@ export class TripsModalComponent implements OnInit {
 	    this.order = 0;
     }
   }
-
 }
