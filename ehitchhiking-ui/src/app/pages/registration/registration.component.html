@@ -18,14 +18,14 @@
 							name="login"
 							placeholder="Login"
 						/>
-						<mat-error *ngIf="hasError('login', 'pattern')"></mat-error>
+						<mat-error *ngIf="hasError('login', 'pattern')">Login must has 5 and more symbols: 0-9a-zA-Z and starts with the a-zA-Z</mat-error>
 					</mat-form-field>
 					<mat-form-field class="form-row">
 						<i class="material-icons">
 							lock
 						</i>
 						<input matInput formControlName="password" class="input" name="password" />
-						<mat-error *ngIf="hasError('password', 'pattern')"></mat-error>
+						<mat-error *ngIf="hasError('password', 'pattern')">Password must has 5 and more symbols: 0-9a-zA-Z or . and starts with the a-zA-Z</mat-error>
 					</mat-form-field>
 					<div class="center">
 						<button type="submit" class="btn" mat-raised-button color="primary">
