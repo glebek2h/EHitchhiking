@@ -35,7 +35,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
 	@Input() isSavedRoute: boolean;
 	@Input() triggers: any;
   @Input() redraw: any;
-  @Input() indexRouteToDisplay: any; // rename
+  @Input() indexRouteToDisplay: any;
 
 	ngOnInit() {
 		this.ymapsPromise = ymaps.load(YandexMapComponent.API_URL);
