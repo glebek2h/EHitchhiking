@@ -24,7 +24,7 @@ public class PassengerDAO extends AbstractDAO<Passenger> implements IPassengerDA
 
     @Override
     public Passenger getByName(String username) {
-        Passenger passenger = (Passenger)  getCurrentSession().createQuery("from Passenger where employee = (from Employee where username = '" + username + "')").uniqueResult();
+        Passenger passenger = (Passenger)  getCurrentSession().createQuery("from Passenger where employee = (from Employee where email = '" + username + "')").uniqueResult();
         return passenger;
     }
 

@@ -29,10 +29,13 @@ public class Employee implements UserDetails {
     @Column(name = "\"IS_ADMIN\"")
     private boolean isAdmin;
 
+
+    //Email of the user is their username
     @Getter
     @Setter
-    @Column(name = "\"USER_NAME\"")
-    private String username;
+    @Column(name = "\"EMAIL\"")
+    private String email;
+
 
     @Getter
     @Setter
@@ -44,10 +47,6 @@ public class Employee implements UserDetails {
     @Column(name = "\"LAST_NAME\"")
     private String lastName;
 
-    @Getter
-    @Setter
-    @Column(name = "\"EMAIL\"")
-    private String email;
 
     @Getter
     @Setter
@@ -61,7 +60,6 @@ public class Employee implements UserDetails {
 
     public Employee(boolean isAdmin, String username, String firstName, String lastName, String email, String password, String phoneNumber) {
         this.isAdmin = isAdmin;
-        this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -76,6 +74,11 @@ public class Employee implements UserDetails {
         grantedAuthorities.add(new SimpleGrantedAuthority("Employee"));
 
         return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
     }
 
 

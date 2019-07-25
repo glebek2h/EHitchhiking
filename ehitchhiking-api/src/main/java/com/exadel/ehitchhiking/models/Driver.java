@@ -23,7 +23,7 @@ public class Driver {
 
     @Getter
     @Setter
-    @OneToOne
+    @OneToOne (fetch = FetchType.EAGER)
     @JoinColumn(name = "\"EMPLOYEE_ID\"")
     private Employee employee;
 
