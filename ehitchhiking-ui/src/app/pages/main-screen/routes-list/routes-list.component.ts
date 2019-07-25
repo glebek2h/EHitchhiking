@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {UtilsService} from '../../../shared/services/utils.service';
 import {DELETE_ROUTE_MARKER} from '../../../shared/constants/modal-constants';
-
 @Component({
 	selector: 'app-routes-list',
 	templateUrl: './routes-list.component.html',
@@ -11,7 +10,9 @@ export class RoutesListComponent implements OnInit {
 	@Input() activeRoutesCollection: Partial<Route>[];
 	@Output() routeToDisplay = new EventEmitter<any>(); // TODO
   @Output() formData = new EventEmitter<any>();
+
 	isChecked: boolean;
+  ROUTES_ON_MAP_COUNT = 3;
 
 	constructor() {}
 
@@ -25,7 +26,7 @@ export class RoutesListComponent implements OnInit {
 
   displayRoute(index: number) {
     this.isChecked = !this.isChecked;
-    if (this.isChecked && index >= 3 || !this.isChecked && index < 3) {
+    if (this.isChecked && index >= this.ROUTES_ON_MAP_COUNT || !this.isChecked && index < this.ROUTES_ON_MAP_COUNT) {
       this.routeToDisplay.emit(index);
     }
     else {
