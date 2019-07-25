@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {BLACKLIST_DRIVER, BLACKLIST_PASSENGER} from './blacklist-users';
+import {BLACKLIST_DRIVERS, BLACKLIST_PASSENGERS} from './blacklist-users';
 import {MatDialogRef} from '@angular/material';
 import {LoaderSize} from '@shared/enums/pre-loader-sizes';
 import {NoDataSize} from '@shared/enums/no-data-sizes';
@@ -20,8 +20,8 @@ export class BlacklistComponent implements OnInit {
 	constructor(public dialogRef: MatDialogRef<BlacklistComponent>) {}
 
 	ngOnInit() {
-		this.blacklistDriverArray = BLACKLIST_DRIVER;
-		this.blacklistPassengerArray = BLACKLIST_PASSENGER;
+		this.blacklistDriverArray = BLACKLIST_DRIVERS;
+		this.blacklistPassengerArray = BLACKLIST_PASSENGERS;
 		setTimeout(() => {
 			this.loading = false;
 		}, 1000);
