@@ -16,15 +16,19 @@ export class BlacklistComponent implements OnInit {
 	noDataSize: NoDataSize = NoDataSize.Small;
 	noDataMessage = 'No users!';
 	noDataIconName = 'accessibility';
-	loading = true;
+	loadingDrives = true;
+	loadingPassengers = true;
 	constructor(public dialogRef: MatDialogRef<BlacklistComponent>) {}
 
 	ngOnInit() {
 		this.blacklistDriverArray = BLACKLIST_DRIVERS;
 		this.blacklistPassengerArray = BLACKLIST_PASSENGERS;
 		setTimeout(() => {
-			this.loading = false;
+			this.loadingDrives = false;
 		}, 1000);
+		setTimeout(() => {
+			this.loadingPassengers = false;
+		}, 2000);
 	}
 
 	close(): void {
