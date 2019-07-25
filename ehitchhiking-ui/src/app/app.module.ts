@@ -9,6 +9,7 @@ import {MenuModule} from '@shared/components/menu/menu.module';
 import {RegistrationModule} from '@pages/registration/registration.module';
 import {HttpClientModule} from '@angular/common/http';
 import {MatNativeDateModule} from '@angular/material';
+import {UserService} from '@shared/services/user.service';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -22,7 +23,7 @@ import {MatNativeDateModule} from '@angular/material';
 		HttpClientModule,
 		MatNativeDateModule,
 	],
-	providers: [ApiService],
+	providers: [ApiService, UserService],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}

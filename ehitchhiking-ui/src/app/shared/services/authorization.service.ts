@@ -17,13 +17,20 @@ export class AuthorizationService {
 					return error;
 				})
 			)
-			.subscribe(() => {}, () => {});
+			.subscribe(
+				(data) => {
+					console.log(data);
+				},
+				(error) => {
+					console.log(error);
+				}
+			);
 	}
 
-	 private getAuthorizationObject(customLogin: string, customPassword: string) {
+	private getAuthorizationObject(customLogin: string, customPassword: string) {
 		return {
 			login: customLogin,
 			password: btoa(customPassword),
 		};
-	 }
+	}
 }
