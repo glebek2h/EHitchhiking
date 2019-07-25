@@ -16,7 +16,7 @@ export class UserService {
 
 	private initUser(): void {
 		this.apiService
-			.doGet(URL_REGISTRY.authorization, false)
+			.doGet(URL_REGISTRY.initialization, false)
 			.pipe(
 				catchError((error) => {
 					this.notificationService.showErrorNotification('Initialization error!');

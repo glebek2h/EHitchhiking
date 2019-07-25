@@ -19,7 +19,7 @@ import {NotificationService} from '@shared/services/notification.service';
 		MatIconModule,
 	],
 	entryComponents: [RegistrationComponent],
-	exports: [RegistrationComponent],
+	exports: [RegistrationComponent, FormsModule],
 	providers: [AuthorizationService, NotificationService],
 })
 export class RegistrationModule {}
