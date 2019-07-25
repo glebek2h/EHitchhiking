@@ -10,6 +10,7 @@ import {
 	MatInputModule,
 } from '@angular/material';
 import {ChatComponent} from '@shared/components/chat-data/chat/chat.component';
+import {NoDataModule} from '@shared/components/no-data/no-data.module';
 
 @NgModule({
 	declarations: [DialogListComponent, ChatComponent],
@@ -21,6 +22,7 @@ import {ChatComponent} from '@shared/components/chat-data/chat/chat.component';
 		MatInputModule,
 		MatButtonModule,
 		MatDialogModule,
+    NoDataModule,
 	],
 	exports: [DialogListComponent, ChatComponent],
 	entryComponents: [ChatComponent, DialogListComponent],

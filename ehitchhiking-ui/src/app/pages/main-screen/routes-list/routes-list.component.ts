@@ -14,6 +14,7 @@ export class RoutesListComponent implements OnInit {
 	@Output() routeToDisplay = new EventEmitter<any>(); // TODO
   @Output() formData = new EventEmitter<any>();
 	isChecked: boolean;
+  ROUTES_ON_MAP_COUNT = 3;
 
 	constructor() {}
 
@@ -32,10 +33,18 @@ export class RoutesListComponent implements OnInit {
   }
 
   submitRoute(index: number) {
-    //console.log(this.activeRoutesCollection[index]);
+    // console.log(this.activeRoutesCollection[index]);
   }
 
   getData(data: any) {
 	  this.formData.emit(data);
+  }
+
+  displayGetInLineButton(index: number, applybutton) {
+    if (this.activeRoutesCollection[index].placesSelect === 0) {
+      applybutton.disabled = true;
+      return true;
+    }
+    return false;
   }
 }

@@ -4,6 +4,7 @@ import com.exadel.ehitchhiking.daos.ICarDAO;
 import com.exadel.ehitchhiking.daos.ITripDriverDAO;
 import com.exadel.ehitchhiking.daos.ITripPassDAO;
 import com.exadel.ehitchhiking.models.TripDriver;
+import com.exadel.ehitchhiking.models.vo.TripDriverVO;
 import com.exadel.ehitchhiking.services.ITripDriverService;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.sql.Timestamp;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(rollbackOn = Exception.class)
@@ -91,6 +94,20 @@ public class TripDriverService implements ITripDriverService {
         tripDriver.setAvailableSeats(newSeats);
         dao.update(tripDriver);
     }
+/*
+    @Override
+    public void addPassenger(int idTripPass, int id){
+        TripDriver tripDriver = dao.getTripDriver(id);
+        tripDriver.getTripPassSet().add(tripPassDAO.getTripPass(idTripPass));
+        dao.update(tripDriver);
+    }
+
+    @Override
+    public void deletePassenger(int idTripPass, int id){
+        TripDriver tripDriver = dao.getTripDriver(id);
+        tripDriver.getTripPassSet().remove(tripPassDAO.getTripPass(idTripPass));
+        dao.update(tripDriver);*/
+    //}
 
     @Override
     public void updateCar(int id, int idNewCar){
@@ -102,5 +119,11 @@ public class TripDriverService implements ITripDriverService {
     @Override
     public void deleteDriverTrip(int id){
         dao.delete(dao.getTripDriver(id));
+    }
+
+
+    @Override
+    public List<TripDriverVO> getAll() {
+        return dao.getAll().stream().map(TripDriverVO::fromEntity).collect(Collectors.toList());
     }
 }
