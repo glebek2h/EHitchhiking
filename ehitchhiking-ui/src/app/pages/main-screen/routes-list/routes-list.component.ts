@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {UtilsService} from '../../../shared/services/utils.service';
 import {DELETE_ROUTE_MARKER} from '../../../shared/constants/modal-constants';
+import {Route} from "@pages/main-screen/Route";
 
 @Component({
 	selector: 'app-routes-list',

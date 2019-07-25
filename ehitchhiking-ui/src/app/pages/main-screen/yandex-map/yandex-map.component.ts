@@ -4,6 +4,7 @@ import {UserState} from '../../../shared/enums/UserState';
 import {YandexMapService} from './yandex-map.service';
 import MultiRouteModel = ymaps.multiRouter.MultiRouteModel;
 import {DELETE_ROUTE_MARKER} from '../../../shared/constants/modal-constants';
+import {Route} from '@pages/main-screen/Route';
 
 @Component({
 	// tslint:disable-next-line:component-selector
@@ -25,7 +26,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
 	colors: string[] = YandexMapService.COLORS;
 	myMark;
 
-  marker: boolean; // TODO
+  marker: boolean;
 
   @Output() passengerPlaceMark = new EventEmitter<boolean>();
 	@Input() routes: Partial<Route>[]; // 'интерфейсы' маршрутов, которые ещё нужно построить
@@ -41,12 +42,9 @@ export class YandexMapComponent implements OnInit, OnChanges {
 		this.ymapsPromise = ymaps.load(YandexMapComponent.API_URL);
 		this.createMap();
 		this.userState = UserState.passenger;
-    for (let i = 0; i < this.routes.length; i++) {
-      this.routes[i].displayed = false;
-      if (i < YandexMapComponent.ROUTES_ON_MAP_COUNT) {
-        this.routes[i].displayed = true;
-      }
-    }
+    this.routes.forEach((route, i) => {
+      route.displayed = i < YandexMapComponent.ROUTES_ON_MAP_COUNT;
+    });
     this.marker = true;
 	}
 
@@ -77,7 +75,6 @@ export class YandexMapComponent implements OnInit, OnChanges {
 			myGeoObject.events.add('dragend', (event) => {
 				this.currentRoute.passengers[0] = {passanger: 'gleb', coordinates: this.myMark.geometry._coordinates}; // TODO:0 is bad
         this.passengerPlaceMark.emit(false);
-        // this.myMap.geoObjects.remove(myGeoObject);
 			});
 		});
 	}
@@ -92,16 +89,18 @@ export class YandexMapComponent implements OnInit, OnChanges {
       }
       return;
     }
-    if ((changes.redraw && changes.redraw.currentValue) || this.redraw === true) {
+    if (changes.triggers && this.marker) {
       this.myMap.geoObjects.removeAll();
-      for (let i = 0; i < this.routes.length; i++) {
-        if (i < 3) {
+    }
+    if (changes.redraw && changes.redraw.currentValue) {
+      this.routes.forEach((route, i) => {
+        if (i < YandexMapComponent.ROUTES_ON_MAP_COUNT) {
           this.addMultiRoute(i, false);
-          this.routes[i].displayed = true;
+          route.displayed = true;
         } else {
-          this.routes[i].displayed = false;
+          route.displayed = false;
         }
-      }
+      });
       this.placeMarkForPassenger();
     }
 
@@ -109,7 +108,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
 			if (this.userState === UserState.driver) {
 				this.myMap.geoObjects.remove(this.currentMultiRoute);
         this.routes.push(this.tripData);
-        this.addMultiRoute(this.routes.length - 1, true); // TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+        this.addMultiRoute(this.routes.length - 1, true);
 				return;
 			}
 			if (this.userState === UserState.passenger) {

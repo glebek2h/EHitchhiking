@@ -82,6 +82,7 @@ export class MainScreenComponent implements OnInit {
 		this.editStatePlusButton = false;
 		this.isShownViewRoutesButton = false;
 		this.isHiddenTripRegistration = true;
+    this.isShownSaveRouteButton = false;
 		this.isSavedRoute = false;
 		this.isShownRoutesList = false;
 		this.mapTriggers = {reset: true};
