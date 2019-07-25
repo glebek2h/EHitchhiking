@@ -16,8 +16,8 @@ export class RegistrationComponent implements OnInit {
 
 	ngOnInit() {
 		this.registrationForm = this.formBuilder.group({
-			login: ['', [Validators.required, Validators.pattern('^[a-zA-Z][0-9a-zA-Z]{5,}$')]],
-			password: ['', [Validators.required, Validators.pattern('^[a-zA-Z][0-9a-zA-Z.]{5,}$')]],
+			login: ['', [Validators.required]],
+			password: ['', [Validators.required]],
 		});
 	}
 
@@ -29,7 +29,10 @@ export class RegistrationComponent implements OnInit {
 		}
 	}
 
-	hasError(controlName: string, errorName: string): boolean {
-		return this.registrationForm.controls[controlName].hasError(errorName);
+	hasError(controlName: string): boolean {
+		return (
+			this.registrationForm.controls[controlName] &&
+			this.registrationForm.controls[controlName].hasError('required')
+		);
 	}
 }
