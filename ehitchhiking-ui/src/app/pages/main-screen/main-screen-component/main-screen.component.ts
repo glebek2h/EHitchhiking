@@ -3,7 +3,7 @@ import {UserState} from '../../../shared/enums/UserState';
 import {YandexMapService} from '../yandex-map/yandex-map.service';
 import {User} from "@shared/models/user";
 import {Car} from "@shared/models/car";
-
+import {Route} from "@pages/main-screen/Route";
 @Component({
 	selector: 'app-main-screen',
 	templateUrl: './main-screen.component.html',

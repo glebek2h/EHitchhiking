@@ -4,6 +4,7 @@ import {UserState} from '../../../shared/enums/UserState';
 import {YandexMapService} from './yandex-map.service';
 import MultiRouteModel = ymaps.multiRouter.MultiRouteModel;
 import {DELETE_ROUTE_MARKER} from '../../../shared/constants/modal-constants';
+import {Route} from "@pages/main-screen/Route";
 
 @Component({
 	// tslint:disable-next-line:component-selector
