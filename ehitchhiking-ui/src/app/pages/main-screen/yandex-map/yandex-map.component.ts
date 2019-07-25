@@ -33,7 +33,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
 	@Input() tripData: Route;
 	@Input() isSavedRoute: boolean;
 	@Input() triggers: any;
-  @Input() redraw: any;
+	@Input() redraw: any;
 	@Input() indexRouteToDisplay: number;
 
 	ngOnInit() {
@@ -95,18 +95,18 @@ export class YandexMapComponent implements OnInit, OnChanges {
 			}
 			if (this.userState === UserState.passenger) {
 				for (let i = 0; i < YandexMapComponent.ROUTES_ON_MAP_COUNT; i++) {
-				  console.log(this.routes[i]);
+					console.log(this.routes[i]);
 					this.addMultiRoute(this.routes[i], false);
 				}
 			}
 		}
-    if (changes.redraw && changes.redraw.currentValue || this.redraw === true) {
-      for (let i = 0; i < YandexMapComponent.ROUTES_ON_MAP_COUNT; i++) {
-        if(this.routes[i]) {
-        this.addMultiRoute(this.routes[i], false);
-        }
-      }
-    }
+		if ((changes.redraw && changes.redraw.currentValue) || this.redraw === true) {
+			for (let i = 0; i < YandexMapComponent.ROUTES_ON_MAP_COUNT; i++) {
+				if (this.routes[i]) {
+					this.addMultiRoute(this.routes[i], false);
+				}
+			}
+		}
 		if (changes.userState && changes.userState.currentValue) {
 			this.setUserIconToMapAccordingUserState();
 		}

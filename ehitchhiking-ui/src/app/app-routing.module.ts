@@ -5,7 +5,7 @@ import {RegistrationComponent} from '@pages/registration/registration.component'
 import {AuthorizationGuard} from '@shared/guards/authorization.guard';
 
 const routes: Routes = [
-	{path: '', redirectTo: '/login', pathMatch: 'full', canActivate: [AuthorizationGuard]},
+	{path: '', redirectTo: '/main', pathMatch: 'full'},
 	{path: 'main', component: MainScreenComponent, canActivate: [AuthorizationGuard]},
 	{path: 'login', component: RegistrationComponent, canActivate: [AuthorizationGuard]},
 ];

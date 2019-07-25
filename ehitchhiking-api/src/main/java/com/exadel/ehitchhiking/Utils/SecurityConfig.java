@@ -70,12 +70,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .logout()
-<<<<<<< HEAD
                 .permitAll();
 */
-=======
-                .permitAll();*/
->>>>>>> origin/ach/feature/release-2207-2807/login
 
     }
 

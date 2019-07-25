@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpRequest, HttpEvent, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpEvent, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {CachingHttpParams} from '@shared/models/caching.http.params';
 import {RequestMethods} from '@shared/enums/request-enum';
@@ -28,23 +28,25 @@ export class ApiService {
 		urlPath: string,
 		data: any,
 		isCacheable: boolean = false
-	): Observable<HttpEvent<any>> {
+	): Observable<any> {
 		const body = JSON.stringify(data);
 		let url = ApiService.apiUrl + urlPath;
 		if (type === RequestMethods.GET || type === RequestMethods.DEL) {
 			url = this.insertParameters(url, data);
-			return this.http.request(new HttpRequest(type, url, this.getRequestOptions(isCacheable) as any));
+			return this.http.request(type, url, this.getRequestOptions(isCacheable) as any);
 		}
-		return this.http.request(new HttpRequest(type, url, body, this.getRequestOptions(isCacheable) as any));
+		return this.http.request(type, url, this.getRequestOptions(isCacheable, body) as any);
 	}
 
-	private getRequestOptions(cacheFlag: boolean = false) {
+	private getRequestOptions(cacheFlag: boolean = false, body?: any) {
 		return {
+			body,
 			headers: new HttpHeaders(),
 			reportProgress: false,
 			params: new CachingHttpParams(cacheFlag),
 			responseType: 'json',
 			withCredentials: false,
+			observe: 'response',
 		};
 	}
 

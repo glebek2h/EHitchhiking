@@ -1,3 +1,4 @@
+import {UserService} from '@shared/services/user.service';
 import {Component, OnInit} from '@angular/core';
 
 @Component({
@@ -6,5 +7,10 @@ import {Component, OnInit} from '@angular/core';
 	styleUrls: ['./app.component.sass'],
 })
 export class AppComponent implements OnInit {
-	ngOnInit() {}
+	ifInit = false;
+	constructor(private userService: UserService) {}
+
+	ngOnInit() {
+		this.userService.getStatus().subscribe(() => (this.ifInit = true));
+	}
 }

@@ -23,15 +23,18 @@ public class SessionController {
 
     @GetMapping
     private Response<Employee> getSession(){
+        System.out.println("here");
         Response<Employee> response = new Response<>();
 
         if (httpSession.isNew()){
+            System.out.println("new session");
             response.setData(null);
             response.setStatus("success");
             response.setMsg("new session");
             return response;
         }
 
+        System.out.println("old session");
         response.setStatus("success");
         response.setMsg("old session");
         response.setData(employeeService.findUserId((Integer)httpSession.getAttribute("id")));

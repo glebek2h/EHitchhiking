@@ -1,14 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {UserState} from '@shared/enums/UserState';
 import {YandexMapService} from '../yandex-map/yandex-map.service';
-import {ApiService} from "@shared/services/api.service";
-import {URL_REGISTRY} from "@shared/constants/urlRegistry";
+import {ApiService} from '@shared/services/api.service';
+import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 
 @Component({
 	selector: 'app-main-screen',
 	templateUrl: './main-screen.component.html',
 	styleUrls: ['./main-screen.component.sass'],
-  providers: [ApiService]
+	providers: [ApiService],
 })
 export class MainScreenComponent implements OnInit {
 	constructor(private apiService: ApiService) {}
@@ -32,11 +32,11 @@ export class MainScreenComponent implements OnInit {
 	ngOnInit() {
 		this.isHiddenTripRegistration = true;
 		this.userState = UserState.passenger;
-		this.apiService.doGet(URL_REGISTRY['map.getRoutes']).subscribe(data => console.log(data));
-  /*this.apiService.doDelete(URL_REGISTRY['blacklist.delete'], false, {
+		this.apiService.doGet(URL_REGISTRY['map.getRoutes']).subscribe(() => {});
+		/*this.apiService.doDelete(URL_REGISTRY['blacklist.delete'], false, {
     idPas: this.blacklistUsersArray[item].id,idDr: this.curUser.id}).subscribe(data => console.log(data));*/
-    this.routes = YandexMapService.getSomeRoutes();
-    this.copyRoutes = this.routes.slice();
+		this.routes = YandexMapService.getSomeRoutes();
+		this.copyRoutes = this.routes.slice();
 	}
 
 	openTripRegistrationForm(): void {
@@ -98,8 +98,8 @@ export class MainScreenComponent implements OnInit {
 
 	getFilterData(data) {
 		this.filterData = data;
-    this.routes = YandexMapService.filterRoutes(this.copyRoutes, 0, 10, this.filterData);
-    this.mapTriggers = {reset: true};
-    this.redrawTriggers = true;
+		this.routes = YandexMapService.filterRoutes(this.copyRoutes, 0, 10, this.filterData);
+		this.mapTriggers = {reset: true};
+		this.redrawTriggers = true;
 	}
 }
