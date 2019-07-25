@@ -42,12 +42,21 @@ export class TripRegistrationComponent implements OnInit {
 		this.isShownSaveRouteButton.emit(true);
 	}
 
-  checkState() {
-    if (this.userState === 'driver') {
+  isDriver() {
+    if (this.userState === UserState.driver) {
       return true;
     }
-    if (this.userState === 'passenger') {
+    if (this.userState === UserState.passenger) {
       return false;
+    }
+  }
+
+  isPassenger() {
+    if (this.userState === UserState.driver) {
+      return false;
+    }
+    if (this.userState === UserState.passenger) {
+      return true;
     }
   }
 }

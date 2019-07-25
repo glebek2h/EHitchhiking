@@ -25,7 +25,7 @@ export class RoutesListComponent implements OnInit {
 	}
 
 	displayRoute(index: number) {
-		if (index >= 3) {
+    if (index >= this.ROUTES_ON_MAP_COUNT) {
 			this.isChecked = !this.isChecked;
 			if (this.isChecked) {
 				this.routeToDisplay.emit(index);

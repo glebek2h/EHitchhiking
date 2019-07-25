@@ -37,7 +37,7 @@
 				<mat-option [value]="4">4</mat-option>
 			</mat-select>
 		</mat-form-field>
-    <mat-form-field class="cars-select" *ngIf="checkState()">
+    <mat-form-field class="cars-select" *ngIf="isDriver()">
       <mat-label>Car</mat-label>
       <mat-select formControlName="carsSelect">
         <mat-option *ngFor="let car of user.cars; let i = index" [value]="car">{{car.model}}</mat-option>
