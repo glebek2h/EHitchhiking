@@ -92,7 +92,7 @@ export class YandexMapService {
 			to: 'Проспект Независимости 4, Минск',
 			departureDate: new Date('4/12/2017, 9:59 PM'),
 			departureTime: '12:00 am',
-			placesSelect: 2,
+			placesSelect: 0,
       driverRating: 1
 		});
 		routes.push({
@@ -100,7 +100,7 @@ export class YandexMapService {
 			to: 'Проспект Независимости 4, Минск',
 			departureDate: new Date('4/12/2019, 9:59 PM'),
 			departureTime: '12:00 am',
-			placesSelect: 4,
+			placesSelect: 0,
       driverRating: 3
 		});
 		routes.push({
