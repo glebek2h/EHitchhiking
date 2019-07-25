@@ -12,7 +12,7 @@
 		</div>
 		<div class="scroll-marker" #sMarker></div>
 
-		<app-no-data *ngIf="!tripsArray.length" isEmpty="true"></app-no-data>
+		<app-no-data *ngIf="!tripsArray.length" [isEmpty]="true"></app-no-data>
 	</div>
 	<footer>
 		<div mat-dialog-actions class="trips-btn">

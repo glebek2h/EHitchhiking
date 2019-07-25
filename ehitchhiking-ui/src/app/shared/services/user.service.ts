@@ -4,6 +4,7 @@ import {User} from '@shared/models/user';
 import {Injectable} from '@angular/core';
 import {catchError} from 'rxjs/operators';
 import {NotificationService} from './notification.service';
+import {Observable, of} from 'rxjs';
 
 @Injectable()
 export class UserService {
@@ -30,6 +31,13 @@ export class UserService {
 					console.log(error);
 				}
 			);
+	}
+
+	ifInit(): Observable<boolean> {
+		if (this.currentUser) {
+			return of(true);
+		}
+		return of(false);
 	}
 
 	getCurrentUser(): User | null {
