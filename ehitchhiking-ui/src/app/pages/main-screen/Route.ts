@@ -8,4 +8,6 @@ interface Route {
   routeColor: string;
   passengers: any[];
   driverRating: number;
+  displayed: boolean;
+  yandexRoute;
 }

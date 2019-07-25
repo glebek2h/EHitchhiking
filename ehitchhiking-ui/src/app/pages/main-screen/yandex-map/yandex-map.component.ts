@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import ymaps from 'ymaps';
 import {UserState} from '../../../shared/enums/UserState';
 import {YandexMapService} from './yandex-map.service';
@@ -25,21 +25,29 @@ export class YandexMapComponent implements OnInit, OnChanges {
 	colors: string[] = YandexMapService.COLORS;
 	myMark;
 
-	yandexRoutesObjects: MultiRouteModel[] = []; // 'сами' маршруты яндекс api
-	@Input() routes: Partial<Route>[]; // 'интерфейсы' маршрутов, которые ещё нужно построить
+  marker: boolean; // TODO
 
+  @Output() passengerPlaceMark = new EventEmitter<boolean>();
+	@Input() routes: Partial<Route>[]; // 'интерфейсы' маршрутов, которые ещё нужно построить
 	@Input() userState: string;
 	@Input() tripState: number;
 	@Input() tripData: Route;
 	@Input() isSavedRoute: boolean;
 	@Input() triggers: any;
   @Input() redraw: any;
-	@Input() indexRouteToDisplay: number;
+  @Input() indexRouteToDisplay: any; // rename
 
 	ngOnInit() {
 		this.ymapsPromise = ymaps.load(YandexMapComponent.API_URL);
 		this.createMap();
 		this.userState = UserState.passenger;
+    for (let i = 0; i < this.routes.length; i++) {
+      this.routes[i].displayed = false;
+      if (i < YandexMapComponent.ROUTES_ON_MAP_COUNT) {
+        this.routes[i].displayed = true;
+      }
+    }
+    this.marker = true;
 	}
 
 	getRandomInt(min, max) {
@@ -68,43 +76,47 @@ export class YandexMapComponent implements OnInit, OnChanges {
 
 			myGeoObject.events.add('dragend', (event) => {
 				this.currentRoute.passengers[0] = {passanger: 'gleb', coordinates: this.myMark.geometry._coordinates}; // TODO:0 is bad
+        this.passengerPlaceMark.emit(false);
+        // this.myMap.geoObjects.remove(myGeoObject);
 			});
 		});
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
-		if (changes.triggers && changes.triggers.currentValue) {
-			this.yandexRoutesObjects.forEach((route) => this.myMap.geoObjects.remove(route));
-		}
-		if (changes.indexRouteToDisplay) {
-			if (this.indexRouteToDisplay !== undefined && this.indexRouteToDisplay !== DELETE_ROUTE_MARKER) {
-				this.addMultiRoute(this.routes[this.indexRouteToDisplay], false);
-				this.placeMarkForPassenger();
-			}
-			if (this.indexRouteToDisplay === DELETE_ROUTE_MARKER) {
-				this.myMap.geoObjects.remove(this.yandexRoutesObjects[0]);
-				this.myMap.geoObjects.remove(this.myMark);
-			}
-		}
+    if (changes.indexRouteToDisplay && this.marker) {
+      const i = this.indexRouteToDisplay.value;
+      if (this.routes[i].displayed) {
+        this.addMultiRoute(i, false);
+      } else {
+        this.myMap.geoObjects.remove(this.routes[i].yandexRoute);
+      }
+      return;
+    }
+    if ((changes.redraw && changes.redraw.currentValue) || this.redraw === true) {
+      this.myMap.geoObjects.removeAll();
+      for (let i = 0; i < this.routes.length; i++) {
+        if (i < 3) {
+          this.addMultiRoute(i, false);
+          this.routes[i].displayed = true;
+        } else {
+          this.routes[i].displayed = false;
+        }
+      }
+      this.placeMarkForPassenger();
+    }
 
 		if (changes.tripData && changes.tripData.currentValue) {
 			if (this.userState === UserState.driver) {
 				this.myMap.geoObjects.remove(this.currentMultiRoute);
-				this.addMultiRoute(this.tripData, true);
+        this.routes.push(this.tripData);
+        this.addMultiRoute(this.routes.length - 1, true); // TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 				return;
 			}
 			if (this.userState === UserState.passenger) {
 				for (let i = 0; i < YandexMapComponent.ROUTES_ON_MAP_COUNT; i++) {
-				  console.log(this.routes[i]);
-					this.addMultiRoute(this.routes[i], false);
-				}
-			}
-		}
-    if (changes.redraw && changes.redraw.currentValue || this.redraw === true) {
-      for (let i = 0; i < YandexMapComponent.ROUTES_ON_MAP_COUNT; i++) {
-        if(this.routes[i]) {
-        this.addMultiRoute(this.routes[i], false);
+          this.addMultiRoute(i, false);
         }
+        this.placeMarkForPassenger();
       }
     }
 		if (changes.userState && changes.userState.currentValue) {
@@ -136,33 +148,34 @@ export class YandexMapComponent implements OnInit, OnChanges {
 						result.geoObjects.options.set('preset', 'islands#redPersonCircleIcon');
 						this.myMap.geoObjects.add(this.currentGeoPosition);
 					});
+        // tslint:disable-next-line:no-unused-expression
 				new maps.SuggestView('suggestions-to-input-from');
+        // tslint:disable-next-line:no-unused-expression
 				new maps.SuggestView('suggestions-to-input-to');
 			})
 			.catch((error) => console.log('Failed to load Yandex Maps', error));
 	}
 
-	addMultiRoute(data: Partial<Route>, pointDraggable: boolean) {
+  addMultiRoute(index: number, pointDraggable: boolean) {
 		const color = this.colors[this.getRandomInt(0, 10)];
-		data.routeColor = color;
+    this.routes[index].routeColor = color;
 		this.ymapsPromise
 			.then((maps) => {
 				const multiRoute = new maps.multiRouter.MultiRoute(
 					{
-						referencePoints: [data.from, data.to],
+            referencePoints: [this.routes[index].from, this.routes[index].to],
 						params: {
 							results: 1,
 						},
 					},
 					YandexMapService.routeOptions(color, pointDraggable)
 				);
-				this.setInfoAboutRoute(multiRoute, data);
+        this.setInfoAboutRoute(multiRoute, this.routes[index]);
 				this.myMap.geoObjects.add(multiRoute);
-				this.yandexRoutesObjects.push(multiRoute);
 				this.currentMultiRoute = multiRoute;
-				//console.log(multiRoute.model.getReferencePoints());
-				this.currentRoute = data;
+        this.currentRoute = this.routes[index];
 				this.currentRoute.passengers = [];
+        this.routes[index].yandexRoute = multiRoute; // !!!!!!!!!!!!!!!!!!!!
 			})
 			.catch((error) => console.log('Failed to load Yandex Maps', error));
 	}

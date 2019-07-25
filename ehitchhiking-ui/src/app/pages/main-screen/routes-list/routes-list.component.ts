@@ -9,6 +9,7 @@ import {DELETE_ROUTE_MARKER} from '../../../shared/constants/modal-constants';
 })
 export class RoutesListComponent implements OnInit {
 	@Input() activeRoutesCollection: Partial<Route>[];
+  @Input() isDisabledSubmitRouteButton: boolean;
 	@Output() routeToDisplay = new EventEmitter<any>(); // TODO
   @Output() formData = new EventEmitter<any>();
 	isChecked: boolean;
@@ -23,18 +24,14 @@ export class RoutesListComponent implements OnInit {
 		return UtilsService.formatDate(date);
 	}
 
-  displayRoute(index: number) {
+  displayRoute(index: number, matCheckbox) {
     this.isChecked = !this.isChecked;
-    if (this.isChecked) {
-      this.routeToDisplay.emit(index);
-    }
-    else {
-      this.routeToDisplay.emit(DELETE_ROUTE_MARKER);
-    }
+    matCheckbox.checked ? this.activeRoutesCollection[index].displayed = false : this.activeRoutesCollection[index].displayed = true;
+    this.routeToDisplay.emit({'value': index});
   }
 
   submitRoute(index: number) {
-    console.log(this.activeRoutesCollection[index]);
+    //console.log(this.activeRoutesCollection[index]);
   }
 
   getData(data: any) {

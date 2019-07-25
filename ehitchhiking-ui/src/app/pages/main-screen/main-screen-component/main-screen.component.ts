@@ -17,6 +17,7 @@ export class MainScreenComponent implements OnInit {
 	isShownRoutesList: boolean;
 	isShownViewRoutesButton: boolean;
 	isShownSaveRouteButton: boolean;
+  isDisabledSubmitRouteButton: boolean;
 	editStatePlusButton: boolean;
 	displayedRouteIndex: number;
 	mapTriggers = {};
@@ -28,6 +29,7 @@ export class MainScreenComponent implements OnInit {
 
 	ngOnInit() {
 		this.isHiddenTripRegistration = true;
+    this.isDisabledSubmitRouteButton = true;
 		this.userState = UserState.passenger;
 		this.routes = YandexMapService.getSomeRoutes();
     this.copyRoutes = this.routes.slice();
@@ -42,7 +44,6 @@ export class MainScreenComponent implements OnInit {
 		this.isHiddenTripRegistration = true;
 		this.editStatePlusButton = true;
 		this.mapTriggers = {reset: true};
-		console.log(this.tripFormData);
 	}
 
 	saveRoute() {
@@ -96,4 +97,8 @@ export class MainScreenComponent implements OnInit {
     this.mapTriggers = {reset: true};
     this.redrawTriggers = true;
 	}
+
+  getPassengerPlaceMarkInfo(data) {
+    this.isDisabledSubmitRouteButton = data;
+  }
 }
