@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
+
 @RestController
 @RequestMapping("/auth")
 public class LoginController {
@@ -18,6 +20,9 @@ public class LoginController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private HttpSession httpSession;
 
     @PostMapping
     public Response<Employee> getUser(String username, String password) {
@@ -35,6 +40,7 @@ public class LoginController {
             response.setStatus("success");
             response.setData(employee);
             response.setMsg(null);
+            httpSession.setAttribute("id", employee.getId());
             return response;
         }
         response.setStatus("error");
@@ -42,4 +48,6 @@ public class LoginController {
         response.setMsg("invalid user or password");
         return response;
     }
+
+
 }
