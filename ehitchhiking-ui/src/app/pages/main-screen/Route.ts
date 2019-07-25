@@ -1,4 +1,7 @@
-interface Route {
+import ymaps from 'ymaps';
+import MultiRouteModel = ymaps.multiRouter.MultiRouteModel;
+
+export interface Route {
   from: string;
   to: string;
   departureDate: Date;
@@ -9,5 +12,5 @@ interface Route {
   passengers: any[];
   driverRating: number;
   displayed: boolean;
-  yandexRoute;
+  yandexRoute: MultiRouteModel;
 }
