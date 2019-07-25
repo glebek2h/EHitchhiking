@@ -6,7 +6,7 @@ import {RequestMethods} from '@shared/enums/request-enum';
 
 @Injectable()
 export class ApiService {
-	static readonly apiUrl: string = '';
+  static readonly apiUrl: string = 'http://localhost:8080/';
 
 	constructor(private http: HttpClient) {}
 
@@ -49,9 +49,11 @@ export class ApiService {
 	}
 
 	private insertParameters(urlTemplate: string, data: any): string {
-		Object.keys(data).forEach((key) => {
-			urlTemplate = urlTemplate.replace(`{{${key}}}`, data[key]);
-		});
+    if (data) {
+      Object.keys(data).forEach((key) => {
+        urlTemplate = urlTemplate.replace(`{{${key}}}`, data[key]);
+      });
+    }
 		return urlTemplate;
 	}
 }

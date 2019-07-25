@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {BLACKLISTUSERS} from './blacklist-users';
+import {BLACKLIST_DRIVERS, BLACKLIST_PASSENGERS} from './blacklist-users';
 import {MatDialogRef} from '@angular/material';
 import {LoaderSize} from '@shared/enums/pre-loader-sizes';
 import {NoDataSize} from '@shared/enums/no-data-sizes';
@@ -10,26 +10,36 @@ import {NoDataSize} from '@shared/enums/no-data-sizes';
 	styleUrls: ['./blacklist.component.sass'],
 })
 export class BlacklistComponent implements OnInit {
-	blacklistUsersArray = [];
+  blacklistDriverArray = [];
+  blacklistPassengerArray = [];
 	loaderSize: LoaderSize = LoaderSize.Large;
 	noDataSize: NoDataSize = NoDataSize.Small;
 	noDataMessage = 'No users!';
 	noDataIconName = 'accessibility';
-	loading = true;
+  loadingDrives = true;
+  loadingPassengers = true;
 	constructor(public dialogRef: MatDialogRef<BlacklistComponent>) {}
 
 	ngOnInit() {
-		this.blacklistUsersArray = BLACKLISTUSERS;
+    this.blacklistDriverArray = BLACKLIST_DRIVERS;
+    this.blacklistPassengerArray = BLACKLIST_PASSENGERS;
 		setTimeout(() => {
-			this.loading = false;
+      this.loadingDrives = false;
 		}, 1000);
+    setTimeout(() => {
+      this.loadingPassengers = false;
+    }, 2000);
 	}
 
 	close(): void {
 		this.dialogRef.close();
 	}
 
-	removePerson(item) {
-		this.blacklistUsersArray.splice(item, 1);
+  removePersonFromDriverBlacklist(item) {
+    this.blacklistDriverArray.splice(item, 1);
+  }
+
+  removePersonFromPassengerBlacklist(item) {
+    this.blacklistPassengerArray.splice(item, 1);
 	}
 }

@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {UtilsService} from '../../../shared/services/utils.service';
 import {Car} from "@shared/models/car";
 import {Route} from "@pages/main-screen/Route";
+import {ApiService} from "@shared/services/api.service";
 @Injectable({
 	providedIn: 'root',
 })
@@ -97,7 +98,7 @@ export class YandexMapService {
 			to: 'Проспект Независимости 4, Минск',
 			departureDate: new Date('4/12/2017, 9:59 PM'),
 			departureTime: '12:00 am',
-			placesSelect: 2,
+      placesSelect: 0,
       driverRating: 1,
       car: new Car('ferrari', 'pink', 'A3434B', 1),
 		});
@@ -106,7 +107,7 @@ export class YandexMapService {
 			to: 'Проспект Независимости 4, Минск',
 			departureDate: new Date('4/12/2019, 9:59 PM'),
 			departureTime: '12:00 am',
-			placesSelect: 4,
+      placesSelect: 0,
       driverRating: 3,
       car: new Car('lada', 'white', 'A3434B', 5),
 		});

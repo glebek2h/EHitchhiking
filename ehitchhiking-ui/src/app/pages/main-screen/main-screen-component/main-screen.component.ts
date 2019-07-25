@@ -1,16 +1,21 @@
 import {Component, OnInit} from '@angular/core';
-import {UserState} from '../../../shared/enums/UserState';
+import {UserState} from '@shared/enums/UserState';
 import {YandexMapService} from '../yandex-map/yandex-map.service';
 import {User} from "@shared/models/user";
 import {Car} from "@shared/models/car";
 import {Route} from "@pages/main-screen/Route";
+import {ApiService} from "@shared/services/api.service";
+import {URL_REGISTRY} from "@shared/constants/urlRegistry";
+
 @Component({
 	selector: 'app-main-screen',
 	templateUrl: './main-screen.component.html',
 	styleUrls: ['./main-screen.component.sass'],
+  providers: [ApiService]
 })
 export class MainScreenComponent implements OnInit {
-	constructor() {}
+  constructor(private apiService: ApiService) {
+  }
 
 	tripFormData: any; // TODO
 	isHiddenTripRegistration: boolean;
@@ -38,7 +43,10 @@ export class MainScreenComponent implements OnInit {
 	ngOnInit() {
 		this.isHiddenTripRegistration = true;
 		this.userState = UserState.passenger;
-		this.routes = YandexMapService.getSomeRoutes();
+    this.apiService.doGet(URL_REGISTRY['map.getRoutes']).subscribe(data => console.log(data));
+    /*this.apiService.doDelete(URL_REGISTRY['blacklist.delete'], false, {
+      idPas: this.blacklistUsersArray[item].id,idDr: this.curUser.id}).subscribe(data => console.log(data));*/
+    this.routes = YandexMapService.getSomeRoutes();
     this.copyRoutes = this.routes.slice();
 	}
 

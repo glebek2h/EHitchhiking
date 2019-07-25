@@ -9,37 +9,46 @@ import {Route} from "@pages/main-screen/Route";
 })
 export class RoutesListComponent implements OnInit {
 
-	constructor() {}
-	ROUTES_ON_MAP_COUNT = 3;
 	@Input() activeRoutesCollection: Partial<Route>[];
 	@Output() routeToDisplay = new EventEmitter<any>(); // TODO
-	@Output() formData = new EventEmitter<any>();
+  @Output() formData = new EventEmitter<any>();
+
 	isChecked: boolean;
+  ROUTES_ON_MAP_COUNT = 3;
+
+  constructor() {
+  }
 
 	ngOnInit() {
-		this.isChecked = false;
-	}
+    this.isChecked = false;
+  }
 
 	parseDate(date: Date): string {
 		return UtilsService.formatDate(date);
 	}
 
-	displayRoute(index: number) {
-    if (index >= this.ROUTES_ON_MAP_COUNT) {
-			this.isChecked = !this.isChecked;
-			if (this.isChecked) {
-				this.routeToDisplay.emit(index);
-			} else {
-				this.routeToDisplay.emit(DELETE_ROUTE_MARKER);
-			}
-		}
-	}
+  displayRoute(index: number) {
+    this.isChecked = !this.isChecked;
+    if (this.isChecked && index >= this.ROUTES_ON_MAP_COUNT || !this.isChecked && index < this.ROUTES_ON_MAP_COUNT) {
+      this.routeToDisplay.emit(index);
+    } else {
+      this.routeToDisplay.emit(DELETE_ROUTE_MARKER);
+    }
+  }
 
-	submitRoute(index: number) {
-		console.log(this.activeRoutesCollection[index]);
-	}
+  submitRoute(index: number) {
+    console.log(this.activeRoutesCollection[index]);
+  }
 
-	getData(data: any) {
-		this.formData.emit(data);
-	}
+  getData(data: any) {
+    this.formData.emit(data);
+  }
+
+  displayGetInLineButton(index: number, applybutton) {
+    if (this.activeRoutesCollection[index].placesSelect === 0) {
+      applybutton.disabled = true;
+      return true;
+    }
+    return false;
+  }
 }
