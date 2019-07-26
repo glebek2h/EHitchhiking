@@ -2,8 +2,6 @@ import {Component} from '@angular/core';
 import {MatDialogRef} from '@angular/material';
 import {Passenger} from './passenger';
 import {StarClickMeta} from '../rating/starClickMeta';
-import {RED, WHITE} from "@shared/constants/modal-constants";
-
 @Component({
 	selector: 'rate-passengers-modal',
 	templateUrl: './rate-passengers-modal.component.html',
@@ -33,13 +31,15 @@ export class RatePassengersModalComponent {
 		return item.id;
 	}
 
-  addToBlacklist(tr, i) {
+  addToBlacklist(i) {
+    this.passengers[i].isAddedToBlackList = !this.passengers[i].isAddedToBlackList;
+  }
+
+  defineColor(i) {
     if (this.passengers[i].isAddedToBlackList) {
-      tr.style.backgroundColor = WHITE;
-      this.passengers[i].isAddedToBlackList = false;
+      return `passenger-row-active`;
     } else {
-      tr.style.backgroundColor = RED;
-      this.passengers[i].isAddedToBlackList = true;
+      return `passenger-row-default`;
     }
   }
 
