@@ -35,12 +35,4 @@ export class RatePassengersModalComponent {
     this.passengers[i].isAddedToBlackList = !this.passengers[i].isAddedToBlackList;
   }
 
-  defineColor(i) {
-    if (this.passengers[i].isAddedToBlackList) {
-      return `passenger-row-active`;
-    } else {
-      return `passenger-row-default`;
-    }
-  }
-
 }

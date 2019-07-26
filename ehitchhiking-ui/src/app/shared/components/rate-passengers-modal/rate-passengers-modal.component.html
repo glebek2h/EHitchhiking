@@ -13,7 +13,8 @@
 			</tr>
 		</thead>
 		<tbody>
-    <tr [ngClass]="defineColor(i)" *ngFor="let passenger of passengers;let i = index; trackBy: trackById">
+    <tr [ngClass]="{'passenger-row-active': passenger.isAddedToBlackList === true}"
+        *ngFor="let passenger of passengers;let i = index; trackBy: trackById">
 				<td class="table-passenger-name">
 					{{ passenger.name }}
 				</td>
