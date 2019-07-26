@@ -1,4 +1,4 @@
-import {HttpResponse, HttpEvent} from '@angular/common/http';
+import {HttpResponse, HttpEvent, HttpErrorResponse} from '@angular/common/http';
 import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 import {ApiService} from './api.service';
 import {User} from '@shared/models/user';
@@ -15,15 +15,14 @@ export class UserService {
 
 	init() {
 		this.currentUserObs = this.apiService.doGet(URL_REGISTRY.initialization, false).pipe(
-			catchError((error) => {
-				return null;
-			}),
-			map(this.parseResponse)
+			map((response: HttpResponse<any>) => this.parseResponse(response)),
+			catchError((error: HttpErrorResponse) => {
+				return of(false);
+			})
 		);
 	}
 
 	private parseResponse(response: any) {
-		console.log('here');
 		const userData = response.body.data;
 		if (userData) {
 			return (this.currentUser = new User(
@@ -34,7 +33,8 @@ export class UserService {
 				userData.phoneNumber
 			));
 		}
-		return null;
+		this.currentUser = null;
+		return true;
 	}
 
 	getStatus(): Observable<User | boolean> {
@@ -52,7 +52,7 @@ export class UserService {
 	}
 
 	refreshCurrentUser(): void {
-		this.currentUserObs = null;
+		this.currentUserObs = of(true);
 		this.currentUser = null;
 	}
 }

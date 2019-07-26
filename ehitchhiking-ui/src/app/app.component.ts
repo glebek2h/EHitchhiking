@@ -11,6 +11,6 @@ export class AppComponent implements OnInit {
 	constructor(private userService: UserService) {}
 
 	ngOnInit() {
-		this.userService.getStatus().subscribe(() => (this.ifInit = true));
+		this.userService.getStatus().subscribe((status) => (this.ifInit = !!status));
 	}
 }

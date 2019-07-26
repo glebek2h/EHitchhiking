@@ -38,9 +38,9 @@ export class ApiService {
 		return this.http.request(type, url, this.getRequestOptions(isCacheable, body) as any);
 	}
 
-	private getRequestOptions(cacheFlag: boolean = false, body?: any) {
+	private getRequestOptions(cacheFlag: boolean = false, requestBody?: any) {
 		return {
-			body,
+			body: requestBody,
 			headers: new HttpHeaders(),
 			reportProgress: false,
 			params: new CachingHttpParams(cacheFlag),
