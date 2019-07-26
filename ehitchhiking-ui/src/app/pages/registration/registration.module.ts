@@ -6,17 +6,17 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
 
 @NgModule({
-	declarations: [RegistrationComponent],
-	imports: [
-		MatButtonModule,
-		MatInputModule,
-		FormsModule,
-		ReactiveFormsModule,
-		MatFormFieldModule,
-		CommonModule,
-		MatIconModule,
-	],
-	entryComponents: [RegistrationComponent],
-	exports: [RegistrationComponent],
+  declarations: [RegistrationComponent],
+  imports: [
+    MatButtonModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    CommonModule,
+    MatIconModule,
+  ],
+  entryComponents: [RegistrationComponent],
+  exports: [RegistrationComponent],
 })
 export class RegistrationModule {}

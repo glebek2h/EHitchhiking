@@ -1,9 +1,9 @@
 /* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {By} from '@angular/platform-browser';
+import {DebugElement} from '@angular/core';
 
-import { NotificationComponent } from './notification.component';
+import {NotificationComponent} from './notification.component';
 
 describe('NotificationComponent', () => {
   let component: NotificationComponent;
@@ -11,9 +11,9 @@ describe('NotificationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NotificationComponent ]
+      declarations: [NotificationComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,4 +1,6 @@
-interface Route {
+import {Car} from "@shared/models/car";
+
+export interface Route {
   from: string;
   to: string;
   departureDate: Date;
@@ -8,4 +10,5 @@ interface Route {
   routeColor: string;
   passengers: any[];
   driverRating: number;
+  car: Car
 }

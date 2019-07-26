@@ -22,7 +22,7 @@ import {NoDataModule} from '@shared/components/no-data/no-data.module';
 		MatInputModule,
 		MatButtonModule,
 		MatDialogModule,
-		NoDataModule,
+    NoDataModule,
 	],
 	exports: [DialogListComponent, ChatComponent],
 	entryComponents: [ChatComponent, DialogListComponent],

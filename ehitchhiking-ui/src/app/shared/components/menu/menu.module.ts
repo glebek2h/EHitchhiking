@@ -9,8 +9,8 @@ import {
 	MatIconModule,
 	MatButtonModule,
 	MatCardModule,
-	MatSnackBarModule,
-	MatTabsModule,
+  MatSnackBarModule,
+  MatTabsModule,
 } from '@angular/material';
 import {RatePassengersModalModule} from '@shared/components/rate-passengers-modal/rate-passengers-modal.module';
 import {ProfileModalModule} from '@shared/modals/profile-modal/profile-modal.module';
@@ -25,7 +25,7 @@ import {NotificationComponent} from '../notification/notification.component';
 import {ChatDataModule} from '@shared/components/chat-data/chat-data.module';
 
 @NgModule({
-	declarations: [MenuComponent, BlacklistComponent, NotificationComponent],
+  declarations: [MenuComponent, BlacklistComponent, NotificationComponent],
 	imports: [
 		CommonModule,
 		MatCheckboxModule,
@@ -42,11 +42,11 @@ import {ChatDataModule} from '@shared/components/chat-data/chat-data.module';
 		TripModule,
 		TripsModalModule,
 		MatCardModule,
-		MatSnackBarModule,
+    MatSnackBarModule,
 		ChatDataModule,
-		MatTabsModule,
+    MatTabsModule,
 	],
 	exports: [MenuComponent, BlacklistComponent],
-	entryComponents: [BlacklistComponent, NotificationComponent, TripsModalComponent],
+  entryComponents: [BlacklistComponent, NotificationComponent, TripsModalComponent],
 })
 export class MenuModule {}

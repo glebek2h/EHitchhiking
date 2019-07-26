@@ -13,10 +13,10 @@ export class ChatComponent implements OnInit {
 	showDialogs = true;
 	readonly MAX_MESSAGE_LENGTH = 256;
 	msgList: ChatMessage[] = [];
-	noDataSize: NoDataSize = NoDataSize.Small;
-	noDataMessage = 'No messages!';
-	noDataIconName = 'accessibility';
-	loading = false;
+  noDataSize: NoDataSize = NoDataSize.Small;
+  noDataMessage = 'No messages!';
+  noDataIconName = 'accessibility';
+  loading = false;
 
 	constructor(public dialogRef: MatDialogRef<ChatComponent>) {}
 

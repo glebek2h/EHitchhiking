@@ -4,6 +4,7 @@ import {UserState} from '../../../shared/enums/UserState';
 import {YandexMapService} from './yandex-map.service';
 import MultiRouteModel = ymaps.multiRouter.MultiRouteModel;
 import {DELETE_ROUTE_MARKER} from '../../../shared/constants/modal-constants';
+import {Route} from "@pages/main-screen/Route";
 
 @Component({
 	// tslint:disable-next-line:component-selector
@@ -85,6 +86,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
 				this.myMap.geoObjects.remove(this.yandexRoutesObjects[0]);
 				this.myMap.geoObjects.remove(this.myMark);
 			}
+			return;
 		}
 
 		if (changes.tripData && changes.tripData.currentValue) {
@@ -162,7 +164,6 @@ export class YandexMapComponent implements OnInit, OnChanges {
 				this.myMap.geoObjects.add(multiRoute);
 				this.yandexRoutesObjects.push(multiRoute);
 				this.currentMultiRoute = multiRoute;
-				//console.log(multiRoute.model.getReferencePoints());
 				this.currentRoute = data;
 				this.currentRoute.passengers = [];
 			})

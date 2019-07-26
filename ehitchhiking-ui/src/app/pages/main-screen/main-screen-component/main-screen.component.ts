@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {UserState} from '@shared/enums/UserState';
 import {YandexMapService} from '../yandex-map/yandex-map.service';
+import {User} from "@shared/models/user";
+import {Car} from "@shared/models/car";
+import {Route} from "@pages/main-screen/Route";
 import {ApiService} from "@shared/services/api.service";
 import {URL_REGISTRY} from "@shared/constants/urlRegistry";
 
@@ -11,7 +14,8 @@ import {URL_REGISTRY} from "@shared/constants/urlRegistry";
   providers: [ApiService]
 })
 export class MainScreenComponent implements OnInit {
-	constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService) {
+  }
 
 	tripFormData: any; // TODO
 	isHiddenTripRegistration: boolean;
@@ -29,12 +33,19 @@ export class MainScreenComponent implements OnInit {
 	routes: Partial<Route>[] = [];
 	copyRoutes: Partial<Route>[] = [];
 
+  user: User = new User('Yana', '', 'hello@gmail.com', '+375291234567', [
+    new Car('ferrari', 'pink', 'A3434B', 1),
+    new Car('lada', 'white', 'A3434B', 5),
+    new Car('tayota', 'yellow', 'A3434B', 3),
+    new Car('bmw', 'black', 'A3434B', 1),
+  ]);
+
 	ngOnInit() {
 		this.isHiddenTripRegistration = true;
 		this.userState = UserState.passenger;
-		this.apiService.doGet(URL_REGISTRY['map.getRoutes']).subscribe(data => console.log(data));
-  /*this.apiService.doDelete(URL_REGISTRY['blacklist.delete'], false, {
-    idPas: this.blacklistUsersArray[item].id,idDr: this.curUser.id}).subscribe(data => console.log(data));*/
+    this.apiService.doGet(URL_REGISTRY['map.getRoutes']).subscribe(data => console.log(data));
+    /*this.apiService.doDelete(URL_REGISTRY['blacklist.delete'], false, {
+      idPas: this.blacklistUsersArray[item].id,idDr: this.curUser.id}).subscribe(data => console.log(data));*/
     this.routes = YandexMapService.getSomeRoutes();
     this.copyRoutes = this.routes.slice();
 	}
@@ -88,6 +99,8 @@ export class MainScreenComponent implements OnInit {
 		this.isHiddenTripRegistration = true;
 		this.isSavedRoute = false;
 		this.isShownRoutesList = false;
+		this.isShownSaveRouteButton = false;
+		this.redrawTriggers = false;
 		this.mapTriggers = {reset: true};
 	}
 
