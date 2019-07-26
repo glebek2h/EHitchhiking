@@ -13,7 +13,7 @@
       <mat-form-field>
         <mat-label>Role</mat-label>
         <mat-select [(ngModel)]="selectedRole" name="selected">
-          <mat-option (click)='filterByRole()' *ngFor="let role of roles" [value]="role.value">
+          <mat-option (click)="filterByRole()" *ngFor="let role of roles" [value]="role.value">
             {{role.viewValue}}
           </mat-option>
         </mat-select>

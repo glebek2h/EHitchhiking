@@ -1,8 +1,8 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {LoaderSize} from '../../enums/pre-loader-sizes';
-import {MatDialogRef} from '@angular/material';
-import {TripsModalService} from './trips-modal.service';
-import {SortState} from '../../enums/SortState';
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { LoaderSize } from "../../enums/pre-loader-sizes";
+import { MatDialogRef } from "@angular/material";
+import { TripsModalService } from "./trips-modal.service";
+import { SortState } from "../../enums/SortState";
 
 @Component({
 	selector: 'app-trips',
@@ -78,15 +78,15 @@ export class TripsModalComponent implements OnInit {
 	ChangeSort() {
 	  switch (this.selectedBySort) {
 	    case SortState.None:
-        this.selectedBySort = 1;
+        this.selectedBySort = SortState.ASC;
         this.order = 1;
         break;
       case SortState.ASC:
-        this.selectedBySort = 2;
+        this.selectedBySort = SortState.DESC;
         this.order = -1;
         break;
       case SortState.DESC:
-        this.selectedBySort = 0;
+        this.selectedBySort = SortState.None;
         this.order = 0;
         break;
     }
