@@ -1,5 +1,8 @@
-<i class="position-car material-icons">
+<i class="position-role material-icons" *ngIf="trip.role === userState.Driver">
 	directions_car
+</i>
+<i class="position-role material-icons" *ngIf = "trip.role === userState.Passenger">
+  person
 </i>
 <p class="truncated">{{ trip.startPoint }} -> {{ trip.endPoint }}</p>
 <div class="swap-btns-rating">

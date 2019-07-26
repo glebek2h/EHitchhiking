@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Trip} from '../trips-modal/trips';
 import { StarClickMeta } from "../rating/starClickMeta";
+import {UserState} from "../../enums/UserState";
 import { Passenger } from "../rate-passengers-modal/passenger";
 
 @Component({
@@ -11,6 +12,7 @@ import { Passenger } from "../rate-passengers-modal/passenger";
 export class TripComponent implements OnInit {
 	@Input() trip: Trip;
   isRatingEditorVisible: boolean;
+  userState= UserState;
 
 	constructor() {}
 
