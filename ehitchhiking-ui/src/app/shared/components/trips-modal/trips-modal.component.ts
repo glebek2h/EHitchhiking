@@ -11,7 +11,7 @@ import {SortState} from '../../enums/SortState';
 	providers: [TripsModalService],
 })
 export class TripsModalComponent implements OnInit {
-	limit = 5;
+	limit = 4;
 	tripsArray = [];
 	tripsArrayLenght = 0;
 	loaderSize: LoaderSize = LoaderSize.Large;
@@ -37,7 +37,7 @@ export class TripsModalComponent implements OnInit {
 
 	onScroll(entries: IntersectionObserverEntry[]) {
 		for (let entry of entries) {
-			if (entry.isIntersecting) this.limit += 5;
+			if (entry.isIntersecting) this.limit += 4;
 		}
 		if (this.limit >= this.tripsArray.length) this.scrollObserver.unobserve(this.markerRef.nativeElement);
 		console.log(`Limit increased ${this.limit}`);

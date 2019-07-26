@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {NoDataSize} from '../../enums/no-data-sizes';
+import {NoDataSize} from '@shared/enums/no-data-sizes';
 
 @Component({
 	selector: 'app-no-data',

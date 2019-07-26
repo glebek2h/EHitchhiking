@@ -1,6 +1,6 @@
 import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
-import {Car} from '../../../models/car';
+import {Car} from '@shared/models/car';
 @Component({
 	selector: 'app-car-info-form',
 	templateUrl: './car-info-form.component.html',
