@@ -2,6 +2,7 @@ package com.exadel.ehitchhiking.controllers;
 
 
 import com.exadel.ehitchhiking.models.Employee;
+import com.exadel.ehitchhiking.models.vo.EmployeeVO;
 import com.exadel.ehitchhiking.responses.Response;
 import com.exadel.ehitchhiking.responses.ResponseMany;
 import com.exadel.ehitchhiking.services.IEmployeeService;
@@ -75,16 +76,16 @@ public class EmployeeController {
     }
 
     @GetMapping("/getEmployee")
-    public Response<Employee> getEmployee(String id){
-        Response<Employee> response = new Response<>();
+    public Response<EmployeeVO> getEmployee(String id) {
+        Response<EmployeeVO> response = new Response<>();
         response.setStatus("200");
         response.setData(employeeService.findUserId(Integer.parseInt(id)));
         return response;
     }
 
     @GetMapping("/getAll")
-    public ResponseMany<Employee> getAll(){
-        ResponseMany<Employee> responseMany = new ResponseMany<>();
+    public ResponseMany<EmployeeVO> getAll() {
+        ResponseMany<EmployeeVO> responseMany = new ResponseMany<>();
         responseMany.setStatus("200");
         responseMany.setData(employeeService.getAll());
         return responseMany;

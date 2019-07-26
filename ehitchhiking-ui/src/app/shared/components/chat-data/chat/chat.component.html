@@ -4,7 +4,19 @@
 	</header>
 
 	<div class="chat" *ngIf="showChat">
+    <app-no-data
+      [isEmpty]="!loading && msgList && !msgList.length"
+      [size]="noDataSize"
+      [message]="noDataMessage"
+      [icon]="noDataIconName"
+    ></app-no-data>
 		<div class="message-zone" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+      <app-no-data
+        [isEmpty]="!loading && msgList && !msgList.length"
+        [size]="noDataSize"
+        [message]="noDataMessage"
+        [icon]="noDataIconName"
+      ></app-no-data>
 			<div *ngFor="let msg of msgList" class="message-wrapper" [class.my-message]="msg.isMy">
 				<div class="person-info">
 					<img [src]="msg.avaSrc" alt="photo" class="image" />

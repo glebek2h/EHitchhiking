@@ -5,6 +5,8 @@ import com.exadel.ehitchhiking.daos.IPassengerDAO;
 import com.exadel.ehitchhiking.models.Driver;
 import com.exadel.ehitchhiking.models.Employee;
 import com.exadel.ehitchhiking.models.Passenger;
+import com.exadel.ehitchhiking.models.vo.DriverVO;
+import com.exadel.ehitchhiking.models.vo.TripDriverVO;
 import com.exadel.ehitchhiking.services.IPassengerService;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(rollbackOn = Exception.class)
@@ -69,7 +72,7 @@ public class PassengerService implements IPassengerService {
     }
 
     @Override
-    public List<Driver> getDrivers(int idPass) {
-        return dao.getPassenger(idPass).getDrivers();
+    public List<DriverVO> getDrivers(int idPass) {
+        return dao.getPassenger(idPass).getDrivers().stream().map(DriverVO::fromEntity).collect(Collectors.toList());
     }
 }

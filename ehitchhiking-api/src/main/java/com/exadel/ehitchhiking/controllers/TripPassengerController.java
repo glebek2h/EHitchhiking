@@ -3,6 +3,7 @@ package com.exadel.ehitchhiking.controllers;
 
 import com.exadel.ehitchhiking.models.TripDriver;
 import com.exadel.ehitchhiking.models.vo.TripDriverVO;
+import com.exadel.ehitchhiking.responses.Response;
 import com.exadel.ehitchhiking.responses.ResponseMany;
 import com.exadel.ehitchhiking.services.ITripDriverService;
 import com.exadel.ehitchhiking.services.ITripPassengerService;
@@ -21,16 +22,22 @@ public class TripPassengerController {
     private ITripDriverService tripDriverService;
 
     @PostMapping("/createTrip")
-    public void createTrip(String passId, String startingPoint, String endingPoint,
-                           Timestamp startingTime, Timestamp endingTime,
-                           String seats/*, String tripDriverId*/) {
+    public Response<String> createTrip(String passId, String startingPoint, String endingPoint,
+                                       String startingTime, String endingTime,
+                                       String seats, String tripDriverId) {
+        Response<String> response = new Response<>();
         try {
             tripPassengerService.createTripPassenger(Integer.parseInt(passId), startingPoint, endingPoint,
-                    startingTime, endingTime,
-                    Integer.parseInt(seats)/*, Integer.parseInt(tripDriverId)*/);
+                    Timestamp.valueOf(startingTime), Timestamp.valueOf(endingTime),
+                    Integer.parseInt(seats), Integer.parseInt(tripDriverId));
         } catch (Exception e) {
-            //TODO: return
+            response.setStatus("500");
+            response.setData("false");
+            return response;
         }
+        response.setStatus("200");
+        response.setData("true");
+        return response;
     }
 
     @PutMapping("/updateStartingPlace")

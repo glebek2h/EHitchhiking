@@ -65,7 +65,7 @@ public class TripDriver {
 
     @Getter
     @Setter
-    @Column(name = "\"AVALIABLE_SEATS\"")
+    @Column(name = "\"AVAILABLE_SEATS\"")
     private int availableSeats;
 
     public TripDriver(String startPoint, String endPoint,

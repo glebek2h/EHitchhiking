@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
 
 @RestController
@@ -18,15 +19,14 @@ public class TripDriverController {
     private ITripDriverService tripDriverService;
 
     @PostMapping("/createTrip")
-    public Response<String> createTrip(String startingPoint, String endingPoint,
-                                       String startingTime, String endingTime,
-                                       String idOfCar, String seats) {
+    public Response<String> createTrip(HttpServletRequest request) {
         Response<String> response = new Response<>();
+        System.out.println(request.getParameterValues("startingPoint")[0]);
         try {
 
-            tripDriverService.createTripDriver(startingPoint, endingPoint,
-                    Timestamp.valueOf(startingTime), Timestamp.valueOf(endingTime),
-                    Integer.parseInt(idOfCar), Integer.parseInt(seats));
+//            tripDriverService.createTripDriver(startingPoint, endingPoint,
+//                    Timestamp.valueOf(startingTime), Timestamp.valueOf(endingTime),
+//                    Integer.parseInt(idOfCar), Integer.parseInt(seats));
         } catch (Exception e) {
             response.setStatus("500");
             response.setData("false");

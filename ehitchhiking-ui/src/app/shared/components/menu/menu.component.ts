@@ -30,6 +30,7 @@ export class MenuComponent implements OnInit {
 			width: MAT_DIALOG_WIDTH_SM,
 			panelClass: DEFAULT_MAT_DIALOG_CLASS,
 			autoFocus: false,
+      disableClose: true,
 		});
 	}
 

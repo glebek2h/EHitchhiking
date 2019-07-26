@@ -38,14 +38,14 @@ public class Car {
     @Column(name = "\"MODEL\"")
     private String model;
 
-/*    @Setter
+    @Setter
     @Getter
     @Column(name = "\"IS_DELETED\"")
-    private boolean isDeleted;*/
+    private boolean isDeleted;
 
     @Setter
     @Getter
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "\"DRIVER_ID\"")
     private Driver driver;
 
@@ -55,6 +55,6 @@ public class Car {
         this.color = color;
         this.number = number;
         this.model = model;
-        //this.isDeleted = false;
+        this.isDeleted = false;
     }
 }

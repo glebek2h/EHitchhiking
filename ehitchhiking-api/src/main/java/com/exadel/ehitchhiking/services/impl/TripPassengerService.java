@@ -30,11 +30,11 @@ public class TripPassengerService implements ITripPassengerService {
     public void createTripPassenger(int pass, String startingPoint,
                                     String endingPoint,
                                     Timestamp startingTime, Timestamp endingTime,
-                                    int seats/*, int idTripDriver*/) {
+                                    int seats, int idTripDriver) {
         TripPass tripPass = new TripPass(startingPoint, endingPoint,
                 startingTime, endingTime, true,
                 false, false, seats,
-                passengerDAO.getPassenger(pass)/*, tripDriverDAO.getTripDriver(idTripDriver)*/);
+                passengerDAO.getPassenger(pass), tripDriverDAO.getTripDriver(idTripDriver));
         dao.save(tripPass);
     }
 
