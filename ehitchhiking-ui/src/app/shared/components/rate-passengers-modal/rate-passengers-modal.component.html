@@ -13,7 +13,7 @@
 			</tr>
 		</thead>
 		<tbody>
-    <tr [ngClass]="{'passenger-row-active': passenger.isAddedToBlackList === true}"
+    <tr [ngClass]="{'passenger-row-active': passenger.isAddedToBlackList}"
         *ngFor="let passenger of passengers;let i = index; trackBy: trackById">
 				<td class="table-passenger-name">
 					{{ passenger.name }}
