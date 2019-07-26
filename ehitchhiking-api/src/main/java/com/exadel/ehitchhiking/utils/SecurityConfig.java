@@ -53,17 +53,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors()
                 .and()
                 .csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED).sessionFixation().migrateSession();/*
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/login")
+                .antMatchers("/**")
                 .permitAll()
                 //.antMatchers("/Admin/**").hasAuthority("Admin")
                 //.antMatchers("/Employee/**", "/Passenger/**", "/Driver/**", "/Car/**", "/TripPassenger/**", "/TripDriver/**").hasRole("Employee")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginProcessingUrl("/login")
+                .loginProcessingUrl("/auth")
                 .failureHandler((httpServletRequest, httpServletResponse, e) -> {
                     httpServletResponse.sendError(httpServletResponse.SC_UNAUTHORIZED);
                 })
@@ -71,7 +71,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .permitAll();
-*/
+
 
     }
 
@@ -89,6 +89,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    }
+
+    @Autowired
+    public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception{
+        auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN", "EMPLOYEE");
     }
 
     @Bean

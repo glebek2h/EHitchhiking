@@ -13,6 +13,7 @@ export class AuthorizationService {
 			.doPost(URL_REGISTRY.authorization, false, this.getAuthorizationObject(login, password))
 			.pipe(
 				catchError((error) => {
+					console.log(error);
 					this.notificationService.showErrorNotification('Authorization error!');
 					return error;
 				})

@@ -10,8 +10,6 @@ import {Router} from '@angular/router';
 })
 export class RegistrationComponent implements OnInit {
 	registrationForm: FormGroup;
-	login: string;
-	password: string;
 
 	constructor(
 		private router: Router,
@@ -27,7 +25,9 @@ export class RegistrationComponent implements OnInit {
 	}
 
 	onSubmit() {
-		this.authorizationService.doAuthorization(this.login, this.password);
+		const login = this.registrationForm.controls.login.value;
+		const password = this.registrationForm.controls.password.value;
+		this.authorizationService.doAuthorization(login, password);
 		this.router.navigateByUrl('/main');
 	}
 

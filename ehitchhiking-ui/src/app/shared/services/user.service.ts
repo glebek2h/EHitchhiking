@@ -17,12 +17,14 @@ export class UserService {
 		this.currentUserObs = this.apiService.doGet(URL_REGISTRY.initialization, false).pipe(
 			map((response: HttpResponse<any>) => this.parseResponse(response)),
 			catchError((error: HttpErrorResponse) => {
+				this.currentUser = false;
 				return of(false);
 			})
 		);
 	}
 
 	private parseResponse(response: any) {
+		console.log(response);
 		const userData = response.body.data;
 		if (userData) {
 			return (this.currentUser = new User(
