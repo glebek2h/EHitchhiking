@@ -5,7 +5,10 @@ import com.exadel.ehitchhiking.models.Driver;
 import com.exadel.ehitchhiking.models.TripDriver;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import org.springframework.stereotype.Service;
 
+import javax.persistence.Id;
 import java.time.Instant;
 import java.util.Date;
 
@@ -14,27 +17,42 @@ import java.util.Date;
 public class TripDriverVO {
 
 
+    @Getter
+    @Id
     private Integer id;
 
-    private String startPoint;
+    @Getter
+    private String startingPoint;
 
-    private String endPoint;
+    @Getter
+    private String endingPoint;
 
-    private Instant startTime;
+    @Getter
+    private Instant startingTime;
 
-    private Instant endTime;
+    @Getter
+    private Instant endingTime;
 
+    @Getter
     private CarVO car;
 
+    @Getter
+    private Integer idOfCar;
+
+    @Getter
     private DriverVO driver;
 
+    @Getter
     private boolean isActive;
 
+    @Getter
     private boolean isFinished;
 
+    @Getter
     private boolean isSaved;
 
-    private int availableSeats;
+    @Getter
+    private int seats;
 
     public static TripDriverVO fromEntity(TripDriver tripDriver) {
         return new TripDriverVO(
@@ -44,6 +62,7 @@ public class TripDriverVO {
                 tripDriver.getStartTime().toInstant(),
                 tripDriver.getEndTime().toInstant(),
                 CarVO.fromEntity(tripDriver.getCar()),
+                tripDriver.getCar().getId(),
                 DriverVO.fromEntity(tripDriver.getCar().getDriver()),
                 tripDriver.isActive(),
                 tripDriver.isFinished(),

@@ -2,8 +2,10 @@ package com.exadel.ehitchhiking.models.vo;
 
 
 import com.exadel.ehitchhiking.models.Employee;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,6 +30,9 @@ public class EmployeeVO implements UserDetails {
 
     private String phoneNumber;
 
+    @JsonIgnore
+    private String password;
+
     public static EmployeeVO fromEntity(Employee Employee) {
         return new EmployeeVO(
                 Employee.getId(),
@@ -35,7 +40,8 @@ public class EmployeeVO implements UserDetails {
                 Employee.getFirstName(),
                 Employee.getLastName(),
                 Employee.getEmail(),
-                Employee.getPhoneNumber()
+                Employee.getPhoneNumber(),
+                Employee.getPassword()
         );
     }
 
@@ -45,7 +51,7 @@ public class EmployeeVO implements UserDetails {
         grantedAuthorities.add(new SimpleGrantedAuthority("Admin"));
         grantedAuthorities.add(new SimpleGrantedAuthority("Employee"));
 
-        return null;
+        return grantedAuthorities;
     }
 
     @Override
@@ -55,7 +61,7 @@ public class EmployeeVO implements UserDetails {
 
     @Override
     public String getPassword() {
-        return getPassword();
+        return password;
     }
 
     @Override
