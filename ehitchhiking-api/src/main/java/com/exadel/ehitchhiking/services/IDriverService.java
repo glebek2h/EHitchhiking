@@ -7,7 +7,7 @@ import com.exadel.ehitchhiking.models.vo.PassengerVO;
 import java.util.List;
 
 public interface IDriverService {
-    void createDriver(Employee employee);
+    void createDriver(Integer id);
 
     int findDriverIdByUsername(String username);
 

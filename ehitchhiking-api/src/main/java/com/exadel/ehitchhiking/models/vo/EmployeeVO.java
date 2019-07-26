@@ -53,7 +53,6 @@ public class EmployeeVO implements UserDetails {
         return email;
     }
 
-
     @Override
     public String getPassword() {
         return getPassword();

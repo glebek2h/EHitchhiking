@@ -35,9 +35,8 @@ public class ControllersTest {
         // getting the employee by the username
         EmployeeVO employee = employeeService.findUserUsername(userName);
 
-/*
         // creating the driver and the passenger that are associated with that employee
-        driverService.createDriver(employee);
-        passengerService.createPassenger(employee);*/
+        driverService.createDriver(employee.getId());
+        passengerService.createPassenger(employee.getId());
     }
 }

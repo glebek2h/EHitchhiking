@@ -2,6 +2,7 @@ package com.exadel.ehitchhiking.services.impl;
 
 import com.exadel.ehitchhiking.daos.IDriverDAO;
 
+import com.exadel.ehitchhiking.daos.IEmployeeDAO;
 import com.exadel.ehitchhiking.daos.IPassengerDAO;
 import com.exadel.ehitchhiking.models.Driver;
 
@@ -28,9 +29,12 @@ public class DriverService implements IDriverService {
     @Autowired
     private IPassengerDAO passengerDAO;
 
+    @Autowired
+    private IEmployeeDAO employeeDAO;
+
     @Override
-    public void createDriver(Employee employee) {
-        dao.save(new Driver(employee, 0.0f, 0));
+    public void createDriver(Integer id) {
+        dao.save(new Driver(employeeDAO.getEmployee(id), 0.0f, 0));
     }
 
     @Override

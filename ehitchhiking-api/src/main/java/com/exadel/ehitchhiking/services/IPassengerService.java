@@ -7,7 +7,7 @@ import com.exadel.ehitchhiking.models.vo.DriverVO;
 import java.util.List;
 
 public interface IPassengerService {
-    void createPassenger(Employee employee);
+    void createPassenger(Integer id);
     int findPassIdByUsername(String username);
     void updateRatePass(String username, float addedRate);
     void deletePassenger(String username);
