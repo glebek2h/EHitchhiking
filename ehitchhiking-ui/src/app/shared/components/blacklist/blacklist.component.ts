@@ -13,8 +13,6 @@ import {CUR_USER} from '@shared/components/blacklist/blacklist-users';
 	providers: [BlackListApiService],
 })
 export class BlacklistComponent implements OnInit {
-	blacklistDriverArray: User[] = [];
-	blacklistPassengerArray: User[] = [];
 	curUser: User = CUR_USER;
 	loaderSize: LoaderSize = LoaderSize.Large;
 	noDataSize: NoDataSize = NoDataSize.Small;

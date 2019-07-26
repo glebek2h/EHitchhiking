@@ -12,8 +12,10 @@ export class BlackListApiService {
 	BLACKLIST_DRIVERS: User[] = [];
 
 	constructor(private apiService: ApiService) {}
-	func1(data) {
-		this.BLACKLIST_PASSENGERS.splice(0, this.BLACKLIST_PASSENGERS.length);
+	makeArrayPassengers(data) {
+		while (this.BLACKLIST_PASSENGERS.length > 0) {
+			this.BLACKLIST_PASSENGERS.pop();
+		}
 		data.forEach((obj) => {
 			this.BLACKLIST_PASSENGERS.push(
 				new User(obj.id, obj.firstName + ' ' + obj.lastName, '', obj.email, '', [
@@ -23,12 +25,10 @@ export class BlackListApiService {
 		});
 	}
 
-	func2(data) {
-		console.log(data);
+	makeArrayDrivers(data) {
 		while (this.BLACKLIST_DRIVERS.length > 0) {
 			this.BLACKLIST_DRIVERS.pop();
 		}
-		// console.log(this.BLACKLIST_DRIVERS.length);
 		data.forEach((obj) => {
 			this.BLACKLIST_DRIVERS.push(
 				new User(obj.id, obj.firstName + ' ' + obj.lastName, '', obj.email, '', [
@@ -36,7 +36,6 @@ export class BlackListApiService {
 				])
 			);
 		});
-		// console.log(this.BLACKLIST_DRIVERS.length);
 	}
 
 	doGetPassengers(curUser: User) {
@@ -44,7 +43,7 @@ export class BlackListApiService {
 			.doGet(URL_REGISTRY['blacklist.getPassengers'], false, {
 				idDr: curUser.id,
 			})
-			.subscribe((data) => this.func1(data.body.data));
+			.subscribe((data) => this.makeArrayPassengers(data.body.data));
 	}
 
 	doGetDrivers(curUser: User) {
@@ -52,7 +51,7 @@ export class BlackListApiService {
 			.doGet(URL_REGISTRY['blacklist.getDrivers'], false, {
 				idDr: curUser.id,
 			})
-			.subscribe((data) => this.func2(data.body.data));
+			.subscribe((data) => this.makeArrayDrivers(data.body.data));
 	}
 
 	doDeletePassengers(item, curUser) {
