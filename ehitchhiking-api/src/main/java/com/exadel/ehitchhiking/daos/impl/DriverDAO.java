@@ -25,12 +25,12 @@ public class DriverDAO extends AbstractDAO<Driver> implements IDriverDAO {
 
     @Override
     public Driver getByName(String username) {
-        List<Driver> drivers = (List<Driver>)  getCurrentSession().createQuery("from Driver where employee = (from Employee where username = '" + username + "')").list();
+        List<Driver> drivers = (List<Driver>)  getCurrentSession().createQuery("from Driver where employee = (from Employee where email = '" + username + "')").list();
         return drivers.get(0);
     }
 
     @Override
     public Driver getDriver(int id) {
-        return (Driver) getCurrentSession().get(Driver.class, id);
+        return getCurrentSession().get(Driver.class, id);
     }
 }

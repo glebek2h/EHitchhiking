@@ -1,6 +1,7 @@
 package com.exadel.ehitchhiking.controllers;
 
 import com.exadel.ehitchhiking.models.Employee;
+import com.exadel.ehitchhiking.models.vo.EmployeeVO;
 import com.exadel.ehitchhiking.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -32,11 +33,10 @@ public class ControllersTest {
                 lastName, email, encoder.encode(password), phoneNumber);
 
         // getting the employee by the username
-        Employee employee = employeeService.findUserUsername(userName);
-
+        EmployeeVO employee = employeeService.findUserUsername(userName);
 
         // creating the driver and the passenger that are associated with that employee
-        driverService.createDriver(employee);
-        passengerService.createPassenger(employee);
+        driverService.createDriver(employee.getId());
+        passengerService.createPassenger(employee.getId());
     }
 }

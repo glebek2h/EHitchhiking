@@ -2,10 +2,13 @@ package com.exadel.ehitchhiking.controllers;
 
 import com.exadel.ehitchhiking.models.Driver;
 import com.exadel.ehitchhiking.models.Passenger;
+import com.exadel.ehitchhiking.models.vo.DriverVO;
+import com.exadel.ehitchhiking.models.vo.PassengerVO;
 import com.exadel.ehitchhiking.responses.Response;
 import com.exadel.ehitchhiking.responses.ResponseMany;
 import com.exadel.ehitchhiking.services.IDriverService;
 import com.exadel.ehitchhiking.services.IPassengerService;
+import org.hibernate.tool.schema.internal.exec.ScriptTargetOutputToFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,9 +41,10 @@ public class BlackListsController {
         return response;
     }
 
-    // deleting the passenger from the balck list driver
+    // deleting the passenger from the black list driver
     @DeleteMapping("/driver")
     public Response<String> deletePassFromBlackListDriver(String idDriver, String idPass) {
+        System.out.println("here!!!");
         Response<String> response = new Response<>();
         try {
             driverService.deletePassFromBL(Integer.parseInt(idDriver), Integer.parseInt(idPass));
@@ -53,6 +57,9 @@ public class BlackListsController {
         response.setData("true");
         return response;
     }
+
+
+
 
     @PostMapping("/passenger")
     public Response<String> addDriverToBlackListPass(String idPass, String idDriver) {
@@ -69,7 +76,7 @@ public class BlackListsController {
         return response;
     }
 
-    // deleting the passenger from the balck list driver
+    // deleting the passenger from the pass list driver
     @DeleteMapping("/passenger")
     public Response<String> deleteDriverFromBlackListPass(String idPass, String idDriver) {
         Response<String> response = new Response<>();
@@ -86,26 +93,27 @@ public class BlackListsController {
     }
 
     @GetMapping("/driver")
-    public ResponseMany<Passenger> getListOfPassengers(String idDriver) {
-        ResponseMany<Passenger> responseMany = new ResponseMany<>();
-        List<Passenger> passengers;
+    public ResponseMany<PassengerVO> getListOfPassengers(String idDriver) {
+        ResponseMany<PassengerVO> responseMany = new ResponseMany<>();
+
         try {
-            passengers = driverService.getPassengers(Integer.parseInt(idDriver));
+            System.out.println("foweuhfof");
+            responseMany.setStatus("200");
+            responseMany.setData(driverService.getPassengers(Integer.parseInt(idDriver)));
+            return responseMany;
         }catch (Exception e){
             responseMany.setStatus("500");
             responseMany.setData(null);
             return responseMany;
         }
-        responseMany.setStatus("200");
-        responseMany.setData(passengers);
-        return responseMany;
+
 
     }
 
     @GetMapping("/passenger")
-    public ResponseMany<Driver> getListOfDrivers(String idPass) {
-        ResponseMany<Driver> responseMany = new ResponseMany<>();
-        List<Driver> drivers;
+    public ResponseMany<DriverVO> getListOfDrivers(String idPass) {
+        ResponseMany<DriverVO> responseMany = new ResponseMany<>();
+        List<DriverVO> drivers;
         try {
             drivers = passengerService.getDrivers(Integer.parseInt(idPass));
         } catch (Exception e) {

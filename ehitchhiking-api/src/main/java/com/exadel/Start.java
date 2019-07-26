@@ -17,6 +17,7 @@ import javax.sql.DataSource;
 import javax.xml.crypto.Data;
 import java.util.Properties;
 
+
 @SpringBootApplication(exclude = { //
         DataSourceAutoConfiguration.class, //
         DataSourceTransactionManagerAutoConfiguration.class, //
@@ -32,7 +33,7 @@ public class Start {
     }
 
     @Bean(name = "dataSource")
-    public DataSource getDataSource() {
+    public javax.sql.DataSource getDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
         // See: application.properties
