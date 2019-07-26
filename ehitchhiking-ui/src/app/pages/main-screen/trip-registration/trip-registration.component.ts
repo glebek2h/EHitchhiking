@@ -10,7 +10,7 @@ import {UserState} from "@shared/enums/UserState";
 })
 export class TripRegistrationComponent implements OnInit {
 	@Input() isShown: boolean;
-	@Input() user: User;
+  @Input() user: User;
   @Input() userState: UserState;
 	@Output() formData = new EventEmitter<any>(); // TODO
 	@Output() isShownViewListButton = new EventEmitter<boolean>();
@@ -22,11 +22,11 @@ export class TripRegistrationComponent implements OnInit {
 
 	ngOnInit() {
 		this.nameFormGroup = new FormGroup({
-			from: new FormControl('', [Validators.required]),
-			to: new FormControl('', [Validators.required]),
-			departureDate: new FormControl('', [Validators.required]),
-			placesSelect: new FormControl('', [Validators.required]),
-			departureTime: new FormControl('', [Validators.required]),
+      from: new FormControl('', [Validators.required]),
+      to: new FormControl('', [Validators.required]),
+      departureDate: new FormControl('', [Validators.required]),
+      placesSelect: new FormControl('', [Validators.required]),
+      departureTime: new FormControl('', [Validators.required]),
       car: new FormControl(''),
 		});
 	}

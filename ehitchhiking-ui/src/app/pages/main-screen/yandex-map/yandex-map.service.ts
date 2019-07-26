@@ -62,10 +62,10 @@ export class YandexMapService {
 				'</p>' +
 				'<p>' +
 				'<span>Trip duration: </span>' +
-				data.tripDuration +
-        '</p>'+
+        data.tripDuration +
+        '</p>' +
         '<p>' +
-          '<span>Car: </span>' +
+        '<span>Car: </span>' +
         data.car.model +
         '</p>'
 		};

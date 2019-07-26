@@ -9,7 +9,7 @@ import {
 	MatIconModule,
 	MatButtonModule,
 	MatCardModule,
-  MatSnackBarModule,
+	MatSnackBarModule,
   MatTabsModule,
 } from '@angular/material';
 import {RatePassengersModalModule} from '@shared/components/rate-passengers-modal/rate-passengers-modal.module';
@@ -42,11 +42,11 @@ import {ChatDataModule} from '@shared/components/chat-data/chat-data.module';
 		TripModule,
 		TripsModalModule,
 		MatCardModule,
-    MatSnackBarModule,
+		MatSnackBarModule,
 		ChatDataModule,
     MatTabsModule,
 	],
 	exports: [MenuComponent, BlacklistComponent],
-  entryComponents: [BlacklistComponent, NotificationComponent, TripsModalComponent],
+	entryComponents: [BlacklistComponent, NotificationComponent, TripsModalComponent],
 })
 export class MenuModule {}

@@ -6,7 +6,6 @@ import {Car} from "@shared/models/car";
 import {Route} from "@pages/main-screen/Route";
 import {ApiService} from "@shared/services/api.service";
 import {URL_REGISTRY} from "@shared/constants/urlRegistry";
-
 @Component({
 	selector: 'app-main-screen',
 	templateUrl: './main-screen.component.html',
@@ -19,11 +18,12 @@ export class MainScreenComponent implements OnInit {
 
 	tripFormData: any; // TODO
 	isHiddenTripRegistration: boolean;
-	userState: UserState;
+  userState: UserState;
 	isSavedRoute: boolean;
 	isShownRoutesList: boolean;
 	isShownViewRoutesButton: boolean;
 	isShownSaveRouteButton: boolean;
+  isDisabledSubmitRouteButton: boolean;
 	editStatePlusButton: boolean;
 	displayedRouteIndex: number;
 	mapTriggers = {};
@@ -42,13 +42,11 @@ export class MainScreenComponent implements OnInit {
 
 	ngOnInit() {
 		this.isHiddenTripRegistration = true;
-		this.userState = UserState.Passenger;
+    this.isDisabledSubmitRouteButton = true;
+    this.userState = UserState.Passenger;
     this.apiService.doGet(URL_REGISTRY['map.getRoutes']).subscribe(data => console.log(data));
-    /*this.apiService.doDelete(URL_REGISTRY['blacklist.delete'], false, {
-      idPas: this.blacklistUsersArray[item].id,idDr: this.curUser.id}).subscribe(data => console.log(data));*/
     this.routes = YandexMapService.getSomeRoutes();
     this.copyRoutes = this.routes.slice();
-
 	}
 
 	openTripRegistrationForm(): void {
@@ -60,7 +58,6 @@ export class MainScreenComponent implements OnInit {
 		this.isHiddenTripRegistration = true;
 		this.editStatePlusButton = true;
 		this.mapTriggers = {reset: true};
-		console.log(this.tripFormData);
 	}
 
 	saveRoute() {
@@ -73,24 +70,24 @@ export class MainScreenComponent implements OnInit {
 	}
 
 	setIsShownViewRoutesButtonFlag(data) {
-		if (this.userState === UserState.Passenger) {
+    if (this.userState === UserState.Passenger) {
 			this.isShownViewRoutesButton = data;
 		}
 	}
 
 	setIsShownSaveRouteButtonFlag(data) {
-		if (this.userState === UserState.Driver) {
+    if (this.userState === UserState.Driver) {
 			this.isShownSaveRouteButton = data;
 		}
 	}
 
 	toggleStateToPassenger() {
-		this.userState = UserState.Passenger;
+    this.userState = UserState.Passenger;
 		this.toggleMapInterfaceToDefault();
 	}
 
 	toggleStateToDriver() {
-		this.userState = UserState.Driver;
+    this.userState = UserState.Driver;
 		this.toggleMapInterfaceToDefault();
 	}
 
@@ -100,8 +97,8 @@ export class MainScreenComponent implements OnInit {
 		this.isHiddenTripRegistration = true;
 		this.isSavedRoute = false;
 		this.isShownRoutesList = false;
-		this.isShownSaveRouteButton = false;
-		this.redrawTriggers = false;
+    this.isShownSaveRouteButton = false;
+    this.redrawTriggers = false;
 		this.mapTriggers = {reset: true};
 	}
 
@@ -116,4 +113,8 @@ export class MainScreenComponent implements OnInit {
     this.mapTriggers = {reset: true};
     this.redrawTriggers = true;
 	}
+
+  getPassengerPlaceMarkInfo(data) {
+    this.isDisabledSubmitRouteButton = data;
+  }
 }

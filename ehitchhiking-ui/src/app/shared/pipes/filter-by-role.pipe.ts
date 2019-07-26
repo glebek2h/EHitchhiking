@@ -1,13 +1,13 @@
-import { Pipe, PipeTransform } from '@angular/core';
-import { Trip } from "../components/trips-modal/trips";
-import { UserState } from "../enums/UserState";
+import {Pipe, PipeTransform} from '@angular/core';
+import {Trip} from "../components/trips-modal/trips";
+import {UserState} from "../enums/UserState";
 
 
 @Pipe({
   name: 'filterByRole'
 })
 export class FilterByRolePipe implements PipeTransform {
-  transform(array: any, role: string, selectedRole: number = UserState.All,  isEnabled: boolean = false): any[] {
+  transform(array: any, role: string, selectedRole: number = UserState.All, isEnabled: boolean = false): any[] {
     if (!array || !isEnabled || selectedRole === UserState.All) {
       return array;
     }

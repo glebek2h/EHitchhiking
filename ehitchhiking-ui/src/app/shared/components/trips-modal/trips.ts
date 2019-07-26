@@ -1,5 +1,5 @@
 import {TripStatus} from '../../enums/TripStatus';
-import { UserState } from "../../enums/UserState";
+import {UserState} from "../../enums/UserState";
 
 export interface Trip {
 	id: number;
@@ -8,5 +8,5 @@ export interface Trip {
 	isFavorite: boolean;
 	status: TripStatus;
 	rating: number;
-	role: UserState;
+  role: UserState;
 }

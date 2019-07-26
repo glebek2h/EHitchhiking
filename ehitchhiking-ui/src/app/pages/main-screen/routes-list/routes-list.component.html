@@ -31,9 +31,12 @@
           <span>Car:</span><span>{{ route.car.model }}</span>
         </p>
         <div class="routes-interface">
-          <mat-checkbox color="primary" [checked]="i < ROUTES_ON_MAP_COUNT" (click)="displayRoute(i)">Display route
+          <mat-checkbox color="primary" #matCheckbox [checked]="i < ROUTES_ON_MAP_COUNT"
+                        (click)="displayRoute(i, matCheckbox)">Display
+            route
           </mat-checkbox>
-          <button mat-raised-button color="primary" [disabled]="!isChecked" #applybutton (click)="submitRoute(i)">
+          <button mat-raised-button color="primary" #applybutton [disabled]="isDisabledSubmitRouteButton"
+                  (click)="submitRoute(i)">
             Apply
           </button>
           <button mat-raised-button color="primary" *ngIf="displayGetInLineButton(i, applybutton)">Get in Line</button>
