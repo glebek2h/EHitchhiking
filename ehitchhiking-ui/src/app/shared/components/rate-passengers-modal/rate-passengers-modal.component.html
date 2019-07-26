@@ -9,14 +9,15 @@
 				<th class="table-th">Passenger</th>
 				<th class="table-th">Stars</th>
 				<th class="table-th">Rating</th>
+        <th class="table-th">Blacklist</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr *ngFor="let passenger of passengers; trackBy: trackById">
+    <tr #tr *ngFor="let passenger of passengers;let i = index; trackBy: trackById">
 				<td class="table-passenger-name">
 					{{ passenger.name }}
 				</td>
-				<td>
+      <td class="rating-td">
 					<app-rating
 						[rating]="passenger.rating"
 						[itemId]="passenger.id"
@@ -24,6 +25,11 @@
 					></app-rating>
 				</td>
 				<td class="table-count-stars">{{ passenger.rating }} Stars</td>
+      <td class="blacklist">
+        <button mat-icon-button (click)="addToBlacklist(tr, i)"><i class="material-icons">
+          thumb_down
+        </i></button>
+      </td>
 			</tr>
 		</tbody>
 	</table>

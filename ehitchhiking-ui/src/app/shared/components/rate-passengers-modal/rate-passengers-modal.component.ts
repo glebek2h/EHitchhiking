@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {MatDialogRef} from '@angular/material';
 import {Passenger} from './passenger';
 import {StarClickMeta} from '../rating/starClickMeta';
+import {RED, WHITE} from "@shared/constants/modal-constants";
 
 @Component({
 	selector: 'rate-passengers-modal',
@@ -10,10 +11,10 @@ import {StarClickMeta} from '../rating/starClickMeta';
 })
 export class RatePassengersModalComponent {
 	passengers: Passenger[] = [
-		{id: 0, name: 'Ivan', rating: 0},
-		{id: 1, name: 'Egor', rating: 0},
-		{id: 2, name: 'Semen', rating: 0},
-		{id: 3, name: 'Fedor', rating: 0},
+    {id: 0, name: 'Ivan', rating: 0, isAddedToBlackList: false},
+    {id: 1, name: 'Egor', rating: 0, isAddedToBlackList: false},
+    {id: 2, name: 'Semen', rating: 0, isAddedToBlackList: false},
+    {id: 3, name: 'Fedor', rating: 0, isAddedToBlackList: false},
 	];
 
 	constructor(public dialogRef: MatDialogRef<RatePassengersModalComponent>) {}
@@ -31,4 +32,15 @@ export class RatePassengersModalComponent {
 	trackById(index, item) {
 		return item.id;
 	}
+
+  addToBlacklist(tr, i) {
+    if (this.passengers[i].isAddedToBlackList) {
+      tr.style.backgroundColor = WHITE;
+      this.passengers[i].isAddedToBlackList = false;
+    } else {
+      tr.style.backgroundColor = RED;
+      this.passengers[i].isAddedToBlackList = true;
+    }
+  }
+
 }
