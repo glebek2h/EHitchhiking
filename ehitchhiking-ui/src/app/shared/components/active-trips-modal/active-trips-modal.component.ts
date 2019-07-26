@@ -1,10 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { LoaderSize } from "../../enums/pre-loader-sizes";
-import { SortState } from "../../enums/SortState";
 import { MatDialogRef } from "@angular/material";
 import { ActiveTripsModalService } from "./active-trips-modal.service";
-import { TripsModalService } from "../trips-modal/trips-modal.service";
 import { Trip } from "../trips-modal/trips";
+import { ActiveTrip } from "../active-trip/active-trip";
 
 
 @Component({
@@ -21,12 +20,8 @@ export class ActiveTripsModalComponent implements OnInit {
   loaderSize: LoaderSize = LoaderSize.Large;
   loading = true;
   scrollObserver: IntersectionObserver;
-  order = 0;
   role = {roleField: 'role', isEnable: false}
   selectedRole :number;
-  selectedFavorite = false;
-  selectedSortByRating = false;
-  selectedBySort = SortState.NoSort;
   @ViewChild('sMarker', {static: true}) markerRef: ElementRef;
   isShowTripInfo = false;
   tripInfo: Trip;
@@ -71,7 +66,7 @@ export class ActiveTripsModalComponent implements OnInit {
     console.log(this.role.isEnable);
   }
 
-  trackById(index, trip) {
+  trackById(trip) {
     return trip.id;
   }
 
@@ -79,13 +74,12 @@ export class ActiveTripsModalComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  showTripInfo(trip :Trip){
+  showTripInfo(trip :ActiveTrip){
     this.tripInfo = trip;
     this.isShowTripInfo = !this.isShowTripInfo;
   }
 
-  noneTripInfo(){
-    this.isShowTripInfo = !this.isShowTripInfo;
+  closeInfo(){
+    this.isShowTripInfo = ! this.isShowTripInfo;
   }
-
 }

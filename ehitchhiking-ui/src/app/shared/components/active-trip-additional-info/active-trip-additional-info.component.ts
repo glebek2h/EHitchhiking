@@ -9,6 +9,7 @@ import { ActiveTrip } from "../active-trip/active-trip";
 export class ActiveTripAdditionalInfoComponent implements OnInit {
 
   @Input() trip: ActiveTrip;
+
   constructor() { }
 
   ngOnInit() {

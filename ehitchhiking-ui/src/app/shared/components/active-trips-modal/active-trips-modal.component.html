@@ -28,8 +28,8 @@
                        (click)="showTripInfo(trip)"></app-active-trip>
     </div>
     <div class="scroll-marker" #sMarker></div>
-    <app-active-trip-additional-info [trip]="tripInfo" *ngIf="isShowTripInfo"
-                                     (click)="noneTripInfo()"></app-active-trip-additional-info>
+    <app-active-trip-additional-info [trip]="tripInfo"   *ngIf="isShowTripInfo"
+                                     ></app-active-trip-additional-info>
     <!--    <app-no-data *ngIf="!tripsArray.length" isEmpty="true"></app-no-data>-->
   </div>
 
@@ -38,6 +38,11 @@
       <mat-icon>close</mat-icon>
     </button>
   </div>
+  <footer >
+    <div mat-dialog-actions class="btn-back"  >
+      <button mat-button (click)="closeInfo()" *ngIf="isShowTripInfo">Back</button>
+    </div>
+  </footer>
 
 </div>
 
