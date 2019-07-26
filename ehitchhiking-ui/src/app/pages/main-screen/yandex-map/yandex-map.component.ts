@@ -174,7 +174,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
 				this.currentMultiRoute = multiRoute;
         this.currentRoute = this.routes[index];
 				this.currentRoute.passengers = [];
-        this.routes[index].yandexRoute = multiRoute; // !!!!!!!!!!!!!!!!!!!!
+        this.routes[index].yandexRoute = multiRoute;
 			})
 			.catch((error) => console.log('Failed to load Yandex Maps', error));
 	}

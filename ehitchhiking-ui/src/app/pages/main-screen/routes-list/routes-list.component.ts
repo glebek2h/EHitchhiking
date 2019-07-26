@@ -33,7 +33,6 @@ export class RoutesListComponent implements OnInit {
   }
 
   submitRoute(index: number) {
-    // console.log(this.activeRoutesCollection[index]);
   }
 
   getData(data: any) {

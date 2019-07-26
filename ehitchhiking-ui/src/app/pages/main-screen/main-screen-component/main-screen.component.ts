@@ -36,8 +36,6 @@ export class MainScreenComponent implements OnInit {
     this.isDisabledSubmitRouteButton = true;
 		this.userState = UserState.passenger;
     this.apiService.doGet(URL_REGISTRY['map.getRoutes']).subscribe(data => console.log(data));
-    /*this.apiService.doDelete(URL_REGISTRY['blacklist.delete'], false, {
-      idPas: this.blacklistUsersArray[item].id,idDr: this.curUser.id}).subscribe(data => console.log(data));*/
     this.routes = YandexMapService.getSomeRoutes();
     this.copyRoutes = this.routes.slice();
 	}
