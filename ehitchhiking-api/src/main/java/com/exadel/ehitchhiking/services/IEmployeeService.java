@@ -1,6 +1,5 @@
 package com.exadel.ehitchhiking.services;
 
-import com.exadel.ehitchhiking.models.Employee;
 import com.exadel.ehitchhiking.models.vo.EmployeeVO;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,7 +10,7 @@ public interface IEmployeeService extends UserDetailsService {
     void createEmployee(boolean isAdmin, String username, String firstName,
                                String lastName, String email, String password, String phoneNum);
     EmployeeVO findUserId(int userId);
-    EmployeeVO findUserUsername(String username);
+    EmployeeVO findUserByUsername(String username);
     int findIdByUsername(String username);
     void updatePassword(String username, String password);
     void updateEmail(String username, String email);

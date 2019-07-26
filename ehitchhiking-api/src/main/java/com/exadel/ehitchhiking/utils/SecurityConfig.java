@@ -2,7 +2,6 @@ package com.exadel.ehitchhiking.utils;
 
 import com.exadel.ehitchhiking.services.IEmployeeService;
 
-import com.exadel.ehitchhiking.services.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -95,7 +94,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception{
-        auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN", "EMPLOYEE");
+        auth.inMemoryAuthentication().withUser("admin")
+                .password("admin").roles("EMPLOYEE", "ADMIN");
     }
 
     @Bean

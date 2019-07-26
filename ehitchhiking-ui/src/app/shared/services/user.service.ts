@@ -3,24 +3,25 @@ import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 import {ApiService} from './api.service';
 import {User} from '@shared/models/user';
 import {Injectable} from '@angular/core';
-import {catchError, map} from 'rxjs/operators';
+import {catchError, map, publish, share, take, takeUntil} from 'rxjs/operators';
 import {Observable, of} from 'rxjs';
 
 @Injectable()
 export class UserService {
 	private currentUser: User | false | null;
-	private currentUserObs: Observable<User | boolean>;
+	private currentUserPromise: Promise<User | boolean>;
 
 	constructor(private apiService: ApiService) {}
 
 	init() {
-		this.currentUserObs = this.apiService.doGet(URL_REGISTRY.initialization, false).pipe(
-			map((response: HttpResponse<any>) => this.parseResponse(response)),
+		this.currentUserPromise = this.apiService.doGet(URL_REGISTRY.initialization, false).pipe(
+      map((response: HttpResponse<any>) => this.parseResponse(response)),
+			share(),
 			catchError((error: HttpErrorResponse) => {
 				this.currentUser = false;
 				return of(false);
 			})
-		);
+		).toPromise();
 	}
 
 	private parseResponse(response: any) {
@@ -39,11 +40,11 @@ export class UserService {
 		return true;
 	}
 
-	getStatus(): Observable<User | boolean> {
-		if (!this.currentUserObs) {
+	getStatus(): Promise<User | boolean> {
+		if (!this.currentUserPromise) {
 			this.init();
 		}
-		return this.currentUserObs;
+		return this.currentUserPromise;
 	}
 
 	/**
@@ -54,7 +55,14 @@ export class UserService {
 	}
 
 	refreshCurrentUser(): void {
-		this.currentUserObs = of(true);
+		this.currentUserPromise = Promise.resolve(true);
 		this.currentUser = null;
+	}
+
+	/**
+	 * Only for authorization service
+	 */
+	setCurrentUser(response: HttpResponse<any>): boolean {
+		return true;
 	}
 }

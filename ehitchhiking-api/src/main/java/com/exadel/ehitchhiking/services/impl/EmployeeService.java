@@ -34,7 +34,7 @@ public class EmployeeService implements IEmployeeService {
     }
 
     @Override
-    public EmployeeVO findUserUsername(String username) {
+    public EmployeeVO findUserByUsername(String username) {
         return EmployeeVO.fromEntity(dao.getByEmail(username));
     }
 
@@ -97,7 +97,6 @@ public class EmployeeService implements IEmployeeService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return findUserUsername(email);
+        return findUserByUsername(email);
     }
-
 }

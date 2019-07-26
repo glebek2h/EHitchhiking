@@ -1,7 +1,7 @@
-import {AuthorizationService} from '@shared/services/authorization.service';
-import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {Component, OnInit} from '@angular/core';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
+import {AuthorizationService} from '@shared/services/authorization.service';
 
 @Component({
 	selector: 'app-registration',

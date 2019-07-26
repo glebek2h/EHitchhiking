@@ -6,7 +6,7 @@ import {RequestMethods} from '@shared/enums/request-enum';
 
 @Injectable()
 export class ApiService {
-	static readonly apiUrl: string = 'http://localhost:8080/';
+	static readonly apiUrl: string = 'http://localhost:4200/api/';
 
 	constructor(private http: HttpClient) {}
 
@@ -22,6 +22,27 @@ export class ApiService {
 	getPut(urlPath: string, isCacheable: boolean = false, data: any = null): Observable<HttpEvent<any>> | null {
 		return this.generateRequest(RequestMethods.PUT, urlPath, data, isCacheable);
 	}
+	// doAuthGet(urlPath: string, data: any): Observable<any> {
+	// 	const headers = new HttpHeaders(
+	// 		data
+	// 			? {
+	// 					authorization: 'Basic ' + btoa(data.username + ':' + data.password),
+	// 			  }
+	// 			: {}
+	// 	);
+	// 	return this.http.request(RequestMethods.GET, ApiService.apiUrl + urlPath, this.getAuthConfig(headers) as any);
+	// }
+
+	// private getAuthConfig(authHeaders: HttpHeaders) {
+	// 	return {
+	// 		headers: authHeaders,
+	// 		reportProgress: false,
+	// 		params: new CachingHttpParams(false),
+	// 		responseType: 'json',
+	// 		withCredentials: false,
+	// 		observe: 'response',
+	// 	};
+	// }
 
 	private generateRequest(
 		type: RequestMethods,
@@ -29,7 +50,7 @@ export class ApiService {
 		data: any,
 		isCacheable: boolean = false
 	): Observable<any> {
-		const body = JSON.stringify(data);
+		const body = data;
 		let url = ApiService.apiUrl + urlPath;
 		if (type === RequestMethods.GET || type === RequestMethods.DEL) {
 			url = this.insertParameters(url, data);

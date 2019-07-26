@@ -8,6 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.Transient;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -28,6 +29,9 @@ public class EmployeeVO implements UserDetails {
 
     private String phoneNumber;
 
+    @Transient
+    private String password;
+
     public static EmployeeVO fromEntity(Employee Employee) {
         return new EmployeeVO(
                 Employee.getId(),
@@ -35,17 +39,18 @@ public class EmployeeVO implements UserDetails {
                 Employee.getFirstName(),
                 Employee.getLastName(),
                 Employee.getEmail(),
-                Employee.getPhoneNumber()
+                Employee.getPhoneNumber(),
+                Employee.getPassword()
         );
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        grantedAuthorities.add(new SimpleGrantedAuthority("Admin"));
-        grantedAuthorities.add(new SimpleGrantedAuthority("Employee"));
+        grantedAuthorities.add(new SimpleGrantedAuthority("ADMIN"));
+        grantedAuthorities.add(new SimpleGrantedAuthority("EMPLOYEE"));
 
-        return null;
+        return grantedAuthorities;
     }
 
     @Override
@@ -55,7 +60,7 @@ public class EmployeeVO implements UserDetails {
 
     @Override
     public String getPassword() {
-        return getPassword();
+        return password;
     }
 
     @Override

@@ -2,7 +2,9 @@ import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 import {NotificationService} from './notification.service';
 import {ApiService} from '@shared/services/api.service';
 import {Injectable} from '@angular/core';
-import {catchError} from 'rxjs/operators';
+import {catchError, map} from 'rxjs/operators';
+import {HttpResponse, HttpErrorResponse} from '@angular/common/http';
+import {of} from "rxjs";
 
 @Injectable()
 export class AuthorizationService {
@@ -12,10 +14,10 @@ export class AuthorizationService {
 		this.apiService
 			.doPost(URL_REGISTRY.authorization, false, this.getAuthorizationObject(login, password))
 			.pipe(
-				catchError((error) => {
-					console.log(error);
+				map((response: HttpResponse<any>) => console.log(response)),
+				catchError((error: HttpErrorResponse) => {
 					this.notificationService.showErrorNotification('Authorization error!');
-					return error;
+					return of(false);
 				})
 			)
 			.subscribe(
@@ -28,10 +30,12 @@ export class AuthorizationService {
 			);
 	}
 
+	private parseResponse(response: any) {}
+
 	private getAuthorizationObject(customLogin: string, customPassword: string) {
 		return {
 			login: customLogin,
-			password: btoa(customPassword),
+			password: customPassword,
 		};
 	}
 }

@@ -1,6 +1,7 @@
 package com.exadel.ehitchhiking.authentification;
 
 import com.exadel.ehitchhiking.models.Employee;
+import com.exadel.ehitchhiking.models.vo.EmployeeVO;
 import com.exadel.ehitchhiking.responses.Response;
 import com.exadel.ehitchhiking.services.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,22 +23,24 @@ public class SessionController {
     private IEmployeeService employeeService;
 
     @GetMapping
-    private Response<Employee> getSession(){
+    private Response<EmployeeVO> getSession() {
         System.out.println("here");
-        Response<Employee> response = new Response<>();
+        Response<EmployeeVO> response = new Response<>();
 
-        if (httpSession.isNew()){
+        if (httpSession.isNew()) {
             System.out.println("new session");
             response.setData(null);
             response.setStatus("success");
             response.setMsg("new session");
+            httpSession.invalidate();
             return response;
         }
 
         System.out.println("old session");
         response.setStatus("success");
         response.setMsg("old session");
-        response.setData(employeeService.findUserId((Integer)httpSession.getAttribute("id")));
+        response.setData(employeeService.findUserId(1));
+        //response.setData(null);
 
         return response;
     }
