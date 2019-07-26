@@ -43,10 +43,10 @@ export class TripRegistrationComponent implements OnInit {
 	}
 
   isDriver() {
-    return this.userState === UserState.driver;
+    return this.userState === UserState.Driver;
   }
 
   isPassenger() {
-    return this.userState === UserState.passenger;
+    return this.userState === UserState.Passenger;
   }
 }

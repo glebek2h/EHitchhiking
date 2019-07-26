@@ -28,8 +28,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
 
 	yandexRoutesObjects: MultiRouteModel[] = []; // 'сами' маршруты яндекс api
 	@Input() routes: Partial<Route>[]; // 'интерфейсы' маршрутов, которые ещё нужно построить
-
-	@Input() userState: string;
+	@Input() userState: UserState;
 	@Input() tripState: number;
 	@Input() tripData: Route;
 	@Input() isSavedRoute: boolean;
@@ -40,7 +39,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
 	ngOnInit() {
 		this.ymapsPromise = ymaps.load(YandexMapComponent.API_URL);
 		this.createMap();
-		this.userState = UserState.passenger;
+		this.userState = UserState.Passenger;
 	}
 
 	getRandomInt(min, max) {
@@ -90,12 +89,12 @@ export class YandexMapComponent implements OnInit, OnChanges {
 		}
 
 		if (changes.tripData && changes.tripData.currentValue) {
-			if (this.userState === UserState.driver) {
+			if (this.userState === UserState.Driver) {
 				this.myMap.geoObjects.remove(this.currentMultiRoute);
 				this.addMultiRoute(this.tripData, true);
 				return;
 			}
-			if (this.userState === UserState.passenger) {
+			if (this.userState === UserState.Passenger) {
 				for (let i = 0; i < YandexMapComponent.ROUTES_ON_MAP_COUNT; i++) {
 				  console.log(this.routes[i]);
 					this.addMultiRoute(this.routes[i], false);
@@ -202,10 +201,10 @@ export class YandexMapComponent implements OnInit, OnChanges {
 					mapStateAutoApply: true,
 				})
 				.then((result) => {
-					if (this.userState === UserState.driver) {
+					if (this.userState === UserState.Driver) {
 						result.geoObjects.options.set('preset', 'islands#redAutoCircleIcon');
 					}
-					if (this.userState === UserState.passenger) {
+					if (this.userState === UserState.Passenger) {
 						result.geoObjects.options.set('preset', 'islands#redPersonCircleIcon');
 					}
 					this.currentGeoPosition = result.geoObjects;
