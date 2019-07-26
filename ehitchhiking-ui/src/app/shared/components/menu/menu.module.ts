@@ -25,7 +25,7 @@ import {NotificationComponent} from '../notification/notification.component';
 import {ChatDataModule} from '@shared/components/chat-data/chat-data.module';
 
 @NgModule({
-	declarations: [MenuComponent, BlacklistComponent, NotificationComponent],
+  declarations: [MenuComponent, BlacklistComponent, NotificationComponent],
 	imports: [
 		CommonModule,
 		MatCheckboxModule,

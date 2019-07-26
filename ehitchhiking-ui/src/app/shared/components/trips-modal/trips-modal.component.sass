@@ -16,17 +16,21 @@
   text-align: center
   margin-bottom: 0
   font-size: $title
+
+.filter-sort
+  height: 5rem
 .form-row
   display: flex
   justify-content: center
   align-items: center
+  @include flexbox(space-between)
   .icon-size
     width: 5rem
 .scroll-marker
   min-height: $height-empty-block
 .trips
-  height: calc(#{$trip-card-height}*5 + #{$height-empty-block})
-  //5 - number of trips
+  height: calc(#{$trip-card-height} * #{$number-of-trips-in-list} + #{$height-empty-block})
+  overflow-Y: scroll
   overflow-x: hidden
   margin: $default-offset
   margin-bottom: 0

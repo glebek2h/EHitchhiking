@@ -13,7 +13,8 @@ export class RoutesListComponent implements OnInit {
   @Input() isDisabledSubmitRouteButton: boolean;
 	@Output() routeToDisplay = new EventEmitter<any>(); // TODO
   @Output() formData = new EventEmitter<any>();
-	isChecked: boolean;
+
+  isChecked: boolean;
   ROUTES_ON_MAP_COUNT = 3;
 
 	constructor() {}

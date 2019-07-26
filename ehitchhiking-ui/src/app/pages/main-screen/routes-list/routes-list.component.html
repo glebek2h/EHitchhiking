@@ -27,6 +27,9 @@
         <p class="routes-list-p">
           <span>Driver rating:</span><span>{{ route.driverRating }}</span>
         </p>
+        <p class="routes-list-p">
+          <span>Car:</span><span>{{ route.car.model }}</span>
+        </p>
         <div class="routes-interface">
           <mat-checkbox color="primary" #matCheckbox [checked]="i < ROUTES_ON_MAP_COUNT"
                         (click)="displayRoute(i, matCheckbox)">Display
