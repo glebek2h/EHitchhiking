@@ -127,6 +127,8 @@ export class YandexMapComponent implements OnInit, OnChanges {
 					},
 					{searchControlProvider: 'yandex#search'}
 				);
+        this.myMap.controls.remove('geolocationControl');
+        this.myMap.controls.remove('searchControl');
 				maps.geolocation
 					.get({
 						mapStateAutoApply: true,
