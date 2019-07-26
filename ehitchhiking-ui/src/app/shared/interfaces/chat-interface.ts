@@ -4,4 +4,5 @@ interface ChatMessage {
 	avaSrc: string;
 	time?: number;
 	isMy: boolean;
+	isNotify: boolean;
 }

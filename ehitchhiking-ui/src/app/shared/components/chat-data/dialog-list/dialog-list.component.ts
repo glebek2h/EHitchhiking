@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {DialogListService} from './dialog-list.service';
 import {NoDataSize} from '@shared/enums/no-data-sizes';
 
@@ -18,7 +18,8 @@ export class DialogListComponent implements OnInit {
 
 	constructor() {}
 
-	ngOnInit() {}
+	ngOnInit() {
+  }
 
 	showChat(index) {
 		this.chatMessages.emit(this.dialogList[index].msgList);

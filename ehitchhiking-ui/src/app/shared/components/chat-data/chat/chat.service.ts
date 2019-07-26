@@ -11,6 +11,7 @@ export class ChatService {
 			avaSrc: 'http://placekitten.com/40/50',
 			time: Date.now(),
 			isMy: true,
+      isNotify: false,
 		};
 	}
 	constructor() {}
