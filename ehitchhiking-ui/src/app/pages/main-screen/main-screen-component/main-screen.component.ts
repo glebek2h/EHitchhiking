@@ -12,7 +12,7 @@ export class MainScreenComponent implements OnInit {
 
 	tripFormData: any; // TODO
 	isHiddenTripRegistration: boolean;
-	userState: number;
+	userState: UserState;
 	isSavedRoute: boolean;
 	isShownRoutesList: boolean;
 	isShownViewRoutesButton: boolean;

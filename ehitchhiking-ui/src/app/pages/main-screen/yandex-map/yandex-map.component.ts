@@ -23,7 +23,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
 	colors: string[] = YandexMapService.COLORS;
 
 	@Input() routes: Partial<Route>[];
-	@Input() userState: number;
+	@Input() userState: UserState;
 	@Input() tripState: number;
 	@Input() tripData: Route;
 	@Input() isSavedRoute: boolean;
