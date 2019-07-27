@@ -5,6 +5,7 @@ import {YandexMapService} from './yandex-map.service';
 import MultiRouteModel = ymaps.multiRouter.MultiRouteModel;
 import {DELETE_ROUTE_MARKER} from '../../../shared/constants/modal-constants';
 import {Route} from '@pages/main-screen/Route';
+import {log} from "util";
 
 @Component({
 	// tslint:disable-next-line:component-selector
@@ -171,7 +172,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
 					},
 					YandexMapService.routeOptions(color, pointDraggable)
 				);
-        this.setInfoAboutRoute(multiRoute, this.routes[index]);
+        this.setInfoAboutRoute(multiRoute, index);
 				this.myMap.geoObjects.add(multiRoute);
 				this.currentMultiRoute = multiRoute;
         this.currentRoute = this.routes[index];
@@ -181,10 +182,24 @@ export class YandexMapComponent implements OnInit, OnChanges {
 			.catch((error) => console.log('Failed to load Yandex Maps', error));
 	}
 
-	setInfoAboutRoute(multiRoute, data: Partial<Route>) {
+  setInfoAboutRoute(multiRoute, index: number) {
 		multiRoute.events.add('update', (e) => {
 			const activeRoute = multiRoute.getActiveRoute();
-			data.tripDuration = activeRoute.properties.get('duration').text;
+      this.routes[index].tripDuration = activeRoute.properties.get('duration').text;
+
+      const coordinates = multiRoute.model.getReferencePoints();
+      this.ymapsPromise
+        .then((maps) => {
+          maps.geocode(coordinates[0]).then((res) => {
+            const firstGeoObject = res.geoObjects.get(0);
+            this.routes[index].from = firstGeoObject.getAddressLine();
+          });
+          maps.geocode(coordinates[1]).then((res) => {
+            const firstGeoObject = res.geoObjects.get(0);
+            this.routes[index].to = firstGeoObject.getAddressLine();
+          });
+        });
+
 			activeRoute.events.add('mouseenter', () => {
 				activeRoute.options.set('strokeWidth', 5);
 				activeRoute.options.set('strokeColor', YandexMapService.ACTIVE_ROUTE_COLOR);
@@ -195,7 +210,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
 			activeRoute.events.add('click', (event) => {
 				if (!this.myMap.balloon.isOpen()) {
 					const coords = event.get('coords');
-					this.myMap.balloon.open(coords, YandexMapService.baloonInfo(data));
+          this.myMap.balloon.open(coords, YandexMapService.baloonInfo(this.routes[index]));
 					return;
 				}
 			});
