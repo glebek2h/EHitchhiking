@@ -46,7 +46,7 @@ public class Car {
     @Setter
     @Getter
     @ManyToOne
-    @JoinColumn(name = "\"ID_DRIVER\"")
+    @JoinColumn(name = "\"DRIVER_ID\"")
     private Driver driver;
 
     public Car(String color, String number, String model,
