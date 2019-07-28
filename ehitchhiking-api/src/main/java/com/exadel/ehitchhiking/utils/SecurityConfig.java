@@ -2,7 +2,6 @@ package com.exadel.ehitchhiking.utils;
 
 import com.exadel.ehitchhiking.services.IEmployeeService;
 
-import com.exadel.ehitchhiking.services.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

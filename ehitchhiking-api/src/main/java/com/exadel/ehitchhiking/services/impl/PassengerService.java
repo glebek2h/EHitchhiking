@@ -33,8 +33,8 @@ public class PassengerService implements IPassengerService {
     private IEmployeeDAO employeeDAO;
 
     @Override
-    public void createPassenger(Integer id) {
-       dao.save(new Passenger(employeeDAO.getEmployee(id), 0.0f, 0));
+    public void createPassenger(Integer idPass) {
+       dao.save(new Passenger(employeeDAO.getEmployee(idPass), 0.0f, 0));
     }
 
     @Override
@@ -43,8 +43,8 @@ public class PassengerService implements IPassengerService {
     }
 
     @Override
-    public void updateRatePass(String username, float addedRate) {
-        Passenger passenger = dao.getByName(username);
+    public void updateRatePass(int idPass, float addedRate) {
+        Passenger passenger = dao.getPassenger(idPass);
         int amount = passenger.getRatedPeoples();
         passenger.setRate(((passenger.getRate() * amount) + addedRate) / (amount + 1));
         passenger.setRatedPeoples(amount + 1);
@@ -57,8 +57,8 @@ public class PassengerService implements IPassengerService {
     }
 
     @Override
-    public void deletePassengerId(int id) {
-        dao.delete(dao.getPassenger(id));
+    public void deletePassengerId(int idPass) {
+        dao.delete(dao.getPassenger(idPass));
     }
 
     @Override

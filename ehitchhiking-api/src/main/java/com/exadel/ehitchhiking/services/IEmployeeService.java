@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import java.util.List;
 
 public interface IEmployeeService extends UserDetailsService {
-    void createEmployee(boolean isAdmin, String username, String firstName,
+    void createEmployee(boolean isAdmin, String firstName,
                                String lastName, String email, String password, String phoneNum);
     EmployeeVO findUserId(int userId);
     EmployeeVO findUserUsername(String username);

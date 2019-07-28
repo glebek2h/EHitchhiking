@@ -9,7 +9,7 @@ import java.util.List;
 public interface IPassengerService {
     void createPassenger(Integer id);
     int findPassIdByUsername(String username);
-    void updateRatePass(String username, float addedRate);
+    void updateRatePass(int idPass, float addedRate);
     void deletePassenger(String username);
     void deletePassengerId(int id);
     void addDriverToBL(int idPass, int idDriver);

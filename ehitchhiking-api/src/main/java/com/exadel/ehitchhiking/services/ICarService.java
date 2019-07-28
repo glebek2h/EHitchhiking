@@ -22,4 +22,6 @@ public interface ICarService {
     List<CarVO> getListCars(int idDriver);
 
     int getAmountCars(int idDriver);
+
+    void deletedCar(int carId);
 }

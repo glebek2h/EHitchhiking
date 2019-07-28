@@ -23,4 +23,6 @@ public interface ITripPassengerService {
     void updateSeats(int id, int newSeats);
 
     void deleteDriverTrip(int id);
+
+    void updateHistory(int id, boolean isHistory);
 }

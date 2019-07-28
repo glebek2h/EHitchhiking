@@ -11,7 +11,7 @@ public interface IDriverService {
 
     int findDriverIdByUsername(String username);
 
-    void updateRateDriver(String username, float addedRate);
+    void updateRateDriver(int idDriver, float addedRate);
 
     void deleteDriver(String username);
 

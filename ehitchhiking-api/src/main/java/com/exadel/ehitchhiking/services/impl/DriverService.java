@@ -43,8 +43,8 @@ public class DriverService implements IDriverService {
     }
 
     @Override
-    public void updateRateDriver(String username, float addedRate) {
-        Driver driver = dao.getByName(username);
+    public void updateRateDriver(int idDriver, float addedRate) {
+        Driver driver = dao.getDriver(idDriver);
         int oldPeople = driver.getRatedPeoples();
         driver.setRate(((driver.getRate() * oldPeople) + addedRate) / (oldPeople + 1));
         driver.setRatedPeoples(oldPeople + 1);

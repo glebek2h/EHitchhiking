@@ -33,12 +33,18 @@ public class TripDriverService implements ITripDriverService {
     @Override
     public void createTripDriver(String startingPoint, String endingPoint,
                                  Timestamp startingTime, Timestamp endingTime, int idOfCar, int seats){
+
         TripDriver tripDriver = new TripDriver(startingPoint, endingPoint,
                 startingTime, endingTime, true,
                 false, false, seats, carDAO.getCar(idOfCar));
         dao.save(tripDriver);
     }
 
+    @Override
+    public TripDriverVO findTripDriver(int id){
+
+        return TripDriverVO.fromEntity(dao.getTripDriver(id));
+    }
     @Override
     public void updateTimeStart(int id, Timestamp newStart){
         TripDriver trip_driver = dao.getTripDriver(id);
@@ -93,6 +99,11 @@ public class TripDriverService implements ITripDriverService {
         TripDriver tripDriver = dao.getTripDriver(id);
         tripDriver.setAvailableSeats(newSeats);
         dao.update(tripDriver);
+    }
+
+    @Override
+    public int getAvailableSeats(int id){
+        return dao.getAvailableSeats(id);
     }
 /*
     @Override

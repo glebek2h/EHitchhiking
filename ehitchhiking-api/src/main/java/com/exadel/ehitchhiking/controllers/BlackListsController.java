@@ -20,6 +20,10 @@ public class BlackListsController {
 
     //TODO: rewrite all to get the userId and the role "DRIVER" -> received it we can delete or add to the driver
 
+
+    //TODO: change the blacklist to take in the id of the employee
+
+
     @Autowired
     private IDriverService driverService;
 
@@ -44,7 +48,6 @@ public class BlackListsController {
     // deleting the passenger from the black list driver
     @DeleteMapping("/driver")
     public Response<String> deletePassFromBlackListDriver(String idDriver, String idPass) {
-        System.out.println("here!!!");
         Response<String> response = new Response<>();
         try {
             driverService.deletePassFromBL(Integer.parseInt(idDriver), Integer.parseInt(idPass));
