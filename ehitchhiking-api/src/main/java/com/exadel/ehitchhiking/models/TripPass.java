@@ -45,6 +45,7 @@ public class TripPass {
     @Getter
     @Setter
     @ManyToOne
+    @JoinColumn (name = "\"PASS_ID\"")
     private Passenger passenger;
 
     @Setter
@@ -70,6 +71,7 @@ public class TripPass {
     @Getter
     @Setter
     @ManyToOne
+    @JoinColumn (name = "\"TRIP_DRIVER\"")
     private TripDriver tripDriver;
 
     public TripPass(String startPoint, String endPoint,
