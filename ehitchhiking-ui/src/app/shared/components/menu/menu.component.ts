@@ -4,7 +4,6 @@ import {BUTTONS_NAMES} from './buttons-names';
 import {MatDialog} from '@angular/material';
 import {RatePassengersModalComponent} from '../rate-passengers-modal/rate-passengers-modal.component';
 import {ProfileModalComponent} from '@shared/modals/profile-modal/profile-modal.component';
-import {Router} from '@angular/router';
 import {DEFAULT_MAT_DIALOG_CLASS, MAT_DIALOG_WIDTH_MD, MAT_DIALOG_WIDTH_SM} from '@shared/constants/modal-constants';
 import {BlacklistComponent} from '@shared/components/blacklist/blacklist.component';
 import {TripsModalComponent} from '../trips-modal/trips-modal.component';
@@ -15,14 +14,13 @@ import {NotificationService} from '@shared/services/notification.service';
 	selector: 'app-menu',
 	templateUrl: './menu.component.html',
 	styleUrls: ['./menu.component.sass'],
-	providers: [NotificationService],
+  providers: [NotificationService],
 })
 export class MenuComponent implements OnInit {
 	opened: boolean;
 	buttonsArray = [];
 
 	constructor(
-		private router: Router,
 		public dialog: MatDialog,
 		public notificationService: NotificationService,
 		private authorizationService: AuthorizationService
@@ -32,18 +30,18 @@ export class MenuComponent implements OnInit {
 		this.buttonsArray = BUTTONS_NAMES;
 	}
 	openBlacklistDialog(): void {
-		this.dialog.open(BlacklistComponent, {
+    this.dialog.open(BlacklistComponent, {
 			width: MAT_DIALOG_WIDTH_SM,
-			panelClass: DEFAULT_MAT_DIALOG_CLASS,
+      panelClass: DEFAULT_MAT_DIALOG_CLASS,
 			autoFocus: false,
-			disableClose: true,
+      disableClose: true,
 		});
 	}
 
 	openRatePassengersDialog(): void {
-		this.dialog.open(RatePassengersModalComponent, {
+    this.dialog.open(RatePassengersModalComponent, {
 			width: MAT_DIALOG_WIDTH_SM,
-			panelClass: DEFAULT_MAT_DIALOG_CLASS,
+      panelClass: DEFAULT_MAT_DIALOG_CLASS,
 			autoFocus: false,
 		});
 	}
@@ -53,8 +51,8 @@ export class MenuComponent implements OnInit {
 	}
 
 	openHistoryDialog() {
-		this.dialog.open(TripsModalComponent, {
-			panelClass: DEFAULT_MAT_DIALOG_CLASS,
+    this.dialog.open(TripsModalComponent, {
+      panelClass: DEFAULT_MAT_DIALOG_CLASS,
 			autoFocus: false,
 			width: MAT_DIALOG_WIDTH_MD,
 		});
@@ -65,9 +63,9 @@ export class MenuComponent implements OnInit {
 	}
 
 	openChatDialog(): void {
-		this.dialog.open(ChatComponent, {
+    this.dialog.open(ChatComponent, {
 			width: MAT_DIALOG_WIDTH_SM,
-			panelClass: DEFAULT_MAT_DIALOG_CLASS,
+      panelClass: DEFAULT_MAT_DIALOG_CLASS,
 			autoFocus: false,
 			disableClose: true,
 		});

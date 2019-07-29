@@ -1,45 +1,45 @@
 <div class="modal-wrapper">
-	<header class="modal-header">
-		<span class="modal-title">blacklist</span>
-	</header>
-	<mat-tab-group mat-stretch-tabs>
-		<mat-tab label="Drivers">
-			<app-pre-loading [isLoading]="loadingDrives" [size]="loaderSize"></app-pre-loading>
-			<app-no-data
-				[isEmpty]="!loadingDrives && blacklistDriverArray && !blacklistDriverArray.length"
-				[size]="noDataSize"
-				[message]="noDataMessage"
-				[icon]="noDataIconName"
-			></app-no-data>
-			<div mat-dialog-content class="modal-content">
-				<mat-card class="blacklist-user" *ngFor="let blacklistuser of blacklistDriverArray; let i = index">
-					<i class="material-icons profile-photo">account_circle</i>
-					<p class="blacklist-user-name truncated">{{ blacklistuser.name}}</p>
-					<i class="material-icons remove-icon" (click)="removePersonFromDriverBlacklist(i)">remove_circle</i>
-				</mat-card>
-			</div>
-		</mat-tab>
-		<mat-tab label="Passengers">
-			<app-pre-loading [isLoading]="loadingPassengers" [size]="loaderSize"></app-pre-loading>
-			<app-no-data
-				[isEmpty]="!loadingPassengers && blacklistPassengerArray && !blacklistPassengerArray.length"
-				[size]="noDataSize"
-				[message]="noDataMessage"
-				[icon]="noDataIconName"
-			></app-no-data>
-			<div mat-dialog-content class="modal-content">
-				<mat-card class="blacklist-user" *ngFor="let blacklistuser of blacklistPassengerArray; let i = index">
-					<i class="material-icons profile-photo">account_circle</i>
-					<p class="blacklist-user-name truncated">{{ blacklistuser.name }}</p>
-					<i class="material-icons remove-icon" (click)="removePersonFromPassengerBlacklist(i)"
-						>remove_circle</i
-					>
-				</mat-card>
-			</div>
-		</mat-tab>
-	</mat-tab-group>
+  <header class="modal-header">
+    <span class="modal-title">blacklist</span>
+  </header>
+  <mat-tab-group mat-stretch-tabs>
+    <mat-tab label="Drivers">
+      <app-pre-loading [isLoading]="loadingDrives" [size]="loaderSize"></app-pre-loading>
+      <app-no-data
+        [isEmpty]="!loadingDrives && blacklistDriverArray && !blacklistDriverArray.length"
+        [size]="noDataSize"
+        [message]="noDataMessage"
+        [icon]="noDataIconName"
+      ></app-no-data>
+      <div mat-dialog-content class="modal-content">
+        <mat-card class="blacklist-user" *ngFor="let blacklistuser of blacklistDriverArray; let i = index">
+          <i class="material-icons profile-photo">account_circle</i>
+          <p class="blacklist-user-name truncated">{{ blacklistuser }}</p>
+          <i class="material-icons remove-icon" (click)="removePersonFromDriverBlacklist(i)">remove_circle</i>
+        </mat-card>
+      </div>
+    </mat-tab>
+    <mat-tab label="Passengers">
+      <app-pre-loading [isLoading]="loadingPassengers" [size]="loaderSize"></app-pre-loading>
+      <app-no-data
+        [isEmpty]="!loadingPassengers && blacklistPassengerArray && !blacklistPassengerArray.length"
+        [size]="noDataSize"
+        [message]="noDataMessage"
+        [icon]="noDataIconName"
+      ></app-no-data>
+      <div mat-dialog-content class="modal-content">
+        <mat-card class="blacklist-user" *ngFor="let blacklistuser of blacklistPassengerArray; let i = index">
+          <i class="material-icons profile-photo">account_circle</i>
+          <p class="blacklist-user-name truncated">{{ blacklistuser }}</p>
+          <i class="material-icons remove-icon" (click)="removePersonFromPassengerBlacklist(i)"
+          >remove_circle</i
+          >
+        </mat-card>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
 
-	<div class="modal-close-control">
+  <div class="modal-close-control">
 		<button class="modal-close-control-btn" mat-icon-button (click)="close()">
 			<mat-icon>close</mat-icon>
 		</button>

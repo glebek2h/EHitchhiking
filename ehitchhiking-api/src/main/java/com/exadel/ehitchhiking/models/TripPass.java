@@ -45,6 +45,7 @@ public class TripPass {
     @Getter
     @Setter
     @ManyToOne
+    @JoinColumn (name = "\"PASS_ID\"")
     private Passenger passenger;
 
     @Setter

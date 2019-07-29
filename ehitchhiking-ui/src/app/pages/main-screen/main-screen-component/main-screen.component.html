@@ -2,25 +2,29 @@
 	<app-menu></app-menu>
 </div>
 <yandex-map
-	[tripData]="tripFormData"
-	[userState]="userState"
-	[isSavedRoute]="isSavedRoute"
-	[routes]="routes"
-	[triggers]="mapTriggers"
-	[indexRouteToDisplay]="displayedRouteIndex"
+  [tripData]="tripFormData"
+  [userState]="userState"
+  [isSavedRoute]="isSavedRoute"
+  [routes]="routes"
+  [triggers]="mapTriggers"
+  [indexRouteToDisplay]="displayedRouteIndex"
   [redraw]="redrawTriggers"
+  (passengerPlaceMark)="getPassengerPlaceMarkInfo($event)"
 ></yandex-map>
 <app-trip-registration
-	[isShown]="isHiddenTripRegistration"
-	(formData)="getData($event)"
-	(isShownViewListButton)="setIsShownViewRoutesButtonFlag($event)"
-	(isShownSaveRouteButton)="setIsShownSaveRouteButtonFlag($event)"
+  [isShown]="isHiddenTripRegistration"
+  (formData)="getData($event)"
+  (isShownViewListButton)="setIsShownViewRoutesButtonFlag($event)"
+  (isShownSaveRouteButton)="setIsShownSaveRouteButtonFlag($event)"
+  [user]="user"
+  [userState]="userState"
 ></app-trip-registration>
 <app-routes-list
-	*ngIf="isShownRoutesList"
-	[activeRoutesCollection]="routes"
-	(routeToDisplay)="getIndexToDisplay($event)"
+  *ngIf="isShownRoutesList"
+  [activeRoutesCollection]="routes"
+  (routeToDisplay)="getIndexToDisplay($event)"
   (formData)="getFilterData($event)"
+  [isDisabledSubmitRouteButton]="isDisabledSubmitRouteButton"
 ></app-routes-list>
 <mat-button-toggle-group class="btn-group" name="fontStyle" aria-label="Font Style">
 	<mat-button-toggle class="passanger-btn" value="bold" (click)="toggleStateToPassenger()"

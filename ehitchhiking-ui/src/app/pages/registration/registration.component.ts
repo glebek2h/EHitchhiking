@@ -17,12 +17,12 @@ export class RegistrationComponent implements OnInit {
 		private formBuilder: FormBuilder
 	) {}
 
-	ngOnInit() {
-		this.registrationForm = this.formBuilder.group({
-			login: ['', [Validators.required]],
-			password: ['', [Validators.required]],
-		});
-	}
+  ngOnInit() {
+    this.registrationForm = this.formBuilder.group({
+      login: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+    });
+  }
 
 	onSubmit() {
 		const login = this.registrationForm.controls.login.value;
@@ -31,10 +31,10 @@ export class RegistrationComponent implements OnInit {
 		this.router.navigateByUrl('/main');
 	}
 
-	hasError(controlName: string): boolean {
-		return (
-			this.registrationForm.controls[controlName] &&
-			this.registrationForm.controls[controlName].hasError('required')
-		);
-	}
+  hasError(controlName: string): boolean {
+    return (
+      this.registrationForm.controls[controlName] &&
+      this.registrationForm.controls[controlName].hasError('required')
+    );
+  }
 }
