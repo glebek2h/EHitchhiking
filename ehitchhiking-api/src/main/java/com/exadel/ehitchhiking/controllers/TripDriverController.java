@@ -1,14 +1,19 @@
 package com.exadel.ehitchhiking.controllers;
 
+import com.exadel.ehitchhiking.daos.impl.CarDAO;
+import com.exadel.ehitchhiking.models.Car;
+import com.exadel.ehitchhiking.models.TripDriver;
+import com.exadel.ehitchhiking.models.vo.TripDriverVO;
+import com.exadel.ehitchhiking.models.vo.TripPassVO;
 import com.exadel.ehitchhiking.responses.Response;
 import com.exadel.ehitchhiking.services.ITripDriverService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.Writer;
 import java.sql.Timestamp;
+import java.time.Instant;
 
 @RestController
 @RequestMapping("/tripDriver")
@@ -16,17 +21,21 @@ public class TripDriverController {
 
     @Autowired
     private ITripDriverService tripDriverService;
+    @Autowired
+    CarDAO carDAO;
 
     @PostMapping("/createTrip")
-    public Response<String> createTrip(String startingPoint, String endingPoint,
-                                       String startingTime, String endingTime,
-                                       String idOfCar, String seats) {
+    public Response<String> createTrip(@RequestBody TripDriverVO tripDriverVO) {
+
+
+
         Response<String> response = new Response<>();
+
         try {
 
-            tripDriverService.createTripDriver(startingPoint, endingPoint,
-                    Timestamp.valueOf(startingTime), Timestamp.valueOf(endingTime),
-                    Integer.parseInt(idOfCar), Integer.parseInt(seats));
+            tripDriverService.createTripDriver(tripDriverVO.getStartingPoint(), tripDriverVO.getEndingPoint(),
+                    Timestamp.from(tripDriverVO.getStartingTime()), Timestamp.from(tripDriverVO.getEndingTime()),
+                    tripDriverVO.getIdOfCar(), tripDriverVO.getSeats());
         } catch (Exception e) {
             response.setStatus("500");
             response.setData("false");
