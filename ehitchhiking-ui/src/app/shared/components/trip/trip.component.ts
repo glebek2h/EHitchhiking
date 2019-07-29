@@ -41,6 +41,10 @@ export class TripComponent implements OnInit {
       width: MAT_DIALOG_WIDTH_SM,
       panelClass: DEFAULT_MAT_DIALOG_CLASS,
       autoFocus: false,
+      data: {
+        dataKey: this.trip.role
+      }
     });
+
   }
 }

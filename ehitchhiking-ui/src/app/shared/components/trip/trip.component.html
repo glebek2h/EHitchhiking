@@ -15,14 +15,6 @@
 				event_busy
 			</i>
 		</button>
-		<button class="trip-btn" (click)="toggleRating()">
-			<i class="material-icons" title="no-rate" *ngIf="trip.rating === 0">
-				star_border
-			</i>
-			<i class="btn-rating material-icons" title = "is-rated" *ngIf="trip.rating > 0">
-				star
-			</i>
-		</button>
     <button class="trip-btn" (click)="openRatePassengersDialog()"><i class="material-icons">
       stars
     </i></button>

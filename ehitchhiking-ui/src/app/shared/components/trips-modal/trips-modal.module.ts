@@ -17,6 +17,7 @@ import {SortTripsPipe} from "../../pipes/sort-trips.pipe";
 import {FilterByRolePipe} from "../../pipes/filter-by-role.pipe";
 import {FormsModule} from "@angular/forms";
 import {FilterByFavoritePipe} from "../../pipes/filter-by-favorite.pipe";
+import {RatePassengersModalModule} from "@shared/components/rate-passengers-modal/rate-passengers-modal.module";
 
 @NgModule({
   declarations: [TripsModalComponent, SortTripsPipe, FilterByRolePipe, FilterByFavoritePipe],
@@ -27,6 +28,7 @@ import {FilterByFavoritePipe} from "../../pipes/filter-by-favorite.pipe";
     MatTableModule,
     TripModule,
     NoDataModule,
+    RatePassengersModalModule,
     PreLoadingModule,
     MatIconModule,
     FormsModule,
