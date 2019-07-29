@@ -1,0 +1,134 @@
+@import "../../../../../styles/colors"
+@import "../../../../../styles/mixins"
+@import "../../../../../styles/fonts-constants"
+@import "../../../../../styles/constants"
+$image-size: 2rem
+$before-horizontal-radius: 0.5rem
+$before-vertical-radius: 0.4rem
+$message-border-width: 0.625rem
+$after-horizontal-radius: 0.3rem
+$after-width: 0.8rem
+$before-right: -0.2rem
+
+.modal-wrapper
+  .chat
+    margin: $default-offset/2
+    .message-zone
+      position: relative
+      overflow-x: hidden
+      height: 20rem
+      max-width: 23rem
+      font-size: $body-2
+      font-weight: normal
+      display: flex
+      flex-direction: column
+.input-zone
+  display: flex
+  justify-content: space-between
+  .input
+    width: 40rem
+  .send-btn
+    background-color: mat-color($primary, 50)
+    height: 2.8rem
+.modal-back
+  position: absolute
+  top: 0.5rem
+  left: 0.5rem
+  @include flexbox()
+  color: mat-color($primary, 400)
+  &-btn:hover
+    background-color: mat-color($accent, 50)
+  &-btn
+    .btn-text
+      display: inline
+
+
+.message-wrapper
+  display: flex
+  justify-content: flex-end
+  .message
+    flex-direction: column
+    flex-wrap: wrap
+    .person-name-wrapper
+      .person-name
+        margin: 0 0 0.5rem 0
+        color: $black
+        font-size: 17px
+        line-height: 13px
+        font-weight: bold
+  .message:before
+    transform: translate(0, -2px)
+
+  .message:after
+    transform: translate(-1rem, -2px)
+    width: $after-width
+    background: $white
+
+
+  .message
+    max-width: 8rem
+    word-wrap: break-word
+    margin-bottom: 0.375rem
+    line-height: 1.5rem
+    position: relative
+    padding: 0.6rem 0.7rem
+    border-radius: 1rem
+    background: $light-gray
+    color: $black
+
+    &:before, &:after
+      content: ""
+      position: absolute
+      bottom: -2px
+      height: 0.625rem
+
+  .person-info
+    display: flex
+    flex-direction: row-reverse
+    margin-left: 1.2rem
+    .date
+      font-size: small
+      color: $gray
+      height: 1rem
+      margin-top: 2rem
+    .image
+      border-radius: 50%
+      width: $image-size
+      height: $image-size
+
+  &.my-message
+    margin-right: $default-offset/2
+
+    .message
+      color: $white
+      background: $aqua-blue
+      align-self: flex-end
+
+      &:before
+        right: $before-right
+        border-right: $message-border-width solid $aqua-blue
+        border-bottom-left-radius: $before-horizontal-radius $before-vertical-radius
+
+      &:after
+        right: -1.75rem
+        border-bottom-left-radius: $after-horizontal-radius
+
+  &:not(.my-message)
+    margin-left: $default-offset/2
+    flex-direction: row-reverse
+
+    .message
+      &:before
+        left: $before-right
+        border-left: $message-border-width solid $light-gray
+        border-bottom-right-radius: $before-horizontal-radius $before-vertical-radius
+
+      &:after
+        left: 0.125rem
+        border-bottom-right-radius: $after-horizontal-radius
+
+.modal-content, .modal-wrapper
+  height: 29rem
+
+
+

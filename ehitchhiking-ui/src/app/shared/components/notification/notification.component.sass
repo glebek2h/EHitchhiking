@@ -1,0 +1,35 @@
+@import '../../../../styles/colors'
+@import '../../../../styles/fonts-constants'
+
+.notification
+  &-container
+    color: $white
+
+    &.error
+      background: mat-color($warn)
+
+      .notification-line
+        background-image: linear-gradient(to right, $white, mat-color($warn, 50), $white)
+
+    &.success
+      background: mat-color($accent)
+
+      .notification-line
+        background-image: linear-gradient(to right, $white, mat-color($accent, 50), $white)
+
+    &.info
+      background: mat-color($primary, A100)
+
+      .notification-line
+        background-image: linear-gradient(to right, $white, mat-color($accent, 50), $white)
+
+  &-header
+    font-size: $subheading-2
+    text-align: center
+
+  &-body
+    font-size: $body-2
+
+  &-line
+    border: 0
+    height: 1px

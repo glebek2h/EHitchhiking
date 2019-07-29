@@ -13,7 +13,10 @@
   bottom: 4rem
   left: 50%
   position: fixed
-  overflow-y: auto
+  overflow-y: hidden
+  .routes
+    overflow-y: scroll
+    height: 18rem
   .routes-list-p
     display: flex
     justify-content: space-between
@@ -26,6 +29,9 @@
     display: flex
     align-items: center
     justify-content: center
+  .routes-interface
+    display: flex
+    justify-content: space-between
 .header
   height: 5rem!important // default <mat-expansion-panel-header> height = 48px
   padding: $default-offset/2

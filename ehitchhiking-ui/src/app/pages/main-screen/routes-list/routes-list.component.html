@@ -1,28 +1,47 @@
 <div class="routes-list">
-	<mat-accordion *ngFor="let route of activeRoutesCollection" class="route-info">
-		<mat-expansion-panel>
-			<mat-expansion-panel-header class="header">
-				<mat-panel-title class="title">
-					<i class="material-icons" [style.color]="route.routeColor">
-						label </i
-					>Departure date, time, places
-				</mat-panel-title>
-				<mat-panel-description>
-					<p class="right-span">date: {{ parseDate(route.departureDate) }}</p>
-					<p class="right-span">time: {{ route.departureTime }}</p>
-					<p class="right-span">places: {{ route.placesSelect }}</p>
-				</mat-panel-description>
-			</mat-expansion-panel-header>
-
-			<p class="routes-list-p">
-				<span>From:</span><span>{{ route.from }}</span>
-			</p>
-			<p class="routes-list-p">
-				<span>To:</span><span>{{ route.to }}</span>
-			</p>
-			<p class="routes-list-p">
-				<span>Trip Duration:</span><span>{{ route.tripDuration }}</span>
-			</p>
-		</mat-expansion-panel>
-	</mat-accordion>
+  <app-filters (data)="getData($event)"></app-filters>
+  <div class="routes">
+    <mat-accordion *ngFor="let route of activeRoutesCollection; let i = index" class="route-info">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header class="header">
+          <mat-panel-title class="title">
+            <i class="material-icons" [style.color]="route.routeColor">
+              label </i
+            >Departure date, time, places
+          </mat-panel-title>
+          <mat-panel-description>
+            <p class="right-span">date: {{ parseDate(route.departureDate) }}</p>
+            <p class="right-span">time: {{ route.departureTime }}</p>
+            <p class="right-span">places: {{ route.placesSelect }}</p>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <p class="routes-list-p">
+          <span>From:</span><span>{{ route.from }}</span>
+        </p>
+        <p class="routes-list-p">
+          <span>To:</span><span>{{ route.to }}</span>
+        </p>
+        <p class="routes-list-p">
+          <span>Trip Duration:</span><span>{{ route.tripDuration }}</span>
+        </p>
+        <p class="routes-list-p">
+          <span>Driver rating:</span><span>{{ route.driverRating }}</span>
+        </p>
+        <p class="routes-list-p">
+          <span>Car:</span><span>{{ route.car.model }}</span>
+        </p>
+        <div class="routes-interface">
+          <mat-checkbox color="primary" #matCheckbox [checked]="i < ROUTES_ON_MAP_COUNT"
+                        (click)="displayRoute(i, matCheckbox)">Display
+            route
+          </mat-checkbox>
+          <button mat-raised-button color="primary" #applybutton [disabled]="isDisabledSubmitRouteButton"
+                  (click)="submitRoute(i)">
+            Apply
+          </button>
+          <button mat-raised-button color="primary" *ngIf="displayGetInLineButton(i, applybutton)">Get in Line</button>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
 </div>

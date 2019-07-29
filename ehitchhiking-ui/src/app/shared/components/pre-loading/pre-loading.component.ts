@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {LoaderSize} from '../../enums/pre-loader-sizes';
+import {LoaderSize} from '@shared/enums/pre-loader-sizes';
 
 @Component({
 	selector: 'app-pre-loading',
