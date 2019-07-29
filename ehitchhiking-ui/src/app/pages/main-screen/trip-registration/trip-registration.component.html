@@ -5,6 +5,7 @@
 			placeholder="from"
 			formControlName="from"
 			id="suggestions-to-input-from"
+      [ngClass]="{'is-invalid': submitted && nameFormGroup.controls.from.errors}"
 			#inp
 			(change)="onChangeFix($event, 'from')"
 		/>
@@ -15,22 +16,25 @@
 			placeholder="to"
 			formControlName="to"
 			id="suggestions-to-input-to"
+      [ngClass]="{ 'is-invalid': submitted && nameFormGroup.controls.to.errors }"
 			(change)="onChangeFix($event, 'to')"
 		/>
 	</mat-form-field>
 	<mat-form-field class="date-picker form-control">
-		<input matInput [matDatepicker]="picker" formControlName="departureDate" placeholder="Choose a date" />
+		<input matInput [matDatepicker]="picker" formControlName="departureDate" placeholder="Choose a date"
+           [ngClass]="{ 'is-invalid': submitted && nameFormGroup.controls.departureDate.errors }"/>
 		<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
 		<mat-datepicker #picker></mat-datepicker>
 	</mat-form-field>
 	<mat-form-field class="time-picker form-control">
-		<input matInput [ngxTimepicker]="picker1" formControlName="departureTime" placeholder="Choose a time" />
+		<input matInput [ngxTimepicker]="picker1" formControlName="departureTime" placeholder="Choose a time"
+           [ngClass]="{ 'is-invalid': submitted && nameFormGroup.controls.departureTime.errors }"/>
 		<ngx-material-timepicker #picker1></ngx-material-timepicker>
 	</mat-form-field>
 	<div class="registration-form-bottom-content form-control">
 		<mat-form-field class="places-select">
 			<mat-label>Number of seats</mat-label>
-			<mat-select formControlName="placesSelect">
+			<mat-select formControlName="placesSelect" [ngClass]="{ 'is-invalid': submitted && nameFormGroup.controls.placesSelect.errors }">
 				<mat-option [value]="1">1</mat-option>
 				<mat-option [value]="2">2</mat-option>
 				<mat-option [value]="3">3</mat-option>

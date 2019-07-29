@@ -18,6 +18,7 @@ export class TripRegistrationComponent implements OnInit, OnChanges {
 
 	nameFormGroup: FormGroup;
   isInit: boolean;
+  submitted = false;
 
 	constructor() {}
 
@@ -36,16 +37,8 @@ export class TripRegistrationComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes.userState && this.isInit) {
 
-      this.nameFormGroup.controls.from.reset();
-      this.nameFormGroup.controls.to.reset();
-      this.nameFormGroup.controls.departureDate.reset();
-      this.nameFormGroup.controls.placesSelect.reset();
-      this.nameFormGroup.controls.departureTime.reset();
-      this.nameFormGroup.controls.from.setErrors(null);
-      this.nameFormGroup.controls.to.setErrors(null);
-      this.nameFormGroup.controls.departureDate.setErrors(null);
-      this.nameFormGroup.controls.placesSelect.setErrors(null);
-      this.nameFormGroup.controls.departureTime.setErrors(null);
+      this.submitted = true;
+      this.nameFormGroup.reset();
       /*	this.nameFormGroup.controls.from.updateValueAndValidity();
         this.nameFormGroup.controls.to.updateValueAndValidity();
         this.nameFormGroup.controls.departureDate.updateValueAndValidity();
@@ -60,6 +53,10 @@ export class TripRegistrationComponent implements OnInit, OnChanges {
 	}
 
 	onSubmit() {
+    this.submitted = true;
+    if (this.nameFormGroup.invalid) {
+      return;
+    }
 		this.formData.emit(this.nameFormGroup.value);
 		this.isShownViewListButton.emit(true);
 		this.isShownSaveRouteButton.emit(true);
