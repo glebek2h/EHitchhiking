@@ -3,9 +3,7 @@ import ymaps from 'ymaps';
 import {UserState} from '../../../shared/enums/UserState';
 import {YandexMapService} from './yandex-map.service';
 import MultiRouteModel = ymaps.multiRouter.MultiRouteModel;
-import {DELETE_ROUTE_MARKER} from '../../../shared/constants/modal-constants';
 import {Route} from '@pages/main-screen/Route';
-import {log} from "util";
 
 @Component({
 	// tslint:disable-next-line:component-selector
@@ -182,24 +180,26 @@ export class YandexMapComponent implements OnInit, OnChanges {
 			.catch((error) => console.log('Failed to load Yandex Maps', error));
 	}
 
+  updateTripPoints(multiRoute, index: number) {
+    const coordinates = multiRoute.model.getReferencePoints();
+    this.ymapsPromise
+      .then((maps) => {
+        maps.geocode(coordinates[0]).then((res) => {
+          const firstGeoObject = res.geoObjects.get(0);
+          this.routes[index].from = firstGeoObject.getAddressLine();
+        });
+        maps.geocode(coordinates[1]).then((res) => {
+          const firstGeoObject = res.geoObjects.get(0);
+          this.routes[index].to = firstGeoObject.getAddressLine();
+        });
+      });
+  }
+
   setInfoAboutRoute(multiRoute, index: number) {
-		multiRoute.events.add('update', (e) => {
+    multiRoute.events.add('update', () => {
 			const activeRoute = multiRoute.getActiveRoute();
       this.routes[index].tripDuration = activeRoute.properties.get('duration').text;
-
-      const coordinates = multiRoute.model.getReferencePoints();
-      this.ymapsPromise
-        .then((maps) => {
-          maps.geocode(coordinates[0]).then((res) => {
-            const firstGeoObject = res.geoObjects.get(0);
-            this.routes[index].from = firstGeoObject.getAddressLine();
-          });
-          maps.geocode(coordinates[1]).then((res) => {
-            const firstGeoObject = res.geoObjects.get(0);
-            this.routes[index].to = firstGeoObject.getAddressLine();
-          });
-        });
-
+      this.updateTripPoints(multiRoute, index);
 			activeRoute.events.add('mouseenter', () => {
 				activeRoute.options.set('strokeWidth', 5);
 				activeRoute.options.set('strokeColor', YandexMapService.ACTIVE_ROUTE_COLOR);
