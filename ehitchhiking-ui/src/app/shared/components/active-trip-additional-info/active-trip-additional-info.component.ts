@@ -1,8 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ActiveTrip} from '../active-trip/active-trip';
-import { UserState } from "@shared/enums/UserState";
-
-
+import {UserState} from '@shared/enums/UserState';
 
 @Component({
 	selector: 'app-active-trip-additional-info',
@@ -11,7 +9,7 @@ import { UserState } from "@shared/enums/UserState";
 })
 export class ActiveTripAdditionalInfoComponent implements OnInit {
 	@Input() trip: ActiveTrip;
-  userState = UserState;
+	userState = UserState;
 
 	constructor() {}
 

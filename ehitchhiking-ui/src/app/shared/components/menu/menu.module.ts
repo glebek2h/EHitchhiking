@@ -10,7 +10,7 @@ import {
 	MatButtonModule,
 	MatCardModule,
 	MatSnackBarModule,
-  MatTabsModule,
+	MatTabsModule,
 } from '@angular/material';
 import {RatePassengersModalModule} from '@shared/components/rate-passengers-modal/rate-passengers-modal.module';
 import {ProfileModalModule} from '@shared/modals/profile-modal/profile-modal.module';
@@ -23,10 +23,10 @@ import {TripModule} from '../trip/trip.module';
 import {TripsModalComponent} from '../trips-modal/trips-modal.component';
 import {NotificationComponent} from '../notification/notification.component';
 import {ChatDataModule} from '@shared/components/chat-data/chat-data.module';
-import { ActiveTripsModalModule } from "@shared/components/active-trips-modal/active-trips-modal.module";
+import {ActiveTripsModalModule} from '@shared/components/active-trips-modal/active-trips-modal.module';
 
 @NgModule({
-  declarations: [MenuComponent, BlacklistComponent, NotificationComponent],
+	declarations: [MenuComponent, BlacklistComponent, NotificationComponent],
 	imports: [
 		CommonModule,
 		MatCheckboxModule,
@@ -45,8 +45,8 @@ import { ActiveTripsModalModule } from "@shared/components/active-trips-modal/ac
 		MatCardModule,
 		MatSnackBarModule,
 		ChatDataModule,
-    MatTabsModule,
-    ActiveTripsModalModule,
+		MatTabsModule,
+		ActiveTripsModalModule,
 	],
 	exports: [MenuComponent, BlacklistComponent],
 	entryComponents: [BlacklistComponent, NotificationComponent, TripsModalComponent],

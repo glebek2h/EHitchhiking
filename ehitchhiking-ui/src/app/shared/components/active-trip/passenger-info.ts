@@ -1,5 +1,5 @@
 export interface PassengerInfo {
-  name: string;
-  phone:string;
-  email: string
+	name: string;
+	phone: string;
+	email: string;
 }
