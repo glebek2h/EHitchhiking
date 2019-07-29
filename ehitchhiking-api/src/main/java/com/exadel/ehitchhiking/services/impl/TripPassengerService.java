@@ -27,14 +27,14 @@ public class TripPassengerService implements ITripPassengerService {
     private ITripDriverDAO tripDriverDAO;
 
     @Override
-    public void createTripPassenger(int pass, String startingPoint,
+    public void createTripPassenger(int passId, String startingPoint,
                                     String endingPoint,
                                     Timestamp startingTime, Timestamp endingTime,
                                     int seats, int idTripDriver) {
         TripPass tripPass = new TripPass(startingPoint, endingPoint,
                 startingTime, endingTime, true,
                 false, false, seats,
-                passengerDAO.getPassenger(pass), tripDriverDAO.getTripDriver(idTripDriver));
+                passengerDAO.getPassenger(passId), tripDriverDAO.getTripDriver(idTripDriver));
         dao.save(tripPass);
     }
 
@@ -77,6 +77,14 @@ public class TripPassengerService implements ITripPassengerService {
     public void updateFinished(int id, boolean isFinished) {
         TripPass tripPass = dao.getTripPass(id);
         tripPass.setFinished(isFinished);
+        dao.update(tripPass);
+    }
+
+
+    @Override
+    public void updateHistory(int id, boolean isHistory){
+        TripPass tripPass = dao.getTripPass(id);
+        tripPass.setSaved(isHistory);
         dao.update(tripPass);
     }
 

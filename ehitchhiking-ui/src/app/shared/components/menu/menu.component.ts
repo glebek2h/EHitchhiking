@@ -14,30 +14,31 @@ import {NotificationService} from '@shared/services/notification.service';
 	selector: 'app-menu',
 	templateUrl: './menu.component.html',
 	styleUrls: ['./menu.component.sass'],
-	providers: [NotificationService],
+  providers: [NotificationService],
 })
 export class MenuComponent implements OnInit {
 	opened: boolean;
 	buttonsArray = [];
 
-	constructor(private router: Router, public dialog: MatDialog, public notificationService: NotificationService) {}
+  constructor(private router: Router, public dialog: MatDialog, public notificationService: NotificationService) {
+  }
 
 	ngOnInit() {
 		this.buttonsArray = BUTTONS_NAMES;
 	}
 	openBlacklistDialog(): void {
-		this.dialog.open(BlacklistComponent, {
+    this.dialog.open(BlacklistComponent, {
 			width: MAT_DIALOG_WIDTH_SM,
-			panelClass: DEFAULT_MAT_DIALOG_CLASS,
+      panelClass: DEFAULT_MAT_DIALOG_CLASS,
 			autoFocus: false,
       disableClose: true,
 		});
 	}
 
 	openRatePassengersDialog(): void {
-		this.dialog.open(RatePassengersModalComponent, {
+    this.dialog.open(RatePassengersModalComponent, {
 			width: MAT_DIALOG_WIDTH_SM,
-			panelClass: DEFAULT_MAT_DIALOG_CLASS,
+      panelClass: DEFAULT_MAT_DIALOG_CLASS,
 			autoFocus: false,
 		});
 	}
@@ -47,8 +48,8 @@ export class MenuComponent implements OnInit {
 	}
 
 	openHistoryDialog() {
-		this.dialog.open(TripsModalComponent, {
-			panelClass: DEFAULT_MAT_DIALOG_CLASS,
+    this.dialog.open(TripsModalComponent, {
+      panelClass: DEFAULT_MAT_DIALOG_CLASS,
 			autoFocus: false,
 			width: MAT_DIALOG_WIDTH_MD,
 		});
@@ -59,9 +60,9 @@ export class MenuComponent implements OnInit {
 	}
 
 	openChatDialog(): void {
-		this.dialog.open(ChatComponent, {
+    this.dialog.open(ChatComponent, {
 			width: MAT_DIALOG_WIDTH_SM,
-			panelClass: DEFAULT_MAT_DIALOG_CLASS,
+      panelClass: DEFAULT_MAT_DIALOG_CLASS,
 			autoFocus: false,
 			disableClose: true,
 		});

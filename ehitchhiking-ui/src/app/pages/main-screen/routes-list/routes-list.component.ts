@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {UtilsService} from '../../../shared/services/utils.service';
-import {DELETE_ROUTE_MARKER} from '../../../shared/constants/modal-constants';
 import {URL_REGISTRY} from '@shared/constants/urlRegistry';
-import {ApiService} from '@shared/services/api.service';
+import {Route} from "@pages/main-screen/Route";
+import {ApiService} from "@shared/services/api.service";
 
 @Component({
 	selector: 'app-routes-list',
@@ -12,28 +12,27 @@ import {ApiService} from '@shared/services/api.service';
 })
 export class RoutesListComponent implements OnInit {
 	@Input() activeRoutesCollection: Partial<Route>[];
+  @Input() isDisabledSubmitRouteButton: boolean;
 	@Output() routeToDisplay = new EventEmitter<any>(); // TODO
   @Output() formData = new EventEmitter<any>();
-	isChecked: boolean;
 
-  constructor(private apiService: ApiService) {
-  }
+  isChecked: boolean;
+  ROUTES_ON_MAP_COUNT = 3;
+
+	constructor(private apiService: ApiService) {}
 
 	ngOnInit() {
-    this.isChecked = false;
+	  this.isChecked = false;
   }
 
 	parseDate(date: Date): string {
 		return UtilsService.formatDate(date);
 	}
 
-  displayRoute(index: number) {
+  displayRoute(index: number, matCheckbox) {
     this.isChecked = !this.isChecked;
-    if (this.isChecked) {
-      this.routeToDisplay.emit(index);
-    } else {
-      this.routeToDisplay.emit(DELETE_ROUTE_MARKER);
-    }
+    matCheckbox.checked ? this.activeRoutesCollection[index].displayed = false : this.activeRoutesCollection[index].displayed = true;
+    this.routeToDisplay.emit({'value': index});
   }
 
   submitRoute(index: number) {
@@ -52,5 +51,13 @@ export class RoutesListComponent implements OnInit {
 
   getData(data: any) {
     this.formData.emit(data);
+  }
+
+  displayGetInLineButton(index: number, applybutton) {
+    if (this.activeRoutesCollection[index].placesSelect === 0) {
+      applybutton.disabled = true;
+      return true;
+    }
+    return false;
   }
 }

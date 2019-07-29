@@ -2,6 +2,7 @@ package com.exadel.ehitchhiking.services.impl;
 
 import com.exadel.ehitchhiking.daos.IDriverDAO;
 
+import com.exadel.ehitchhiking.daos.IEmployeeDAO;
 import com.exadel.ehitchhiking.daos.IPassengerDAO;
 import com.exadel.ehitchhiking.models.Driver;
 
@@ -28,9 +29,12 @@ public class DriverService implements IDriverService {
     @Autowired
     private IPassengerDAO passengerDAO;
 
+    @Autowired
+    private IEmployeeDAO employeeDAO;
+
     @Override
-    public void createDriver(Employee employee) {
-        dao.save(new Driver(employee, 0.0f, 0));
+    public void createDriver(Integer id) {
+        dao.save(new Driver(employeeDAO.getEmployee(id), 0.0f, 0));
     }
 
     @Override
@@ -39,8 +43,13 @@ public class DriverService implements IDriverService {
     }
 
     @Override
-    public void updateRateDriver(String username, float addedRate) {
-        Driver driver = dao.getByName(username);
+    public int findIdByemployeeId(int id) {
+        return dao.getByEmployeeId(id);
+    }
+
+    @Override
+    public void updateRateDriver(int idDriver, float addedRate) {
+        Driver driver = dao.getDriver(idDriver);
         int oldPeople = driver.getRatedPeoples();
         driver.setRate(((driver.getRate() * oldPeople) + addedRate) / (oldPeople + 1));
         driver.setRatedPeoples(oldPeople + 1);

@@ -45,6 +45,7 @@ public class TripPass {
     @Getter
     @Setter
     @ManyToOne
+    @JoinColumn (name = "\"PASS_ID\"")
     private Passenger passenger;
 
     @Setter
@@ -69,13 +70,14 @@ public class TripPass {
 
     @Getter
     @Setter
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne (fetch = FetchType.EAGER)
+    @JoinColumn (name = "\"TRIP_DRIVER\"")
     private TripDriver tripDriver;
 
     public TripPass(String startPoint, String endPoint,
                     Timestamp startTime, Timestamp endTime, boolean isActive,
                     boolean isFinished, boolean isSaved, int seats,
-                    Passenger passenger, TripDriver tripDriver) {
+                    Passenger passenger, TripDriver tripDriver){
         this.startPoint = startPoint;
         this.endPoint = endPoint;
         this.startTime = startTime;
