@@ -9,7 +9,7 @@ import {
   MatExpansionModule,
   MatFormFieldModule,
   MatInputModule,
-  MatSelectModule,
+  MatSelectModule, MatTooltipModule,
 } from '@angular/material';
 import {YandexMapComponent} from './yandex-map/yandex-map.component';
 
@@ -37,6 +37,7 @@ import { FiltersComponent } from './filters/filters.component';
     MatExpansionModule,
     MenuModule,
     MatCheckboxModule,
+    MatTooltipModule,
   ],
 	exports: [MainScreenComponent, TripRegistrationComponent],
 })

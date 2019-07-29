@@ -33,17 +33,23 @@
 	<mat-button-toggle class="driver-btn" value="italic" (click)="toggleStateToDriver()">Driver</mat-button-toggle>
 </mat-button-toggle-group>
 <button
-	mat-raised-button
-	class="main-screen-action-btn save-route-btn"
-	(click)="saveRoute()"
-	*ngIf="isShownSaveRouteButton"
+  mat-fab color="primary"
+  matTooltip="save route"
+  class="main-screen-action-btn save-route-btn"
+  (click)="saveRoute()"
+  *ngIf="isShownSaveRouteButton"
 >
-	save-route
+  <i class="material-icons">
+    save_alt
+  </i>
 </button>
-<button mat-raised-button class="main-screen-action-btn view-routes-btn" (click)="viewRoutes()" *ngIf="isShownViewRoutesButton">
-	view-trips
+<button mat-fab color="primary" class="main-screen-action-btn view-routes-btn" matTooltip="view routes"
+        (click)="viewRoutes()" *ngIf="isShownViewRoutesButton">
+  <i class="material-icons md-36">
+    directions
+  </i>
 </button>
-<button class="plus-btn" mat-fab color="primary" (click)="openTripRegistrationForm()">
+<button class="plus-btn" mat-fab matTooltip="create trip" color="primary" (click)="openTripRegistrationForm()">
 	<i *ngIf="!editStatePlusButton" class="material-icons">
 		add
 	</i>
