@@ -1,0 +1,33 @@
+@import  'constants'
+@import 'fonts-constants'
+@import 'mixins'
+
+.trips-title
+  text-align: center
+  margin-bottom: 0
+  font-size: $title
+.form-row
+  display: flex
+  justify-content: center
+  align-items: center
+  @include flexbox(space-between)
+  .icon-size
+    width: 5rem
+.scroll-marker
+  min-height: $height-empty-block
+.trips-btn
+  display: flex
+  justify-content: center
+  padding-bottom: $default-padding
+.trip
+  padding: 0
+  margin: 0
+  width: 100%
+  @include flexbox(space-between)
+  height: $trip-card-height
+  box-sizing: border-box
+.items-hover:hover
+  box-shadow: 0 0 0.5rem 0.1rem rgba(221, 221, 221, 1)
+
+.expansion-panel-sm
+  margin-top: -1rem

@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {StarClickMeta} from '../rating/starClickMeta';
 import {ActiveTrip} from './active-trip';
 
 @Component({
