@@ -10,7 +10,6 @@ export class AuthorizationGuard implements CanActivate {
 		return from(this.userService.getStatus()).pipe(
 			map((status) => {
 				if (!!status) {
-					console.log(status);
 					return true;
 				}
 				this.router.navigateByUrl('/login');

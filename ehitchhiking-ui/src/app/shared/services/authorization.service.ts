@@ -3,6 +3,7 @@ import {UserService} from './user.service';
 import {NotificationService} from './notification.service';
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
+import {User} from '@shared/models/user';
 
 @Injectable()
 export class AuthorizationService {

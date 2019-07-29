@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
 import {AuthorizationService} from '@shared/services/authorization.service';
 
 @Component({
@@ -11,11 +10,7 @@ import {AuthorizationService} from '@shared/services/authorization.service';
 export class RegistrationComponent implements OnInit {
 	registrationForm: FormGroup;
 
-	constructor(
-		private router: Router,
-		public authorizationService: AuthorizationService,
-		private formBuilder: FormBuilder
-	) {}
+	constructor(public authorizationService: AuthorizationService, private formBuilder: FormBuilder) {}
 
 	ngOnInit() {
 		this.registrationForm = this.formBuilder.group({

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ApiService} from './api.service';
-import {Observable, of} from 'rxjs';
+import {of} from 'rxjs';
 import {map, share, catchError} from 'rxjs/operators';
 import {HttpResponse, HttpErrorResponse} from '@angular/common/http';
 import {User} from '@shared/models/user';
@@ -30,10 +30,10 @@ export class AuthorizationApiService {
 			.then();
 	}
 
-	private parseResponse(response: any): User | true {
+	private parseResponse(response: any): User | false {
 		if (response) {
 			return new User(response.id, response.username, '', response.email, response.phoneNumber);
 		}
-		return true;
+		return false;
 	}
 }

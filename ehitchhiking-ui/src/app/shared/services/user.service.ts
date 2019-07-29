@@ -8,7 +8,7 @@ import {of} from 'rxjs';
 
 @Injectable()
 export class UserService {
-	private currentUser: User | false | null;
+	private currentUser: User | null;
 	private currentUserPromise: Promise<User | boolean>;
 
 	constructor(private apiService: ApiService) {}
@@ -20,7 +20,7 @@ export class UserService {
 				map((response: HttpResponse<any>) => this.parseResponse(response)),
 				share(),
 				catchError((error: HttpErrorResponse) => {
-					this.currentUser = false;
+					this.currentUser = null;
 					return of(false);
 				})
 			)
