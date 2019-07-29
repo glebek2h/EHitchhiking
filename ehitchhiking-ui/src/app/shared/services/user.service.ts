@@ -1,10 +1,10 @@
-import {HttpResponse, HttpEvent, HttpErrorResponse} from '@angular/common/http';
+import {HttpResponse, HttpErrorResponse} from '@angular/common/http';
 import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 import {ApiService} from './api.service';
 import {User} from '@shared/models/user';
 import {Injectable} from '@angular/core';
-import {catchError, map, publish, share, take, takeUntil} from 'rxjs/operators';
-import {Observable, of} from 'rxjs';
+import {catchError, map} from 'rxjs/operators';
+import {of} from 'rxjs';
 
 @Injectable()
 export class UserService {
@@ -14,14 +14,16 @@ export class UserService {
 	constructor(private apiService: ApiService) {}
 
 	init() {
-		this.currentUserPromise = this.apiService.doGet(URL_REGISTRY.initialization, false).pipe(
-      map((response: HttpResponse<any>) => this.parseResponse(response)),
-			share(),
-			catchError((error: HttpErrorResponse) => {
-				this.currentUser = false;
-				return of(false);
-			})
-		).toPromise();
+		this.currentUserPromise = this.apiService
+			.doGet(URL_REGISTRY.initialization, false)
+			.pipe(
+				map((response: HttpResponse<any>) => this.parseResponse(response)),
+				catchError((error: HttpErrorResponse) => {
+					this.currentUser = false;
+					return of(false);
+				})
+			)
+			.toPromise();
 	}
 
 	private parseResponse(response: any) {
@@ -62,7 +64,7 @@ export class UserService {
 	/**
 	 * Only for authorization service
 	 */
-	setCurrentUser(response: HttpResponse<any>): boolean {
-		return true;
+	setCurrentUser(userData: any): void {
+		this.currentUser = new User(userData.id, userData.username, '', userData.email, userData.phoneNumber);
 	}
 }

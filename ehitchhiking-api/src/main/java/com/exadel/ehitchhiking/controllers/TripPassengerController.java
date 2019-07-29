@@ -133,12 +133,9 @@ public class TripPassengerController {
     @GetMapping("/getAllDriverTrips")
     public ResponseMany<TripDriverVO> getAllAvailableTrips(){
         ResponseMany<TripDriverVO> responseMany = new ResponseMany<>();
-        System.out.println("pls not");
         try{
             responseMany.setStatus("200");
-            System.out.println("here");
             responseMany.setData(tripDriverService.getAll());
-           // System.out.println("response"+ responseMany.getData());
             return responseMany;
 
                     //TODO: check for the excstance of the getALLtrips

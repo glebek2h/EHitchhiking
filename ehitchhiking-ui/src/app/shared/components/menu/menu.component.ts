@@ -1,3 +1,4 @@
+import {AuthorizationService} from './../../services/authorization.service';
 import {Component, OnInit} from '@angular/core';
 import {BUTTONS_NAMES} from './buttons-names';
 import {MatDialog} from '@angular/material';
@@ -20,7 +21,12 @@ export class MenuComponent implements OnInit {
 	opened: boolean;
 	buttonsArray = [];
 
-	constructor(private router: Router, public dialog: MatDialog, public notificationService: NotificationService) {}
+	constructor(
+		private router: Router,
+		public dialog: MatDialog,
+		public notificationService: NotificationService,
+		private authorizationService: AuthorizationService
+	) {}
 
 	ngOnInit() {
 		this.buttonsArray = BUTTONS_NAMES;
@@ -43,7 +49,7 @@ export class MenuComponent implements OnInit {
 	}
 
 	logOut() {
-		this.router.navigateByUrl('/login');
+		this.authorizationService.logOut();
 	}
 
 	openHistoryDialog() {

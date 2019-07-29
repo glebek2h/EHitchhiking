@@ -24,11 +24,9 @@ public class SessionController {
 
     @GetMapping
     private Response<EmployeeVO> getSession() {
-        System.out.println("here");
         Response<EmployeeVO> response = new Response<>();
 
         if (httpSession.isNew()) {
-            System.out.println("new session");
             response.setData(null);
             response.setStatus("success");
             response.setMsg("new session");
@@ -36,11 +34,9 @@ public class SessionController {
             return response;
         }
 
-        System.out.println("old session");
         response.setStatus("success");
         response.setMsg("old session");
-        response.setData(employeeService.findUserId(1));
-        //response.setData(null);
+        response.setData(employeeService.findUserId((int)httpSession.getAttribute("id")));
 
         return response;
     }

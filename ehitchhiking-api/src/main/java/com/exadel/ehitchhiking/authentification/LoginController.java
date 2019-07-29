@@ -47,5 +47,14 @@ public class LoginController {
         return response;
     }
 
+    @DeleteMapping()
+    public Response<Boolean> unsetSession() {
+        Response<Boolean> response = new Response<>();
+        httpSession.invalidate();
+        response.setData(true);
+        response.setStatus("200");
+        response.setMsg("success");
 
+        return response;
+    }
 }
