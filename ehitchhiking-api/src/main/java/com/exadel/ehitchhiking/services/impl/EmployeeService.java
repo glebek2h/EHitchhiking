@@ -44,40 +44,18 @@ public class EmployeeService implements IEmployeeService {
         return employee.getId();
     }
 
+
     @Override
-    public void updatePassword(String username, String password) {
-        Employee employee = dao.getByEmail(username);
+    public void updateEmployee(String email, String password, String lastName,
+                               String firstName, String phoneNum) {
+        Employee employee = dao.getByEmail(email);
         employee.setPassword(password);
+        employee.setFirstName(firstName);
+        employee.setLastName(lastName);
+        employee.setPhoneNumber(phoneNum);
         dao.update(employee);
     }
 
-    @Override
-    public void updateEmail(String username, String email) {
-        Employee employee = dao.getByEmail(username);
-        employee.setPassword(email);
-        dao.update(employee);
-    }
-
-    @Override
-    public void updateFirstName(String username, String firstName) {
-        Employee employee = dao.getByEmail(username);
-        employee.setPassword(firstName);
-        dao.update(employee);
-    }
-
-    @Override
-    public void updateLastName(String username, String lastName) {
-        Employee employee = dao.getByEmail(username);
-        employee.setPassword(lastName);
-        dao.update(employee);
-    }
-
-    @Override
-    public void updatePhone(String username, String phone) {
-        Employee employee = dao.getByEmail(username);
-        employee.setPassword(phone);
-        dao.update(employee);
-    }
 
     @Override
     public void deleteUser(String username) {

@@ -30,11 +30,8 @@ public class EmployeeController {
     public Response<String> updateTrip(@RequestBody RequestEmployee employee) {
         Response<String> response = new Response<>();
         try {
-            employeeService.updatePassword(employee.getEmail(), encoder.encode(employee.getPassword()));
-            employeeService.updatePhone(employee.getEmail(), employee.getPhoneNum());
-            employeeService.updateEmail(employee.getEmail(), employee.getEmail());
-            employeeService.updateFirstName(employee.getEmail(), employee.getFirstName());
-            employeeService.updateLastName(employee.getEmail(), employee.getLastName());
+            employeeService.updateEmployee(employee.getEmail(), encoder.encode(employee.getPassword()), employee.getLastName(),
+                    employee.getFirstName(), employee.getPhoneNum());
             response.setStatus("200");
             response.setData("true");
             return response;

@@ -23,7 +23,7 @@ export class BlacklistComponent implements OnInit {
 	noDataIconName = 'accessibility';
   loadingDrives = true;
   loadingPassengers = true;
-	constructor(public dialogRef: MatDialogRef<BlacklistComponent>) {}
+	constructor(public dialogRef: MatDialogRef<BlacklistComponent>, public apiService: ApiService ) {}
 
 	ngOnInit() {
     this.blacklistDriverArray = BLACKLIST_DRIVERS;
