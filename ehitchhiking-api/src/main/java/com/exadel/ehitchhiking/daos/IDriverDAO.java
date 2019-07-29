@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IDriverDAO  extends IBasicDAO<Driver>{
     List<Driver> getAll();
-    Driver getByName(String username);
+    Driver getByEmail(String email);
     Driver getDriver(int id);
     int getByEmployeeId(int id);
 }

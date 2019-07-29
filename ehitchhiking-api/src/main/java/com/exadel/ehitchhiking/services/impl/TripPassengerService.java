@@ -7,6 +7,7 @@ import com.exadel.ehitchhiking.models.TripPass;
 import com.exadel.ehitchhiking.services.ITripPassengerService;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -30,41 +31,34 @@ public class TripPassengerService implements ITripPassengerService {
     public void createTripPassenger(int passId, String startingPoint,
                                     String endingPoint,
                                     Timestamp startingTime, Timestamp endingTime,
-                                    int seats, int idTripDriver) {
+                                    int seats, int idTripDriver, Point coordStart, Point coordEnd,
+                                    float distance) {
         TripPass tripPass = new TripPass(startingPoint, endingPoint,
                 startingTime, endingTime, true,
                 false, false, seats,
-                passengerDAO.getPassenger(passId), tripDriverDAO.getTripDriver(idTripDriver));
+                passengerDAO.getPassenger(passId), tripDriverDAO.getTripDriver(idTripDriver), false, coordStart,
+                coordEnd, distance);
         dao.save(tripPass);
     }
 
+
     @Override
-    public void updateTimeStart(int id, Timestamp newStart) {
+    public void updateTrip(int id, Timestamp newStart, Timestamp newEnd, String start, String end,
+                           int newSeats, Point coordStart, Point coordEnd, float distance){
         TripPass tripPass = dao.getTripPass(id);
         tripPass.setStartTime(newStart);
-        dao.update(tripPass);
-    }
-
-    @Override
-    public void updateTimeEnd(int id, Timestamp newEnd) {
-        TripPass tripPass = dao.getTripPass(id);
         tripPass.setEndTime(newEnd);
-        dao.update(tripPass);
-    }
-
-    @Override
-    public void updatePointStart(int id, String start) {
-        TripPass tripPass = dao.getTripPass(id);
         tripPass.setStartPoint(start);
+        tripPass.setEndPoint(end);
+        tripPass.setBookedSeats(newSeats);
+        tripPass.setCoordStart(coordStart);
+        tripPass.setCoordEnd(coordEnd);
+        tripPass.setDistance(distance);
+
         dao.update(tripPass);
+
     }
 
-    @Override
-    public void updatePointEnd(int id, String end) {
-        TripPass tripPass = dao.getTripPass(id);
-        tripPass.setEndPoint(end);
-        dao.update(tripPass);
-    }
 
     @Override
     public void updateSave(int id, boolean isSaved) {
@@ -89,14 +83,14 @@ public class TripPassengerService implements ITripPassengerService {
     }
 
     @Override
-    public void updateSeats(int id, int newSeats) {
+    public void updateActive(int id, boolean isActive){
         TripPass tripPass = dao.getTripPass(id);
-        tripPass.setBookedSeats(newSeats);
+        tripPass.setActive(isActive);
         dao.update(tripPass);
     }
 
     @Override
-    public void deleteDriverTrip(int id) {
+    public void deletePassTrip(int id) {
         dao.delete(dao.getTripPass(id));
     }
 }

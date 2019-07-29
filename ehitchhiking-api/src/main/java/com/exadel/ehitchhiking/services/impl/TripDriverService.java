@@ -8,6 +8,7 @@ import com.exadel.ehitchhiking.models.vo.TripDriverVO;
 import com.exadel.ehitchhiking.services.ITripDriverService;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Service;
 
 
@@ -32,11 +33,12 @@ public class TripDriverService implements ITripDriverService {
 
     @Override
     public void createTripDriver(String startingPoint, String endingPoint,
-                                 Timestamp startingTime, Timestamp endingTime, int idOfCar, int seats){
+                                 Timestamp startingTime, Timestamp endingTime, int idOfCar, int seats,
+                                 Point coordStart, Point coordEnd, float distance){
 
         TripDriver tripDriver = new TripDriver(startingPoint, endingPoint,
                 startingTime, endingTime, true,
-                false, false, seats, carDAO.getCar(idOfCar));
+                false, false, seats, carDAO.getCar(idOfCar), false, coordStart,coordEnd, distance);
         dao.save(tripDriver);
     }
 
@@ -48,7 +50,7 @@ public class TripDriverService implements ITripDriverService {
 
     @Override
     public void updateTrip(int id, Timestamp newStart, Timestamp newEnd, String start, String end,
-                           int newSeats, int idNewCar){
+                           int newSeats, int idNewCar, Point coordStart, Point coordEnd, float distance){
         TripDriver tripDriver = dao.getTripDriver(id);
         tripDriver.setStartTime(newStart);
         tripDriver.setEndTime(newEnd);
@@ -56,9 +58,21 @@ public class TripDriverService implements ITripDriverService {
         tripDriver.setEndPoint(end);
         tripDriver.setAvailableSeats(newSeats);
         tripDriver.setCar(carDAO.getCar(idNewCar));
+        tripDriver.setCoordStart(coordStart);
+        tripDriver.setCoordEnd(coordEnd);
+        tripDriver.setDistance(distance);
+
         dao.update(tripDriver);
 
     }
+
+    @Override
+    public void updateSeats(int id, int seats){
+        TripDriver tripDriver = dao.getTripDriver(id);
+        tripDriver.setAvailableSeats(seats);
+        dao.update(tripDriver);
+    }
+
 
     @Override
     public void updateSave(int id, boolean isSaved){
@@ -74,6 +88,13 @@ public class TripDriverService implements ITripDriverService {
         dao.update(tripDriver);
     }
 
+    @Override
+    public void updateActive(int id, boolean isActive){
+        TripDriver tripDriver = dao.getTripDriver(id);
+        tripDriver.setActive(isActive);
+        dao.update(tripDriver);
+    }
+
 
     @Override
     public void setToNotActive(int id){
@@ -82,12 +103,12 @@ public class TripDriverService implements ITripDriverService {
         dao.update(tripDriver);
     }
 
-   /* @Override
+    @Override
     public void deleteFromHistory(int id, boolean isHistory){
         TripDriver tripDriver = dao.getTripDriver(id);
         tripDriver.setHistory(false);
         dao.update(tripDriver);
-    }*/
+    }
 
 
 

@@ -25,8 +25,8 @@ public class TripDriverController {
 
             tripDriverService.createTripDriver(tripDriver.getStartingPoint(), tripDriver.getEndingPoint(),
                     Timestamp.valueOf(tripDriver.getStartingTime()), Timestamp.valueOf(tripDriver.getEndingTime()),
-                    Integer.parseInt(tripDriver.getIdOfCar()),
-                    Integer.parseInt(tripDriver.getSeats()));
+                    tripDriver.getIdOfCar(),
+                    tripDriver.getSeats(), tripDriver.getCoordStart(), tripDriver.getCoordEnd(), tripDriver.getDistance());
             response.setStatus("200");
             response.setData("true");
             return response;
@@ -42,9 +42,10 @@ public class TripDriverController {
     public Response<String> updateTrip(@RequestBody RequestTripDriver tripDriver){
         Response<String> response = new Response<>();
         try {
-            tripDriverService.updateTrip(Integer.parseInt(tripDriver.getId()), Timestamp.valueOf(tripDriver.getStartingTime()),
+            tripDriverService.updateTrip(tripDriver.getId(), Timestamp.valueOf(tripDriver.getStartingTime()),
                     Timestamp.valueOf(tripDriver.getEndingTime()), tripDriver.getStartingPoint(), tripDriver.getEndingPoint(),
-                    Integer.parseInt(tripDriver.getSeats()), Integer.parseInt(tripDriver.getIdOfCar()));
+                    tripDriver.getSeats(), tripDriver.getIdOfCar(), tripDriver.getCoordStart(), tripDriver.getCoordEnd(),
+                    tripDriver.getDistance());
         response.setStatus("200");
         response.setData("true");
         return response;
@@ -55,11 +56,11 @@ public class TripDriverController {
         return response;}
     }
 
-    @PutMapping("/addToSaved")
+    @PutMapping("/save")
     public Response<String> addToSaved(@RequestBody RequestTripDriver tripDriver) {
         Response<String> response = new Response<>();
         try {
-            tripDriverService.updateSave(Integer.parseInt(tripDriver.getId()), true);
+            tripDriverService.updateSave(tripDriver.getId(), true);
             response.setStatus("200");
             response.setData("true");
             return response;
@@ -75,7 +76,7 @@ public class TripDriverController {
     public Response<String> removedFromSaved(@RequestBody RequestTripDriver tripDriver) {
         Response<String> response = new Response<>();
         try {
-            tripDriverService.updateSave(Integer.parseInt(tripDriver.getId()), false);
+            tripDriverService.updateSave(tripDriver.getId(), false);
             response.setStatus("200");
             response.setData("true");
             return response;
@@ -85,12 +86,11 @@ public class TripDriverController {
             response.setData("false");
             return response;}
     }
-/*
-    @PutMapping("/addToHistory")
-    public Response<String> addToHistory(@RequestBody RequestTripDriver tripDriver) {
+    @PutMapping("/removeFromHistory")
+    public Response<String> deleteFromHistory(@RequestBody RequestTripDriver tripDriver) {
         Response<String> response = new Response<>();
         try {
-            tripDriverService.updateHistory(Integer.parseInt(tripDriver.getId()), true);
+            tripDriverService.deleteFromHistory(tripDriver.getId(), false);
             response.setStatus("200");
             response.setData("true");
             return response;
@@ -99,13 +99,13 @@ public class TripDriverController {
             response.setStatus("500");
             response.setData("false");
             return response;}
-    }*/
+    }
 
     @PutMapping("/cancelledTrip")
     public Response<String> addToCancelled(@RequestBody RequestTripDriver tripDriver) {
         Response<String> response = new Response<>();
         try {
-            tripDriverService.updateFinished(Integer.parseInt(tripDriver.getId()), false);
+            tripDriverService.updateFinished(tripDriver.getId(), false);
             response.setStatus("200");
             response.setData("true");
             return response;
@@ -120,7 +120,7 @@ public class TripDriverController {
     public Response<String> addToFinished(@RequestBody RequestTripDriver tripDriver) {
         Response<String> response = new Response<>();
         try {
-            tripDriverService.updateFinished(Integer.parseInt(tripDriver.getId()), true);
+            tripDriverService.updateFinished(tripDriver.getId(), true);
             response.setStatus("200");
             response.setData("true");
             return response;
@@ -131,6 +131,36 @@ public class TripDriverController {
             return response;}
     }
 
+    @PutMapping("/active")
+    public Response<String> addToActive(@RequestBody RequestTripDriver tripDriver) {
+        Response<String> response = new Response<>();
+        try {
+            tripDriverService.updateActive(tripDriver.getId(), true);
+            response.setStatus("200");
+            response.setData("true");
+            return response;
+        }
+        catch (Exception e){
+            response.setStatus("500");
+            response.setData("false");
+            return response;}
+    }
+
+
+    @PutMapping("/removeFromActive")
+    public Response<String> removeFromActive(@RequestBody RequestTripDriver tripDriver) {
+        Response<String> response = new Response<>();
+        try {
+            tripDriverService.updateActive(tripDriver.getId(),  false);
+            response.setStatus("200");
+            response.setData("true");
+            return response;
+        }
+        catch (Exception e){
+            response.setStatus("500");
+            response.setData("false");
+            return response;}
+    }
 
 }
 

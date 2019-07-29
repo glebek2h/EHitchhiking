@@ -11,5 +11,6 @@ public class RequestBlackList {
 
     private String employeeId;
 
-    private String role;
+    private String role; // enum (roles) and maybe the status of the trip
+    // in what trip was the rate given
 }
