@@ -2,6 +2,7 @@ package com.exadel.ehitchhiking.services.impl;
 
 import com.exadel.ehitchhiking.daos.IEmployeeDAO;
 import com.exadel.ehitchhiking.models.Employee;
+import com.exadel.ehitchhiking.models.vo.EmployeeVO;
 import com.exadel.ehitchhiking.services.IEmployeeService;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(rollbackOn = Exception.class)
@@ -21,65 +23,43 @@ public class EmployeeService implements IEmployeeService {
     private IEmployeeDAO dao;
 
     @Override
-    public void createEmployee(boolean isAdmin, String username, String firstName, String lastName,
+    public void createEmployee(boolean isAdmin, String firstName, String lastName,
                                String email, String password, String phoneNum) {
-        dao.save(new Employee(isAdmin, username, firstName, lastName, email, password, phoneNum));
+        dao.save(new Employee(isAdmin, firstName, lastName, email, password, phoneNum));
     }
 
     @Override
-    public Employee findUserId(int userId) {
-        return dao.getEmployee(userId);
+    public EmployeeVO findUserId(int userId) {
+        return EmployeeVO.fromEntity(dao.getEmployee(userId));
     }
 
     @Override
-    public Employee findUserUsername(String username) {
-        return dao.getByName(username);
+    public EmployeeVO findUserUsername(String username) {
+        return EmployeeVO.fromEntity(dao.getByEmail(username));
     }
 
     @Override
     public int findIdByUsername(String username) {
-        Employee employee = dao.getByName(username);
+        Employee employee = dao.getByEmail(username);
         return employee.getId();
     }
 
+
     @Override
-    public void updatePassword(String username, String password) {
-        Employee employee = dao.getByName(username);
+    public void updateEmployee(String email, String password, String lastName,
+                               String firstName, String phoneNum) {
+        Employee employee = dao.getByEmail(email);
         employee.setPassword(password);
+        employee.setFirstName(firstName);
+        employee.setLastName(lastName);
+        employee.setPhoneNumber(phoneNum);
         dao.update(employee);
     }
 
-    @Override
-    public void updateEmail(String username, String email) {
-        Employee employee = dao.getByName(username);
-        employee.setPassword(email);
-        dao.update(employee);
-    }
-
-    @Override
-    public void updateFirstName(String username, String firstName) {
-        Employee employee = dao.getByName(username);
-        employee.setPassword(firstName);
-        dao.update(employee);
-    }
-
-    @Override
-    public void updateLastName(String username, String lastName) {
-        Employee employee = dao.getByName(username);
-        employee.setPassword(lastName);
-        dao.update(employee);
-    }
-
-    @Override
-    public void updatePhone(String username, String phone) {
-        Employee employee = dao.getByName(username);
-        employee.setPassword(phone);
-        dao.update(employee);
-    }
 
     @Override
     public void deleteUser(String username) {
-        dao.delete(dao.getByName(username));
+        dao.delete(dao.getByEmail(username));
     }
 
     @Override
@@ -88,12 +68,14 @@ public class EmployeeService implements IEmployeeService {
     }
 
     @Override
-    public List<Employee> getAll() {
-        return dao.getAll();
+    public List<EmployeeVO> getAll() {
+        return dao.getAll().stream().map(EmployeeVO::fromEntity).collect(Collectors.toList());
     }
 
+
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return findUserUsername(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        return findUserUsername(email);
     }
+
 }

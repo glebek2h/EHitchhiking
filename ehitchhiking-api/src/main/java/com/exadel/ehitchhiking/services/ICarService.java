@@ -1,6 +1,7 @@
 package com.exadel.ehitchhiking.services;
 
 import com.exadel.ehitchhiking.models.Car;
+import com.exadel.ehitchhiking.models.vo.CarVO;
 
 import java.util.List;
 
@@ -18,7 +19,9 @@ public interface ICarService {
 
     void deleteCarId(int id);
 
-    List<Car> getListCars(int idDriver);
+    List<CarVO> getListCars(int idDriver);
 
     int getAmountCars(int idDriver);
+
+    void deletedCar(int carId);
 }

@@ -1,6 +1,7 @@
 package com.exadel.ehitchhiking.utils;
 
 import com.exadel.ehitchhiking.services.IEmployeeService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -48,8 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-/*
-                .and()
+/*              .and()
                 .authorizeRequests()
                 .antMatchers("/login")
                 .permitAll()
@@ -65,8 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .logout()
-                .permitAll();
-*/
+                .permitAll();*/
 
     }
 

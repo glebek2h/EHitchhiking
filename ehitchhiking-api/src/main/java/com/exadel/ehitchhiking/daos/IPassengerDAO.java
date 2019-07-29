@@ -9,4 +9,5 @@ public interface IPassengerDAO extends IBasicDAO<Passenger>{
     List<Passenger> getAll();
     Passenger getByName(String username);
     Passenger getPassenger(int id);
+    int getByEmployeeId(int id);
 }

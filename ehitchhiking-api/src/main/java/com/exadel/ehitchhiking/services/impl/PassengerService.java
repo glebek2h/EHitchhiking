@@ -1,10 +1,13 @@
 package com.exadel.ehitchhiking.services.impl;
 
 import com.exadel.ehitchhiking.daos.IDriverDAO;
+import com.exadel.ehitchhiking.daos.IEmployeeDAO;
 import com.exadel.ehitchhiking.daos.IPassengerDAO;
 import com.exadel.ehitchhiking.models.Driver;
 import com.exadel.ehitchhiking.models.Employee;
 import com.exadel.ehitchhiking.models.Passenger;
+import com.exadel.ehitchhiking.models.vo.DriverVO;
+import com.exadel.ehitchhiking.models.vo.TripDriverVO;
 import com.exadel.ehitchhiking.services.IPassengerService;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(rollbackOn = Exception.class)
@@ -25,9 +29,12 @@ public class PassengerService implements IPassengerService {
     @Autowired
     private IDriverDAO driverDAO;
 
+    @Autowired
+    private IEmployeeDAO employeeDAO;
+
     @Override
-    public void createPassenger(Employee employee) {
-       dao.save(new Passenger(employee, 0.0f, 0));
+    public void createPassenger(Integer idPass) {
+       dao.save(new Passenger(employeeDAO.getEmployee(idPass), 0.0f, 0));
     }
 
     @Override
@@ -36,8 +43,8 @@ public class PassengerService implements IPassengerService {
     }
 
     @Override
-    public void updateRatePass(String username, float addedRate) {
-        Passenger passenger = dao.getByName(username);
+    public void updateRatePass(int idPass, float addedRate) {
+        Passenger passenger = dao.getPassenger(idPass);
         int amount = passenger.getRatedPeoples();
         passenger.setRate(((passenger.getRate() * amount) + addedRate) / (amount + 1));
         passenger.setRatedPeoples(amount + 1);
@@ -50,8 +57,8 @@ public class PassengerService implements IPassengerService {
     }
 
     @Override
-    public void deletePassengerId(int id) {
-        dao.delete(dao.getPassenger(id));
+    public void deletePassengerId(int idPass) {
+        dao.delete(dao.getPassenger(idPass));
     }
 
     @Override
@@ -69,7 +76,14 @@ public class PassengerService implements IPassengerService {
     }
 
     @Override
-    public List<Driver> getDrivers(int idPass) {
-        return dao.getPassenger(idPass).getDrivers();
+    public List<DriverVO> getDrivers(int idPass) {
+        return dao.getPassenger(idPass).getDrivers().stream().map(DriverVO::fromEntity).collect(Collectors.toList());
     }
+
+
+    @Override
+    public int findIdByemployeeId(int id) {
+        return dao.getByEmployeeId(id);
+    }
+
 }

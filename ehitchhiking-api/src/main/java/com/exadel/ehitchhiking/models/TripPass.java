@@ -70,7 +70,7 @@ public class TripPass {
 
     @Getter
     @Setter
-    @ManyToOne
+    @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn (name = "\"TRIP_DRIVER\"")
     private TripDriver tripDriver;
 

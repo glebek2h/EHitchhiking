@@ -2,15 +2,16 @@ package com.exadel.ehitchhiking.services;
 
 import com.exadel.ehitchhiking.models.Employee;
 import com.exadel.ehitchhiking.models.Passenger;
+import com.exadel.ehitchhiking.models.vo.PassengerVO;
 
 import java.util.List;
 
 public interface IDriverService {
-    void createDriver(Employee employee);
+    void createDriver(Integer id);
 
     int findDriverIdByUsername(String username);
 
-    void updateRateDriver(String username, float addedRate);
+    void updateRateDriver(int idDriver, float addedRate);
 
     void deleteDriver(String username);
 
@@ -20,5 +21,7 @@ public interface IDriverService {
 
     void deletePassFromBL(int idDriver, int idPass);
 
-    List<Passenger> getPassengers(int idDriver);
+    List<PassengerVO> getPassengers(int idDriver);
+
+    int findIdByemployeeId(int id);
 }

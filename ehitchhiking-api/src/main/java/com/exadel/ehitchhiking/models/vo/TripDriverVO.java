@@ -1,9 +1,16 @@
 package com.exadel.ehitchhiking.models.vo;
 
+import com.exadel.ehitchhiking.models.Car;
+import com.exadel.ehitchhiking.models.Driver;
 import com.exadel.ehitchhiking.models.TripDriver;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.stereotype.Service;
 
+import javax.persistence.Id;
 import java.time.Instant;
 import java.util.Date;
 
@@ -11,25 +18,59 @@ import java.util.Date;
 @AllArgsConstructor
 public class TripDriverVO {
 
+
+    @Getter
+    @Setter
+    @Id
     private Integer id;
 
-    private String startPoint;
+    @Getter
+    @Setter
+    private String startingPoint;
 
-    private String endPoint;
+    @Getter
+    @Setter
+    private String endingPoint;
 
-    private Instant startTime;
+    @Getter
+    @Setter
+    private Instant startingTime;
 
-    private Instant endTime;
+    @Getter
+    @Setter
+    private Instant endingTime;
 
+    @Getter
+    @Setter
+    @JsonIgnore
     private CarVO car;
 
+    @Getter
+    @Setter
+    private Integer idOfCar;
+
+    @Getter
+    @Setter
+    private DriverVO driver;
+
+    @Getter
+    @Setter
+    @JsonIgnore
     private boolean isActive;
 
+    @Getter
+    @Setter
+    @JsonIgnore
     private boolean isFinished;
 
+    @Getter
+    @Setter
+    @JsonIgnore
     private boolean isSaved;
 
-    private int availableSeats;
+    @Getter
+    @Setter
+    private int seats;
 
     public static TripDriverVO fromEntity(TripDriver tripDriver) {
         return new TripDriverVO(
@@ -39,6 +80,8 @@ public class TripDriverVO {
                 tripDriver.getStartTime().toInstant(),
                 tripDriver.getEndTime().toInstant(),
                 CarVO.fromEntity(tripDriver.getCar()),
+                tripDriver.getCar().getId(),
+                DriverVO.fromEntity(tripDriver.getCar().getDriver()),
                 tripDriver.isActive(),
                 tripDriver.isFinished(),
                 tripDriver.isSaved(),
