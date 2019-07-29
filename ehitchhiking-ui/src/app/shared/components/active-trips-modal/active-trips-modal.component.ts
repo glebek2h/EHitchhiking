@@ -2,8 +2,8 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {LoaderSize} from '../../enums/pre-loader-sizes';
 import {MatDialogRef} from '@angular/material';
 import {ActiveTripsModalService} from './active-trips-modal.service';
-import {Trip} from '../trips-modal/trips';
 import {ActiveTrip} from '../active-trip/active-trip';
+import { TRIPS_IN_LIST } from "@shared/constants/modal-constants";
 
 @Component({
 	selector: 'app-active-trips-modal',
@@ -12,7 +12,7 @@ import {ActiveTrip} from '../active-trip/active-trip';
 	providers: [ActiveTripsModalService],
 })
 export class ActiveTripsModalComponent implements OnInit {
-	limit = 4;
+	limit = TRIPS_IN_LIST ;
 	tripsArray = [];
 	tripsArrayLenght = 0;
 	loaderSize: LoaderSize = LoaderSize.Large;
@@ -22,7 +22,7 @@ export class ActiveTripsModalComponent implements OnInit {
 	selectedRole: number;
 	@ViewChild('sMarker', {static: true}) markerRef: ElementRef;
 	isShowTripInfo = false;
-	tripInfo: Trip;
+	tripInfo: ActiveTrip;
 
 	roles = [{value: 0, viewValue: 'Passenger'}, {value: 1, viewValue: 'Driver'}, {value: 2, viewValue: 'All'}];
 
@@ -38,12 +38,12 @@ export class ActiveTripsModalComponent implements OnInit {
 	onScroll(entries: IntersectionObserverEntry[]) {
 		for (let entry of entries) {
 			if (entry.isIntersecting && entry.intersectionRatio > 0.99) {
-				this.limit += 4;
+				this.limit += TRIPS_IN_LIST ;
 			}
 		}
 		if (this.limit >= this.tripsArray.length) {
-      this.scrollObserver.unobserve(this.markerRef.nativeElement);
-    }
+			this.scrollObserver.unobserve(this.markerRef.nativeElement);
+		}
 	}
 
 	ngOnInit() {

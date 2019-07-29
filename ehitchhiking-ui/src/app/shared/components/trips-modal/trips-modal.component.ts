@@ -3,6 +3,7 @@ import {LoaderSize} from "../../enums/pre-loader-sizes";
 import {MatDialogRef} from "@angular/material";
 import {TripsModalService} from "./trips-modal.service";
 import {SortState} from "../../enums/SortState";
+import { TRIPS_IN_LIST } from "@shared/constants/modal-constants";
 
 @Component({
 	selector: 'app-trips',
@@ -11,7 +12,7 @@ import {SortState} from "../../enums/SortState";
 	providers: [TripsModalService],
 })
 export class TripsModalComponent implements OnInit {
-  limit = 4;
+  limit = TRIPS_IN_LIST ;
 	tripsArray = [];
 	tripsArrayLenght = 0;
 	loaderSize: LoaderSize = LoaderSize.Large;
@@ -37,7 +38,7 @@ export class TripsModalComponent implements OnInit {
 
 	onScroll(entries: IntersectionObserverEntry[]) {
 		for (let entry of entries) {
-      if (entry.isIntersecting) this.limit += 4;
+      if (entry.isIntersecting) this.limit += TRIPS_IN_LIST ;
 		}
 		if (this.limit >= this.tripsArray.length) this.scrollObserver.unobserve(this.markerRef.nativeElement);
 		console.log(`Limit increased ${this.limit}`);
