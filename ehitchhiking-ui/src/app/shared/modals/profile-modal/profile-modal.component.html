@@ -24,7 +24,7 @@
 				</button>
 			</div>
 		</ng-container>
-		<form [formGroup]="carsInfoForm" name="cars-info-form" (ngSubmit)="onSubmitCarsChanges()">
+    <form class="cars-form" [formGroup]="carsInfoForm" name="cars-info-form" (ngSubmit)="onSubmitCarsChanges()">
 			<mat-accordion class="car-info-container" *ngIf="!addCarMod">
 				<mat-expansion-panel class="profile-car-info" *ngFor="let curCar of user.cars; let index = index">
 					<mat-expansion-panel-header>
