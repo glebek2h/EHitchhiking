@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Trip} from '../trips-modal/trips';
 import { StarClickMeta } from "../rating/starClickMeta";
-import { Passenger } from "../rate-passengers-modal/passenger";
 import {MatDialog} from '@angular/material';
 import {RatePassengersModalComponent} from "@shared/components/rate-passengers-modal/rate-passengers-modal.component";
 import {DEFAULT_MAT_DIALOG_CLASS, MAT_DIALOG_WIDTH_SM} from "@shared/constants/modal-constants";

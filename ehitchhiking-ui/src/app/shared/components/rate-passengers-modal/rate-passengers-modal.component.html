@@ -1,7 +1,7 @@
 <div class="modal-wrapper">
 	<header class="modal-header">
-    <span *ngIf="data.dataKey === 1" class="modal-title">Rate Passengers</span>
-    <span *ngIf="data.dataKey === 0" class="modal-title">Rate Driver</span>
+    <span *ngIf="data.dataKey === UserState.Driver" class="modal-title">Rate Passengers</span>
+    <span *ngIf="data.dataKey === UserState.Passenger" class="modal-title">Rate Driver</span>
 	</header>
 
 	<table class="modal-content">
@@ -15,7 +15,7 @@
 		</thead>
 		<tbody>
 
-    <ng-container *ngIf="data.dataKey === 1">
+    <ng-container *ngIf="data.dataKey === UserState.Driver">
       <tr [ngClass]="{'passenger-row-active': passenger.isAddedToBlackList}"
           *ngFor="let passenger of passengers;let i = index; trackBy: trackById">
         <td class="table-passenger-name">
@@ -37,7 +37,7 @@
       </tr>
     </ng-container>
 
-    <ng-container *ngIf="data.dataKey === 0">
+    <ng-container *ngIf="data.dataKey === UserState.Passenger">
       <tr [ngClass]="{'passenger-row-active': driver.isAddedToBlackList}">
         <td class="table-passenger-name">
           {{ driver.name }}
