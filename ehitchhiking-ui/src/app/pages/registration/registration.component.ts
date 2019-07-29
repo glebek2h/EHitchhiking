@@ -28,7 +28,6 @@ export class RegistrationComponent implements OnInit {
 		const login = this.registrationForm.controls.login.value;
 		const password = this.registrationForm.controls.password.value;
 		this.authorizationService.doAuthorization(login, password);
-		this.router.navigateByUrl('/main');
 	}
 
 	hasError(controlName: string): boolean {

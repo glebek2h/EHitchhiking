@@ -3,8 +3,7 @@ import {CommonModule} from '@angular/common';
 import {RegistrationComponent} from './registration.component';
 import {MatButtonModule, MatInputModule, MatFormFieldModule, MatIconModule} from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {NotificationService} from '@shared/services/notification.service';
-import {UserService} from "@shared/services/user.service";
+import {AuthorizationService} from '@shared/services/authorization.service';
 
 @NgModule({
 	declarations: [RegistrationComponent],
@@ -19,6 +18,6 @@ import {UserService} from "@shared/services/user.service";
 	],
 	entryComponents: [RegistrationComponent],
 	exports: [RegistrationComponent, FormsModule],
-	providers: [UserService, NotificationService],
+	providers: [AuthorizationService],
 })
 export class RegistrationModule {}

@@ -9,7 +9,8 @@ export class AuthorizationGuard implements CanActivate {
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
 		return from(this.userService.getStatus()).pipe(
 			map((status) => {
-				if (!!status && this.userService.getCurrentUser()) {
+				if (!!status) {
+					console.log(status);
 					return true;
 				}
 				this.router.navigateByUrl('/login');
