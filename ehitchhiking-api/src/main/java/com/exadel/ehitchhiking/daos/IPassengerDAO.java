@@ -7,7 +7,7 @@ import java.util.List;
 public interface IPassengerDAO extends IBasicDAO<Passenger>{
 
     List<Passenger> getAll();
-    Passenger getByName(String username);
+    Passenger getByEmail(String email);
     Passenger getPassenger(int id);
     int getByEmployeeId(int id);
 }

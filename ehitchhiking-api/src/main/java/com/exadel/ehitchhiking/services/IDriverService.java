@@ -9,11 +9,11 @@ import java.util.List;
 public interface IDriverService {
     void createDriver(Integer id);
 
-    int findDriverIdByUsername(String username);
+    int findDriverIdByEmail(String email);
 
     void updateRateDriver(int idDriver, float addedRate);
 
-    void deleteDriver(String username);
+    void deleteDriver(String email);
 
     void deleteDriverId(int id);
 

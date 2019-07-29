@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.Id;
@@ -18,59 +19,41 @@ import java.util.Date;
 @AllArgsConstructor
 public class TripDriverVO {
 
-
-    @Getter
-    @Setter
-    @Id
     private Integer id;
 
-    @Getter
-    @Setter
     private String startingPoint;
 
-    @Getter
-    @Setter
     private String endingPoint;
 
-    @Getter
-    @Setter
     private Instant startingTime;
 
-    @Getter
-    @Setter
     private Instant endingTime;
 
-    @Getter
-    @Setter
     @JsonIgnore
     private CarVO car;
 
-    @Getter
-    @Setter
     private Integer idOfCar;
 
-    @Getter
-    @Setter
     private DriverVO driver;
 
-    @Getter
-    @Setter
     @JsonIgnore
     private boolean isActive;
 
-    @Getter
-    @Setter
     @JsonIgnore
     private boolean isFinished;
 
-    @Getter
-    @Setter
     @JsonIgnore
     private boolean isSaved;
 
-    @Getter
-    @Setter
     private int seats;
+
+    private Point coordStart;
+
+    private Point coordEnd;
+
+    private float distance;
+
+    private boolean isHistory;
 
     public static TripDriverVO fromEntity(TripDriver tripDriver) {
         return new TripDriverVO(
@@ -85,7 +68,11 @@ public class TripDriverVO {
                 tripDriver.isActive(),
                 tripDriver.isFinished(),
                 tripDriver.isSaved(),
-                tripDriver.getAvailableSeats()
+                tripDriver.getAvailableSeats(),
+                tripDriver.getCoordStart(),
+                tripDriver.getCoordEnd(),
+                tripDriver.getDistance(),
+                tripDriver.isHistory()
         );
     }
 }
