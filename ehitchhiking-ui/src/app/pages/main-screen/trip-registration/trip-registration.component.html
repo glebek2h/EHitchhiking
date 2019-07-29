@@ -37,15 +37,23 @@
 				<mat-option [value]="4">4</mat-option>
 			</mat-select>
 		</mat-form-field>
-		<button
-			mat-raised-button
-			class="submit-button"
-			color="primary"
-			type="submit"
-			[disabled]="!nameFormGroup.valid"
-			(click)="isShown = !isShown"
-		>
-			Apply
-		</button>
-	</div>
+    <mat-form-field class="cars-select" *ngIf="isDriver()">
+      <mat-label>Car</mat-label>
+      <mat-select formControlName="car">
+        <mat-option *ngFor="let car of user.cars; let i = index" [value]="car">{{car.model}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="button-div">
+    <button
+      mat-raised-button
+      class="submit-button"
+      color="primary"
+      type="submit"
+      [disabled]="!nameFormGroup.valid"
+      (click)="isShown = !isShown"
+    >
+      Apply
+    </button>
+  </div>
 </form>

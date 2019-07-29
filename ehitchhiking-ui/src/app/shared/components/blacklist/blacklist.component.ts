@@ -14,26 +14,27 @@ import {BLACKLIST_DRIVERS, BLACKLIST_PASSENGERS, CUR_USER} from "@shared/compone
   providers: [ApiService]
 })
 export class BlacklistComponent implements OnInit {
-  blacklistDriverArray: User[] = [];
-  blacklistPassengerArray: User[] = [];
-	curUser: User = CUR_USER;
+  blacklistDriverArray = [];
+  blacklistPassengerArray = [];
+  curUser: User = CUR_USER;
 	loaderSize: LoaderSize = LoaderSize.Large;
 	noDataSize: NoDataSize = NoDataSize.Small;
 	noDataMessage = 'No users!';
 	noDataIconName = 'accessibility';
   loadingDrives = true;
   loadingPassengers = true;
-	constructor(public dialogRef: MatDialogRef<BlacklistComponent>,private apiService: ApiService) {}
+	constructor(public dialogRef: MatDialogRef<BlacklistComponent>) {}
 
 	ngOnInit() {
-		this.blacklistDriverArray = BLACKLIST_DRIVERS;
-		this.blacklistPassengerArray = BLACKLIST_PASSENGERS;
+    this.blacklistDriverArray = BLACKLIST_DRIVERS;
+    this.blacklistPassengerArray = BLACKLIST_PASSENGERS;
 		setTimeout(() => {
-			this.loadingDrives = false;
+      this.loadingDrives = false;
 		}, 1000);
-		setTimeout(() => {
-			this.loadingPassengers = false;
-		}, 2000);
+    setTimeout(() => {
+      this.loadingPassengers = false;
+    }, 2000);
+
 		this.apiService.doGet(URL_REGISTRY['blacklist.get'],false,{
 		  idDr: this.curUser.id
     }).subscribe(data => {
@@ -45,11 +46,13 @@ export class BlacklistComponent implements OnInit {
 		this.dialogRef.close();
 	}
 
+
   removePersonFromDriverBlacklist(item) {
     this.apiService.doDelete(URL_REGISTRY['blacklist.delete'], false, {
       idPas: this.blacklistDriverArray[item].id,idDr: this.curUser.id}).subscribe(data => console.log(data));
     this.blacklistDriverArray.splice(item, 1);
   }
+
 
   removePersonFromPassengerBlacklist(item) {
     this.apiService.doDelete(URL_REGISTRY['blacklist.delete'], false, {

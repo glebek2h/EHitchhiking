@@ -24,11 +24,11 @@ import {RequestCache} from '@shared/services/request.cache.service';
 		HttpClientModule,
 		MatNativeDateModule,
 	],
-	providers: [
-		ApiService,
-		{provide: HTTP_INTERCEPTORS, useClass: CachingInterceptor, multi: true},
-		{provide: RequestCache, useClass: RequestCache},
-	],
+  providers: [
+    ApiService,
+    {provide: HTTP_INTERCEPTORS, useClass: CachingInterceptor, multi: true},
+    {provide: RequestCache, useClass: RequestCache},
+  ],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}

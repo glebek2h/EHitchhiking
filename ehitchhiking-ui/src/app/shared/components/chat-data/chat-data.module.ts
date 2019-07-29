@@ -14,16 +14,16 @@ import {NoDataModule} from '@shared/components/no-data/no-data.module';
 
 @NgModule({
 	declarations: [DialogListComponent, ChatComponent],
-  imports: [
-    CommonModule,
-    MatCardModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatDialogModule,
+	imports: [
+		CommonModule,
+		MatCardModule,
+		MatIconModule,
+		MatFormFieldModule,
+		MatInputModule,
+		MatButtonModule,
+		MatDialogModule,
     NoDataModule,
-  ],
+	],
 	exports: [DialogListComponent, ChatComponent],
 	entryComponents: [ChatComponent, DialogListComponent],
 })
