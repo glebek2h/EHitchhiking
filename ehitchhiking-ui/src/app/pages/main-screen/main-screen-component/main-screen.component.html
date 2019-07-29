@@ -27,7 +27,7 @@
   [isDisabledSubmitRouteButton]="isDisabledSubmitRouteButton"
 ></app-routes-list>
 <mat-button-toggle-group class="btn-group" name="fontStyle" aria-label="Font Style">
-	<mat-button-toggle class="passanger-btn" value="bold" (click)="toggleStateToPassenger()"
+	<mat-button-toggle class="passenger-btn" value="bold" (click)="toggleStateToPassenger()"
 		>Passenger</mat-button-toggle
 	>
 	<mat-button-toggle class="driver-btn" value="italic" (click)="toggleStateToDriver()">Driver</mat-button-toggle>
@@ -49,11 +49,11 @@
     directions
   </i>
 </button>
-<button class="plus-btn" mat-fab matTooltip="create trip" color="primary" (click)="openTripRegistrationForm()">
+<button class="plus-btn" mat-fab matTooltip="create trip" (click)="openTripRegistrationForm()">
 	<i *ngIf="!editStatePlusButton" class="material-icons">
 		add
 	</i>
-	<i *ngIf="editStatePlusButton" class="material-icons">
+	<i *ngIf="editStatePlusButton" matTooltip="edit trip" class="material-icons">
 		edit
 	</i>
 </button>
