@@ -9,6 +9,7 @@ import {BlacklistComponent} from '@shared/components/blacklist/blacklist.compone
 import {TripsModalComponent} from '../trips-modal/trips-modal.component';
 import {ChatComponent} from '@shared/components/chat-data/chat/chat.component';
 import {NotificationService} from '@shared/services/notification.service';
+import { ActiveTripsModalComponent } from "@shared/components/active-trips-modal/active-trips-modal.component";
 
 @Component({
 	selector: 'app-menu',
@@ -54,6 +55,14 @@ export class MenuComponent implements OnInit {
 			width: MAT_DIALOG_WIDTH_MD,
 		});
 	}
+
+  openActiveDialog() {
+    this.dialog.open(ActiveTripsModalComponent, {
+      panelClass: DEFAULT_MAT_DIALOG_CLASS,
+      autoFocus: false,
+      width: MAT_DIALOG_WIDTH_MD,
+    });
+  }
 
 	openProfileDialog(): void {
 		this.dialog.open(ProfileModalComponent, {panelClass: 'mat-dialog-no-padding', autoFocus: false});

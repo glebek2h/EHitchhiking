@@ -36,6 +36,6 @@ import {FilterByFavoritePipe} from "../../pipes/filter-by-favorite.pipe";
     MatExpansionModule
   ],
 	entryComponents: [TripsModalComponent],
-  exports: [TripsModalComponent, SortTripsPipe],
+  exports: [TripsModalComponent, SortTripsPipe, FilterByRolePipe]
 })
 export class TripsModalModule {}
