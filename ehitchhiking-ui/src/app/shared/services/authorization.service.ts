@@ -19,7 +19,7 @@ export class AuthorizationService {
 
 	doAuthorization(login: string, password: string): void {
 		this.apiService
-			.doPost(URL_REGISTRY.authorization, false, this.getAuthorizationObject(login, password))
+			.doPost(URL_REGISTRY.authorization, this.getAuthorizationObject(login, password))
 			.pipe(
 				share(),
 				catchError((error: HttpErrorResponse) => {

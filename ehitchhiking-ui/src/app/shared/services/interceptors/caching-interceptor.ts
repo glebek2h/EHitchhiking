@@ -1,3 +1,4 @@
+import {RequestMethods} from '@shared/enums/request-enum';
 import {RequestCache} from '@shared/services/request.cache.service';
 import {Injectable} from '@angular/core';
 import {HttpInterceptor, HttpHandler, HttpRequest, HttpHeaders, HttpResponse, HttpEvent} from '@angular/common/http';
@@ -19,13 +20,14 @@ export class CachingInterceptor implements HttpInterceptor {
 		nextHandler: HttpHandler,
 		requestsCache: RequestCache
 	): Observable<HttpEvent<any>> {
-		const noHeaderRequest = request.clone({headers: new HttpHeaders()});
+		const requestClone = request.clone();
 
-		return nextHandler.handle(noHeaderRequest).pipe(
+		return nextHandler.handle(requestClone).pipe(
 			tap((event) => {
 				if (
 					event instanceof HttpResponse &&
 					request.params instanceof CachingHttpParams &&
+					request.method === RequestMethods.GET &&
 					request.params.cacheFlag
 				) {
 					requestsCache.put(request, event);

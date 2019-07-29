@@ -13,14 +13,14 @@ export class ApiService {
 	doGet(urlPath: string, isCacheable: boolean = false, parameters: any = null): Observable<HttpEvent<any>> | null {
 		return this.generateRequest(RequestMethods.GET, urlPath, parameters, isCacheable);
 	}
-	doPost(urlPath: string, isCacheable: boolean = false, data: any = null): Observable<HttpEvent<any>> | null {
-		return this.generateRequest(RequestMethods.POST, urlPath, data, isCacheable);
+	doPost(urlPath: string, data: any = null): Observable<HttpEvent<any>> | null {
+		return this.generateRequest(RequestMethods.POST, urlPath, data, false);
 	}
-	doDelete(urlPath: string, isCacheable: boolean = false, parameters: any = null): Observable<HttpEvent<any>> | null {
-		return this.generateRequest(RequestMethods.DEL, urlPath, parameters, isCacheable);
+	doDelete(urlPath: string, parameters: any = null): Observable<HttpEvent<any>> | null {
+		return this.generateRequest(RequestMethods.DEL, urlPath, parameters, false);
 	}
-	getPut(urlPath: string, isCacheable: boolean = false, data: any = null): Observable<HttpEvent<any>> | null {
-		return this.generateRequest(RequestMethods.PUT, urlPath, data, isCacheable);
+	getPut(urlPath: string, data: any = null): Observable<HttpEvent<any>> | null {
+		return this.generateRequest(RequestMethods.PUT, urlPath, data, false);
 	}
 	// doAuthGet(urlPath: string, data: any): Observable<any> {
 	// 	const headers = new HttpHeaders(
@@ -72,11 +72,11 @@ export class ApiService {
 	}
 
 	private insertParameters(urlTemplate: string, data: any): string {
-    if (data) {
-      Object.keys(data).forEach((key) => {
-        urlTemplate = urlTemplate.replace(`{{${key}}}`, data[key]);
-      });
-    }
+		if (data) {
+			Object.keys(data).forEach((key) => {
+				urlTemplate = urlTemplate.replace(`{{${key}}}`, data[key]);
+			});
+		}
 		return urlTemplate;
 	}
 }
