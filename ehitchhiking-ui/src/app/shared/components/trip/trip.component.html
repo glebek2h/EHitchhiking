@@ -1,10 +1,10 @@
-<i class="position-role material-icons" *ngIf="trip.role === userState.Driver">
+<i class="position-role material-icons" *ngIf="trip.role === userState.Driver" title = "driver">
 	directions_car
 </i>
-<i class="position-role material-icons" *ngIf = "trip.role === userState.Passenger">
+<i class="position-role material-icons" *ngIf = "trip.role === userState.Passenger" title = "passenger">
   person
 </i>
-<p class="truncated">{{ trip.startPoint }} -> {{ trip.endPoint }}</p>
+<p class="start-end-point">{{ trip.startPoint }} -> {{ trip.endPoint }}</p>
 <div class="swap-btns-rating">
 	<div class="action-btns-container" [class.active]="isRatingEditorVisible">
 		<button class="trip-btn" [ngSwitch]="trip.status">
