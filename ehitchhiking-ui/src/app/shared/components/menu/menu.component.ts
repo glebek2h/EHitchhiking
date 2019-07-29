@@ -1,47 +1,45 @@
 import {Component, OnInit} from '@angular/core';
 import {BUTTONS_NAMES} from './buttons-names';
-import {BlacklistComponent} from '../blacklist/blacklist.component';
 import {MatDialog} from '@angular/material';
 import {RatePassengersModalComponent} from '../rate-passengers-modal/rate-passengers-modal.component';
-import {ProfileModalComponent} from '../../modals/profile-modal/profile-modal.component';
+import {ProfileModalComponent} from '@shared/modals/profile-modal/profile-modal.component';
 import {Router} from '@angular/router';
-import { DEFUALT_MAT_DIALOG_CLASS, MAT_DIALOG_WIDTH_MD, MAT_DIALOG_WIDTH_SM } from "../../constants/modal-constants";
-import { TripsModalComponent } from "../trips-modal/trips-modal.component";
-import { ActiveTripsModalComponent } from "../active-trips-modal/active-trips-modal.component";
+import {DEFAULT_MAT_DIALOG_CLASS, MAT_DIALOG_WIDTH_MD, MAT_DIALOG_WIDTH_SM} from '@shared/constants/modal-constants';
+import {BlacklistComponent} from '@shared/components/blacklist/blacklist.component';
+import {TripsModalComponent} from '../trips-modal/trips-modal.component';
+import {ChatComponent} from '@shared/components/chat-data/chat/chat.component';
+import {NotificationService} from '@shared/services/notification.service';
 
 @Component({
 	selector: 'app-menu',
 	templateUrl: './menu.component.html',
 	styleUrls: ['./menu.component.sass'],
+  providers: [NotificationService],
 })
 export class MenuComponent implements OnInit {
 	opened: boolean;
 	buttonsArray = [];
 
-	constructor(private router: Router, public dialog: MatDialog) {}
+  constructor(private router: Router, public dialog: MatDialog, public notificationService: NotificationService) {
+  }
 
 	ngOnInit() {
 		this.buttonsArray = BUTTONS_NAMES;
 	}
 	openBlacklistDialog(): void {
-		const dialogRef = this.dialog.open(BlacklistComponent, {
+    this.dialog.open(BlacklistComponent, {
 			width: MAT_DIALOG_WIDTH_SM,
-			panelClass: DEFUALT_MAT_DIALOG_CLASS,
+      panelClass: DEFAULT_MAT_DIALOG_CLASS,
 			autoFocus: false,
-		});
-		dialogRef.afterClosed().subscribe((result) => {
-			console.log('The dialog was closed');
+      disableClose: true,
 		});
 	}
 
 	openRatePassengersDialog(): void {
-		const dialogRef = this.dialog.open(RatePassengersModalComponent, {
+    this.dialog.open(RatePassengersModalComponent, {
 			width: MAT_DIALOG_WIDTH_SM,
-			panelClass: DEFUALT_MAT_DIALOG_CLASS,
+      panelClass: DEFAULT_MAT_DIALOG_CLASS,
 			autoFocus: false,
-		});
-		dialogRef.afterClosed().subscribe((result) => {
-			console.log('The dialog was closed');
 		});
 	}
 
@@ -49,29 +47,24 @@ export class MenuComponent implements OnInit {
 		this.router.navigateByUrl('/login');
 	}
 
-  openHistoryDialog(){
-    const dialogRef = this.dialog.open(TripsModalComponent, {
-      panelClass: DEFUALT_MAT_DIALOG_CLASS,
-      autoFocus: false,
-      width: MAT_DIALOG_WIDTH_MD,
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
-    });
-  }
-
-  openActiveTripsDialog(){
-    const dialogRef = this.dialog.open(ActiveTripsModalComponent, {
-      panelClass: DEFUALT_MAT_DIALOG_CLASS,
-      autoFocus: false,
-      width: MAT_DIALOG_WIDTH_MD,
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
-    });
-  }
+	openHistoryDialog() {
+    this.dialog.open(TripsModalComponent, {
+      panelClass: DEFAULT_MAT_DIALOG_CLASS,
+			autoFocus: false,
+			width: MAT_DIALOG_WIDTH_MD,
+		});
+	}
 
 	openProfileDialog(): void {
 		this.dialog.open(ProfileModalComponent, {panelClass: 'mat-dialog-no-padding', autoFocus: false});
+	}
+
+	openChatDialog(): void {
+    this.dialog.open(ChatComponent, {
+			width: MAT_DIALOG_WIDTH_SM,
+      panelClass: DEFAULT_MAT_DIALOG_CLASS,
+			autoFocus: false,
+			disableClose: true,
+		});
 	}
 }

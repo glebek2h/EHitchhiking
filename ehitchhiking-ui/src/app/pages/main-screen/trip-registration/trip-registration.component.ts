@@ -1,5 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {User} from "@shared/models/user";
+import {UserState} from "@shared/enums/UserState";
 
 @Component({
 	selector: 'app-trip-registration',
@@ -8,6 +10,8 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 })
 export class TripRegistrationComponent implements OnInit {
 	@Input() isShown: boolean;
+	@Input() user: User;
+  @Input() userState: UserState;
 	@Output() formData = new EventEmitter<any>(); // TODO
 	@Output() isShownViewListButton = new EventEmitter<boolean>();
 	@Output() isShownSaveRouteButton = new EventEmitter<boolean>();
@@ -23,6 +27,7 @@ export class TripRegistrationComponent implements OnInit {
 			departureDate: new FormControl('', [Validators.required]),
 			placesSelect: new FormControl('', [Validators.required]),
 			departureTime: new FormControl('', [Validators.required]),
+      car: new FormControl(''),
 		});
 	}
 
@@ -36,4 +41,12 @@ export class TripRegistrationComponent implements OnInit {
 		this.isShownViewListButton.emit(true);
 		this.isShownSaveRouteButton.emit(true);
 	}
+
+  isDriver() {
+    return this.userState === UserState.Driver;
+  }
+
+  isPassenger() {
+    return this.userState === UserState.Passenger;
+  }
 }

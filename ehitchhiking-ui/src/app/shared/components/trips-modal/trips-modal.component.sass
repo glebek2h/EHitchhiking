@@ -28,8 +28,7 @@
 .scroll-marker
   min-height: $height-empty-block
 .trips
-  height: calc(#{$trip-card-height}*5 + #{$height-empty-block})
-  //5 - number of trips
+  height: calc(#{$trip-card-height}*#{$number-of-trips-in-list} + #{$height-empty-block})
   overflow-Y: scroll
   overflow-x: hidden
   margin: $default-offset

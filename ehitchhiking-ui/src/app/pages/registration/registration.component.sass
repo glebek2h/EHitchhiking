@@ -1,6 +1,7 @@
 @import '../../../styles/colors'
 @import '../../../styles/fonts-constants'
 @import '../../../styles/constants'
+@import '../../../styles/mixins'
 
 .user-info
   background: $mat-badge-font-weight
@@ -10,6 +11,13 @@
   border: none
   margin: 0
   box-shadow:  0 0 0.5rem 0.1rem rgba(221, 221, 221, 1)
+
+  .authorization-inputs-container
+    @include flexbox(center, center, column)
+    position: relative
+
+    .form-row
+      width: 60%
 
 .hover-info
   color: mat-color($primary, 900)
@@ -32,35 +40,15 @@
   background: mat-color($mat-blue-gray)
   align-items: center
 
-div .exadel-login
+.exadel-login
   background-color: mat-color($accent, 50)
   border-radius: 2% 2% 0 0
   padding: 5%
-  img
+
+  &-img
     width: 50%
     margin-left: 25%
 
-.form-img
-  i
-    font-size: $subheading-1
-    margin-right: $default-offset * 0.2
-
-.input
-  font-size: $input
-  border: 1px solid $yellow
-  padding: 2% 2%
-  width: 80%
-  outline: none
-.input:hover
-  box-shadow: 0 0 0.5rem 0.1rem rgba(221, 221, 221, 1)
-.input[type="login"]
-  border-radius: 5% 5% 0 0
-.input[type="password"]
-  border-radius: 0 0 5% 5%
-.form-row
-  display: flex
-  align-items: center
-  margin-top: 5%
 .btn
   margin-top: 5%
 .btn:hover

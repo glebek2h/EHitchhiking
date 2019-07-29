@@ -1,0 +1,28 @@
+@import "../../../../../styles/colors"
+@import "../../../../../styles/mixins"
+@import "../../../../../styles/fonts-constants"
+@import "../../../../../styles/constants"
+
+
+.modal-dialog
+  border: 1px solid $gray
+  display: flex
+  padding: 0
+  .image
+    border-radius: 50%
+    width: 3rem
+    height: 3rem
+  .dlg-content
+    display: flex
+    flex-direction: column
+    flex-wrap: wrap
+    margin: $default-offset/2
+    .dlg-title
+      .dlg-title-text
+        margin: $default-offset/2
+        color: $light-black
+        font-size: $body-1
+        line-height: 0.4rem
+        font-weight: bold
+    .dlg-text
+      width: 16rem
