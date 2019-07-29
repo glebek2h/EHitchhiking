@@ -39,12 +39,6 @@ public class EmployeeService implements IEmployeeService {
     }
 
     @Override
-    public int findIdByUsername(String username) {
-        Employee employee = dao.getByEmail(username);
-        return employee.getId();
-    }
-
-    @Override
     public void updatePassword(String username, String password) {
         Employee employee = dao.getByEmail(username);
         employee.setPassword(password);
@@ -54,28 +48,7 @@ public class EmployeeService implements IEmployeeService {
     @Override
     public void updateEmail(String username, String email) {
         Employee employee = dao.getByEmail(username);
-        employee.setPassword(email);
-        dao.update(employee);
-    }
-
-    @Override
-    public void updateFirstName(String username, String firstName) {
-        Employee employee = dao.getByEmail(username);
-        employee.setPassword(firstName);
-        dao.update(employee);
-    }
-
-    @Override
-    public void updateLastName(String username, String lastName) {
-        Employee employee = dao.getByEmail(username);
-        employee.setPassword(lastName);
-        dao.update(employee);
-    }
-
-    @Override
-    public void updatePhone(String username, String phone) {
-        Employee employee = dao.getByEmail(username);
-        employee.setPassword(phone);
+        employee.setEmail(email);
         dao.update(employee);
     }
 

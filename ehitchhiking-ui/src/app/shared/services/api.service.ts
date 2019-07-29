@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpEvent, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {CachingHttpParams} from '@shared/models/caching.http.params';
 import {RequestMethods} from '@shared/enums/request-enum';
+import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 
 @Injectable()
 export class ApiService {
@@ -22,27 +23,18 @@ export class ApiService {
 	getPut(urlPath: string, data: any = null): Observable<HttpEvent<any>> | null {
 		return this.generateRequest(RequestMethods.PUT, urlPath, data, false);
 	}
-	// doAuthGet(urlPath: string, data: any): Observable<any> {
-	// 	const headers = new HttpHeaders(
-	// 		data
-	// 			? {
-	// 					Authorization: 'Basic ' + btoa(data.username + ':' + data.password),
-	// 			  }
-	// 			: {}
-	// 	);
-	// 	return this.http.request(RequestMethods.GET, ApiService.apiUrl + urlPath, this.getAuthConfig(headers) as any);
-	// }
 
-	// private getAuthConfig(authHeaders: HttpHeaders) {
-	// 	return {
-	// 		headers: authHeaders,
-	// 		reportProgress: false,
-	// 		params: new CachingHttpParams(false),
-	// 		responseType: 'json',
-	// 		withCredentials: false,
-	// 		observe: 'response',
-	// 	};
-	// }
+	auth(login: string, password: string) {
+		const httpOptions = {
+			headers: new HttpHeaders({
+				'Content-Type': 'application/json',
+				Authorization: `Basic ${btoa(login + ':' + password)}`,
+				'X-Requested-With': 'XMLHttpRequest',
+			}),
+			withCredentials: true,
+		};
+		return this.http.get(ApiService.apiUrl + URL_REGISTRY.currentUser, httpOptions);
+	}
 
 	private generateRequest(
 		type: RequestMethods,
@@ -62,7 +54,7 @@ export class ApiService {
 	private getRequestOptions(cacheFlag: boolean = false, requestBody?: any) {
 		return {
 			body: requestBody,
-			headers: new HttpHeaders(),
+			headers: new HttpHeaders({'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest'}),
 			reportProgress: false,
 			params: new CachingHttpParams(cacheFlag),
 			responseType: 'json',
