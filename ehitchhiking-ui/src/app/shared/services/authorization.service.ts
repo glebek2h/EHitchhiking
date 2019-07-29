@@ -28,7 +28,6 @@ export class AuthorizationService {
 				})
 			)
 			.subscribe((response: HttpResponse<any>) => {
-				console.log(response);
 				this.parseResponse(response);
 			});
 	}
@@ -55,12 +54,13 @@ export class AuthorizationService {
 		this.apiService
 			.doDelete(URL_REGISTRY.authorization)
 			.pipe(
+				share(),
 				catchError((error: HttpErrorResponse) => {
 					this.notificationService.showErrorNotification('Server error');
 					return of(false);
 				})
 			)
-			.subscribe((data) => console.log(data));
+			.subscribe();
 		this.router.navigateByUrl('/login');
 	}
 }
