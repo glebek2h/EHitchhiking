@@ -13,25 +13,4 @@ export class ActiveTripComponent implements OnInit {
 	ngOnInit() {}
 
 	@Input() trip: ActiveTrip;
-	isRatingEditorVisible: boolean;
-
-	makeFavorite() {
-		this.trip.isFavorite = !this.trip.isFavorite;
-	}
-
-	toggleRating() {
-		this.isRatingEditorVisible = !this.isRatingEditorVisible;
-	}
-
-	rateTrip(clickObj: StarClickMeta): void {
-		if (!this.trip) {
-			return;
-		}
-		this.trip.rating = clickObj.rating;
-		this.toggleRating();
-	}
-
-	showTripInfo() {
-		this.trip.showTripInfo = !this.trip.showTripInfo;
-	}
 }
