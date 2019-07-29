@@ -6,8 +6,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 
-public interface IEmployeeService extends UserDetailsService {
-    void createEmployee(boolean isAdmin, String username, String firstName,
+public interface IEmployeeService {
+    void createEmployee(boolean isAdmin, String firstName,
                                String lastName, String email, String password, String phoneNum);
     Employee findUserId(int userId);
     Employee findUserUsername(String username);
@@ -20,5 +20,4 @@ public interface IEmployeeService extends UserDetailsService {
     void deleteUser(String username);
     void deleteUserId(int id);
     List<Employee> getAll();
-    UserDetails loadUserByUsername(String username);
 }

@@ -2,9 +2,9 @@ package com.exadel.ehitchhiking.models;
 
 
 import lombok.*;
+import org.postgresql.geometric.PGpoint;
 
 import java.sql.*;
-import java.util.Set;
 
 import javax.persistence.*;
 
@@ -67,6 +67,26 @@ public class TripDriver {
     @Setter
     @Column(name = "\"AVAILABLE_SEATS\"")
     private int availableSeats;
+
+    @Getter
+    @Setter
+    @Column (name = "\"COORD_START\"", columnDefinition = "point")
+    private PGpoint coordStart;
+
+    @Getter
+    @Setter
+    @Column (name = "\"COORD_END\"", columnDefinition = "point")
+    private PGpoint coordEnd;
+
+    @Getter
+    @Setter
+    @Column (name = "\"DISTANCE\"")
+    private double distance;
+
+    @Getter
+    @Setter
+    @Column(name = "\"IS_HISTORY\"")
+    private boolean isHistory;
 
     public TripDriver(String startPoint, String endPoint,
                       Timestamp startTime, Timestamp endTime, boolean isActive,

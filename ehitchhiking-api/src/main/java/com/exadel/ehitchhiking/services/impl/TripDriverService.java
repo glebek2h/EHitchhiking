@@ -126,4 +126,14 @@ public class TripDriverService implements ITripDriverService {
     public List<TripDriverVO> getAll() {
         return dao.getAll().stream().map(TripDriverVO::fromEntity).collect(Collectors.toList());
     }
+
+    @Override
+    public TripDriver getTest(int id) {
+        return dao.getTripDriver(id);
+    }
+
+    @Override
+    public void updateAll(TripDriver tripDriver){
+        dao.update(tripDriver);
+    }
 }

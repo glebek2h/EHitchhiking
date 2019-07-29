@@ -31,4 +31,8 @@ public interface ITripDriverService {
     void deleteDriverTrip(int id);
 
     List<TripDriverVO> getAll();
+
+    TripDriver getTest(int id);
+
+    void updateAll(TripDriver tripDriver);
 }

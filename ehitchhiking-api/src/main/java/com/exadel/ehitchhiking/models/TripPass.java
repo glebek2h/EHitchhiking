@@ -3,6 +3,7 @@ package com.exadel.ehitchhiking.models;
 
 
 import lombok.*;
+import org.springframework.data.geo.Point;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -73,6 +74,26 @@ public class TripPass {
     @ManyToOne
     @JoinColumn (name = "\"TRIP_DRIVER\"")
     private TripDriver tripDriver;
+
+    @Getter
+    @Setter
+    @Column (name = "\"COORD_START\"")
+    private Point coordStart;
+
+    @Getter
+    @Setter
+    @Column (name = "\"COORD_END\"")
+    private Point coordEnd;
+
+    @Getter
+    @Setter
+    @Column (name = "\"DISTANCE\"")
+    private double distance;
+
+    @Getter
+    @Setter
+    @Column(name = "\"IS_HISTORY\"")
+    private boolean isHistory;
 
     public TripPass(String startPoint, String endPoint,
                     Timestamp startTime, Timestamp endTime, boolean isActive,
