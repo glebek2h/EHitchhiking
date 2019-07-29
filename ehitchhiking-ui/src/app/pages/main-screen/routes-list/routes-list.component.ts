@@ -3,12 +3,13 @@ import {UtilsService} from '../../../shared/services/utils.service';
 import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 import {Route} from "@pages/main-screen/Route";
 import {ApiService} from "@shared/services/api.service";
+import {MainScreenService} from "@shared/api-services/main-screen.service";
 
 @Component({
 	selector: 'app-routes-list',
 	templateUrl: './routes-list.component.html',
 	styleUrls: ['./routes-list.component.sass'],
-  providers: [ApiService],
+  providers: [ApiService,MainScreenService],
 })
 export class RoutesListComponent implements OnInit {
 	@Input() activeRoutesCollection: Partial<Route>[];
@@ -19,7 +20,7 @@ export class RoutesListComponent implements OnInit {
   isChecked: boolean;
   ROUTES_ON_MAP_COUNT = 3;
 
-	constructor(private apiService: ApiService) {}
+	constructor(private apiService: ApiService,private mainScreenService: MainScreenService) {}
 
 	ngOnInit() {
 	  this.isChecked = false;
@@ -37,15 +38,7 @@ export class RoutesListComponent implements OnInit {
 
   submitRoute(index: number) {
     const route = this.activeRoutesCollection[index];
-    this.apiService
-      .doPost(URL_REGISTRY['map.postPassengerRoute'], false, {
-        passId: 1234,
-        startingPoint: route.from,
-        endingPoint: route.to,
-        startingTime: route.departureDate,
-        endingTime: route.departureDate,
-        seats: route.placesSelect,
-      })
+    this.mainScreenService.savePassengerRoute(route)
       .subscribe((data) => console.log(data));
   }
 

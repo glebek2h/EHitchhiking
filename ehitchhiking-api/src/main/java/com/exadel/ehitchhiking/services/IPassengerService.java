@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface IPassengerService {
     void createPassenger(Integer id);
-    int findPassIdByUsername(String username);
+    int findPassIdByUsername(String email);
     void updateRatePass(int idPass, float addedRate);
     void deletePassenger(String username);
     void deletePassengerId(int id);

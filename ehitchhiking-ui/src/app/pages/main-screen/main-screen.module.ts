@@ -19,6 +19,7 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import {RoutesListComponent} from './routes-list/routes-list.component';
 import {MenuModule} from '../../shared/components/menu/menu.module';
 import { FiltersComponent } from './filters/filters.component';
+import {PreLoadingModule} from "@shared/components/pre-loading/pre-loading.module";
 
 @NgModule({
 	declarations: [MainScreenComponent, YandexMapComponent, TripRegistrationComponent, RoutesListComponent, FiltersComponent],
@@ -37,6 +38,7 @@ import { FiltersComponent } from './filters/filters.component';
     MatExpansionModule,
     MenuModule,
     MatCheckboxModule,
+    PreLoadingModule
   ],
 	exports: [MainScreenComponent, TripRegistrationComponent],
 })

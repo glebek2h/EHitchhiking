@@ -18,43 +18,49 @@ public class EmployeeController {
     @Autowired
     private IEmployeeService employeeService;
 
-    @Autowired
-    private PasswordEncoder encoder;
 
-
-    //TODO: hwo to update all the parameters: by email or by the id
-    //TODO: can we change the email if that is our username?
-
-
-    @PutMapping("/updateEmployeeInfo")
+    @PutMapping
     public Response<String> updateTrip(@RequestBody RequestEmployee employee) {
         Response<String> response = new Response<>();
         try {
-            employeeService.updateEmployee(employee.getEmail(), encoder.encode(employee.getPassword()), employee.getLastName(),
+            employeeService.updateEmployee(employee.getEmail(), employee.getLastName(),
                     employee.getFirstName(), employee.getPhoneNum());
             response.setStatus("200");
             response.setData("true");
             return response;
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             response.setStatus("500");
             response.setData("false");
-            return response;}
+            return response;
+        }
     }
 
-    @GetMapping("/getEmployee")
+    @GetMapping
     public Response<EmployeeVO> getEmployee(String id) {
         Response<EmployeeVO> response = new Response<>();
-        response.setStatus("200");
-        response.setData(employeeService.findUserId(Integer.parseInt(id)));
-        return response;
+        try {
+            response.setStatus("200");
+            response.setData(employeeService.findUserId(Integer.parseInt(id)));
+            return response;
+        } catch (Exception e) {
+            response.setStatus("500");
+            response.setData(null);
+            return response;
+        }
+
     }
 
-    @GetMapping("/getAll")
+    @GetMapping("/list")
     public ResponseMany<EmployeeVO> getAll() {
-        ResponseMany<EmployeeVO> responseMany = new ResponseMany<>();
-        responseMany.setStatus("200");
-        responseMany.setData(employeeService.getAll());
-        return responseMany;
+        ResponseMany<EmployeeVO> response = new ResponseMany<>();
+        try {
+            response.setStatus("200");
+            response.setData(employeeService.getAll());
+            return response;
+        } catch (Exception e){
+            response.setStatus("500");
+            response.setData(null);
+            return response;
+        }
     }
 }

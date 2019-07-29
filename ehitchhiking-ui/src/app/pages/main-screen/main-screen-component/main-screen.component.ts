@@ -6,14 +6,15 @@ import {Car} from "@shared/models/car";
 import {Route} from "@pages/main-screen/Route";
 import {ApiService} from "@shared/services/api.service";
 import {URL_REGISTRY} from "@shared/constants/urlRegistry";
+import {MainScreenService} from "@shared/api-services/main-screen.service";
 @Component({
 	selector: 'app-main-screen',
 	templateUrl: './main-screen.component.html',
 	styleUrls: ['./main-screen.component.sass'],
-  providers: [ApiService]
+  providers: [ApiService, MainScreenService]
 })
 export class MainScreenComponent implements OnInit {
-  constructor(private apiService: ApiService) {
+  constructor(private apiService: ApiService, private mainScreenService: MainScreenService) {
   }
 
 	tripFormData: any; // TODO
@@ -44,8 +45,8 @@ export class MainScreenComponent implements OnInit {
 		this.isHiddenTripRegistration = true;
     this.isDisabledSubmitRouteButton = true;
     this.userState = UserState.Passenger;
-    this.apiService.doGet(URL_REGISTRY['map.getRoutes']).subscribe(data => console.log(data));
-    this.routes = YandexMapService.getSomeRoutes();
+    this.mainScreenService.getDriversRoutes().subscribe((routes) => this.routes = routes);
+    //this.routes = YandexMapService.getSomeRoutes();
     this.copyRoutes = this.routes.slice();
 	}
 
@@ -63,31 +64,7 @@ export class MainScreenComponent implements OnInit {
 	saveRoute() {
 		this.isSavedRoute = !this.isSavedRoute;
 		this.isShownSaveRouteButton = false;
-    console.log({
-      startingPoint: this.tripFormData.from,
-      endingPoint: this.tripFormData.to,
-      startingTime: this.tripFormData.departureDate,
-      endingTime: this.tripFormData.departureDate,
-      idOfCar: 41,
-      seats: this.tripFormData.placesSelect,
-    });
-    /*this.myApiService.getSmth({
-      startingPoint: this.tripFormData.from,
-      endingPoint: this.tripFormData.to,
-      startingTime: this.tripFormData.departureDate,
-      endingTime: this.tripFormData.departureDate,
-      idOfCar: 41,
-      seats: this.tripFormData.placesSelect,
-    })*/
-    this.apiService
-      .doPost(URL_REGISTRY['map.postDriverRoute'], false, {
-        startingPoint: this.tripFormData.from,
-        endingPoint: this.tripFormData.to,
-        startingTime: this.tripFormData.departureDate,
-        endingTime: this.tripFormData.departureDate,
-        idOfCar: 41,
-        seats: this.tripFormData.placesSelect,
-      })
+    this.mainScreenService.saveDriverRoute(this.tripFormData)
       .subscribe((data) => console.log(data));
 	}
 

@@ -1,28 +1,28 @@
 package com.exadel.ehitchhiking.services;
 
+import org.springframework.data.geo.Point;
+
 import java.sql.Timestamp;
 
 public interface ITripPassengerService {
-    void createTripPassenger(int pass, String startingPoint,
+    void createTripPassenger(int passId, String startingPoint,
                              String endingPoint,
                              Timestamp startingTime, Timestamp endingTime,
-                             int seats, int idTripDriver);
+                             int seats, int idTripDriver, Point coordStart, Point coordEnd,
+                             float distance);
 
-    void updateTimeStart(int id, Timestamp newStart);
 
-    void updateTimeEnd(int id, Timestamp newEnd);
-
-    void updatePointStart(int id, String start);
-
-    void updatePointEnd(int id, String end);
 
     void updateSave(int id, boolean isSaved);
 
     void updateFinished(int id, boolean isFinished);
 
-    void updateSeats(int id, int newSeats);
-
-    void deleteDriverTrip(int id);
+    void deletePassTrip(int id);
 
     void updateHistory(int id, boolean isHistory);
+
+    void updateTrip(int id, Timestamp newStart, Timestamp newEnd, String start, String end,
+                    int newSeats, Point coordStart, Point coordEnd, float distance);
+
+    void updateActive(int id, boolean isActive);
 }

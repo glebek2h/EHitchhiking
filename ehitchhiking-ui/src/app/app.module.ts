@@ -11,6 +11,7 @@ import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {MatNativeDateModule} from '@angular/material';
 import {CachingInterceptor} from '@shared/services/interceptors/caching-interceptor';
 import {RequestCache} from '@shared/services/request.cache.service';
+import {MainScreenService} from "@shared/api-services/main-screen.service";
 
 @NgModule({
 	declarations: [AppComponent],
@@ -26,6 +27,7 @@ import {RequestCache} from '@shared/services/request.cache.service';
 	],
   providers: [
     ApiService,
+    MainScreenService,
     {provide: HTTP_INTERCEPTORS, useClass: CachingInterceptor, multi: true},
     {provide: RequestCache, useClass: RequestCache},
   ],

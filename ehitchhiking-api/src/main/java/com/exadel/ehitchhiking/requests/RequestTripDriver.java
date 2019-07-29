@@ -1,8 +1,10 @@
 package com.exadel.ehitchhiking.requests;
 import lombok.Data;
+import org.springframework.data.geo.Point;
 
 @Data
 public class RequestTripDriver {
+
     private String startingPoint;
 
     private String endingPoint;
@@ -11,14 +13,21 @@ public class RequestTripDriver {
 
     private String endingTime;
 
-    private String idOfCar;
+    private Integer idOfCar;
 
-    private String DriverId;
+    private Integer DriverId;
 
-    private String seats;
+    private Integer seats;
 
-    private String id;
-    }
+    private Integer id;
+
+    private Point coordStart;
+
+    private Point coordEnd;
+
+    private float distance;
+
+}
 
 
 

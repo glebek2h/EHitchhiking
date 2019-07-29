@@ -46,25 +46,20 @@ public class CarController {
     }
 
     @PutMapping("/updateCarParameters")
-    public Response<String> updateColor(@RequestBody RequestCar car){
+    public Response<String> updateColor(@RequestBody RequestCar car) {
         Response<String> response = new Response<>();
         System.out.println(car.getCarId());
-      try
-      {
-          int carId = Integer.parseInt(car.getCarId());
-
-          carService.updateColor(carId, car.getColor());
-          carService.updateNumber(carId, car.getNumber());
-        response.setStatus("200");
-        response.setData("true");
-        return response;
+        try {
+            int carId = Integer.parseInt(car.getCarId());
+            carService.updateColor(carId, car.getColor());
+            carService.updateNumber(carId, car.getNumber());
+            response.setStatus("200");
+            response.setData("true");
+            return response;
+        } catch (Exception e) {
+            response.setStatus("500");
+            response.setData("false");
+            return response;
+        }
     }
-      catch (Exception e) {
-          System.out.println(e);
-        response.setStatus("500");
-        response.setData("false");
-        return response;}
-
-    }
-
 }

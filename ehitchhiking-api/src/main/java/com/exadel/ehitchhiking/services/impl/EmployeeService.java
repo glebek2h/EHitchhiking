@@ -34,22 +34,21 @@ public class EmployeeService implements IEmployeeService {
     }
 
     @Override
-    public EmployeeVO findUserUsername(String username) {
-        return EmployeeVO.fromEntity(dao.getByEmail(username));
+    public EmployeeVO findByEmail(String email) {
+        return EmployeeVO.fromEntity(dao.getByEmail(email));
     }
 
     @Override
-    public int findIdByUsername(String username) {
-        Employee employee = dao.getByEmail(username);
+    public int findIdByEmail(String email) {
+        Employee employee = dao.getByEmail(email);
         return employee.getId();
     }
 
 
     @Override
-    public void updateEmployee(String email, String password, String lastName,
+    public void updateEmployee(String email, String lastName,
                                String firstName, String phoneNum) {
         Employee employee = dao.getByEmail(email);
-        employee.setPassword(password);
         employee.setFirstName(firstName);
         employee.setLastName(lastName);
         employee.setPhoneNumber(phoneNum);
@@ -75,7 +74,7 @@ public class EmployeeService implements IEmployeeService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return findUserUsername(email);
+        return findByEmail(email);
     }
 
 }
