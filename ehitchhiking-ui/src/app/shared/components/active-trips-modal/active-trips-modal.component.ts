@@ -41,7 +41,7 @@ export class ActiveTripsModalComponent implements OnInit {
 
   onScroll(entries: IntersectionObserverEntry[]) {
     for (let entry of entries) {
-      if (entry.isIntersecting) this.limit += 5;
+      if (entry.isIntersecting && entry.intersectionRatio > 0.99) this.limit += 5;
     }
     if (this.limit >= this.tripsArray.length) this.scrollObserver.unobserve(this.markerRef.nativeElement);
     console.log(`Limit increased ${this.limit}`);
