@@ -8,8 +8,6 @@
     background-color: $white
     height: auto
     width: 40rem
-    .cars-form
-      margin-top: 4rem
     .modal-content
         .profile-user-info
             position: relative
@@ -50,6 +48,8 @@
             right: $default-offset
             @include flexbox()
             .profile-add-car-button, .profile-close-car-button
+                position: fixed
+                margin-top: -1rem
                 color: mat-color($primary)
                 background-color: mat-color($accent, 400)
                 &:hover
