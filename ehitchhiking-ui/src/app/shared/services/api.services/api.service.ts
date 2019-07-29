@@ -24,7 +24,7 @@ export class ApiService {
 		return this.generateRequest(RequestMethods.PUT, urlPath, data, false);
 	}
 
-	auth(login: string, password: string) {
+	doAuthGet(login: string, password: string): Observable<any> {
 		const httpOptions = {
 			headers: new HttpHeaders({
 				'Content-Type': 'application/json',

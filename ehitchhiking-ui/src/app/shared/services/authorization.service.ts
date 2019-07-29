@@ -1,66 +1,44 @@
+import {AuthorizationApiService} from './api.services/authorization.api.service';
 import {UserService} from './user.service';
 import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 import {NotificationService} from './notification.service';
-import {ApiService} from '@shared/services/api.service';
+import {ApiService} from '@shared/services/api.services/api.service';
 import {Injectable} from '@angular/core';
-import {catchError, share} from 'rxjs/operators';
+import {catchError, share, map} from 'rxjs/operators';
 import {HttpResponse, HttpErrorResponse} from '@angular/common/http';
 import {of} from 'rxjs';
 import {Router} from '@angular/router';
+import {User} from '@shared/models/user';
 
 @Injectable()
 export class AuthorizationService {
 	constructor(
 		private notificationService: NotificationService,
-		private apiService: ApiService,
+		private authorizationApiService: AuthorizationApiService,
 		private userService: UserService,
 		private router: Router
 	) {}
 
 	doAuthorization(login: string, password: string): void {
-		this.apiService
-			.doPost(URL_REGISTRY.authorization, this.getAuthorizationObject(login, password))
-			.pipe(
-				share(),
-				catchError((error: HttpErrorResponse) => {
-					this.notificationService.showErrorNotification('Server error!');
-					return of(false);
-				})
-			)
-			.subscribe((response: HttpResponse<any>) => {
-				this.parseResponse(response);
-			});
+		const authPromise = this.authorizationApiService.sendAuthRequest(login, password);
+		let currentUser = null;
+		authPromise.then((data) => {
+			if (!!data) {
+				currentUser = data;
+				this.router.navigateByUrl('/main');
+			} else if (data === false) {
+				currentUser = false;
+				this.notificationService.showErrorNotification('Server error!');
+			} else {
+				this.notificationService.showErrorNotification('Invalid login or password!');
+			}
+		});
+		this.userService.setCurrentUser(currentUser, authPromise);
 	}
 
-	private parseResponse(response: HttpResponse<any>): void {
-		const userData = response.body.data;
-		if (!userData) {
-			this.notificationService.showErrorNotification('Invalid login or password!');
-			return;
-		}
-		this.userService.setCurrentUser(userData);
-		this.router.navigateByUrl('/main');
-	}
-
-	private getAuthorizationObject(customLogin: string, customPassword: string) {
-		return {
-			login: customLogin,
-			password: customPassword,
-		};
-	}
-
-	public logOut(): void {
+	logOut() {
+		this.authorizationApiService.sendLogOutRequest();
 		this.userService.refreshCurrentUser();
-		this.apiService
-			.doDelete(URL_REGISTRY.authorization)
-			.pipe(
-				share(),
-				catchError((error: HttpErrorResponse) => {
-					this.notificationService.showErrorNotification('Server error');
-					return of(false);
-				})
-			)
-			.subscribe();
 		this.router.navigateByUrl('/login');
 	}
 }

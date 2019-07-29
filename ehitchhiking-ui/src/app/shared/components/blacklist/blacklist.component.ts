@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material';
 import {LoaderSize} from '@shared/enums/pre-loader-sizes';
 import {NoDataSize} from '@shared/enums/no-data-sizes';
-import {ApiService} from '@shared/services/api.service';
+import {ApiService} from '@shared/services/api.services/api.service';
 import {BLACKLIST_DRIVERS, BLACKLIST_PASSENGERS} from '@shared/components/blacklist/blacklist-users';
 
 @Component({

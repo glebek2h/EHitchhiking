@@ -1,4 +1,4 @@
-import {ApiService} from '@shared/services/api.service';
+import {ApiService} from '@shared/services/api.services/api.service';
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {AppRoutingModule} from './app-routing.module';
@@ -23,10 +23,7 @@ import {UserService} from '@shared/services/user.service';
 		HttpClientModule,
 		MatNativeDateModule,
 	],
-	providers: [
-		ApiService,
-		UserService
-	],
+	providers: [ApiService, UserService],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}

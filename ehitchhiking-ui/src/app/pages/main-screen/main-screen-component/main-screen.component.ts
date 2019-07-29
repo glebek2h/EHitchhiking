@@ -3,7 +3,7 @@ import {UserState} from '@shared/enums/UserState';
 import {YandexMapService} from '../yandex-map/yandex-map.service';
 import {User} from '@shared/models/user';
 import {Car} from '@shared/models/car';
-import {ApiService} from '@shared/services/api.service';
+import {ApiService} from '@shared/services/api.services/api.service';
 import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 import {Route} from '../Route';
 @Component({

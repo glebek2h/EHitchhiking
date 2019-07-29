@@ -1,4 +1,4 @@
-import {ApiService} from '@shared/services/api.service';
+import {ApiService} from '@shared/services/api.services/api.service';
 import {Component, ViewChild, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material';
 import {User} from '@shared/models/user';
