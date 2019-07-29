@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {AuthorizationService} from '@shared/services/authorization.service';
+import {UserService} from "@shared/services/user.service";
 
 @Component({
 	selector: 'app-registration',
@@ -13,7 +13,7 @@ export class RegistrationComponent implements OnInit {
 
 	constructor(
 		private router: Router,
-		public authorizationService: AuthorizationService,
+		public userService: UserService,
 		private formBuilder: FormBuilder
 	) {}
 
@@ -27,7 +27,7 @@ export class RegistrationComponent implements OnInit {
 	onSubmit() {
 		const login = this.registrationForm.controls.login.value;
 		const password = this.registrationForm.controls.password.value;
-		this.authorizationService.doAuthorization(login, password);
+		this.userService.doAuthorization(login, password);
 		this.router.navigateByUrl('/main');
 	}
 

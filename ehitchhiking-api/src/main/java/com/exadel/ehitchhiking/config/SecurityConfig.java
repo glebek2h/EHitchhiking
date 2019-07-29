@@ -1,10 +1,11 @@
-package com.exadel.ehitchhiking.utils;
+package com.exadel.ehitchhiking.config;
 
 import com.exadel.ehitchhiking.services.IEmployeeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -24,9 +25,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.Arrays;
 
-@EnableWebSecurity
-@EnableWebMvc
 @Configuration
+@EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -39,8 +39,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     /*
     @Autowired
     private AuthenticationSuccessHandlerImpl successHandler;*/
-/*    @Autowired
-    private  SpringSecurityUserInfo springSecurityUserInfo;*/
 
     @Bean
     public HttpSessionEventPublisher httpSessionEventPublisher() {
@@ -50,30 +48,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                // by default uses a Bean by the name of corsConfigurationSource
                 .cors()
                 .and()
                 .csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
                 .authorizeRequests()
-                .antMatchers("/**")
-                .permitAll()
-                //.antMatchers("/Admin/**").hasAuthority("Admin")
-                //.antMatchers("/Employee/**", "/Passenger/**", "/Driver/**", "/Car/**", "/TripPassenger/**", "/TripDriver/**").hasRole("Employee")
+                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin()
-                .loginProcessingUrl("/auth")
-                .failureHandler((httpServletRequest, httpServletResponse, e) -> {
-                    httpServletResponse.sendError(httpServletResponse.SC_UNAUTHORIZED);
-                })
-                .permitAll()
+                .httpBasic()
                 .and()
                 .logout()
-                .permitAll();
-
-
+                .logoutUrl("/logout")
+                .deleteCookies("JSESSIONID");
     }
 
     @Bean
@@ -94,8 +81,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception{
-        auth.inMemoryAuthentication().withUser("admin")
-                .password("admin").roles("EMPLOYEE", "ADMIN");
+        auth.inMemoryAuthentication().withUser("admin").password("admin").roles("EMPLOYEE", "ADMIN");
     }
 
     @Bean
@@ -107,7 +93,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080", "http://localhost:4200"));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST", "PUT", "DELETE"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONAL"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;

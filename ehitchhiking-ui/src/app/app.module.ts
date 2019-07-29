@@ -10,8 +10,6 @@ import {RegistrationModule} from '@pages/registration/registration.module';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {MatNativeDateModule} from '@angular/material';
 import {UserService} from '@shared/services/user.service';
-import {CachingInterceptor} from '@shared/services/interceptors/caching-interceptor';
-import {RequestCache} from '@shared/services/request.cache.service';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -27,9 +25,7 @@ import {RequestCache} from '@shared/services/request.cache.service';
 	],
 	providers: [
 		ApiService,
-		UserService,
-		{provide: HTTP_INTERCEPTORS, useClass: CachingInterceptor, multi: true},
-		{provide: RequestCache, useClass: RequestCache},
+		UserService
 	],
 	bootstrap: [AppComponent],
 })

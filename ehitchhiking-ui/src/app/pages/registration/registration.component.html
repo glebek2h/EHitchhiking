@@ -5,7 +5,7 @@
 		</div>
 
 		<fieldset class="user-info">
-			<form novalidate [formGroup]="registrationForm" (ngSubmit)="onSubmit($event)">
+			<form novalidate [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
 				<div class="authorization-inputs-container">
 					<mat-form-field class="form-row">
 						<input matInput formControlName="login" class="registration-input" name="login" placeholder="Login" />

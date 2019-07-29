@@ -3,10 +3,11 @@ import {HttpClient, HttpEvent, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {CachingHttpParams} from '@shared/models/caching.http.params';
 import {RequestMethods} from '@shared/enums/request-enum';
+import {URL_REGISTRY} from "@shared/constants/urlRegistry";
 
 @Injectable()
 export class ApiService {
-	static readonly apiUrl: string = 'http://localhost:4200/api/';
+	static readonly apiUrl: string = '/api/';
 
 	constructor(private http: HttpClient) {}
 
@@ -22,27 +23,17 @@ export class ApiService {
 	getPut(urlPath: string, isCacheable: boolean = false, data: any = null): Observable<HttpEvent<any>> | null {
 		return this.generateRequest(RequestMethods.PUT, urlPath, data, isCacheable);
 	}
-	// doAuthGet(urlPath: string, data: any): Observable<any> {
-	// 	const headers = new HttpHeaders(
-	// 		data
-	// 			? {
-	// 					authorization: 'Basic ' + btoa(data.username + ':' + data.password),
-	// 			  }
-	// 			: {}
-	// 	);
-	// 	return this.http.request(RequestMethods.GET, ApiService.apiUrl + urlPath, this.getAuthConfig(headers) as any);
-	// }
 
-	// private getAuthConfig(authHeaders: HttpHeaders) {
-	// 	return {
-	// 		headers: authHeaders,
-	// 		reportProgress: false,
-	// 		params: new CachingHttpParams(false),
-	// 		responseType: 'json',
-	// 		withCredentials: false,
-	// 		observe: 'response',
-	// 	};
-	// }
+	auth(login: string, password: string) {
+		const httpOptions = {
+			headers: new HttpHeaders({
+				'Content-Type':  'application/json',
+				'Authorization': `Basic ${btoa(login + ':' + password)}`
+			})
+		};
+		console.log(httpOptions);
+		return this.http.get(ApiService.apiUrl + URL_REGISTRY.currentUser, httpOptions);
+	}
 
 	private generateRequest(
 		type: RequestMethods,

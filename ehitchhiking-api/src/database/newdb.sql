@@ -1,4 +1,4 @@
-create schema public;
+create schema if not exists public;
 
 alter schema public owner to postgres;
 

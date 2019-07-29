@@ -36,9 +36,6 @@ public class CarController {
                           String idOfDriver) {
             carService.createCar(color, number, carModel,
                     Integer.parseInt(idOfDriver));
-        try {
-        } catch (Exception e) {
-        }
     }
 
     @DeleteMapping("/deleteCar")
