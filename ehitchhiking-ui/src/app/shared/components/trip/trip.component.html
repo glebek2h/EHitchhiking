@@ -1,7 +1,7 @@
-<i class="position-role material-icons" *ngIf="trip.role === userState.Driver" title = "driver">
+<i class="user-role-icon material-icons" *ngIf="trip.role === userState.Driver" title = "driver">
 	directions_car
 </i>
-<i class="position-role material-icons" *ngIf = "trip.role === userState.Passenger" title = "passenger">
+<i class="user-role-icon material-icons" *ngIf = "trip.role === userState.Passenger" title = "passenger">
   person
 </i>
 <p class="start-end-point">{{ trip.startPoint }} -> {{ trip.endPoint }}</p>

@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Trip} from '../trips-modal/trips';
-import { StarClickMeta } from "../rating/starClickMeta";
-import {UserState} from "../../enums/UserState";
-import { Passenger } from "../rate-passengers-modal/passenger";
+import {StarClickMeta} from '../rating/starClickMeta';
+import {UserState} from '../../enums/UserState';
+import {Passenger} from '../rate-passengers-modal/passenger';
 
 @Component({
 	selector: 'app-trip',
@@ -11,8 +11,8 @@ import { Passenger } from "../rate-passengers-modal/passenger";
 })
 export class TripComponent implements OnInit {
 	@Input() trip: Trip;
-  isRatingEditorVisible: boolean;
-  userState= UserState;
+	isRatingEditorVisible: boolean;
+	userState = UserState;
 
 	constructor() {}
 
@@ -22,15 +22,15 @@ export class TripComponent implements OnInit {
 		this.trip.isFavorite = !this.trip.isFavorite;
 	}
 
-  toggleRating(){
-	  this.isRatingEditorVisible = !this.isRatingEditorVisible;
-  }
+	toggleRating() {
+		this.isRatingEditorVisible = !this.isRatingEditorVisible;
+	}
 
-  rateTrip(clickObj: StarClickMeta): void {
-    if (!this.trip) {
-      return;
-    }
-    this.trip.rating = clickObj.rating;
-    this.toggleRating();
-  }
+	rateTrip(clickObj: StarClickMeta): void {
+		if (!this.trip) {
+			return;
+		}
+		this.trip.rating = clickObj.rating;
+		this.toggleRating();
+	}
 }
