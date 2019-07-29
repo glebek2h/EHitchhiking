@@ -22,4 +22,6 @@ public interface IDriverService {
     void deletePassFromBL(int idDriver, int idPass);
 
     List<PassengerVO> getPassengers(int idDriver);
+
+    int findIdByemployeeId(int id);
 }

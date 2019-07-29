@@ -43,6 +43,11 @@ public class DriverService implements IDriverService {
     }
 
     @Override
+    public int findIdByemployeeId(int id) {
+        return dao.getByEmployeeId(id);
+    }
+
+    @Override
     public void updateRateDriver(int idDriver, float addedRate) {
         Driver driver = dao.getDriver(idDriver);
         int oldPeople = driver.getRatedPeoples();

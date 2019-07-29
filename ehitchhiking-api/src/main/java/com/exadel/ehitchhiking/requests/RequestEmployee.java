@@ -15,4 +15,3 @@ public class RequestEmployee {
     private String phoneNum;
 }
 
-//TODO: fix creating employee in dao and service to remove the username

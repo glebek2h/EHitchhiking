@@ -4,6 +4,7 @@ import com.exadel.ehitchhiking.models.Driver;
 import com.exadel.ehitchhiking.models.Passenger;
 import com.exadel.ehitchhiking.models.vo.DriverVO;
 import com.exadel.ehitchhiking.models.vo.PassengerVO;
+import com.exadel.ehitchhiking.requests.RequestBlackList;
 import com.exadel.ehitchhiking.responses.Response;
 import com.exadel.ehitchhiking.responses.ResponseMany;
 import com.exadel.ehitchhiking.services.IDriverService;
@@ -18,24 +19,34 @@ import java.util.List;
 @RequestMapping("/blackList")
 public class BlackListsController {
 
-    //TODO: rewrite all to get the userId and the role "DRIVER" -> received it we can delete or add to the driver
-
-
-    //TODO: change the blacklist to take in the id of the employee
-
-
     @Autowired
     private IDriverService driverService;
 
     @Autowired
     private IPassengerService passengerService;
 
-    @PostMapping("/driver")
-    public Response<String> addPassToBlackListDriver(String idDriver, String idPass) {
+
+    // takes in the employeeId, the role in format "Driver"/"Passenger" and the id of the person that is going to be in the BL
+
+    @PostMapping("/add")
+    public Response<String> addToBL(@RequestBody RequestBlackList blackList) {
         Response<String> response = new Response<>();
         try {
-            driverService.addPassToBL(Integer.parseInt(idDriver), Integer.parseInt(idPass));
-        } catch (Exception e) {
+            if (blackList.getRole().equals("Driver")){
+                int idDriver = driverService.findIdByemployeeId(Integer.parseInt(blackList.getEmployeeId()));
+                driverService.addPassToBL(idDriver, Integer.parseInt(blackList.getIdPass()));}
+
+            else if(blackList.getRole().equals("Passenger")){
+                int idPass = passengerService.findIdByemployeeId(Integer.parseInt(blackList.getEmployeeId()));
+                passengerService.addDriverToBL(idPass, Integer.parseInt(blackList.getIdDriver()));}
+
+            else{
+                response.setStatus("500");
+                response.setData("false");
+                return response;
+            }
+        }
+        catch (Exception e) {
             response.setStatus("500");
             response.setData("false");
             return response;
@@ -44,6 +55,7 @@ public class BlackListsController {
         response.setData("true");
         return response;
     }
+
 
     // deleting the passenger from the black list driver
     @DeleteMapping("/driver")
@@ -61,25 +73,7 @@ public class BlackListsController {
         return response;
     }
 
-
-
-
-    @PostMapping("/passenger")
-    public Response<String> addDriverToBlackListPass(String idPass, String idDriver) {
-        Response<String> response = new Response<>();
-        try {
-            passengerService.addDriverToBL(Integer.parseInt(idPass), Integer.parseInt(idDriver));
-        } catch (Exception e) {
-            response.setStatus("500");
-            response.setData("false");
-            return response;
-        }
-        response.setStatus("200");
-        response.setData("true");
-        return response;
-    }
-
-    // deleting the passenger from the pass list driver
+    // deleting the driver from the blacklist pass
     @DeleteMapping("/passenger")
     public Response<String> deleteDriverFromBlackListPass(String idPass, String idDriver) {
         Response<String> response = new Response<>();
@@ -100,7 +94,6 @@ public class BlackListsController {
         ResponseMany<PassengerVO> responseMany = new ResponseMany<>();
 
         try {
-            System.out.println("foweuhfof");
             responseMany.setStatus("200");
             responseMany.setData(driverService.getPassengers(Integer.parseInt(idDriver)));
             return responseMany;
@@ -129,3 +122,39 @@ public class BlackListsController {
         return responseMany;
     }
 }
+
+/*
+
+
+    @PostMapping("/driver")
+    public Response<String> addPassToBlackListDriver(String idDriver, String idPass) {
+        Response<String> response = new Response<>();
+        try {
+            driverService.addPassToBL(Integer.parseInt(idDriver), Integer.parseInt(idPass));
+        } catch (Exception e) {
+            response.setStatus("500");
+            response.setData("false");
+            return response;
+        }
+        response.setStatus("200");
+        response.setData("true");
+        return response;
+    }
+
+
+    @PostMapping("/passenger")
+    public Response<String> addDriverToBlackListPass(String idPass, String idDriver) {
+        Response<String> response = new Response<>();
+        try {
+            passengerService.addDriverToBL(Integer.parseInt(idPass), Integer.parseInt(idDriver));
+        } catch (Exception e) {
+            response.setStatus("500");
+            response.setData("false");
+            return response;
+        }
+        response.setStatus("200");
+        response.setData("true");
+        return response;}
+
+
+*/
