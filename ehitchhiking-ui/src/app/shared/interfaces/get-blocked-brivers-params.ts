@@ -1,0 +1,3 @@
+interface GetBlockedDriversParams {
+	idDr: string;
+}

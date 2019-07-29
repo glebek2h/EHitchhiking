@@ -6,22 +6,15 @@
 		<mat-tab label="Drivers">
 			<app-pre-loading [isLoading]="loadingDrives" [size]="loaderSize"></app-pre-loading>
 			<app-no-data
-				[isEmpty]="
-					!loadingDrives &&
-					apiBlacklistService.BLACKLIST_DRIVERS &&
-					!apiBlacklistService.BLACKLIST_DRIVERS.length
-				"
+				[isEmpty]="!loadingDrives && driversBlacklist && !driversBlacklist.length"
 				[size]="noDataSize"
 				[message]="noDataMessage"
 				[icon]="noDataIconName"
 			></app-no-data>
 			<div mat-dialog-content class="modal-content">
-				<mat-card
-					class="blacklist-user"
-					*ngFor="let blacklistuser of apiBlacklistService.BLACKLIST_DRIVERS; let i = index"
-				>
+				<mat-card class="blacklist-user" *ngFor="let blacklistUser of driversBlacklist; let i = index">
 					<i class="material-icons profile-photo">account_circle</i>
-					<p class="blacklist-user-name truncated">{{ blacklistuser.name }}</p>
+					<p class="blacklist-user-name truncated">{{ blacklistUser.name }}</p>
 					<i class="material-icons remove-icon" (click)="removePersonFromDriverBlacklist(i)">remove_circle</i>
 				</mat-card>
 			</div>
@@ -29,22 +22,15 @@
 		<mat-tab label="Passengers">
 			<app-pre-loading [isLoading]="loadingPassengers" [size]="loaderSize"></app-pre-loading>
 			<app-no-data
-				[isEmpty]="
-					!loadingPassengers &&
-					apiBlacklistService.BLACKLIST_PASSENGERS &&
-					!apiBlacklistService.BLACKLIST_PASSENGERS.length
-				"
+				[isEmpty]="!loadingPassengers && passengerBlacklist && !passengerBlacklist.length"
 				[size]="noDataSize"
 				[message]="noDataMessage"
 				[icon]="noDataIconName"
 			></app-no-data>
 			<div mat-dialog-content class="modal-content">
-				<mat-card
-					class="blacklist-user"
-					*ngFor="let blacklistuser of apiBlacklistService.BLACKLIST_PASSENGERS; let i = index"
-				>
+				<mat-card class="blacklist-user" *ngFor="let blacklistUser of passengerBlacklist; let i = index">
 					<i class="material-icons profile-photo">account_circle</i>
-					<p class="blacklist-user-name truncated">{{ blacklistuser.name }}</p>
+					<p class="blacklist-user-name truncated">{{ blacklistUser.name }}</p>
 					<i class="material-icons remove-icon" (click)="removePersonFromPassengerBlacklist(i)"
 						>remove_circle</i
 					>

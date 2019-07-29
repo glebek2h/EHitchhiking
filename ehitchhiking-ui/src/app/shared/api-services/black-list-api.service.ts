@@ -1,74 +1,53 @@
-import {Injectable} from '@angular/core';
 import {User} from '@shared/models/user';
 import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 import {ApiService} from '@shared/services/api.service';
 import {Car} from '@shared/models/car';
+import {map} from 'rxjs/operators';
 
-@Injectable({
-	providedIn: 'root',
-})
 export class BlackListApiService {
-	BLACKLIST_PASSENGERS: User[] = [];
-	BLACKLIST_DRIVERS: User[] = [];
-
 	constructor(private apiService: ApiService) {}
+
 	makeArrayPassengers(data) {
-		while (this.BLACKLIST_PASSENGERS.length > 0) {
-			this.BLACKLIST_PASSENGERS.pop();
-		}
+		let blacklistPass = [];
 		data.forEach((obj) => {
-			this.BLACKLIST_PASSENGERS.push(
+			blacklistPass.push(
 				new User(obj.id, obj.firstName + ' ' + obj.lastName, '', obj.email, '', [
 					new Car('ferrari', 'pink', 'A3434B', 1),
 				])
 			);
 		});
+		return blacklistPass;
 	}
 
 	makeArrayDrivers(data) {
-		while (this.BLACKLIST_DRIVERS.length > 0) {
-			this.BLACKLIST_DRIVERS.pop();
-		}
-		data.forEach((obj) => {
-			this.BLACKLIST_DRIVERS.push(
+		let blacklistDrives = [];
+		data.map(function(obj) {
+			blacklistDrives.push(
 				new User(obj.id, obj.firstName + ' ' + obj.lastName, '', obj.email, '', [
 					new Car('ferrari', 'pink', 'A3434B', 1),
 				])
 			);
 		});
+		return blacklistDrives;
 	}
 
-	doGetPassengers(curUser: User) {
-		this.apiService
-			.doGet(URL_REGISTRY['blacklist.getPassengers'], false, {
-				idDr: curUser.id,
-			})
-			.subscribe((data) => this.makeArrayPassengers(data.body.data));
+	getBlockedPassengers(params: GetBlockedPassengersParams) {
+		return this.apiService
+			.doGet(URL_REGISTRY['blacklist.getPassengers'], false, params)
+			.pipe(map((data) => this.makeArrayPassengers(data.body.data)));
 	}
 
-	doGetDrivers(curUser: User) {
-		this.apiService
-			.doGet(URL_REGISTRY['blacklist.getDrivers'], false, {
-				idDr: curUser.id,
-			})
-			.subscribe((data) => this.makeArrayDrivers(data.body.data));
+	getBlockedDrivers(params: GetBlockedDriversParams) {
+		return this.apiService
+			.doGet(URL_REGISTRY['blacklist.getDrivers'], false, params)
+			.pipe(map((data) => this.makeArrayDrivers(data.body.data)));
 	}
 
-	doDeletePassengers(item, curUser) {
-		this.apiService
-			.doDelete(URL_REGISTRY['blacklist.deletePass'], false, {
-				idPas: this.BLACKLIST_PASSENGERS[item].id,
-				idDr: curUser.id,
-			})
-			.subscribe(() => this.doGetPassengers(curUser));
+	deleteBlockedPassenger(params: DeleteBlockedPassengersParams) {
+		return this.apiService.doDelete(URL_REGISTRY['blacklist.deletePass'], false, params);
 	}
 
-	doDeleteDriver(item, curUser) {
-		this.apiService
-			.doDelete(URL_REGISTRY['blacklist.deleteDriver'], false, {
-				idPas: this.BLACKLIST_DRIVERS[item].id,
-				idDr: curUser.id,
-			})
-			.subscribe(() => this.doGetDrivers(curUser));
+	deleteBlockedDriver(params: DeleteBlockedDriversParams) {
+		return this.apiService.doDelete(URL_REGISTRY['blacklist.deleteDriver'], false, params);
 	}
 }

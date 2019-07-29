@@ -19,29 +19,48 @@ export class BlacklistComponent implements OnInit {
 	noDataMessage = 'No users!';
 	noDataIconName = 'accessibility';
 	loadingDrives = true;
-	loadingPassengers = true;
+	loadingPassengers = false;
+	driversBlacklist: User[];
+	passengerBlacklist: User[];
+
 	constructor(public dialogRef: MatDialogRef<BlacklistComponent>, private apiBlacklistService: BlackListApiService) {}
 
 	ngOnInit() {
-		this.apiBlacklistService.doGetDrivers(this.curUser);
-		this.apiBlacklistService.doGetPassengers(this.curUser);
-		setTimeout(() => {
+		console.log(this.apiBlacklistService.getBlockedDrivers({idDr: this.curUser.id}));
+		this.apiBlacklistService.getBlockedDrivers({idDr: this.curUser.id}).subscribe((data) => {
+			this.driversBlacklist = data;
+			console.log(this.driversBlacklist);
 			this.loadingDrives = false;
-		}, 1000);
-		setTimeout(() => {
+		});
+		this.apiBlacklistService.getBlockedPassengers({idPass: this.curUser.id}).subscribe((data) => {
+			this.passengerBlacklist = data;
 			this.loadingPassengers = false;
-		}, 2000);
+		});
 	}
-
 	close(): void {
 		this.dialogRef.close();
 	}
 
-	removePersonFromDriverBlacklist(item) {
-		this.apiBlacklistService.doDeleteDriver(item, this.curUser);
+	removePersonFromDriverBlacklist(i) {
+		this.apiBlacklistService
+			.deleteBlockedDriver({idDr: this.driversBlacklist[i].id, idPass: this.curUser.id})
+			.subscribe(() =>
+				this.apiBlacklistService.getBlockedDrivers({idDr: this.curUser.id}).subscribe((data) => {
+					this.driversBlacklist = data;
+					console.log(this.driversBlacklist);
+					this.loadingDrives = false;
+				})
+			);
 	}
 
-	removePersonFromPassengerBlacklist(item) {
-		this.apiBlacklistService.doDeletePassengers(item, this.curUser);
+	removePersonFromPassengerBlacklist(i) {
+		this.apiBlacklistService
+			.deleteBlockedPassenger({idPass: this.passengerBlacklist[i].id, idDr: this.curUser.id})
+			.subscribe(() =>
+				this.apiBlacklistService.getBlockedPassengers({idPass: this.curUser.id}).subscribe((data) => {
+					this.passengerBlacklist = data;
+					this.loadingPassengers = false;
+				})
+			);
 	}
 }
