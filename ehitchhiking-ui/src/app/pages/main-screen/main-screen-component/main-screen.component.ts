@@ -62,6 +62,14 @@ export class MainScreenComponent implements OnInit {
       idOfCar: 41,
       seats: this.tripFormData.placesSelect,
     });
+    /*this.myApiService.getSmth({
+      startingPoint: this.tripFormData.from,
+      endingPoint: this.tripFormData.to,
+      startingTime: this.tripFormData.departureDate,
+      endingTime: this.tripFormData.departureDate,
+      idOfCar: 41,
+      seats: this.tripFormData.placesSelect,
+    })*/
     this.apiService
       .doPost(URL_REGISTRY['map.postDriverRoute'], false, {
         startingPoint: this.tripFormData.from,
