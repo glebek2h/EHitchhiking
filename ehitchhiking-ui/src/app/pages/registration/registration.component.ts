@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {UserService} from "@shared/services/user.service";
+import {UserService} from '@shared/services/user.service';
 
 @Component({
 	selector: 'app-registration',
@@ -11,11 +11,7 @@ import {UserService} from "@shared/services/user.service";
 export class RegistrationComponent implements OnInit {
 	registrationForm: FormGroup;
 
-	constructor(
-		private router: Router,
-		public userService: UserService,
-		private formBuilder: FormBuilder
-	) {}
+	constructor(private router: Router, public userService: UserService, private formBuilder: FormBuilder) {}
 
 	ngOnInit() {
 		this.registrationForm = this.formBuilder.group({

@@ -1,13 +1,14 @@
+import {catchError} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpEvent, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {CachingHttpParams} from '@shared/models/caching.http.params';
 import {RequestMethods} from '@shared/enums/request-enum';
-import {URL_REGISTRY} from "@shared/constants/urlRegistry";
+import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 
 @Injectable()
 export class ApiService {
-	static readonly apiUrl: string = '/api/';
+	static readonly apiUrl: string = 'http://localhost:4200/api/';
 
 	constructor(private http: HttpClient) {}
 
@@ -27,11 +28,12 @@ export class ApiService {
 	auth(login: string, password: string) {
 		const httpOptions = {
 			headers: new HttpHeaders({
-				'Content-Type':  'application/json',
-				'Authorization': `Basic ${btoa(login + ':' + password)}`
-			})
+				'Content-Type': 'application/json',
+				Authorization: `Basic ${btoa(login + ':' + password)}`,
+				'X-Requested-With': 'XMLHttpRequest',
+			}),
+			withCredentials: true,
 		};
-		console.log(httpOptions);
 		return this.http.get(ApiService.apiUrl + URL_REGISTRY.currentUser, httpOptions);
 	}
 
@@ -53,7 +55,7 @@ export class ApiService {
 	private getRequestOptions(cacheFlag: boolean = false, requestBody?: any) {
 		return {
 			body: requestBody,
-			headers: new HttpHeaders(),
+			headers: new HttpHeaders({'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest'}),
 			reportProgress: false,
 			params: new CachingHttpParams(cacheFlag),
 			responseType: 'json',

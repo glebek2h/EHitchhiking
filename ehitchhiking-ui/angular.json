@@ -17,9 +17,7 @@
 				"build": {
 					"builder": "@angular-devkit/build-angular:browser",
 					"options": {
-						"outputPath": "../ehitchhiking-api/src/main/resources/ui",
-						"resourcesOutputPath": "/res/",
-						"deleteOutputPath": true,
+						"outputPath": "dist/ehitchhiking-ui",
 						"index": "src/index.html",
 						"main": "src/main.ts",
 						"polyfills": "src/polyfills.ts",
@@ -59,7 +57,8 @@
 				"serve": {
 					"builder": "@angular-devkit/build-angular:dev-server",
 					"options": {
-						"browserTarget": "ehitchhiking-ui:build"
+						"browserTarget": "ehitchhiking-ui:build",
+						"proxyConfig": "proxy.conf.json"
 					},
 					"configurations": {
 						"production": {
