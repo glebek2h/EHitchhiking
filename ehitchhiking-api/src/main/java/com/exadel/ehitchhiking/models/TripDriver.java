@@ -2,7 +2,7 @@ package com.exadel.ehitchhiking.models;
 
 
 import lombok.*;
-import org.postgresql.geometric.PGpoint;
+import org.springframework.data.geo.Point;
 
 import java.sql.*;
 
@@ -70,13 +70,13 @@ public class TripDriver {
 
     @Getter
     @Setter
-    @Column (name = "\"COORD_START\"", columnDefinition = "point")
-    private PGpoint coordStart;
+    @Column (name = "\"COORD_START\"")
+    private Point coordStart;
 
     @Getter
     @Setter
-    @Column (name = "\"COORD_END\"", columnDefinition = "point")
-    private PGpoint coordEnd;
+    @Column (name = "\"COORD_END\"")
+    private Point coordEnd;
 
     @Getter
     @Setter
@@ -90,7 +90,8 @@ public class TripDriver {
 
     public TripDriver(String startPoint, String endPoint,
                       Timestamp startTime, Timestamp endTime, boolean isActive,
-                      boolean isFinished, boolean isSaved, int seats, Car car){
+                      boolean isFinished, boolean isSaved, int seats, Car car, boolean isHistory,
+                      Point coordStart, Point coordEnd, float distance){
         this.startPoint = startPoint;
         this.endPoint = endPoint;
         this.startTime = startTime;
@@ -100,5 +101,9 @@ public class TripDriver {
         this.isSaved = isSaved;
         this.availableSeats = seats;
         this.car = car;
+        this.isHistory = isHistory;
+        this.coordStart = coordStart;
+        this.coordEnd = coordEnd;
+        this.distance = distance;
     }
 }

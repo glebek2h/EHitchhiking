@@ -98,7 +98,8 @@ public class TripPass {
     public TripPass(String startPoint, String endPoint,
                     Timestamp startTime, Timestamp endTime, boolean isActive,
                     boolean isFinished, boolean isSaved, int seats,
-                    Passenger passenger, TripDriver tripDriver){
+                    Passenger passenger, TripDriver tripDriver, boolean isHistory,
+                    Point coordStart, Point coordEnd, float distance){
         this.startPoint = startPoint;
         this.endPoint = endPoint;
         this.startTime = startTime;
@@ -109,5 +110,9 @@ public class TripPass {
         this.bookedSeats = seats;
         this.passenger = passenger;
         this.tripDriver = tripDriver;
+        this.isHistory = isHistory;
+        this.coordEnd = coordEnd;
+        this.coordStart = coordStart;
+        this.distance = distance;
     }
 }
