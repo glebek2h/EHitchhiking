@@ -45,10 +45,11 @@
 
         .profile-add-car
             position: absolute
-            top: 13.8rem //Button is exactly on line
             right: $default-offset
             @include flexbox()
             .profile-add-car-button, .profile-close-car-button
+                position: fixed
+                margin-top: -1rem
                 color: mat-color($primary)
                 background-color: mat-color($accent, 400)
                 &:hover

@@ -4,6 +4,7 @@ package com.exadel.ehitchhiking.models.vo;
 import com.exadel.ehitchhiking.models.TripPass;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.data.geo.Point;
 
 import java.time.Instant;
 
@@ -33,6 +34,14 @@ public class TripPassVO {
 
     private DriverVO driver;
 
+    private Point coordStart;
+
+    private Point coordEnd;
+
+    private float distance;
+
+    private boolean isHistory;
+
     public static TripPassVO fromEntity(TripPass tripPass) {
         return new TripPassVO(
                 tripPass.getId(),
@@ -45,7 +54,13 @@ public class TripPassVO {
                 tripPass.isSaved(),
                 tripPass.getBookedSeats(),
                 TripDriverVO.fromEntity(tripPass.getTripDriver()),
-                DriverVO.fromEntity(tripPass.getTripDriver().getCar().getDriver())
+                DriverVO.fromEntity(tripPass.getTripDriver().getCar().getDriver()),
+                tripPass.getCoordStart(),
+                tripPass.getCoordEnd(),
+                tripPass.getDistance(),
+                tripPass.isHistory()
         );
     }
 }
+
+//TODO: roles

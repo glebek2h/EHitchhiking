@@ -22,9 +22,9 @@ import {ChatComponent} from '@shared/components/chat-data/chat/chat.component';
 		MatInputModule,
 		MatButtonModule,
 		MatDialogModule,
-    NoDataModule,
+		NoDataModule,
 	],
-	exports: [DialogListComponent, ChatComponent, NoDataModule],
+	exports: [DialogListComponent, ChatComponent],
 	entryComponents: [ChatComponent, DialogListComponent],
 })
 export class ChatDataModule {}

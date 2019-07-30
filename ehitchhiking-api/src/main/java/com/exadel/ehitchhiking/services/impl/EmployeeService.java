@@ -7,7 +7,6 @@ import com.exadel.ehitchhiking.services.IEmployeeService;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -23,13 +22,13 @@ public class EmployeeService implements IEmployeeService {
     private IEmployeeDAO dao;
 
     @Override
-    public void createEmployee(boolean isAdmin, String username, String firstName, String lastName,
+    public void createEmployee(boolean isAdmin, String firstName, String lastName,
                                String email, String password, String phoneNum) {
-        dao.save(new Employee(isAdmin, username, firstName, lastName, email, password, phoneNum));
+        dao.save(new Employee(isAdmin, firstName, lastName, email, password, phoneNum));
     }
 
     @Override
-    public EmployeeVO findUserId(int userId) {
+    public EmployeeVO findUserById(int userId) {
         return EmployeeVO.fromEntity(dao.getEmployee(userId));
     }
 
@@ -50,6 +49,17 @@ public class EmployeeService implements IEmployeeService {
         Employee employee = dao.getByEmail(username);
         employee.setEmail(email);
         dao.update(employee);
+    }    
+
+    @Override
+    public int findIdByEmail(String email) {
+        Employee employee = dao.getByEmail(email);
+        return employee.getId();
+    }
+
+    @Override
+    public EmployeeVO findByEmail(String email) {
+        return EmployeeVO.fromEntity(dao.getByEmail(email));
     }
 
     @Override
@@ -58,7 +68,7 @@ public class EmployeeService implements IEmployeeService {
     }
 
     @Override
-    public void deleteUserId(int id) {
+    public void deleteUserById(int id) {
         dao.delete(dao.getEmployee(id));
     }
 
@@ -67,9 +77,16 @@ public class EmployeeService implements IEmployeeService {
         return dao.getAll().stream().map(EmployeeVO::fromEntity).collect(Collectors.toList());
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String email) {
+        return findByEmail(email);
+    }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return findUserByUsername(email);
+    public void updateEmployee(String email, String lastName, String firstName, String phoneNum) {
+        Employee employee = dao.getByEmail(email);
+        employee.setFirstName(firstName);
+        employee.setLastName(lastName);
+        employee.setPhoneNumber(phoneNum);
     }
 }

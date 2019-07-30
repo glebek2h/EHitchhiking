@@ -28,4 +28,13 @@ public class TripDriverDAO extends AbstractDAO<TripDriver> implements ITripDrive
     public TripDriver getTripDriver(int id) {
         return getCurrentSession().get(TripDriver.class, id);
     }
+
+
+    @Override
+    public int getAvailableSeats(int id) {
+
+        int seats = (int) getCurrentSession().createQuery("select availableSeats From TripDriver where id = '" +  id +  "'").uniqueResult();
+        return seats;
+    }
+
 }

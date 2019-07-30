@@ -4,6 +4,7 @@ import com.exadel.ehitchhiking.models.Driver;
 import com.exadel.ehitchhiking.models.Passenger;
 import com.exadel.ehitchhiking.models.vo.DriverVO;
 import com.exadel.ehitchhiking.models.vo.PassengerVO;
+import com.exadel.ehitchhiking.requests.RequestBlackList;
 import com.exadel.ehitchhiking.responses.Response;
 import com.exadel.ehitchhiking.responses.ResponseMany;
 import com.exadel.ehitchhiking.services.IDriverService;
@@ -18,19 +19,30 @@ import java.util.List;
 @RequestMapping("/blackList")
 public class BlackListsController {
 
-    //TODO: rewrite all to get the userId and the role "DRIVER" -> received it we can delete or add to the driver
-
     @Autowired
     private IDriverService driverService;
 
     @Autowired
     private IPassengerService passengerService;
 
-    @PostMapping("/driver")
-    public Response<String> addPassToBlackListDriver(String idDriver, String idPass) {
+
+    // takes in the employeeId, the role in format "Driver"/"Passenger" and the id of the person that is going to be in the BL
+
+    @PostMapping("/add")
+    public Response<String> addToBL(@RequestBody RequestBlackList blackList) {
         Response<String> response = new Response<>();
         try {
-            driverService.addPassToBL(Integer.parseInt(idDriver), Integer.parseInt(idPass));
+            if (blackList.getRole().equals("D")) {
+                //int idDriver = driverService.findIdByemployeeId(Integer.parseInt(blackList.getEmployeeId()));
+                driverService.addPassToBL(1, Integer.parseInt(blackList.getIdPass()));
+            } else if (blackList.getRole().equals("P")) {
+                // int idPass = passengerService.findByEmployeeId(Integer.parseInt(blackList.getEmployeeId()));
+                passengerService.addDriverToBL(1, Integer.parseInt(blackList.getIdDriver()));
+            } else {
+                response.setStatus("500");
+                response.setData("false");
+                return response;
+            }
         } catch (Exception e) {
             response.setStatus("500");
             response.setData("false");
@@ -41,10 +53,10 @@ public class BlackListsController {
         return response;
     }
 
+
     // deleting the passenger from the black list driver
     @DeleteMapping("/driver")
     public Response<String> deletePassFromBlackListDriver(String idDriver, String idPass) {
-        System.out.println("here!!!");
         Response<String> response = new Response<>();
         try {
             driverService.deletePassFromBL(Integer.parseInt(idDriver), Integer.parseInt(idPass));
@@ -58,25 +70,7 @@ public class BlackListsController {
         return response;
     }
 
-
-
-
-    @PostMapping("/passenger")
-    public Response<String> addDriverToBlackListPass(String idPass, String idDriver) {
-        Response<String> response = new Response<>();
-        try {
-            passengerService.addDriverToBL(Integer.parseInt(idPass), Integer.parseInt(idDriver));
-        } catch (Exception e) {
-            response.setStatus("500");
-            response.setData("false");
-            return response;
-        }
-        response.setStatus("200");
-        response.setData("true");
-        return response;
-    }
-
-    // deleting the passenger from the pass list driver
+    // deleting the driver from the blacklist pass
     @DeleteMapping("/passenger")
     public Response<String> deleteDriverFromBlackListPass(String idPass, String idDriver) {
         Response<String> response = new Response<>();
@@ -93,29 +87,28 @@ public class BlackListsController {
     }
 
     @GetMapping("/driver")
-    public ResponseMany<PassengerVO> getListOfPassengers(String idDriver) {
+    public ResponseMany<PassengerVO> getListOfPassengers(String empId) {
         ResponseMany<PassengerVO> responseMany = new ResponseMany<>();
-
+        List<PassengerVO> passengers;
         try {
-            System.out.println("foweuhfof");
-            responseMany.setStatus("200");
-            responseMany.setData(driverService.getPassengers(Integer.parseInt(idDriver)));
-            return responseMany;
-        }catch (Exception e){
+            passengers = driverService.getPassengers(Integer.parseInt(empId));
+        } catch (Exception e) {
             responseMany.setStatus("500");
             responseMany.setData(null);
             return responseMany;
         }
-
-
+        responseMany.setStatus("200");
+        responseMany.setData(passengers);
+        return responseMany;
     }
 
     @GetMapping("/passenger")
-    public ResponseMany<DriverVO> getListOfDrivers(String idPass) {
+    public ResponseMany<DriverVO> getListOfDrivers(String empId) {
         ResponseMany<DriverVO> responseMany = new ResponseMany<>();
+
         List<DriverVO> drivers;
         try {
-            drivers = passengerService.getDrivers(Integer.parseInt(idPass));
+            drivers = passengerService.getDrivers(Integer.parseInt(empId));
         } catch (Exception e) {
             responseMany.setStatus("500");
             responseMany.setData(null);
@@ -126,3 +119,39 @@ public class BlackListsController {
         return responseMany;
     }
 }
+
+/*
+
+
+    @PostMapping("/driver")
+    public Response<String> addPassToBlackListDriver(String idDriver, String idPass) {
+        Response<String> response = new Response<>();
+        try {
+            driverService.addPassToBL(Integer.parseInt(idDriver), Integer.parseInt(idPass));
+        } catch (Exception e) {
+            response.setStatus("500");
+            response.setData("false");
+            return response;
+        }
+        response.setStatus("200");
+        response.setData("true");
+        return response;
+    }
+
+
+    @PostMapping("/passenger")
+    public Response<String> addDriverToBlackListPass(String idPass, String idDriver) {
+        Response<String> response = new Response<>();
+        try {
+            passengerService.addDriverToBL(Integer.parseInt(idPass), Integer.parseInt(idDriver));
+        } catch (Exception e) {
+            response.setStatus("500");
+            response.setData("false");
+            return response;
+        }
+        response.setStatus("200");
+        response.setData("true");
+        return response;}
+
+
+*/

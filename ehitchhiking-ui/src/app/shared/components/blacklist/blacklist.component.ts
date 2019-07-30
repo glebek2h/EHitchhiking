@@ -4,6 +4,7 @@ import {LoaderSize} from '@shared/enums/pre-loader-sizes';
 import {NoDataSize} from '@shared/enums/no-data-sizes';
 import {ApiService} from '@shared/services/api.services/api.service';
 import {BLACKLIST_DRIVERS, BLACKLIST_PASSENGERS} from '@shared/components/blacklist/blacklist-users';
+import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 
 @Component({
 	selector: 'app-blacklist',
@@ -14,13 +15,14 @@ import {BLACKLIST_DRIVERS, BLACKLIST_PASSENGERS} from '@shared/components/blackl
 export class BlacklistComponent implements OnInit {
 	blacklistDriverArray = [];
 	blacklistPassengerArray = [];
+	curUser: User = CUR_USER;
 	loaderSize: LoaderSize = LoaderSize.Large;
 	noDataSize: NoDataSize = NoDataSize.Small;
 	noDataMessage = 'No users!';
 	noDataIconName = 'accessibility';
 	loadingDrives = true;
 	loadingPassengers = true;
-	constructor(public dialogRef: MatDialogRef<BlacklistComponent>) {}
+	constructor(public dialogRef: MatDialogRef<BlacklistComponent>, public apiService: ApiService) {}
 
 	ngOnInit() {
 		this.blacklistDriverArray = BLACKLIST_DRIVERS;
@@ -31,6 +33,14 @@ export class BlacklistComponent implements OnInit {
 		setTimeout(() => {
 			this.loadingPassengers = false;
 		}, 2000);
+
+		this.apiService
+			.doGet(URL_REGISTRY['blacklist.get'], false, {
+				idDr: this.curUser.id,
+			})
+			.subscribe((data) => {
+				console.log(data);
+			});
 	}
 
 	close(): void {
@@ -38,10 +48,22 @@ export class BlacklistComponent implements OnInit {
 	}
 
 	removePersonFromDriverBlacklist(item) {
+		this.apiService
+			.doDelete(URL_REGISTRY['blacklist.delete'], {
+				idPas: this.blacklistDriverArray[item].id,
+				idDr: this.curUser.id,
+			})
+			.subscribe((data) => console.log(data));
 		this.blacklistDriverArray.splice(item, 1);
 	}
 
 	removePersonFromPassengerBlacklist(item) {
+		this.apiService
+			.doDelete(URL_REGISTRY['blacklist.delete'], {
+				idPas: this.blacklistPassengerArray[item].id,
+				idDr: this.curUser.id,
+			})
+			.subscribe((data) => console.log(data));
 		this.blacklistPassengerArray.splice(item, 1);
 	}
 }
