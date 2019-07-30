@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ActiveTrip} from './active-trip';
-import { UserState } from "@shared/enums/UserState";
+import {UserState} from '@shared/enums/UserState';
 
 @Component({
 	selector: 'app-active-trip',
