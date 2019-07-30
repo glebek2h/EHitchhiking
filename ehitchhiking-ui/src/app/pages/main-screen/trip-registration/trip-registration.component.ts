@@ -13,6 +13,7 @@ export class TripRegistrationComponent implements OnInit {
   @Input() user: User;
   @Input() userState: UserState;
 	@Output() formData = new EventEmitter<any>(); // TODO
+  @Output() passengerFormData = new EventEmitter<any>(); // TODO
 	@Output() isShownViewListButton = new EventEmitter<boolean>();
 	@Output() isShownSaveRouteButton = new EventEmitter<boolean>();
 
@@ -37,7 +38,7 @@ export class TripRegistrationComponent implements OnInit {
 	}
 
 	onSubmit() {
-		this.formData.emit(this.nameFormGroup.value);
+		this.userState === UserState.Driver ? this.formData.emit(this.nameFormGroup.value) : this.passengerFormData.emit(this.nameFormGroup.value);
 		this.isShownViewListButton.emit(true);
 		this.isShownSaveRouteButton.emit(true);
 	}

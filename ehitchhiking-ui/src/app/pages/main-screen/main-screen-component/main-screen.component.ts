@@ -45,7 +45,6 @@ export class MainScreenComponent implements OnInit {
 		this.isHiddenTripRegistration = true;
     this.isDisabledSubmitRouteButton = true;
     this.userState = UserState.Passenger;
-    this.mainScreenService.getDriversRoutes().subscribe((routes) => this.routes = routes);
     // this.routes = YandexMapService.getSomeRoutes();
     this.copyRoutes = this.routes.slice();
 	}
@@ -56,10 +55,16 @@ export class MainScreenComponent implements OnInit {
 
 	getData(data) {
 		this.tripFormData = data;
+   /* this.mainScreenService.getDriversRoutes(this.tripFormData).subscribe((routes) => this.routes = routes);
+    console.log(this.tripFormData)*/
 		this.isHiddenTripRegistration = true;
 		this.editStatePlusButton = true;
 		this.mapTriggers = {reset: true};
 	}
+  getPassengerTripData(data) {
+	  console.log(data);
+    this.mainScreenService.getDriversRoutes(data).subscribe((routes) => {this.routes = routes;this.tripFormData = data;});
+  }
 
 	saveRoute() {
 		this.isSavedRoute = !this.isSavedRoute;

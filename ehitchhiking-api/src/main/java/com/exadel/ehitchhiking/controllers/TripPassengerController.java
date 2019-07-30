@@ -177,12 +177,14 @@ public class TripPassengerController {
     }
 
 
-    @GetMapping("/getAllDriverTrips")
-    public ResponseMany<TripDriverVO> getAllAvailableTrips(){
+    @PostMapping("/getAllDriverTrips")
+    public ResponseMany<TripDriverVO> getAllAvailableTrips(@RequestBody RequestTripPassenger tripPassenger){
+
         ResponseMany<TripDriverVO> responseMany = new ResponseMany<>();
         try{
             responseMany.setStatus("200");
-            responseMany.setData(tripDriverService.getAll());
+            responseMany.setData(tripDriverService.getAll(tripPassenger.getStartingTime(), tripPassenger.getEndingTime(), tripPassenger.getSeats(),
+                    tripPassenger.getCoordStart(), tripPassenger.getCoordEnd()));
             return responseMany;
         }
         catch(Exception e){
