@@ -9,6 +9,7 @@ import com.exadel.ehitchhiking.responses.ResponseMany;
 import com.exadel.ehitchhiking.services.ITripDriverService;
 import com.exadel.ehitchhiking.services.ITripPassengerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.geo.Point;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
@@ -178,11 +179,13 @@ public class TripPassengerController {
 
 
     @GetMapping("/getAllDriverTrips")
-    public ResponseMany<TripDriverVO> getAllAvailableTrips(){
+    public ResponseMany<TripDriverVO> getAllAvailableTrips(Timestamp startingTime, Timestamp endingTime, int seats,
+                                                           Point coordStart, Point coordEnd){
         ResponseMany<TripDriverVO> responseMany = new ResponseMany<>();
         try{
             responseMany.setStatus("200");
-            responseMany.setData(tripDriverService.getAll());
+            responseMany.setData(tripDriverService.getAll(startingTime, endingTime,  seats,
+                    coordStart, coordEnd));
             return responseMany;
         }
         catch(Exception e){

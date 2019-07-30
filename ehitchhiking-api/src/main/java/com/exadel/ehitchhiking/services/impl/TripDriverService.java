@@ -124,7 +124,28 @@ public class TripDriverService implements ITripDriverService {
 
 
     @Override
-    public List<TripDriverVO> getAll() {
-        return dao.getAll().stream().map(TripDriverVO::fromEntity).collect(Collectors.toList());
+    public List<TripDriverVO> getAll(Timestamp startingTime, Timestamp endingTime, int seats,
+                                     Point coordStart, Point coordEnd) {
+        List<TripDriverVO> list =  dao.getAll().stream().map(TripDriverVO::fromEntity).collect(Collectors.toList());
+        List<TripDriverVO> filteredList;
+
+        list.stream()
+                .filter(trips -> trips.getSeats() >= seats)
+                .filter(trips -> startingTime.toLocalDateTime().minusHours(1).isBefore(Timestamp.from(trips.getStartingTime()).toLocalDateTime()))
+                .filter(trips -> endingTime.toLocalDateTime().plusHours(1).isAfter(Timestamp.from(trips.getEndingTime()).toLocalDateTime()))
+                .filter(trips -> (Math.sqrt((trips.getCoordStart().getX() - coordStart.getX()) * (trips.getCoordStart().getX() - coordStart.getX())) +
+                        (trips.getCoordStart().getY() - coordStart.getY())*(trips.getCoordStart().getY() - coordStart.getY())) <= 0.01)
+                .filter(trips -> (Math.sqrt((trips.getCoordEnd().getX() - coordEnd.getX()) * (trips.getCoordEnd().getX() - coordEnd.getX())) +
+                        (trips.getCoordStart().getY() - coordEnd.getY())*(trips.getCoordStart().getY() - coordEnd.getY())) <= 0.01)
+                .sorted()
+                .collect(Collectors.toList());
+/*        for (TripDriverVO trip: list){
+            if (trip.getSeats() >= seats){
+                if (startingTime.toLocalDateTime().minusHours(1).isBefore(Timestamp.from(trip.getStartingTime()).toLocalDateTime())
+                &  endingTime.toLocalDateTime().plusHours(1).isAfter(Timestamp.from(trip.getEndingTime()).toLocalDateTime())){
+                }
+            }
+        }*/
+        return list;
     }
 }

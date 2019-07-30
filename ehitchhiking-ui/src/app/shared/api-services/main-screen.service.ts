@@ -22,7 +22,13 @@ export class MainScreenService {
   }
 
   getDriversRoutes() {
-    return this.apiService.doGet(URL_REGISTRY['map.getRoutes']).pipe(map((data) => this.parseDriverRoutes(data)));
+    return this.apiService.doGet(URL_REGISTRY['map.getRoutes'],false,{
+      startingTime: '1995-12-17T03:24:00',
+      endingTime: '1995-12-17T03:24:00',
+      coordStart: {x: 53.2132113212,y: 32.32113},
+      coordEnd: {x: 51.2132113212,y: 32.32113},
+      seats: 1,
+    }).pipe(map((data) => this.parseDriverRoutes(data)));
   }
 
   saveDriverRoute(tripData) {
