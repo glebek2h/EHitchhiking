@@ -15,10 +15,7 @@ export class AuthorizationApiService {
 			.doAuthGet(login, password)
 			.pipe(
 				map((response: HttpResponse<any>) => this.parseResponse(response)),
-				share(),
-				catchError((error: HttpErrorResponse) => {
-					return of(false);
-				})
+				share()
 			)
 			.toPromise();
 	}
