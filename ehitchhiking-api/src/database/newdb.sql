@@ -1,6 +1,4 @@
-drop schema public cascade;
-
-create schema public;
+create schema if not exists public;
 
 alter schema public owner to postgres;
 
