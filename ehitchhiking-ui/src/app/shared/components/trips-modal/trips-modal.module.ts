@@ -20,9 +20,17 @@ import {FilterByRolePipe} from '../../pipes/filter-by-role.pipe';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FilterByFavoritePipe} from '../../pipes/filter-by-favorite.pipe';
 import {FilterByStatusPipe} from '../../pipes/filter-by-status.pipe';
+import {FilterByRatingPipe} from '@shared/pipes/filter-by-rating.pipe';
 
 @NgModule({
-	declarations: [TripsModalComponent, SortTripsPipe, FilterByRolePipe, FilterByFavoritePipe, FilterByStatusPipe],
+	declarations: [
+		TripsModalComponent,
+		SortTripsPipe,
+		FilterByRolePipe,
+		FilterByFavoritePipe,
+		FilterByStatusPipe,
+		FilterByRatingPipe,
+	],
 	imports: [
 		CommonModule,
 		MatButtonModule,

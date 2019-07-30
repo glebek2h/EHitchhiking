@@ -20,10 +20,18 @@
       </mat-form-field>
 
       <mat-form-field>
-        <mat-label>Toppings</mat-label>
+        <mat-label>Status of trip</mat-label>
         <mat-select [formControl]="statuses" multiple>
           <mat-option (click)="filterByStatus()" *ngFor="let status of statusesTrip"
                       [value]="status.value">{{status.viewValue}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>rating of trip</mat-label>
+        <mat-select [formControl]="ratings" multiple>
+          <mat-option (click)="filterByRating()" *ngFor="let rate of ratesTrip"
+                      [value]="rate.value">{{rate.viewValue}}</mat-option>
         </mat-select>
       </mat-form-field>
 
@@ -46,6 +54,7 @@
     filterByRole:role.roleField:selectedRole:role.isEnable|
      filterByFavorite:'isFavorite':selectedFavorite|
      filterByStatus:statusFilterConfig.fieldName:selectedByStatus:statusFilterConfig.isEnabled|
+     filterByRating:ratingFilterConfig.fieldName:selectedByRating:ratingFilterConfig.isEnabled|
      sortTrips:'rating':order|
      slice: 0:limit; trackBy: trackById">
       <app-trip class="trip" [trip]="trip"></app-trip>
