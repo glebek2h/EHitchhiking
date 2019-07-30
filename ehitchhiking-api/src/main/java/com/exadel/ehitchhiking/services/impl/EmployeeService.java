@@ -7,7 +7,6 @@ import com.exadel.ehitchhiking.services.IEmployeeService;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -29,8 +28,33 @@ public class EmployeeService implements IEmployeeService {
     }
 
     @Override
-    public EmployeeVO findUserId(int userId) {
+    public EmployeeVO findUserById(int userId) {
         return EmployeeVO.fromEntity(dao.getEmployee(userId));
+    }
+
+    @Override
+    public EmployeeVO findUserByUsername(String username) {
+        return EmployeeVO.fromEntity(dao.getByEmail(username));
+    }
+
+    @Override
+    public void updatePassword(String username, String password) {
+        Employee employee = dao.getByEmail(username);
+        employee.setPassword(password);
+        dao.update(employee);
+    }
+
+    @Override
+    public void updateEmail(String username, String email) {
+        Employee employee = dao.getByEmail(username);
+        employee.setEmail(email);
+        dao.update(employee);
+    }    
+
+    @Override
+    public int findIdByEmail(String email) {
+        Employee employee = dao.getByEmail(email);
+        return employee.getId();
     }
 
     @Override
@@ -39,30 +63,12 @@ public class EmployeeService implements IEmployeeService {
     }
 
     @Override
-    public int findIdByEmail(String email) {
-        Employee employee = dao.getByEmail(email);
-        return employee.getId();
-    }
-
-
-    @Override
-    public void updateEmployee(String email, String lastName,
-                               String firstName, String phoneNum) {
-        Employee employee = dao.getByEmail(email);
-        employee.setFirstName(firstName);
-        employee.setLastName(lastName);
-        employee.setPhoneNumber(phoneNum);
-        dao.update(employee);
-    }
-
-
-    @Override
     public void deleteUser(String username) {
         dao.delete(dao.getByEmail(username));
     }
 
     @Override
-    public void deleteUserId(int id) {
+    public void deleteUserById(int id) {
         dao.delete(dao.getEmployee(id));
     }
 
@@ -71,10 +77,16 @@ public class EmployeeService implements IEmployeeService {
         return dao.getAll().stream().map(EmployeeVO::fromEntity).collect(Collectors.toList());
     }
 
-
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) {
         return findByEmail(email);
     }
 
+    @Override
+    public void updateEmployee(String email, String lastName, String firstName, String phoneNum) {
+        Employee employee = dao.getByEmail(email);
+        employee.setFirstName(firstName);
+        employee.setLastName(lastName);
+        employee.setPhoneNumber(phoneNum);
+    }
 }

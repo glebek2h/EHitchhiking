@@ -1,7 +1,5 @@
 package com.exadel.ehitchhiking.models;
 
-
-
 import lombok.*;
 import org.springframework.data.geo.Point;
 
@@ -20,8 +18,7 @@ public class TripPass {
     @Setter(AccessLevel.PRIVATE)
     @Getter
     @Column(name = "\"ID\"")
-    private  Integer id;
-
+    private Integer id;
 
     @Getter
     @Setter
@@ -46,7 +43,7 @@ public class TripPass {
     @Getter
     @Setter
     @ManyToOne
-    @JoinColumn (name = "\"PASS_ID\"")
+    @JoinColumn(name = "\"PASS_ID\"")
     private Passenger passenger;
 
     @Setter
@@ -71,23 +68,23 @@ public class TripPass {
 
     @Getter
     @Setter
-    @ManyToOne (fetch = FetchType.EAGER)
-    @JoinColumn (name = "\"TRIP_DRIVER\"")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "\"TRIP_DRIVER\"")
     private TripDriver tripDriver;
 
     @Getter
     @Setter
-    @Column (name = "\"COORD_START\"")
+    @Column(name = "\"COORD_START\"")
     private Point coordStart;
 
     @Getter
     @Setter
-    @Column (name = "\"COORD_END\"")
+    @Column(name = "\"COORD_END\"")
     private Point coordEnd;
 
     @Getter
     @Setter
-    @Column (name = "\"DISTANCE\"")
+    @Column(name = "\"DISTANCE\"")
     private float distance;
 
     @Getter
@@ -95,11 +92,9 @@ public class TripPass {
     @Column(name = "\"IS_HISTORY\"")
     private boolean isHistory;
 
-    public TripPass(String startPoint, String endPoint,
-                    Timestamp startTime, Timestamp endTime, boolean isActive,
-                    boolean isFinished, boolean isSaved, int seats,
-                    Passenger passenger, TripDriver tripDriver, boolean isHistory,
-                    Point coordStart, Point coordEnd, float distance){
+    public TripPass(String startPoint, String endPoint, Timestamp startTime, Timestamp endTime, boolean isActive,
+            boolean isFinished, boolean isSaved, int seats, Passenger passenger, TripDriver tripDriver,
+            boolean isHistory, Point coordStart, Point coordEnd, float distance) {
         this.startPoint = startPoint;
         this.endPoint = endPoint;
         this.startTime = startTime;
