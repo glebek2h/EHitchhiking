@@ -4,7 +4,7 @@ import {Pipe, PipeTransform} from '@angular/core';
 	name: 'filterByStatus',
 })
 export class FilterByStatusPipe implements PipeTransform {
-	transform(array: any, fieldName: string,  selectedStatus: [], isEnabled: boolean = false): any[] {
+	transform(array: any, fieldName: string, selectedStatus: [], isEnabled: boolean = false): any[] {
 		if (!array || !isEnabled) {
 			return array;
 		}

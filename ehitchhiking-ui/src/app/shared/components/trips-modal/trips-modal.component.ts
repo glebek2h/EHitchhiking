@@ -36,14 +36,14 @@ export class TripsModalComponent implements OnInit {
 		{value: 1, viewValue: 'Completed'},
 		{value: 2, viewValue: 'Declined'},
 	];
-  ratesTrip = [
-    {value: 5, viewValue: '5'},
-    {value: 4, viewValue: '4'},
-    {value: 3, viewValue: '3'},
-    {value: 2, viewValue: '2'},
-    {value: 1, viewValue: '1'},
-    {value: 0, viewValue: 'not rated'},
-  ];
+	ratesTrip = [
+		{value: 5, viewValue: '5'},
+		{value: 4, viewValue: '4'},
+		{value: 3, viewValue: '3'},
+		{value: 2, viewValue: '2'},
+		{value: 1, viewValue: '1'},
+		{value: 0, viewValue: 'not rated'},
+	];
 	statusFilterConfig = {fieldName: 'status', isEnabled: false};
 	ratingFilterConfig = {fieldName: 'rating', isEnabled: false};
 	@ViewChild('sMarker', {static: true}) markerRef: ElementRef;
@@ -98,12 +98,12 @@ export class TripsModalComponent implements OnInit {
 			: (this.statusFilterConfig.isEnabled = true);
 	}
 
-  filterByRating() {
-    this.selectedByRating = Object.values(this.ratings.value);
-    this.selectedByRating.length === 0
-      ? (this.ratingFilterConfig.isEnabled = false)
-      : (this.ratingFilterConfig.isEnabled = true);
-  }
+	filterByRating() {
+		this.selectedByRating = Object.values(this.ratings.value);
+		this.selectedByRating.length === 0
+			? (this.ratingFilterConfig.isEnabled = false)
+			: (this.ratingFilterConfig.isEnabled = true);
+	}
 
 	changedFavorite() {
 		console.log('selectedFavorite' + ' ' + this.selectedSortByRating);
