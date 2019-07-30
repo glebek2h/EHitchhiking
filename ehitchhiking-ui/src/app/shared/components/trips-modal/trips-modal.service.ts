@@ -7,8 +7,6 @@ export class TripsModalService {
 	constructor() {}
 
 	roles = [{value: 0, viewValue: 'Passenger'}, {value: 1, viewValue: 'Driver'}, {value: 2, viewValue: 'All'}];
-	statuses = new FormControl();
-	ratings = new FormControl();
 	statusesTrip = [
 		{value: 0, viewValue: 'Active'},
 		{value: 1, viewValue: 'Completed'},
@@ -24,7 +22,7 @@ export class TripsModalService {
 	];
 	statusFilterConfig = {fieldName: 'status', isEnabled: false};
 	ratingFilterConfig = {fieldName: 'rating', isEnabled: false};
-	role = {roleField: 'role', isEnable: false};
+	roleFilterConfig = {roleField: 'role', isEnable: false};
 
 	trips: Trip[] = [
 		{

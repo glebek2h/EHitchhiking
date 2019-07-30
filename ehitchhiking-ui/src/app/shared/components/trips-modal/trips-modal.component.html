@@ -21,7 +21,7 @@
 
 			<mat-form-field class="filter-width">
 				<mat-label>Status of trip</mat-label>
-				<mat-select [formControl]="tripService.statuses" multiple>
+				<mat-select [formControl]="statuses" multiple>
 					<mat-option
 						(click)="filterByStatus()"
 						*ngFor="let status of tripService.statusesTrip"
@@ -33,7 +33,7 @@
 
 			<mat-form-field class="filter-width">
 				<mat-label>Rating</mat-label>
-				<mat-select [formControl]="tripService.ratings" multiple>
+				<mat-select [formControl]="ratings" multiple>
 					<mat-option
 						(click)="filterByRating()"
 						*ngFor="let rate of tripService.ratesTrip"
@@ -61,7 +61,7 @@
 			class="trips-container items-hover"
 			*ngFor="
 				let trip of tripsArray
-					| filterByRole: tripService.role.roleField:selectedRole:tripService.role.isEnable
+					| filterByRole: tripService.roleFilterConfig.roleField:selectedRole:tripService.roleFilterConfig.isEnable
 					| filterByFavorite: 'isFavorite':selectedFavorite
 					| filterByStatus
 						: tripService.statusFilterConfig.fieldName

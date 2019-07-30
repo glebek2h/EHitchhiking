@@ -26,6 +26,8 @@ export class TripsModalComponent implements OnInit {
 	selectedBySort = SortState.None;
 	selectedByStatus: number[] = [];
 	selectedByRating: number[] = [];
+  statuses = new FormControl();
+  ratings = new FormControl();
 
 
 	@ViewChild('sMarker', {static: true}) markerRef: ElementRef;
@@ -69,19 +71,19 @@ export class TripsModalComponent implements OnInit {
 	}
 
 	filterByRole() {
-		this.tripService.role.isEnable = true;
-		console.log(this.tripService.role.isEnable);
+		this.tripService.roleFilterConfig.isEnable = true;
+		console.log(this.tripService.roleFilterConfig.isEnable);
 	}
 
 	filterByStatus() {
-		this.selectedByStatus = Object.values(this.tripService.statuses.value);
+		this.selectedByStatus = Object.values(this.statuses.value);
 		this.selectedByStatus.length === 0
 			? (this.tripService.statusFilterConfig.isEnabled = false)
 			: (this.tripService.statusFilterConfig.isEnabled = true);
 	}
 
 	filterByRating() {
-		this.selectedByRating = Object.values(this.tripService.ratings.value);
+		this.selectedByRating = Object.values(this.ratings.value);
 		this.selectedByRating.length === 0
 			? (this.tripService.ratingFilterConfig.isEnabled = false)
 			: (this.tripService.ratingFilterConfig.isEnabled = true);
