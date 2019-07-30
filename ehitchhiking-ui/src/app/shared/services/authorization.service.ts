@@ -19,14 +19,12 @@ export class AuthorizationService {
 		authPromise.then((data) => {
 			if (!!data) {
 				currentUser = data;
+				this.router.navigateByUrl('/main');
 			} else {
 				this.notificationService.showErrorNotification('Invalid login or password!');
 			}
+			this.userService.setCurrentUser(currentUser, authPromise);
 		});
-		this.userService.setCurrentUser(currentUser, authPromise);
-		if (currentUser) {
-			this.router.navigateByUrl('/main');
-		}
 	}
 
 	logOut() {
