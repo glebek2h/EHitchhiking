@@ -21,10 +21,7 @@ export class AuthorizationApiService {
 	}
 
 	sendLogOutRequest() {
-		this.apiService
-			.doGet(URL_REGISTRY.logOut)
-			.toPromise()
-			.then();
+		this.apiService.doGet(URL_REGISTRY.logOut).toPromise();
 	}
 
 	private parseResponse(response: any): User | false {
