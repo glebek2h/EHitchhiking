@@ -33,11 +33,11 @@ public class TripPassengerController {
                 int newSeats = tripDriverService.getAvailableSeats(tripPassenger.getIdTripDriver()) - tripPassenger.getSeats();
                 tripDriverService.updateSeats(tripPassenger.getIdTripDriver(), newSeats);
                 tripPassengerService.createTripPassenger(tripPassenger.getPassId(),
-                    tripPassenger.getStartingPoint(), tripPassenger.getEndingPoint(),
-                    Timestamp.valueOf(tripPassenger.getStartingTime()),
-                    Timestamp.valueOf(tripPassenger.getEndingTime()),
-                    tripPassenger.getSeats(),
-                    tripPassenger.getIdTripDriver(),
+                        tripPassenger.getStartingPoint(), tripPassenger.getEndingPoint(),
+                        tripPassenger.getStartingTime(),
+                        tripPassenger.getEndingTime(),
+                        tripPassenger.getSeats(),
+                        tripPassenger.getIdTripDriver(),
                         tripPassenger.getCoordStart(), tripPassenger.getCoordEnd(), tripPassenger.getDistance());
                 response.setStatus("200");
                 response.setData("true");
@@ -60,7 +60,7 @@ public class TripPassengerController {
         Response<String> response = new Response<>();
         try {
             int tripId = tripPass.getId();
-            tripPassengerService.updateTrip(tripId, Timestamp.valueOf(tripPass.getStartingTime()), Timestamp.valueOf(tripPass.getEndingTime()),
+            tripPassengerService.updateTrip(tripId, tripPass.getStartingTime(), tripPass.getEndingTime(),
                     tripPass.getStartingPoint(), tripPass.getEndingPoint(), tripPass.getSeats(),
                     tripPass.getCoordStart(), tripPass.getCoordEnd(), tripPass.getDistance());
 

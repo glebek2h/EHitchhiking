@@ -1,0 +1,14 @@
+<div class="form-row">
+  <i class="user-role-icon material-icons" *ngIf="trip.role === userState.Driver" title="driver">
+    directions_car
+  </i>
+  <i class="user-role-icon material-icons" *ngIf="trip.role === userState.Passenger" title="passenger">
+    person
+  </i>
+  <p class="start-end-point">{{ trip.startPoint }} -> {{ trip.endPoint }}</p>
+  <span title="date">{{trip.date}}</span>
+  <span title="time">{{trip.time}} </span>
+  <span title="reserved seats" class="position-seats">{{trip.reservedSeats}}</span>
+</div>
+
+

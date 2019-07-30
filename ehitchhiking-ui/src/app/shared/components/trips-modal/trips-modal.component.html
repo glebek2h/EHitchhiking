@@ -1,6 +1,6 @@
-<div class="modal-wrapper trips-modal-container">
+<div class="modal-wrapper">
   <app-pre-loading [isLoading]="loading" [size]="loaderSize"></app-pre-loading>
-  <header class="modal-header form-row">
+  <header class="modal-header ">
     <span mat-dialog-title class="trips-title">History</span>
     <i class="material-icons icon-size">
       history
@@ -9,7 +9,7 @@
 
   <mat-expansion-panel>
     <mat-expansion-panel-header>Filters</mat-expansion-panel-header>
-    <div class="form-row ">
+    <div class="form-row expansion-panel-sm">
       <mat-form-field>
         <mat-label>Role</mat-label>
         <mat-select [(ngModel)]="selectedRole" name="selected">
@@ -32,8 +32,7 @@
   </mat-expansion-panel>
 
   <div mat-dialog-content class="trips">
-
-    <div class="trips-container" *ngFor="let trip of tripsArray|
+    <div class="trips-container items-hover" *ngFor="let trip of tripsArray|
     filterByRole:role.roleField:selectedRole:role.isEnable|
      filterByFavorite:'isFavorite':selectedFavorite|
      sortTrips:'rating':order|

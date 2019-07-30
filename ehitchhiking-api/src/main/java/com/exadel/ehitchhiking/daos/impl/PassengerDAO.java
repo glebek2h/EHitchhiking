@@ -24,13 +24,13 @@ public class PassengerDAO extends AbstractDAO<Passenger> implements IPassengerDA
 
     @Override
     public Passenger getByEmail(String email) {
-        Passenger passenger = (Passenger)  getCurrentSession().createQuery("from com.exadel.ehitchhiking.models.Passenger where Employee = (from Employee where email = '" + email + "')").uniqueResult();
+        Passenger passenger = (Passenger)  getCurrentSession().createQuery("from com.exadel.ehitchhiking.models.Passenger where Employee.email = '" + email + "'").uniqueResult();
         return passenger;
     }
 
     @Override
-    public int getByEmployeeId(int id) {
-        return (int) getCurrentSession().createQuery("from Passenger where employee = (from Employee where id = '" + id + "')").uniqueResult();
+    public Passenger getByEmployeeId(int id) {
+        return (Passenger) getCurrentSession().createQuery("from Passenger where employee.id = '" + id + "'").uniqueResult();
 
     }
 

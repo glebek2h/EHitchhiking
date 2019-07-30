@@ -1,5 +1,6 @@
 package com.exadel.ehitchhiking.services;
 
+import com.exadel.ehitchhiking.models.Driver;
 import com.exadel.ehitchhiking.models.Employee;
 import com.exadel.ehitchhiking.models.Passenger;
 import com.exadel.ehitchhiking.models.vo.PassengerVO;
@@ -19,9 +20,9 @@ public interface IDriverService {
 
     void addPassToBL(int idDriver, int idPass);
 
-    void deletePassFromBL(int idDriver, int idPass);
+    void deletePassFromBL(int idEmp, int idPass);
 
     List<PassengerVO> getPassengers(int idDriver);
 
-    int findIdByemployeeId(int id);
+    Driver findIdByemployeeId(int id);
 }

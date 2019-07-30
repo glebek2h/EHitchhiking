@@ -5,3 +5,4 @@ export const MAT_DIALOG_WIDTH_SM = '23rem';
 export const MAT_DIALOG_WIDTH_MD = '40rem';
 export const MAT_DIALOG_WIDTH_LG = '55rem';
 export const DELETE_ROUTE_MARKER = -1;
+export const NUMBER_OF_TRIPS_VISIBLE_ON_PAGE = 4;
