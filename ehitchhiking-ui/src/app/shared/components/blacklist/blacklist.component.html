@@ -22,15 +22,15 @@
 		<mat-tab label="Passengers">
 			<app-pre-loading [isLoading]="loadingPassengers" [size]="loaderSize"></app-pre-loading>
 			<app-no-data
-				[isEmpty]="!loadingPassengers && passengerBlacklist && !passengerBlacklist.length"
+				[isEmpty]="!loadingPassengers && passengersBlacklist && !passengersBlacklist.length"
 				[size]="noDataSize"
 				[message]="noDataMessage"
 				[icon]="noDataIconName"
 			></app-no-data>
 			<div mat-dialog-content class="modal-content">
-				<mat-card class="blacklist-user" *ngFor="let blacklistUser of passengerBlacklist; let i = index">
+				<mat-card class="blacklist-user" *ngFor="let user of passengersBlacklist; let i = index">
 					<i class="material-icons profile-photo">account_circle</i>
-					<p class="blacklist-user-name truncated">{{ blacklistUser.name }}</p>
+					<p class="blacklist-user-name truncated">{{ user.name }}</p>
 					<i class="material-icons remove-icon" (click)="removePersonFromPassengerBlacklist(i)"
 						>remove_circle</i
 					>

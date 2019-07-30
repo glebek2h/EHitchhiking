@@ -3,6 +3,6 @@ export const URL_REGISTRY = {
 	'map.getRoutes': 'tripPassenger/getAllDriverTrips',
 	'blacklist.deleteDriver': 'blackList/driver?empId={{idDr}}&idPass={{idPass}}',
 	'blacklist.deletePass': 'blackList/passenger?empId={{idDr}}&idPass={{idPass}}',
-	'blacklist.getPassengers': 'blackList/passenger?empId={{idPass}}',
-	'blacklist.getDrivers': 'blackList/driver?empId={{idDr}}',
+	'blacklist.getDriverBlacklist': 'blackList/passenger?empId={{empId}}',
+	'blacklist.getPassengerBlacklist': 'blackList/driver?empId={{empId}}',
 };

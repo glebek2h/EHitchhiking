@@ -30,7 +30,7 @@ public class PassengerDAO extends AbstractDAO<Passenger> implements IPassengerDA
 
     @Override
     public Passenger getByEmployeeId(int id) {
-        return (Passenger) getCurrentSession().createQuery("from Passenger where employee = (from Employee where id = '" + id + "')").uniqueResult();
+        return (Passenger) getCurrentSession().createQuery("from Passenger where employee.id = '" + id + "'").uniqueResult();
 
     }
 

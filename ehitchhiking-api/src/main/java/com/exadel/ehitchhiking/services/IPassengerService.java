@@ -15,6 +15,6 @@ public interface IPassengerService {
     void deletePassengerId(int id);
     void addDriverToBL(int idPass, int idDriver);
     void deleteDriverToBL(int idPass, int idDriver);
-    List<DriverVO> getDrivers(int idEmp);
+    List<DriverVO> getDrivers(int idPass);
     Passenger findByEmployeeId(int id);
 }

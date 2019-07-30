@@ -1,3 +1,3 @@
 interface GetBlockedDriversParams {
-	idDr: string;
+  empId: string;
 }

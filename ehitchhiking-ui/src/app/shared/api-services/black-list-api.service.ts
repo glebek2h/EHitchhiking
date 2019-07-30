@@ -7,40 +7,41 @@ import {map} from 'rxjs/operators';
 export class BlackListApiService {
 	constructor(private apiService: ApiService) {}
 
-	makeArrayPassengers(data) {
-		let blacklistPass = [];
+  makeArrayBlockedPassengers(data) {
+		let blacklistDrivers = [];
 		data.map(function(obj){
-			blacklistPass.push(
+      blacklistDrivers.push(
 				new User(obj.id, obj.firstName + ' ' + obj.lastName, '', obj.email, '', [
 					new Car('ferrari', 'pink', 'A3434B', 1),
 				])
 			);
 		});
-		return blacklistPass;
+		console.log("blacklistDR"+blacklistDrivers);
+		return blacklistDrivers;
 	}
 
 	makeArrayDrivers(data) {
-		let blacklistDrives = [];
+		let blacklistPassengers = [];
 		data.map(function(obj) {
-			blacklistDrives.push(
+      blacklistPassengers .push(
 				new User(obj.id, obj.firstName + ' ' + obj.lastName, '', obj.email, '', [
 					new Car('ferrari', 'pink', 'A3434B', 1),
 				])
 			);
 		});
-		console.log('black'+blacklistDrives);
-		return blacklistDrives;
+    console.log("blacklistPAS"+blacklistPassengers);
+		return blacklistPassengers ;
 	}
 
-	getBlockedPassengers(params: GetBlockedPassengersParams) {
+  getPassengerBlacklist(params: GetBlockedPassengersParams) {
 		return this.apiService
-			.doGet(URL_REGISTRY['blacklist.getPassengers'], false, params)
-			.pipe(map((data) => {this.makeArrayPassengers(data.body.data);console.log(data)}));
+			.doGet(URL_REGISTRY['blacklist.getDriverBlacklist'], false, params)
+			.pipe(map((data) => this.makeArrayBlockedPassengers(data.body.data)));
 	}
 
-	getBlockedDrivers(params: GetBlockedDriversParams) {
+  getDriverBlaclist(params: GetBlockedDriversParams) {
 		return this.apiService
-			.doGet(URL_REGISTRY['blacklist.getDrivers'], false, params)
+			.doGet(URL_REGISTRY['blacklist.getPassengerBlacklist'], false, params)
 			.pipe(map((data) => this.makeArrayDrivers(data.body.data)));
 	}
 

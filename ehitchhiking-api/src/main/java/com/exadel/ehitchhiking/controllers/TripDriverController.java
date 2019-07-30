@@ -24,7 +24,7 @@ public class TripDriverController {
         try {
 
             tripDriverService.createTripDriver(tripDriver.getStartingPoint(), tripDriver.getEndingPoint(),
-                    Timestamp.valueOf(tripDriver.getStartingTime()), Timestamp.valueOf(tripDriver.getEndingTime()),
+                    tripDriver.getStartingTime(), tripDriver.getEndingTime(),
                     tripDriver.getIdOfCar(),
                     tripDriver.getSeats(), tripDriver.getCoordStart(), tripDriver.getCoordEnd(), tripDriver.getDistance());
             response.setStatus("200");
@@ -42,8 +42,8 @@ public class TripDriverController {
     public Response<String> updateTrip(@RequestBody RequestTripDriver tripDriver){
         Response<String> response = new Response<>();
         try {
-            tripDriverService.updateTrip(tripDriver.getId(), Timestamp.valueOf(tripDriver.getStartingTime()),
-                    Timestamp.valueOf(tripDriver.getEndingTime()), tripDriver.getStartingPoint(), tripDriver.getEndingPoint(),
+            tripDriverService.updateTrip(tripDriver.getId(), tripDriver.getStartingTime(),
+                    tripDriver.getEndingTime(), tripDriver.getStartingPoint(), tripDriver.getEndingPoint(),
                     tripDriver.getSeats(), tripDriver.getIdOfCar(), tripDriver.getCoordStart(), tripDriver.getCoordEnd(),
                     tripDriver.getDistance());
         response.setStatus("200");

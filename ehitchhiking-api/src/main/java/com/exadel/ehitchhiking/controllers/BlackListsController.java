@@ -36,7 +36,7 @@ public class BlackListsController {
                 //int idDriver = driverService.findIdByemployeeId(Integer.parseInt(blackList.getEmployeeId()));
                 driverService.addPassToBL(1, Integer.parseInt(blackList.getIdPass()));
             } else if (blackList.getRole().equals("P")) {
-               // int idPass = passengerService.findByEmployeeId(Integer.parseInt(blackList.getEmployeeId()));
+                // int idPass = passengerService.findByEmployeeId(Integer.parseInt(blackList.getEmployeeId()));
                 passengerService.addDriverToBL(1, Integer.parseInt(blackList.getIdDriver()));
             } else {
                 response.setStatus("500");
@@ -105,6 +105,7 @@ public class BlackListsController {
     @GetMapping("/passenger")
     public ResponseMany<DriverVO> getListOfDrivers(String empId) {
         ResponseMany<DriverVO> responseMany = new ResponseMany<>();
+
         List<DriverVO> drivers;
         try {
             drivers = passengerService.getDrivers(Integer.parseInt(empId));

@@ -21,25 +21,21 @@ export class BlacklistComponent implements OnInit {
 	loadingDrives = true;
 	loadingPassengers = false;
 	driversBlacklist: User[];
-	passengerBlacklist: User[];
+	passengersBlacklist: User[];
 
 	constructor(public dialogRef: MatDialogRef<BlacklistComponent>, private apiBlacklistService: BlackListApiService) {}
 
 	ngOnInit() {
-		console.log(this.apiBlacklistService.getBlockedDrivers({idDr: this.curUser.id}));
-		this.apiBlacklistService.getBlockedDrivers({idDr: this.curUser.id}).subscribe((data) => {
-			this.driversBlacklist = data;
-      console.log('driversBlacklist'+this.driversBlacklist);
+		this.apiBlacklistService.getPassengerBlacklist({empId: this.curUser.id}).subscribe((data) => {
+		  console.log("hello");
+		  console.log(data);
+      this.driversBlacklist = data;
 			this.loadingDrives = false;
 		});
-		this.apiBlacklistService.getBlockedPassengers({idPass: this.curUser.id}).subscribe((data) => {
-			if (typeof data!==null) {
-			  console.log('ky');
-        this.passengerBlacklist = data;
-      }
-			else {
-        this.passengerBlacklist = [];
-      }
+		this.apiBlacklistService.getDriverBlaclist({empId: this.curUser.id}).subscribe((data) => {
+      console.log("hi");
+		  console.log(data);
+		  this.passengersBlacklist = data;
 			this.loadingPassengers = false;
 		});
 	}
@@ -48,7 +44,7 @@ export class BlacklistComponent implements OnInit {
 	}
 
 	removePersonFromDriverBlacklist(i) {
-		this.apiBlacklistService
+		/*this.apiBlacklistService
 			.deleteBlockedDriver({idDr: this.driversBlacklist[i].id, idPass: this.curUser.id})
 			.subscribe(() =>
 				this.apiBlacklistService.getBlockedDrivers({idDr: this.curUser.id}).subscribe((data) => {
@@ -56,17 +52,17 @@ export class BlacklistComponent implements OnInit {
 
 					this.loadingDrives = false;
 				})
-			);
+			);*/
 	}
 
 	removePersonFromPassengerBlacklist(i) {
-		this.apiBlacklistService
+		/*this.apiBlacklistService
 			.deleteBlockedPassenger({idPass: this.passengerBlacklist[i].id, idDr: this.curUser.id})
 			.subscribe(() =>
 				this.apiBlacklistService.getBlockedPassengers({idPass: this.curUser.id}).subscribe((data) => {
 				  this.passengerBlacklist = data;
 					this.loadingPassengers = false;
 				})
-			);
+			);*/
 	}
 }
