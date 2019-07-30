@@ -33,7 +33,7 @@ export class ApiService {
 			}),
 			withCredentials: true,
 		};
-		return this.http.get(ApiService.apiUrl + URL_REGISTRY.currentUser, httpOptions);
+		return this.http.get(ApiService.apiUrl + URL_REGISTRY.CURRENT_USER, httpOptions);
 	}
 
 	private generateRequest(

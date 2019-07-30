@@ -21,21 +21,21 @@ export class BlackListApiService {
 
 	getDriverBlacklist(params: GetBlockedUsersParams) {
 		return this.apiService
-			.doGet(URL_REGISTRY['blacklist.getDriverBlacklist'], false, params)
+			.doGet(URL_REGISTRY.BLACKLIST.GET_DRIVER_BLACKLIST, false, params)
 			.pipe(map((data) => this.mapBlackListUser(data.body.data)));
 	}
 
 	getPassengerBlacklist(params: GetBlockedUsersParams) {
 		return this.apiService
-			.doGet(URL_REGISTRY['blacklist.getPassengerBlacklist'], false, params)
+			.doGet(URL_REGISTRY.BLACKLIST.GET_PASSENGER_BLACKLIST, false, params)
 			.pipe(map((data) => this.mapBlackListUser(data.body.data)));
 	}
 
 	deleteBlockedPassenger(params: DeleteBlockedUserParams) {
-		return this.apiService.doDelete(URL_REGISTRY['blacklist.deletePass'], params);
+		return this.apiService.doDelete(URL_REGISTRY.BLACKLIST.DELETE_PASSENGER, params);
 	}
 
 	deleteBlockedDriver(params: DeleteBlockedUserParams) {
-		return this.apiService.doDelete(URL_REGISTRY['blacklist.deleteDriver'], params);
+		return this.apiService.doDelete(URL_REGISTRY.BLACKLIST.DELETE_DRIVER, params);
 	}
 }

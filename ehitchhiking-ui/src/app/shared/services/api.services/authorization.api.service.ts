@@ -20,7 +20,7 @@ export class AuthorizationApiService {
 	}
 
 	sendLogOutRequest() {
-		this.apiService.doGet(URL_REGISTRY.logOut).toPromise();
+		this.apiService.doGet(URL_REGISTRY.LOG_OUT).toPromise();
 	}
 
 	private parseResponse(response: any): User | null {

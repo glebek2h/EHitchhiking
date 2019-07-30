@@ -15,7 +15,7 @@ export class UserService {
 
 	init(): void {
 		this.currentUserPromise = this.apiService
-			.doGet(URL_REGISTRY.currentUser, false)
+			.doGet(URL_REGISTRY.CURRENT_USER, false)
 			.pipe(
 				map((response: HttpResponse<any>) => this.parseResponse(response)),
 				share(),

@@ -10,7 +10,6 @@ import {ChatComponent} from '@shared/components/chat-data/chat/chat.component';
 import {NotificationService} from '@shared/services/notification.service';
 import {ActiveTripsModalComponent} from '@shared/components/active-trips-modal/active-trips-modal.component';
 import {RatePassengersModalComponent} from "@shared/components/rate-passengers-modal/rate-passengers-modal.component";
-
 @Component({
 	selector: 'app-menu',
 	templateUrl: './menu.component.html',
