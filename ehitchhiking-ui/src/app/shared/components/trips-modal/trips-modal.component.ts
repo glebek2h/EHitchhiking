@@ -5,6 +5,7 @@ import {TripsModalService} from './trips-modal.service';
 import {SortState} from '../../enums/SortState';
 import {NUMBER_OF_TRIPS_VISIBLE_ON_PAGE} from '@shared/constants/modal-constants';
 import {FormControl} from '@angular/forms';
+import { UserState } from "@shared/enums/UserState";
 
 @Component({
 	selector: 'app-trips',
@@ -20,32 +21,13 @@ export class TripsModalComponent implements OnInit {
 	loading = true;
 	scrollObserver: IntersectionObserver;
 	order = 0;
-	role = {roleField: 'role', isEnable: false};
-	selectedRole: number;
+	selectedRole: UserState;
 	selectedFavorite = false;
-	selectedSortByRating = false;
 	selectedBySort = SortState.None;
-	selectedByStatus = [];
-	selectedByRating = [];
+	selectedByStatus: number[] = [];
+	selectedByRating: number[] = [];
 
-	roles = [{value: 0, viewValue: 'Passenger'}, {value: 1, viewValue: 'Driver'}, {value: 2, viewValue: 'All'}];
-	statuses = new FormControl();
-	ratings = new FormControl();
-	statusesTrip = [
-		{value: 0, viewValue: 'Active'},
-		{value: 1, viewValue: 'Completed'},
-		{value: 2, viewValue: 'Declined'},
-	];
-	ratesTrip = [
-		{value: 5, viewValue: '5'},
-		{value: 4, viewValue: '4'},
-		{value: 3, viewValue: '3'},
-		{value: 2, viewValue: '2'},
-		{value: 1, viewValue: '1'},
-		{value: 0, viewValue: 'not rated'},
-	];
-	statusFilterConfig = {fieldName: 'status', isEnabled: false};
-	ratingFilterConfig = {fieldName: 'rating', isEnabled: false};
+
 	@ViewChild('sMarker', {static: true}) markerRef: ElementRef;
 	rating: number;
 
@@ -87,26 +69,22 @@ export class TripsModalComponent implements OnInit {
 	}
 
 	filterByRole() {
-		this.role.isEnable = true;
-		console.log(this.role.isEnable);
+		this.tripService.role.isEnable = true;
+		console.log(this.tripService.role.isEnable);
 	}
 
 	filterByStatus() {
-		this.selectedByStatus = Object.values(this.statuses.value);
+		this.selectedByStatus = Object.values(this.tripService.statuses.value);
 		this.selectedByStatus.length === 0
-			? (this.statusFilterConfig.isEnabled = false)
-			: (this.statusFilterConfig.isEnabled = true);
+			? (this.tripService.statusFilterConfig.isEnabled = false)
+			: (this.tripService.statusFilterConfig.isEnabled = true);
 	}
 
 	filterByRating() {
-		this.selectedByRating = Object.values(this.ratings.value);
+		this.selectedByRating = Object.values(this.tripService.ratings.value);
 		this.selectedByRating.length === 0
-			? (this.ratingFilterConfig.isEnabled = false)
-			: (this.ratingFilterConfig.isEnabled = true);
-	}
-
-	changedFavorite() {
-		console.log('selectedFavorite' + ' ' + this.selectedSortByRating);
+			? (this.tripService.ratingFilterConfig.isEnabled = false)
+			: (this.tripService.ratingFilterConfig.isEnabled = true);
 	}
 
 	ChangeSort() {

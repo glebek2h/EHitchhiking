@@ -1,9 +1,30 @@
 import {Trip} from './trips';
 import {TripStatus} from '../../enums/TripStatus';
 import {UserState} from '../../enums/UserState';
+import {FormControl} from '@angular/forms';
 
 export class TripsModalService {
 	constructor() {}
+
+	roles = [{value: 0, viewValue: 'Passenger'}, {value: 1, viewValue: 'Driver'}, {value: 2, viewValue: 'All'}];
+	statuses = new FormControl();
+	ratings = new FormControl();
+	statusesTrip = [
+		{value: 0, viewValue: 'Active'},
+		{value: 1, viewValue: 'Completed'},
+		{value: 2, viewValue: 'Declined'},
+	];
+	ratesTrip = [
+		{value: 5, viewValue: '5'},
+		{value: 4, viewValue: '4'},
+		{value: 3, viewValue: '3'},
+		{value: 2, viewValue: '2'},
+		{value: 1, viewValue: '1'},
+		{value: 0, viewValue: 'not rated'},
+	];
+	statusFilterConfig = {fieldName: 'status', isEnabled: false};
+	ratingFilterConfig = {fieldName: 'rating', isEnabled: false};
+	role = {roleField: 'role', isEnable: false};
 
 	trips: Trip[] = [
 		{
