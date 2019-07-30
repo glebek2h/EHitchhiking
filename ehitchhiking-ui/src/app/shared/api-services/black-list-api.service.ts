@@ -3,46 +3,38 @@ import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 import {ApiService} from '@shared/services/api.service';
 import {Car} from '@shared/models/car';
 import {map} from 'rxjs/operators';
+import {Injectable} from '@angular/core';
 
+@Injectable()
 export class BlackListApiService {
 	constructor(private apiService: ApiService) {}
 
-  makeArrayBlockedPassengers(data) {
-		let blacklistDrivers = [];
-		data.map(function(obj){
-      blacklistDrivers.push(
-				new User(obj.id, obj.firstName + ' ' + obj.lastName, '', obj.email, '', [
-					new Car('ferrari', 'pink', 'A3434B', 1),
-				])
-			);
+	mapBlackListPassengers(data): User[] {
+		return data.map((obj) => {
+			return new User(obj.id, obj.firstName + ' ' + obj.lastName, '', obj.email, '', [
+				new Car('ferrari', 'pink', 'A3434B', 1),
+			]);
 		});
-		console.log("blacklistDR"+blacklistDrivers);
-		return blacklistDrivers;
 	}
 
-	makeArrayDrivers(data) {
-		let blacklistPassengers = [];
-		data.map(function(obj) {
-      blacklistPassengers .push(
-				new User(obj.id, obj.firstName + ' ' + obj.lastName, '', obj.email, '', [
-					new Car('ferrari', 'pink', 'A3434B', 1),
-				])
-			);
+	mapBlacklistDrivers(data): User[] {
+		return data.map((obj) => {
+			return new User(obj.id, obj.firstName + ' ' + obj.lastName, '', obj.email, '', [
+				new Car('ferrari', 'pink', 'A3434B', 1),
+			]);
 		});
-    console.log("blacklistPAS"+blacklistPassengers);
-		return blacklistPassengers ;
 	}
 
-  getPassengerBlacklist(params: GetBlockedPassengersParams) {
+	getDriverBlacklist(params: GetBlockedPassengersParams) {
 		return this.apiService
 			.doGet(URL_REGISTRY['blacklist.getDriverBlacklist'], false, params)
-			.pipe(map((data) => this.makeArrayBlockedPassengers(data.body.data)));
+			.pipe(map((data) => this.mapBlackListPassengers(data.body.data)));
 	}
 
-  getDriverBlaclist(params: GetBlockedDriversParams) {
+	getPassengerBlacklist(params: GetBlockedDriversParams) {
 		return this.apiService
 			.doGet(URL_REGISTRY['blacklist.getPassengerBlacklist'], false, params)
-			.pipe(map((data) => this.makeArrayDrivers(data.body.data)));
+			.pipe(map((data) => this.mapBlacklistDrivers(data.body.data)));
 	}
 
 	deleteBlockedPassenger(params: DeleteBlockedPassengersParams) {

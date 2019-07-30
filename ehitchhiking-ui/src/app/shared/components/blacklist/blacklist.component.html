@@ -4,9 +4,9 @@
 	</header>
 	<mat-tab-group mat-stretch-tabs>
 		<mat-tab label="Drivers">
-			<app-pre-loading [isLoading]="loadingDrives" [size]="loaderSize"></app-pre-loading>
+			<app-pre-loading [isLoading]="loading" [size]="loaderSize"></app-pre-loading>
 			<app-no-data
-				[isEmpty]="!loadingDrives && driversBlacklist && !driversBlacklist.length"
+				[isEmpty]="!loading && driversBlacklist && !driversBlacklist.length"
 				[size]="noDataSize"
 				[message]="noDataMessage"
 				[icon]="noDataIconName"
@@ -20,9 +20,9 @@
 			</div>
 		</mat-tab>
 		<mat-tab label="Passengers">
-			<app-pre-loading [isLoading]="loadingPassengers" [size]="loaderSize"></app-pre-loading>
+			<app-pre-loading [isLoading]="loading" [size]="loaderSize"></app-pre-loading>
 			<app-no-data
-				[isEmpty]="!loadingPassengers && passengersBlacklist && !passengersBlacklist.length"
+				[isEmpty]="!loading && passengersBlacklist && !passengersBlacklist.length"
 				[size]="noDataSize"
 				[message]="noDataMessage"
 				[icon]="noDataIconName"

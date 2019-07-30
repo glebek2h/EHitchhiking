@@ -67,7 +67,7 @@ public class PassengerService implements IPassengerService {
 
     @Override
     public void deleteDriverFromBL(int idEmp, int idDriver) {
-        Passenger passenger = dao.getPassenger(idEmp);
+        Passenger passenger = dao.getByEmployeeId(idEmp);
         passenger.getDrivers().remove(driverDAO.getDriver(idDriver));
         dao.saveOrUpdate(passenger);
     }

@@ -1,4 +1,4 @@
 interface DeleteBlockedDriversParams {
-	idPass: string;
+	empId: string;
 	idDr: string;
 }

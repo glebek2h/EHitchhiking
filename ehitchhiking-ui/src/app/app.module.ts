@@ -11,7 +11,6 @@ import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {MatNativeDateModule} from '@angular/material';
 import {CachingInterceptor} from '@shared/services/interceptors/caching-interceptor';
 import {RequestCache} from '@shared/services/request.cache.service';
-import {BlackListApiService} from '@shared/api-services/black-list-api.service';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -27,7 +26,6 @@ import {BlackListApiService} from '@shared/api-services/black-list-api.service';
 	],
 	providers: [
 		ApiService,
-		BlackListApiService,
 		{provide: HTTP_INTERCEPTORS, useClass: CachingInterceptor, multi: true},
 		{provide: RequestCache, useClass: RequestCache},
 	],

@@ -1,3 +1,3 @@
 interface GetBlockedPassengersParams {
-  empId: string;
+	empId: string;
 }

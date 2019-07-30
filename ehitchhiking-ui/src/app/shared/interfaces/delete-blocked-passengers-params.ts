@@ -1,4 +1,4 @@
 interface DeleteBlockedPassengersParams {
-	idDr: string;
+	empId: string;
 	idPass: string;
 }
