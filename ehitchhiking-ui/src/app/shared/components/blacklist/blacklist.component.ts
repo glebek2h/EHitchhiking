@@ -3,8 +3,9 @@ import {MatDialogRef} from '@angular/material';
 import {LoaderSize} from '@shared/enums/pre-loader-sizes';
 import {NoDataSize} from '@shared/enums/no-data-sizes';
 import {ApiService} from '@shared/services/api.services/api.service';
-import {BLACKLIST_DRIVERS, BLACKLIST_PASSENGERS} from '@shared/components/blacklist/blacklist-users';
+import {BLACKLIST_DRIVERS, BLACKLIST_PASSENGERS, CUR_USER} from '@shared/components/blacklist/blacklist-users';
 import {URL_REGISTRY} from '@shared/constants/urlRegistry';
+import {User} from '@shared/models/user';
 
 @Component({
 	selector: 'app-blacklist',

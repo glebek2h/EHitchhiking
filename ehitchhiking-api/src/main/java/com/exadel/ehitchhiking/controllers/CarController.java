@@ -1,7 +1,7 @@
 package com.exadel.ehitchhiking.controllers;
 
 import com.exadel.ehitchhiking.requests.RequestCar;
-import com.exadel.ehitchhiking.responses.Response;
+import com.exadel.ehitchhiking.responses.*;
 import com.exadel.ehitchhiking.services.ICarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
