@@ -1,0 +1,64 @@
+<div>
+  <div class="for-passenger" *ngIf="trip.role === userState.Passenger">
+    <mat-card class="size">
+      <mat-card-title>
+        Info about driver
+      </mat-card-title>
+      <mat-card-subtitle>
+        <mat-list>
+          <mat-list-item>Name:  {{trip.driver.name}} </mat-list-item>
+          <mat-list-item>Phone: {{trip.driver.phone}} </mat-list-item>
+          <mat-list-item>E-mail: {{trip.driver.email}} </mat-list-item>
+        </mat-list>
+
+      </mat-card-subtitle>
+
+      <mat-card-title>Info about car</mat-card-title>
+      <mat-grid-list cols="2" rowHeight="2:1">
+        <mat-grid-tile>
+          <div class="column">
+            <div>Model:</div>
+            <div>{{trip.driver.car.model}}</div>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <div class="column">
+            <span>Car Number:</span>
+            <span>{{trip.driver.car.carNumber}}</span>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <div class="column">
+            <span>Color:</span>
+            <span>{{trip.driver.car.color}}</span>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <div class="column">
+            <span>Experience:</span>
+            <span>{{trip.driver.car.experience}}</span>
+          </div>
+        </mat-grid-tile>
+      </mat-grid-list>
+      <mat-card-footer>
+
+      </mat-card-footer>
+    </mat-card>
+  </div>
+  <div class="for-driver" *ngIf="trip.role === userState.Driver">
+    <mat-card-title>
+      Info about passengers
+    </mat-card-title>
+    <mat-list *ngFor="let passenger of trip.passenger">
+      <mat-list-item>
+        <mat-list class="form-row">
+          <mat-list-item>Name:  {{passenger.name}} </mat-list-item>
+          <mat-list-item>Phone: {{passenger.phone}} </mat-list-item>
+          <mat-list-item>E-mail: {{passenger.email}} </mat-list-item>
+        </mat-list>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </mat-list>
+  </div>
+
+</div>
