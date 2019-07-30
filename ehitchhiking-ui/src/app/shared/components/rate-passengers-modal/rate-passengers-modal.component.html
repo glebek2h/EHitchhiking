@@ -1,6 +1,7 @@
 <div class="modal-wrapper">
 	<header class="modal-header">
-		<span class="modal-title">Rate Passengers</span>
+    <span *ngIf="data.dataKey === UserState.Driver" class="modal-title">Rate Passengers</span>
+    <span *ngIf="data.dataKey === UserState.Passenger" class="modal-title">Rate Driver</span>
 	</header>
 
 	<table class="modal-content">
@@ -13,31 +14,37 @@
 			</tr>
 		</thead>
 		<tbody>
-    <tr [ngClass]="{'passenger-row-active': passenger.isAddedToBlackList}"
-        *ngFor="let passenger of passengers;let i = index; trackBy: trackById">
-				<td class="table-passenger-name">
-					{{ passenger.name }}
-				</td>
+    <tr [ngClass]="{'passenger-row-active': user.isAddedToBlackList}"
+        *ngFor="let user of users;let i = index; trackBy: trackById">
+      <td class="table-passenger-name">
+        {{ user.name }}
+      </td>
       <td class="rating-td">
-					<app-rating
-						[rating]="passenger.rating"
-						[itemId]="passenger.id"
-						(ratingClick)="rateUser($event)"
-					></app-rating>
-				</td>
-				<td class="table-count-stars">{{ passenger.rating }} Stars</td>
+        <app-rating
+          [rating]="user.rating"
+          [itemId]="user.id"
+          (ratingClick)="rateUser($event)"
+        ></app-rating>
+      </td>
+      <td class="table-count-stars">{{ user.rating }} Stars</td>
       <td class="blacklist">
         <button mat-icon-button (click)="addToBlacklist(i)"><i class="material-icons">
           thumb_down
         </i></button>
       </td>
-			</tr>
-		</tbody>
+    </tr>
+    </tbody>
 	</table>
 
 	<div class="modal-footer">
 		<button class="modal-action-btn" mat-raised-button (click)="exitTrip()">
-			exit trip
+      submit
 		</button>
 	</div>
+
+  <div class="modal-close-control">
+    <button class="modal-close-control-btn" mat-icon-button (click)="exit()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
 </div>

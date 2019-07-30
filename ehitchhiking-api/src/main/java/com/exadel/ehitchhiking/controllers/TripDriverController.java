@@ -1,13 +1,13 @@
 package com.exadel.ehitchhiking.controllers;
 
+import com.exadel.ehitchhiking.daos.impl.CarDAO;
+import com.exadel.ehitchhiking.requests.RequestTripDriver;
+import com.exadel.ehitchhiking.responses.Response;
 import com.exadel.ehitchhiking.services.ITripDriverService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import java.sql.Timestamp;
+
 
 @RestController
 @RequestMapping("/tripDriver")
@@ -15,127 +15,151 @@ public class TripDriverController {
 
     @Autowired
     private ITripDriverService tripDriverService;
+    @Autowired
+    CarDAO carDAO;
 
     @PostMapping("/createTrip")
-    public void createTrip(String startingPoint, String endingPoint,
-                           Timestamp startingTime, Timestamp endingTime,
-                           String idOfCar, String seats) {
+    public Response<String> addTripDriver(@RequestBody RequestTripDriver tripDriver){
+        Response<String> response = new Response<>();
         try {
-            tripDriverService.createTripDriver(startingPoint, endingPoint,
-                    startingTime, endingTime,
-                    Integer.parseInt(idOfCar), Integer.parseInt(seats));
-        } catch (Exception e) {
-            //TODO: return
-        }
-    }
 
-    @PutMapping("/updateStartingPlace")
-    public void updateStartingPlace(String tripId, String number) {
-        try {
-            tripDriverService.updatePointStart(Integer.parseInt(tripId), number);
-            //TODO: return
-        } catch (Exception e) {
-            //TODO: figure out the return
+            tripDriverService.createTripDriver(tripDriver.getStartingPoint(), tripDriver.getEndingPoint(),
+                    tripDriver.getStartingTime(), tripDriver.getEndingTime(),
+                    tripDriver.getIdOfCar(),
+                    tripDriver.getSeats(), tripDriver.getCoordStart(), tripDriver.getCoordEnd(), tripDriver.getDistance());
+            response.setStatus("200");
+            response.setData("true");
+            return response;
         }
+        catch (Exception e){
+            response.setStatus("500");
+            response.setData("false");
+            return response;}
     }
 
 
-    @PutMapping("/updateEndingPlace")
-    public void updateEndingPlace(String tripId, String number) {
+    @PutMapping("/updateTrip")
+    public Response<String> updateTrip(@RequestBody RequestTripDriver tripDriver){
+        Response<String> response = new Response<>();
         try {
-            tripDriverService.updatePointEnd(Integer.parseInt(tripId), number);
-            //TODO: return
-        } catch (Exception e) {
-            //TODO: figure out the return
-        }
+            tripDriverService.updateTrip(tripDriver.getId(), tripDriver.getStartingTime(),
+                    tripDriver.getEndingTime(), tripDriver.getStartingPoint(), tripDriver.getEndingPoint(),
+                    tripDriver.getSeats(), tripDriver.getIdOfCar(), tripDriver.getCoordStart(), tripDriver.getCoordEnd(),
+                    tripDriver.getDistance());
+        response.setStatus("200");
+        response.setData("true");
+        return response;
+    }
+        catch (Exception e){
+        response.setStatus("500");
+        response.setData("false");
+        return response;}
     }
 
-    @PutMapping("/updateStartingTime")
-    public void updateStartingTime(String tripId, Timestamp timeStart) {
+    @PutMapping("/save")
+    public Response<String> addToSaved(@RequestBody RequestTripDriver tripDriver) {
+        Response<String> response = new Response<>();
         try {
-            tripDriverService.updateTimeStart(Integer.parseInt(tripId), timeStart);
-            //TODO: return
-        } catch (Exception e) {
-            //TODO: figure out the return
+            tripDriverService.updateSave(tripDriver.getId(), true);
+            response.setStatus("200");
+            response.setData("true");
+            return response;
         }
-    }
+        catch (Exception e){
+            response.setStatus("500");
+            response.setData("false");
+            return response;}
 
-    @PutMapping("/updateEndingTime")
-    public void updateEndingTime(String tripId, Timestamp timeEnd) {
-        try {
-            tripDriverService.updateTimeStart(Integer.parseInt(tripId), timeEnd);
-            //TODO: return
-        } catch (Exception e) {
-            //TODO: figure out the return
-        }
-    }
-
-    @PutMapping("/updateSeats")
-    public void updateSeats(String tripId, String seats) {
-        try {
-            tripDriverService.updateSeats(Integer.parseInt(tripId), Integer.parseInt(seats));
-            //TODO: return
-        } catch (Exception e) {
-            //TODO: figure out the return
-        }
-    }
-
-    @PutMapping("/addToSaved")
-    public void addToSaved(String tripId) {
-        try {
-            tripDriverService.updateSave(Integer.parseInt(tripId), true);
-            //TODO: return
-        } catch (Exception e) {
-            //TODO: figure out the return
-        }
     }
 
     @PutMapping("/removeFromSaved")
-    public void removedFromSaved(String tripId) {
+    public Response<String> removedFromSaved(@RequestBody RequestTripDriver tripDriver) {
+        Response<String> response = new Response<>();
         try {
-            tripDriverService.updateSave(Integer.parseInt(tripId), false);
-            //TODO: return
-        } catch (Exception e) {
-            //TODO: figure out the return
+            tripDriverService.updateSave(tripDriver.getId(), false);
+            response.setStatus("200");
+            response.setData("true");
+            return response;
         }
+        catch (Exception e){
+            response.setStatus("500");
+            response.setData("false");
+            return response;}
     }
-
-    @PutMapping("/addToHistory")
-    public void addToHistory(String tripId) {
+    @PutMapping("/removeFromHistory")
+    public Response<String> deleteFromHistory(@RequestBody RequestTripDriver tripDriver) {
+        Response<String> response = new Response<>();
         try {
-            tripDriverService.updateHistory(Integer.parseInt(tripId), true);
-            //TODO: return
-        } catch (Exception e) {
-            //TODO: figure out the return
+            tripDriverService.deleteFromHistory(tripDriver.getId(), false);
+            response.setStatus("200");
+            response.setData("true");
+            return response;
         }
+        catch (Exception e){
+            response.setStatus("500");
+            response.setData("false");
+            return response;}
     }
 
     @PutMapping("/cancelledTrip")
-    public void addToCancelled(String tripId) {
+    public Response<String> addToCancelled(@RequestBody RequestTripDriver tripDriver) {
+        Response<String> response = new Response<>();
         try {
-            tripDriverService.updateFinished(Integer.parseInt(tripId), false);
-            //TODO: return
-        } catch (Exception e) {
-            //TODO: figure out the return
+            tripDriverService.updateFinished(tripDriver.getId(), false);
+            response.setStatus("200");
+            response.setData("true");
+            return response;
         }
+        catch (Exception e){
+            response.setStatus("500");
+            response.setData("false");
+            return response;}
     }
 
     @PutMapping("/finishedTrip")
-    public void addToFinished(String tripId) {
+    public Response<String> addToFinished(@RequestBody RequestTripDriver tripDriver) {
+        Response<String> response = new Response<>();
         try {
-            tripDriverService.updateFinished(Integer.parseInt(tripId), true);
-            //TODO: return
-        } catch (Exception e) {
-            //TODO: figure out the return
+            tripDriverService.updateFinished(tripDriver.getId(), true);
+            response.setStatus("200");
+            response.setData("true");
+            return response;
         }
+        catch (Exception e){
+            response.setStatus("500");
+            response.setData("false");
+            return response;}
     }
 
-    @PutMapping("/changeCar")
-    public void changeCar(String tripId, String newCarId) {
+    @PutMapping("/active")
+    public Response<String> addToActive(@RequestBody RequestTripDriver tripDriver) {
+        Response<String> response = new Response<>();
         try {
-            tripDriverService.updateCar(Integer.parseInt(tripId), Integer.parseInt(newCarId));
-        } catch (Exception e) {
+            tripDriverService.updateActive(tripDriver.getId(), true);
+            response.setStatus("200");
+            response.setData("true");
+            return response;
         }
+        catch (Exception e){
+            response.setStatus("500");
+            response.setData("false");
+            return response;}
+    }
+
+
+    @PutMapping("/removeFromActive")
+    public Response<String> removeFromActive(@RequestBody RequestTripDriver tripDriver) {
+        Response<String> response = new Response<>();
+        try {
+            tripDriverService.updateActive(tripDriver.getId(),  false);
+            response.setStatus("200");
+            response.setData("true");
+            return response;
+        }
+        catch (Exception e){
+            response.setStatus("500");
+            response.setData("false");
+            return response;}
     }
 
 }
