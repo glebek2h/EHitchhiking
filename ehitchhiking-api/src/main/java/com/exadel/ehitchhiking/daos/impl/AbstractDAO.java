@@ -7,16 +7,17 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 
-@Repository
-@NoArgsConstructor
 public abstract class AbstractDAO<T> implements IBasicDAO<T> {
 
-    private SessionFactory sessionFactory;
+    protected final Class<T> persistanceType;
 
     @Autowired
-    public AbstractDAO(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    private SessionFactory sessionFactory;
+
+    public AbstractDAO(Class<T> persistanceType) {
+        this.persistanceType = persistanceType;
     }
 
     protected Session getCurrentSession() {
@@ -42,5 +43,9 @@ public abstract class AbstractDAO<T> implements IBasicDAO<T> {
     public void delete(T t) {
         Session session = getCurrentSession();
         session.delete(t);
+    }
+
+    public List<T> getAll() {
+        return getCurrentSession().createQuery("from " + persistanceType.getName(), persistanceType).list();
     }
 }

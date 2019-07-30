@@ -8,14 +8,14 @@ export class User {
 	cars: Car[];
 
 	constructor(
-    id: string,
-    name: string = '',
-    photoPath: string = '',
-    email: string = '',
-    phone: string = '',
-    cars: Array<Car> = []
+	  id:string,
+		name: string = '',
+		photoPath: string = '',
+		email: string = '',
+		phone: string = '',
+		cars: Array<Car> = []
 	) {
-    this.id = id;
+	  this.id = id;
 		this.name = name;
 		this.email = email;
 		this.phone = phone;

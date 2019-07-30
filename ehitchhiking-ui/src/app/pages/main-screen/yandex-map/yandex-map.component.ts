@@ -3,7 +3,7 @@ import ymaps from 'ymaps';
 import {UserState} from '../../../shared/enums/UserState';
 import {YandexMapService} from './yandex-map.service';
 import MultiRouteModel = ymaps.multiRouter.MultiRouteModel;
-import {LoaderSize} from '@shared/enums/pre-loader-sizes';
+import {DELETE_ROUTE_MARKER} from '../../../shared/constants/modal-constants';
 import {Route} from '@pages/main-screen/Route';
 
 @Component({
@@ -25,9 +25,6 @@ export class YandexMapComponent implements OnInit, OnChanges {
 	currentGeoPosition;
 	colors: string[] = YandexMapService.COLORS;
 	myMark;
-
-  loadingDrives = true;
-  loaderSize: LoaderSize = LoaderSize.Large;
 
   marker: boolean;
 
@@ -156,7 +153,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
 				new maps.SuggestView('suggestions-to-input-from');
         // tslint:disable-next-line:no-unused-expression
 				new maps.SuggestView('suggestions-to-input-to');
-			}).then(() => this.loadingDrives = false )
+			})
 			.catch((error) => console.log('Failed to load Yandex Maps', error));
 	}
 

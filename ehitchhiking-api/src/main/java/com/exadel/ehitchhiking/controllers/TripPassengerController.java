@@ -9,6 +9,7 @@ import com.exadel.ehitchhiking.responses.ResponseMany;
 import com.exadel.ehitchhiking.services.ITripDriverService;
 import com.exadel.ehitchhiking.services.ITripPassengerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.geo.Point;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
@@ -27,36 +28,28 @@ public class TripPassengerController {
         Response<String> response = new Response<>();
         try {
             // we are checking if the number of seats that the passenger wants to have is smaller or equal to the number of available seats on that trip
-           /* if (tripDriverService.getAvailableSeats(tripPassenger.getIdTripDriver()) >= tripPassenger.getSeats()){
+            if (tripDriverService.getAvailableSeats(tripPassenger.getIdTripDriver()) >= tripPassenger.getSeats()){
 
                 // newSeats is the new number seats available o this trip
                 int newSeats = tripDriverService.getAvailableSeats(tripPassenger.getIdTripDriver()) - tripPassenger.getSeats();
                 tripDriverService.updateSeats(tripPassenger.getIdTripDriver(), newSeats);
-                System.out.println(tripPassenger.getPassId()+tripPassenger.getStartingPoint()+ tripPassenger.getEndingPoint()+
-                        tripPassenger.getStartingTime()+
-                        tripPassenger.getEndingTime()+
-                        tripPassenger.getSeats()+
-                        tripPassenger.getIdTripDriver()+
-                        tripPassenger.getCoordStart()+tripPassenger.getCoordEnd()+ tripPassenger.getDistance());*/
                 tripPassengerService.createTripPassenger(tripPassenger.getPassId(),
-                    tripPassenger.getStartingPoint(), tripPassenger.getEndingPoint(),
-                    tripPassenger.getStartingTime(),
-                    tripPassenger.getEndingTime(),
-                    tripPassenger.getSeats(),
-                    tripPassenger.getIdTripDriver(),
+                        tripPassenger.getStartingPoint(), tripPassenger.getEndingPoint(),
+                        tripPassenger.getStartingTime(),
+                        tripPassenger.getEndingTime(),
+                        tripPassenger.getSeats(),
+                        tripPassenger.getIdTripDriver(),
                         tripPassenger.getCoordStart(), tripPassenger.getCoordEnd(), tripPassenger.getDistance());
                 response.setStatus("200");
                 response.setData("true");
-                return response;/*}
+                return response;}
             else{
-
                 response.setStatus("500");
                 response.setData("false");
                 return response;
-            }*/
+            }
 
         } catch (Exception e) {
-
             response.setStatus("500");
             response.setData("false");
             return response;}
@@ -178,13 +171,15 @@ public class TripPassengerController {
 
 
     @PostMapping("/getAllDriverTrips")
-    public ResponseMany<TripDriverVO> getAllAvailableTrips(@RequestBody RequestTripPassenger tripPassenger){
+    public ResponseMany<TripDriverVO> getAllAvailableTrips(
+            @RequestBody RequestTripPassenger tripPassenger
+    ){
 
         ResponseMany<TripDriverVO> responseMany = new ResponseMany<>();
         try{
             responseMany.setStatus("200");
             responseMany.setData(tripDriverService.getAll(tripPassenger.getStartingTime(), tripPassenger.getEndingTime(), tripPassenger.getSeats(),
-                    tripPassenger.getCoordStart(), tripPassenger.getCoordEnd()));
+            tripPassenger.getCoordStart(), tripPassenger.getCoordEnd()));
             return responseMany;
         }
         catch(Exception e){

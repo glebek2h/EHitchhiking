@@ -1,15 +1,12 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {UtilsService} from '../../../shared/services/utils.service';
-import {URL_REGISTRY} from '@shared/constants/urlRegistry';
+import {DELETE_ROUTE_MARKER} from '../../../shared/constants/modal-constants';
 import {Route} from "@pages/main-screen/Route";
-import {ApiService} from "@shared/services/api.service";
-import {MainScreenService} from "@shared/api-services/main-screen.service";
 
 @Component({
 	selector: 'app-routes-list',
 	templateUrl: './routes-list.component.html',
 	styleUrls: ['./routes-list.component.sass'],
-  providers: [ApiService,MainScreenService],
 })
 export class RoutesListComponent implements OnInit {
 	@Input() activeRoutesCollection: Partial<Route>[];
@@ -20,7 +17,7 @@ export class RoutesListComponent implements OnInit {
   isChecked: boolean;
   ROUTES_ON_MAP_COUNT = 3;
 
-	constructor(private apiService: ApiService,private mainScreenService: MainScreenService) {}
+	constructor() {}
 
 	ngOnInit() {
 	  this.isChecked = false;
@@ -37,13 +34,10 @@ export class RoutesListComponent implements OnInit {
   }
 
   submitRoute(index: number) {
-    const route = this.activeRoutesCollection[index];
-    this.mainScreenService.savePassengerRoute(route)
-      .subscribe((data) => console.log(data));
   }
 
   getData(data: any) {
-    this.formData.emit(data);
+	  this.formData.emit(data);
   }
 
   displayGetInLineButton(index: number, applybutton) {

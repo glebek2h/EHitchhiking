@@ -62,6 +62,7 @@ public class TripDriverController {
         Response<String> response = new Response<>();
         try {
             tripDriverService.updateSave(tripDriver.getId(), true);
+
             response.setStatus("200");
             response.setData("true");
             return response;
