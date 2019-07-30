@@ -5,3 +5,4 @@ target/
 .DS_Store/
 out/
 .vscode/
+/ehitchhiking-api/src/main/resources/ui/

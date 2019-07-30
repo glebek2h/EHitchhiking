@@ -1,3 +1,4 @@
+import {NoDataModule} from './../no-data/no-data.module';
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DialogListComponent} from '@shared/components/chat-data/dialog-list/dialog-list.component';
@@ -10,7 +11,6 @@ import {
 	MatInputModule,
 } from '@angular/material';
 import {ChatComponent} from '@shared/components/chat-data/chat/chat.component';
-import {NoDataModule} from '@shared/components/no-data/no-data.module';
 
 @NgModule({
 	declarations: [DialogListComponent, ChatComponent],
@@ -22,7 +22,7 @@ import {NoDataModule} from '@shared/components/no-data/no-data.module';
 		MatInputModule,
 		MatButtonModule,
 		MatDialogModule,
-    NoDataModule,
+		NoDataModule,
 	],
 	exports: [DialogListComponent, ChatComponent],
 	entryComponents: [ChatComponent, DialogListComponent],

@@ -1,9 +1,9 @@
+import {AuthorizationService} from './../../services/authorization.service';
 import {Component, OnInit} from '@angular/core';
 import {BUTTONS_NAMES} from './buttons-names';
 import {MatDialog} from '@angular/material';
 import {RatePassengersModalComponent} from '../rate-passengers-modal/rate-passengers-modal.component';
 import {ProfileModalComponent} from '@shared/modals/profile-modal/profile-modal.component';
-import {Router} from '@angular/router';
 import {DEFAULT_MAT_DIALOG_CLASS, MAT_DIALOG_WIDTH_MD, MAT_DIALOG_WIDTH_SM} from '@shared/constants/modal-constants';
 import {BlacklistComponent} from '@shared/components/blacklist/blacklist.component';
 import {TripsModalComponent} from '../trips-modal/trips-modal.component';
@@ -21,7 +21,11 @@ export class MenuComponent implements OnInit {
 	opened: boolean;
 	buttonsArray = [];
 
-	constructor(private router: Router, public dialog: MatDialog, public notificationService: NotificationService) {}
+	constructor(
+		public dialog: MatDialog,
+		public notificationService: NotificationService,
+		private authorizationService: AuthorizationService
+	) {}
 
 	ngOnInit() {
 		this.buttonsArray = BUTTONS_NAMES;
@@ -44,7 +48,7 @@ export class MenuComponent implements OnInit {
 	}
 
 	logOut() {
-		this.router.navigateByUrl('/login');
+		this.authorizationService.logOut();
 	}
 
 	openHistoryDialog() {
