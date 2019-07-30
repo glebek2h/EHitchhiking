@@ -4,6 +4,7 @@ import { StarClickMeta } from "../rating/starClickMeta";
 import {MatDialog} from '@angular/material';
 import {RatePassengersModalComponent} from "@shared/components/rate-passengers-modal/rate-passengers-modal.component";
 import {DEFAULT_MAT_DIALOG_CLASS, MAT_DIALOG_WIDTH_SM} from "@shared/constants/modal-constants";
+import {UserState} from "@shared/enums/UserState";
 @Component({
 	selector: 'app-trip',
 	templateUrl: './trip.component.html',
@@ -11,7 +12,8 @@ import {DEFAULT_MAT_DIALOG_CLASS, MAT_DIALOG_WIDTH_SM} from "@shared/constants/m
 })
 export class TripComponent implements OnInit {
 	@Input() trip: Trip;
-  isRatingEditorVisible: boolean;
+	isRatingEditorVisible: boolean;
+	userState = UserState;
 
   constructor(public dialog: MatDialog) {
   }
@@ -23,17 +25,17 @@ export class TripComponent implements OnInit {
 		this.trip.isFavorite = !this.trip.isFavorite;
 	}
 
-  toggleRating(){
-	  this.isRatingEditorVisible = !this.isRatingEditorVisible;
-  }
+	toggleRating() {
+		this.isRatingEditorVisible = !this.isRatingEditorVisible;
+	}
 
-  rateTrip(clickObj: StarClickMeta): void {
-    if (!this.trip) {
-      return;
-    }
-    this.trip.rating = clickObj.rating;
-    this.toggleRating();
-  }
+	rateTrip(clickObj: StarClickMeta): void {
+		if (!this.trip) {
+			return;
+		}
+		this.trip.rating = clickObj.rating;
+		this.toggleRating();
+	}
 
   openRatePassengersDialog() {
     this.dialog.open(RatePassengersModalComponent, {

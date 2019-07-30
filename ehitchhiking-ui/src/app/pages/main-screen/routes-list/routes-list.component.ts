@@ -20,8 +20,8 @@ export class RoutesListComponent implements OnInit {
 	constructor() {}
 
 	ngOnInit() {
-	  this.isChecked = false;
-  }
+		this.isChecked = false;
+	}
 
 	parseDate(date: Date): string {
 		return UtilsService.formatDate(date);

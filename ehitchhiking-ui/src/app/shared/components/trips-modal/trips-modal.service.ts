@@ -18,7 +18,7 @@ export class TripsModalService {
     {
       id: 1,
       startPoint: 'Mstislavca2',
-      endPoint: 'Turovsky',
+      endPoint: 'Prospect Nezavisimosty',
       isFavorite: false,
       status: TripStatus.Active,
       rating: 2,

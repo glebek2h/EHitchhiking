@@ -1,5 +1,6 @@
 import {Car} from './car';
 export class User {
+	id: string;
 	name: string;
 	photoPath: string;
 	email: string;
@@ -7,12 +8,14 @@ export class User {
 	cars: Car[];
 
 	constructor(
+		id: string = '',
 		name: string = '',
 		photoPath: string = '',
 		email: string = '',
 		phone: string = '',
 		cars: Array<Car> = []
 	) {
+		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.phone = phone;
@@ -27,5 +30,9 @@ export class User {
 
 		this.cars.push(car);
 		return true;
+	}
+
+	isEmpty(): boolean {
+		return !!this.id;
 	}
 }
