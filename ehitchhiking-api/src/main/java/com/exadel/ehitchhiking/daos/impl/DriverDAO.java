@@ -13,14 +13,8 @@ import java.util.List;
 public class DriverDAO extends AbstractDAO<Driver> implements IDriverDAO {
 
 
-    public DriverDAO(SessionFactory sessionFactory) {
-        super(sessionFactory);
-    }
-
-    @Override
-    public List<Driver> getAll() {
-        List<Driver> drivers = (List<Driver>) getCurrentSession().createQuery("From com.exadel.ehitchhiking.models.Driver").list();
-        return drivers;
+    public DriverDAO() {
+        super(Driver.class);
     }
 
     @Override
@@ -31,7 +25,6 @@ public class DriverDAO extends AbstractDAO<Driver> implements IDriverDAO {
     @Override
     public Driver getByEmployeeId(int id) {
         return (Driver) getCurrentSession().createQuery("from Driver where employee = (from Employee where id = '" + id + "')").uniqueResult();
-
     }
 
     @Override

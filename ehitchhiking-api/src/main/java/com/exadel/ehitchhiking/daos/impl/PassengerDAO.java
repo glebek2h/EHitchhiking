@@ -12,15 +12,10 @@ import java.util.List;
 @Repository
 public class PassengerDAO extends AbstractDAO<Passenger> implements IPassengerDAO {
 
-    public PassengerDAO(SessionFactory sessionFactory) {
-        super(sessionFactory);
+    public PassengerDAO() {
+        super(Passenger.class);
     }
 
-    @Override
-    public List<Passenger> getAll() {
-        List<Passenger> passs = (List<Passenger>)  getCurrentSession().createQuery("From com.exadel.ehitchhiking.models.Passenger").list();
-        return passs;
-    }
 
     @Override
     public Passenger getByEmail(String email) {

@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface IEmployeeDAO extends IBasicDAO<Employee> {
     Employee getByEmail(String email);
+
     String getPassword(String email);
     List<Employee> getAll();
     Employee getEmployee(int id);

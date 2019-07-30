@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.sql.Timestamp;
 
-
 @RestController
 @RequestMapping("/tripDriver")
 public class TripDriverController {
@@ -22,6 +21,7 @@ public class TripDriverController {
     public Response<String> addTripDriver(@RequestBody RequestTripDriver tripDriver){
         Response<String> response = new Response<>();
         try {
+            System.out.println(tripDriver.getStartingTime());
 
             tripDriverService.createTripDriver(tripDriver.getStartingPoint(), tripDriver.getEndingPoint(),
                     tripDriver.getStartingTime(), tripDriver.getEndingTime(),
@@ -32,6 +32,7 @@ public class TripDriverController {
             return response;
         }
         catch (Exception e){
+            System.out.println(e);
             response.setStatus("500");
             response.setData("false");
             return response;}
@@ -61,6 +62,7 @@ public class TripDriverController {
         Response<String> response = new Response<>();
         try {
             tripDriverService.updateSave(tripDriver.getId(), true);
+
             response.setStatus("200");
             response.setData("true");
             return response;

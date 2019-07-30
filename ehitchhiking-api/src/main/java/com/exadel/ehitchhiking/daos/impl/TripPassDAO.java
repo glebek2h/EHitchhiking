@@ -10,18 +10,22 @@ import java.util.List;
 @Repository
 public class TripPassDAO extends AbstractDAO<TripPass> implements ITripPassDAO {
 
-    public TripPassDAO(SessionFactory sessionFactory) {
-        super(sessionFactory);
+    public TripPassDAO() {
+        super(TripPass.class);
     }
 
-    @Override
-    public List<TripPass> getAll() {
-        List<TripPass> trip_passes = (List<TripPass>)  getCurrentSession().createQuery("From com.exadel.ehitchhiking.models.TripPass").list();
-        return trip_passes;
-    }
+//    @Override
+//    public List<TripPass> getAll() {
+//        return (List<TripPass>)  getCurrentSession().createQuery("from TripPass").list();
+//    }
 
     @Override
     public TripPass getTripPass(int id) {
         return getCurrentSession().get(TripPass.class, id);
+    }
+
+    @Override
+    public int getAmountPass(int idTripDriver) {
+        return getCurrentSession().createQuery("from TripPass where tripDriver.id = \"" + idTripDriver + "\"").list().size();
     }
 }

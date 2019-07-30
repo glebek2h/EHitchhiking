@@ -14,15 +14,10 @@ import java.util.List;
 @Repository
 public class TripDriverDAO extends AbstractDAO<TripDriver> implements ITripDriverDAO {
 
-    public TripDriverDAO(SessionFactory sessionFactory) {
-        super(sessionFactory);
+    public TripDriverDAO() {
+        super(TripDriver.class);
     }
 
-    @Override
-    public List<TripDriver> getAll() {
-        List<TripDriver> trips_drivers = (List<TripDriver>) getCurrentSession().createQuery("From TripDriver ").list();
-        return trips_drivers;
-    }
 
     @Override
     public TripDriver getTripDriver(int id) {
