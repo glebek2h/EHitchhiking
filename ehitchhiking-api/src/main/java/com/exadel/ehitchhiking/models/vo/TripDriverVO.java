@@ -29,9 +29,10 @@ public class TripDriverVO {
 
     private Instant endingTime;
 
-    @JsonIgnore
+
     private CarVO car;
 
+    @JsonIgnore
     private Integer idOfCar;
 
     private DriverVO driver;

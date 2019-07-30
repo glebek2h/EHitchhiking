@@ -21,7 +21,8 @@ public interface ITripDriverService {
 
     void deleteDriverTrip(int id);
 
-    List<TripDriverVO> getAll();
+    List<TripDriverVO> getAll(Timestamp startingTime, Timestamp endingTime, int seats,
+                              Point coordStart, Point coordEnd);
 
     int getAvailableSeats(int id);
 
