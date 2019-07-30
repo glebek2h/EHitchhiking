@@ -130,15 +130,17 @@ public class TripDriverService implements ITripDriverService {
         List<TripDriverVO> filteredList;
 
         list.stream()
-                .filter(trips -> trips.getSeats() >= seats)
-                .filter(trips -> startingTime.toLocalDateTime().minusHours(1).isBefore(Timestamp.from(trips.getStartingTime()).toLocalDateTime()))
-                .filter(trips -> endingTime.toLocalDateTime().plusHours(1).isAfter(Timestamp.from(trips.getEndingTime()).toLocalDateTime()))
-                .filter(trips -> (Math.sqrt((trips.getCoordStart().getX() - coordStart.getX()) * (trips.getCoordStart().getX() - coordStart.getX())) +
+                .filter(trips -> trips.getSeats() >= seats
+                        && startingTime.toLocalDateTime().minusHours(1).isBefore(Timestamp.from(trips.getStartingTime()).toLocalDateTime())
+                        && (Math.sqrt((trips.getCoordStart().getX() - coordStart.getX()) * (trips.getCoordStart().getX() - coordStart.getX()) +
                         (trips.getCoordStart().getY() - coordStart.getY())*(trips.getCoordStart().getY() - coordStart.getY())) <= 0.01)
-                .filter(trips -> (Math.sqrt((trips.getCoordEnd().getX() - coordEnd.getX()) * (trips.getCoordEnd().getX() - coordEnd.getX())) +
+                        && (Math.sqrt((trips.getCoordEnd().getX() - coordEnd.getX()) * (trips.getCoordEnd().getX() - coordEnd.getX())) +
                         (trips.getCoordStart().getY() - coordEnd.getY())*(trips.getCoordStart().getY() - coordEnd.getY())) <= 0.01)
                 .sorted()
                 .collect(Collectors.toList());
+
+        for (TripDriverVO trip: list){
+            assert(trip.getSeats() >= seats);}
 /*        for (TripDriverVO trip: list){
             if (trip.getSeats() >= seats){
                 if (startingTime.toLocalDateTime().minusHours(1).isBefore(Timestamp.from(trip.getStartingTime()).toLocalDateTime())
