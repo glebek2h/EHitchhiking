@@ -35,13 +35,9 @@ export class BlacklistComponent implements OnInit {
 			this.loadingPassengers = false;
 		}, 2000);
 
-		this.apiService
-			.doGet(URL_REGISTRY['blacklist.get'], false, {
-				idDr: this.curUser.id,
-			})
-			.subscribe((data) => {
-				console.log(data);
-			});
+		this.apiService.doGet(URL_REGISTRY['blacklist.get'], false, {
+			idDr: this.curUser.id,
+		});
 	}
 
 	close(): void {
@@ -49,22 +45,18 @@ export class BlacklistComponent implements OnInit {
 	}
 
 	removePersonFromDriverBlacklist(item) {
-		this.apiService
-			.doDelete(URL_REGISTRY['blacklist.delete'], {
-				idPas: this.blacklistDriverArray[item].id,
-				idDr: this.curUser.id,
-			})
-			.subscribe((data) => console.log(data));
+		this.apiService.doDelete(URL_REGISTRY['blacklist.delete'], {
+			idPas: this.blacklistDriverArray[item].id,
+			idDr: this.curUser.id,
+		});
 		this.blacklistDriverArray.splice(item, 1);
 	}
 
 	removePersonFromPassengerBlacklist(item) {
-		this.apiService
-			.doDelete(URL_REGISTRY['blacklist.delete'], {
-				idPas: this.blacklistPassengerArray[item].id,
-				idDr: this.curUser.id,
-			})
-			.subscribe((data) => console.log(data));
+		this.apiService.doDelete(URL_REGISTRY['blacklist.delete'], {
+			idPas: this.blacklistPassengerArray[item].id,
+			idDr: this.curUser.id,
+		});
 		this.blacklistPassengerArray.splice(item, 1);
 	}
 }

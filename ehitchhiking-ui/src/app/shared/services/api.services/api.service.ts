@@ -1,30 +1,33 @@
+import {ResponseMessages} from './../../enums/response-message.enum';
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpEvent, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpResponse, HttpErrorResponse} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {CachingHttpParams} from '@shared/models/caching.http.params';
-import {RequestMethods} from '@shared/enums/request-enum';
+import {RequestMethods} from '@shared/enums/request-methods.enum';
 import {URL_REGISTRY} from '@shared/constants/urlRegistry';
+import {map, catchError} from 'rxjs/operators';
+import {NotificationService} from '../notification.service';
 
 @Injectable()
 export class ApiService {
 	static readonly apiUrl: string = 'http://localhost:4200/api/';
 
-	constructor(private http: HttpClient) {}
+	constructor(private http: HttpClient, private notificationService: NotificationService) {}
 
-	doGet(urlPath: string, isCacheable: boolean = false, parameters: any = null): Observable<HttpEvent<any>> | null {
+	doGet(urlPath: string, isCacheable: boolean = false, parameters: any = null): Promise<any> {
 		return this.generateRequest(RequestMethods.GET, urlPath, parameters, isCacheable);
 	}
-	doPost(urlPath: string, data: any = null): Observable<HttpEvent<any>> | null {
+	doPost(urlPath: string, data: any = null): Promise<any> {
 		return this.generateRequest(RequestMethods.POST, urlPath, data, false);
 	}
-	doDelete(urlPath: string, parameters: any = null): Observable<HttpEvent<any>> | null {
+	doDelete(urlPath: string, parameters: any = null): Promise<any> {
 		return this.generateRequest(RequestMethods.DEL, urlPath, parameters, false);
 	}
-	getPut(urlPath: string, data: any = null): Observable<HttpEvent<any>> | null {
+	getPut(urlPath: string, data: any = null): Promise<any> {
 		return this.generateRequest(RequestMethods.PUT, urlPath, data, false);
 	}
 
-	doAuthGet(login: string, password: string): Observable<any> {
+	doAuthGet(login: string, password: string): Promise<any> {
 		const httpOptions = {
 			headers: new HttpHeaders({
 				'Content-Type': 'application/json',
@@ -33,7 +36,7 @@ export class ApiService {
 			}),
 			withCredentials: true,
 		};
-		return this.http.get(ApiService.apiUrl + URL_REGISTRY.currentUser, httpOptions);
+		return this.http.get(ApiService.apiUrl + URL_REGISTRY.currentUser, httpOptions).toPromise();
 	}
 
 	private generateRequest(
@@ -41,14 +44,48 @@ export class ApiService {
 		urlPath: string,
 		data: any,
 		isCacheable: boolean = false
-	): Observable<any> {
+	): Promise<any> {
 		const body = data;
 		let url = ApiService.apiUrl + urlPath;
+		let responseObservable = null;
 		if (type === RequestMethods.GET || type === RequestMethods.DEL) {
 			url = this.insertParameters(url, data);
-			return this.http.request(type, url, this.getRequestOptions(isCacheable) as any);
+			responseObservable = this.http.request(type, url, this.getRequestOptions(isCacheable) as any);
 		}
-		return this.http.request(type, url, this.getRequestOptions(isCacheable, body) as any);
+		responseObservable = this.http.request(type, url, this.getRequestOptions(isCacheable, body) as any);
+		return this.responseMapping(responseObservable).toPromise();
+	}
+
+	private responseMapping(newResponse: Observable<HttpResponse<any> | HttpErrorResponse>): Observable<any> {
+		return newResponse.pipe(
+			map((response: HttpResponse<any>) => {
+				const {msg, status, data} = response.body;
+				if (ResponseMessages.Error === status) {
+					this.showResponseMessage(ResponseMessages.Error, msg);
+				} else if (ResponseMessages.Ok === status) {
+					this.showResponseMessage(ResponseMessages.Ok, msg);
+				}
+				return of(data);
+			}),
+			catchError((error: HttpErrorResponse) => {
+				this.showResponseMessage(error, 'Api Error Occurred!');
+				return of(error);
+			})
+		);
+	}
+
+	private showResponseMessage(messageType: ResponseMessages | HttpErrorResponse, message: string): void {
+		if (messageType === ResponseMessages.Error) {
+			this.notificationService.showErrorNotification(message);
+			return;
+		}
+		if (messageType === ResponseMessages.Ok) {
+			this.notificationService.showSuccessNotification(message);
+			return;
+		}
+		if (messageType instanceof HttpErrorResponse) {
+			this.notificationService.showErrorNotification(message);
+		}
 	}
 
 	private getRequestOptions(cacheFlag: boolean = false, requestBody?: any) {

@@ -16,15 +16,10 @@ export class UserService {
 	init(): void {
 		this.currentUserPromise = this.apiService
 			.doGet(URL_REGISTRY.currentUser, false)
-			.pipe(
-				map((response: HttpResponse<any>) => this.parseResponse(response)),
-				share(),
-				catchError((error: HttpErrorResponse) => {
-					this.currentUser = null;
-					return of(null);
-				})
-			)
-			.toPromise();
+			.then(this.parseResponse.bind(this), () => {
+				this.currentUser = null;
+				return Promise.reject();
+			});
 	}
 
 	private parseResponse(response: HttpResponse<any>): User | null {
