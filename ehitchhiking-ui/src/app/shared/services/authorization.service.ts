@@ -3,7 +3,6 @@ import {UserService} from './user.service';
 import {NotificationService} from './notification.service';
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
-import {User} from '@shared/models/user';
 
 @Injectable()
 export class AuthorizationService {
@@ -25,7 +24,9 @@ export class AuthorizationService {
 			}
 		});
 		this.userService.setCurrentUser(currentUser, authPromise);
-		this.router.navigateByUrl('/main');
+		if (currentUser) {
+			this.router.navigateByUrl('/main');
+		}
 	}
 
 	logOut() {

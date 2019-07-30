@@ -33,6 +33,6 @@ export class User {
 	}
 
 	isEmpty(): boolean {
-		return this.id ? true : false;
+		return !!this.id;
 	}
 }

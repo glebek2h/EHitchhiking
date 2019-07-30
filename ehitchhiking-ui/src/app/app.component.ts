@@ -8,12 +8,12 @@ import {User} from '@shared/models/user';
 	styleUrls: ['./app.component.sass'],
 })
 export class AppComponent implements OnInit {
-	ifInit = false;
+	isAppInitialized = false;
 	constructor(private userService: UserService) {}
 
 	ngOnInit() {
 		this.userService.getStatus().then((status: User) => {
-			this.ifInit = true;
+			this.isAppInitialized = true;
 		});
 	}
 }
