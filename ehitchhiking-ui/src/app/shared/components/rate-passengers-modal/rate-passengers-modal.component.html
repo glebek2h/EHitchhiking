@@ -14,50 +14,25 @@
 			</tr>
 		</thead>
 		<tbody>
-
-    <ng-container *ngIf="data.dataKey === UserState.Driver">
-      <tr [ngClass]="{'passenger-row-active': passenger.isAddedToBlackList}"
-          *ngFor="let passenger of passengers;let i = index; trackBy: trackById">
-        <td class="table-passenger-name">
-          {{ passenger.name }}
-        </td>
-        <td class="rating-td">
-          <app-rating
-            [rating]="passenger.rating"
-            [itemId]="passenger.id"
-            (ratingClick)="rateUser($event)"
-          ></app-rating>
-        </td>
-        <td class="table-count-stars">{{ passenger.rating }} Stars</td>
-        <td class="blacklist">
-          <button mat-icon-button (click)="addToBlacklist(i)"><i class="material-icons">
-            thumb_down
-          </i></button>
-        </td>
-      </tr>
-    </ng-container>
-
-    <ng-container *ngIf="data.dataKey === UserState.Passenger">
-      <tr [ngClass]="{'passenger-row-active': driver.isAddedToBlackList}">
-        <td class="table-passenger-name">
-          {{ driver.name }}
-        </td>
-        <td class="rating-td">
-          <app-rating
-            [rating]="driver.rating"
-            [itemId]="driver.id"
-            (ratingClick)="rateDriver($event)"
-          ></app-rating>
-        </td>
-        <td class="table-count-stars">{{ driver.rating }} Stars</td>
-        <td class="blacklist">
-          <button mat-icon-button (click)="addDriverToBlacklist()"><i class="material-icons">
-            thumb_down
-          </i></button>
-        </td>
-      </tr>
-    </ng-container>
-
+    <tr [ngClass]="{'passenger-row-active': user.isAddedToBlackList}"
+        *ngFor="let user of users;let i = index; trackBy: trackById">
+      <td class="table-passenger-name">
+        {{ user.name }}
+      </td>
+      <td class="rating-td">
+        <app-rating
+          [rating]="user.rating"
+          [itemId]="user.id"
+          (ratingClick)="rateUser($event)"
+        ></app-rating>
+      </td>
+      <td class="table-count-stars">{{ user.rating }} Stars</td>
+      <td class="blacklist">
+        <button mat-icon-button (click)="addToBlacklist(i)"><i class="material-icons">
+          thumb_down
+        </i></button>
+      </td>
+    </tr>
     </tbody>
 	</table>
 
