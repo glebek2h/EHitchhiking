@@ -31,12 +31,12 @@ public class PassengerService implements IPassengerService {
 
     @Override
     public void createPassenger(Integer idPass) {
-       dao.save(new Passenger(employeeDAO.getEmployee(idPass), 0.0f, 0));
+        dao.save(new Passenger(employeeDAO.getEmployee(idPass), 0.0f, 0));
     }
 
     @Override
-    public int findPassIdByUsername(String username){
-        return dao.getByEmail(username).getId();
+    public int findPassIdByEmail(String email){
+        return dao.getByEmail(email).getId();
     }
 
     @Override
@@ -73,13 +73,13 @@ public class PassengerService implements IPassengerService {
     }
 
     @Override
-    public List<DriverVO> getDrivers(int idPass) {
-        return dao.getPassenger(idPass).getDrivers().stream().map(DriverVO::fromEntity).collect(Collectors.toList());
+    public List<DriverVO> getDrivers(int idEmp) {
+        return dao.getPassenger(idEmp).getDrivers().stream().map(DriverVO::fromEntity).collect(Collectors.toList());
     }
 
 
     @Override
-    public int findIdByemployeeId(int id) {
+    public Passenger findByEmployeeId(int id) {
         return dao.getByEmployeeId(id);
     }
 

@@ -32,21 +32,18 @@ public class BlackListsController {
     public Response<String> addToBL(@RequestBody RequestBlackList blackList) {
         Response<String> response = new Response<>();
         try {
-            if (blackList.getRole().equals("Driver")){
-                int idDriver = driverService.findIdByemployeeId(Integer.parseInt(blackList.getEmployeeId()));
-                driverService.addPassToBL(idDriver, Integer.parseInt(blackList.getIdPass()));}
-
-            else if(blackList.getRole().equals("Passenger")){
-                int idPass = passengerService.findIdByemployeeId(Integer.parseInt(blackList.getEmployeeId()));
-                passengerService.addDriverToBL(idPass, Integer.parseInt(blackList.getIdDriver()));}
-
-            else{
+            if (blackList.getRole().equals("D")) {
+                //int idDriver = driverService.findIdByemployeeId(Integer.parseInt(blackList.getEmployeeId()));
+                driverService.addPassToBL(1, Integer.parseInt(blackList.getIdPass()));
+            } else if (blackList.getRole().equals("P")) {
+                // int idPass = passengerService.findByEmployeeId(Integer.parseInt(blackList.getEmployeeId()));
+                passengerService.addDriverToBL(1, Integer.parseInt(blackList.getIdDriver()));
+            } else {
                 response.setStatus("500");
                 response.setData("false");
                 return response;
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             response.setStatus("500");
             response.setData("false");
             return response;
@@ -90,28 +87,28 @@ public class BlackListsController {
     }
 
     @GetMapping("/driver")
-    public ResponseMany<PassengerVO> getListOfPassengers(String idDriver) {
+    public ResponseMany<PassengerVO> getListOfPassengers(String empId) {
         ResponseMany<PassengerVO> responseMany = new ResponseMany<>();
-
+        List<PassengerVO> passengers;
         try {
-            responseMany.setStatus("200");
-            responseMany.setData(driverService.getPassengers(Integer.parseInt(idDriver)));
-            return responseMany;
-        }catch (Exception e){
+            passengers = driverService.getPassengers(Integer.parseInt(empId));
+        } catch (Exception e) {
             responseMany.setStatus("500");
             responseMany.setData(null);
             return responseMany;
         }
-
-
+        responseMany.setStatus("200");
+        responseMany.setData(passengers);
+        return responseMany;
     }
 
     @GetMapping("/passenger")
-    public ResponseMany<DriverVO> getListOfDrivers(String idPass) {
+    public ResponseMany<DriverVO> getListOfDrivers(String empId) {
         ResponseMany<DriverVO> responseMany = new ResponseMany<>();
+
         List<DriverVO> drivers;
         try {
-            drivers = passengerService.getDrivers(Integer.parseInt(idPass));
+            drivers = passengerService.getDrivers(Integer.parseInt(empId));
         } catch (Exception e) {
             responseMany.setStatus("500");
             responseMany.setData(null);

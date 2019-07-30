@@ -1,5 +1,6 @@
 package com.exadel.ehitchhiking.services;
 
+import com.exadel.ehitchhiking.models.Driver;
 import com.exadel.ehitchhiking.models.Employee;
 import com.exadel.ehitchhiking.models.Passenger;
 import com.exadel.ehitchhiking.models.vo.PassengerVO;
@@ -23,5 +24,5 @@ public interface IDriverService {
 
     List<PassengerVO> getPassengers(int idDriver);
 
-    int findIdByemployeeId(int id);
+    Driver findIdByemployeeId(int id);
 }
