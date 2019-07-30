@@ -63,7 +63,7 @@ export class ActiveTripsModalComponent implements OnInit {
 		this.role.isEnable = true;
 	}
 
-	trackById(trip) {
+	trackById(trip: ActiveTrip) {
 		return trip.id;
 	}
 
