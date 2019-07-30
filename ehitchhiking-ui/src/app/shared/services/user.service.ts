@@ -9,11 +9,11 @@ import {of} from 'rxjs';
 @Injectable()
 export class UserService {
 	private currentUser: User | null;
-	private currentUserPromise: Promise<User | boolean>;
+	private currentUserPromise: Promise<User | null>;
 
 	constructor(private apiService: ApiService) {}
 
-	init() {
+	init(): void {
 		this.currentUserPromise = this.apiService
 			.doGet(URL_REGISTRY.currentUser, false)
 			.pipe(
@@ -21,13 +21,13 @@ export class UserService {
 				share(),
 				catchError((error: HttpErrorResponse) => {
 					this.currentUser = null;
-					return of(false);
+					return of(null);
 				})
 			)
 			.toPromise();
 	}
 
-	private parseResponse(response: any) {
+	private parseResponse(response: HttpResponse<any>): User | null {
 		const userData = response.body;
 		if (userData) {
 			return (this.currentUser = new User(
@@ -39,10 +39,10 @@ export class UserService {
 			));
 		}
 		this.currentUser = null;
-		return false;
+		return null;
 	}
 
-	getStatus(): Promise<User | boolean> {
+	getStatus(): Promise<User | null> {
 		if (!this.currentUserPromise) {
 			this.init();
 		}
@@ -52,12 +52,12 @@ export class UserService {
 	/**
 	 * Unsafe
 	 */
-	getCurrentUser(): User | boolean {
+	getCurrentUser(): User | null {
 		return this.currentUser;
 	}
 
 	refreshCurrentUser(): void {
-		this.currentUserPromise = Promise.resolve(false);
+		this.currentUserPromise = Promise.resolve(null);
 		this.currentUser = null;
 	}
 

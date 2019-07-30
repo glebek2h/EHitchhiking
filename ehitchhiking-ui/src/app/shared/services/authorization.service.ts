@@ -28,12 +28,12 @@ export class AuthorizationService {
 			},
 			(error) => {
 				this.notificationService.showErrorNotification('Invalid login or password!');
-				this.userService.setCurrentUser(currentUser, of(false).toPromise());
+				this.userService.setCurrentUser(currentUser, Promise.resolve(null));
 			}
 		);
 	}
 
-	logOut() {
+	logOut(): void {
 		this.authorizationApiService.sendLogOutRequest();
 		this.userService.refreshCurrentUser();
 		this.router.navigateByUrl('/login');

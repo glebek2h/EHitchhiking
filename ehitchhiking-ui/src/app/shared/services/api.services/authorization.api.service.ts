@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ApiService} from './api.service';
-import {of} from 'rxjs';
-import {map, share, catchError} from 'rxjs/operators';
-import {HttpResponse, HttpErrorResponse} from '@angular/common/http';
+import {map, share} from 'rxjs/operators';
+import {HttpResponse} from '@angular/common/http';
 import {User} from '@shared/models/user';
 import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 
@@ -24,10 +23,10 @@ export class AuthorizationApiService {
 		this.apiService.doGet(URL_REGISTRY.logOut).toPromise();
 	}
 
-	private parseResponse(response: any): User | false {
+	private parseResponse(response: any): User | null {
 		if (response) {
 			return new User(response.id, response.username, '', response.email, response.phoneNumber);
 		}
-		return false;
+		return null;
 	}
 }
