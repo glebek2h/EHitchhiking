@@ -22,6 +22,8 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class TripDriverService implements ITripDriverService {
 
+    public static final double ONE_STEP = 0.01;
+
     @Autowired
     private ITripDriverDAO dao;
 
@@ -127,27 +129,11 @@ public class TripDriverService implements ITripDriverService {
     public List<TripDriverVO> getAll(Timestamp startingTime, Timestamp endingTime, int seats,
                                      Point coordStart, Point coordEnd) {
         List<TripDriverVO> list =  dao.getAll().stream().map(TripDriverVO::fromEntity).collect(Collectors.toList());
-        List<TripDriverVO> filteredList;
-
-        list.stream()
+        return list.stream()
                 .filter(trips -> trips.getSeats() >= seats
-                        && startingTime.toLocalDateTime().minusHours(1).isBefore(Timestamp.from(trips.getStartingTime()).toLocalDateTime())
-                        && (Math.sqrt((trips.getCoordStart().getX() - coordStart.getX()) * (trips.getCoordStart().getX() - coordStart.getX()) +
-                        (trips.getCoordStart().getY() - coordStart.getY())*(trips.getCoordStart().getY() - coordStart.getY())) <= 0.01)
-                        && (Math.sqrt((trips.getCoordEnd().getX() - coordEnd.getX()) * (trips.getCoordEnd().getX() - coordEnd.getX())) +
-                        (trips.getCoordStart().getY() - coordEnd.getY())*(trips.getCoordStart().getY() - coordEnd.getY())) <= 0.01)
-                .sorted()
+                        && ComareUtils.isTimeInRange(startingTime, endingTime, trips.getStartingTime())
+                        && ComareUtils.distance(coordStart, trips.getCoordStart()) <= ONE_STEP
+                        && ComareUtils.distance(coordEnd, trips.getCoordEnd()) <= ONE_STEP)
+                //.sorted()
                 .collect(Collectors.toList());
-
-        for (TripDriverVO trip: list){
-            assert(trip.getSeats() >= seats);}
-/*        for (TripDriverVO trip: list){
-            if (trip.getSeats() >= seats){
-                if (startingTime.toLocalDateTime().minusHours(1).isBefore(Timestamp.from(trip.getStartingTime()).toLocalDateTime())
-                &  endingTime.toLocalDateTime().plusHours(1).isAfter(Timestamp.from(trip.getEndingTime()).toLocalDateTime())){
-                }
-            }
-        }*/
-        return list;
-    }
 }
