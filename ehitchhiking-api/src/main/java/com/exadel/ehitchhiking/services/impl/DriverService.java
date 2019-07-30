@@ -72,8 +72,8 @@ public class DriverService implements IDriverService {
     }
 
     @Override
-    public void deletePassFromBL(int idDriver, int idPass) {
-        Driver driver = dao.getDriver(idDriver);
+    public void deletePassFromBL(int idEmp, int idPass) {
+        Driver driver = dao.getByEmployeeId(idEmp);
         driver.getPassengers().remove(passengerDAO.getPassenger(idPass));
         dao.saveOrUpdate(driver);
     }
