@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpEvent, HttpHeaders} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
+import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
+import {Observable} from 'rxjs';
 import {CachingHttpParams} from '@shared/models/caching.http.params';
 import {RequestMethods} from '@shared/enums/request-enum';
 import {URL_REGISTRY} from '@shared/constants/urlRegistry';
@@ -11,16 +11,16 @@ export class ApiService {
 
 	constructor(private http: HttpClient) {}
 
-	doGet(urlPath: string, isCacheable: boolean = false, parameters: any = null): Observable<HttpEvent<any>> | null {
+	doGet(urlPath: string, isCacheable: boolean = false, parameters: any = null): Observable<HttpResponse<any>> | null {
 		return this.generateRequest(RequestMethods.GET, urlPath, parameters, isCacheable);
 	}
-	doPost(urlPath: string, data: any = null): Observable<HttpEvent<any>> | null {
+	doPost(urlPath: string, data: any = null): Observable<HttpResponse<any>> | null {
 		return this.generateRequest(RequestMethods.POST, urlPath, data, false);
 	}
-	doDelete(urlPath: string, parameters: any = null): Observable<HttpEvent<any>> | null {
+	doDelete(urlPath: string, parameters: any = null): Observable<HttpResponse<any>> | null {
 		return this.generateRequest(RequestMethods.DEL, urlPath, parameters, false);
 	}
-	getPut(urlPath: string, data: any = null): Observable<HttpEvent<any>> | null {
+	getPut(urlPath: string, data: any = null): Observable<HttpResponse<any>> | null {
 		return this.generateRequest(RequestMethods.PUT, urlPath, data, false);
 	}
 

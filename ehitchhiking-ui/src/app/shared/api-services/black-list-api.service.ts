@@ -1,9 +1,10 @@
-import {User} from '@shared/models/user';
-import {URL_REGISTRY} from '@shared/constants/urlRegistry';
-import {ApiService} from '@shared/services/api.service';
+import {User} from "@shared/models/user";
+import {ApiService} from "@shared/services/api.services/api.service";
 import {Car} from '@shared/models/car';
-import {map} from 'rxjs/operators';
+import {URL_REGISTRY} from '@shared/constants/urlRegistry';
+import {map} from "rxjs/operators";
 import {Injectable} from '@angular/core';
+
 
 @Injectable()
 export class BlackListApiService {
@@ -38,10 +39,10 @@ export class BlackListApiService {
 	}
 
 	deleteBlockedPassenger(params: DeleteBlockedPassengersParams) {
-		return this.apiService.doDelete(URL_REGISTRY['blacklist.deletePass'], false, params);
+		return this.apiService.doDelete(URL_REGISTRY['blacklist.deletePass'], params);
 	}
 
 	deleteBlockedDriver(params: DeleteBlockedDriversParams) {
-		return this.apiService.doDelete(URL_REGISTRY['blacklist.deleteDriver'], false, params);
+		return this.apiService.doDelete(URL_REGISTRY['blacklist.deleteDriver'], params);
 	}
 }

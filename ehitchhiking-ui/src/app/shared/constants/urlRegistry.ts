@@ -5,7 +5,6 @@ export const URL_REGISTRY = {
 	'blacklist.deletePass': 'blackList/passenger?empId={{empId}}&idPass={{idPass}}',
 	'blacklist.getDriverBlacklist': 'blackList/passenger?empId={{empId}}',
 	'blacklist.getPassengerBlacklist': 'blackList/driver?empId={{empId}}',
-	'map.getRoutes': 'tripPassenger/getAllDriverTrips',
 	currentUser: 'currentUser',
 	logOut: '/logout',
 };
