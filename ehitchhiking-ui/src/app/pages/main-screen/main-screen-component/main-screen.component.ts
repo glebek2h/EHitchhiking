@@ -46,7 +46,7 @@ export class MainScreenComponent implements OnInit {
     this.isDisabledSubmitRouteButton = true;
     this.userState = UserState.Passenger;
     this.mainScreenService.getDriversRoutes().subscribe((routes) => this.routes = routes);
-    //this.routes = YandexMapService.getSomeRoutes();
+    // this.routes = YandexMapService.getSomeRoutes();
     this.copyRoutes = this.routes.slice();
 	}
 
