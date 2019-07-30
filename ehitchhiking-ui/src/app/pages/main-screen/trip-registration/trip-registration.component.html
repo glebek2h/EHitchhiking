@@ -1,26 +1,35 @@
 <div id="myForm">
-  <form [hidden]="isShown" [formGroup]="nameFormGroup" (ngSubmit)="onSubmit()" class="trip-registration-form">
+  <form [hidden]="isShown" [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="trip-registration-form">
     <mat-form-field class="input-from form-control">
       <input
-        matInput
         placeholder="from"
         formControlName="from"
         id="suggestions-to-input-from"
-        #inp
+        [ngClass]="{'is-invalid': submitted && f.from.errors }"
         (change)="onChangeFix($event, 'from')"
       />
+      <div *ngIf="submitted && f.from.errors" class="invalid-feedback">
+        <div *ngIf="f.from.errors.required">from is required</div>
+      </div>
     </mat-form-field>
     <mat-form-field class="input-to form-control">
       <input
-        matInput
         placeholder="to"
         formControlName="to"
         id="suggestions-to-input-to"
+        [ngClass]="{'is-invalid': submitted && f.to.errors }"
         (change)="onChangeFix($event, 'to')"
       />
+      <div *ngIf="submitted && f.to.errors" class="invalid-feedback">
+        <div *ngIf="f.to.errors.required">to is required</div>
+      </div>
     </mat-form-field>
     <mat-form-field class="date-picker form-control">
-      <input matInput [matDatepicker]="picker" formControlName="departureDate" placeholder="Choose a date"/>
+      <input matInput [matDatepicker]="picker" formControlName="departureDate" placeholder="Choose a date"
+             [ngClass]="{'is-invalid': submitted && f.departureDate.errors }"/>
+      <div *ngIf="submitted && f.departureDate.errors" class="invalid-feedback">
+        <div *ngIf="f.departureDate.errors.required">departureDate is required</div>
+      </div>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>

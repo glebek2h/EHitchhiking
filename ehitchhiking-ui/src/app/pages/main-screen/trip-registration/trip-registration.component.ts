@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {User} from '@shared/models/user';
 import {UserState} from '@shared/enums/UserState';
 
@@ -16,48 +16,46 @@ export class TripRegistrationComponent implements OnInit, OnChanges {
 	@Output() isShownViewListButton = new EventEmitter<boolean>();
 	@Output() isShownSaveRouteButton = new EventEmitter<boolean>();
 
-	nameFormGroup: FormGroup;
+  registerForm: FormGroup;
   isInit: boolean;
-  form;
 
-	constructor() {}
+  submitted = false;
+
+	constructor(private formBuilder: FormBuilder) {}
 
 	ngOnInit() {
-		this.nameFormGroup = new FormGroup({
-      from: new FormControl('', [Validators.required]),
-      to: new FormControl('', [Validators.required]),
-      departureDate: new FormControl('', [Validators.required]),
-      placesSelect: new FormControl('', [Validators.required]),
-      departureTime: new FormControl('', [Validators.required]),
-      car: new FormControl(''),
-		});
-    const divForm = document.querySelector('#myForm');
-    this.form = divForm.firstChild;
+    this.registerForm = this.formBuilder.group({
+      from: ['', [Validators.required]],
+      to: ['', [Validators.required]],
+      departureDate:['', [Validators.required]],
+      placesSelect: ['', [Validators.required]],
+      departureTime:['', [Validators.required]],
+      car: ['']
+    });
     this.isInit = true;
   }
 
+  get f() { return this.registerForm.controls; }
+
   ngOnChanges(changes: SimpleChanges) {
     if (changes.userState && this.isInit) {
-      const divForm = document.querySelector('#myForm');
-      const form1 = divForm.firstChild;
-      divForm.removeChild(form1);
-      divForm.appendChild(this.form);
-
-      /*this.nameFormGroup.controls.from.updateValueAndValidity();
-        this.nameFormGroup.controls.to.updateValueAndValidity();
-        this.nameFormGroup.controls.departureDate.updateValueAndValidity();
-        this.nameFormGroup.controls.placesSelect.updateValueAndValidity();
-        this.nameFormGroup.controls.departureTime.updateValueAndValidity();*/
+      this.submitted = false;
+      this.registerForm.reset();
     }
   }
 
 	onChangeFix(event: Event, target) {
 		const input = event.target as HTMLInputElement;
-		this.nameFormGroup.controls[target].setValue(input.value);
+		this.registerForm.controls[target].setValue(input.value);
 	}
 
 	onSubmit() {
-		this.formData.emit(this.nameFormGroup.value);
+    this.submitted = true;
+    if (this.registerForm.invalid) {
+      return;
+    }
+
+		this.formData.emit(this.registerForm.value);
 		this.isShownViewListButton.emit(true);
 		this.isShownSaveRouteButton.emit(true);
 	}
