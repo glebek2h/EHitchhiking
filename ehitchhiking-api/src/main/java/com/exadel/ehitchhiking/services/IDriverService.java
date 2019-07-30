@@ -20,7 +20,7 @@ public interface IDriverService {
 
     void addPassToBL(int idDriver, int idPass);
 
-    void deletePassFromBL(int idDriver, int idPass);
+    void deletePassFromBL(int idEmp, int idPass);
 
     List<PassengerVO> getPassengers(int idEmp);
 
