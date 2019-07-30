@@ -18,7 +18,7 @@ export class TripRegistrationComponent implements OnInit, OnChanges {
 
 	nameFormGroup: FormGroup;
   isInit: boolean;
-  submitted = false;
+  form;
 
 	constructor() {}
 
@@ -31,15 +31,19 @@ export class TripRegistrationComponent implements OnInit, OnChanges {
       departureTime: new FormControl('', [Validators.required]),
       car: new FormControl(''),
 		});
+    const divForm = document.querySelector('#myForm');
+    this.form = divForm.firstChild;
     this.isInit = true;
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.userState && this.isInit) {
+      const divForm = document.querySelector('#myForm');
+      const form1 = divForm.firstChild;
+      divForm.removeChild(form1);
+      divForm.appendChild(this.form);
 
-      this.submitted = true;
-      this.nameFormGroup.reset();
-      /*	this.nameFormGroup.controls.from.updateValueAndValidity();
+      /*this.nameFormGroup.controls.from.updateValueAndValidity();
         this.nameFormGroup.controls.to.updateValueAndValidity();
         this.nameFormGroup.controls.departureDate.updateValueAndValidity();
         this.nameFormGroup.controls.placesSelect.updateValueAndValidity();
@@ -53,10 +57,6 @@ export class TripRegistrationComponent implements OnInit, OnChanges {
 	}
 
 	onSubmit() {
-    this.submitted = true;
-    if (this.nameFormGroup.invalid) {
-      return;
-    }
 		this.formData.emit(this.nameFormGroup.value);
 		this.isShownViewListButton.emit(true);
 		this.isShownSaveRouteButton.emit(true);
