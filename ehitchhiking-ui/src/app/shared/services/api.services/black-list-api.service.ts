@@ -1,10 +1,9 @@
-import {User} from "@shared/models/user";
-import {ApiService} from "@shared/services/api.services/api.service";
+import {User} from '@shared/models/user';
+import {ApiService} from '@shared/services/api.services/api.service';
 import {Car} from '@shared/models/car';
 import {URL_REGISTRY} from '@shared/constants/urlRegistry';
-import {map} from "rxjs/operators";
+import {map} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
-
 
 @Injectable()
 export class BlackListApiService {

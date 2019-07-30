@@ -1,3 +1,5 @@
+drop schema public cascade;
+
 create schema if not exists public;
 
 alter schema public owner to postgres;
@@ -176,7 +178,7 @@ create table if not exists "BLACKLIST_DRIVER"
 alter table "BLACKLIST_DRIVER" owner to postgres;
 
 
-INSERT INTO public."EMPLOYEE" ("ID", "IS_ADMIN", "FIRST_NAME", "LAST_NAME", "EMAIL", "PASS_WORD", "PHONE_NUMBER", "POINTS") VALUES (4, false, 'Anastasia', 'Garost', 'garost99@mail.ru', '$2a$11$eWw4BX/flBV9iQ6nh67R.OTbRfLOlYSNgG4ke0g8e1DsuJyCmVwkK', '+375296521023', 70);
+INSERT INTO public."EMPLOYEE" ("ID", "IS_ADMIN", "FIRST_NAME", "LAST_NAME", "EMAIL", "PASS_WORD", "PHONE_NUMBER", "POINTS") VALUES (4, false, 'Anastasia', 'Garost', 'garost99@mail.ru', '$2a$10$eTM3MpwYTNCtuneBC', '+375296521023', 70);
 INSERT INTO public."EMPLOYEE" ("ID", "IS_ADMIN", "FIRST_NAME", "LAST_NAME", "EMAIL", "PASS_WORD", "PHONE_NUMBER", "POINTS") VALUES (1, true, 'Alexey', 'Chernyakov', 'alexey.chernyakov00@gmail.com', '$2a$11$RT99HAdBB9wUpxGBzzt0RuXFgcB66IWFFT4hTuQ5qszNNkIfW.8Du', '+375447164232', 100);
 INSERT INTO public."EMPLOYEE" ("ID", "IS_ADMIN", "FIRST_NAME", "LAST_NAME", "EMAIL", "PASS_WORD", "PHONE_NUMBER", "POINTS") VALUES (3, false, 'Yana', 'Bernachkaya', 'yana.bernachkaya@gmail.com', '$2a$11$pllp5YxRPWZ/eiK1lkpKy.RaxT4kEPBVtZXvj9bPJE4sUM6.qRT5e', '+375447822582', 60);
 INSERT INTO public."EMPLOYEE" ("ID", "IS_ADMIN", "FIRST_NAME", "LAST_NAME", "EMAIL", "PASS_WORD", "PHONE_NUMBER", "POINTS") VALUES (5, false, 'Julia', 'Romanova', 'youliaromanova99@mail.ru', '$2a$11$TVu4CKeL4q3ZzOKhtUAYSeVrysBxan2tb0ghTwPTIGIejTEEoaHzS', '+375333466688', 80);
