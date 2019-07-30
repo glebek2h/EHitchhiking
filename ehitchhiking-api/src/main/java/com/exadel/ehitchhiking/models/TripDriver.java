@@ -5,7 +5,6 @@ import lombok.*;
 import org.springframework.data.geo.Point;
 
 import java.sql.*;
-import java.util.Set;
 
 import javax.persistence.*;
 
