@@ -39,7 +39,7 @@ export class UserService {
 			));
 		}
 		this.currentUser = null;
-		return true;
+		return false;
 	}
 
 	getStatus(): Promise<User | boolean> {
@@ -57,7 +57,7 @@ export class UserService {
 	}
 
 	refreshCurrentUser(): void {
-		this.currentUserPromise = Promise.resolve(true);
+		this.currentUserPromise = Promise.resolve(false);
 		this.currentUser = null;
 	}
 
