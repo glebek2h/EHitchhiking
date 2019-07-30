@@ -1,3 +1,0 @@
-interface GetBlockedPassengersParams {
-	empId: string;
-}

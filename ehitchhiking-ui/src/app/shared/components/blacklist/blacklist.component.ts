@@ -49,13 +49,13 @@ export class BlacklistComponent implements OnInit {
 
 	removePersonFromDriverBlacklist(index): void {
 		this.apiBlacklistService
-			.deleteBlockedDriver({empId: this.curUser.id, idDr: this.driversBlacklist[index].id})
+			.deleteBlockedDriver({empId: this.curUser.id, idDel: this.driversBlacklist[index].id})
 			.subscribe(() => this.loadDriversList());
 	}
 
 	removePersonFromPassengerBlacklist(index): void {
 		this.apiBlacklistService
-			.deleteBlockedPassenger({idPass: this.passengersBlacklist[index].id, empId: this.curUser.id})
+			.deleteBlockedPassenger({idDel: this.passengersBlacklist[index].id, empId: this.curUser.id})
 			.subscribe(() => this.loadPassengersList());
 	}
 }

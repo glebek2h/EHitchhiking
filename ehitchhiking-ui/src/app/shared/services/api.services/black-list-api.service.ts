@@ -4,12 +4,14 @@ import {Car} from '@shared/models/car';
 import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 import {map} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {HttpResponse} from '@angular/common/http';
 
 @Injectable()
 export class BlackListApiService {
 	constructor(private apiService: ApiService) {}
 
-	mapBlackListPassengers(data): User[] {
+	mapBlackListUser(data: any): User[] {
 		return data.map((obj) => {
 			return new User(obj.id, obj.firstName + ' ' + obj.lastName, '', obj.email, '', [
 				new Car('ferrari', 'pink', 'A3434B', 1),
@@ -17,31 +19,23 @@ export class BlackListApiService {
 		});
 	}
 
-	mapBlacklistDrivers(data): User[] {
-		return data.map((obj) => {
-			return new User(obj.id, obj.firstName + ' ' + obj.lastName, '', obj.email, '', [
-				new Car('ferrari', 'pink', 'A3434B', 1),
-			]);
-		});
-	}
-
-	getDriverBlacklist(params: GetBlockedPassengersParams) {
+	getDriverBlacklist(params: GetBlockedUsersParams) {
 		return this.apiService
 			.doGet(URL_REGISTRY['blacklist.getDriverBlacklist'], false, params)
-			.pipe(map((data) => this.mapBlackListPassengers(data.body.data)));
+			.pipe(map((data) => this.mapBlackListUser(data.body.data)));
 	}
 
-	getPassengerBlacklist(params: GetBlockedDriversParams) {
+	getPassengerBlacklist(params: GetBlockedUsersParams) {
 		return this.apiService
 			.doGet(URL_REGISTRY['blacklist.getPassengerBlacklist'], false, params)
-			.pipe(map((data) => this.mapBlacklistDrivers(data.body.data)));
+			.pipe(map((data) => this.mapBlackListUser(data.body.data)));
 	}
 
-	deleteBlockedPassenger(params: DeleteBlockedPassengersParams) {
+	deleteBlockedPassenger(params: DeleteBlockedUserParams) {
 		return this.apiService.doDelete(URL_REGISTRY['blacklist.deletePass'], params);
 	}
 
-	deleteBlockedDriver(params: DeleteBlockedDriversParams) {
+	deleteBlockedDriver(params: DeleteBlockedUserParams) {
 		return this.apiService.doDelete(URL_REGISTRY['blacklist.deleteDriver'], params);
 	}
 }
