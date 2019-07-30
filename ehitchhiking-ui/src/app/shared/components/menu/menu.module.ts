@@ -12,7 +12,6 @@ import {
 	MatSnackBarModule,
 	MatTabsModule,
 } from '@angular/material';
-import {RatePassengersModalModule} from '@shared/components/rate-passengers-modal/rate-passengers-modal.module';
 import {ProfileModalModule} from '@shared/modals/profile-modal/profile-modal.module';
 import {BlacklistComponent} from '@shared/components/blacklist/blacklist.component';
 import {FormsModule} from '@angular/forms';
@@ -35,7 +34,6 @@ import {ActiveTripsModalModule} from '@shared/components/active-trips-modal/acti
 		MatDialogModule,
 		MatIconModule,
 		MatButtonModule,
-		RatePassengersModalModule,
 		ProfileModalModule,
 		FormsModule,
 		PreLoadingModule,
