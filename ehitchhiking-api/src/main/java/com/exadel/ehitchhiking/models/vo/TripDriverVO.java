@@ -3,9 +3,12 @@ package com.exadel.ehitchhiking.models.vo;
 import com.exadel.ehitchhiking.models.Car;
 import com.exadel.ehitchhiking.models.Driver;
 import com.exadel.ehitchhiking.models.TripDriver;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
+import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.Id;
@@ -16,43 +19,41 @@ import java.util.Date;
 @AllArgsConstructor
 public class TripDriverVO {
 
-
-    @Getter
-    @Id
     private Integer id;
 
-    @Getter
     private String startingPoint;
 
-    @Getter
     private String endingPoint;
 
-    @Getter
     private Instant startingTime;
 
-    @Getter
     private Instant endingTime;
 
-    @Getter
+    @JsonIgnore
     private CarVO car;
 
-    @Getter
     private Integer idOfCar;
 
-    @Getter
     private DriverVO driver;
 
-    @Getter
+    @JsonIgnore
     private boolean isActive;
 
-    @Getter
+    @JsonIgnore
     private boolean isFinished;
 
-    @Getter
+    @JsonIgnore
     private boolean isSaved;
 
-    @Getter
     private int seats;
+
+    private Point coordStart;
+
+    private Point coordEnd;
+
+    private float distance;
+
+    private boolean isHistory;
 
     public static TripDriverVO fromEntity(TripDriver tripDriver) {
         return new TripDriverVO(
@@ -67,7 +68,11 @@ public class TripDriverVO {
                 tripDriver.isActive(),
                 tripDriver.isFinished(),
                 tripDriver.isSaved(),
-                tripDriver.getAvailableSeats()
+                tripDriver.getAvailableSeats(),
+                tripDriver.getCoordStart(),
+                tripDriver.getCoordEnd(),
+                tripDriver.getDistance(),
+                tripDriver.isHistory()
         );
     }
 }

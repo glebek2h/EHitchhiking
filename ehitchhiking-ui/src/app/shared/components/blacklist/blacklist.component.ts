@@ -29,11 +29,17 @@ export class BlacklistComponent implements OnInit {
 		console.log(this.apiBlacklistService.getBlockedDrivers({idDr: this.curUser.id}));
 		this.apiBlacklistService.getBlockedDrivers({idDr: this.curUser.id}).subscribe((data) => {
 			this.driversBlacklist = data;
-			console.log(this.driversBlacklist);
+      console.log('driversBlacklist'+this.driversBlacklist);
 			this.loadingDrives = false;
 		});
 		this.apiBlacklistService.getBlockedPassengers({idPass: this.curUser.id}).subscribe((data) => {
-			this.passengerBlacklist = data;
+			if (typeof data!==null) {
+			  console.log('ky');
+        this.passengerBlacklist = data;
+      }
+			else {
+        this.passengerBlacklist = [];
+      }
 			this.loadingPassengers = false;
 		});
 	}
@@ -47,7 +53,7 @@ export class BlacklistComponent implements OnInit {
 			.subscribe(() =>
 				this.apiBlacklistService.getBlockedDrivers({idDr: this.curUser.id}).subscribe((data) => {
 					this.driversBlacklist = data;
-					console.log(this.driversBlacklist);
+
 					this.loadingDrives = false;
 				})
 			);
@@ -58,7 +64,7 @@ export class BlacklistComponent implements OnInit {
 			.deleteBlockedPassenger({idPass: this.passengerBlacklist[i].id, idDr: this.curUser.id})
 			.subscribe(() =>
 				this.apiBlacklistService.getBlockedPassengers({idPass: this.curUser.id}).subscribe((data) => {
-					this.passengerBlacklist = data;
+				  this.passengerBlacklist = data;
 					this.loadingPassengers = false;
 				})
 			);

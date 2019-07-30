@@ -6,20 +6,22 @@ import com.exadel.ehitchhiking.models.vo.CarVO;
 import java.util.List;
 
 public interface ICarService {
-    void createCar(String color, String number, String car_model,
-                   int id_of_driver);
+    void createCar(String color, String number, String carModel,
+                   int idOfDriver);
 
-    void findCarNumber(int car_id);
+    void findCarNumber(int carId);
 
     void findId(int id);
 
-    void updateNumber(int car_id, String newNumber);
+    void updateNumber(int carId, String newNumber);
 
-    void updateColor(int car_id, String color);
+    void updateColor(int carId, String color);
 
     void deleteCarId(int id);
 
     List<CarVO> getListCars(int idDriver);
 
     int getAmountCars(int idDriver);
+
+    void deletedCar(int carId);
 }

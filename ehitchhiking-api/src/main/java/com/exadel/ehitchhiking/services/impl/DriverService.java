@@ -6,8 +6,6 @@ import com.exadel.ehitchhiking.daos.IEmployeeDAO;
 import com.exadel.ehitchhiking.daos.IPassengerDAO;
 import com.exadel.ehitchhiking.models.Driver;
 
-import com.exadel.ehitchhiking.models.Employee;
-import com.exadel.ehitchhiking.models.Passenger;
 import com.exadel.ehitchhiking.models.vo.PassengerVO;
 import com.exadel.ehitchhiking.services.IDriverService;
 import lombok.NoArgsConstructor;
@@ -38,22 +36,27 @@ public class DriverService implements IDriverService {
     }
 
     @Override
-    public int findDriverIdByUsername(String username) {
-        return dao.getByName(username).getId();
+    public int findDriverIdByEmail(String email) {
+        return dao.getByEmail(email).getId();
     }
 
     @Override
-    public void updateRateDriver(String username, float addedRate) {
-        Driver driver = dao.getByName(username);
-        int oldPeople = driver.getRatedPeoples();
-        driver.setRate(((driver.getRate() * oldPeople) + addedRate) / (oldPeople + 1));
-        driver.setRatedPeoples(oldPeople + 1);
+    public Driver findIdByemployeeId(int id) {
+        return dao.getByEmployeeId(id);
+    }
+
+    @Override
+    public void updateRateDriver(int idDriver, float addedRate) {
+        Driver driver = dao.getDriver(idDriver);
+        int prevValue = driver.getRatedPeoples();
+        driver.setRate(((driver.getRate() * prevValue) + addedRate) / (prevValue + 1));
+        driver.setRatedPeoples(prevValue + 1);
         dao.update(driver);
     }
 
     @Override
-    public void deleteDriver(String username) {
-        dao.delete(dao.getByName(username));
+    public void deleteDriver(String email) {
+        dao.delete(dao.getByEmail(email));
     }
 
     @Override
@@ -76,7 +79,7 @@ public class DriverService implements IDriverService {
     }
 
     @Override
-    public List<PassengerVO> getPassengers(int idDriver) {
-        return dao.getDriver(idDriver).getPassengers().stream().map(PassengerVO::fromEntity).collect(Collectors.toList());
+    public List<PassengerVO> getPassengers(int idEmp) {
+        return dao.getByEmployeeId(idEmp).getPassengers().stream().map(PassengerVO::fromEntity).collect(Collectors.toList());
     }
 }

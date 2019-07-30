@@ -23,9 +23,9 @@ public class EmployeeService implements IEmployeeService {
     private IEmployeeDAO dao;
 
     @Override
-    public void createEmployee(boolean isAdmin, String username, String firstName, String lastName,
+    public void createEmployee(boolean isAdmin, String firstName, String lastName,
                                String email, String password, String phoneNum) {
-        dao.save(new Employee(isAdmin, username, firstName, lastName, email, password, phoneNum));
+        dao.save(new Employee(isAdmin, firstName, lastName, email, password, phoneNum));
     }
 
     @Override
@@ -34,50 +34,27 @@ public class EmployeeService implements IEmployeeService {
     }
 
     @Override
-    public EmployeeVO findUserUsername(String username) {
-        return EmployeeVO.fromEntity(dao.getByEmail(username));
+    public EmployeeVO findByEmail(String email) {
+        return EmployeeVO.fromEntity(dao.getByEmail(email));
     }
 
     @Override
-    public int findIdByUsername(String username) {
-        Employee employee = dao.getByEmail(username);
+    public int findIdByEmail(String email) {
+        Employee employee = dao.getByEmail(email);
         return employee.getId();
     }
 
+
     @Override
-    public void updatePassword(String username, String password) {
-        Employee employee = dao.getByEmail(username);
-        employee.setPassword(password);
+    public void updateEmployee(String email, String lastName,
+                               String firstName, String phoneNum) {
+        Employee employee = dao.getByEmail(email);
+        employee.setFirstName(firstName);
+        employee.setLastName(lastName);
+        employee.setPhoneNumber(phoneNum);
         dao.update(employee);
     }
 
-    @Override
-    public void updateEmail(String username, String email) {
-        Employee employee = dao.getByEmail(username);
-        employee.setPassword(email);
-        dao.update(employee);
-    }
-
-    @Override
-    public void updateFirstName(String username, String firstName) {
-        Employee employee = dao.getByEmail(username);
-        employee.setPassword(firstName);
-        dao.update(employee);
-    }
-
-    @Override
-    public void updateLastName(String username, String lastName) {
-        Employee employee = dao.getByEmail(username);
-        employee.setPassword(lastName);
-        dao.update(employee);
-    }
-
-    @Override
-    public void updatePhone(String username, String phone) {
-        Employee employee = dao.getByEmail(username);
-        employee.setPassword(phone);
-        dao.update(employee);
-    }
 
     @Override
     public void deleteUser(String username) {
@@ -97,7 +74,7 @@ public class EmployeeService implements IEmployeeService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return findUserUsername(email);
+        return findByEmail(email);
     }
 
 }

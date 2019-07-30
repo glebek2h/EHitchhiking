@@ -58,13 +58,20 @@ public class Employee  {
     @Column(name = "\"PHONE_NUMBER\"")
     private String phoneNumber;
 
-    public Employee(boolean isAdmin, String username, String firstName, String lastName, String email, String password, String phoneNumber) {
+    @Setter
+    @Getter
+    @Column(name = "\"POINTS\"")
+    private float points;
+
+
+    public Employee(boolean isAdmin, String firstName, String lastName, String email, String password, String phoneNumber) {
         this.isAdmin = isAdmin;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.phoneNumber = phoneNumber;
+        this.points = 0.0f;
     }
 
 }

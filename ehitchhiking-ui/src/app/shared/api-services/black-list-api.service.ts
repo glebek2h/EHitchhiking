@@ -9,7 +9,7 @@ export class BlackListApiService {
 
 	makeArrayPassengers(data) {
 		let blacklistPass = [];
-		data.forEach((obj) => {
+		data.map(function(obj){
 			blacklistPass.push(
 				new User(obj.id, obj.firstName + ' ' + obj.lastName, '', obj.email, '', [
 					new Car('ferrari', 'pink', 'A3434B', 1),
@@ -28,13 +28,14 @@ export class BlackListApiService {
 				])
 			);
 		});
+		console.log('black'+blacklistDrives);
 		return blacklistDrives;
 	}
 
 	getBlockedPassengers(params: GetBlockedPassengersParams) {
 		return this.apiService
 			.doGet(URL_REGISTRY['blacklist.getPassengers'], false, params)
-			.pipe(map((data) => this.makeArrayPassengers(data.body.data)));
+			.pipe(map((data) => {this.makeArrayPassengers(data.body.data);console.log(data)}));
 	}
 
 	getBlockedDrivers(params: GetBlockedDriversParams) {

@@ -55,6 +55,13 @@ public class CarService implements ICarService {
     }
 
     @Override
+    public void deletedCar(int carId) {
+        Car car = dao.getCar(carId);
+        car.setDeleted(true);
+        dao.update(car);
+    }
+
+    @Override
     public void deleteCarId(int id) {
         dao.delete(dao.getCar(id));
     }
