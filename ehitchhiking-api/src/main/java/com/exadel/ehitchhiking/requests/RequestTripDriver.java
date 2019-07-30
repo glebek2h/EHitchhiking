@@ -2,6 +2,8 @@ package com.exadel.ehitchhiking.requests;
 import lombok.Data;
 import org.springframework.data.geo.Point;
 
+import java.sql.Timestamp;
+
 @Data
 public class RequestTripDriver {
 
@@ -9,9 +11,9 @@ public class RequestTripDriver {
 
     private String endingPoint;
 
-    private String startingTime;
+    private Timestamp startingTime;
 
-    private String endingTime;
+    private Timestamp endingTime;
 
     private Integer idOfCar;
 

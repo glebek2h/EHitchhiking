@@ -41,7 +41,7 @@ public class DriverService implements IDriverService {
     }
 
     @Override
-    public int findIdByemployeeId(int id) {
+    public Driver findIdByemployeeId(int id) {
         return dao.getByEmployeeId(id);
     }
 
@@ -79,7 +79,7 @@ public class DriverService implements IDriverService {
     }
 
     @Override
-    public List<PassengerVO> getPassengers(int idDriver) {
-        return dao.getDriver(idDriver).getPassengers().stream().map(PassengerVO::fromEntity).collect(Collectors.toList());
+    public List<PassengerVO> getPassengers(int idEmp) {
+        return dao.getByEmployeeId(idEmp).getPassengers().stream().map(PassengerVO::fromEntity).collect(Collectors.toList());
     }
 }
