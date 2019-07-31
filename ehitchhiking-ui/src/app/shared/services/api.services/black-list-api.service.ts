@@ -4,8 +4,6 @@ import {Car} from '@shared/models/car';
 import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 import {map} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {HttpResponse} from '@angular/common/http';
 
 @Injectable()
 export class BlackListApiService {

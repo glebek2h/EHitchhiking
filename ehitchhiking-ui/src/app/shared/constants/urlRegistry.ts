@@ -11,6 +11,10 @@ export const URL_REGISTRY = {
   MAP : {
     GET_ROUTES : 'tripPassenger/getAllDriverTrips'
   },
+  RATE : {
+    ADD_RATE_PASSENGER: 'rate/passenger',
+    ADD_RATE_DRIVER: 'rate/driver',
+  },
   CURRENT_USER: 'currentUser',
   LOG_OUT: '/logout',
 };
