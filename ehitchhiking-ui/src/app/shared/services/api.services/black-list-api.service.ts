@@ -4,8 +4,6 @@ import {Car} from '@shared/models/car';
 import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 import {map} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {HttpResponse} from '@angular/common/http';
 
 @Injectable()
 export class BlackListApiService {
@@ -14,7 +12,7 @@ export class BlackListApiService {
 	mapBlackListUser(data: any): User[] {
 		return data.map((obj) => {
 			return new User(obj.id, obj.firstName + ' ' + obj.lastName, '', obj.email, '', [
-				new Car('ferrari', 'pink', 'A3434B', 1),
+				new Car('ferrari', 'pink', 'A3434B'),
 			]);
 		});
 	}

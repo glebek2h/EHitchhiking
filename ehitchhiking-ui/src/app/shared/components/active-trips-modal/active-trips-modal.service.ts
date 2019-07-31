@@ -38,7 +38,7 @@ export class ActiveTripsModalService {
 	driverCar = new Car();
 
 	getCar() {
-		this.driverCar.changeData('audi', 'silver', 'BM8800', 3);
+		this.driverCar.changeData('audi', 'silver', 'BM8800');
 		return this.driverCar;
 	}
 

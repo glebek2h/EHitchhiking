@@ -40,7 +40,7 @@ export class CarInfoFormComponent implements OnInit {
 			return;
 		}
 		const data = ifSubmit ? this.addCarForm.value : this.carInfoForm.value;
-		const newCar = new Car(data.model, data.color, data.carNumber, data.experience);
+		const newCar = new Car(data.model, data.color, data.carNumber);
 		this.onChangeCarInfo.emit(newCar);
 	}
 }

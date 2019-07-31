@@ -21,10 +21,6 @@
 	<span *ngIf="hasError('carNumber', 'pattern')" class="form-error"
 		>Car number must contain 0-9, a-z, A-Z,- 6-8 symbols</span
 	>
-	<mat-form-field class="car-form-field">
-		<input matInput formControlName="experience" placeholder="Experience (years)" class="car-form-input" />
-	</mat-form-field>
-	<span *ngIf="hasError('experience', 'pattern')" class="form-error">Experience must be a number from 0 to 80</span>
 	<button mat-raised-button type="submit" [disabled]="addCarForm.invalid" class="car-form-submit" *ngIf="addCarMod">
 		Submit
 	</button>
