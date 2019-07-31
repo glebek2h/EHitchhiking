@@ -44,7 +44,6 @@ export class ProfileModalComponent implements OnInit {
 	onSubmitNewCar(newCar: any): void {
 		this.profileModalService.addNewCar(newCar, this.currentUser.id).then((car) => {
 			if (car) {
-				console.log(car);
 				this.currentUser.addCar(car);
 				this.carsInfoForm = this.carsInfoService.toFormGroup(this.currentUser.cars, this.formBuilder);
 			}
@@ -58,7 +57,12 @@ export class ProfileModalComponent implements OnInit {
 			this.currentUser.cars.length,
 			this.currentUser.cars
 		);
-		this.currentUser.cars = newCars;
+		this.profileModalService.updateCars(newCars, this.currentUser.id).then((response) => {
+			if (response) {
+				this.currentUser.cars = response;
+				this.carsInfoForm = this.carsInfoService.toFormGroup(response, this.formBuilder);
+			}
+		});
 	}
 
 	onChange(): void {

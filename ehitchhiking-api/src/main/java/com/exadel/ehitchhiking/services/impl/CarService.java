@@ -43,17 +43,13 @@ public class CarService implements ICarService {
     }
 
     @Override
-    public void updateNumber(int carId, String newNumber) {
-        Car car = dao.getCar(carId);
-        car.setNumber(newNumber);
-        dao.update(car);
-    }
-
-    @Override
-    public void updateColor(int carId, String color) {
-        Car car = dao.getCar(carId);
-        car.setColor(color);
-        dao.update(car);
+    public void updateCar(CarVO newCar) {
+        int carId = newCar.getId();
+        Car oldCar = dao.getCar(carId);
+        oldCar.setColor(newCar.getColor());
+        oldCar.setModel(newCar.getModel());
+        oldCar.setNumber(newCar.getNumber());
+        dao.update(oldCar);
     }
 
     @Override

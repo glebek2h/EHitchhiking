@@ -17,4 +17,8 @@ export class ProfileModalApiService {
 	sendDeleteRequest(carId: string): Promise<any> {
 		return this.apiService.doDelete(URL_REGISTRY.CAR.DELETE_CAR, {id: carId});
 	}
+
+	sendUpdateRequest(cars: any): Promise<any> {
+		return this.apiService.doPut(URL_REGISTRY.CAR.UPDATE_CARS, cars);
+	}
 }

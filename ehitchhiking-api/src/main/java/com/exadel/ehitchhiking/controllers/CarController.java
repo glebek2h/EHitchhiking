@@ -74,20 +74,24 @@ public class CarController {
         }
     }
 
-    @PutMapping("/updateCarParameters")
-    public Response<String> updateColor(@RequestBody RequestCar car) {
-        Response<String> response = new Response<>();
-        System.out.println(car.getCarId());
+    @PutMapping("/updateCars")
+    public Response<List<CarVO>> updateColor(@RequestBody List<RequestCar> cars) {
+        Response<List<CarVO>> response = new Response<>();
+        List<CarVO> updatedCars;
+        int driverID = Integer.parseInt(cars.get(0).getIdOfDriver());
         try {
-            int carId = Integer.parseInt(car.getCarId());
-            carService.updateColor(carId, car.getColor());
-            carService.updateNumber(carId, car.getNumber());
-            response.setStatus("200");
-            response.setData("true");
+            cars.forEach(car ->carService.updateCar(
+                    new CarVO(Integer.parseInt(
+                            car.getId()), car.getColor(), car.getNumber(), car.getModel())));
+            updatedCars = carService.getListCars(driverID);
+            response.setData(updatedCars);
+            response.setMsg("Successfully updated");
+            response.setStatus("success");
             return response;
         } catch (Exception e) {
-            response.setStatus("500");
-            response.setData("false");
+            response.setStatus("error");
+            response.setData(null);
+            response.setMsg("Failed updating cars");
             return response;
         }
     }

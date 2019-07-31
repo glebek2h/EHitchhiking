@@ -12,9 +12,7 @@ public interface ICarService {
 
     void findId(int id);
 
-    void updateNumber(int carId, String newNumber);
-
-    void updateColor(int carId, String color);
+    void updateCar(CarVO newCar);
 
     void deleteCarId(int id);
 

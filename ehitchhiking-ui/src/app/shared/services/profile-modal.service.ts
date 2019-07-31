@@ -40,6 +40,20 @@ export class ProfileModalService {
 			.catch(() => false);
 	}
 
+	updateCars(cars: Car[], userId: string): Promise<Car[] | null> {
+		return this.profileModalApiService
+			.sendUpdateRequest(this.addIdField(cars, userId))
+			.then((data) => this.parseCarList(data))
+			.catch(() => null);
+	}
+
+	private addIdField(cars: any, userId: string): any {
+		return cars.map((car) => {
+			car.idOfDriver = userId;
+			return car;
+		});
+	}
+
 	private parseCarData(data: any): Car {
 		return new Car(data.id, data.model, data.color, data.number);
 	}
