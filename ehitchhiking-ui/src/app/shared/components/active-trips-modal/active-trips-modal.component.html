@@ -25,7 +25,7 @@
                        (click)="showTripInfo(trip)"></app-active-trip>
     </div>
     <div class="scroll-marker" #sMarker></div>
-    <app-active-trip-additional-info [trip]="tripInfo" *ngIf="isShowTripInfo"
+    <app-active-trip-additional-info (closeDialog)="exit()"  [trip]="tripInfo" *ngIf="isShowTripInfo"
     ></app-active-trip-additional-info>
     <app-no-data *ngIf="!tripsArray.length"></app-no-data>
   </div>

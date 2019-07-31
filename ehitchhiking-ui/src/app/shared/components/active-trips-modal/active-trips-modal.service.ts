@@ -12,27 +12,32 @@ export class ActiveTripsModalService {
 			name: 'Alisa',
 			phone: '+375331111111',
 			email: 'alisa@mail.ru',
+      markCoordinate: [53.9, 27.5666],
 		},
 		{
 			name: 'Alena',
 			phone: '+375331111111',
 			email: 'alisa@mail.ru',
+      markCoordinate: [53.683973, 27.959534],
 		},
 		{
 			name: 'Andrey',
 			phone: '+375331111111',
 			email: 'alisa@mail.ru',
+      markCoordinate: [52.535686, 30.714509],
 		},
 		{
 			name: 'Alisa2',
 			phone: '+375331111111',
 			email: 'alisa@mail.ru',
+      markCoordinate: [53.247128, 29.019869],
 		},
-		{
-			name: 'Alisa3',
-			phone: '+375331111111',
-			email: 'alisa@mail.ru',
-		},
+    {
+      name: 'Alisa3',
+      phone: '+375331111111',
+      email: 'alisa@mail.ru',
+      markCoordinate: [52.999670, 30.052246],
+    }
 	];
 
 	driverCar = new Car();
@@ -52,8 +57,8 @@ export class ActiveTripsModalService {
 	trips: ActiveTrip[] = [
 		{
 			id: 0,
-			startPoint: 'Mstislavca1',
-			endPoint: 'Turovsky',
+      startPoint: 'Minsk',
+      endPoint: 'Gomel',
 			isFavorite: false,
 			status: TripStatus.Active,
 			rating: 0,
@@ -67,8 +72,8 @@ export class ActiveTripsModalService {
 		},
 		{
 			id: 1,
-			startPoint: 'Mstislavca2',
-			endPoint: 'Turovsky',
+			startPoint: 'Minsk',
+			endPoint: 'Gomel',
 			isFavorite: false,
 			status: TripStatus.Active,
 			rating: 2,
@@ -82,8 +87,8 @@ export class ActiveTripsModalService {
 		},
 		{
 			id: 2,
-			startPoint: 'Mstislavca3',
-			endPoint: 'Turovsky',
+      startPoint: 'Minsk',
+      endPoint: 'Grodno',
 			isFavorite: false,
 			status: TripStatus.Active,
 			rating: 0,
@@ -97,8 +102,8 @@ export class ActiveTripsModalService {
 		},
 		{
 			id: 3,
-			startPoint: 'Mstislavca4',
-			endPoint: 'Turovsky',
+      startPoint: 'Minsk',
+      endPoint: 'Mogilev',
 			isFavorite: false,
 			status: TripStatus.Active,
 			rating: 0,

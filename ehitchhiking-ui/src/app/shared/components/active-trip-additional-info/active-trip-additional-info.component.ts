@@ -1,6 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ActiveTrip} from '../active-trip/active-trip';
 import {UserState} from '@shared/enums/UserState';
+import {ActiveTripsMapService} from "@shared/services/active-trips-map.service";
+import {Route} from "@pages/main-screen/Route";
+import {Car} from "@shared/models/car";
 
 @Component({
 	selector: 'app-active-trip-additional-info',
@@ -9,9 +12,29 @@ import {UserState} from '@shared/enums/UserState';
 })
 export class ActiveTripAdditionalInfoComponent implements OnInit {
 	@Input() trip: ActiveTrip;
+	@Output() closeDialog = new EventEmitter<any>();
 	userState = UserState;
 
-	constructor() {}
+	constructor(private activeTripsMapService: ActiveTripsMapService) {}
 
 	ngOnInit() {}
+
+  showTrip(){
+	 /* this.newRoute = {
+	    from: this.trip.startPoint,
+      to: this.trip.endPoint,
+    };*/
+	 this.closeDialog.emit(true);
+	 this.activeTripsMapService.blockMainScreen(true);
+	  this.activeTripsMapService.sendMessage({
+      from: this.trip.startPoint,
+      to: this.trip.endPoint,
+      departureDate: this.trip.date,
+      placesSelect: this.trip.reservedSeats,
+      passengers: this.trip.passenger,
+      driverRating: this.trip.rating,
+      car: this.trip.driver.car.model,
+    });
+  }
+
 }
