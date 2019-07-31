@@ -7,14 +7,14 @@ import {AppRoutingModule} from './app-routing.module';
 import {MainScreenModule} from '@pages/main-screen/main-screen.module';
 import {MenuModule} from '@shared/components/menu/menu.module';
 import {RegistrationModule} from '@pages/registration/registration.module';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {MatNativeDateModule} from '@angular/material';
 import {ApiService} from '@shared/services/api.services/api.service';
 import {UserService} from '@shared/services/user.service';
 import {AuthorizationService} from '@shared/services/authorization.service';
 import {NotificationService} from '@shared/services/notification.service';
 import {CachingInterceptor} from '@shared/services/interceptors/caching-interceptor';
-import {RequestCache} from "@shared/services/request.cache.service";
+import {RequestCache} from '@shared/services/request.cache.service';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -28,7 +28,12 @@ import {RequestCache} from "@shared/services/request.cache.service";
 		HttpClientModule,
 		MatNativeDateModule,
 	],
-	providers: [ApiService, UserService, NotificationService, AuthorizationApiService, AuthorizationService,
+	providers: [
+		ApiService,
+		UserService,
+		NotificationService,
+		AuthorizationApiService,
+		AuthorizationService,
 		{provide: HTTP_INTERCEPTORS, useClass: CachingInterceptor, multi: true},
 		{provide: RequestCache, useClass: RequestCache},
 	],
