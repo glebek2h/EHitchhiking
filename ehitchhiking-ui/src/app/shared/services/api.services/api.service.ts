@@ -12,6 +12,7 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class ApiService {
 	static readonly apiUrl: string = 'http://localhost:4200/api/';
+	static readonly UNAUTHORIZED_ERROR = 401;
 
 	constructor(private http: HttpClient, private notificationService: NotificationService) {}
 
@@ -62,7 +63,7 @@ export class ApiService {
 		return this.http
 			.get(ApiService.apiUrl + URL_REGISTRY.CURRENT_USER, httpOptions)
 			.catch((error) => {
-				if (error.status === 401) {
+				if (error.status === ApiService.UNAUTHORIZED_ERROR) {
 					this.showResponseMessage(ResponseMessages.Error, 'Invalid login or password!');
 					return Promise.reject();
 				}
