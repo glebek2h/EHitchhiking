@@ -2,7 +2,7 @@
 	<div class="modal-header">
 		<span class="modal-title">{{ currentUser ? currentUser.name : 'Error' }}</span>
 	</div>
-	<app-pre-loading [isLoading]="!carsInfoForm"></app-pre-loading>
+	<app-pre-loading [isLoading]="isLoading"></app-pre-loading>
 	<div *ngIf="currentUser" class="modal-content">
 		<div class="profile-user-info">
 			<img class="profile-user-photo" *ngIf="currentUser.photoPath; else elseBlock"

@@ -1,7 +1,6 @@
 import {Component, ViewChild, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material';
 import {User} from '@shared/models/user';
-import {Car} from '@shared/models/car';
 import {FormGroup, FormBuilder} from '@angular/forms';
 import {CarsInfoService} from './cars-info.service';
 import {ProfileModalService} from '@shared/services/profile-modal.service';
@@ -13,6 +12,7 @@ import {ProfileModalService} from '@shared/services/profile-modal.service';
 })
 export class ProfileModalComponent implements OnInit {
 	readonly maxNumOfCars: number = 5;
+	isLoading: boolean;
 	currentUser: User;
 	addCarMod: boolean;
 	carsInfoForm: FormGroup;
@@ -26,10 +26,12 @@ export class ProfileModalComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
+		this.isLoading = true;
 		this.currentUser = this.profileModalService.getCurrentUser();
 		this.profileModalService.getCarsList(this.currentUser.id).then((cars) => {
 			this.currentUser.cars = cars;
 			this.carsInfoForm = this.carsInfoService.toFormGroup(cars, this.formBuilder);
+			this.isLoading = false;
 		});
 	}
 
@@ -42,12 +44,14 @@ export class ProfileModalComponent implements OnInit {
 	}
 
 	onSubmitNewCar(newCar: any): void {
+		this.isLoading = true;
 		this.profileModalService.addNewCar(newCar, this.currentUser.id).then((car) => {
 			if (car) {
 				this.currentUser.addCar(car);
 				this.carsInfoForm = this.carsInfoService.toFormGroup(this.currentUser.cars, this.formBuilder);
 			}
 			this.addCarMod = false;
+			this.isLoading = false;
 		});
 	}
 
@@ -57,10 +61,12 @@ export class ProfileModalComponent implements OnInit {
 			this.currentUser.cars.length,
 			this.currentUser.cars
 		);
+		this.isLoading = true;
 		this.profileModalService.updateCars(newCars, this.currentUser.id).then((response) => {
 			if (response) {
 				this.currentUser.cars = response;
 				this.carsInfoForm = this.carsInfoService.toFormGroup(response, this.formBuilder);
+				this.isLoading = false;
 			}
 		});
 	}
@@ -70,9 +76,11 @@ export class ProfileModalComponent implements OnInit {
 	}
 
 	onCarDelete(event: MouseEvent, index: number): void {
+		this.isLoading = true;
 		this.profileModalService.deleteCar(this.currentUser.cars[index].id).then((response) => {
 			if (response) {
 				this.currentUser.cars.splice(index, 1);
+				this.isLoading = false;
 			}
 		});
 	}
