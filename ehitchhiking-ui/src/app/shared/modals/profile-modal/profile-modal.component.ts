@@ -1,10 +1,10 @@
-import {ApiService} from '@shared/services/api.services/api.service';
 import {Component, ViewChild, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material';
 import {User} from '@shared/models/user';
 import {Car} from '@shared/models/car';
 import {FormGroup, FormBuilder} from '@angular/forms';
 import {CarsInfoService} from './cars-info.service';
+import {ProfileModalService} from '@shared/services/profile-modal.service';
 @Component({
 	selector: 'app-profile-modal',
 	templateUrl: './profile-modal.component.html',
@@ -13,12 +13,7 @@ import {CarsInfoService} from './cars-info.service';
 })
 export class ProfileModalComponent implements OnInit {
 	readonly maxNumOfCars: number = 5;
-	user: User = new User('1', 'Yana', '', 'hello@gmail.com', '+375291234567', [
-		new Car('ferrari', 'pink', 'A3434B'),
-		new Car('lada', 'white', 'A3434B'),
-		new Car('tayota', 'yellow', 'A3434B'),
-		new Car('bmw', 'black', 'A3434B'),
-	]);
+	currentUser: User;
 	addCarMod: boolean;
 	carsInfoForm: FormGroup;
 	@ViewChild('submitChanges', {static: false}) submitButton;
@@ -26,11 +21,13 @@ export class ProfileModalComponent implements OnInit {
 	constructor(
 		public dialogRef: MatDialogRef<ProfileModalComponent>,
 		private formBuilder: FormBuilder,
-		private carsInfoService: CarsInfoService
+		private carsInfoService: CarsInfoService,
+		private profileModalService: ProfileModalService
 	) {}
 
 	ngOnInit(): void {
-		this.carsInfoForm = this.carsInfoService.toFormGroup(this.user.cars, this.formBuilder);
+		this.currentUser = this.profileModalService.getCurrentUser();
+		this.carsInfoForm = this.carsInfoService.toFormGroup(this.currentUser.cars, this.formBuilder);
 	}
 
 	close(): void {
@@ -42,14 +39,14 @@ export class ProfileModalComponent implements OnInit {
 	}
 
 	onSubmitNewCar(newCar: Car): void {
-		this.user.addCar(newCar);
-		this.carsInfoForm = this.carsInfoService.toFormGroup(this.user.cars, this.formBuilder);
+		this.currentUser.addCar(newCar);
+		this.carsInfoForm = this.carsInfoService.toFormGroup(this.currentUser.cars, this.formBuilder);
 		this.addCarMod = false;
 	}
 
 	onSubmitCarsChanges(): void {
-		const newCars = this.carsInfoService.getCarsInfo(this.carsInfoForm, this.user.cars.length);
-		this.user.cars = newCars;
+		const newCars = this.carsInfoService.getCarsInfo(this.carsInfoForm, this.currentUser.cars.length);
+		this.currentUser.cars = newCars;
 	}
 
 	onChange(): void {
@@ -57,6 +54,6 @@ export class ProfileModalComponent implements OnInit {
 	}
 
 	onCarDelete(event: MouseEvent, index: number): void {
-		this.user.cars.splice(index, 1);
+		this.currentUser.cars.splice(index, 1);
 	}
 }

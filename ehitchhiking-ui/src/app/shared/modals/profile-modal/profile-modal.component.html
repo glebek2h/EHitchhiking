@@ -1,20 +1,20 @@
-<div class="modal-wrapper">
+<div ngIf*="currentUser" class="modal-wrapper">
 	<div class="modal-header">
-		<span class="modal-title">{{ user.name }}</span>
+		<span class="modal-title">{{ currentUser.name }}</span>
 	</div>
 	<div class="modal-content">
-		<div class="profile-user-info">
-			<img class="profile-user-photo" *ngIf="user.photoPath; else elseBlock" [src]="user.photoPath" />
+		<div class="profile-currentUser-info">
+			<img class="profile-currentUser-photo" *ngIf="currentUser.photoPath; else elseBlock" [src]="currentUser.photoPath" />
 			<ng-template #elseBlock>
 				<div class="invalid-photo-icon"><i class="material-icons">account_circle</i></div>
 			</ng-template>
-			<div class="profile-user-contacts">
-				<p>Phone: {{ user.phone }}</p>
-				<p>Email: {{ user.email }}</p>
+			<div class="profile-currentUser-contacts">
+				<p>Phone: {{ currentUser.phone }}</p>
+				<p>Email: {{ currentUser.email }}</p>
 			</div>
 		</div>
 		<hr />
-		<ng-container *ngIf="user.cars.length < maxNumOfCars">
+		<ng-container *ngIf="currentUser.cars.length < maxNumOfCars">
 			<div class="profile-add-car">
 				<button mat-icon-button class="profile-add-car-button" (click)="toggleAddCarForm()" *ngIf="!addCarMod">
 					<mat-icon class="profile-car-icon-add">add</mat-icon>
@@ -26,7 +26,7 @@
 		</ng-container>
     <form [formGroup]="carsInfoForm" name="cars-info-form" (ngSubmit)="onSubmitCarsChanges()">
 			<mat-accordion class="car-info-container" *ngIf="!addCarMod">
-				<mat-expansion-panel class="profile-car-info" *ngFor="let curCar of user.cars; let index = index">
+				<mat-expansion-panel class="profile-car-info" *ngFor="let curCar of currentUser.cars; let index = index">
 					<mat-expansion-panel-header>
 						<mat-panel-title class="profile-car-info-title">
 							{{ curCar.model }}
@@ -79,4 +79,7 @@
 			<mat-icon>close</mat-icon>
 		</button>
 	</div>
+</div>
+<div *ngIf="!currentUser">
+	<app-no-data></app-no-data>
 </div>
