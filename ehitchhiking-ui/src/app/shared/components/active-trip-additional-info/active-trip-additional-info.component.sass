@@ -1,13 +1,15 @@
 @import '../../../../styles/colors'
 @import '../../../../styles/constants'
 @import '../../../../styles/mixins'
+@import '../../../../styles/fonts-constants'
+@import '../../../../styles'
 
 .form-row
   @include flexbox(space-between)
 .info-container
   margin: auto
-  margin-bottom: 1rem
-  max-width: 350px
+  margin-bottom: $default-offset
+  max-width: 75%
   background: mat-color($accent, 100)
   opacity: 0.9
   color: $white
@@ -15,5 +17,11 @@
   height: 2rem
 .center
   text-align: center
-.font-size
-  font-size: $default-offset*1.2
+.title
+  font-size: $input
+.field-note-name
+  width: 50%
+.field-note-value
+  width: 50%
+  text-align: end
+
