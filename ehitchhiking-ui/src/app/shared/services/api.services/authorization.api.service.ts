@@ -25,7 +25,7 @@ export class AuthorizationApiService {
 
 	private parseResponse(response: any): User | null {
 		if (response) {
-			return new User(response.id, response.username, '', response.email, response.phoneNumber);
+			return new User(response.id, response.username, 0,'', response.email, response.phoneNumber);
 		}
 		return null;
 	}

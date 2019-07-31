@@ -38,14 +38,6 @@ export class MenuComponent implements OnInit {
 		});
 	}
 
-	openRatePassengersDialog(): void {
-		this.dialog.open(RatePassengersModalComponent, {
-			width: MAT_DIALOG_WIDTH_SM,
-			panelClass: DEFAULT_MAT_DIALOG_CLASS,
-			autoFocus: false,
-		});
-	}
-
 	logOut() {
 		this.authorizationService.logOut();
 	}

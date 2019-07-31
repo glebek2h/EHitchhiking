@@ -32,7 +32,7 @@ export class UserService {
 		if (userData) {
 			return (this.currentUser = new User(
 				userData.id,
-				userData.username,
+				userData.username,0,
 				'',
 				userData.email,
 				userData.phoneNumber

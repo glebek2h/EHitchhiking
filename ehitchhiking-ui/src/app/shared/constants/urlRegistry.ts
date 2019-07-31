@@ -14,6 +14,8 @@ export const URL_REGISTRY = {
   RATE : {
     ADD_RATE_PASSENGER: 'rate/passenger',
     ADD_RATE_DRIVER: 'rate/driver',
+    GET_RATE_PASSENGERS: 'rate/getPassengers?id={{tripId}}',
+    GET_RATE_DRIVER: 'rate/getDriver?id={{tripId}}',
   },
   CURRENT_USER: 'currentUser',
   LOG_OUT: '/logout',

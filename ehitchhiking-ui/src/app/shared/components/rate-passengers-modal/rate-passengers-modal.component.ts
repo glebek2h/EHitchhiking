@@ -2,9 +2,11 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material';
 import {StarClickMeta} from '../rating/starClickMeta';
 import {MAT_DIALOG_DATA} from '@angular/material';
-import {User} from "@shared/components/rate-passengers-modal/user";
+import {Pass,Driver} from "@shared/components/rate-passengers-modal/user";
 import {UserState} from "@shared/enums/UserState";
 import {RatePassengersApiService} from "@shared/services/api.services/rate-passengers-api.service";
+import {User} from "@shared/models/user";
+import {LoaderSize} from "@shared/enums/pre-loader-sizes";
 
 
 @Component({
@@ -15,42 +17,76 @@ import {RatePassengersApiService} from "@shared/services/api.services/rate-passe
 export class RatePassengersModalComponent implements OnInit{
   users: User[] = [];
   UserState = UserState;
+  idTripDriver=12;
+  idTripPassenger=4;
+  loading =true;
+  loaderSize: LoaderSize = LoaderSize.Large;
 
   constructor(public dialogRef: MatDialogRef<RatePassengersModalComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
               private apiRatePassengersService: RatePassengersApiService) {
   }
 
   ngOnInit(): void {
-    // here should be just GET 'info' about trip
-    if (this.data.dataKey === UserState.Driver){
-      this.users = [
-        {id: 14, name: 'Ivan', rating: 0, isAddedToBlackList: false},
-        {id: 13, name: 'Egor', rating: 0, isAddedToBlackList: false},
-        {id: 15, name: 'Semen', rating: 0, isAddedToBlackList: false},
-        {id: 16, name: 'Fedor', rating: 0, isAddedToBlackList: false},
-      ];
+    if (this.data.dataKey === UserState.Passenger) {
+      this.loadDriversList();
     }
-    else{
-      this.users = [{id: 8, name: 'Ivan', rating: 0, isAddedToBlackList: false}];
+    else {
+      this.loadPassengersList();
     }
+  }
 
+  loadPassengersList(){
+    this.loading = true;
+    this.apiRatePassengersService.getTripPassengers(this.idTripPassenger).subscribe((data) => {
+      this.users = data;
+      this.loading = false;
+    });
+  }
 
+  loadDriversList(): void {
+    this.loading = true;
+    this.apiRatePassengersService.getTripDriver(this.idTripDriver).subscribe((data) => {
+      this.users = data;
+      this.loading = false;
+    });
   }
 
   rateUser(clickObj: StarClickMeta): void {
-    const user = this.users.find((i: User) => i.id === clickObj.itemId);
-    if (!!user) {
-      user.rating = clickObj.rating;
-    }
-    if (this.data.dataKey === UserState.Driver) {
-		  this.apiRatePassengersService.addRatePassenger(user);
+    if (this.data.dataKey === UserState.Passenger) {
+      this.users.forEach((i: User) => {
+        i.id === clickObj.itemId ? i.rate = clickObj.rating : '';
+        return i;
+      })
     }
     else {
-      this.apiRatePassengersService.addRateDriver(user);
+      this.users.forEach((i: User) => {
+        i.id === clickObj.itemId ? i.rate = clickObj.rating : '';
+        return i;
+      })
     }
 	}
 
 	exitTrip(): void {
+    const drivers = [];
+    this.users.forEach((user) => {
+      drivers.push({
+        idDriver: user.id,
+        rate: user.rate,
+      });
+    });
+    const pass = [];
+    this.users.forEach((user) => {
+      pass.push({
+        idPass: user.id,
+        rate: user.rate,
+      });
+    });
+    if (this.data.dataKey === UserState.Passenger){
+      this.apiRatePassengersService.addRateDriver(drivers);
+    }
+    else{
+      this.apiRatePassengersService.addRatePassenger(pass);
+    }
 		this.dialogRef.close();
 	}
 
@@ -60,9 +96,8 @@ export class RatePassengersModalComponent implements OnInit{
 
   addToBlacklist(i) {
     console.log(this.data);
-    this.users[i].isAddedToBlackList = !this.users[i].isAddedToBlackList;
+    //  this.users[i].isAddedToBlackList = !this.users[i].isAddedToBlackList;
   }
-
 
   exit() {
     this.dialogRef.close();

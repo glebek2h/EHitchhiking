@@ -3,7 +3,12 @@ import {Trip} from '../trips-modal/trips';
 import { StarClickMeta } from "../rating/starClickMeta";
 import {MatDialog} from '@angular/material';
 import {RatePassengersModalComponent} from "@shared/components/rate-passengers-modal/rate-passengers-modal.component";
-import {DEFAULT_MAT_DIALOG_CLASS, MAT_DIALOG_WIDTH_SM} from "@shared/constants/modal-constants";
+import {
+  DEFAULT_MAT_DIALOG_CLASS,
+  MAT_DIALOG_HEIGHT_SM,
+  MAT_DIALOG_WIDTH_MD,
+  MAT_DIALOG_WIDTH_SM
+} from "@shared/constants/modal-constants";
 import {UserState} from "@shared/enums/UserState";
 @Component({
 	selector: 'app-trip',
@@ -40,6 +45,7 @@ export class TripComponent implements OnInit {
   openRatePassengersDialog() {
     this.dialog.open(RatePassengersModalComponent, {
       width: MAT_DIALOG_WIDTH_SM,
+      height: MAT_DIALOG_HEIGHT_SM,
       panelClass: DEFAULT_MAT_DIALOG_CLASS,
       autoFocus: false,
       data: {
