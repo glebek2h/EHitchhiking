@@ -88,6 +88,12 @@ public class TripDriver {
     @Column(name = "\"IS_HISTORY\"")
     private boolean isHistory;
 
+    @Getter
+    @Setter
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "\"CHAT\"")
+    private Chat chat;
+
     public TripDriver(String startPoint, String endPoint,
                       Timestamp startTime, Timestamp endTime, boolean isActive,
                       boolean isFinished, boolean isSaved, int seats, Car car, boolean isHistory,
