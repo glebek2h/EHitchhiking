@@ -98,9 +98,15 @@ export class ApiService {
 			map((response: HttpResponse<any>) => {
 				const {msg, status, data} = response.body || response;
 				if (isNotified && ResponseMessages.Error === status) {
-					this.showResponseMessage(ResponseMessages.Error, msg);
+					if (isNotified) {
+						this.showResponseMessage(ResponseMessages.Error, msg);
+					}
+					return Promise.reject(msg);
 				} else if (isNotified && ResponseMessages.Ok === status) {
-					this.showResponseMessage(ResponseMessages.Ok, msg);
+					if (isNotified) {
+						this.showResponseMessage(ResponseMessages.Ok, msg);
+					}
+					return data;
 				}
 				return data;
 			}),
