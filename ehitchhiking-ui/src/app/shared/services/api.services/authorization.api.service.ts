@@ -12,7 +12,7 @@ export class AuthorizationApiService {
 	}
 
 	sendLogOutRequest(): void {
-		this.apiService.doGet(URL_REGISTRY.logOut);
+		this.apiService.doGet(URL_REGISTRY.LOG_OUT);
 	}
 
 	private parseData(data: any): User | null {

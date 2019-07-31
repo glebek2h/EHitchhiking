@@ -43,7 +43,7 @@ export class MainScreenComponent implements OnInit {
 		this.isHiddenTripRegistration = true;
 		this.isDisabledSubmitRouteButton = true;
 		this.userState = UserState.Passenger;
-		this.apiService.doGet(URL_REGISTRY['map.getRoutes']);
+		this.apiService.doGet(URL_REGISTRY.MAP.GET_ROUTES);
 		this.routes = YandexMapService.getSomeRoutes();
 		this.copyRoutes = this.routes.slice();
 	}

@@ -1,7 +1,7 @@
 import {ResponseMessages} from './../../enums/response-message.enum';
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpResponse, HttpErrorResponse} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
+import {Observable} from 'rxjs';
 import {CachingHttpParams} from '@shared/models/caching.http.params';
 import {RequestMethods} from '@shared/enums/request-methods.enum';
 import {URL_REGISTRY} from '@shared/constants/urlRegistry';
@@ -34,7 +34,7 @@ export class ApiService {
 	}
 
 	doInitGet(): Promise<any> {
-		const url = ApiService.apiUrl + URL_REGISTRY.currentUser;
+		const url = ApiService.apiUrl + URL_REGISTRY.CURRENT_USER;
 		return this.http
 			.request(RequestMethods.GET, url, this.getRequestOptions(false) as any)
 			.pipe(
@@ -60,7 +60,7 @@ export class ApiService {
 			withCredentials: true,
 		};
 		return this.http
-			.get(ApiService.apiUrl + URL_REGISTRY.currentUser, httpOptions)
+			.get(ApiService.apiUrl + URL_REGISTRY.CURRENT_USER, httpOptions)
 			.catch((error) => {
 				if (error.status === 401) {
 					this.showResponseMessage(ResponseMessages.Error, 'Invalid login or password!');

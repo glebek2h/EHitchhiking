@@ -16,7 +16,7 @@ export class UserService {
 				this.currentUser = null;
 				return Promise.reject();
 			})
-			.catch((error) => {
+			.catch(() => {
 				return null;
 			});
 	}
