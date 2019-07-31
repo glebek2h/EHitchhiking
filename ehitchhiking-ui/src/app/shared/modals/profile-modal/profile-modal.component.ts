@@ -27,7 +27,8 @@ export class ProfileModalComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.currentUser = this.profileModalService.getCurrentUser();
-		this.carsInfoForm = this.carsInfoService.toFormGroup(this.currentUser.cars, this.formBuilder);
+		const userCars = this.currentUser ? this.currentUser.cars : [];
+		this.carsInfoForm = this.carsInfoService.toFormGroup(userCars, this.formBuilder);
 	}
 
 	close(): void {
