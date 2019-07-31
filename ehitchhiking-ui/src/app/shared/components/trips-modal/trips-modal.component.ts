@@ -5,7 +5,7 @@ import {TripsModalService} from './trips-modal.service';
 import {SortState} from '../../enums/SortState';
 import {NUMBER_OF_TRIPS_VISIBLE_ON_PAGE} from '@shared/constants/modal-constants';
 import {FormControl} from '@angular/forms';
-import { UserState } from "@shared/enums/UserState";
+import {UserState} from '@shared/enums/UserState';
 
 @Component({
 	selector: 'app-trips',
@@ -24,11 +24,8 @@ export class TripsModalComponent implements OnInit {
 	selectedRole: UserState;
 	selectedFavorite = false;
 	selectedBySort = SortState.None;
-	selectedByStatus: number[] = [];
-	selectedByRating: number[] = [];
-  statuses = new FormControl();
-  ratings = new FormControl();
-
+	statuses = new FormControl();
+	ratings = new FormControl();
 
 	@ViewChild('sMarker', {static: true}) markerRef: ElementRef;
 	rating: number;
@@ -41,14 +38,14 @@ export class TripsModalComponent implements OnInit {
 
 	onScroll(entries: IntersectionObserverEntry[]) {
 		for (let entry of entries) {
-			if (entry.isIntersecting) this.limit += NUMBER_OF_TRIPS_VISIBLE_ON_PAGE;
+			if (entry.isIntersecting) {
+				this.limit += NUMBER_OF_TRIPS_VISIBLE_ON_PAGE;
+			}
 		}
 		if (this.limit >= this.tripsArray.length) this.scrollObserver.unobserve(this.markerRef.nativeElement);
-		console.log(`Limit increased ${this.limit}`);
 	}
 	ngOnInit() {
 		this.scrollObserver.observe(this.markerRef.nativeElement);
-		console.log(this.tripService.getTrips());
 		this.tripsArrayLenght = this.tripService.getTrips().length;
 		this.fetchTrips();
 	}
@@ -72,21 +69,16 @@ export class TripsModalComponent implements OnInit {
 
 	filterByRole() {
 		this.tripService.roleFilterConfig.isEnable = true;
-		console.log(this.tripService.roleFilterConfig.isEnable);
 	}
 
 	filterByStatus() {
-		this.selectedByStatus = Object.values(this.statuses.value);
-		this.selectedByStatus.length === 0
-			? (this.tripService.statusFilterConfig.isEnabled = false)
-			: (this.tripService.statusFilterConfig.isEnabled = true);
+		this.tripService.statusFilterConfig.selected = Object.values(this.statuses.value);
+		this.tripService.statusFilterConfig.isEnabled = !!this.tripService.statusFilterConfig.selected.length;
 	}
 
 	filterByRating() {
-		this.selectedByRating = Object.values(this.ratings.value);
-		this.selectedByRating.length === 0
-			? (this.tripService.ratingFilterConfig.isEnabled = false)
-			: (this.tripService.ratingFilterConfig.isEnabled = true);
+		this.tripService.ratingFilterConfig.selected = Object.values(this.ratings.value);
+		this.tripService.ratingFilterConfig.isEnabled = !!this.tripService.ratingFilterConfig.selected.length
 	}
 
 	ChangeSort() {

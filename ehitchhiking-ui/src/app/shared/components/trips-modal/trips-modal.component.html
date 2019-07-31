@@ -65,11 +65,11 @@
 					| filterByFavorite: 'isFavorite':selectedFavorite
 					| filterByStatus
 						: tripService.statusFilterConfig.fieldName
-						: selectedByStatus
+						: tripService.statusFilterConfig.selected
 						: tripService.statusFilterConfig.isEnabled
 					| filterByRating
 						: tripService.ratingFilterConfig.fieldName
-						: selectedByRating
+						: tripService.ratingFilterConfig.selected
 						: tripService.ratingFilterConfig.isEnabled
 					| sortTrips: 'rating':order
 					| slice: 0:limit;
