@@ -18,7 +18,6 @@ public class UserController {
     @GetMapping
     @PostMapping
     private EmployeeVO getCurrentUser(Principal principal) {
-        System.out.println(principal);
         EmployeeVO currentUser = null;
         if (principal != null) {
             currentUser = (EmployeeVO) ((UsernamePasswordAuthenticationToken) principal).getPrincipal();

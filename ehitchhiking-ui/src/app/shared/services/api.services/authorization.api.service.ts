@@ -11,7 +11,7 @@ export class AuthorizationApiService {
 		return this.apiService.doAuthGet(login, password).then(this.parseData);
 	}
 
-	sendLogOutRequest() {
+	sendLogOutRequest(): void {
 		this.apiService.doGet(URL_REGISTRY.logOut);
 	}
 

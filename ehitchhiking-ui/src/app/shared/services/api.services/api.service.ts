@@ -7,6 +7,7 @@ import {RequestMethods} from '@shared/enums/request-methods.enum';
 import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 import {map, catchError} from 'rxjs/operators';
 import {NotificationService} from '../notification.service';
+import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class ApiService {
@@ -14,17 +15,39 @@ export class ApiService {
 
 	constructor(private http: HttpClient, private notificationService: NotificationService) {}
 
-	doGet(urlPath: string, isCacheable: boolean = false, parameters: any = null): Promise<any> {
-		return this.generateRequest(RequestMethods.GET, urlPath, parameters, isCacheable);
+	doGet(
+		urlPath: string,
+		isCacheable: boolean = false,
+		parameters: any = null,
+		isNotified: boolean = true
+	): Promise<any> {
+		return this.generateRequest(RequestMethods.GET, urlPath, isCacheable, isNotified, parameters);
 	}
-	doPost(urlPath: string, data: any = null): Promise<any> {
-		return this.generateRequest(RequestMethods.POST, urlPath, data, false);
+	doPost(urlPath: string, data: any = null, isNotified: boolean = true): Promise<any> {
+		return this.generateRequest(RequestMethods.POST, urlPath, false, isNotified, data);
 	}
-	doDelete(urlPath: string, parameters: any = null): Promise<any> {
-		return this.generateRequest(RequestMethods.DEL, urlPath, parameters, false);
+	doDelete(urlPath: string, parameters: any = null, isNotified: boolean = true): Promise<any> {
+		return this.generateRequest(RequestMethods.DEL, urlPath, false, isNotified, parameters);
 	}
-	getPut(urlPath: string, data: any = null): Promise<any> {
-		return this.generateRequest(RequestMethods.PUT, urlPath, data, false);
+	getPut(urlPath: string, data: any = null, isNotified: boolean = true): Promise<any> {
+		return this.generateRequest(RequestMethods.PUT, urlPath, false, isNotified, data);
+	}
+
+	doInitGet(): Promise<any> {
+		const url = ApiService.apiUrl + URL_REGISTRY.currentUser;
+		return this.http
+			.request(RequestMethods.GET, url, this.getRequestOptions(false) as any)
+			.pipe(
+				map((response: any) => {
+					const {body} = response;
+					return body;
+				}),
+				catchError((error) => {
+					this.showResponseMessage(error, 'Api Error Occurred!');
+					return Promise.reject(error);
+				})
+			)
+			.toPromise();
 	}
 
 	doAuthGet(login: string, password: string): Promise<any> {
@@ -36,40 +59,53 @@ export class ApiService {
 			}),
 			withCredentials: true,
 		};
-		return this.http.get(ApiService.apiUrl + URL_REGISTRY.currentUser, httpOptions).toPromise();
+		return this.http
+			.get(ApiService.apiUrl + URL_REGISTRY.currentUser, httpOptions)
+			.catch((error) => {
+				if (error.status === 401) {
+					this.showResponseMessage(ResponseMessages.Error, 'Invalid login or password!');
+					return Promise.reject();
+				}
+				this.showResponseMessage(ResponseMessages.Error, 'Api Error Occurred!');
+				return Promise.reject();
+			})
+			.toPromise();
 	}
 
 	private generateRequest(
 		type: RequestMethods,
 		urlPath: string,
-		data: any,
-		isCacheable: boolean = false
+		isCacheable: boolean = false,
+		isNotified: boolean = true,
+		data?: any
 	): Promise<any> {
 		const body = data;
 		let url = ApiService.apiUrl + urlPath;
 		let responseObservable = null;
 		if (type === RequestMethods.GET || type === RequestMethods.DEL) {
 			url = this.insertParameters(url, data);
-			responseObservable = this.http.request(type, url, this.getRequestOptions(isCacheable) as any);
 		}
 		responseObservable = this.http.request(type, url, this.getRequestOptions(isCacheable, body) as any);
-		return this.responseMapping(responseObservable).toPromise();
+		return this.responseMapping(responseObservable, isNotified).toPromise();
 	}
 
-	private responseMapping(newResponse: Observable<HttpResponse<any> | HttpErrorResponse>): Observable<any> {
+	private responseMapping(
+		newResponse: Observable<HttpResponse<any> | HttpErrorResponse>,
+		isNotified: boolean = true
+	): any {
 		return newResponse.pipe(
 			map((response: HttpResponse<any>) => {
-				const {msg, status, data} = response.body;
-				if (ResponseMessages.Error === status) {
+				const {msg, status, data} = response.body || response;
+				if (isNotified && ResponseMessages.Error === status) {
 					this.showResponseMessage(ResponseMessages.Error, msg);
-				} else if (ResponseMessages.Ok === status) {
+				} else if (isNotified && ResponseMessages.Ok === status) {
 					this.showResponseMessage(ResponseMessages.Ok, msg);
 				}
-				return of(data);
+				return data;
 			}),
-			catchError((error: HttpErrorResponse) => {
+			catchError((error) => {
 				this.showResponseMessage(error, 'Api Error Occurred!');
-				return of(error);
+				return Promise.reject(error);
 			})
 		);
 	}

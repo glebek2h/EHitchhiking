@@ -1,10 +1,6 @@
-import {HttpResponse, HttpErrorResponse} from '@angular/common/http';
-import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 import {ApiService} from './api.services/api.service';
 import {User} from '@shared/models/user';
 import {Injectable} from '@angular/core';
-import {catchError, map, share} from 'rxjs/operators';
-import {of} from 'rxjs';
 
 @Injectable()
 export class UserService {
@@ -15,23 +11,19 @@ export class UserService {
 
 	init(): void {
 		this.currentUserPromise = this.apiService
-			.doGet(URL_REGISTRY.currentUser, false)
+			.doInitGet()
 			.then(this.parseResponse.bind(this), () => {
 				this.currentUser = null;
 				return Promise.reject();
+			})
+			.catch((error) => {
+				return null;
 			});
 	}
 
-	private parseResponse(response: HttpResponse<any>): User | null {
-		const userData = response.body;
-		if (userData) {
-			return (this.currentUser = new User(
-				userData.id,
-				userData.username,
-				'',
-				userData.email,
-				userData.phoneNumber
-			));
+	private parseResponse(user: any): User | null {
+		if (user) {
+			return (this.currentUser = new User(user.id, user.username, '', user.email, user.phoneNumber));
 		}
 		this.currentUser = null;
 		return null;
