@@ -12,7 +12,9 @@ export const URL_REGISTRY = {
 		GET_ROUTES: 'tripPassenger/getAllDriverTrips',
 	},
 	CAR: {
-		GET_ALL: '/car/getAll?id={{id}}',
+		ADD_CAR: 'car/addCar',
+		GET_ALL: 'car/getAll?id={{id}}',
+		DELETE_CAR: 'car/deleteCar?id={{id}}',
 	},
 	CURRENT_USER: 'currentUser',
 	LOG_OUT: '/logout',

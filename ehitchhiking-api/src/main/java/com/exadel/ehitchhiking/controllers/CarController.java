@@ -1,5 +1,6 @@
 package com.exadel.ehitchhiking.controllers;
 
+import com.exadel.ehitchhiking.models.Car;
 import com.exadel.ehitchhiking.models.vo.CarVO;
 import com.exadel.ehitchhiking.requests.RequestCar;
 import com.exadel.ehitchhiking.responses.*;
@@ -36,33 +37,39 @@ public class CarController {
     }
 
     @PostMapping("/addCar")
-    public Response<String> createCar(@RequestBody RequestCar car) {
-        Response<String> response = new Response<>();
+    public Response<CarVO> createCar(@RequestBody RequestCar car) {
+        Response<CarVO> response = new Response<>();
+
         try {
-            carService.createCar(car.getColor(), car.getNumber(), car.getCarModel(),
-                    Integer.parseInt(car.getIdOfDrive()));
-            response.setStatus("200");
-            response.setData("true");
+            CarVO newCar = carService.createCar(car.getColor(), car.getNumber(), car.getModel(),
+                    Integer.parseInt(car.getIdOfDriver()));
+            response.setStatus("success");
+            response.setData(newCar);
+            response.setMsg("Successfully added the car!");
             return response;
 
         } catch (Exception e) {
-            response.setStatus("500");
-            response.setData("false");
+            System.out.println(e);
+            response.setStatus("error");
+            response.setData(null);
+            response.setMsg("Failed adding the car!");
             return response;
         }
     }
 
-    @PutMapping("/deleteCar")
-    public Response<String> deleteCar(@RequestBody RequestCar car) {
+    @DeleteMapping("/deleteCar")
+    public Response<String> deleteCar(String id) {
         Response<String> response = new Response<>();
         try {
-            carService.deletedCar(Integer.parseInt(car.getCarId()));
-            response.setStatus("200");
+            carService.deletedCar(Integer.parseInt(id));
+            response.setStatus("success");
             response.setData("true");
+            response.setMsg("Successfully deleted the car");
             return response;
         } catch (Exception e) {
-            response.setStatus("500");
+            response.setStatus("error");
             response.setData("false");
+            response.setMsg("Failed deleting the car");
             return response;
         }
     }

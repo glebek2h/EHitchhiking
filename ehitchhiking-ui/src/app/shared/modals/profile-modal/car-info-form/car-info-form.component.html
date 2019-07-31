@@ -16,9 +16,9 @@
 	</mat-form-field>
 	<span *ngIf="hasError('color', 'pattern')" class="form-error">Car color must contain a-z, A-Z,- 3-20 symbols</span>
 	<mat-form-field class="car-form-field">
-		<input matInput formControlName="carNumber" placeholder="Number" class="car-form-input" />
+		<input matInput formControlName="number" placeholder="Number" class="car-form-input" />
 	</mat-form-field>
-	<span *ngIf="hasError('carNumber', 'pattern')" class="form-error"
+	<span *ngIf="hasError('number', 'pattern')" class="form-error"
 		>Car number must contain 0-9, a-z, A-Z,- 6-8 symbols</span
 	>
 	<button mat-raised-button type="submit" [disabled]="addCarForm.invalid" class="car-form-submit" *ngIf="addCarMod">

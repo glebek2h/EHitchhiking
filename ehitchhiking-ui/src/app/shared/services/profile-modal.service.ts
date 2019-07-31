@@ -23,6 +23,23 @@ export class ProfileModalService {
 		);
 	}
 
+	addNewCar(newCar: any, userId: string): Promise<Car | null> {
+		newCar.idOfDriver = userId;
+		return this.profileModalApiService
+			.sendNewCarRequest(newCar)
+			.then((data) => {
+				return this.parseCarData(data);
+			})
+			.catch(() => null);
+	}
+
+	deleteCar(carId: string): Promise<boolean> {
+		return this.profileModalApiService
+			.sendDeleteRequest(carId)
+			.then((data) => data)
+			.catch(() => false);
+	}
+
 	private parseCarData(data: any): Car {
 		return new Car(data.id, data.model, data.color, data.number);
 	}

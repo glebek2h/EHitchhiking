@@ -41,14 +41,23 @@ export class ProfileModalComponent implements OnInit {
 		this.addCarMod = !this.addCarMod;
 	}
 
-	onSubmitNewCar(newCar: Car): void {
-		this.currentUser.addCar(newCar);
-		this.carsInfoForm = this.carsInfoService.toFormGroup(this.currentUser.cars, this.formBuilder);
-		this.addCarMod = false;
+	onSubmitNewCar(newCar: any): void {
+		this.profileModalService.addNewCar(newCar, this.currentUser.id).then((car) => {
+			if (car) {
+				console.log(car);
+				this.currentUser.addCar(car);
+				this.carsInfoForm = this.carsInfoService.toFormGroup(this.currentUser.cars, this.formBuilder);
+			}
+			this.addCarMod = false;
+		});
 	}
 
 	onSubmitCarsChanges(): void {
-		const newCars = this.carsInfoService.getCarsInfo(this.carsInfoForm, this.currentUser.cars.length);
+		const newCars = this.carsInfoService.getCarsInfo(
+			this.carsInfoForm,
+			this.currentUser.cars.length,
+			this.currentUser.cars
+		);
 		this.currentUser.cars = newCars;
 	}
 
@@ -57,6 +66,10 @@ export class ProfileModalComponent implements OnInit {
 	}
 
 	onCarDelete(event: MouseEvent, index: number): void {
-		this.currentUser.cars.splice(index, 1);
+		this.profileModalService.deleteCar(this.currentUser.cars[index].id).then((response) => {
+			if (response) {
+				this.currentUser.cars.splice(index, 1);
+			}
+		});
 	}
 }

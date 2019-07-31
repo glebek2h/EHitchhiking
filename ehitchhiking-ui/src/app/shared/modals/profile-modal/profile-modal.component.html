@@ -26,7 +26,7 @@
 				</button>
 			</div>
 		</ng-container>
-		<form [formGroup]="carsInfoForm" name="cars-info-form" (ngSubmit)="onSubmitCarsChanges()">
+		<span *ngIf="carsInfoForm" [formGroup]="carsInfoForm" name="cars-info-form" (ngSubmit)="onSubmitCarsChanges()">
 			<mat-accordion class="car-info-container" *ngIf="!addCarMod">
 				<mat-expansion-panel class="profile-car-info"
 					*ngFor="let curCar of currentUser.cars; let index = index">
@@ -35,7 +35,7 @@
 							{{ curCar.model }}
 						</mat-panel-title>
 						<mat-panel-description class="profile-car-info-desc">
-							<span class="profile-car-info-desc-item">{{ curCar.carNumber }}</span><span
+							<span class="profile-car-info-desc-item">{{ curCar.number }}</span><span
 								class="profile-car-info-desc-item">{{ curCar.color }} </span>
 							<button mat-icon-button class="car-info-delete profile-car-info-desc-item"
 								(click)="onCarDelete($event, index)">
@@ -58,7 +58,7 @@
 					Save changes
 				</button>
 			</div>
-		</form>
+		</span>
 	</div>
 	<div *ngIf="!currentUser" class="no-data-wrapper">
 		<app-no-data [isEmpty]="!currentUser"></app-no-data>

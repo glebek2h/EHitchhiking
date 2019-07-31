@@ -2,22 +2,22 @@ export class Car {
 	id: string;
 	model: string;
 	color: string;
-	carNumber: string;
+	number: string;
 
-	constructor(id: string, model: string = '', color: string = '', carNumber: string = '') {
+	constructor(id: string, model: string = '', color: string = '', number: string = '') {
 		this.id = id;
 		this.model = model;
 		this.color = color;
-		this.carNumber = carNumber;
+		this.number = number;
 	}
 
 	isEmpty(): boolean {
-		return !this.model && !this.color && !this.carNumber && !this.id;
+		return !this.model && !this.color && !this.number && !this.id;
 	}
 
-	changeData(model: string, color: string, carNumber: string): void {
+	changeData(model: string, color: string, number: string): void {
 		this.model = model || this.model;
 		this.color = color || this.color;
-		this.carNumber = carNumber || this.carNumber;
+		this.number = number || this.number;
 	}
 }
