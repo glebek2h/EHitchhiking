@@ -1,5 +1,4 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {Trip} from "../components/trips-modal/trips";
 import {UserState} from "../enums/UserState";
 
 

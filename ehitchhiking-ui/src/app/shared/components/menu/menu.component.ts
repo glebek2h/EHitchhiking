@@ -1,3 +1,5 @@
+import {URL_REGISTRY} from '@shared/constants/urlRegistry';
+import {ApiService} from '@shared/services/api.services/api.service';
 import {AuthorizationService} from './../../services/authorization.service';
 import {Component, OnInit} from '@angular/core';
 import {BUTTONS_NAMES} from './buttons-names';
@@ -22,7 +24,6 @@ export class MenuComponent implements OnInit {
 
 	constructor(
 		public dialog: MatDialog,
-		public notificationService: NotificationService,
 		private authorizationService: AuthorizationService
 	) {}
 
