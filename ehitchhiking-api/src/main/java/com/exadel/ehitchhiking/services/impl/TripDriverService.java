@@ -42,11 +42,10 @@ public class TripDriverService implements ITripDriverService {
     public void createTripDriver(String startingPoint, String endingPoint,
                                  Instant startingTime, Instant endingTime, int idOfCar, int seats,
                                  Point coordStart, Point coordEnd, float distance){
-
-//        TripDriverVO tripDriver = new TripDriverVO(startingPoint, endingPoint,
-//                startingTime, endingTime, true,
-//                false, false, seats, carDAO.getCar(idOfCar), false, coordStart,coordEnd, distance);
-//        dao.save(tripDriver);
+        TripDriver tripDriver = new TripDriver(startingPoint, endingPoint,
+                Timestamp.from(startingTime), Timestamp.from(endingTime), true,
+                false, false, seats, carDAO.getCar(idOfCar), false, coordStart,coordEnd, distance);
+        dao.save(tripDriver);
     }
 
     @Override
@@ -160,15 +159,5 @@ public class TripDriverService implements ITripDriverService {
                 //.sorted()
                 .collect(Collectors.toList());
 
-//        for (TripDriverVO trip: list) {
-//            assert(trip.getSeats() >= seats);
-//        }
-/*        for (TripDriverVO trip: list){
-            if (trip.getSeats() >= seats){
-                if (startingTime.toLocalDateTime().minusHours(1).isBefore(Timestamp.from(trip.getStartingTime()).toLocalDateTime())
-                &  endingTime.toLocalDateTime().plusHours(1).isAfter(Timestamp.from(trip.getEndingTime()).toLocalDateTime())){
-                }
-            }
-        }*/
     }
 }

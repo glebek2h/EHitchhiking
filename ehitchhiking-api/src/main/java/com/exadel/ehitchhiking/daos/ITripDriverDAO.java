@@ -12,4 +12,5 @@ public interface ITripDriverDAO extends IBasicDAO<TripDriver> {
     TripDriver getTripDriver(int id);
     int getAvailableSeats(int id);
     List<TripPass> getTripPass (int id);
+    List<TripDriver> getHistory(int empId);
 }
