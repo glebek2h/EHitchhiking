@@ -40,10 +40,10 @@ public class TripDriverService implements ITripDriverService {
                                  Instant startingTime, Instant endingTime, int idOfCar, int seats,
                                  Point coordStart, Point coordEnd, float distance){
 
-//        TripDriverVO tripDriver = new TripDriverVO(startingPoint, endingPoint,
-//                startingTime, endingTime, true,
-//                false, false, seats, carDAO.getCar(idOfCar), false, coordStart,coordEnd, distance);
-//        dao.save(tripDriver);
+        TripDriver tripDriver = new TripDriver(startingPoint, endingPoint,
+                Timestamp.from(startingTime), Timestamp.from(endingTime), true,
+                false, false, seats, carDAO.getCar(idOfCar), false, coordStart,coordEnd, distance);
+       dao.save(tripDriver);
     }
 
     @Override

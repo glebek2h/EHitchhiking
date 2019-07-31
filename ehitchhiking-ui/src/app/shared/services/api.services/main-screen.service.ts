@@ -57,7 +57,7 @@ export class MainScreenService {
         startingTime: route.departureDate,
         endingTime: route.departureDate,
         seats: route.placesSelect,
-        idTripDriver: 1,
+        idTripDriver: 5,
         distance: 12,
         coordStart: {x: 53.2132113212,y: 32.32113},
         coordEnd: {x: 51.2132113212,y: 32.32113},
