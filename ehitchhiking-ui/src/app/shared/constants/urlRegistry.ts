@@ -11,6 +11,9 @@ export const URL_REGISTRY = {
 	MAP: {
 		GET_ROUTES: 'tripPassenger/getAllDriverTrips',
 	},
+	CAR: {
+		GET_ALL: '/car/getAll?id={{id}}',
+	},
 	CURRENT_USER: 'currentUser',
 	LOG_OUT: '/logout',
 };

@@ -2,6 +2,7 @@
 	<div class="modal-header">
 		<span class="modal-title">{{ currentUser ? currentUser.name : 'Error'}}</span>
 	</div>
+	<app-pre-loading [isLoading]="!carsInfoForm"></app-pre-loading>
 	<div *ngIf="currentUser" class="modal-content">
 		<div class="profile-user-info">
 			<img class="profile-user-photo" *ngIf="currentUser.photoPath; else elseBlock"
@@ -35,8 +36,7 @@
 						</mat-panel-title>
 						<mat-panel-description class="profile-car-info-desc">
 							<span class="profile-car-info-desc-item">{{ curCar.carNumber }}</span><span
-								class="profile-car-info-desc-item">{{ curCar.color }} </span><span
-								class="profile-car-info-desc-item">{{ curCar.experience }}</span>
+								class="profile-car-info-desc-item">{{ curCar.color }} </span>
 							<button mat-icon-button class="car-info-delete profile-car-info-desc-item"
 								(click)="onCarDelete($event, index)">
 								<mat-icon class="car-info-delete-icon">delete</mat-icon>

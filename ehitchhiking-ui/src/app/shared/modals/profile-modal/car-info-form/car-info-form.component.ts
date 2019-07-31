@@ -24,7 +24,6 @@ export class CarInfoFormComponent implements OnInit {
 			model: ['', [Validators.required, Validators.pattern('^[0-9a-zA-Z-]{3,50}$')]],
 			color: ['', [Validators.required, Validators.pattern('^[a-zA-Z-]{3,20}$')]],
 			carNumber: ['', [Validators.required, Validators.pattern('^[0-9a-zA-Z-]{6,8}$')]],
-			experience: ['', [Validators.required, Validators.pattern('^[0-9]{1,2}$'), Validators.max(80)]],
 		});
 	}
 

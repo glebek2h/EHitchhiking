@@ -1,10 +1,14 @@
 package com.exadel.ehitchhiking.controllers;
 
+import com.exadel.ehitchhiking.models.vo.CarVO;
 import com.exadel.ehitchhiking.requests.RequestCar;
 import com.exadel.ehitchhiking.responses.*;
 import com.exadel.ehitchhiking.services.ICarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/car")
@@ -12,6 +16,24 @@ public class CarController {
 
     @Autowired
     private ICarService carService;
+
+    @GetMapping("/getAll")
+    public Response<List<CarVO>> getAllUserCars(String id) {
+        Response<List<CarVO>> response = new Response<>();
+        List<CarVO> cars = new ArrayList<>();
+        try {
+            cars = carService.getListCars(Integer.parseInt(id));
+            response.setData(cars);
+            response.setStatus("success");
+            response.setMsg("Successfully got cars");
+            return response;
+        } catch (Exception e) {
+            response.setData(cars);
+            response.setStatus("error");
+            response.setMsg("Failed getting cars");
+            return response;
+        }
+    }
 
     @PostMapping("/addCar")
     public Response<String> createCar(@RequestBody RequestCar car) {

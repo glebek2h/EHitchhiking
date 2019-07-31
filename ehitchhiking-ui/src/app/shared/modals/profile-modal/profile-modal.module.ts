@@ -1,3 +1,4 @@
+import {PreLoadingModule} from '@shared/components/pre-loading/pre-loading.module';
 import {ProfileModalApiService} from './../../services/api.services/profile-modal.api.service';
 import {ProfileModalService} from './../../services/profile-modal.service';
 import {CarInfoFormComponent} from './car-info-form/car-info-form.component';
@@ -24,6 +25,7 @@ import {NoDataModule} from '@shared/components/no-data/no-data.module';
 		MatFormFieldModule,
 		MatInputModule,
 		NoDataModule,
+		PreLoadingModule,
 	],
 	providers: [ProfileModalService, ProfileModalApiService],
 	entryComponents: [ProfileModalComponent],

@@ -1,6 +1,5 @@
 package com.exadel.ehitchhiking.services;
 
-import com.exadel.ehitchhiking.models.Car;
 import com.exadel.ehitchhiking.models.vo.CarVO;
 
 import java.util.List;
