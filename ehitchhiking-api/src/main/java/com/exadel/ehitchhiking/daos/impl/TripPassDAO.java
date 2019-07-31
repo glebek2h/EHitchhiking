@@ -2,6 +2,8 @@ package com.exadel.ehitchhiking.daos.impl;
 
 import com.exadel.ehitchhiking.daos.ITripPassDAO;
 import com.exadel.ehitchhiking.models.TripPass;
+import com.exadel.ehitchhiking.models.vo.TripPassVO;
+import com.exadel.ehitchhiking.models.vo.TripsHistoryVO;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
@@ -27,5 +29,16 @@ public class TripPassDAO extends AbstractDAO<TripPass> implements ITripPassDAO {
     @Override
     public int getAmountPass(int idTripDriver) {
         return getCurrentSession().createQuery("from TripPass where tripDriver.id = \"" + idTripDriver + "\"").list().size();
+    }
+
+
+    @Override
+    public List<TripPass> getHistory(int empId){
+        return (List<TripPass>) getCurrentSession().createQuery("from TripPass where passenger.employee.id = '" + empId + "' and isHistory = true ").list();
+    }
+
+    @Override
+    public List<TripPass> getActive(int empId){
+        return (List<TripPass>) getCurrentSession().createQuery("from TripPass where passenger.employee.id = '" + empId + "' and isActive = true ").list();
     }
 }

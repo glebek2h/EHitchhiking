@@ -5,6 +5,8 @@ import com.exadel.ehitchhiking.models.Car;
 import com.exadel.ehitchhiking.models.TripDriver;
 import com.exadel.ehitchhiking.models.TripPass;
 
+import com.exadel.ehitchhiking.models.vo.TripDriverVO;
+import com.exadel.ehitchhiking.models.vo.TripsHistoryVO;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
@@ -40,9 +42,13 @@ public class TripDriverDAO extends AbstractDAO<TripDriver> implements ITripDrive
 
     @Override
     public List<TripDriver> getHistory(int empId){
-        return (List<TripDriver>) getCurrentSession().createQuery("from TripDriver where Driver.employee.id = '" + empId + "'").uniqueResult();
+        return (List<TripDriver>) getCurrentSession().createQuery("from TripDriver where car.driver.employee.id = '" + empId + "' and isHistory = true ").list();
     }
 
+    @Override
+    public List<TripDriver> getActive(int empId){
+        return (List<TripDriver>) getCurrentSession().createQuery("from TripDriver where car.driver.employee.id = '" + empId + "' and isActive = true ").list();
+    }
 
 
 }

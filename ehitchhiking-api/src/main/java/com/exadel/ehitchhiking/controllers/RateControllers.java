@@ -32,7 +32,7 @@ public class RateControllers {
     ITripDriverService tripDriverService;
 
     @PutMapping("/passenger")
-    public Response<String> updateRatePass(@RequestBody RequestPassenger[] passengerList) {
+    public Response<String> updateRatePass(@RequestBody List<RequestPassenger> passengerList) {
         Response<String> response = new Response<>();
         try {
             for (RequestPassenger passenger : passengerList) {
