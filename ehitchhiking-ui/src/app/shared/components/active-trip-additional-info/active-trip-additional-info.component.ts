@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {ActiveTrip} from '../active-trip/active-trip';
 import {UserState} from '@shared/enums/UserState';
 
