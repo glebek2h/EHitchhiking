@@ -6,7 +6,7 @@ export const URL_REGISTRY = {
 		GET_PASSENGER_BLACKLIST: 'blackList/driver?empId={{empId}}',
 	},
 	EMPLOYEE: {
-		GET: 'Employee/getEmployeeUserName?username={{name}}',
+		GET: 'employee?id={{id}}',
 	},
 	MAP: {
 		GET_ROUTES: 'tripPassenger/getAllDriverTrips',
