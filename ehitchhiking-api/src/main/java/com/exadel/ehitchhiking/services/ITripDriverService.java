@@ -1,6 +1,7 @@
 package com.exadel.ehitchhiking.services;
 
 import com.exadel.ehitchhiking.models.TripDriver;
+import com.exadel.ehitchhiking.models.vo.PassengerVO;
 import com.exadel.ehitchhiking.models.vo.TripDriverVO;
 import org.springframework.data.geo.Point;
 
@@ -38,4 +39,6 @@ public interface ITripDriverService {
     void updateSeats(int id, int seats);
 
     void updateActive(int id, boolean isActive);
+
+    List<PassengerVO> getPassengers(int id);
 }

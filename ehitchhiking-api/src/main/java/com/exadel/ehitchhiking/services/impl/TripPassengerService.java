@@ -5,6 +5,8 @@ import com.exadel.ehitchhiking.daos.ITripDriverDAO;
 import com.exadel.ehitchhiking.daos.ITripPassDAO;
 import com.exadel.ehitchhiking.models.TripDriver;
 import com.exadel.ehitchhiking.models.TripPass;
+import com.exadel.ehitchhiking.models.vo.DriverVO;
+import com.exadel.ehitchhiking.models.vo.TripPassVO;
 import com.exadel.ehitchhiking.services.ITripPassengerService;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,5 +101,17 @@ public class TripPassengerService implements ITripPassengerService {
     @Override
     public void deletePassTrip(int id) {
         dao.delete(dao.getTripPass(id));
+    }
+
+
+    @Override
+    public TripPassVO findTripPass(int id){
+
+        return TripPassVO.fromEntity(dao.getTripPass(id));
+    }
+
+    @Override
+    public DriverVO findIdDriver (int id){
+       return findTripPass(id).getDriver();
     }
 }

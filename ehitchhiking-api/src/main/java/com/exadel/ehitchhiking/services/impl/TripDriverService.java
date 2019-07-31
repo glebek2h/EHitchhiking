@@ -4,6 +4,8 @@ import com.exadel.ehitchhiking.daos.ICarDAO;
 import com.exadel.ehitchhiking.daos.ITripDriverDAO;
 import com.exadel.ehitchhiking.daos.ITripPassDAO;
 import com.exadel.ehitchhiking.models.TripDriver;
+import com.exadel.ehitchhiking.models.TripPass;
+import com.exadel.ehitchhiking.models.vo.PassengerVO;
 import com.exadel.ehitchhiking.models.vo.TripDriverVO;
 import com.exadel.ehitchhiking.services.ITripDriverService;
 import com.exadel.ehitchhiking.utils.ComareUtils;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -119,6 +122,17 @@ public class TripDriverService implements ITripDriverService {
         TripDriver tripDriver = dao.getTripDriver(id);
         tripDriver.setHistory(false);
         dao.update(tripDriver);
+    }
+
+    @Override
+    public List<PassengerVO> getPassengers(int id){
+        List<TripPass> tripPassList= dao.getTripPass(id);
+        List<PassengerVO> listPass = new ArrayList<PassengerVO>() {
+        };
+        for (TripPass tripPass: tripPassList){
+            listPass.add(PassengerVO.fromEntity(tripPass.getPassenger()));
+        }
+        return listPass;
     }
 
 

@@ -1,5 +1,7 @@
 package com.exadel.ehitchhiking.services;
 
+import com.exadel.ehitchhiking.models.vo.DriverVO;
+import com.exadel.ehitchhiking.models.vo.TripPassVO;
 import org.springframework.data.geo.Point;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -27,4 +29,8 @@ public interface ITripPassengerService {
                     int newSeats, Point coordStart, Point coordEnd, float distance);
 
     void updateActive(int id, boolean isActive);
+
+    TripPassVO findTripPass(int id);
+
+    DriverVO findIdDriver (int id);
 }
