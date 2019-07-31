@@ -33,7 +33,7 @@ export class BlacklistComponent implements OnInit {
 
 	loadDriversList(): void {
 		this.loading = true;
-		this.apiBlacklistService.getDriverBlacklist({empId: this.curUser.id}).subscribe((data) => {
+		this.apiBlacklistService.getDriverBlacklist({empId: this.curUser.id}).then((data) => {
 			this.driversBlacklist = data;
 			this.loading = false;
 		});
@@ -41,7 +41,7 @@ export class BlacklistComponent implements OnInit {
 
 	loadPassengersList(): void {
 		this.loading = true;
-		this.apiBlacklistService.getPassengerBlacklist({empId: this.curUser.id}).subscribe((data) => {
+		this.apiBlacklistService.getPassengerBlacklist({empId: this.curUser.id}).then((data) => {
 			this.passengersBlacklist = data;
 			this.loading = false;
 		});
