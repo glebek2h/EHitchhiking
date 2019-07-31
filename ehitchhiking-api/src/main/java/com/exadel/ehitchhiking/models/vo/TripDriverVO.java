@@ -1,7 +1,5 @@
 package com.exadel.ehitchhiking.models.vo;
 
-import com.exadel.ehitchhiking.models.Car;
-import com.exadel.ehitchhiking.models.Driver;
 import com.exadel.ehitchhiking.models.TripDriver;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;

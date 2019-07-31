@@ -3,7 +3,6 @@ import ymaps from 'ymaps';
 import {UserState} from '../../../shared/enums/UserState';
 import {YandexMapService} from './yandex-map.service';
 import MultiRouteModel = ymaps.multiRouter.MultiRouteModel;
-import {DELETE_ROUTE_MARKER} from '../../../shared/constants/modal-constants';
 import {Route} from '@pages/main-screen/Route';
 
 @Component({
@@ -94,7 +93,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
     }
     if (changes.redraw && changes.redraw.currentValue) {
       this.routes.forEach((route, i) => {
-        if (i < YandexMapComponent.ROUTES_ON_MAP_COUNT) {
+        if (i < YandexMapComponent.ROUTES_ON_MAP_COUNT && i < this.routes.length ) {
           this.addMultiRoute(i, false);
           route.displayed = true;
         } else {
@@ -112,7 +111,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
 				return;
 			}
       if (this.userState === UserState.Passenger) {
-				for (let i = 0; i < YandexMapComponent.ROUTES_ON_MAP_COUNT; i++) {
+				for (let i = 0; i < YandexMapComponent.ROUTES_ON_MAP_COUNT && i < this.routes.length ; i++) {
           this.addMultiRoute(i, false);
         }
         this.placeMarkForPassenger();

@@ -2,11 +2,14 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {UtilsService} from '../../../shared/services/utils.service';
 import {DELETE_ROUTE_MARKER} from '../../../shared/constants/modal-constants';
 import {Route} from "@pages/main-screen/Route";
+import {MainScreenService} from "@shared/services/api.services/main-screen.service";
+import {URL_REGISTRY} from "@shared/constants/urlRegistry";
 
 @Component({
 	selector: 'app-routes-list',
 	templateUrl: './routes-list.component.html',
 	styleUrls: ['./routes-list.component.sass'],
+  providers: [MainScreenService],
 })
 export class RoutesListComponent implements OnInit {
 	@Input() activeRoutesCollection: Partial<Route>[];
@@ -17,11 +20,11 @@ export class RoutesListComponent implements OnInit {
   isChecked: boolean;
   ROUTES_ON_MAP_COUNT = 3;
 
-	constructor() {}
+	constructor(private mainScreenService: MainScreenService) {}
 
 	ngOnInit() {
-	  this.isChecked = false;
-  }
+		this.isChecked = false;
+	}
 
 	parseDate(date: Date): string {
 		return UtilsService.formatDate(date);
@@ -34,6 +37,7 @@ export class RoutesListComponent implements OnInit {
   }
 
   submitRoute(index: number) {
+	  this.mainScreenService.savePassengerRoute(this.activeRoutesCollection[index]);
   }
 
   getData(data: any) {

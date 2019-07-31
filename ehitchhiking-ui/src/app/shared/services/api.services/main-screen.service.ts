@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {URL_REGISTRY} from '@shared/constants/urlRegistry';
-import {ApiService} from '@shared/services/api.service';
 import {map} from "rxjs/operators";
 import {Car} from "@shared/models/car";
+import {ApiService} from "@shared/services/api.services/api.service";
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,7 @@ export class MainScreenService {
   }
 
   getDriversRoutes(tripData) {
-    return this.apiService.doPost(URL_REGISTRY['map.getRoutes'],false,{
+    return this.apiService.doPost(URL_REGISTRY.MAP.GET_DRIVERS_ROUTES,{
       startingTime: tripData.departureDate,
       endingTime: tripData.departureDate,
       seats: tripData.placesSelect,
@@ -33,7 +33,7 @@ export class MainScreenService {
 
   saveDriverRoute(tripData) {
    return this.apiService
-      .doPost(URL_REGISTRY['map.postDriverRoute'], false, {
+      .doPost(URL_REGISTRY.MAP.POST_DRIVER_ROUTE, {
         startingPoint: tripData.from,
         endingPoint: tripData.to,
         startingTime: tripData.departureDate,
@@ -45,12 +45,12 @@ export class MainScreenService {
         coordEnd: {x: 51.2132113212,y: 32.32113},
         distance: 10.2,
         seats: tripData.placesSelect,
-      })
+      }).subscribe((data) => console.log(data));
   }
 
   savePassengerRoute(route) {
     return this.apiService
-      .doPost(URL_REGISTRY['map.postPassengerRoute'], false, {
+      .doPost(URL_REGISTRY.MAP.POST_PASSENGER_ROUTE, {
         passId: 14,
         startingPoint: route.from,
         endingPoint: route.to,
@@ -61,8 +61,6 @@ export class MainScreenService {
         distance: 12,
         coordStart: {x: 53.2132113212,y: 32.32113},
         coordEnd: {x: 51.2132113212,y: 32.32113},
-
-
-      });
+      }).subscribe((data) => console.log(data));
   }
 }

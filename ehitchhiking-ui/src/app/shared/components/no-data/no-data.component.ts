@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {NoDataSize} from '@shared/enums/no-data-sizes';
 
 @Component({
@@ -6,7 +6,7 @@ import {NoDataSize} from '@shared/enums/no-data-sizes';
 	templateUrl: './no-data.component.html',
 	styleUrls: ['./no-data.component.sass'],
 })
-export class NoDataComponent implements OnInit {
+export class NoDataComponent {
 	@Input() isEmpty: boolean;
 	@Input() size: NoDataSize = NoDataSize.Middle;
 	@Input() message;
@@ -15,8 +15,6 @@ export class NoDataComponent implements OnInit {
 	defaultMessage = 'No data!';
 
 	constructor() {}
-
-	ngOnInit() {}
 
 	defineSize(size: NoDataSize) {
 		return `no-data-block-${size}`;

@@ -23,12 +23,12 @@ export class TripRegistrationComponent implements OnInit {
 
 	ngOnInit() {
 		this.nameFormGroup = new FormGroup({
-      from: new FormControl('', [Validators.required]),
-      to: new FormControl('', [Validators.required]),
-      departureDate: new FormControl('', [Validators.required]),
-      placesSelect: new FormControl('', [Validators.required]),
-      departureTime: new FormControl('', [Validators.required]),
-      car: new FormControl(''),
+      from: new FormControl('Барановичи', [Validators.required]),
+      to: new FormControl('Пинск', [Validators.required]),
+      departureDate: new FormControl('1/1/2019', [Validators.required]),
+      placesSelect: new FormControl('4', [Validators.required]),
+      departureTime: new FormControl('12:00 am', [Validators.required]),
+      car: new FormControl('ferrari'),
 		});
 	}
 

@@ -66,15 +66,15 @@ public class PassengerService implements IPassengerService {
     }
 
     @Override
-    public void deleteDriverToBL(int idPass, int idDriver) {
-        Passenger passenger = dao.getPassenger(idPass);
+    public void deleteDriverFromBL(int idEmp, int idDriver) {
+        Passenger passenger = dao.getByEmployeeId(idEmp);
         passenger.getDrivers().remove(driverDAO.getDriver(idDriver));
         dao.saveOrUpdate(passenger);
     }
 
     @Override
     public List<DriverVO> getDrivers(int idEmp) {
-        return dao.getPassenger(idEmp).getDrivers().stream().map(DriverVO::fromEntity).collect(Collectors.toList());
+        return dao.getByEmployeeId(idEmp).getDrivers().stream().map(DriverVO::fromEntity).collect(Collectors.toList());
     }
 
 

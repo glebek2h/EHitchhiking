@@ -1,11 +1,13 @@
 package com.exadel.ehitchhiking.responses;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
 
+@Data
 @NoArgsConstructor
 public class ResponseMany<T> {
 
