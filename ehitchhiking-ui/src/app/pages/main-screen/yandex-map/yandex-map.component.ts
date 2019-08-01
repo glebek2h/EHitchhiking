@@ -4,6 +4,7 @@ import {UserState} from '../../../shared/enums/UserState';
 import {YandexMapService} from './yandex-map.service';
 import MultiRouteModel = ymaps.multiRouter.MultiRouteModel;
 import {Route} from '@pages/main-screen/Route';
+import {ActiveTripsMapService} from "@shared/services/active-trips-map.service";
 
 @Component({
 	// tslint:disable-next-line:component-selector
@@ -12,7 +13,6 @@ import {Route} from '@pages/main-screen/Route';
 	styleUrls: ['./yandex-map.component.sass'],
 })
 export class YandexMapComponent implements OnInit, OnChanges {
-	constructor() {}
 
 	static readonly API_URL = 'https://api-maps.yandex.ru/2.1/?apikey=05c4e476-2248-4d27-836c-4a6c7c45e485&lang=en_US';
 	static readonly ROUTES_ON_MAP_COUNT = 3;
@@ -26,6 +26,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
 	myMark;
 
   marker: boolean;
+  routeFromActiveModalToDisplay: Partial<Route>;
 
   @Output() passengerPlaceMark = new EventEmitter<boolean>();
 	@Input() routes: Partial<Route>[]; // 'интерфейсы' маршрутов, которые ещё нужно построить
@@ -36,6 +37,12 @@ export class YandexMapComponent implements OnInit, OnChanges {
 	@Input() triggers: any;
   @Input() redraw: any;
   @Input() indexRouteToDisplay: any;
+
+  constructor(private activeTripsMapService: ActiveTripsMapService) {
+    this.activeTripsMapService.getMessage().subscribe((route) => {
+      this.routeFromActiveModalToDisplay = route;
+    });
+  }
 
 	ngOnInit() {
 		this.ymapsPromise = ymaps.load(YandexMapComponent.API_URL);
@@ -90,6 +97,10 @@ export class YandexMapComponent implements OnInit, OnChanges {
     }
     if (changes.triggers && this.marker) {
       this.myMap.geoObjects.removeAll();
+      if(this.routeFromActiveModalToDisplay){
+        this.drawMultiRoute(this.routeFromActiveModalToDisplay,false);
+        this.routeFromActiveModalToDisplay = null;
+      }
     }
     if (changes.redraw && changes.redraw.currentValue) {
       this.routes.forEach((route, i) => {
@@ -224,4 +235,45 @@ export class YandexMapComponent implements OnInit, OnChanges {
 				});
 		});
 	}
+
+  placeStaticMark(coords) {
+    this.ymapsPromise.then((maps) => {
+      const myGeoObject = new maps.GeoObject(
+        {
+          geometry: {
+            type: 'Point',
+            coordinates: [coords[0], coords[1]],
+          },
+        },
+        {
+          preset: 'islands#yellowPersonIcon',
+          draggable: true,
+        }
+      );
+      this.myMap.geoObjects.add(myGeoObject);
+    });
+  }
+
+  drawMultiRoute(data, pointDraggable: boolean) {
+    const color = this.colors[this.getRandomInt(0, 10)];
+    data.routeColor = color;
+    this.ymapsPromise
+      .then((maps) => {
+        const multiRoute = new maps.multiRouter.MultiRoute(
+          {
+            referencePoints: [data.from, data.to],
+            params: {
+              results: 1,
+            },
+          },
+          YandexMapService.routeOptions(color, pointDraggable)
+        );
+        this.setInfoAboutRoute(multiRoute, data);
+        this.myMap.geoObjects.add(multiRoute);
+        data.passengers.forEach((passenger)=>{
+          this.placeStaticMark(passenger.markCoordinate);
+        });
+      })
+      .catch((error) => console.log('Failed to load Yandex Maps', error));
+  }
 }

@@ -5,9 +5,12 @@ import lombok.Data;
 import org.springframework.data.geo.Point;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 
 @Data
 public class RequestTripPassenger {
+
+    private Integer empId;
 
     private Integer passId;
 
@@ -15,9 +18,9 @@ public class RequestTripPassenger {
 
     private String endingPoint;
 
-    private Timestamp startingTime;
+    private Instant startingTime;
 
-    private Timestamp endingTime;
+    private Instant endingTime;
 
     private Integer idTripDriver;
 
