@@ -27,7 +27,7 @@
 				</button>
 			</div>
 		</ng-container>
-		<form *ngIf="carsInfoForm" [formGroup]="carsInfoForm" name="cars-info-form" (ngSubmit)="onSubmitCarsChanges()">
+		<form *ngIf="carsInfoForm" [formGroup]="carsInfoForm" name="cars-info-form" class="cars-info-form" (ngSubmit)="onSubmitCarsChanges()">
 			<mat-accordion class="car-info-container" *ngIf="!addCarMod">
 				<mat-expansion-panel class="profile-car-info"
 					*ngFor="let curCar of currentUser.cars; let index = index">
@@ -53,12 +53,13 @@
 					(onChangeCarInfo)="onSubmitNewCar($event)">
 				</app-car-info-form>
 			</div>
-			<div class="cars-form-submit">
+			<div *ngIf="currentUser.cars.length" class="cars-form-submit">
 				<button type="submit" mat-raised-button class="cars-form-submit-button" [disabled]="isSaveDisabled"
 					*ngIf="!addCarMod">
 					Save changes
 				</button>
 			</div>
+			<app-no-data [isEmpty]="!currentUser.cars.length"></app-no-data>
 		</form>
 	</div>
 	<div class="modal-close-control">

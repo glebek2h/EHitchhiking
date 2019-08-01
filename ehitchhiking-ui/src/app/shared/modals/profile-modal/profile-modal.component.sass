@@ -4,18 +4,14 @@
 @import '../../../../styles/mixins'
 
 .modal-wrapper
-    position: relative
     font-family: $app-font
     background-color: $white
-    height: auto
-    min-height: 20rem
-    width: 40rem
     .modal-content
+        @include flexbox(space-around, center, column)
         .profile-user-info
             position: relative
             @include flexbox(space-around)
             font-size: $subheading-2
-
             .profile-user-photo
                 flex-grow: 1
                 padding-right: $default-offset
@@ -29,6 +25,9 @@
         hr
             color: mat-color($primary, A200)
 
+        .cars-info-form
+            flex: 1
+            position: relative
         .profile-car-info
             &:first-child
                 margin-top: $default-offset*2

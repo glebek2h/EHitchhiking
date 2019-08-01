@@ -11,7 +11,7 @@ import {TripsModalComponent} from '../trips-modal/trips-modal.component';
 import {ChatComponent} from '@shared/components/chat-data/chat/chat.component';
 import {NotificationService} from '@shared/services/notification.service';
 import {ActiveTripsModalComponent} from '@shared/components/active-trips-modal/active-trips-modal.component';
-import {RatePassengersModalComponent} from "@shared/components/rate-passengers-modal/rate-passengers-modal.component";
+import {RatePassengersModalComponent} from '@shared/components/rate-passengers-modal/rate-passengers-modal.component';
 @Component({
 	selector: 'app-menu',
 	templateUrl: './menu.component.html',
@@ -22,10 +22,7 @@ export class MenuComponent implements OnInit {
 	opened: boolean;
 	buttonsArray = [];
 
-	constructor(
-		public dialog: MatDialog,
-		private authorizationService: AuthorizationService
-	) {}
+	constructor(public dialog: MatDialog, private authorizationService: AuthorizationService) {}
 
 	ngOnInit() {
 		this.buttonsArray = BUTTONS_NAMES;
@@ -68,7 +65,12 @@ export class MenuComponent implements OnInit {
 	}
 
 	openProfileDialog(): void {
-		this.dialog.open(ProfileModalComponent, {panelClass: 'mat-dialog-no-padding', autoFocus: false});
+		this.dialog.open(ProfileModalComponent, {
+			panelClass: DEFAULT_MAT_DIALOG_CLASS,
+			autoFocus: false,
+			width: '40rem',
+			height: '70%',
+		});
 	}
 
 	openChatDialog(): void {
