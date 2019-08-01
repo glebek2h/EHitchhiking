@@ -9,7 +9,9 @@ import {map, catchError} from 'rxjs/operators';
 import {NotificationService} from '../notification.service';
 import 'rxjs/add/operator/catch';
 
-@Injectable()
+@Injectable({
+	providedIn: 'root',
+})
 export class ApiService {
 	static readonly apiUrl: string = 'http://localhost:4200/api/';
 	static readonly UNAUTHORIZED_ERROR = 401;

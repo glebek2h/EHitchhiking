@@ -1,3 +1,4 @@
+import {HistoryModalApiService} from './../../services/api.services/history-modal.api.service';
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
@@ -49,6 +50,7 @@ import {FilterByRolePipe} from '@shared/pipes/filter-by-role.pipe';
 		RatePassengersModalModule,
 		ReactiveFormsModule,
 	],
+	providers: [HistoryModalApiService],
 	entryComponents: [TripsModalComponent],
 	exports: [TripsModalComponent, SortTripsPipe, FilterByRolePipe],
 })
