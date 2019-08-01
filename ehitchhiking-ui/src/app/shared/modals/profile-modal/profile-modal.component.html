@@ -1,6 +1,6 @@
 <div class="modal-wrapper">
 	<div class="modal-header">
-		<span class="modal-title">{{ currentUser ? currentUser.name : 'Error' }}</span>
+		<span class="modal-title">{{ currentUser ? currentUser.name : 'Anonymous' }}</span>
 	</div>
 	<app-pre-loading [isLoading]="isLoading"></app-pre-loading>
 	<div *ngIf="currentUser" class="modal-content">
@@ -16,7 +16,7 @@
 			</div>
 		</div>
 		<hr />
-		<ng-container *ngIf="currentUser.cars.length < maxNumOfCars">
+		<ng-container *ngIf="currentUser.cars && currentUser.cars.length < maxNumOfCars">
 			<div class="profile-add-car">
 				<button mat-icon-button class="profile-add-car-button" (click)="toggleAddCarForm()" *ngIf="!addCarMod">
 					<mat-icon class="profile-car-icon-add">add</mat-icon>
@@ -53,7 +53,7 @@
 				</app-car-info-form>
 			</div>
 			<div class="cars-form-submit">
-				<button #submitChanges type="submit" mat-raised-button class="cars-form-submit-button" [disabled]="true"
+				<button type="submit" mat-raised-button class="cars-form-submit-button" [disabled]="isSaveDisabled"
 					*ngIf="!addCarMod">
 					Save changes
 				</button>

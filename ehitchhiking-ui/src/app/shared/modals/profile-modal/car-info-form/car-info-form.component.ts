@@ -1,6 +1,6 @@
+import {CarInterface} from '@shared/interfaces/car-interface';
 import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
-import {Car} from '@shared/models/car';
 @Component({
 	selector: 'app-car-info-form',
 	templateUrl: './car-info-form.component.html',
@@ -10,7 +10,7 @@ export class CarInfoFormComponent implements OnInit {
 	@Input() carInfoForm: FormGroup;
 	@Input() addCarMod: boolean;
 	@Input() carIndex: number;
-	@Output() onChangeCarInfo = new EventEmitter<Car>();
+	@Output() onChangeCarInfo = new EventEmitter<CarInterface>();
 	addCarForm: FormGroup;
 
 	constructor(private formBuilder: FormBuilder) {}
@@ -39,7 +39,11 @@ export class CarInfoFormComponent implements OnInit {
 			return;
 		}
 		const data = ifSubmit ? this.addCarForm.value : this.carInfoForm.value;
-		const newCar = new Car(undefined, data.model, data.color, data.number);
+		const newCar: CarInterface = {
+			model: data.model,
+			color: data.color,
+			number: data.number,
+		};
 		this.onChangeCarInfo.emit(newCar);
 	}
 }

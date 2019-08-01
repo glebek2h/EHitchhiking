@@ -1,4 +1,6 @@
-export class Car {
+import {CarInterface} from '@shared/interfaces/car-interface';
+
+export class Car implements CarInterface {
 	id: string;
 	model: string;
 	color: string;

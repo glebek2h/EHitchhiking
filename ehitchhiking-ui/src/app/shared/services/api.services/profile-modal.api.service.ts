@@ -1,24 +1,76 @@
+import {UserService} from '@shared/services/user.service';
 import {Injectable} from '@angular/core';
 import {ApiService} from './api.service';
 import {URL_REGISTRY} from '@shared/constants/urlRegistry';
+import {RequestCar} from '@shared/models/request.car';
+import {CarInterface} from '@shared/interfaces/car-interface';
+import {Car} from '@shared/models/car';
+import {User} from '@shared/models/user';
 
 @Injectable()
 export class ProfileModalApiService {
-	constructor(private apiService: ApiService) {}
+	constructor(private apiService: ApiService, private userService: UserService) {}
 
-	sendCarsListRequest(userId: string): Promise<any> {
+	getCurrentUser(): User | null {
+		return this.userService.getCurrentUser();
+	}
+
+	getCarsList(userId: string): Promise<Car[]> {
+		return this.sendCarsListRequest(userId).then(
+			(data) => {
+				return this.parseCarList(data);
+			},
+			() => {
+				return [];
+			}
+		);
+	}
+
+	addNewCar(newCar: Car, userId: string): Promise<Car | null> {
+		return this.sendNewCarRequest(RequestCar.fromCar(newCar, userId))
+			.then((data) => {
+				return this.parseCarData(data);
+			})
+			.catch(() => null);
+	}
+
+	deleteCar(carId: string): Promise<boolean> {
+		return this.sendDeleteRequest(carId)
+			.then((data) => data)
+			.catch(() => false);
+	}
+
+	updateCars(cars: Car[], userId: string): Promise<Car[] | null> {
+		return this.sendUpdateRequest(this.addIdField(cars, userId))
+			.then((data) => this.parseCarList(data))
+			.catch(() => null);
+	}
+
+	private addIdField(cars: Car[], userId: string): RequestCar[] {
+		return cars.map((car) => RequestCar.fromCar(car, userId));
+	}
+
+	private parseCarData(data: any): Car {
+		return new Car(data.id, data.model, data.color, data.number);
+	}
+
+	private parseCarList(data: any): Car[] {
+		return data ? Object.values(data).map(this.parseCarData) : [];
+	}
+
+	private sendCarsListRequest(userId: string): Promise<CarInterface[]> {
 		return this.apiService.doGet(URL_REGISTRY.CAR.GET_ALL, false, {id: userId});
 	}
 
-	sendNewCarRequest(car: any): Promise<any> {
+	private sendNewCarRequest(car: RequestCar): Promise<CarInterface> {
 		return this.apiService.doPost(URL_REGISTRY.CAR.ADD_CAR, car);
 	}
 
-	sendDeleteRequest(carId: string): Promise<any> {
+	private sendDeleteRequest(carId: string): Promise<boolean> {
 		return this.apiService.doDelete(URL_REGISTRY.CAR.DELETE_CAR, {id: carId});
 	}
 
-	sendUpdateRequest(cars: any): Promise<any> {
+	private sendUpdateRequest(cars: RequestCar[]): Promise<CarInterface[]> {
 		return this.apiService.doPut(URL_REGISTRY.CAR.UPDATE_CARS, cars);
 	}
 }
