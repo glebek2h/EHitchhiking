@@ -42,7 +42,6 @@ export class MainScreenComponent implements OnInit {
 
   constructor(private apiService: ApiService, private activeTripsMapService: ActiveTripsMapService) {
     this.activeTripsMapService.getMainScreenInfo().subscribe(() => {
-      console.log('бдыщ');
       this.toggleMapInterfaceToDefault();
       this.isDisabledMatToggleGroup = true;
       this.isShownPlusButton = false;

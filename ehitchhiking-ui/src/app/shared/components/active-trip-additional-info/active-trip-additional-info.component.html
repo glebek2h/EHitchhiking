@@ -46,7 +46,7 @@
     </mat-card>
   </div>
   <div class="for-driver" *ngIf="trip.role === userState.Driver">
-    <mat-card-title>
+    <mat-card-title class="title">
       Info about passengers <button mat-raised-button color="accent" class="show-trip-button" (click)="showTrip()">show trip</button>
     </mat-card-title>
     <mat-list *ngFor="let passenger of trip.passenger">

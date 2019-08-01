@@ -20,12 +20,10 @@ export class ActiveTripAdditionalInfoComponent implements OnInit {
 	ngOnInit() {}
 
   showTrip(){
-	 /* this.newRoute = {
-	    from: this.trip.startPoint,
-      to: this.trip.endPoint,
-    };*/
 	 this.closeDialog.emit(true);
 	 this.activeTripsMapService.blockMainScreen(true);
+	 console.log(this.trip.passenger);
+
 	  this.activeTripsMapService.sendMessage({
       from: this.trip.startPoint,
       to: this.trip.endPoint,

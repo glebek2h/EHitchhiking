@@ -26,7 +26,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
 	myMark;
 
   marker: boolean;
-  routeFromActiveModalToDisplay;
+  routeFromActiveModalToDisplay: Partial<Route>;
 
   @Output() passengerPlaceMark = new EventEmitter<boolean>();
 	@Input() routes: Partial<Route>[]; // 'интерфейсы' маршрутов, которые ещё нужно построить
@@ -100,7 +100,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
       this.myMap.geoObjects.removeAll();
       if(this.routeFromActiveModalToDisplay){
         this.drawMultiRoute(this.routeFromActiveModalToDisplay,false);
-        this.routeFromActiveModalToDisplay = false;
+        this.routeFromActiveModalToDisplay = null;
       }
     }
     if (changes.redraw && changes.redraw.currentValue) {
