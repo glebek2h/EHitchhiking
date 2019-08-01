@@ -78,7 +78,7 @@ export class TripsModalComponent implements OnInit {
 
 	filterByRating() {
 		this.tripService.ratingFilterConfig.selected = Object.values(this.ratings.value);
-		this.tripService.ratingFilterConfig.isEnabled = !!this.tripService.ratingFilterConfig.selected.length
+		this.tripService.ratingFilterConfig.isEnabled = !!this.tripService.ratingFilterConfig.selected.length;
 	}
 
 	ChangeSort() {

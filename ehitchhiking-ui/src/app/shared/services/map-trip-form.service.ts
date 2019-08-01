@@ -1,31 +1,28 @@
-import { Injectable } from '@angular/core';
-import {Observable, Subject} from "rxjs";
+import {Injectable} from '@angular/core';
+import {Observable, Subject} from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root',
 })
 export class MapTripFormService {
+	private subject = new Subject<any>();
+	private coordsSubject = new Subject<any>();
 
-  private subject = new Subject<any>();
-  private coordsSubject = new Subject<any>();
+	constructor() {}
 
-  constructor() { }
+	sendMessage(message) {
+		this.subject.next(message);
+	}
 
-  sendMessage(message) {
-    this.subject.next(message);
-  }
+	getMessage(): Observable<any> {
+		return this.subject.asObservable();
+	}
 
-  getMessage(): Observable<any> {
-    return this.subject.asObservable();
-  }
+	sayYandexMapsINeedCoords(message) {
+		this.coordsSubject.next(message);
+	}
 
-  sayYandexMapsINeedCoords(message) {
-    this.coordsSubject.next(message);
-
-  }
-
-  yandexMapsGetCoords(): Observable<any> {
-    return this.coordsSubject.asObservable();
-  }
-
+	yandexMapsGetCoords(): Observable<any> {
+		return this.coordsSubject.asObservable();
+	}
 }

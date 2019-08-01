@@ -6,23 +6,29 @@ import {Car} from '@shared/models/car';
 import {ApiService} from '@shared/services/api.services/api.service';
 import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 import {Route} from '../Route';
-import {MainScreenService} from "@shared/services/api.services/main-screen.service";
-import {MapTripFormService} from "@shared/services/map-trip-form.service";
-import {ActiveTripsMapService} from "@shared/services/active-trips-map.service";
+import {MainScreenService} from '@shared/services/api.services/main-screen.service';
+import {MapTripFormService} from '@shared/services/map-trip-form.service';
+import {ActiveTripsMapService} from '@shared/services/active-trips-map.service';
+import {UserService} from '@shared/services/user.service';
 @Component({
 	selector: 'app-main-screen',
 	templateUrl: './main-screen.component.html',
 	styleUrls: ['./main-screen.component.sass'],
-	providers: [ApiService,MainScreenService],
+	providers: [ApiService, MainScreenService],
 })
 export class MainScreenComponent implements OnInit {
-	constructor(private mainScreenService: MainScreenService, private mapTripFormService: MapTripFormService, private activeTripsMapService: ActiveTripsMapService) {
-    this.activeTripsMapService.getMainScreenInfo().subscribe(() => {
-      this.toggleMapInterfaceToDefault();
-      this.isDisabledMatToggleGroup = true;
-      this.isShownPlusButton = false;
-    });
-  }
+	constructor(
+		private mainScreenService: MainScreenService,
+		private mapTripFormService: MapTripFormService,
+		private activeTripsMapService: ActiveTripsMapService,
+		private userService: UserService
+	) {
+		this.activeTripsMapService.getMainScreenInfo().subscribe(() => {
+			this.toggleMapInterfaceToDefault();
+			this.isDisabledMatToggleGroup = true;
+			this.isShownPlusButton = false;
+		});
+	}
 
 	tripFormData: any; // TODO
 	isHiddenTripRegistration: boolean;
@@ -32,22 +38,23 @@ export class MainScreenComponent implements OnInit {
 	isShownViewRoutesButton: boolean;
 	isShownSaveRouteButton: boolean;
 	isDisabledSubmitRouteButton: boolean;
-  isDisabledMatToggleGroup: boolean;
+	isDisabledMatToggleGroup: boolean;
 	editStatePlusButton: boolean;
-  isShownPlusButton = true;
+	isShownPlusButton = true;
 	displayedRouteIndex: number;
 	mapTriggers = {};
 	redrawTriggers: boolean;
 	filterData;
 
-  startEndCoordinates: number[] = [];
+	startEndCoordinates: number[] = [];
 	sendFormData;
 	passengerCoordinates: number[] = [];
 
 	routes: Partial<Route>[] = [];
 	copyRoutes: Partial<Route>[] = [];
 
-	// TODO TODO TODO TODOTODOTODOTODOTODO
+	currentUser;
+	// TODO mock-data here because of empty cars data (need backend to fix this)
 	user: User = new User('1', 'Yana', '', 'hello@gmail.com', '+375291234567', [
 		new Car('ferrari', 'pink', 'A3434B', '1'),
 		new Car('lada', 'white', 'A3434B', '5'),
@@ -63,38 +70,35 @@ export class MainScreenComponent implements OnInit {
 		this.copyRoutes = this.routes.slice();
 	}
 
-  openTripRegistrationForm(): void {
+	openTripRegistrationForm(): void {
 		this.isHiddenTripRegistration = !this.isHiddenTripRegistration;
 	}
 
 	getData(data) {
-    this.sendFormData = data;
-    /*  TODO: be careful with this, don't delete
+		this.sendFormData = data;
+		/*  TODO: be careful with this, don't delete
     this.tripFormData = data;
         this.isHiddenTripRegistration = true;
         this.editStatePlusButton = true;
         this.mapTriggers = {reset: true};*/
 	}
 
-  getStartEndCoords(data) {
-    this.startEndCoordinates = data;
-    console.log(this.startEndCoordinates);
-    this.sendFormData.coords = this.startEndCoordinates;
-
-    this.mainScreenService.getDriversRoutes(this.sendFormData).then((routes) => {
-      this.routes = routes;
-      this.tripFormData = this.sendFormData;
-    });
-  }
-  getPassengerTripData(data) {
-	  this.sendFormData = data;
-  }
+	getStartEndCoords(data) {
+		this.startEndCoordinates = data;
+		this.sendFormData.coords = this.startEndCoordinates;
+		this.mainScreenService.getDriversRoutes(this.sendFormData).then((routes) => {
+			this.routes = routes;
+			this.tripFormData = this.sendFormData;
+		});
+	}
+	getPassengerTripData(data) {
+		this.sendFormData = data;
+	}
 
 	saveRoute() {
-    console.log(this.tripFormData);
 		this.isSavedRoute = !this.isSavedRoute;
 		this.isShownSaveRouteButton = false;
-    this.mainScreenService.saveDriverRoute(this.tripFormData);
+		this.mainScreenService.saveDriverRoute(this.tripFormData);
 	}
 
 	viewRoutes() {
@@ -132,8 +136,8 @@ export class MainScreenComponent implements OnInit {
 		this.isShownSaveRouteButton = false;
 		this.redrawTriggers = false;
 		this.mapTriggers = {reset: true};
-    this.isDisabledMatToggleGroup = false;
-    this.isShownPlusButton = true;
+		this.isDisabledMatToggleGroup = false;
+		this.isShownPlusButton = true;
 	}
 
 	getIndexToDisplay(data) {
@@ -152,5 +156,4 @@ export class MainScreenComponent implements OnInit {
 		this.isDisabledSubmitRouteButton = false;
 		this.passengerCoordinates = data;
 	}
-
 }

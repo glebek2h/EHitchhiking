@@ -2,7 +2,6 @@ import {Trip} from './trips';
 import {TripStatus} from '../../enums/TripStatus';
 import {UserState} from '../../enums/UserState';
 
-
 export class TripsModalService {
 	constructor() {}
 

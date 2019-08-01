@@ -45,7 +45,7 @@ import {BlacklistModule} from '@shared/components/blacklist/blacklist.module';
 		ChatDataModule,
 		MatTabsModule,
 		ActiveTripsModalModule,
-    BlacklistModule
+		BlacklistModule,
 	],
 	exports: [MenuComponent],
 	entryComponents: [NotificationComponent, TripsModalComponent],
