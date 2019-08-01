@@ -1,4 +1,4 @@
-interface RateUser {
+interface RatedUser {
 	id: number;
 	name: string;
 	rate: number;

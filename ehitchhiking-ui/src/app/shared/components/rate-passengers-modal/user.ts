@@ -1,14 +1,9 @@
-export interface Pass {
-	idPass: number;
+export interface User {
+  [idFieldName: string]: number;
 	rate: number;
 }
 
-export interface Driver {
-	idDriver: number;
-	rate: number;
-}
-
-export interface BlacklistUser {
+export interface BlacklistedUser {
 	id: number;
 	isBlocked: boolean;
 }

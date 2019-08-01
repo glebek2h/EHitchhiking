@@ -32,7 +32,7 @@ export class MainScreenComponent implements OnInit {
 	routes: Partial<Route>[] = [];
 	copyRoutes: Partial<Route>[] = [];
 
-	user: User = new User('1', 'Yana', 0,'', 'hello@gmail.com', '+375291234567', [
+	user: User = new User('1', 'Yana','', 'hello@gmail.com', '+375291234567', [
 		new Car('ferrari', 'pink', 'A3434B', 1),
 		new Car('lada', 'white', 'A3434B', 5),
 		new Car('tayota', 'yellow', 'A3434B', 3),

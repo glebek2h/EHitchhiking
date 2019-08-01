@@ -2,24 +2,20 @@ import {Car} from './car';
 export class User {
 	id: string;
 	name: string;
-	rate: number;
 	photoPath: string;
 	email: string;
 	phone: string;
 	cars: Car[];
 
-
 	constructor(
 		id: string = '',
 		name: string = '',
-		rate: number = 0,
 		photoPath: string = '',
 		email: string = '',
 		phone: string = '',
 		cars: Array<Car> = []
 	) {
 		this.id = id;
-		this.rate=rate;
 		this.name = name;
 		this.email = email;
 		this.phone = phone;
