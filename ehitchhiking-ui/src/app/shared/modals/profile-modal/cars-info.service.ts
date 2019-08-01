@@ -21,6 +21,7 @@ export class CarsInfoService {
 	getCarsInfo(carsInfoForm: FormGroup, numOfCars: number, oldCars: Car[]): Car[] {
 		const cars: Car[] = [];
 		for (let i = 0; i < numOfCars; ++i) {
+			// can't use forEach due to the type of carsInfoForm.controls (FormGroup)
 			const car = carsInfoForm.controls[i].value;
 			cars.push(new Car(oldCars[i].id, car.model, car.color, car.number));
 		}

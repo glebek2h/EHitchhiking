@@ -4,6 +4,7 @@ import {User} from '@shared/models/user';
 import {FormGroup, FormBuilder} from '@angular/forms';
 import {CarsInfoService} from './cars-info.service';
 import {ProfileModalService} from '@shared/services/profile-modal.service';
+import {Car} from '@shared/models/car';
 @Component({
 	selector: 'app-profile-modal',
 	templateUrl: './profile-modal.component.html',
@@ -43,7 +44,7 @@ export class ProfileModalComponent implements OnInit {
 		this.addCarMod = !this.addCarMod;
 	}
 
-	onSubmitNewCar(newCar: any): void {
+	onSubmitNewCar(newCar: Car): void {
 		this.isLoading = true;
 		this.profileModalService.addNewCar(newCar, this.currentUser.id).then((car) => {
 			if (car) {

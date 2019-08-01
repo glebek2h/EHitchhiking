@@ -3,6 +3,7 @@ import {Injectable} from '@angular/core';
 import {ProfileModalApiService} from './api.services/profile-modal.api.service';
 import {User} from '@shared/models/user';
 import {Car} from '@shared/models/car';
+import {RequestCar} from '@shared/models/request.car';
 
 @Injectable()
 export class ProfileModalService {
@@ -23,10 +24,9 @@ export class ProfileModalService {
 		);
 	}
 
-	addNewCar(newCar: any, userId: string): Promise<Car | null> {
-		newCar.idOfDriver = userId;
+	addNewCar(newCar: Car, userId: string): Promise<Car | null> {
 		return this.profileModalApiService
-			.sendNewCarRequest(newCar)
+			.sendNewCarRequest(RequestCar.fromCar(newCar, userId))
 			.then((data) => {
 				return this.parseCarData(data);
 			})
@@ -47,11 +47,8 @@ export class ProfileModalService {
 			.catch(() => null);
 	}
 
-	private addIdField(cars: any, userId: string): any {
-		return cars.map((car) => {
-			car.idOfDriver = userId;
-			return car;
-		});
+	private addIdField(cars: Car[], userId: string): RequestCar[] {
+		return cars.map((car) => RequestCar.fromCar(car, userId));
 	}
 
 	private parseCarData(data: any): Car {
