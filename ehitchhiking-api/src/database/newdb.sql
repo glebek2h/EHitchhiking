@@ -81,9 +81,6 @@ comment on table "CAR" is '/// this is the description that every car has';
 
 alter table "CAR" owner to postgres;
 
-create unique index if not exists "cars_veh number_uindex"
-    on "CAR" ("VEH_NUMBER");
-
 create table if not exists "BLACKLIST_PASSENGER"
 (
     "PASS_ID" integer not null
