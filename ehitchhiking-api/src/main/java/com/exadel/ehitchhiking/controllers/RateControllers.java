@@ -40,7 +40,7 @@ public class RateControllers {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Success");
     }
 
 
@@ -53,7 +53,7 @@ public class RateControllers {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Success");
     }
 
     @GetMapping("/getDriver")
@@ -64,7 +64,7 @@ public class RateControllers {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess(driver);
+        return Response.setSuccess(driver, "Success");
 
     }
 
@@ -76,7 +76,7 @@ public class RateControllers {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess(passenger);
+        return Response.setSuccess(passenger, "Success");
     }
 
 }

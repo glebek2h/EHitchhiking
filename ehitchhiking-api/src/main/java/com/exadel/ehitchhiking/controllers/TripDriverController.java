@@ -28,7 +28,7 @@ public class TripDriverController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Success");
     }
 
 
@@ -42,7 +42,7 @@ public class TripDriverController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Success");
     }
 
     @PutMapping("/save")
@@ -52,7 +52,7 @@ public class TripDriverController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Success");
 
     }
 
@@ -63,7 +63,7 @@ public class TripDriverController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Success");
     }
 
     @PutMapping("/removeFromHistory")
@@ -73,7 +73,7 @@ public class TripDriverController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Success");
     }
 
     @PutMapping("/cancelledTrip")
@@ -83,7 +83,7 @@ public class TripDriverController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Success");
     }
 
     @PutMapping("/finishedTrip")
@@ -93,7 +93,7 @@ public class TripDriverController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Success");
     }
 
     @PutMapping("/active")
@@ -103,7 +103,7 @@ public class TripDriverController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Success");
     }
 
 
@@ -114,7 +114,7 @@ public class TripDriverController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Success");
     }
 
 }

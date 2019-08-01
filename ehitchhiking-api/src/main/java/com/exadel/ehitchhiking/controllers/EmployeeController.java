@@ -25,7 +25,7 @@ public class EmployeeController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Success");
     }
 
     @GetMapping
@@ -36,7 +36,7 @@ public class EmployeeController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess(employee);
+        return Response.setSuccess(employee, "Success");
     }
 
     @GetMapping("/list")
@@ -47,6 +47,6 @@ public class EmployeeController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess(employeeVOS);
+        return Response.setSuccess(employeeVOS, "Success");
     }
 }

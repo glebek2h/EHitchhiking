@@ -30,7 +30,7 @@ public class TripsController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess(list);
+        return Response.setSuccess(list, "Successfully got history");
     }
 
     @GetMapping("/active")
@@ -41,6 +41,6 @@ public class TripsController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess(list);
+        return Response.setSuccess(list, "Successfully got active");
     }
 }
