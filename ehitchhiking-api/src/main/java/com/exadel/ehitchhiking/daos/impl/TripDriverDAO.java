@@ -14,15 +14,10 @@ import java.util.List;
 @Repository
 public class TripDriverDAO extends AbstractDAO<TripDriver> implements ITripDriverDAO {
 
-    public TripDriverDAO(SessionFactory sessionFactory) {
-        super(sessionFactory);
+    public TripDriverDAO() {
+        super(TripDriver.class);
     }
 
-    @Override
-    public List<TripDriver> getAll() {
-        List<TripDriver> trips_drivers = (List<TripDriver>) getCurrentSession().createQuery("From TripDriver ").list();
-        return trips_drivers;
-    }
 
     @Override
     public TripDriver getTripDriver(int id) {
@@ -36,5 +31,22 @@ public class TripDriverDAO extends AbstractDAO<TripDriver> implements ITripDrive
         int seats = (int) getCurrentSession().createQuery("select availableSeats From TripDriver where id = '" +  id +  "'").uniqueResult();
         return seats;
     }
+
+    @Override
+    public List<TripPass> getTripPass (int id) {
+        return (List<TripPass>) getCurrentSession().createQuery("From TripPass where tripDriver.id = '" +  id +  "'").list();
+
+    }
+
+    @Override
+    public List<TripDriver> getHistory(int empId){
+        return (List<TripDriver>) getCurrentSession().createQuery("from TripDriver where car.driver.employee.id = '" + empId + "' and isHistory = true ").list();
+    }
+
+    @Override
+    public List<TripDriver> getActive(int empId){
+        return (List<TripDriver>) getCurrentSession().createQuery("from TripDriver where car.driver.employee.id = '" + empId + "' and isActive = true ").list();
+    }
+
 
 }

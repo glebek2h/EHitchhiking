@@ -1,6 +1,5 @@
 package com.exadel.ehitchhiking.controllers;
 
-import com.exadel.ehitchhiking.models.Car;
 import com.exadel.ehitchhiking.models.vo.CarVO;
 import com.exadel.ehitchhiking.requests.RequestCar;
 import com.exadel.ehitchhiking.responses.*;
@@ -8,7 +7,6 @@ import com.exadel.ehitchhiking.services.ICarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -19,64 +17,41 @@ public class CarController {
     private ICarService carService;
 
     @GetMapping("/getAll")
-    public Response<List<CarVO>> getAllUserCars(String id) {
-        Response<List<CarVO>> response = new Response<>();
-        List<CarVO> cars = new ArrayList<>();
+    public Response getAllUserCars(String id) {
+        List<CarVO> cars;
         try {
             cars = carService.getListCars(Integer.parseInt(id));
-            response.setData(cars);
-            response.setStatus("success");
-            response.setMsg("Successfully got cars");
-            return response;
         } catch (Exception e) {
-            response.setData(cars);
-            response.setStatus("error");
-            response.setMsg("Failed getting cars");
-            return response;
+            return Response.setError("error");
         }
+        return Response.setSuccess(cars);
     }
 
     @PostMapping("/addCar")
-    public Response<CarVO> createCar(@RequestBody RequestCar car) {
-        Response<CarVO> response = new Response<>();
-
+    public Response createCar(@RequestBody RequestCar car) {
+        CarVO newCar;
         try {
-            CarVO newCar = carService.createCar(car.getColor(), car.getNumber(), car.getModel(),
+            newCar = carService.createCar(car.getColor(), car.getNumber(), car.getModel(),
                     Integer.parseInt(car.getIdOfDriver()));
-            response.setStatus("success");
-            response.setData(newCar);
-            response.setMsg("Successfully added the car!");
-            return response;
 
         } catch (Exception e) {
-            System.out.println(e);
-            response.setStatus("error");
-            response.setData(null);
-            response.setMsg("Failed adding the car!");
-            return response;
+            return Response.setError("error");
         }
+        return Response.setSuccess(newCar);
     }
 
     @DeleteMapping("/deleteCar")
-    public Response<String> deleteCar(String id) {
-        Response<String> response = new Response<>();
+    public Response deleteCar(String id) {
         try {
             carService.deletedCar(Integer.parseInt(id));
-            response.setStatus("success");
-            response.setData("true");
-            response.setMsg("Successfully deleted the car");
-            return response;
         } catch (Exception e) {
-            response.setStatus("error");
-            response.setData("false");
-            response.setMsg("Failed deleting the car");
-            return response;
+            return Response.setError("error");
         }
+        return Response.setSuccess("true");
     }
 
     @PutMapping("/updateCars")
-    public Response<List<CarVO>> updateColor(@RequestBody List<RequestCar> cars) {
-        Response<List<CarVO>> response = new Response<>();
+    public Response updateColor(@RequestBody List<RequestCar> cars) {
         List<CarVO> updatedCars;
         int driverID = Integer.parseInt(cars.get(0).getIdOfDriver());
         try {
@@ -84,15 +59,10 @@ public class CarController {
                     new CarVO(Integer.parseInt(
                             car.getId()), car.getColor(), car.getNumber(), car.getModel())));
             updatedCars = carService.getListCars(driverID);
-            response.setData(updatedCars);
-            response.setMsg("Successfully updated");
-            response.setStatus("success");
-            return response;
+
         } catch (Exception e) {
-            response.setStatus("error");
-            response.setData(null);
-            response.setMsg("Failed updating cars");
-            return response;
+            return Response.setError("error");
         }
+        return Response.setSuccess(updatedCars);
     }
 }
