@@ -1,10 +1,13 @@
 package com.exadel.ehitchhiking.controllers;
 
+import com.exadel.ehitchhiking.models.vo.CarVO;
 import com.exadel.ehitchhiking.requests.RequestCar;
 import com.exadel.ehitchhiking.responses.*;
 import com.exadel.ehitchhiking.services.ICarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/car")
@@ -13,53 +16,53 @@ public class CarController {
     @Autowired
     private ICarService carService;
 
+    @GetMapping("/getAll")
+    public Response getAllUserCars(String id) {
+        List<CarVO> cars;
+        try {
+            cars = carService.getListCars(Integer.parseInt(id));
+        } catch (Exception e) {
+            return Response.setError("error");
+        }
+        return Response.setSuccess(cars);
+    }
+
     @PostMapping("/addCar")
-    public Response<String> createCar(@RequestBody RequestCar car) {
-        Response<String> response = new Response<>();
+    public Response createCar(@RequestBody RequestCar car) {
+        CarVO newCar;
         try {
-            carService.createCar(car.getColor(), car.getNumber(), car.getCarModel(),
-                    Integer.parseInt(car.getIdOfDrive()));
-            response.setStatus("200");
-            response.setData("true");
-            return response;
+            newCar = carService.createCar(car.getColor(), car.getNumber(), car.getModel(),
+                    Integer.parseInt(car.getIdOfDriver()));
 
         } catch (Exception e) {
-            response.setStatus("500");
-            response.setData("false");
-            return response;
+            return Response.setError("error");
         }
+        return Response.setSuccess(newCar);
     }
 
-    @PutMapping("/deleteCar")
-    public Response<String> deleteCar(@RequestBody RequestCar car) {
-        Response<String> response = new Response<>();
+    @DeleteMapping("/deleteCar")
+    public Response deleteCar(String id) {
         try {
-            carService.deletedCar(Integer.parseInt(car.getCarId()));
-            response.setStatus("200");
-            response.setData("true");
-            return response;
+            carService.deletedCar(Integer.parseInt(id));
         } catch (Exception e) {
-            response.setStatus("500");
-            response.setData("false");
-            return response;
+            return Response.setError("error");
         }
+        return Response.setSuccess("true");
     }
 
-    @PutMapping("/updateCarParameters")
-    public Response<String> updateColor(@RequestBody RequestCar car) {
-        Response<String> response = new Response<>();
-        System.out.println(car.getCarId());
+    @PutMapping("/updateCars")
+    public Response updateColor(@RequestBody List<RequestCar> cars) {
+        List<CarVO> updatedCars;
+        int driverID = Integer.parseInt(cars.get(0).getIdOfDriver());
         try {
-            int carId = Integer.parseInt(car.getCarId());
-            carService.updateColor(carId, car.getColor());
-            carService.updateNumber(carId, car.getNumber());
-            response.setStatus("200");
-            response.setData("true");
-            return response;
+            cars.forEach(car ->carService.updateCar(
+                    new CarVO(Integer.parseInt(
+                            car.getId()), car.getColor(), car.getNumber(), car.getModel())));
+            updatedCars = carService.getListCars(driverID);
+
         } catch (Exception e) {
-            response.setStatus("500");
-            response.setData("false");
-            return response;
+            return Response.setError("error");
         }
+        return Response.setSuccess(updatedCars);
     }
 }

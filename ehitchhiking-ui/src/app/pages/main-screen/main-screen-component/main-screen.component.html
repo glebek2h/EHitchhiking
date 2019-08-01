@@ -30,7 +30,7 @@
   (formData)="getFilterData($event)"
   [isDisabledSubmitRouteButton]="isDisabledSubmitRouteButton"
 ></app-routes-list>
-<mat-button-toggle-group class="btn-group" name="fontStyle" aria-label="Font Style">
+<mat-button-toggle-group [disabled]="isDisabledMatToggleGroup" class="btn-group" name="fontStyle" aria-label="Font Style">
 	<mat-button-toggle class="role-chooser-btn" value="bold" (click)="toggleStateToPassenger()"
 		>Passenger</mat-button-toggle
 	>
@@ -53,11 +53,16 @@
     directions
   </i>
 </button>
-<button class="plus-btn" mat-fab matTooltip="create trip" (click)="openTripRegistrationForm()">
+<button *ngIf="isShownPlusButton" class="plus-btn" mat-fab matTooltip="create trip" (click)="openTripRegistrationForm()">
 	<i *ngIf="!editStatePlusButton" class="material-icons">
 		add
 	</i>
 	<i *ngIf="editStatePlusButton" matTooltip="edit trip" class="material-icons">
 		edit
 	</i>
+</button>
+<button *ngIf="!isShownPlusButton" class="plus-btn" mat-fab matTooltip="close trip" (click)="toggleMapInterfaceToDefault()">
+  <i class="material-icons">
+    close
+  </i>
 </button>

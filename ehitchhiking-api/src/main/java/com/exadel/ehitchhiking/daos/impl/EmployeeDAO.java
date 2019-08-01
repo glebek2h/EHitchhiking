@@ -17,7 +17,7 @@ public class EmployeeDAO extends AbstractDAO<Employee> implements IEmployeeDAO {
     }
 
     @Override
-    public Employee getByEmail(String email) {
+    public Employee getByEmail(String email){
         return (Employee) getCurrentSession().createQuery("from Employee where email = '" + email + "'").uniqueResult();
     }
 

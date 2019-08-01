@@ -1,5 +1,5 @@
 import {HttpResponse} from '@angular/common/http';
-import {RequestMethods} from '@shared/enums/request-enum';
+import {RequestMethods} from '@shared/enums/request-methods.enum';
 
 export class RequestCacheItem {
 	url: string;

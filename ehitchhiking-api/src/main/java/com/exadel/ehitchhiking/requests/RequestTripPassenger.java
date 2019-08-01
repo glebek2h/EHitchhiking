@@ -2,12 +2,13 @@ package com.exadel.ehitchhiking.requests;
 
 
 import lombok.Data;
-
-
+import com.exadel.ehitchhiking.requests.Point;
 import java.time.Instant;
 
 @Data
 public class RequestTripPassenger {
+
+    private Integer empId;
 
     private Integer passId;
 

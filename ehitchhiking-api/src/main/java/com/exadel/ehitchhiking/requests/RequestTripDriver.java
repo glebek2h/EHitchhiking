@@ -1,6 +1,7 @@
 package com.exadel.ehitchhiking.requests;
 import lombok.Data;
-
+import com.exadel.ehitchhiking.requests.Point;
+import java.sql.Timestamp;
 import java.time.Instant;
 
 @Data

@@ -8,6 +8,7 @@ import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 import {Route} from '../Route';
 import {MainScreenService} from "@shared/services/api.services/main-screen.service";
 import {MapTripFormService} from "@shared/services/map-trip-form.service";
+import {ActiveTripsMapService} from "@shared/services/active-trips-map.service";
 @Component({
 	selector: 'app-main-screen',
 	templateUrl: './main-screen.component.html',
@@ -15,7 +16,13 @@ import {MapTripFormService} from "@shared/services/map-trip-form.service";
 	providers: [ApiService,MainScreenService],
 })
 export class MainScreenComponent implements OnInit {
-	constructor(private mainScreenService: MainScreenService,private mapTripFormService: MapTripFormService) {}
+	constructor(private mainScreenService: MainScreenService, private mapTripFormService: MapTripFormService, private activeTripsMapService: ActiveTripsMapService) {
+    this.activeTripsMapService.getMainScreenInfo().subscribe(() => {
+      this.toggleMapInterfaceToDefault();
+      this.isDisabledMatToggleGroup = true;
+      this.isShownPlusButton = false;
+    });
+  }
 
 	tripFormData: any; // TODO
 	isHiddenTripRegistration: boolean;
@@ -25,7 +32,9 @@ export class MainScreenComponent implements OnInit {
 	isShownViewRoutesButton: boolean;
 	isShownSaveRouteButton: boolean;
 	isDisabledSubmitRouteButton: boolean;
+  isDisabledMatToggleGroup: boolean;
 	editStatePlusButton: boolean;
+  isShownPlusButton = true;
 	displayedRouteIndex: number;
 	mapTriggers = {};
 	redrawTriggers: boolean;
@@ -38,11 +47,12 @@ export class MainScreenComponent implements OnInit {
 	routes: Partial<Route>[] = [];
 	copyRoutes: Partial<Route>[] = [];
 
+	// TODO TODO TODO TODOTODOTODOTODOTODO
 	user: User = new User('1', 'Yana', '', 'hello@gmail.com', '+375291234567', [
-		new Car('ferrari', 'pink', 'A3434B', 1),
-		new Car('lada', 'white', 'A3434B', 5),
-		new Car('tayota', 'yellow', 'A3434B', 3),
-		new Car('bmw', 'black', 'A3434B', 1),
+		new Car('ferrari', 'pink', 'A3434B', '1'),
+		new Car('lada', 'white', 'A3434B', '5'),
+		new Car('tayota', 'yellow', 'A3434B', '3'),
+		new Car('bmw', 'black', 'A3434B', '1'),
 	]);
 
 	ngOnInit() {
@@ -71,7 +81,7 @@ export class MainScreenComponent implements OnInit {
     console.log(this.startEndCoordinates);
     this.sendFormData.coords = this.startEndCoordinates;
 
-    this.mainScreenService.getDriversRoutes(this.sendFormData).subscribe((routes) => {
+    this.mainScreenService.getDriversRoutes(this.sendFormData).then((routes) => {
       this.routes = routes;
       this.tripFormData = this.sendFormData;
     });
@@ -122,6 +132,8 @@ export class MainScreenComponent implements OnInit {
 		this.isShownSaveRouteButton = false;
 		this.redrawTriggers = false;
 		this.mapTriggers = {reset: true};
+    this.isDisabledMatToggleGroup = false;
+    this.isShownPlusButton = true;
 	}
 
 	getIndexToDisplay(data) {

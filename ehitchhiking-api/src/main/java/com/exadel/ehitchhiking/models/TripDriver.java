@@ -88,6 +88,22 @@ public class TripDriver {
     @Column(name = "\"IS_HISTORY\"")
     private boolean isHistory;
 
+    @Getter
+    @Setter
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "\"CHAT\"")
+    private Chat chat;
+
+    @Getter
+    @Setter
+    @Column(name = "\"RATING\"")
+    private float rating;
+
+    @Getter
+    @Setter
+    @Column(name = "\"RATED_PEOPLE\"")
+    private int ratedPeople;
+
     public TripDriver(String startPoint, String endPoint,
                       Timestamp startTime, Timestamp endTime, boolean isActive,
                       boolean isFinished, boolean isSaved, int seats, Car car, boolean isHistory,
@@ -105,6 +121,9 @@ public class TripDriver {
         this.coordStart = coordStart;
         this.coordEnd = coordEnd;
         this.distance = distance;
+        this.ratedPeople = 0;
+        this.rating = 0;
+        this.chat = null;
     }
 
 }

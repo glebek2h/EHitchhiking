@@ -14,14 +14,15 @@ export class MainScreenService {
 
   parseDriverRoutes(data) {
     const arr = [];
-    data.body.data.map((route) => {
+    console.log(data);
+    data.map((route) => {
       arr.push({
         from: route.startingPoint,
         to: route.endingPoint,
         departureDate: route.startingTime,
         placesSelect: route.seats,
         driverRating: route.driver.rate,
-        car: new Car(route.car.model, route.car.color, route.car.number, 1),
+        car: new Car(route.car.model, route.car.color, route.car.number, '1'),
         coordStart: [route.coordStart.x, route.coordStart.y],
         coordEnd: [route.coordEnd.x, route.coordEnd.y],
         idTripDriver: route.id
@@ -32,12 +33,13 @@ export class MainScreenService {
 
   getDriversRoutes(tripData) {
     return this.apiService.doPost(URL_REGISTRY.MAP.GET_DRIVERS_ROUTES,{
+      empId: this.userService.getCurrentUser().id,
       startingTime: tripData.departureDate,
       endingTime: tripData.departureDate,
       seats: tripData.placesSelect,
       coordStart: {x: tripData.coords[0][0],y: tripData.coords[0][1]},
       coordEnd: {x: tripData.coords[1][0],y: tripData.coords[1][1]},
-    }).pipe(map((data) => this.parseDriverRoutes(data)));
+    }).then((data) => this.parseDriverRoutes(data));
   }
 
   saveDriverRoute(tripData) {
@@ -53,7 +55,7 @@ export class MainScreenService {
         coordEnd: {x: tripData.coords[1][0],y: tripData.coords[1][1]},
         distance: tripData.distance,
         seats: tripData.placesSelect,
-      }).subscribe((data) => console.log(data));
+      }).then((data) => console.log(data));
   }
 
   savePassengerRoute(route) {
@@ -69,6 +71,6 @@ export class MainScreenService {
         distance: route.distance,
         coordStart: route.passengerCoordinate,// координата метки пассажира
         coordEnd: route.coordEnd,// координата End водителя
-      }).subscribe((data) => console.log(data));
+      }).then((data) => console.log(data));
   }
 }
