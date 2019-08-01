@@ -10,6 +10,7 @@
   [indexRouteToDisplay]="displayedRouteIndex"
   [redraw]="redrawTriggers"
   (passengerPlaceMark)="getPassengerPlaceMarkInfo($event)"
+  (startEndCoordinatesOfRoute)="getStartEndCoords($event)"
 ></yandex-map>
 <app-trip-registration
   [isShown]="isHiddenTripRegistration"

@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {User} from "@shared/models/user";
 import {UserState} from "@shared/enums/UserState";
+import {MapTripFormService} from "@shared/services/map-trip-form.service";
 
 @Component({
 	selector: 'app-trip-registration',
@@ -17,9 +18,10 @@ export class TripRegistrationComponent implements OnInit {
 	@Output() isShownViewListButton = new EventEmitter<boolean>();
 	@Output() isShownSaveRouteButton = new EventEmitter<boolean>();
 
+	coords;
 	nameFormGroup: FormGroup;
 
-	constructor() {}
+	constructor(private mapTripFormService: MapTripFormService) {}
 
 	ngOnInit() {
 		this.nameFormGroup = new FormGroup({
@@ -30,6 +32,9 @@ export class TripRegistrationComponent implements OnInit {
       departureTime: new FormControl('12:00 am', [Validators.required]),
       car: new FormControl('ferrari'),
 		});
+    this.mapTripFormService.getMessage().subscribe((coords) => {
+      this.coords = coords;
+    });
 	}
 
 	onChangeFix(event: Event, target) {
@@ -38,7 +43,9 @@ export class TripRegistrationComponent implements OnInit {
 	}
 
 	onSubmit() {
-		this.userState === UserState.Driver ? this.formData.emit(this.nameFormGroup.value) : this.passengerFormData.emit(this.nameFormGroup.value);
+    this.mapTripFormService.sayYandexMapsINeedCoords(this.nameFormGroup.value);
+    this.nameFormGroup.value.coords = this.coords;
+    this.userState === UserState.Driver ? this.formData.emit(this.nameFormGroup.value) : this.passengerFormData.emit(this.nameFormGroup.value);
 		this.isShownViewListButton.emit(true);
 		this.isShownSaveRouteButton.emit(true);
 	}

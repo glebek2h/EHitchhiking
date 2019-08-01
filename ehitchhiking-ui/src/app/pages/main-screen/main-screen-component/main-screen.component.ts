@@ -29,6 +29,7 @@ export class MainScreenComponent implements OnInit {
 	mapTriggers = {};
 	redrawTriggers: boolean;
 	filterData;
+	startEndCoordinates: number[] = [];
 
 	routes: Partial<Route>[] = [];
 	copyRoutes: Partial<Route>[] = [];
@@ -58,6 +59,9 @@ export class MainScreenComponent implements OnInit {
 		this.editStatePlusButton = true;
 		this.mapTriggers = {reset: true};
 	}
+  getStartEndCoords(data: number[]) {
+    this.startEndCoordinates = data;
+  }
   getPassengerTripData(data) {
     this.mainScreenService.getDriversRoutes(data).subscribe((routes) => {this.routes = routes;this.tripFormData = data;});
   }
@@ -120,4 +124,5 @@ export class MainScreenComponent implements OnInit {
 	getPassengerPlaceMarkInfo(data) {
 		this.isDisabledSubmitRouteButton = data;
 	}
+
 }

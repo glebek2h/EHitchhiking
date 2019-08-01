@@ -21,6 +21,7 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import {RoutesListComponent} from './routes-list/routes-list.component';
 import {MenuModule} from '../../shared/components/menu/menu.module';
 import {FiltersComponent} from './filters/filters.component';
+import {MapTripFormService} from "@shared/services/map-trip-form.service";
 
 @NgModule({
 	declarations: [
@@ -47,6 +48,7 @@ import {FiltersComponent} from './filters/filters.component';
 		MatCheckboxModule,
 		MatTooltipModule,
 	],
+  providers:[MapTripFormService],
 	exports: [MainScreenComponent, TripRegistrationComponent],
 })
 export class MainScreenModule {}

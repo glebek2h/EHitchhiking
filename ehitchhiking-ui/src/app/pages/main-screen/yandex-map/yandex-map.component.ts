@@ -4,6 +4,8 @@ import {UserState} from '../../../shared/enums/UserState';
 import {YandexMapService} from './yandex-map.service';
 import MultiRouteModel = ymaps.multiRouter.MultiRouteModel;
 import {Route} from '@pages/main-screen/Route';
+import {MapTripFormService} from "@shared/services/map-trip-form.service";
+import {data} from "yandex-maps";
 
 @Component({
 	// tslint:disable-next-line:component-selector
@@ -12,7 +14,11 @@ import {Route} from '@pages/main-screen/Route';
 	styleUrls: ['./yandex-map.component.sass'],
 })
 export class YandexMapComponent implements OnInit, OnChanges {
-	constructor() {}
+	constructor(private mapTripFormService: MapTripFormService) {
+	  mapTripFormService.yandexMapsGetCoords().subscribe((data) => {
+	    mapTripFormService.sendMessage(this.getCoordinates(data));
+    });
+  }
 
 	static readonly API_URL = 'https://api-maps.yandex.ru/2.1/?apikey=05c4e476-2248-4d27-836c-4a6c7c45e485&lang=en_US';
 	static readonly ROUTES_ON_MAP_COUNT = 3;
@@ -36,6 +42,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
 	@Input() triggers: any;
   @Input() redraw: any;
   @Input() indexRouteToDisplay: any;
+
 
 	ngOnInit() {
 		this.ymapsPromise = ymaps.load(YandexMapComponent.API_URL);
@@ -77,6 +84,22 @@ export class YandexMapComponent implements OnInit, OnChanges {
 			});
 		});
 	}
+
+	getCoordinates(data) {
+    const coords = [];
+    this.ymapsPromise
+      .then((maps) => {
+        maps.geocode(data.from).then((res) => {
+          const firstGeoObject = res.geoObjects.get(0);
+          coords[0] = firstGeoObject.geometry.getCoordinates();
+        });
+        maps.geocode(data.to).then((res) => {
+          const firstGeoObject = res.geoObjects.get(0);
+          coords[1] = firstGeoObject.geometry.getCoordinates();
+        });
+      });
+    return coords;
+  }
 
 	ngOnChanges(changes: SimpleChanges) {
     if (changes.indexRouteToDisplay && this.marker) {

@@ -22,12 +22,13 @@ export class MainScreenService {
   }
 
   getDriversRoutes(tripData) {
+    console.log(tripData);
     return this.apiService.doPost(URL_REGISTRY.MAP.GET_DRIVERS_ROUTES,{
       startingTime: tripData.departureDate,
       endingTime: tripData.departureDate,
       seats: tripData.placesSelect,
-      coordStart: {x: 53.2132113212,y: 32.32113},
-      coordEnd: {x: 51.2132113212,y: 32.32113},
+      coordStart: {x: tripData.coords[0][0],y: tripData.coords[0][1]},
+      coordEnd: {x: tripData.coords[1][0],y: tripData.coords[1][1]},
     }).pipe(map((data) => this.parseDriverRoutes(data)));
   }
 
