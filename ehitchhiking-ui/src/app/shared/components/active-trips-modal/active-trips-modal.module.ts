@@ -24,6 +24,7 @@ import {AppModule} from '../../../app.module';
 import {ActiveTripModule} from '../active-trip/active-trip.module';
 import {TripsModalModule} from '../trips-modal/trips-modal.module';
 import {ActiveTripAdditionalInfoModule} from '../active-trip-additional-info/active-trip-additional-info.module';
+import { ConfirmationModalModule } from "@shared/modals/confirmation-modal/confirmation-modal.module";
 
 @NgModule({
 	declarations: [ActiveTripsModalComponent],

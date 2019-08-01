@@ -1,9 +1,14 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 import {LoaderSize} from '../../enums/pre-loader-sizes';
-import {MatDialogRef} from '@angular/material';
+import { MatDialog, MatDialogRef } from "@angular/material";
 import {ActiveTripsModalService} from './active-trips-modal.service';
 import {ActiveTrip} from '../active-trip/active-trip';
-import {NUMBER_OF_TRIPS_VISIBLE_ON_PAGE} from '@shared/constants/modal-constants';
+import {
+  DEFAULT_MAT_DIALOG_CLASS,
+  MAT_DIALOG_WIDTH_SM,
+  NUMBER_OF_TRIPS_VISIBLE_ON_PAGE
+} from "@shared/constants/modal-constants";
+import { ConfirmationModalComponent } from "@shared/modals/confirmation-modal/confirmation-modal.component";
 
 @Component({
 	selector: 'app-active-trips-modal',
@@ -24,10 +29,13 @@ export class ActiveTripsModalComponent implements OnInit {
 	isShowTripInfo = false;
 	tripInfo: ActiveTrip;
 
+
+
 	roles = [{value: 0, viewValue: 'Passenger'}, {value: 1, viewValue: 'Driver'}, {value: 2, viewValue: 'All'}];
 
 	constructor(
 		public dialogRef: MatDialogRef<ActiveTripsModalComponent>,
+    public dialog: MatDialog,
 		private tripService: ActiveTripsModalService
 	) {
 		this.scrollObserver = new IntersectionObserver(this.onScroll.bind(this), {
@@ -79,4 +87,6 @@ export class ActiveTripsModalComponent implements OnInit {
 	closeInfo() {
 		this.isShowTripInfo = !this.isShowTripInfo;
 	}
+
+
 }

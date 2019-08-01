@@ -1,0 +1,12 @@
+<div class="modal-wrapper">
+	<div class="modal-header">
+		<span class="modal-title">Notification</span>
+	</div>
+	<div class="modal-content ">
+		<span>{{ data.question }}</span>
+	</div>
+	<footer class="confirmation-btn">
+		<button mat-button (click)="confirm()">{{ data.confirmButtonText }}</button>
+		<button mat-button (click)="closeConfirmationDialog()">close</button>
+	</footer>
+</div>

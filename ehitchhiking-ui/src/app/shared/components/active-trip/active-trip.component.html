@@ -12,4 +12,10 @@
 	<span class="date truncated" title="date:  {{ trip.date }}">{{ trip.date }}</span>
 	<span class="time truncated" title="time: {{ trip.time }}">{{ trip.time }} </span>
 	<span title="reserved seats: {{ trip.reservedSeats }}" class="position-seats">{{ trip.reservedSeats }}</span>
+
+	<button class="trip-btn" title="declined trip" (click)="openConfirmationDialogRemoveActiveTrip($event)">
+		<i class="material-icons">
+			highlight_off
+		</i>
+	</button>
 </div>

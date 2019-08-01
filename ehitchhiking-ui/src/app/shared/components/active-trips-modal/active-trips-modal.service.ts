@@ -7,6 +7,8 @@ import {Car} from '../../models/car';
 
 export class ActiveTripsModalService {
 	constructor() {}
+
+	openConfirmationDialog: boolean = false;
 	passengers: PassengerInfo[] = [
 		{
 			name: 'Alisa',
