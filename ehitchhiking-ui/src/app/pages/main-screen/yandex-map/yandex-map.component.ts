@@ -40,7 +40,6 @@ export class YandexMapComponent implements OnInit, OnChanges {
 
   constructor(private activeTripsMapService: ActiveTripsMapService) {
     this.activeTripsMapService.getMessage().subscribe((route) => {
-      console.log(route);
       this.routeFromActiveModalToDisplay = route;
     });
   }

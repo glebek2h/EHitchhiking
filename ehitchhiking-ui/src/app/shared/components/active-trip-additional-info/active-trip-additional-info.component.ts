@@ -22,7 +22,6 @@ export class ActiveTripAdditionalInfoComponent implements OnInit {
   showTrip(){
 	 this.closeDialog.emit(true);
 	 this.activeTripsMapService.blockMainScreen(true);
-	 console.log(this.trip.passenger);
 
 	  this.activeTripsMapService.sendMessage({
       from: this.trip.startPoint,
