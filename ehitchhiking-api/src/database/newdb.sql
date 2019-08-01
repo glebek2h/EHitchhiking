@@ -1,6 +1,6 @@
 drop schema public cascade;
 
-create schema public;
+create schema if not exists public;
 
 alter schema public owner to postgres;
 
@@ -204,6 +204,7 @@ INSERT INTO public."EMPLOYEE" ("ID", "IS_ADMIN", "FIRST_NAME", "LAST_NAME", "EMA
 INSERT INTO public."EMPLOYEE" ("ID", "IS_ADMIN", "FIRST_NAME", "LAST_NAME", "EMAIL", "PASS_WORD", "PHONE_NUMBER", "POINTS") VALUES (5, false, 'Julia', 'Romanova', 'youliaromanova99@mail.ru', '$2a$10$ie4CY/se0yRBx/Ya9qkiH.2NVfXVzJqXJJcgQ6TZN/rs6aspDwmhi', '+375333466688', 80);
 INSERT INTO public."EMPLOYEE" ("ID", "IS_ADMIN", "FIRST_NAME", "LAST_NAME", "EMAIL", "PASS_WORD", "PHONE_NUMBER", "POINTS") VALUES (6, true, 'Gleb', 'Kazachinskiy', 'raul221299@gmail.com', '$2a$10$XUrSwUkIMRzBb8.rXfA5Ve4uZ.2BvVyQNszbamJXvZBVvL2WUGwbW', '+375293084364', 90);
 INSERT INTO public."EMPLOYEE" ("ID", "IS_ADMIN", "FIRST_NAME", "LAST_NAME", "EMAIL", "PASS_WORD", "PHONE_NUMBER", "POINTS") VALUES (2, false, 'Elizabeth', 'Kemerava', 'elizabeth.kemerov@gmail.com', '$2a$10$JmxaxdHQ.iZW36PCqdRu5.awDxiYDlLy74eF9ULapjZ0n/GVWFxP.', '+375293031773', 50);
+INSERT INTO public."EMPLOYEE" ("ID", "IS_ADMIN", "FIRST_NAME", "LAST_NAME", "EMAIL", "PASS_WORD", "PHONE_NUMBER", "POINTS") VALUES (7, true, 'admin', 'admin', 'admin', '$2a$10$zdMPXc5vquhwnO82gEwmP.Hggcg6O08FSlvXMbaR9XmG41hDXqtHi', '+375000000773', 120);
 INSERT INTO public."DRIVER" ("ID", "EMPLOYEE_ID", "RATE_DRIVER", "RATING_PEOPLE") VALUES (7, 1, 0, 0);
 INSERT INTO public."DRIVER" ("ID", "EMPLOYEE_ID", "RATE_DRIVER", "RATING_PEOPLE") VALUES (8, 2, 0, 0);
 INSERT INTO public."DRIVER" ("ID", "EMPLOYEE_ID", "RATE_DRIVER", "RATING_PEOPLE") VALUES (9, 3, 0, 0);

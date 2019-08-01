@@ -69,7 +69,7 @@ export class MenuComponent implements OnInit {
 			panelClass: DEFAULT_MAT_DIALOG_CLASS,
 			autoFocus: false,
 			width: '40rem',
-			height: '70%',
+			height: '60%',
 		});
 	}
 

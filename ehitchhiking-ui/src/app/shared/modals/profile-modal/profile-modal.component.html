@@ -12,11 +12,17 @@
 				<div class="invalid-photo-icon"><i class="material-icons">account_circle</i></div>
 			</ng-template>
 			<div class="profile-user-contacts">
-				<p>Phone: {{ currentUser.phone }}</p>
-				<p>Email: {{ currentUser.email }}</p>
+				<div class="profile-user-contacts-titles">
+					<span class="profile-user-contacts-title">Phone:</span> 
+					<span class="profile-user-contacts-title">Email:</span>
+				</div>
+				<div class="profile-user-contacts-texts">
+					<span class="profile-user-contacts-text">{{ currentUser.phone }}</span>
+					<span class="profile-user-contacts-text">{{ currentUser.email }}</span>
+				</div>
 			</div>
 		</div>
-		<hr />
+		<hr/>
 		<ng-container *ngIf="currentUser.cars && currentUser.cars.length < maxNumOfCars">
 			<div class="profile-add-car">
 				<button mat-icon-button class="profile-add-car-button" (click)="toggleAddCarForm()" *ngIf="!addCarMod">
@@ -59,7 +65,7 @@
 					Save changes
 				</button>
 			</div>
-			<app-no-data [isEmpty]="!currentUser.cars.length"></app-no-data>
+			<app-no-data [isEmpty]="!currentUser.cars.length && !addCarMod" [isBackground]="false"></app-no-data>
 		</form>
 	</div>
 	<div class="modal-close-control">

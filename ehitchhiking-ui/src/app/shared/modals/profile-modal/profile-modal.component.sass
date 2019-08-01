@@ -3,30 +3,49 @@
 @import '../../../../styles/constants'
 @import '../../../../styles/mixins'
 
+$profile-user-info-height: 20%
+
 .modal-wrapper
     font-family: $app-font
     background-color: $white
     .modal-content
         @include flexbox(space-around, center, column)
         .profile-user-info
+            width: 100%
+            height: $profile-user-info-height
             position: relative
-            @include flexbox(space-around)
+            @include flexbox(space-beetween)
             font-size: $subheading-2
             .profile-user-photo
                 flex-grow: 1
                 padding-right: $default-offset
                 object-fit: cover
             .material-icons
+                color: mat-color($primary)
                 margin-left: $default-offset*2
+                margin-right: $default-offset*2
                 font-size: $display-1
             .profile-user-contacts
-                @include flexbox(space-around, center, column)
+                height: 100%
+                padding:
+                    top: $default-offset 
+                    bottom: $default-offset 
+                @include flexbox(space-around, center, row)
                 flex-grow: 2
+                &-titles 
+                    height: 100%
+                    @include flexbox(space-around, space-between, column)
+                &-texts 
+                    height: 100%
+                    @include flexbox(space-around, space-between, column)
         hr
+            width: 100%
+            margin-top: $default-offset
             color: mat-color($primary, A200)
 
         .cars-info-form
             flex: 1
+            width: 100%
             position: relative
         .profile-car-info
             &:first-child
@@ -45,12 +64,11 @@
                 @include flexbox(flex-start)
 
         .profile-add-car
-            position: absolute
-            right: $default-offset
+            width: 100%
             @include flexbox()
             .profile-add-car-button, .profile-close-car-button
                 position: fixed
-                margin-top: -1rem
+                margin-top: -0.5rem
                 color: mat-color($primary)
                 background-color: mat-color($accent, 400)
                 &:hover

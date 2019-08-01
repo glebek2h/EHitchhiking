@@ -9,6 +9,7 @@ import {NoDataSize} from '@shared/enums/no-data-sizes';
 export class NoDataComponent {
 	@Input() isEmpty: boolean;
 	@Input() size: NoDataSize = NoDataSize.Middle;
+	@Input() isBackground: boolean = true;
 	@Input() message;
 	@Input() icon;
 	defaultIcon = 'block';
@@ -16,7 +17,8 @@ export class NoDataComponent {
 
 	constructor() {}
 
-	defineSize(size: NoDataSize) {
-		return `no-data-block-${size}`;
+	defineSize(size: NoDataSize, isBackground: boolean): string {
+		const customClass = `no-data-block-${size}`;
+		return isBackground ? customClass + ' background' : customClass;
 	}
 }
