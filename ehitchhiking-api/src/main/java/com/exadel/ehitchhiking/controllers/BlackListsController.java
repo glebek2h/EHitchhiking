@@ -5,6 +5,7 @@ import com.exadel.ehitchhiking.models.Passenger;
 import com.exadel.ehitchhiking.models.vo.DriverVO;
 import com.exadel.ehitchhiking.models.vo.PassengerVO;
 import com.exadel.ehitchhiking.requests.RequestBlackList;
+import com.exadel.ehitchhiking.requests.RequestId;
 import com.exadel.ehitchhiking.responses.Response;
 import com.exadel.ehitchhiking.responses.ResponseMany;
 import com.exadel.ehitchhiking.services.IDriverService;
@@ -25,23 +26,19 @@ public class BlackListsController {
     @Autowired
     private IPassengerService passengerService;
 
-
-    // takes in the employeeId, the role in format "Driver"/"Passenger" and the id of the person that is going to be in the BL
-
-    @PostMapping("/add")
-    public Response<String> addToBL(@RequestBody RequestBlackList blackList) {
+    @PutMapping("/passenger")
+    public Response<String> addPassToBL(@RequestBody RequestBlackList BL) {
         Response<String> response = new Response<>();
+        System.out.println(BL);
         try {
-            if (blackList.getRole().equals("D")) {
-                //int idDriver = driverService.findIdByemployeeId(Integer.parseInt(blackList.getEmployeeId()));
-                driverService.addPassToBL(1, Integer.parseInt(blackList.getIdPass()));
-            } else if (blackList.getRole().equals("P")) {
-                // int idPass = passengerService.findByEmployeeId(Integer.parseInt(blackList.getEmployeeId()));
-                passengerService.addDriverToBL(1, Integer.parseInt(blackList.getIdDriver()));
-            } else {
-                response.setStatus("500");
-                response.setData("false");
-                return response;
+
+            for (RequestId it : BL.getData()){
+                System.out.println(Boolean.valueOf(it.getIsBlocked()));
+                System.out.println(BL.getIdTrip());
+                if (it.getIsBlocked()){
+
+                    driverService.addPassToBL(BL.getIdTrip(), it.getId());
+                }
             }
         } catch (Exception e) {
             response.setStatus("500");
@@ -52,6 +49,25 @@ public class BlackListsController {
         response.setData("true");
         return response;
     }
+    @PutMapping("/driver")
+    public Response<String> addDriverToBL(@RequestBody RequestBlackList BL) {
+        Response<String> response = new Response<>();
+        try {
+            for (RequestId it : BL.getData()){
+                if (it.getIsBlocked()){
+                    passengerService.addDriverToBL(BL.getIdTrip(), it.getId());
+                }
+            }
+        } catch (Exception e) {
+            response.setStatus("500");
+            response.setData("false");
+            return response;
+        }
+        response.setStatus("200");
+        response.setData("true");
+        return response;
+    }
+
 
 
     // deleting the passenger from the black list driver

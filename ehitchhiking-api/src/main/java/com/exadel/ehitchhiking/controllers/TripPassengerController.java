@@ -175,14 +175,16 @@ public class TripPassengerController {
 
         ResponseMany<TripDriverVO> responseMany = new ResponseMany<>();
         try{
-            responseMany.setStatus("200");
+            responseMany.setStatus("success");
+            responseMany.setMsg("Successfully got all trips");
             responseMany.setData(tripDriverService.getAll(tripPassenger.getStartingTime(), tripPassenger.getEndingTime(), tripPassenger.getSeats(),
             tripPassenger.getCoordStart(), tripPassenger.getCoordEnd()));
             return responseMany;
         }
         catch(Exception e){
 
-            responseMany.setStatus("500");
+            responseMany.setStatus("error");
+            responseMany.setMsg("Failed getting all trips");
             responseMany.setData(null);
             return responseMany;
 

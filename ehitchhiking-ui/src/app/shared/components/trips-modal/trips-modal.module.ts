@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-
 import {
 	MatButtonModule,
 	MatDialogModule,
@@ -17,12 +16,21 @@ import {PreLoadingModule} from '../pre-loading/pre-loading.module';
 import {TripsModalComponent} from './trips-modal.component';
 import {SortTripsPipe} from '../../pipes/sort-trips.pipe';
 import {FilterByRolePipe} from '../../pipes/filter-by-role.pipe';
-import {FormsModule} from '@angular/forms';
 import {FilterByFavoritePipe} from '../../pipes/filter-by-favorite.pipe';
-import {RatePassengersModalModule} from "@shared/components/rate-passengers-modal/rate-passengers-modal.module";
+import {RatePassengersModalModule} from '@shared/components/rate-passengers-modal/rate-passengers-modal.module';
+import {ReactiveFormsModule, FormsModule} from '@angular/forms';
+import {FilterByStatusPipe} from '../../pipes/filter-by-status.pipe';
+import {FilterByRatingPipe} from '@shared/pipes/filter-by-rating.pipe';
 
 @NgModule({
-	declarations: [TripsModalComponent, SortTripsPipe, FilterByRolePipe, FilterByFavoritePipe],
+	declarations: [
+		TripsModalComponent,
+		SortTripsPipe,
+		FilterByRolePipe,
+		FilterByFavoritePipe,
+		FilterByStatusPipe,
+		FilterByRatingPipe,
+	],
 	imports: [
 		CommonModule,
 		MatButtonModule,
@@ -37,7 +45,8 @@ import {RatePassengersModalModule} from "@shared/components/rate-passengers-moda
 		MatSelectModule,
 		MatSlideToggleModule,
 		MatExpansionModule,
-    RatePassengersModalModule,
+		RatePassengersModalModule,
+		ReactiveFormsModule,
 	],
 	entryComponents: [TripsModalComponent],
 	exports: [TripsModalComponent, SortTripsPipe, FilterByRolePipe],

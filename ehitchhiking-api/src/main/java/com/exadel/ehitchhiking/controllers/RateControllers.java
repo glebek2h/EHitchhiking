@@ -97,11 +97,13 @@ public class RateControllers {
         try {
                 passenger = tripDriverService.getPassengers(id);
                 } catch (Exception e) {
-                response.setStatus("500");
+                response.setStatus("success");
+                response.setMsg("Successfully got rating");
                 response.setData(null);
                 return response;
                 }
-                response.setStatus("200");
+                response.setStatus("error");
+                response.setStatus("Failed getting rating");
                 response.setData(passenger);
                 return response;
                 }

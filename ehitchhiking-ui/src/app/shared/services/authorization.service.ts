@@ -1,14 +1,11 @@
 import {AuthorizationApiService} from './api.services/authorization.api.service';
 import {UserService} from './user.service';
-import {NotificationService} from './notification.service';
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
-import {of} from 'rxjs';
 
 @Injectable()
 export class AuthorizationService {
 	constructor(
-		private notificationService: NotificationService,
 		private authorizationApiService: AuthorizationApiService,
 		private userService: UserService,
 		private router: Router
@@ -26,9 +23,8 @@ export class AuthorizationService {
 				this.router.navigateByUrl('/main');
 				this.userService.setCurrentUser(currentUser, authPromise);
 			},
-			(error) => {
-				this.notificationService.showErrorNotification('Invalid login or password!');
-				this.userService.setCurrentUser(currentUser, Promise.resolve(null));
+			() => {
+				this.userService.setCurrentUser(null, Promise.resolve(null));
 			}
 		);
 	}

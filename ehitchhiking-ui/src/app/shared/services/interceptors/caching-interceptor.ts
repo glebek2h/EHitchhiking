@@ -1,10 +1,10 @@
-import {RequestMethods} from '@shared/enums/request-enum';
 import {RequestCache} from '@shared/services/request.cache.service';
 import {Injectable} from '@angular/core';
 import {HttpInterceptor, HttpHandler, HttpRequest, HttpHeaders, HttpResponse, HttpEvent} from '@angular/common/http';
 import {of, Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {CachingHttpParams} from '@shared/models/caching.http.params';
+import {RequestMethods} from '@shared/enums/request-methods.enum';
 
 @Injectable()
 export class CachingInterceptor implements HttpInterceptor {

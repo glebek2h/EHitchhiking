@@ -135,8 +135,6 @@ public class TripDriverService implements ITripDriverService {
         return listPass;
     }
 
-
-
     @Override
     public int getAvailableSeats(int id){
         return dao.getAvailableSeats(id);

@@ -1,56 +1,55 @@
 import {ApiService} from '@shared/services/api.services/api.service';
-import {Injectable} from "@angular/core";
-import {Pass,Driver} from "@shared/components/rate-passengers-modal/user";
-import {URL_REGISTRY} from "@shared/constants/urlRegistry";
-import {User} from "@shared/models/user";
-import {Car} from "@shared/models/car";
-import {map} from "rxjs/operators";
-
+import {Injectable} from '@angular/core';
+import {Pass, Driver, BlacklistUser} from '@shared/components/rate-passengers-modal/user';
+import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 
 @Injectable()
 export class RatePassengersApiService {
-  constructor(private apiService: ApiService) {}
+	constructor(private apiService: ApiService) {}
 
-  addRatePassenger(users: Pass[]){
-    this.apiService.getPut(URL_REGISTRY.RATE.ADD_RATE_PASSENGER,{requestListPass: users}).subscribe(data=>console.log(data));
-  }
+	addRatePassenger(users: Pass[]) {
+		this.apiService.doPut(URL_REGISTRY.RATE.ADD_RATE_PASSENGER, {requestListPass: users});
+	}
 
-  addRateDriver(users: Driver[]){
-    this.apiService.getPut(URL_REGISTRY.RATE.ADD_RATE_DRIVER,{requestListDriver: users}).subscribe(data=>console.log(data));
-  }
+	addRateDriver(users: Driver[]) {
+		this.apiService.doPut(URL_REGISTRY.RATE.ADD_RATE_DRIVER, {requestListDriver: users});
+	}
 
-  mapTripPassengers(data: any): User[] {
-    return data.map((obj) => {
-      return new User(obj.id, obj.firstName + ' ' + obj.lastName,0 ,'', obj.email, '', [
-        new Car('ferrari', 'pink', 'A3434B', 1),
-      ],);
-    });
-  }
+	addBlacklistPass(id: number, params: BlacklistUser[]) {
+		this.apiService.doPut(URL_REGISTRY.RATE.ADD_BLACKLIST_PASS, {idTrip: id, data: params});
+	}
 
-  mapTripDrivers(data: any): User[] {
-    if(!Array.isArray(data)){
-      return [new User(data.id, data.firstName + ' ' + data.lastName, 0,'', data.email, '', [
-        new Car('ferrari', 'pink', 'A3434B', 1),
-      ])];
-    }
-    else{
-      return data.map((obj) => {
-        return new User(obj.id, obj.firstName + ' ' + obj.lastName, 0,'', obj.email, '', [
-          new Car('ferrari', 'pink', 'A3434B', 1),
-        ]);
-      });
-    }
+	addBlacklistDriver(id: number, params: BlacklistUser[]) {
+		this.apiService.doPut(URL_REGISTRY.RATE.ADD_BLACKLIST_DRIVER, {idTrip: id, data: params});
+	}
 
-  }
+	mapTripPassengers(data: any): RateUser[] {
+		if (!data) {
+			return [];
+		}
+		return data.map((obj) => ({id: obj.id, name: obj.firstName + ' ' + obj.lastName, rate: 0, isBlocked: false}));
+	}
 
+	mapTripDrivers(data: any): RateUser[] {
+		if (!Array.isArray(data)) {
+			return [{id: data.id, name: data.firstName + ' ' + data.lastName, rate: 0, isBlocked: false}];
+		} else {
+			return data.map((obj) => ({
+				id: obj.id,
+				name: obj.firstName + ' ' + obj.lastName,
+				rate: 0,
+				isBlocked: false,
+			}));
+		}
+	}
 
-  getTripPassengers(id: number){
-    return this.apiService.doGet(URL_REGISTRY.RATE.GET_RATE_PASSENGERS, false,{tripId: id})
-      .pipe(map((data) => this.mapTripPassengers(data.body.data)));
-  }
+	getTripPassengers(id: number) {
+		return this.apiService
+			.doGet(URL_REGISTRY.RATE.GET_RATE_PASSENGERS, false, {tripId: id})
+			.then(this.mapTripPassengers);
+	}
 
-  getTripDriver(id: number){
-    return this.apiService.doGet(URL_REGISTRY.RATE.GET_RATE_DRIVER, false,{tripId: id})
-      .pipe(map((data) => this.mapTripDrivers(data.body.data)));
-  }
+	getTripDriver(id: number) {
+		return this.apiService.doGet(URL_REGISTRY.RATE.GET_RATE_DRIVER, false, {tripId: id}).then(this.mapTripDrivers);
+	}
 }
