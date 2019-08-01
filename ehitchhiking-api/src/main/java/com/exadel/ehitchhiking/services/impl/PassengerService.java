@@ -78,7 +78,7 @@ public class PassengerService implements IPassengerService {
 
     @Override
     public List<DriverVO> getDrivers(int idEmp) {
-        return dao.getPassenger(idEmp).getDrivers().stream().map(DriverVO::fromEntity).collect(Collectors.toList());
+        return dao.getByEmployeeId(idEmp).getDrivers().stream().map(DriverVO::fromEntity).collect(Collectors.toList());
     }
 
 

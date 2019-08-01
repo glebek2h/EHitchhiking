@@ -1,59 +1,95 @@
-<div class="modal-wrapper trips-modal-container">
-  <app-pre-loading [isLoading]="loading" [size]="loaderSize"></app-pre-loading>
-  <header class="modal-header form-row">
-    <span mat-dialog-title class="trips-title">History</span>
-    <i class="material-icons icon-size">
-      history
-    </i>
-  </header>
+<div class="modal-wrapper">
+	<app-pre-loading [isLoading]="loading" [size]="loaderSize"></app-pre-loading>
+	<header class="modal-header ">
+		<span mat-dialog-title class="trips-title">History</span>
+		<i class="material-icons icon-size">
+			history
+		</i>
+	</header>
 
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>Filters</mat-expansion-panel-header>
-    <div class="form-row ">
-      <mat-form-field>
-        <mat-label>Role</mat-label>
-        <mat-select [(ngModel)]="selectedRole" name="selected">
-          <mat-option (click)="filterByRole()" *ngFor="let role of roles" [value]="role.value">
-            {{role.viewValue}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-slide-toggle [(ngModel)]="selectedFavorite" (change)="changedFavorite()">Favorite trips</mat-slide-toggle>
-      <button [ngSwitch]="selectedBySort" (click)="ChangeSort()" class="modal-close-control-btn" mat-icon-button>
-        <mat-icon *ngSwitchCase="0" title="not sort">
-          call_split
-        </mat-icon>
-        <mat-icon *ngSwitchCase="1" title="ASC"> call_made</mat-icon>
-        <mat-icon *ngSwitchCase="2" title="DESC">
-          call_received
-        </mat-icon>
-      </button>
-    </div>
-  </mat-expansion-panel>
+	<mat-expansion-panel>
+		<mat-expansion-panel-header>Filters</mat-expansion-panel-header>
+		<div class="form-row expansion-panel-sm">
+			<mat-form-field class="filter-width">
+				<mat-label>Role</mat-label>
+				<mat-select [(ngModel)]="selectedRole" name="selected">
+					<mat-option (click)="filterByRole()" *ngFor="let role of tripService.roles" [value]="role.value">
+						{{ role.viewValue }}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
 
-  <div mat-dialog-content class="trips">
+			<mat-form-field class="filter-width">
+				<mat-label>Status of trip</mat-label>
+				<mat-select [formControl]="statuses" multiple>
+					<mat-option
+						(click)="filterByStatus()"
+						*ngFor="let status of tripService.statusesTrip"
+						[value]="status.value"
+						>{{ status.viewValue }}</mat-option
+					>
+				</mat-select>
+			</mat-form-field>
 
-    <div class="trips-container" *ngFor="let trip of tripsArray|
-    filterByRole:role.roleField:selectedRole:role.isEnable|
-     filterByFavorite:'isFavorite':selectedFavorite|
-     sortTrips:'rating':order|
-     slice: 0:limit; trackBy: trackById">
-      <app-trip class="trip" [trip]="trip"></app-trip>
-    </div>
-    <div class="scroll-marker" #sMarker></div>
+			<mat-form-field class="filter-width">
+				<mat-label>Rating</mat-label>
+				<mat-select [formControl]="ratings" multiple>
+					<mat-option
+						(click)="filterByRating()"
+						*ngFor="let rate of tripService.ratesTrip"
+						[value]="rate.value"
+						>{{ rate.viewValue }}</mat-option
+					>
+				</mat-select>
+			</mat-form-field>
 
-    <app-no-data *ngIf="!tripsArray.length" isEmpty="true"></app-no-data>
-  </div>
-  <footer>
-    <div mat-dialog-actions class="trips-btn">
-      <button mat-button (click)="replaceAll()" *ngIf="tripsArray.length">Replase all</button>
-    </div>
-  </footer>
-  <div class="modal-close-control">
-    <button class="modal-close-control-btn" mat-icon-button (click)="exit()">
-      <mat-icon>close</mat-icon>
-    </button>
-  </div>
+			<mat-slide-toggle [(ngModel)]="selectedFavorite">Favorite trips</mat-slide-toggle>
+			<button [ngSwitch]="selectedBySort" (click)="ChangeSort()" class="modal-close-control-btn" mat-icon-button>
+				<mat-icon *ngSwitchCase="0" title="not sort">
+					call_split
+				</mat-icon>
+				<mat-icon *ngSwitchCase="1" title="ASC"> call_made</mat-icon>
+				<mat-icon *ngSwitchCase="2" title="DESC">
+					call_received
+				</mat-icon>
+			</button>
+		</div>
+	</mat-expansion-panel>
 
+	<div mat-dialog-content class="trips">
+		<div
+			class="trips-container items-hover"
+			*ngFor="
+				let trip of tripsArray
+					| filterByRole: tripService.roleFilterConfig.roleField:selectedRole:tripService.roleFilterConfig.isEnable
+					| filterByFavorite: 'isFavorite':selectedFavorite
+					| filterByStatus
+						: tripService.statusFilterConfig.fieldName
+						: tripService.statusFilterConfig.selected
+						: tripService.statusFilterConfig.isEnabled
+					| filterByRating
+						: tripService.ratingFilterConfig.fieldName
+						: tripService.ratingFilterConfig.selected
+						: tripService.ratingFilterConfig.isEnabled
+					| sortTrips: 'rating':order
+					| slice: 0:limit;
+				trackBy: trackById
+			"
+		>
+			<app-trip class="trip" [trip]="trip"></app-trip>
+		</div>
+		<div class="scroll-marker" #sMarker></div>
+
+		<app-no-data *ngIf="!tripsArray.length" isEmpty="true"></app-no-data>
+	</div>
+	<footer>
+		<div mat-dialog-actions class="trips-btn">
+			<button mat-button (click)="replaceAll()" *ngIf="tripsArray.length">Replase all</button>
+		</div>
+	</footer>
+	<div class="modal-close-control">
+		<button class="modal-close-control-btn" mat-icon-button (click)="exit()">
+			<mat-icon>close</mat-icon>
+		</button>
+	</div>
 </div>
-

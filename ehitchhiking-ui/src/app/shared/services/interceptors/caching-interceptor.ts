@@ -4,6 +4,7 @@ import {HttpInterceptor, HttpHandler, HttpRequest, HttpHeaders, HttpResponse, Ht
 import {of, Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {CachingHttpParams} from '@shared/models/caching.http.params';
+import {RequestMethods} from '@shared/enums/request-methods.enum';
 
 @Injectable()
 export class CachingInterceptor implements HttpInterceptor {
@@ -19,13 +20,14 @@ export class CachingInterceptor implements HttpInterceptor {
 		nextHandler: HttpHandler,
 		requestsCache: RequestCache
 	): Observable<HttpEvent<any>> {
-		const noHeaderRequest = request.clone({headers: new HttpHeaders()});
+		const requestClone = request.clone();
 
-		return nextHandler.handle(noHeaderRequest).pipe(
+		return nextHandler.handle(requestClone).pipe(
 			tap((event) => {
 				if (
 					event instanceof HttpResponse &&
 					request.params instanceof CachingHttpParams &&
+					request.method === RequestMethods.GET &&
 					request.params.cacheFlag
 				) {
 					requestsCache.put(request, event);

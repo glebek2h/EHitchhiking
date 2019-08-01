@@ -1,7 +1,5 @@
 package com.exadel.ehitchhiking.models;
 
-
-
 import lombok.*;
 import org.springframework.data.geo.Point;
 
@@ -20,8 +18,7 @@ public class TripPass {
     @Setter(AccessLevel.PRIVATE)
     @Getter
     @Column(name = "\"ID\"")
-    private  Integer id;
-
+    private Integer id;
 
     @Getter
     @Setter
@@ -46,7 +43,7 @@ public class TripPass {
     @Getter
     @Setter
     @ManyToOne
-    @JoinColumn (name = "\"PASS_ID\"")
+    @JoinColumn(name = "\"PASS_ID\"")
     private Passenger passenger;
 
     @Setter
@@ -71,8 +68,8 @@ public class TripPass {
 
     @Getter
     @Setter
-    @ManyToOne (fetch = FetchType.EAGER)
-    @JoinColumn (name = "\"TRIP_DRIVER\"")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "\"TRIP_DRIVER\"")
     private TripDriver tripDriver;
 
     @Getter
@@ -98,14 +95,11 @@ public class TripPass {
     @Getter
     @Setter
     @Column(name = "\"RATING\"")
-    private float rating;
+    private double rating;
 
-
-    public TripPass(String startPoint, String endPoint,
-                    Timestamp startTime, Timestamp endTime, boolean isActive,
-                    boolean isFinished, boolean isSaved, int seats,
-                    Passenger passenger, TripDriver tripDriver, boolean isHistory,
-                    Point coordStart, Point coordEnd, float distance){
+    public TripPass(String startPoint, String endPoint, Timestamp startTime, Timestamp endTime, boolean isActive,
+            boolean isFinished, boolean isSaved, int seats, Passenger passenger, TripDriver tripDriver,
+            boolean isHistory, Point coordStart, Point coordEnd, float distance) {
         this.startPoint = startPoint;
         this.endPoint = endPoint;
         this.startTime = startTime;

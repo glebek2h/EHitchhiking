@@ -26,28 +26,39 @@
   (formData)="getFilterData($event)"
   [isDisabledSubmitRouteButton]="isDisabledSubmitRouteButton"
 ></app-routes-list>
-<mat-button-toggle-group class="btn-group" name="fontStyle" aria-label="Font Style">
-	<mat-button-toggle class="passanger-btn" value="bold" (click)="toggleStateToPassenger()"
+<mat-button-toggle-group [disabled]="isDisabledMatToggleGroup" class="btn-group" name="fontStyle" aria-label="Font Style">
+	<mat-button-toggle class="role-chooser-btn" value="bold" (click)="toggleStateToPassenger()"
 		>Passenger</mat-button-toggle
 	>
-	<mat-button-toggle class="driver-btn" value="italic" (click)="toggleStateToDriver()">Driver</mat-button-toggle>
+	<mat-button-toggle class="role-chooser-btn" value="italic" (click)="toggleStateToDriver()">Driver</mat-button-toggle>
 </mat-button-toggle-group>
 <button
-	mat-raised-button
-	class="main-screen-action-btn save-route-btn"
-	(click)="saveRoute()"
-	*ngIf="isShownSaveRouteButton"
+  mat-fab color="primary"
+  matTooltip="save route"
+  class="main-screen-action-btn save-route-btn"
+  (click)="saveRoute()"
+  *ngIf="isShownSaveRouteButton"
 >
-	save-route
+  <i class="material-icons">
+    save_alt
+  </i>
 </button>
-<button mat-raised-button class="main-screen-action-btn view-routes-btn" (click)="viewRoutes()" *ngIf="isShownViewRoutesButton">
-	view-trips
+<button mat-fab color="primary" class="main-screen-action-btn view-routes-btn" matTooltip="view routes"
+        (click)="viewRoutes()" *ngIf="isShownViewRoutesButton">
+  <i class="material-icons md-36">
+    directions
+  </i>
 </button>
-<button class="plus-btn" mat-fab color="primary" (click)="openTripRegistrationForm()">
+<button *ngIf="isShownPlusButton" class="plus-btn" mat-fab matTooltip="create trip" (click)="openTripRegistrationForm()">
 	<i *ngIf="!editStatePlusButton" class="material-icons">
 		add
 	</i>
-	<i *ngIf="editStatePlusButton" class="material-icons">
+	<i *ngIf="editStatePlusButton" matTooltip="edit trip" class="material-icons">
 		edit
 	</i>
+</button>
+<button *ngIf="!isShownPlusButton" class="plus-btn" mat-fab matTooltip="close trip" (click)="toggleMapInterfaceToDefault()">
+  <i class="material-icons">
+    close
+  </i>
 </button>

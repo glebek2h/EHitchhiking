@@ -1,0 +1,45 @@
+<div class="modal-wrapper ">
+  <app-pre-loading [isLoading]="loading" [size]="loaderSize"></app-pre-loading>
+  <header class="modal-header ">
+    <span mat-dialog-title class="trips-title">Active trips</span>
+  </header>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>Filters</mat-expansion-panel-header>
+    <div class="expansion-panel-sm">
+      <mat-form-field>
+
+        <mat-label>Role</mat-label>
+        <mat-select [(ngModel)]="selectedRole" name="selected">
+          <mat-option (click)="filterByRole()" *ngFor="let role of roles" [value]="role.value">
+            {{role.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </mat-expansion-panel>
+  <div mat-dialog-content class="trips">
+
+    <div class="trips-container items-hover" *ngFor="let trip of tripsArray|
+    filterByRole:role.roleField:selectedRole:role.isEnable|
+     slice: 0:limit; trackBy: trackById">
+      <app-active-trip *ngIf="!isShowTripInfo" class="trip" [trip]="trip"
+                       (click)="showTripInfo(trip)"></app-active-trip>
+    </div>
+    <div class="scroll-marker" #sMarker></div>
+    <app-active-trip-additional-info (closeDialog)="exit()"  [trip]="tripInfo" *ngIf="isShowTripInfo"
+    ></app-active-trip-additional-info>
+    <app-no-data *ngIf="!tripsArray.length"></app-no-data>
+  </div>
+
+  <div class="modal-close-control">
+    <button class="modal-close-control-btn" mat-icon-button (click)="exit()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <footer>
+    <div mat-dialog-actions class="btn-back">
+      <button mat-button (click)="closeInfo()" *ngIf="isShowTripInfo">Back</button>
+    </div>
+  </footer>
+
+</div>

@@ -1,0 +1,24 @@
+@import '../../../../styles/fonts-constants'
+@import '../../../../styles/colors'
+@import '../../../../styles/mixins'
+@import '../../../../styles/trip'
+@import '../../../../styles'
+
+.form-row
+  display: flex
+  justify-content: center
+  align-items: center
+  @include flexbox(space-between)
+  border: 1px solid mat-color($primary, A100)
+  width: 100%
+  height: 100%
+.date
+  flex: 2
+  margin: $default-offset-value-of-trip
+.time
+  flex: 1.5
+  margin: $default-offset-value-of-trip
+.position-seats
+  flex: 1
+  margin: $default-offset-value-of-trip
+  margin-right: $default-offset

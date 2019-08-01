@@ -1,10 +1,11 @@
-import {ApiService} from '@shared/services/api.service';
-import {Component, ViewChild, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material';
 import {User} from '@shared/models/user';
-import {Car} from '@shared/models/car';
 import {FormGroup, FormBuilder} from '@angular/forms';
 import {CarsInfoService} from './cars-info.service';
+import {Car} from '@shared/models/car';
+import {ProfileModalApiService} from '@shared/services/api.services/profile-modal.api.service';
+import {UserService} from '@shared/services/user.service';
 @Component({
 	selector: 'app-profile-modal',
 	templateUrl: './profile-modal.component.html',
@@ -13,25 +14,40 @@ import {CarsInfoService} from './cars-info.service';
 })
 export class ProfileModalComponent implements OnInit {
 	readonly maxNumOfCars: number = 5;
-	user: User = new User('1','Yana', '', 'hello@gmail.com', '+375291234567', [
-		new Car('ferrari', 'pink', 'A3434B', 1),
-		new Car('lada', 'white', 'A3434B', 5),
-		new Car('tayota', 'yellow', 'A3434B', 3),
-		new Car('bmw', 'black', 'A3434B', 1),
-	]);
+	isLoading: boolean;
+	currentUser: User;
 	addCarMod: boolean;
 	carsInfoForm: FormGroup;
-	@ViewChild('submitChanges', {static: false}) submitButton;
+	isSaveDisabled: boolean;
 
 	constructor(
 		public dialogRef: MatDialogRef<ProfileModalComponent>,
 		private formBuilder: FormBuilder,
 		private carsInfoService: CarsInfoService,
-		private apiService: ApiService
+		private profileModalApiService: ProfileModalApiService,
+		private userService: UserService
 	) {}
 
+	private getCurrentUser(): User | null {
+		return this.userService.getCurrentUser();
+	}
+
 	ngOnInit(): void {
-		this.carsInfoForm = this.carsInfoService.toFormGroup(this.user.cars, this.formBuilder);
+		this.currentUser = this.getCurrentUser();
+		if (!this.currentUser) {
+			return;
+		}
+		this.isLoading = true;
+		this.isSaveDisabled = true;
+		this.profileModalApiService
+			.getCarsList(this.currentUser.id)
+			.then((cars) => {
+				this.currentUser.cars = cars;
+				this.carsInfoForm = this.carsInfoService.toFormGroup(cars, this.formBuilder);
+			})
+			.finally(() => {
+				this.isLoading = false;
+			});
 	}
 
 	close(): void {
@@ -43,21 +59,58 @@ export class ProfileModalComponent implements OnInit {
 	}
 
 	onSubmitNewCar(newCar: Car): void {
-		this.user.addCar(newCar);
-		this.carsInfoForm = this.carsInfoService.toFormGroup(this.user.cars, this.formBuilder);
-		this.addCarMod = false;
+		this.isLoading = true;
+		this.profileModalApiService
+			.addNewCar(newCar, this.currentUser.id)
+			.then((car) => {
+				if (car) {
+					this.currentUser.addCar(car);
+					this.carsInfoForm = this.carsInfoService.toFormGroup(this.currentUser.cars, this.formBuilder);
+				}
+				this.addCarMod = false;
+			})
+			.finally(() => {
+				this.isLoading = false;
+			});
 	}
 
 	onSubmitCarsChanges(): void {
-		const newCars = this.carsInfoService.getCarsInfo(this.carsInfoForm, this.user.cars.length);
-		this.user.cars = newCars;
+		const newCars = this.carsInfoService.getCarsInfo(
+			this.carsInfoForm,
+			this.currentUser.cars.length,
+			this.currentUser.cars
+		);
+		this.isLoading = true;
+		this.profileModalApiService
+			.updateCars(newCars, this.currentUser.id)
+			.then((response) => {
+				if (!response) {
+					return;
+				}
+				this.currentUser.cars = response;
+				this.carsInfoForm = this.carsInfoService.toFormGroup(response, this.formBuilder);
+			})
+			.finally(() => {
+				this.isLoading = false;
+			});
 	}
 
 	onChange(): void {
-		this.submitButton.disabled = this.carsInfoForm.invalid;
+		this.isSaveDisabled = this.carsInfoForm.invalid;
 	}
 
 	onCarDelete(event: MouseEvent, index: number): void {
-		this.user.cars.splice(index, 1);
+		this.isLoading = true;
+		this.profileModalApiService
+			.deleteCar(this.currentUser.cars[index].id)
+			.then((response) => {
+				if (!response) {
+					return;
+				}
+				this.currentUser.cars.splice(index, 1);
+			})
+			.finally(() => {
+				this.isLoading = false;
+			});
 	}
 }
