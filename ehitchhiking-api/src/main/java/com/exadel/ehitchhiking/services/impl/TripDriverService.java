@@ -148,7 +148,7 @@ public class TripDriverService implements ITripDriverService {
 
 
     @Override
-    public List<TripDriverVO> getAll(Instant startingTime, Instant endingTime, int seats,
+    public List<TripDriverVO> getAll(int idEmp, Instant startingTime, Instant endingTime, int seats,
                                      Point coordStart, Point coordEnd) {
         List<TripDriverVO> list =  dao.getAll().stream().map(TripDriverVO::fromEntity).collect(Collectors.toList());
         return list.stream()

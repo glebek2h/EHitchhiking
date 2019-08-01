@@ -6,6 +6,8 @@ import com.exadel.ehitchhiking.daos.impl.TripDriverDAO;
 import com.exadel.ehitchhiking.daos.impl.TripPassDAO;
 import com.exadel.ehitchhiking.models.TripDriver;
 import com.exadel.ehitchhiking.models.TripPass;
+import com.exadel.ehitchhiking.models.vo.PassInfoVO;
+import com.exadel.ehitchhiking.models.vo.TripsActiveVO;
 import com.exadel.ehitchhiking.models.vo.TripsHistoryVO;
 import com.exadel.ehitchhiking.services.ITripsService;
 import lombok.NoArgsConstructor;
@@ -29,14 +31,29 @@ public class TripsService implements ITripsService {
 
     public List<TripsHistoryVO> getAllHistory(int id){
         List<TripsHistoryVO> history = new ArrayList<>();
-        System.out.println(tripDriver.getHistory(id));
 
         for (TripDriver tr : tripDriver.getHistory(id))
             history.add(TripsHistoryVO.fromEntity(tr));
 
         for (TripPass tr : tripPassenger.getHistory(id))
             history.add(TripsHistoryVO.fromEntity(tr));
-        System.out.println(history);
+
         return history;
+    }
+
+    public List<TripsActiveVO> getAllActive (int id){ // employee id
+        List<TripsActiveVO> active = new ArrayList<>();
+
+
+        for(TripDriver tr : tripDriver.getActive(id)){
+            active.add(TripsActiveVO.fromEntity(tr, PassInfoVO.fromEntityList(tripPassenger.getAllPass(tr.getId()))));
+        }
+
+
+        for(TripPass tr : tripPassenger.getActive(id)){
+            active.add(TripsActiveVO.fromEntity(tr, PassInfoVO.fromEntityList(tripPassenger.getAllPass(tr.getTripDriver().getId()))));
+        }
+
+        return active;
     }
 }

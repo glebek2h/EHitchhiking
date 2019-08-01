@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.time.Instant;
 
 @Data
 @AllArgsConstructor
@@ -27,9 +26,9 @@ public class TripsHistoryVO {
 
     private boolean isSaved;
 
-    private String role;
+    private int role;
 
-   // private float rate;
+    private float rate;
 
 
     public static TripsHistoryVO fromEntity(TripPass tripPass) {
@@ -40,8 +39,8 @@ public class TripsHistoryVO {
                 tripPass.getEndPoint(),
                 tripPass.isFinished(),
                 tripPass.isSaved(),
-                "1"// Passenger role is 1
-                //tripPass.getRate;
+                1, // Passenger role is 1
+                tripPass.getRating()
 
         );
     }
@@ -55,8 +54,8 @@ public class TripsHistoryVO {
                 tripDriver.getEndPoint(),
                 tripDriver.isFinished(),
                 tripDriver.isSaved(),
-                "2"  // Driver's role is 2
-                //tripDriver.getRate;
+                2,  // Driver's role is 2
+                tripDriver.getRating()
         );
 
     }

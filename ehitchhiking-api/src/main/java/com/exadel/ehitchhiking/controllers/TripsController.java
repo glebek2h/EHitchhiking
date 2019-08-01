@@ -1,6 +1,7 @@
 package com.exadel.ehitchhiking.controllers;
 
 
+import com.exadel.ehitchhiking.models.vo.TripsActiveVO;
 import com.exadel.ehitchhiking.models.vo.TripsHistoryVO;
 import com.exadel.ehitchhiking.responses.Response;
 import com.exadel.ehitchhiking.responses.ResponseMany;
@@ -29,6 +30,26 @@ public class TripsController {
         try {
 
             list = trips.getAllHistory(Integer.parseInt(id));
+
+        } catch (Exception e) {
+            System.out.println(e);
+            response.setStatus("500");
+            response.setData(null);
+            return response;
+        }
+        response.setStatus("200");
+        response.setData(list);
+        return response;
+    }
+
+    @GetMapping("/active")
+    public ResponseMany<TripsActiveVO> getActive(String id) {
+
+        ResponseMany<TripsActiveVO> response = new ResponseMany<>();
+        List<TripsActiveVO> list;
+        try {
+
+            list = trips.getAllActive(Integer.parseInt(id));
 
         } catch (Exception e) {
             System.out.println(e);

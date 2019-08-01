@@ -28,7 +28,12 @@ public class TripPassDAO extends AbstractDAO<TripPass> implements ITripPassDAO {
 
     @Override
     public int getAmountPass(int idTripDriver) {
-        return getCurrentSession().createQuery("from TripPass where tripDriver.id = \"" + idTripDriver + "\"").list().size();
+        return getCurrentSession().createQuery("from TripPass where tripDriver.id = '" + idTripDriver + "'").list().size();
+    }
+
+    @Override
+    public List<TripPass> getAllPass(int idTrip){
+        return (List<TripPass>) getCurrentSession().createQuery("from TripPass where tripDriver.id = '" + idTrip + "'").list();
     }
 
 

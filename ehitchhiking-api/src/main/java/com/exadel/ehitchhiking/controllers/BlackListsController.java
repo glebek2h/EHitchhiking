@@ -26,23 +26,41 @@ public class BlackListsController {
     private IPassengerService passengerService;
 
 
-    // takes in the employeeId, the role in format "Driver"/"Passenger" and the id of the person that is going to be in the BL
-
-    @PostMapping("/add")
-    public Response<String> addToBL(@RequestBody RequestBlackList blackList) {
+    @PutMapping("/passenger")
+    public Response<String> addPassToBL(@RequestBody List<RequestBlackList> BL) {
         Response<String> response = new Response<>();
         try {
-            if (blackList.getRole().equals("D")) {
-                //int idDriver = driverService.findIdByemployeeId(Integer.parseInt(blackList.getEmployeeId()));
-                driverService.addPassToBL(1, Integer.parseInt(blackList.getIdPass()));
-            } else if (blackList.getRole().equals("P")) {
-                // int idPass = passengerService.findByEmployeeId(Integer.parseInt(blackList.getEmployeeId()));
-                passengerService.addDriverToBL(1, Integer.parseInt(blackList.getIdDriver()));
-            } else {
-                response.setStatus("500");
-                response.setData("false");
-                return response;
+            for (RequestBlackList blackList : BL) {
+                if (blackList.isBlocked()) {
+                    driverService.addPassToBL(blackList.getIdDriver(), blackList.getIdPass());
+                } else {
+                    driverService.deletePassFromBL(blackList.getIdDriver(), blackList.getIdPass());
+                }
             }
+
+        } catch (Exception e) {
+            response.setStatus("500");
+            response.setData("false");
+            return response;
+        }
+        response.setStatus("200");
+        response.setData("true");
+        return response;
+    }
+
+
+    @PutMapping("/driver")
+    public Response<String> addDriverToBL(@RequestBody List<RequestBlackList> BL) {
+        Response<String> response = new Response<>();
+        try {
+            for (RequestBlackList blackList : BL) {
+                if (blackList.isBlocked()) {
+                    passengerService.addDriverToBL( blackList.getIdPass(), blackList.getIdDriver());
+                } else {
+                    passengerService.deleteDriverFromBL( blackList.getIdPass(), blackList.getIdDriver());
+                }
+            }
+
         } catch (Exception e) {
             response.setStatus("500");
             response.setData("false");

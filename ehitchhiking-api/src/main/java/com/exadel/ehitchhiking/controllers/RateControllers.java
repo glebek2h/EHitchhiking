@@ -51,7 +51,7 @@ public class RateControllers {
 
 
     @PutMapping("/driver")
-    public Response<String> updateRateDriver(@RequestBody RequestDriver[] driverList) {
+    public Response<String> updateRateDriver(@RequestBody List<RequestDriver> driverList) {
         Response<String> response = new Response<>();
         try {
             for (RequestDriver driver : driverList) {
