@@ -1,94 +1,92 @@
-<div>
-	<div class="for-passenger" *ngIf="trip.role === userState.Passenger">
-		<mat-card class="size">
-			<mat-card-title class="center title">
-				Driver
-			</mat-card-title>
-			<mat-card class="info-container">
-				<div class="height-item-info form-row">
-					<div class="field-note-name truncated">
-						<span matTooltip="Name:" matTooltipPosition="right">Name:</span>
-					</div>
-					<div class="field-note-value truncated">
-						<span [matTooltip]="trip.driver.name" matTooltipPosition="left">{{ trip.driver.name }}</span>
-					</div>
-				</div>
-				<div class="height-item-info form-row">
-					<div class="field-note-name truncated">
-						<span matTooltip="Phone:" matTooltipPosition="right">Phone:</span>
-					</div>
-					<div class="field-note-value truncated">
-						<span [matTooltip]="trip.driver.phone" matTooltipPosition="left">{{ trip.driver.phone }}</span>
-					</div>
-				</div>
-				<div class="height-item-info form-row">
-					<div class="field-note-name truncated">
-						<span matTooltip="E-mail:" matTooltipPosition="right">E-mail:</span>
-					</div>
-					<div class="field-note-value truncated">
-						<span [matTooltip]="trip.driver.email" matTooltipPosition="left">{{ trip.driver.email }}</span>
-					</div>
-				</div>
-			</mat-card>
-
-			<mat-card-title class="center title">Car</mat-card-title>
-			<mat-card class="info-container">
-				<div class="height-item-info form-row">
-					<div class="field-note-name truncated">
-						<span matTooltip="Model" matTooltipPosition="right">Model:</span>
-					</div>
-					<div class="field-note-value truncated">
-						<span [matTooltip]="trip.driver.car.model" matTooltipPosition="left">{{
-							trip.driver.car.model
-						}}</span>
-					</div>
-				</div>
-				<div class="height-item-info form-row">
-					<div class="field-note-name truncated">
-						<span matTooltip="Car Number:" matTooltipPosition="right">Car Number:</span>
-					</div>
-					<div class="field-note-value truncated">
-						<span [matTooltip]="trip.driver.car.carNumber" matTooltipPosition="left">
-							{{ trip.driver.car.carNumber }}
-						</span>
-					</div>
-				</div>
-				<div class="height-item-info form-row">
-					<div class="field-note-name truncated">
-						<span matTooltip="Color:" matTooltipPosition="right">Color:</span>
-					</div>
-					<div class="field-note-value truncated">
-						<span [matTooltip]="trip.driver.car.color" matTooltipPosition="left">
-							{{ trip.driver.car.color }}
-						</span>
-					</div>
-				</div>
-				<div class="height-item-info form-row">
-					<div class="field-note-name truncated">
-						<span matTooltip="Experience:" matTooltipPosition="right">Experience:</span>
-					</div>
-					<div class="field-note-value truncated">
-						<span [matTooltip]="trip.driver.car.experience" matTooltipPosition="left">
-							{{ trip.driver.car.experience }}
-						</span>
-					</div>
-				</div>
-			</mat-card>
-		</mat-card>
-	</div>
-	<div class="for-driver" *ngIf="trip.role === userState.Driver">
-		<mat-card-title>
-			Passengers
+<div class="for-passenger" *ngIf="trip.role === userState.Passenger">
+	<mat-card class="size">
+		<mat-card-title class="center title">
+			Driver
 		</mat-card-title>
-		<mat-list *ngFor="let passenger of trip.passenger">
-			<mat-list-item>
-				<mat-list class="form-row">
-					<mat-list-item>Name: {{ passenger.name }} </mat-list-item>
-					<mat-list-item>Phone: {{ passenger.phone }} </mat-list-item>
-					<mat-list-item>E-mail: {{ passenger.email }} </mat-list-item>
-				</mat-list>
-			</mat-list-item>
-			<mat-divider></mat-divider>
-		</mat-list>
-	</div>
+		<mat-card class="info-container">
+			<div class="height-item-info form-row">
+				<div class="field-note-name truncated">
+					<span matTooltip="Name:" matTooltipPosition="right">Name:</span>
+				</div>
+				<div class="field-note-value truncated">
+					<span [matTooltip]="trip.driver.name" matTooltipPosition="left">{{ trip.driver.name }}</span>
+				</div>
+			</div>
+			<div class="height-item-info form-row">
+				<div class="field-note-name truncated">
+					<span matTooltip="Phone:" matTooltipPosition="right">Phone:</span>
+				</div>
+				<div class="field-note-value truncated">
+					<span [matTooltip]="trip.driver.phone" matTooltipPosition="left">{{ trip.driver.phone }}</span>
+				</div>
+			</div>
+			<div class="height-item-info form-row">
+				<div class="field-note-name truncated">
+					<span matTooltip="E-mail:" matTooltipPosition="right">E-mail:</span>
+				</div>
+				<div class="field-note-value truncated">
+					<span [matTooltip]="trip.driver.email" matTooltipPosition="left">{{ trip.driver.email }}</span>
+				</div>
+			</div>
+		</mat-card>
+
+		<mat-card-title class="center title">Car</mat-card-title>
+		<mat-card class="info-container">
+			<div class="height-item-info form-row">
+				<div class="field-note-name truncated">
+					<span matTooltip="Model" matTooltipPosition="right">Model:</span>
+				</div>
+				<div class="field-note-value truncated">
+					<span [matTooltip]="trip.driver.car.model" matTooltipPosition="left">{{
+						trip.driver.car.model
+					}}</span>
+				</div>
+			</div>
+			<div class="height-item-info form-row">
+				<div class="field-note-name truncated">
+					<span matTooltip="Car Number:" matTooltipPosition="right">Car Number:</span>
+				</div>
+				<div class="field-note-value truncated">
+					<span [matTooltip]="trip.driver.car.carNumber" matTooltipPosition="left">
+						{{ trip.driver.car.carNumber }}
+					</span>
+				</div>
+			</div>
+			<div class="height-item-info form-row">
+				<div class="field-note-name truncated">
+					<span matTooltip="Color:" matTooltipPosition="right">Color:</span>
+				</div>
+				<div class="field-note-value truncated">
+					<span [matTooltip]="trip.driver.car.color" matTooltipPosition="left">
+						{{ trip.driver.car.color }}
+					</span>
+				</div>
+			</div>
+			<div class="height-item-info form-row">
+				<div class="field-note-name truncated">
+					<span matTooltip="Experience:" matTooltipPosition="right">Experience:</span>
+				</div>
+				<div class="field-note-value truncated">
+					<span [matTooltip]="trip.driver.car.experience" matTooltipPosition="left">
+						{{ trip.driver.car.experience }}
+					</span>
+				</div>
+			</div>
+		</mat-card>
+	</mat-card>
+</div>
+<div class="for-driver" *ngIf="trip.role === userState.Driver">
+	<mat-card-title>
+		Passengers
+	</mat-card-title>
+	<mat-list *ngFor="let passenger of trip.passenger">
+		<mat-list-item>
+			<mat-list class="form-row">
+				<mat-list-item>Name: {{ passenger.name }} </mat-list-item>
+				<mat-list-item>Phone: {{ passenger.phone }} </mat-list-item>
+				<mat-list-item>E-mail: {{ passenger.email }} </mat-list-item>
+			</mat-list>
+		</mat-list-item>
+		<mat-divider></mat-divider>
+	</mat-list>
 </div>
