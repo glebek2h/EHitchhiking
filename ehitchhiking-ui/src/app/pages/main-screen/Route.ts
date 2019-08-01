@@ -9,9 +9,10 @@ export interface Route {
   placesSelect: number;
   tripDuration: string;
   routeColor: string;
-  passengers: any[];
+  passengerCoordinate: number[];
   driverRating: number;
   car: Car
   displayed: boolean;
   yandexRoute: MultiRouteModel;
+  distance: number;
 }

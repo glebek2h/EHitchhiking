@@ -21,7 +21,7 @@ export class TripRegistrationComponent implements OnInit {
 	coords;
 	nameFormGroup: FormGroup;
 
-	constructor(private mapTripFormService: MapTripFormService) {}
+	constructor() {}
 
 	ngOnInit() {
 		this.nameFormGroup = new FormGroup({
@@ -32,9 +32,6 @@ export class TripRegistrationComponent implements OnInit {
       departureTime: new FormControl('12:00 am', [Validators.required]),
       car: new FormControl('ferrari'),
 		});
-    this.mapTripFormService.getMessage().subscribe((coords) => {
-      this.coords = coords;
-    });
 	}
 
 	onChangeFix(event: Event, target) {
@@ -43,11 +40,14 @@ export class TripRegistrationComponent implements OnInit {
 	}
 
 	onSubmit() {
-    this.mapTripFormService.sayYandexMapsINeedCoords(this.nameFormGroup.value);
-    this.nameFormGroup.value.coords = this.coords;
-    this.userState === UserState.Driver ? this.formData.emit(this.nameFormGroup.value) : this.passengerFormData.emit(this.nameFormGroup.value);
-		this.isShownViewListButton.emit(true);
-		this.isShownSaveRouteButton.emit(true);
+    if(this.userState === UserState.Driver) {
+      this.formData.emit(this.nameFormGroup.value);
+    }
+    else{
+      this.passengerFormData.emit(this.nameFormGroup.value);
+    }
+    this.isShownViewListButton.emit(true);
+    this.isShownSaveRouteButton.emit(true);
 	}
 
   isDriver() {

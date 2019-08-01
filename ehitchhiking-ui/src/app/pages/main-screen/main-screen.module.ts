@@ -22,6 +22,7 @@ import {RoutesListComponent} from './routes-list/routes-list.component';
 import {MenuModule} from '../../shared/components/menu/menu.module';
 import {FiltersComponent} from './filters/filters.component';
 import {MapTripFormService} from "@shared/services/map-trip-form.service";
+import {UserService} from "@shared/services/user.service";
 
 @NgModule({
 	declarations: [
@@ -48,7 +49,7 @@ import {MapTripFormService} from "@shared/services/map-trip-form.service";
 		MatCheckboxModule,
 		MatTooltipModule,
 	],
-  providers:[MapTripFormService],
+  providers:[MapTripFormService,UserService],
 	exports: [MainScreenComponent, TripRegistrationComponent],
 })
 export class MainScreenModule {}

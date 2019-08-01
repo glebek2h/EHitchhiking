@@ -4,8 +4,6 @@ import {UserState} from '../../../shared/enums/UserState';
 import {YandexMapService} from './yandex-map.service';
 import MultiRouteModel = ymaps.multiRouter.MultiRouteModel;
 import {Route} from '@pages/main-screen/Route';
-import {MapTripFormService} from "@shared/services/map-trip-form.service";
-import {data} from "yandex-maps";
 
 @Component({
 	// tslint:disable-next-line:component-selector
@@ -14,11 +12,7 @@ import {data} from "yandex-maps";
 	styleUrls: ['./yandex-map.component.sass'],
 })
 export class YandexMapComponent implements OnInit, OnChanges {
-	constructor(private mapTripFormService: MapTripFormService) {
-	  mapTripFormService.yandexMapsGetCoords().subscribe((data) => {
-	    mapTripFormService.sendMessage(this.getCoordinates(data));
-    });
-  }
+	constructor() {}
 
 	static readonly API_URL = 'https://api-maps.yandex.ru/2.1/?apikey=05c4e476-2248-4d27-836c-4a6c7c45e485&lang=en_US';
 	static readonly ROUTES_ON_MAP_COUNT = 3;
@@ -32,8 +26,10 @@ export class YandexMapComponent implements OnInit, OnChanges {
 	myMark;
 
   marker: boolean;
+  coordsToReturn = [];
 
   @Output() passengerPlaceMark = new EventEmitter<boolean>();
+  @Output() coordinates = new EventEmitter<any>();
 	@Input() routes: Partial<Route>[]; // 'интерфейсы' маршрутов, которые ещё нужно построить
   @Input() userState: UserState;
 	@Input() tripState: number;
@@ -42,6 +38,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
 	@Input() triggers: any;
   @Input() redraw: any;
   @Input() indexRouteToDisplay: any;
+  @Input() getCoordsData: any;
 
 
 	ngOnInit() {
@@ -77,31 +74,32 @@ export class YandexMapComponent implements OnInit, OnChanges {
 			);
 			this.myMap.geoObjects.add(myGeoObject);
 			this.myMark = myGeoObject;
-
 			myGeoObject.events.add('dragend', (event) => {
-				this.currentRoute.passengers[0] = {passanger: 'gleb', coordinates: this.myMark.geometry._coordinates}; // TODO:0 is bad
-        this.passengerPlaceMark.emit(false);
+				this.currentRoute.passengerCoordinate = myGeoObject.geometry.getCoordinates();
+        this.passengerPlaceMark.emit(myGeoObject.geometry.getCoordinates());
 			});
 		});
 	}
 
-	getCoordinates(data) {
-    const coords = [];
-    this.ymapsPromise
+	setCoordinates(data) {
+      this.ymapsPromise
       .then((maps) => {
-        maps.geocode(data.from).then((res) => {
+        return Promise.all([maps.geocode(data.from).then((res) => {
           const firstGeoObject = res.geoObjects.get(0);
-          coords[0] = firstGeoObject.geometry.getCoordinates();
-        });
-        maps.geocode(data.to).then((res) => {
+          this.coordsToReturn[0] = firstGeoObject.geometry.getCoordinates();
+        }), maps.geocode(data.to).then((res) => {
           const firstGeoObject = res.geoObjects.get(0);
-          coords[1] = firstGeoObject.geometry.getCoordinates();
-        });
+          this.coordsToReturn[1] = firstGeoObject.geometry.getCoordinates();
+        })]);
+      }).then(() => {
+        this.coordinates.emit(this.coordsToReturn);
       });
-    return coords;
   }
 
-	ngOnChanges(changes: SimpleChanges) {
+	 ngOnChanges(changes: SimpleChanges) {
+	  if(changes.getCoordsData && this.marker){
+	    this.setCoordinates(this.getCoordsData);
+    }
     if (changes.indexRouteToDisplay && this.marker) {
       const i = this.indexRouteToDisplay.value;
       if (this.routes[i].displayed) {
@@ -197,7 +195,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
 				this.myMap.geoObjects.add(multiRoute);
 				this.currentMultiRoute = multiRoute;
         this.currentRoute = this.routes[index];
-				this.currentRoute.passengers = [];
+				this.currentRoute.passengerCoordinate = [];
         this.routes[index].yandexRoute = multiRoute;
 			})
 			.catch((error) => console.log('Failed to load Yandex Maps', error));
@@ -207,6 +205,9 @@ export class YandexMapComponent implements OnInit, OnChanges {
 		multiRoute.events.add('update', (e) => {
 			const activeRoute = multiRoute.getActiveRoute();
 			data.tripDuration = activeRoute.properties.get('duration').text;
+      const arr = activeRoute.properties.get('distance').text.split(' ');
+      data.distance = +arr[0];
+
 			activeRoute.events.add('mouseenter', () => {
 				activeRoute.options.set('strokeWidth', 5);
 				activeRoute.options.set('strokeColor', YandexMapService.ACTIVE_ROUTE_COLOR);

@@ -9,8 +9,9 @@
   [triggers]="mapTriggers"
   [indexRouteToDisplay]="displayedRouteIndex"
   [redraw]="redrawTriggers"
+  [getCoordsData]="sendFormData"
   (passengerPlaceMark)="getPassengerPlaceMarkInfo($event)"
-  (startEndCoordinatesOfRoute)="getStartEndCoords($event)"
+  (coordinates)="getStartEndCoords($event)"
 ></yandex-map>
 <app-trip-registration
   [isShown]="isHiddenTripRegistration"
@@ -24,6 +25,7 @@
 <app-routes-list
   *ngIf="isShownRoutesList"
   [activeRoutesCollection]="routes"
+  [passengersCoords]="passengerCoordinates"
   (routeToDisplay)="getIndexToDisplay($event)"
   (formData)="getFilterData($event)"
   [isDisabledSubmitRouteButton]="isDisabledSubmitRouteButton"

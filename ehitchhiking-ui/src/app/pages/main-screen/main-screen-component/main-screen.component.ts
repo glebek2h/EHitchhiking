@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, SimpleChanges} from '@angular/core';
 import {UserState} from '@shared/enums/UserState';
 import {YandexMapService} from '../yandex-map/yandex-map.service';
 import {User} from '@shared/models/user';
@@ -7,6 +7,7 @@ import {ApiService} from '@shared/services/api.services/api.service';
 import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 import {Route} from '../Route';
 import {MainScreenService} from "@shared/services/api.services/main-screen.service";
+import {MapTripFormService} from "@shared/services/map-trip-form.service";
 @Component({
 	selector: 'app-main-screen',
 	templateUrl: './main-screen.component.html',
@@ -14,7 +15,7 @@ import {MainScreenService} from "@shared/services/api.services/main-screen.servi
 	providers: [ApiService,MainScreenService],
 })
 export class MainScreenComponent implements OnInit {
-	constructor(private apiService: ApiService, private mainScreenService: MainScreenService) {}
+	constructor(private mainScreenService: MainScreenService,private mapTripFormService: MapTripFormService) {}
 
 	tripFormData: any; // TODO
 	isHiddenTripRegistration: boolean;
@@ -29,7 +30,10 @@ export class MainScreenComponent implements OnInit {
 	mapTriggers = {};
 	redrawTriggers: boolean;
 	filterData;
-	startEndCoordinates: number[] = [];
+
+  startEndCoordinates: number[] = [];
+	sendFormData;
+	passengerCoordinates: number[] = [];
 
 	routes: Partial<Route>[] = [];
 	copyRoutes: Partial<Route>[] = [];
@@ -49,24 +53,35 @@ export class MainScreenComponent implements OnInit {
 		this.copyRoutes = this.routes.slice();
 	}
 
-	openTripRegistrationForm(): void {
+  openTripRegistrationForm(): void {
 		this.isHiddenTripRegistration = !this.isHiddenTripRegistration;
 	}
 
 	getData(data) {
-		this.tripFormData = data;
-		this.isHiddenTripRegistration = true;
-		this.editStatePlusButton = true;
-		this.mapTriggers = {reset: true};
+    this.sendFormData = data;
+    /*  TODO: be careful with this, don't delete
+    this.tripFormData = data;
+        this.isHiddenTripRegistration = true;
+        this.editStatePlusButton = true;
+        this.mapTriggers = {reset: true};*/
 	}
-  getStartEndCoords(data: number[]) {
+
+  getStartEndCoords(data) {
     this.startEndCoordinates = data;
+    console.log(this.startEndCoordinates);
+    this.sendFormData.coords = this.startEndCoordinates;
+
+    this.mainScreenService.getDriversRoutes(this.sendFormData).subscribe((routes) => {
+      this.routes = routes;
+      this.tripFormData = this.sendFormData;
+    });
   }
   getPassengerTripData(data) {
-    this.mainScreenService.getDriversRoutes(data).subscribe((routes) => {this.routes = routes;this.tripFormData = data;});
+	  this.sendFormData = data;
   }
 
 	saveRoute() {
+    console.log(this.tripFormData);
 		this.isSavedRoute = !this.isSavedRoute;
 		this.isShownSaveRouteButton = false;
     this.mainScreenService.saveDriverRoute(this.tripFormData);
@@ -122,7 +137,8 @@ export class MainScreenComponent implements OnInit {
 	}
 
 	getPassengerPlaceMarkInfo(data) {
-		this.isDisabledSubmitRouteButton = data;
+		this.isDisabledSubmitRouteButton = false;
+		this.passengerCoordinates = data;
 	}
 
 }
