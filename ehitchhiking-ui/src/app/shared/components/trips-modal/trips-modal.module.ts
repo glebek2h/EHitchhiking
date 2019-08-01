@@ -15,13 +15,13 @@ import {TripModule} from '../trip/trip.module';
 import {NoDataModule} from '../no-data/no-data.module';
 import {PreLoadingModule} from '../pre-loading/pre-loading.module';
 import {TripsModalComponent} from './trips-modal.component';
-import {FilterByRolePipe} from '../../pipes/filter-by-role.pipe';
 import {FilterByFavoritePipe} from '../../pipes/filter-by-favorite.pipe';
 import {RatePassengersModalModule} from '@shared/components/rate-passengers-modal/rate-passengers-modal.module';
 import {SortTripsPipe} from '../../pipes/sort-trips.pipe';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FilterByStatusPipe} from '../../pipes/filter-by-status.pipe';
 import {FilterByRatingPipe} from '@shared/pipes/filter-by-rating.pipe';
+import {FilterByRolePipe} from '@shared/pipes/filter-by-role.pipe';
 
 @NgModule({
 	declarations: [

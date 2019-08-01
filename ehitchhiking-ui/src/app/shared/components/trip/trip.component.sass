@@ -1,17 +1,21 @@
 @import '../../../../styles/fonts-constants'
 @import '../../../../styles/colors'
 @import '../../../../styles/trip'
+@import '../../../../styles'
 
+.start-end-point
+  flex: 7
 .swap-btns-rating
+  flex: 3
   display: flex
   justify-content: center
   align-items: center
   margin-right: $default-offset*2
-  width: 6rem
 .action-btns-container
   position: absolute
   visibility: visible
   opacity: 1
+  right: $default-offset*2
   transition: opacity 0.3s, visibility 0s ease 0.3s
   &.active
     opacity: 0
