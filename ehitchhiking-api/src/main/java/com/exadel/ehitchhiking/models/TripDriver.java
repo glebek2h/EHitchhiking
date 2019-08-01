@@ -89,6 +89,11 @@ public class TripDriver {
     @Column(name = "\"IS_HISTORY\"")
     private boolean isHistory;
 
+    @Getter
+    @Setter
+    @Column(name = "\"RATING\"")
+    private float rating;
+
     public TripDriver(String startPoint, String endPoint,
                       Timestamp startTime, Timestamp endTime, boolean isActive,
                       boolean isFinished, boolean isSaved, int seats, Car car, boolean isHistory,
@@ -106,6 +111,7 @@ public class TripDriver {
         this.coordStart = coordStart;
         this.coordEnd = coordEnd;
         this.distance = distance;
+        this.rating = 0;
     }
 
 }

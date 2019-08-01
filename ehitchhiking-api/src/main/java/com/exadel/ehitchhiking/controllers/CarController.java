@@ -14,52 +14,35 @@ public class CarController {
     private ICarService carService;
 
     @PostMapping("/addCar")
-    public Response<String> createCar(@RequestBody RequestCar car) {
-        Response<String> response = new Response<>();
+    public Response createCar(@RequestBody RequestCar car) {
         try {
             carService.createCar(car.getColor(), car.getNumber(), car.getCarModel(),
                     Integer.parseInt(car.getIdOfDrive()));
-            response.setStatus("200");
-            response.setData("true");
-            return response;
-
         } catch (Exception e) {
-            response.setStatus("500");
-            response.setData("false");
-            return response;
+            return Response.setError("error");
         }
+        return Response.setSuccess("true");
     }
 
     @PutMapping("/deleteCar")
-    public Response<String> deleteCar(@RequestBody RequestCar car) {
-        Response<String> response = new Response<>();
+    public Response deleteCar(@RequestBody RequestCar car) {
         try {
             carService.deletedCar(Integer.parseInt(car.getCarId()));
-            response.setStatus("200");
-            response.setData("true");
-            return response;
         } catch (Exception e) {
-            response.setStatus("500");
-            response.setData("false");
-            return response;
+            return Response.setError("error");
         }
+        return Response.setSuccess("true");
     }
 
     @PutMapping("/updateCarParameters")
-    public Response<String> updateColor(@RequestBody RequestCar car) {
-        Response<String> response = new Response<>();
-        System.out.println(car.getCarId());
+    public Response updateColor(@RequestBody RequestCar car) {
         try {
             int carId = Integer.parseInt(car.getCarId());
             carService.updateColor(carId, car.getColor());
             carService.updateNumber(carId, car.getNumber());
-            response.setStatus("200");
-            response.setData("true");
-            return response;
         } catch (Exception e) {
-            response.setStatus("500");
-            response.setData("false");
-            return response;
+            return Response.setError("error");
         }
+        return Response.setSuccess("true");
     }
 }

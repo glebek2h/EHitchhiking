@@ -95,6 +95,12 @@ public class TripPass {
     @Column(name = "\"IS_HISTORY\"")
     private boolean isHistory;
 
+    @Getter
+    @Setter
+    @Column(name = "\"RATING\"")
+    private float rating;
+
+
     public TripPass(String startPoint, String endPoint,
                     Timestamp startTime, Timestamp endTime, boolean isActive,
                     boolean isFinished, boolean isSaved, int seats,
@@ -114,5 +120,6 @@ public class TripPass {
         this.coordEnd = coordEnd;
         this.coordStart = coordStart;
         this.distance = distance;
+        this.rating = 0;
     }
 }

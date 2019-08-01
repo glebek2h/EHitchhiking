@@ -4,6 +4,7 @@ import com.exadel.ehitchhiking.daos.IDriverDAO;
 
 import com.exadel.ehitchhiking.daos.IEmployeeDAO;
 import com.exadel.ehitchhiking.daos.IPassengerDAO;
+import com.exadel.ehitchhiking.daos.ITripDriverDAO;
 import com.exadel.ehitchhiking.models.Driver;
 
 import com.exadel.ehitchhiking.models.vo.PassengerVO;
@@ -29,6 +30,9 @@ public class DriverService implements IDriverService {
 
     @Autowired
     private IEmployeeDAO employeeDAO;
+
+    @Autowired
+    private ITripDriverDAO tripDriverDAO;
 
     @Override
     public void createDriver(Integer id) {
@@ -65,15 +69,15 @@ public class DriverService implements IDriverService {
     }
 
     @Override
-    public void addPassToBL(int idDriver, int idPass) {
-        Driver driver = dao.getDriver(idDriver);
+    public void addPassToBL(int idTrip, int idPass) {
+        Driver driver = tripDriverDAO.getTripDriver(idTrip).getCar().getDriver();
         driver.getPassengers().add(passengerDAO.getPassenger(idPass));
         dao.saveOrUpdate(driver);
     }
 
     @Override
-    public void deletePassFromBL(int idDriver, int idPass) {
-        Driver driver = dao.getDriver(idDriver);
+    public void deletePassFromBL(int idEmp, int idPass) {
+        Driver driver = dao.getByEmployeeId(idEmp);
         driver.getPassengers().remove(passengerDAO.getPassenger(idPass));
         dao.saveOrUpdate(driver);
     }

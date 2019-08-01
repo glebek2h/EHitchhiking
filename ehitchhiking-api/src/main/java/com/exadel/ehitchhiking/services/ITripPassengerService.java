@@ -1,13 +1,16 @@
 package com.exadel.ehitchhiking.services;
 
+import com.exadel.ehitchhiking.models.vo.DriverVO;
+import com.exadel.ehitchhiking.models.vo.TripPassVO;
 import org.springframework.data.geo.Point;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 
 public interface ITripPassengerService {
     void createTripPassenger(int passId, String startingPoint,
                              String endingPoint,
-                             Timestamp startingTime, Timestamp endingTime,
+                             Instant startingTime, Instant endingTime,
                              int seats, int idTripDriver, Point coordStart, Point coordEnd,
                              float distance);
 
@@ -21,8 +24,13 @@ public interface ITripPassengerService {
 
     void updateHistory(int id, boolean isHistory);
 
-    void updateTrip(int id, Timestamp newStart, Timestamp newEnd, String start, String end,
+    void updateTrip(int id, Instant newStart, Instant newEnd, String start, String end,
                     int newSeats, Point coordStart, Point coordEnd, float distance);
 
     void updateActive(int id, boolean isActive);
+
+
+    TripPassVO findTripPass(int id);
+
+    DriverVO findIdDriver (int id);
 }

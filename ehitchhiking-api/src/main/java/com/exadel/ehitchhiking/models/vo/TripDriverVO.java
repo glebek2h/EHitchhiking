@@ -35,6 +35,7 @@ public class TripDriverVO {
     @JsonIgnore
     private Integer idOfCar;
 
+
     private DriverVO driver;
 
     @JsonIgnore

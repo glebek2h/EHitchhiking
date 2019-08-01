@@ -12,14 +12,8 @@ import java.util.List;
 @Repository
 public class EmployeeDAO extends AbstractDAO<Employee> implements IEmployeeDAO {
 
-    public EmployeeDAO(SessionFactory sessionFactory) {
-        super(sessionFactory);
-    }
-
-    @Override
-    public List<Employee> getAll() {
-        List<Employee> emps = (List<Employee>) getCurrentSession().createQuery("From com.exadel.ehitchhiking.models.Employee").list();
-        return emps;
+    public EmployeeDAO() {
+        super(Employee.class);
     }
 
     @Override
