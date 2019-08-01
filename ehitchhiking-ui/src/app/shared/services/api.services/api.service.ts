@@ -30,7 +30,7 @@ export class ApiService {
 	doDelete(urlPath: string, parameters: any = null, isNotified: boolean = true): Promise<any> {
 		return this.generateRequest(RequestMethods.DEL, urlPath, false, isNotified, parameters);
 	}
-	getPut(urlPath: string, data: any = null, isNotified: boolean = true): Promise<any> {
+	doPut(urlPath: string, data: any = null, isNotified: boolean = true): Promise<any> {
 		return this.generateRequest(RequestMethods.PUT, urlPath, false, isNotified, data);
 	}
 
