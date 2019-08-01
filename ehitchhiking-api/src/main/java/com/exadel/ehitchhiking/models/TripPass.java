@@ -95,7 +95,7 @@ public class TripPass {
     @Getter
     @Setter
     @Column(name = "\"RATING\"")
-    private double rating;
+    private float rating;
 
     public TripPass(String startPoint, String endPoint, Timestamp startTime, Timestamp endTime, boolean isActive,
             boolean isFinished, boolean isSaved, int seats, Passenger passenger, TripDriver tripDriver,

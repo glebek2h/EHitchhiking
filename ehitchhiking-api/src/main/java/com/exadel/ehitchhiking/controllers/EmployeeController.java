@@ -32,7 +32,7 @@ public class EmployeeController {
     public Response getEmployee(String id) {
         EmployeeVO employee;
         try {
-            employee = employeeService.findUserId(Integer.parseInt(id));
+            employee = employeeService.findUserById(Integer.parseInt(id));
         } catch (Exception e) {
             return Response.setError("error");
         }

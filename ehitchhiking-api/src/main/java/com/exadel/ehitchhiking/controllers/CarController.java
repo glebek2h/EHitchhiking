@@ -1,6 +1,5 @@
 package com.exadel.ehitchhiking.controllers;
 
-import com.exadel.ehitchhiking.models.Car;
 import com.exadel.ehitchhiking.models.vo.CarVO;
 import com.exadel.ehitchhiking.requests.RequestCar;
 import com.exadel.ehitchhiking.responses.*;
@@ -8,7 +7,6 @@ import com.exadel.ehitchhiking.services.ICarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -31,8 +29,9 @@ public class CarController {
 
     @PostMapping("/addCar")
     public Response createCar(@RequestBody RequestCar car) {
+        CarVO newCar;
         try {
-            CarVO newCar = carService.createCar(car.getColor(), car.getNumber(), car.getModel(),
+            newCar = carService.createCar(car.getColor(), car.getNumber(), car.getModel(),
                     Integer.parseInt(car.getIdOfDriver()));
 
         } catch (Exception e) {
