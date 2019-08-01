@@ -1,6 +1,6 @@
 drop schema public cascade;
 
-create schema if not exists public;
+create schema public;
 
 alter schema public owner to postgres;
 
@@ -84,6 +84,49 @@ alter table "CAR" owner to postgres;
 create unique index if not exists "cars_veh number_uindex"
     on "CAR" ("VEH_NUMBER");
 
+create table if not exists "BLACKLIST_PASSENGER"
+(
+    "PASS_ID" integer not null
+        constraint blacklist_pass_passenger_pass_id_fk
+            references "PASSENGER",
+    "DRIVER_ID" integer not null
+        constraint blacklist_pass_driver_driver_id_fk
+            references "DRIVER",
+    "ID" serial not null
+        constraint blacklist_pass_pk
+            primary key
+);
+
+alter table "BLACKLIST_PASSENGER" owner to postgres;
+
+create table if not exists "BLACKLIST_DRIVER"
+(
+    "PASS_ID" integer not null
+        constraint blacklist_driver_passenger_pass_id_fk
+            references "PASSENGER",
+    "DRIVER_ID" integer not null
+        constraint blacklist_driver_driver_driver_id_fk
+            references "DRIVER",
+    "ID" serial not null
+        constraint blacklist_driver_pk
+            primary key
+);
+
+alter table "BLACKLIST_DRIVER" owner to postgres;
+
+create table if not exists "CHAT"
+(
+    "ID" serial not null
+        constraint chat_pk
+            primary key,
+    "HISTORY" json
+);
+
+alter table "CHAT" owner to postgres;
+
+create unique index if not exists chat_id_uindex
+    on "CHAT" ("ID");
+
 create table if not exists "TRIP_DRIVER"
 (
     "ID" integer not null
@@ -103,7 +146,12 @@ create table if not exists "TRIP_DRIVER"
     "DISTANCE" double precision not null,
     "IS_HISTORY" boolean not null,
     "COORD_START" bytea,
-    "COORD_END" bytea
+    "COORD_END" bytea,
+    "CHAT" integer
+        constraint trip_driver_chat_id_fk
+            references "CHAT",
+    "RATING" double precision,
+    "RATED_PEOPLE" integer
 );
 
 comment on column "TRIP_DRIVER"."IS_FINISHED" is '//finished -- true
@@ -136,7 +184,8 @@ create table if not exists "TRIP_PASSENGER"
     "DISTANCE" double precision not null,
     "IS_HISTORY" boolean not null,
     "COORD_START" bytea,
-    "COORD_END" bytea
+    "COORD_END" bytea,
+    "RATING" double precision
 );
 
 comment on column "TRIP_PASSENGER"."IS_FINISHED" is '// finishd -- true
@@ -147,43 +196,14 @@ comment on column "TRIP_PASSENGER"."IS_HISTORY" is '//true -- not deleted
 
 alter table "TRIP_PASSENGER" owner to postgres;
 
-create table if not exists "BLACKLIST_PASSENGER"
-(
-    "PASS_ID" integer not null
-        constraint blacklist_pass_passenger_pass_id_fk
-            references "PASSENGER",
-    "DRIVER_ID" integer not null
-        constraint blacklist_pass_driver_driver_id_fk
-            references "DRIVER",
-    "ID" serial not null
-        constraint blacklist_pass_pk
-            primary key
-);
-
-alter table "BLACKLIST_PASSENGER" owner to postgres;
-
-create table if not exists "BLACKLIST_DRIVER"
-(
-    "PASS_ID" integer not null
-        constraint blacklist_driver_passenger_pass_id_fk
-            references "PASSENGER",
-    "DRIVER_ID" integer not null
-        constraint blacklist_driver_driver_driver_id_fk
-            references "DRIVER",
-    "ID" serial not null
-        constraint blacklist_driver_pk
-            primary key
-);
-
-alter table "BLACKLIST_DRIVER" owner to postgres;
 
 
-INSERT INTO public."EMPLOYEE" ("ID", "IS_ADMIN", "FIRST_NAME", "LAST_NAME", "EMAIL", "PASS_WORD", "PHONE_NUMBER", "POINTS") VALUES (4, false, 'Anastasia', 'Garost', 'garost99@mail.ru', '$2a$10$kbfNOh0awjoTEviDLwO/5OcCermJT4nXXsAvJqRYySG3VhPjBaQOi', '+375296521023', 70);
-INSERT INTO public."EMPLOYEE" ("ID", "IS_ADMIN", "FIRST_NAME", "LAST_NAME", "EMAIL", "PASS_WORD", "PHONE_NUMBER", "POINTS") VALUES (1, true, 'Alexey', 'Chernyakov', 'alexey.chernyakov00@gmail.com', '$2a$11$RT99HAdBB9wUpxGBzzt0RuXFgcB66IWFFT4hTuQ5qszNNkIfW.8Du', '+375447164232', 100);
-INSERT INTO public."EMPLOYEE" ("ID", "IS_ADMIN", "FIRST_NAME", "LAST_NAME", "EMAIL", "PASS_WORD", "PHONE_NUMBER", "POINTS") VALUES (3, false, 'Yana', 'Bernachkaya', 'yana.bernachkaya@gmail.com', '$2a$11$pllp5YxRPWZ/eiK1lkpKy.RaxT4kEPBVtZXvj9bPJE4sUM6.qRT5e', '+375447822582', 60);
-INSERT INTO public."EMPLOYEE" ("ID", "IS_ADMIN", "FIRST_NAME", "LAST_NAME", "EMAIL", "PASS_WORD", "PHONE_NUMBER", "POINTS") VALUES (5, false, 'Julia', 'Romanova', 'youliaromanova99@mail.ru', '$2a$11$TVu4CKeL4q3ZzOKhtUAYSeVrysBxan2tb0ghTwPTIGIejTEEoaHzS', '+375333466688', 80);
-INSERT INTO public."EMPLOYEE" ("ID", "IS_ADMIN", "FIRST_NAME", "LAST_NAME", "EMAIL", "PASS_WORD", "PHONE_NUMBER", "POINTS") VALUES (6, true, 'Gleb', 'Kazachinskiy', 'raul221299@gmail.com', '$2a$11$y..mUFo1yxV.ZhRgkkjV8OxrFVv/tO0Tnph7Oduj9B0TFD4ROIOYS', '+375293084364', 90);
-INSERT INTO public."EMPLOYEE" ("ID", "IS_ADMIN", "FIRST_NAME", "LAST_NAME", "EMAIL", "PASS_WORD", "PHONE_NUMBER", "POINTS") VALUES (2, false, 'Elizabeth', 'Kemerava', 'elizabeth.kemerov@gmail.com', '$2a$11$/AiWQ6OmAD.D0i5k9QrpBOp3IBahJfDdtk6OjS07OocRi1Dc39yru', '+375293031773', 50);
+INSERT INTO public."EMPLOYEE" ("ID", "IS_ADMIN", "FIRST_NAME", "LAST_NAME", "EMAIL", "PASS_WORD", "PHONE_NUMBER", "POINTS") VALUES (4, false, 'Anastasia', 'Garost', 'garost99@mail.ru', '$2a$10$7VbWdiGztc55EIL1wimLruGpBqtHYGdkmSmY1sED5fgpdtNpIebmu', '+375296521023', 70);
+INSERT INTO public."EMPLOYEE" ("ID", "IS_ADMIN", "FIRST_NAME", "LAST_NAME", "EMAIL", "PASS_WORD", "PHONE_NUMBER", "POINTS") VALUES (1, true, 'Alexey', 'Chernyakov', 'alexey.chernyakov00@gmail.com', '$2a$10$bjmKjhbQjOyU9OyZfF8jneETV6Y/8E7YvHTHieb1Ho8/BvztLRheK', '+375447164232', 100);
+INSERT INTO public."EMPLOYEE" ("ID", "IS_ADMIN", "FIRST_NAME", "LAST_NAME", "EMAIL", "PASS_WORD", "PHONE_NUMBER", "POINTS") VALUES (3, false, 'Yana', 'Bernachkaya', 'yana.bernachkaya@gmail.com', '$2a$10$crgdfruL.7x7AiUEs3YB/erstHG4ktgak7vPceYDaWcwgadvdQABy', '+375447822582', 60);
+INSERT INTO public."EMPLOYEE" ("ID", "IS_ADMIN", "FIRST_NAME", "LAST_NAME", "EMAIL", "PASS_WORD", "PHONE_NUMBER", "POINTS") VALUES (5, false, 'Julia', 'Romanova', 'youliaromanova99@mail.ru', '$2a$10$ie4CY/se0yRBx/Ya9qkiH.2NVfXVzJqXJJcgQ6TZN/rs6aspDwmhi', '+375333466688', 80);
+INSERT INTO public."EMPLOYEE" ("ID", "IS_ADMIN", "FIRST_NAME", "LAST_NAME", "EMAIL", "PASS_WORD", "PHONE_NUMBER", "POINTS") VALUES (6, true, 'Gleb', 'Kazachinskiy', 'raul221299@gmail.com', '$2a$10$XUrSwUkIMRzBb8.rXfA5Ve4uZ.2BvVyQNszbamJXvZBVvL2WUGwbW', '+375293084364', 90);
+INSERT INTO public."EMPLOYEE" ("ID", "IS_ADMIN", "FIRST_NAME", "LAST_NAME", "EMAIL", "PASS_WORD", "PHONE_NUMBER", "POINTS") VALUES (2, false, 'Elizabeth', 'Kemerava', 'elizabeth.kemerov@gmail.com', '$2a$10$JmxaxdHQ.iZW36PCqdRu5.awDxiYDlLy74eF9ULapjZ0n/GVWFxP.', '+375293031773', 50);
 INSERT INTO public."DRIVER" ("ID", "EMPLOYEE_ID", "RATE_DRIVER", "RATING_PEOPLE") VALUES (7, 1, 0, 0);
 INSERT INTO public."DRIVER" ("ID", "EMPLOYEE_ID", "RATE_DRIVER", "RATING_PEOPLE") VALUES (8, 2, 0, 0);
 INSERT INTO public."DRIVER" ("ID", "EMPLOYEE_ID", "RATE_DRIVER", "RATING_PEOPLE") VALUES (9, 3, 0, 0);
@@ -196,16 +216,16 @@ INSERT INTO public."PASSENGER" ("ID", "EMPLOYEE_ID", "RATE_PASSENGER", "RATING_P
 INSERT INTO public."PASSENGER" ("ID", "EMPLOYEE_ID", "RATE_PASSENGER", "RATING_PEOPLE") VALUES (16, 4, 0, 0);
 INSERT INTO public."PASSENGER" ("ID", "EMPLOYEE_ID", "RATE_PASSENGER", "RATING_PEOPLE") VALUES (17, 5, 0, 0);
 INSERT INTO public."PASSENGER" ("ID", "EMPLOYEE_ID", "RATE_PASSENGER", "RATING_PEOPLE") VALUES (18, 6, 0, 0);
-INSERT INTO public."CAR" ("ID", "CAR_COLOR", "VEH_NUMBER", "MODEL", "DRIVER_ID", "IS_DELETED") VALUES (19, 'red', '4851 EE-3', 'Lada', 7, false);
-INSERT INTO public."CAR" ("ID", "CAR_COLOR", "VEH_NUMBER", "MODEL", "DRIVER_ID", "IS_DELETED") VALUES (20, 'blue', '7392 AB-7', 'Ferrari', 7, false);
-INSERT INTO public."CAR" ("ID", "CAR_COLOR", "VEH_NUMBER", "MODEL", "DRIVER_ID", "IS_DELETED") VALUES (21, 'green', '6923 EQ-6', 'Citroen', 8, false);
-INSERT INTO public."CAR" ("ID", "CAR_COLOR", "VEH_NUMBER", "MODEL", "DRIVER_ID", "IS_DELETED") VALUES (22, 'white', '0364 RT-4', 'Pegeout', 8, false);
-INSERT INTO public."CAR" ("ID", "CAR_COLOR", "VEH_NUMBER", "MODEL", "DRIVER_ID", "IS_DELETED") VALUES (23, 'black', '1488 EE-3', 'Opel', 9, false);
-INSERT INTO public."CAR" ("ID", "CAR_COLOR", "VEH_NUMBER", "MODEL", "DRIVER_ID", "IS_DELETED") VALUES (24, 'pink', '7493 UI-1', 'BMW', 12, false);
-INSERT INTO public."CAR" ("ID", "CAR_COLOR", "VEH_NUMBER", "MODEL", "DRIVER_ID", "IS_DELETED") VALUES (25, 'red', '0228 CE-2', 'Mercedes', 10, false);
-INSERT INTO public."CAR" ("ID", "CAR_COLOR", "VEH_NUMBER", "MODEL", "DRIVER_ID", "IS_DELETED") VALUES (26, 'blue', '0322 TE-6', 'Volga', 7, false);
-INSERT INTO public."CAR" ("ID", "CAR_COLOR", "VEH_NUMBER", "MODEL", "DRIVER_ID", "IS_DELETED") VALUES (27, 'green', '5392 UE-5', 'Volvo', 12, false);
-INSERT INTO public."CAR" ("ID", "CAR_COLOR", "VEH_NUMBER", "MODEL", "DRIVER_ID", "IS_DELETED") VALUES (28, 'red', '1038 BE-7', 'BMW', 7, false);
+INSERT INTO public."CAR" ("ID", "CAR_COLOR", "VEH_NUMBER", "MODEL", "DRIVER_ID", "IS_DELETED") VALUES (19, 'red', '4851EE-3', 'Lada', 7, false);
+INSERT INTO public."CAR" ("ID", "CAR_COLOR", "VEH_NUMBER", "MODEL", "DRIVER_ID", "IS_DELETED") VALUES (20, 'blue', '7392AB-7', 'Ferrari', 7, false);
+INSERT INTO public."CAR" ("ID", "CAR_COLOR", "VEH_NUMBER", "MODEL", "DRIVER_ID", "IS_DELETED") VALUES (21, 'green', '6923EQ-6', 'Citroen', 8, false);
+INSERT INTO public."CAR" ("ID", "CAR_COLOR", "VEH_NUMBER", "MODEL", "DRIVER_ID", "IS_DELETED") VALUES (22, 'white', '0364RT-4', 'Pegeout', 8, false);
+INSERT INTO public."CAR" ("ID", "CAR_COLOR", "VEH_NUMBER", "MODEL", "DRIVER_ID", "IS_DELETED") VALUES (23, 'black', '1488EE-3', 'Opel', 9, false);
+INSERT INTO public."CAR" ("ID", "CAR_COLOR", "VEH_NUMBER", "MODEL", "DRIVER_ID", "IS_DELETED") VALUES (24, 'pink', '7493UI-1', 'BMW', 12, false);
+INSERT INTO public."CAR" ("ID", "CAR_COLOR", "VEH_NUMBER", "MODEL", "DRIVER_ID", "IS_DELETED") VALUES (25, 'red', '0228CE-2', 'Mercedes', 10, false);
+INSERT INTO public."CAR" ("ID", "CAR_COLOR", "VEH_NUMBER", "MODEL", "DRIVER_ID", "IS_DELETED") VALUES (26, 'blue', '0322TE-6', 'Volga', 7, false);
+INSERT INTO public."CAR" ("ID", "CAR_COLOR", "VEH_NUMBER", "MODEL", "DRIVER_ID", "IS_DELETED") VALUES (27, 'green', '5392UE-5', 'Volvo', 12, false);
+INSERT INTO public."CAR" ("ID", "CAR_COLOR", "VEH_NUMBER", "MODEL", "DRIVER_ID", "IS_DELETED") VALUES (28, 'red', '1038BE-7', 'BMW', 7, false);
 INSERT INTO public."TRIP_DRIVER" ("ID", "POINT_START", "POINT_END", "CAR_ID", "IS_ACTIVE", "IS_FINISHED", "IS_SAVED", "TIME_END", "AVAILABLE_SEATS", "TIME_START", "DISTANCE", "IS_HISTORY", "COORD_START", "COORD_END") VALUES (1, 'Sweden', 'Minsk', 19, true, false, false, '2019-07-28 12:30:45.227921', 3, '2019-07-28 12:00:45.227921', 1500, true, E'\\xACED0005737200226F72672E737072696E676672616D65776F726B2E646174612E67656F2E506F696E7431B9E90EF11A400602000244000178440001797870404DD66574CEDEF6402D0AADF3C3B19B', E'\\xACED0005737200226F72672E737072696E676672616D65776F726B2E646174612E67656F2E506F696E7431B9E90EF11A400602000244000178440001797870404AF37FAE3608D1403B8FD74F06CE50');
 INSERT INTO public."TRIP_DRIVER" ("ID", "POINT_START", "POINT_END", "CAR_ID", "IS_ACTIVE", "IS_FINISHED", "IS_SAVED", "TIME_END", "AVAILABLE_SEATS", "TIME_START", "DISTANCE", "IS_HISTORY", "COORD_START", "COORD_END") VALUES (2, 'Kalinkovichi', 'Vasilievichi', 20, true, false, false, '2019-07-28 12:40:45.227921', 3, '2019-07-28 11:50:45.227921', 50, true, E'\\xACED0005737200226F72672E737072696E676672616D65776F726B2E646174612E67656F2E506F696E7431B9E90EF11A400602000244000178440001797870404A1076A21DCC9A403D54D986EF72EA', E'\\xACED0005737200226F72672E737072696E676672616D65776F726B2E646174612E67656F2E506F696E7431B9E90EF11A400602000244000178440001797870404A524ADF216327403DDC6723FB87CB');
 INSERT INTO public."TRIP_DRIVER" ("ID", "POINT_START", "POINT_END", "CAR_ID", "IS_ACTIVE", "IS_FINISHED", "IS_SAVED", "TIME_END", "AVAILABLE_SEATS", "TIME_START", "DISTANCE", "IS_HISTORY", "COORD_START", "COORD_END") VALUES (3, 'Homel', 'Minsk', 21, true, false, false, '2019-07-28 14:00:45.227921', 2, '2019-07-28 13:00:45.227921', 300, true, E'\\xACED0005737200226F72672E737072696E676672616D65776F726B2E646174612E67656F2E506F696E7431B9E90EF11A400602000244000178440001797870404A3642253E7DEA403F035F18944B7C', E'\\xACED0005737200226F72672E737072696E676672616D65776F726B2E646174612E67656F2E506F696E7431B9E90EF11A400602000244000178440001797870404AF37FAE3608D1403B8FD74F06CE50');

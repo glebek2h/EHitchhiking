@@ -35,11 +35,13 @@ public class EmployeeController {
     public Response<EmployeeVO> getEmployee(String id) {
         Response<EmployeeVO> response = new Response<>();
         try {
-            response.setStatus("200");
+            response.setMsg("Successfully return employee");
+            response.setStatus("success");
             response.setData(employeeService.findUserById(Integer.parseInt(id)));
             return response;
         } catch (Exception e) {
-            response.setStatus("500");
+            response.setMsg("Failed returning employee");
+            response.setStatus("error");
             response.setData(null);
             return response;
         }

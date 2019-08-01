@@ -100,7 +100,7 @@ export class YandexMapService {
 			departureTime: '12:00 am',
 			placesSelect: 0,
 			driverRating: 1,
-			car: new Car('ferrari', 'pink', 'A3434B', 1),
+			car: new Car('ferrari', 'pink', 'A3434B'),
 		});
 		routes.push({
 			from: 'Пионерская 30Б, Минск',
@@ -109,7 +109,7 @@ export class YandexMapService {
 			departureTime: '12:00 am',
 			placesSelect: 0,
 			driverRating: 3,
-			car: new Car('lada', 'white', 'A3434B', 5),
+			car: new Car('lada', 'white', 'A3434B'),
 		});
 		routes.push({
 			from: 'Шаранговича 62, Минск',
@@ -118,7 +118,7 @@ export class YandexMapService {
 			departureTime: '15:00 am',
 			placesSelect: 3,
 			driverRating: 3,
-			car: new Car('tayota', 'yellow', 'A3434B', 3),
+			car: new Car('tayota', 'yellow', 'A3434B'),
 		});
 		routes.push({
 			from: 'Магнитная 8, Минск',
@@ -127,7 +127,7 @@ export class YandexMapService {
 			departureTime: '15:00 am',
 			placesSelect: 4,
 			driverRating: 4,
-			car: new Car('bmw', 'black', 'A3434B', 1),
+			car: new Car('bmw', 'black', 'A3434B'),
 		});
 		routes.push({
 			from: 'Подгорная 29, Минск',
@@ -136,7 +136,7 @@ export class YandexMapService {
 			departureTime: '15:00 am',
 			placesSelect: 5,
 			driverRating: 5,
-			car: new Car('bmw', 'black', 'A3434B', 1),
+			car: new Car('bmw', 'black', 'A3434B'),
 		});
 		routes = this.filterRoutes(routes);
 		return routes;

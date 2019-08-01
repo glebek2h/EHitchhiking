@@ -1,24 +1,25 @@
-export class Car {
+import {CarInterface} from '@shared/interfaces/car-interface';
+
+export class Car implements CarInterface {
+	id: string;
 	model: string;
 	color: string;
-	carNumber: string;
-	experience: number;
+	number: string;
 
-	constructor(model: string = '', color: string = '', carNumber: string = '', experience: number = 0) {
+	constructor(id: string, model: string = '', color: string = '', number: string = '') {
+		this.id = id;
 		this.model = model;
 		this.color = color;
-		this.carNumber = carNumber;
-		this.experience = experience;
+		this.number = number;
 	}
 
 	isEmpty(): boolean {
-		return !this.model && !this.color && !this.carNumber && !this.experience;
+		return !this.model && !this.color && !this.number && !this.id;
 	}
 
-	changeData(model: string, color: string, carNumber: string, experience: number): void {
+	changeData(model: string, color: string, number: string): void {
 		this.model = model || this.model;
 		this.color = color || this.color;
-		this.carNumber = carNumber || this.carNumber;
-		this.experience = experience || this.experience;
+		this.number = number || this.number;
 	}
 }

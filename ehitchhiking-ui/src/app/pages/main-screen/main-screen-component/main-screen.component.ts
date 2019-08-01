@@ -34,10 +34,10 @@ export class MainScreenComponent implements OnInit {
 	copyRoutes: Partial<Route>[] = [];
 
 	user: User = new User('1', 'Yana', '', 'hello@gmail.com', '+375291234567', [
-		new Car('ferrari', 'pink', 'A3434B', 1),
-		new Car('lada', 'white', 'A3434B', 5),
-		new Car('tayota', 'yellow', 'A3434B', 3),
-		new Car('bmw', 'black', 'A3434B', 1),
+		new Car('ferrari', 'pink', 'A3434B'),
+		new Car('lada', 'white', 'A3434B'),
+		new Car('tayota', 'yellow', 'A3434B'),
+		new Car('bmw', 'black', 'A3434B'),
 	]);
 
   constructor(private apiService: ApiService, private activeTripsMapService: ActiveTripsMapService) {
@@ -52,7 +52,7 @@ export class MainScreenComponent implements OnInit {
 		this.isHiddenTripRegistration = true;
 		this.isDisabledSubmitRouteButton = true;
 		this.userState = UserState.Passenger;
-		this.apiService.doGet(URL_REGISTRY.MAP.GET_ROUTES).subscribe();
+		this.apiService.doGet(URL_REGISTRY.MAP.GET_ROUTES);
 		this.routes = YandexMapService.getSomeRoutes();
 		this.copyRoutes = this.routes.slice();
 	}

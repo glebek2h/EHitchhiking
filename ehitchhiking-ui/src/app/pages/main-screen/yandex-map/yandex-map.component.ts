@@ -151,6 +151,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
 				);
         this.myMap.controls.remove('geolocationControl');
         this.myMap.controls.remove('searchControl');
+        this.myMap.controls.remove('rulerControl');
 				maps.geolocation
 					.get({
 						mapStateAutoApply: true,

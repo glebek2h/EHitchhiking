@@ -2,10 +2,7 @@ import {User} from '@shared/models/user';
 import {ApiService} from '@shared/services/api.services/api.service';
 import {Car} from '@shared/models/car';
 import {URL_REGISTRY} from '@shared/constants/urlRegistry';
-import {map} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {HttpResponse} from '@angular/common/http';
 
 @Injectable()
 export class BlackListApiService {
@@ -14,7 +11,7 @@ export class BlackListApiService {
 	mapBlackListUser(data: any): User[] {
 		return data.map((obj) => {
 			return new User(obj.id, obj.firstName + ' ' + obj.lastName, '', obj.email, '', [
-				new Car('ferrari', 'pink', 'A3434B', 1),
+				new Car('ferrari', 'pink', 'A3434B'),
 			]);
 		});
 	}
@@ -22,13 +19,13 @@ export class BlackListApiService {
 	getDriverBlacklist(params: GetBlockedUsersParams) {
 		return this.apiService
 			.doGet(URL_REGISTRY.BLACKLIST.GET_DRIVER_BLACKLIST, false, params)
-			.pipe(map((data) => this.mapBlackListUser(data.body.data)));
+			.then(this.mapBlackListUser);
 	}
 
 	getPassengerBlacklist(params: GetBlockedUsersParams) {
 		return this.apiService
 			.doGet(URL_REGISTRY.BLACKLIST.GET_PASSENGER_BLACKLIST, false, params)
-			.pipe(map((data) => this.mapBlackListUser(data.body.data)));
+			.then(this.mapBlackListUser);
 	}
 
 	deleteBlockedPassenger(params: DeleteBlockedUserParams) {
