@@ -1,9 +1,27 @@
 @import '../../../../styles/colors'
+@import '../../../../styles/constants'
 @import '../../../../styles/mixins'
+@import '../../../../styles/fonts-constants'
+@import '../../../../styles'
 
-mat-grid-tile
-  background: mat-color($accent, 50)
 .form-row
   @include flexbox(space-between)
-.column
-  @include flexbox(center, center, column)
+.info-container
+  margin: auto
+  margin-bottom: $default-offset
+  max-width: 75%
+  background: mat-color($accent, 100)
+  opacity: 0.9
+  color: $white
+.height-item-info
+  height: 2rem
+.center
+  text-align: center
+.title
+  font-size: $input
+.field-note-name,
+.field-note-value
+  width: 50%
+.field-note-value
+  text-align: end
+

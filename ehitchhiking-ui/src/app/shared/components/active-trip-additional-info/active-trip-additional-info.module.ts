@@ -7,6 +7,7 @@ import {
 	MatGridListModule,
 	MatListModule,
 	MatTableModule,
+	MatTooltipModule,
 } from '@angular/material';
 
 import {RatingModule} from '../rating/rating.module';
@@ -22,6 +23,7 @@ import {ActiveTripAdditionalInfoComponent} from './active-trip-additional-info.c
 		MatCardModule,
 		MatListModule,
 		MatGridListModule,
+		MatTooltipModule,
 	],
 	entryComponents: [ActiveTripAdditionalInfoComponent],
 	exports: [ActiveTripAdditionalInfoComponent],
