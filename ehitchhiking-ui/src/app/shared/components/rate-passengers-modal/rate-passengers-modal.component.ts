@@ -21,7 +21,6 @@ export class RatePassengersModalComponent implements OnInit{
   idTripPassenger=4;
   loading =true;
   loaderSize: LoaderSize = LoaderSize.Large;
-
   constructor(public dialogRef: MatDialogRef<RatePassengersModalComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
               private apiRatePassengersService: RatePassengersApiService) {
   }

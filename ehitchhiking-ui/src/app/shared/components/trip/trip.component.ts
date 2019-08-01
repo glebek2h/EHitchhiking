@@ -49,7 +49,8 @@ export class TripComponent implements OnInit {
       panelClass: DEFAULT_MAT_DIALOG_CLASS,
       autoFocus: false,
       data: {
-        dataKey: this.trip.role
+        dataKey: this.trip.role,
+        tripId: this.trip.id
       }
     });
 
