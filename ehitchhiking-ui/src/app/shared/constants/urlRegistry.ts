@@ -17,6 +17,7 @@ export const URL_REGISTRY = {
 		DELETE_CAR: 'car/deleteCar?id={{id}}',
 		UPDATE_CARS: 'car/updateCars',
 	},
+	HISTORY: 'trips/history?id={{id}}',
 	CURRENT_USER: 'currentUser',
 	LOG_OUT: '/logout',
 };

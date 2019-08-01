@@ -47,23 +47,27 @@ export class TripsModalComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.scrollObserver.observe(this.markerRef.nativeElement);
-		this.tripsArrayLength = this.tripsModalService.getTrips().length;
-		this.fetchTrips();
+		this.tripsModalService.getTrips().then((data) => {
+			this.scrollObserver.observe(this.markerRef.nativeElement);
+			setTimeout(() => {
+				this.loading = false;
+			}, 1000);
+			this.tripsArray = data;
+			this.tripsArrayLength = data.length;
+		});
 	}
 
-	fetchTrips() {
-		this.tripsArray = this.tripsModalService.getTrips();
-		setTimeout(() => {
-			this.loading = false;
-		}, 1000);
-	}
 	exit(): void {
 		this.dialogRef.close();
 	}
 	replaceAll(): void {
-		this.tripsModalService.resetTripsList();
-		this.fetchTrips();
+		this.tripsModalService.resetTripsList().then((response) => {
+			if (!response) {
+				return;
+			}
+			this.tripsArray = [];
+			this.tripsArrayLength = 0;
+		});
 	}
 
 	trackById(trip) {
