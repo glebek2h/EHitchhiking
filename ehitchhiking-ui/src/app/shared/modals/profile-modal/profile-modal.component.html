@@ -3,6 +3,7 @@
 		<span class="modal-title">{{ currentUser ? currentUser.name : 'Anonymous' }}</span>
 	</div>
 	<app-pre-loading [isLoading]="isLoading"></app-pre-loading>
+	<app-no-data [isEmpty]="!currentUser"></app-no-data>
 	<div *ngIf="currentUser" class="modal-content">
 		<div class="profile-user-info">
 			<img class="profile-user-photo" *ngIf="currentUser.photoPath; else elseBlock"
@@ -59,9 +60,6 @@
 				</button>
 			</div>
 		</form>
-	</div>
-	<div *ngIf="!currentUser" class="no-data-wrapper">
-		<app-no-data [isEmpty]="!currentUser"></app-no-data>
 	</div>
 	<div class="modal-close-control">
 		<button mat-icon-button class="modal-close-control-btn" (click)="close()">

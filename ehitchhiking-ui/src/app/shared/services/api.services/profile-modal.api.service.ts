@@ -1,19 +1,15 @@
-import {UserService} from '@shared/services/user.service';
 import {Injectable} from '@angular/core';
 import {ApiService} from './api.service';
 import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 import {RequestCar} from '@shared/models/request.car';
 import {CarInterface} from '@shared/interfaces/car-interface';
 import {Car} from '@shared/models/car';
-import {User} from '@shared/models/user';
 
-@Injectable()
+@Injectable({
+	providedIn: 'root',
+})
 export class ProfileModalApiService {
-	constructor(private apiService: ApiService, private userService: UserService) {}
-
-	getCurrentUser(): User | null {
-		return this.userService.getCurrentUser();
-	}
+	constructor(private apiService: ApiService) {}
 
 	getCarsList(userId: string): Promise<Car[]> {
 		return this.sendCarsListRequest(userId).then(

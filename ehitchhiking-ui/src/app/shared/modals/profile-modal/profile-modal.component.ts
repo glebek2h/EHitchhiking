@@ -5,6 +5,7 @@ import {FormGroup, FormBuilder} from '@angular/forms';
 import {CarsInfoService} from './cars-info.service';
 import {Car} from '@shared/models/car';
 import {ProfileModalApiService} from '@shared/services/api.services/profile-modal.api.service';
+import {UserService} from '@shared/services/user.service';
 @Component({
 	selector: 'app-profile-modal',
 	templateUrl: './profile-modal.component.html',
@@ -23,13 +24,21 @@ export class ProfileModalComponent implements OnInit {
 		public dialogRef: MatDialogRef<ProfileModalComponent>,
 		private formBuilder: FormBuilder,
 		private carsInfoService: CarsInfoService,
-		private profileModalApiService: ProfileModalApiService
+		private profileModalApiService: ProfileModalApiService,
+		private userService: UserService
 	) {}
 
+	private getCurrentUser(): User | null {
+		return this.userService.getCurrentUser();
+	}
+
 	ngOnInit(): void {
-		this.isSaveDisabled = true;
+		this.currentUser = this.getCurrentUser();
+		if (!this.currentUser) {
+			return;
+		}
 		this.isLoading = true;
-		this.currentUser = this.profileModalApiService.getCurrentUser();
+		this.isSaveDisabled = true;
 		this.profileModalApiService
 			.getCarsList(this.currentUser.id)
 			.then((cars) => {

@@ -4,9 +4,11 @@
 @import '../../../../styles/mixins'
 
 .modal-wrapper
+    position: relative
     font-family: $app-font
     background-color: $white
     height: auto
+    min-height: 20rem
     width: 40rem
     .modal-content
         .profile-user-info
@@ -60,7 +62,3 @@
             margin-bottom: $default-offset
         .add-car-form
             padding: $default-offset
-
-    .no-data-wrapper
-        height: 20rem
-    .loading-wrapper
