@@ -33,7 +33,7 @@ export class BlacklistComponent implements OnInit {
 
 	loadDriversList(): void {
 		this.loading = true;
-		this.apiBlacklistService.getDriverBlacklist({empId: this.curUser.id}).subscribe((data) => {
+		this.apiBlacklistService.getDriverBlacklist({empId: this.curUser.id}).then((data) => {
 			this.driversBlacklist = data;
 			this.loading = false;
 		});
@@ -41,7 +41,7 @@ export class BlacklistComponent implements OnInit {
 
 	loadPassengersList(): void {
 		this.loading = true;
-		this.apiBlacklistService.getPassengerBlacklist({empId: this.curUser.id}).subscribe((data) => {
+		this.apiBlacklistService.getPassengerBlacklist({empId: this.curUser.id}).then((data) => {
 			this.passengersBlacklist = data;
 			this.loading = false;
 		});
@@ -50,12 +50,12 @@ export class BlacklistComponent implements OnInit {
 	removePersonFromDriverBlacklist(index): void {
 		this.apiBlacklistService
 			.deleteBlockedDriver({empId: this.curUser.id, idDel: this.driversBlacklist[index].id})
-			.subscribe(() => this.loadDriversList());
+			.then(() => this.loadDriversList());
 	}
 
 	removePersonFromPassengerBlacklist(index): void {
 		this.apiBlacklistService
 			.deleteBlockedPassenger({idDel: this.passengersBlacklist[index].id, empId: this.curUser.id})
-			.subscribe(() => this.loadPassengersList());
+			.then(() => this.loadPassengersList());
 	}
 }
