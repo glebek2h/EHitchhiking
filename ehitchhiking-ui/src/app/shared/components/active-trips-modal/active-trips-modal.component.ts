@@ -4,6 +4,7 @@ import {MatDialogRef} from '@angular/material';
 import {ActiveTripsModalService} from './active-trips-modal.service';
 import {ActiveTrip} from '../active-trip/active-trip';
 import {NUMBER_OF_TRIPS_VISIBLE_ON_PAGE} from '@shared/constants/modal-constants';
+import { ActiveTripsApiService } from "@shared/services/api.services/active-trips.api.service";
 
 @Component({
 	selector: 'app-active-trips-modal',
@@ -28,7 +29,8 @@ export class ActiveTripsModalComponent implements OnInit {
 
 	constructor(
 		public dialogRef: MatDialogRef<ActiveTripsModalComponent>,
-		private tripService: ActiveTripsModalService
+		private tripService: ActiveTripsModalService,
+    private apiActiveTripsApiService: ActiveTripsApiService
 	) {
 		this.scrollObserver = new IntersectionObserver(this.onScroll.bind(this), {
 			threshold: 1,
@@ -79,4 +81,5 @@ export class ActiveTripsModalComponent implements OnInit {
 	closeInfo() {
 		this.isShowTripInfo = !this.isShowTripInfo;
 	}
+
 }

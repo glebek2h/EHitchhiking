@@ -5,6 +5,9 @@ export const URL_REGISTRY = {
 		GET_DRIVER_BLACKLIST: 'blackList/passenger?empId={{empId}}',
 		GET_PASSENGER_BLACKLIST: 'blackList/driver?empId={{empId}}',
 	},
+  ACTIVE_TRIPS: {
+	  GET_ACTIVE_TRIPS: 'api/trips/active?empId={{empId}}',
+  },
 	EMPLOYEE: {
 		GET: 'employee?id={{id}}',
 	},
