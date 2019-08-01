@@ -28,7 +28,7 @@ export class TripsModalService {
 
 	getTrips(): Promise<TripHistory[]> {
 		return this.apiService
-			.doGet(URL_REGISTRY.HISTORY, false, {id: 1})
+			.doGet(URL_REGISTRY.HISTORY, false, {id: this.userService.getCurrentUser().id})
 			.then((data) => {
 				if (!data) {
 					return [];
@@ -39,7 +39,7 @@ export class TripsModalService {
 	}
 	resetTripsList(): Promise<boolean> {
 		return this.apiService
-			.doDelete(URL_REGISTRY.HISTORY, {id: 1})
+			.doDelete(URL_REGISTRY.HISTORY, {id: this.userService.getCurrentUser().id})
 			.then((data) => {
 				if (!data) {
 					return false;
