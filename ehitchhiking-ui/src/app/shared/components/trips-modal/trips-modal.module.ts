@@ -16,22 +16,22 @@ import {NoDataModule} from '../no-data/no-data.module';
 import {PreLoadingModule} from '../pre-loading/pre-loading.module';
 import {TripsModalComponent} from './trips-modal.component';
 import {FilterByFavoritePipe} from '../../pipes/filter-by-favorite.pipe';
-import {RatePassengersModalModule} from "@shared/components/rate-passengers-modal/rate-passengers-modal.module";
+import {RatePassengersModalModule} from '@shared/components/rate-passengers-modal/rate-passengers-modal.module';
 import {SortTripsPipe} from '../../pipes/sort-trips.pipe';
-import {FilterByRolePipe} from '../../pipes/filter-by-role.pipe';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FilterByStatusPipe} from '../../pipes/filter-by-status.pipe';
 import {FilterByRatingPipe} from '@shared/pipes/filter-by-rating.pipe';
+import {FilterByRolePipe} from '@shared/pipes/filter-by-role.pipe';
 
 @NgModule({
-  declarations: [
-    TripsModalComponent,
-    SortTripsPipe,
-    FilterByRolePipe,
-    FilterByFavoritePipe,
-    FilterByStatusPipe,
-    FilterByRatingPipe,
-  ],
+	declarations: [
+		TripsModalComponent,
+		SortTripsPipe,
+		FilterByRolePipe,
+		FilterByFavoritePipe,
+		FilterByStatusPipe,
+		FilterByRatingPipe,
+	],
 	imports: [
 		CommonModule,
 		MatButtonModule,
@@ -46,8 +46,8 @@ import {FilterByRatingPipe} from '@shared/pipes/filter-by-rating.pipe';
 		MatSelectModule,
 		MatSlideToggleModule,
 		MatExpansionModule,
-    RatePassengersModalModule,
-    ReactiveFormsModule,
+		RatePassengersModalModule,
+		ReactiveFormsModule,
 	],
 	entryComponents: [TripsModalComponent],
 	exports: [TripsModalComponent, SortTripsPipe, FilterByRolePipe],

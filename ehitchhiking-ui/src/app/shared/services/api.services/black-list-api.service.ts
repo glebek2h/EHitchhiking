@@ -11,7 +11,7 @@ export class BlackListApiService {
 	mapBlackListUser(data: any): User[] {
 		return data.map((obj) => {
 			return new User(obj.id, obj.firstName + ' ' + obj.lastName, '', obj.email, '', [
-				new Car('ferrari', 'pink', 'A3434B', 1),
+				new Car('ferrari', 'pink', 'A3434B'),
 			]);
 		});
 	}
