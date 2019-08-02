@@ -31,7 +31,7 @@ public class TripsController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess(list, "Successfully got history");
+        return Response.setSuccess(list, "");
     }
 
     @DeleteMapping("/history")

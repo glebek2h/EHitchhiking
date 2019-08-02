@@ -100,13 +100,13 @@ export class ApiService {
 			map((response: HttpResponse<any>) => {
 				const {msg, msgType, data} = response.body || response;
 				if (ResponseMessages.Error === msgType) {
-					if (isNotified) {
+					if (isNotified && msg) {
 						this.showResponseMessage(ResponseMessages.Error, msg);
 					}
 					return Promise.reject(msg);
 				}
 				if (ResponseMessages.Ok === msgType) {
-					if (isNotified) {
+					if (isNotified && msg) {
 						this.showResponseMessage(ResponseMessages.Ok, msg);
 					}
 					return data;
