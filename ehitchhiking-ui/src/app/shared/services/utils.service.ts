@@ -4,12 +4,13 @@ import {Injectable} from '@angular/core';
 	providedIn: 'root',
 })
 export class UtilsService {
-	static formatDate(date: Date) {
-		return date.toLocaleString('en-US', {
+	static formatDate(date) {
+		return new Date(date  * 1000).toLocaleString('en-US', {
 			year: 'numeric',
 			month: 'long',
 			day: 'numeric',
-			weekday: 'long',
+      hour: 'numeric',
+      minute: 'numeric'
 		});
 	}
 	constructor() {}

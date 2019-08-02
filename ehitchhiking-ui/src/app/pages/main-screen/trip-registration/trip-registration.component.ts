@@ -40,6 +40,7 @@ export class TripRegistrationComponent implements OnInit {
 		this.nameFormGroup.controls[target].setValue(input.value);
 	}
 
+
 	onSubmit() {
 		if (this.userState === UserState.Driver) {
 			this.formData.emit(this.nameFormGroup.value);
