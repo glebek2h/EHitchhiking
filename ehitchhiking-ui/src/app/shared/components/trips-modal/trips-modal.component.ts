@@ -60,6 +60,7 @@ export class TripsModalComponent implements OnInit {
 	exit(): void {
 		this.dialogRef.close();
 	}
+
 	replaceAll(): void {
 		this.tripsModalService.resetTripsList().then((response) => {
 			if (!response) {

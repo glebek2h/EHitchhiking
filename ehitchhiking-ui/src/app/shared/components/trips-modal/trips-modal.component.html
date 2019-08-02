@@ -62,7 +62,7 @@
 			*ngFor="
 				let trip of tripsArray
 					| filterByRole: tripsModalService.roleFilterConfig.roleField:selectedRole:tripsModalService.roleFilterConfig.isEnable
-					| filterByFavorite: 'isFavorite':selectedFavorite
+					| filterByFavorite: 'isSaved':selectedFavorite
 					| filterByStatus
 						: tripsModalService.statusFilterConfig.fieldName
 						: tripsModalService.statusFilterConfig.selected

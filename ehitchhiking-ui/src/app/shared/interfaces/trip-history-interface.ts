@@ -5,7 +5,7 @@ export interface TripHistory {
 	id: number;
 	startPoint: string;
 	endPoint: string;
-	isFavorite: boolean;
+	isSaved: boolean;
 	status: TripStatus;
 	rating: number;
 	role: UserState;

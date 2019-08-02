@@ -1,11 +1,14 @@
 package com.exadel.ehitchhiking.controllers;
 
 import com.exadel.ehitchhiking.daos.impl.CarDAO;
+import com.exadel.ehitchhiking.models.vo.TripDriverVO;
 import com.exadel.ehitchhiking.requests.RequestTripDriver;
 import com.exadel.ehitchhiking.responses.Response;
 import com.exadel.ehitchhiking.services.ITripDriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.persistence.criteria.CriteriaBuilder;
 
 
 @RestController
@@ -46,24 +49,26 @@ public class TripDriverController {
     }
 
     @PutMapping("/save")
-    public Response addToSaved(@RequestBody RequestTripDriver tripDriver) {
+    public Response addToSaved(@RequestBody Integer id) {
+        TripDriverVO updatedTrip = null;
         try {
-            tripDriverService.updateSave(tripDriver.getId(), true);
+            updatedTrip = tripDriverService.updateSave(id, true);
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true", "Success");
+        return Response.setSuccess(updatedTrip, "Success");
 
     }
 
     @PutMapping("/removeFromSaved")
-    public Response removedFromSaved(@RequestBody RequestTripDriver tripDriver) {
+    public Response removedFromSaved(@RequestBody Integer id) {
+        TripDriverVO updatedTrip = null;
         try {
-            tripDriverService.updateSave(tripDriver.getId(), false);
+            updatedTrip = tripDriverService.updateSave(id, false);
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true", "Success");
+        return Response.setSuccess(updatedTrip, "Success");
     }
 
     @PutMapping("/removeFromHistory")

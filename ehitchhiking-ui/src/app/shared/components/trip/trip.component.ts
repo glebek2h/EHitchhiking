@@ -1,3 +1,4 @@
+import {TripsModalService} from './../../services/trips-modal.service';
 import {Component, Input, OnInit} from '@angular/core';
 import {StarClickMeta} from '../rating/starClickMeta';
 import {MatDialog} from '@angular/material';
@@ -15,12 +16,14 @@ export class TripComponent implements OnInit {
 	isRatingEditorVisible: boolean;
 	userState = UserState;
 
-	constructor(public dialog: MatDialog) {}
+	constructor(public dialog: MatDialog, public tripsModalService: TripsModalService) {}
 
 	ngOnInit() {}
 
 	makeFavorite() {
-		this.trip.isFavorite = !this.trip.isFavorite;
+		this.tripsModalService.updateSavedState(this.trip.id, this.trip.role, this.trip.isSaved).then((response) => {
+			this.trip.isSaved = response;
+		});
 	}
 
 	toggleRating() {

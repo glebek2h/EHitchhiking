@@ -3,6 +3,7 @@ import {UserService} from './user.service';
 import {TripHistory} from '@shared/interfaces/trip-history-interface';
 import {Injectable} from '@angular/core';
 import {URL_REGISTRY} from '@shared/constants/urlRegistry';
+import {UserState} from '@shared/enums/UserState';
 
 @Injectable()
 export class TripsModalService {
@@ -37,6 +38,7 @@ export class TripsModalService {
 			})
 			.catch(() => []);
 	}
+
 	resetTripsList(): Promise<boolean> {
 		return this.apiService
 			.doDelete(URL_REGISTRY.HISTORY, {id: this.userService.getCurrentUser().id})
@@ -47,5 +49,19 @@ export class TripsModalService {
 				return true;
 			})
 			.catch(() => false);
+	}
+
+	updateSavedState(tripId: number, role: UserState, currentState: boolean): Promise<boolean> {
+		const roleUrl = role === UserState.Driver ? URL_REGISTRY.DRIVER.TRIP : URL_REGISTRY.PASSENGER.TRIP;
+		const urlPath = currentState ? roleUrl.REMOVE_FROM_SAVED : roleUrl.SAVE;
+		return this.apiService
+			.doPut(urlPath, {id: tripId})
+			.then((data) => {
+				if (!data) {
+					return currentState;
+				}
+				return data.isSaved;
+			})
+			.catch(() => currentState);
 	}
 }

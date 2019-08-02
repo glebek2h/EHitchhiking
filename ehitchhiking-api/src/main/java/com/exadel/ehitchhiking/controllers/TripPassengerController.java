@@ -1,6 +1,7 @@
 package com.exadel.ehitchhiking.controllers;
 
 import com.exadel.ehitchhiking.models.vo.TripDriverVO;
+import com.exadel.ehitchhiking.models.vo.TripPassVO;
 import com.exadel.ehitchhiking.requests.RequestTripPassenger;
 import com.exadel.ehitchhiking.responses.Response;
 import com.exadel.ehitchhiking.services.ITripDriverService;
@@ -100,25 +101,27 @@ public class TripPassengerController {
         return Response.setSuccess("true", "Successfully finished the trip");
     }
 
-    @PutMapping("/addToSaved")
-    public Response addToSaved(@RequestBody RequestTripPassenger tripPass) {
+    @PutMapping("/save")
+    public Response addToSaved(@RequestBody Integer id) {
+        TripPassVO updatedTrip = null;
         try {
-            tripPassengerService.updateSave(tripPass.getId(), true);
+           updatedTrip = tripPassengerService.updateSave(id, true);
         } catch (Exception e) {
-            return Response.setError("error");
+            return Response.setError("Failed adding to saved");
         }
-        return Response.setSuccess("true", "Successfully added to saved");
+        return Response.setSuccess(updatedTrip, "Successfully added to saved");
 
     }
 
     @PutMapping("/removeFromSaved")
-    public Response removedFromSaved(@RequestBody RequestTripPassenger tripPass) {
+    public Response removedFromSaved(@RequestBody Integer id) {
+        TripPassVO updatedTrip = null;
         try {
-            tripPassengerService.updateSave(tripPass.getId(), false);
+            updatedTrip = tripPassengerService.updateSave(id, false);
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true", "Successfully removed from saved");
+        return Response.setSuccess(updatedTrip, "Successfully removed from saved");
     }
 
 
