@@ -53,10 +53,10 @@ public class BlackListsController {
     }
 
     // deleting the passenger from the black list driver
-    @DeleteMapping("/driver")
-    public Response deletePassFromBlackListDriver(int idDriver, int idPass) {
+    @DeleteMapping("/passenger")
+    public Response deletePassFromBlackListDriver(int empId, int idPass) {
         try {
-            driverService.deletePassFromBL(idDriver, idPass);
+            driverService.deletePassFromBL(empId, idPass);
         } catch (Exception e) {
             return Response.setError("error");
         }
@@ -64,7 +64,7 @@ public class BlackListsController {
     }
 
     // deleting the driver from the blacklist pass
-    @DeleteMapping("/passenger")
+    @DeleteMapping("/driver")
     public Response deleteDriverFromBlackListPass(int empId, int idDriver) {
         try {
             passengerService.deleteDriverFromBL(empId, idDriver);
