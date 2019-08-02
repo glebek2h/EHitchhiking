@@ -14,10 +14,10 @@ export const URL_REGISTRY = {
 		POST_PASSENGER_ROUTE: 'trip_passenger',
 	},
 	CAR: {
-		ADD_CAR: 'car/addCar',
-		GET_ALL: 'car/get_all?id={{id}}',
-		DELETE_CAR: 'car/deleteCar?id={{id}}',
-		UPDATE_CARS: 'car/updateCars',
+		ADD_CAR: 'car/add',
+		GET_ALL: 'car/all?id={{id}}',
+		DELETE_CAR: 'car/delete?id={{id}}',
+		UPDATE_CARS: 'car/update',
 	},
 	PASSENGER: {
 		TRIP: {

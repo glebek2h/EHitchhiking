@@ -16,7 +16,7 @@ public class CarController {
     @Autowired
     private ICarService carService;
 
-    @GetMapping("/get_all")
+    @GetMapping("/all")
     public Response getAllUserCars(int id) {
         List<CarVO> cars;
         try {
@@ -27,7 +27,7 @@ public class CarController {
         return Response.setSuccess(cars, "Successfully got cars");
     }
 
-    @PostMapping("/add_car")
+    @PostMapping("/add")
     public Response createCar(@RequestBody RequestCar car) {
         CarVO newCar;
         try {
@@ -40,7 +40,7 @@ public class CarController {
         return Response.setSuccess(newCar, "Successfully added the car");
     }
 
-    @DeleteMapping("/delete_car")
+    @DeleteMapping("/delete")
     public Response deleteCar(int id) {
         try {
             carService.deletedCar(id);
@@ -50,7 +50,7 @@ public class CarController {
         return Response.setSuccess("true", "Successfully deleted the car");
     }
 
-    @PutMapping("/update_cars")
+    @PutMapping("/update")
     public Response updateColor(@RequestBody List<RequestCar> cars) {
         List<CarVO> updatedCars;
         int empId = cars.get(0).getId();
