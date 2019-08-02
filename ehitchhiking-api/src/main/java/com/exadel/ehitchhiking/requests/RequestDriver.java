@@ -8,5 +8,5 @@ public class RequestDriver {
 
     private Integer idDriver;
 
-    private Integer rate;
+    private Float rate;
 }

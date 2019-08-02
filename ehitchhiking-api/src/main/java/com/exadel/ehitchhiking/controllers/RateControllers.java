@@ -3,6 +3,7 @@ package com.exadel.ehitchhiking.controllers;
 import com.exadel.ehitchhiking.models.vo.DriverVO;
 import com.exadel.ehitchhiking.models.vo.PassengerVO;
 import com.exadel.ehitchhiking.requests.RequestDriver;
+import com.exadel.ehitchhiking.requests.RequestId;
 import com.exadel.ehitchhiking.requests.RequestPassenger;
 import com.exadel.ehitchhiking.responses.Response;
 import com.exadel.ehitchhiking.services.IDriverService;
@@ -32,25 +33,28 @@ public class RateControllers {
 
 
     @PutMapping("/passenger")
-    public Response updateRatePass(@RequestBody List<RequestPassenger> requestListPass) {
+    public Response updateRatePass(@RequestBody List<RequestId> requestIds) {
         try {
-            System.out.println("here");
-            for (RequestPassenger passenger : requestListPass) {
-                System.out.println(passenger.getIdPass()+ passenger.getRate());
-                passengerService.updateRatePass(passenger.getIdPass(), passenger.getRate());
+            for (RequestId passenger : requestIds) {
+                if (passenger.getRate() != 0) {
+                    passengerService.updateRatePass(passenger.getId(), passenger.getRate());
+                }
             }
         } catch (Exception e) {
+            e.printStackTrace();
             return Response.setError("error");
         }
         return Response.setSuccess("true");
     }
-
 
     @PutMapping("/driver")
-    public Response updateRateDriver(@RequestBody List<RequestDriver> driverList) {
+    public Response updateRateDriver(@RequestBody List<RequestId> requestIds) {
         try {
-            for (RequestDriver driver : driverList) {
-                driverService.updateRateDriver(driver.getIdDriver(), driver.getRate());
+            for (RequestId driver : requestIds) {
+
+                if (driver.getRate() != 0) {
+                    driverService.updateRateDriver(driver.getId(), driver.getRate());
+                }
             }
         } catch (Exception e) {
             return Response.setError("error");
@@ -58,7 +62,7 @@ public class RateControllers {
         return Response.setSuccess("true");
     }
 
-    @GetMapping("/getDriver")
+    @GetMapping("/get_driver")
     public Response getDriver(int id) {
         DriverVO driver;
         try {
@@ -70,7 +74,7 @@ public class RateControllers {
 
     }
 
-    @GetMapping("/getPassengers")
+    @GetMapping("/get_passengers")
     public Response getPassengers(int id) {
         List<PassengerVO> passenger;
         try {

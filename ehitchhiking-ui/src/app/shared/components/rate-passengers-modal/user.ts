@@ -1,6 +1,5 @@
 export interface User {
-  idPass?: number;
-  idDriver?: number;
+  id: number;
 	rate: number;
 }
 

@@ -14,8 +14,8 @@ export const URL_REGISTRY = {
 	RATE: {
 		ADD_RATE_PASSENGER: 'rate/passenger',
 		ADD_RATE_DRIVER: 'rate/driver',
-		GET_RATE_PASSENGERS: 'rate/getPassengers?id={{tripId}}',
-		GET_RATE_DRIVER: 'rate/getDriver?id={{tripId}}',
+		GET_RATE_PASSENGERS: 'rate/get_passengers?id={{tripId}}',
+		GET_RATE_DRIVER: 'rate/get_driver?id={{tripId}}',
 		ADD_BLACKLIST_PASS: 'blackList/passenger',
 		ADD_BLACKLIST_DRIVER: 'blackList/driver',
 	},

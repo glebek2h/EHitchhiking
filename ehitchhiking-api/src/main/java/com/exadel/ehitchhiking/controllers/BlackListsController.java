@@ -55,9 +55,9 @@ public class BlackListsController {
 
     // deleting the passenger from the black list driver
     @DeleteMapping("/driver")
-    public Response deletePassFromBlackListDriver(String idDriver, String idPass) {
+    public Response deletePassFromBlackListDriver(int idDriver, int idPass) {
         try {
-            driverService.deletePassFromBL(Integer.parseInt(idDriver), Integer.parseInt(idPass));
+            driverService.deletePassFromBL(idDriver, idPass);
         } catch (Exception e) {
             return Response.setError("error");
         }
@@ -66,9 +66,9 @@ public class BlackListsController {
 
     // deleting the driver from the blacklist pass
     @DeleteMapping("/passenger")
-    public Response deleteDriverFromBlackListPass(String empId, String idDriver) {
+    public Response deleteDriverFromBlackListPass(int empId, int idDriver) {
         try {
-            passengerService.deleteDriverFromBL(Integer.parseInt(empId), Integer.parseInt(idDriver));
+            passengerService.deleteDriverFromBL(empId, idDriver);
         } catch (Exception e) {
             return Response.setError("error");
         }
@@ -76,10 +76,10 @@ public class BlackListsController {
     }
 
     @GetMapping("/driver")
-    public Response getListOfPassengers(String empId) {
+    public Response getListOfPassengers(int empId) {
         List<PassengerVO> passengers;
         try {
-            passengers = driverService.getPassengers(Integer.parseInt(empId));
+            passengers = driverService.getPassengers(empId);
         } catch (Exception e) {
             return Response.setError("error");
         }
@@ -87,10 +87,10 @@ public class BlackListsController {
     }
 
     @GetMapping("/passenger")
-    public Response getListOfDrivers(String empId) {
+    public Response getListOfDrivers(int empId) {
         List<DriverVO> drivers;
         try {
-            drivers = passengerService.getDrivers(Integer.parseInt(empId));
+            drivers = passengerService.getDrivers(empId);
         } catch (Exception e) {
             return Response.setError("error");
         }

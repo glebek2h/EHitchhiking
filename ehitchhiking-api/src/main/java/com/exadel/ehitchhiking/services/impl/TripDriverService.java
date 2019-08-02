@@ -1,7 +1,7 @@
 package com.exadel.ehitchhiking.services.impl;
-import com.exadel.ehitchhiking.daos.ICarDAO;
-import com.exadel.ehitchhiking.daos.ITripDriverDAO;
-import com.exadel.ehitchhiking.daos.ITripPassDAO;
+import com.exadel.ehitchhiking.daos.*;
+import com.exadel.ehitchhiking.daos.impl.DriverDAO;
+import com.exadel.ehitchhiking.daos.impl.PassengerDAO;
 import com.exadel.ehitchhiking.models.TripDriver;
 import com.exadel.ehitchhiking.models.TripPass;
 import com.exadel.ehitchhiking.models.vo.PassengerVO;
@@ -25,7 +25,6 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class TripDriverService implements ITripDriverService {
 
-    public static final double ONE_STEP = 0.01;
 
     @Autowired
     private ITripDriverDAO dao;
@@ -35,6 +34,12 @@ public class TripDriverService implements ITripDriverService {
 
     @Autowired
     private ITripPassDAO tripPassDAO;
+
+    @Autowired
+    private IDriverDAO driverDAO;
+
+    @Autowired
+    private IPassengerDAO passengerDAO;
 
     @Override
     public void createTripDriver(String startingPoint, String endingPoint,
@@ -152,9 +157,8 @@ public class TripDriverService implements ITripDriverService {
         List<TripDriverVO> list =  dao.getAll().stream().map(TripDriverVO::fromEntity).collect(Collectors.toList());
         return list.stream()
                 .filter(trips -> trips.getSeats() >= seats
-                        && ComareUtils.isTimeInRange(startingTime, endingTime, trips.getStartingTime())
-                        && ComareUtils.distance(coordStart, trips.getCoordStart()) <= ONE_STEP
-                        && ComareUtils.distance(coordEnd, trips.getCoordEnd()) <= ONE_STEP)
+                        && !driverDAO.getDriver(trips.getDriver().getId()).getPassengers().contains(passengerDAO.getByEmployeeId(idEmp))
+                        && ComareUtils.isTimeInRange(startingTime, endingTime, trips.getStartingTime()))
                 //.sorted()
                 .collect(Collectors.toList());}
 }

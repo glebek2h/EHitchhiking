@@ -2,7 +2,6 @@ package com.exadel.ehitchhiking.config;
 
 import org.springframework.data.geo.Point;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
