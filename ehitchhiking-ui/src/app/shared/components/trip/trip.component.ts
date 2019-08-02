@@ -1,5 +1,5 @@
 import {TripsModalService} from './../../services/trips-modal.service';
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {StarClickMeta} from '../rating/starClickMeta';
 import {MatDialog} from '@angular/material';
 import {RatePassengersModalComponent} from '@shared/components/rate-passengers-modal/rate-passengers-modal.component';
@@ -13,6 +13,7 @@ import {TripHistory} from '@shared/interfaces/trip-history-interface';
 })
 export class TripComponent implements OnInit {
 	@Input() trip: TripHistory;
+	@Output() onChangeSaved = new EventEmitter<boolean>();
 	isRatingEditorVisible: boolean;
 	userState = UserState;
 
@@ -21,9 +22,15 @@ export class TripComponent implements OnInit {
 	ngOnInit() {}
 
 	makeFavorite() {
-		this.tripsModalService.updateSavedState(this.trip.id, this.trip.role, this.trip.saved).then((response) => {
-			this.trip.saved = response;
-		});
+		this.onChangeSaved.emit(true);
+		this.tripsModalService
+			.updateSavedState(this.trip.id, this.trip.role, this.trip.saved)
+			.then((response) => {
+				this.trip.saved = response;
+			})
+			.finally(() => {
+				this.onChangeSaved.emit(false);
+			});
 	}
 
 	toggleRating() {

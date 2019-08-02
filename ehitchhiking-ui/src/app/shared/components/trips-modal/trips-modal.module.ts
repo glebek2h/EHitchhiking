@@ -50,7 +50,7 @@ import {TripsModalService} from '@shared/services/trips-modal.service';
 		RatePassengersModalModule,
 		ReactiveFormsModule,
 	],
-	providers: [TripsModalService],
+	providers: [TripsModalService, PreLoadingModule],
 	entryComponents: [TripsModalComponent],
 	exports: [TripsModalComponent, SortTripsPipe, FilterByRolePipe],
 })

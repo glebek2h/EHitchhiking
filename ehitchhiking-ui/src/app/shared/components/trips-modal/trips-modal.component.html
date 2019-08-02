@@ -1,5 +1,5 @@
 <div class="modal-wrapper">
-	<app-pre-loading [isLoading]="loading" [size]="loaderSize"></app-pre-loading>
+	<app-pre-loading [isLoading]="isLoading" [size]="loaderSize"></app-pre-loading>
 	<header class="modal-header ">
 		<span mat-dialog-title class="trips-title">History</span>
 		<i class="material-icons icon-size">
@@ -76,7 +76,7 @@
 				trackBy: trackById
 			"
 		>
-			<app-trip class="trip" [trip]="trip"></app-trip>
+			<app-trip class="trip" [trip]="trip" (onChangeSaved)="onChangeSaved($event)"></app-trip>
 		</div>
 		<div class="scroll-marker" #sMarker></div>
 
@@ -84,7 +84,7 @@
 	</div>
 	<footer>
 		<div mat-dialog-actions class="trips-btn">
-			<button mat-button (click)="replaceAll()" *ngIf="tripsArray.length">Replase all</button>
+			<button mat-button (click)="replaceAll()" *ngIf="tripsArray.length">Replace all</button>
 		</div>
 	</footer>
 	<div class="modal-close-control">

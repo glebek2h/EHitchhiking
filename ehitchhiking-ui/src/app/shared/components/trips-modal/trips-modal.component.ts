@@ -17,7 +17,7 @@ export class TripsModalComponent implements OnInit {
 	tripsArray = [];
 	tripsArrayLength = 0;
 	loaderSize: LoaderSize = LoaderSize.Large;
-	loading = true;
+	isLoading: boolean;
 	scrollObserver: IntersectionObserver;
 	order = 0;
 	selectedRole: UserState;
@@ -47,15 +47,17 @@ export class TripsModalComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.tripsModalService.getTrips().then((data) => {
-			this.scrollObserver.observe(this.markerRef.nativeElement);
-			setTimeout(() => {
-				this.loading = false;
-			}, 1000);
-			this.tripsArray = data;
-			console.log(this.tripsArray);
-			this.tripsArrayLength = data.length;
-		});
+		this.isLoading = true;
+		this.tripsModalService
+			.getTrips()
+			.then((data) => {
+				this.scrollObserver.observe(this.markerRef.nativeElement);
+				this.tripsArray = data;
+				this.tripsArrayLength = data.length;
+			})
+			.finally(() => {
+				this.isLoading = false;
+			});
 	}
 
 	exit(): void {
@@ -63,13 +65,19 @@ export class TripsModalComponent implements OnInit {
 	}
 
 	replaceAll(): void {
-		this.tripsModalService.resetTripsList().then((response) => {
-			if (!response) {
-				return;
-			}
-			this.tripsArray = [];
-			this.tripsArrayLength = 0;
-		});
+		this.isLoading = true;
+		this.tripsModalService
+			.resetTripsList()
+			.then((response) => {
+				if (!response) {
+					return;
+				}
+				this.tripsArray = [];
+				this.tripsArrayLength = 0;
+			})
+			.finally(() => {
+				this.isLoading = false;
+			});
 	}
 
 	trackById(trip) {
@@ -107,5 +115,9 @@ export class TripsModalComponent implements OnInit {
 				this.order = 0;
 				break;
 		}
+	}
+
+	onChangeSaved(event) {
+		this.isLoading = event;
 	}
 }
