@@ -19,6 +19,12 @@ export const URL_REGISTRY = {
 		ADD_BLACKLIST_PASS: 'blackList/passenger',
 		ADD_BLACKLIST_DRIVER: 'blackList/driver',
 	},
+	CAR: {
+		ADD_CAR: 'car/addCar',
+		GET_ALL: 'car/getAll?id={{id}}',
+		DELETE_CAR: 'car/deleteCar?id={{id}}',
+		UPDATE_CARS: 'car/updateCars',
+	},
 	CURRENT_USER: 'currentUser',
 	LOG_OUT: '/logout',
 };

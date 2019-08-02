@@ -6,6 +6,7 @@ import {Car} from '@shared/models/car';
 import {ApiService} from '@shared/services/api.services/api.service';
 import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 import {Route} from '../Route';
+import {ActiveTripsMapService} from "@shared/services/active-trips-map.service";
 @Component({
 	selector: 'app-main-screen',
 	templateUrl: './main-screen.component.html',
@@ -13,8 +14,6 @@ import {Route} from '../Route';
 	providers: [ApiService],
 })
 export class MainScreenComponent implements OnInit {
-	constructor(private apiService: ApiService) {}
-
 	tripFormData: any; // TODO
 	isHiddenTripRegistration: boolean;
 	userState: UserState;
@@ -23,7 +22,9 @@ export class MainScreenComponent implements OnInit {
 	isShownViewRoutesButton: boolean;
 	isShownSaveRouteButton: boolean;
 	isDisabledSubmitRouteButton: boolean;
+  isDisabledMatToggleGroup: boolean;
 	editStatePlusButton: boolean;
+  isShownPlusButton = true;
 	displayedRouteIndex: number;
 	mapTriggers = {};
 	redrawTriggers: boolean;
@@ -32,12 +33,20 @@ export class MainScreenComponent implements OnInit {
 	routes: Partial<Route>[] = [];
 	copyRoutes: Partial<Route>[] = [];
 
-	user: User = new User('1', 'Yana','', 'hello@gmail.com', '+375291234567', [
-		new Car('ferrari', 'pink', 'A3434B', 1),
-		new Car('lada', 'white', 'A3434B', 5),
-		new Car('tayota', 'yellow', 'A3434B', 3),
-		new Car('bmw', 'black', 'A3434B', 1),
+	user: User = new User('1', 'Yana', '', 'hello@gmail.com', '+375291234567', [
+		new Car('ferrari', 'pink', 'A3434B'),
+		new Car('lada', 'white', 'A3434B'),
+		new Car('tayota', 'yellow', 'A3434B'),
+		new Car('bmw', 'black', 'A3434B'),
 	]);
+
+  constructor(private apiService: ApiService, private activeTripsMapService: ActiveTripsMapService) {
+    this.activeTripsMapService.getMainScreenInfo().subscribe(() => {
+      this.toggleMapInterfaceToDefault();
+      this.isDisabledMatToggleGroup = true;
+      this.isShownPlusButton = false;
+    });
+  }
 
 	ngOnInit() {
 		this.isHiddenTripRegistration = true;
@@ -88,6 +97,7 @@ export class MainScreenComponent implements OnInit {
 	toggleStateToDriver() {
 		this.userState = UserState.Driver;
 		this.toggleMapInterfaceToDefault();
+
 	}
 
 	toggleMapInterfaceToDefault() {
@@ -99,6 +109,8 @@ export class MainScreenComponent implements OnInit {
 		this.isShownSaveRouteButton = false;
 		this.redrawTriggers = false;
 		this.mapTriggers = {reset: true};
+		this.isDisabledMatToggleGroup = false;
+		this.isShownPlusButton = true;
 	}
 
 	getIndexToDisplay(data) {

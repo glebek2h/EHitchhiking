@@ -1,5 +1,4 @@
 package com.exadel.ehitchhiking.services.impl;
-
 import com.exadel.ehitchhiking.daos.ICarDAO;
 import com.exadel.ehitchhiking.daos.ITripDriverDAO;
 import com.exadel.ehitchhiking.daos.ITripPassDAO;
@@ -8,12 +7,11 @@ import com.exadel.ehitchhiking.models.TripPass;
 import com.exadel.ehitchhiking.models.vo.PassengerVO;
 import com.exadel.ehitchhiking.models.vo.TripDriverVO;
 import com.exadel.ehitchhiking.services.ITripDriverService;
-import com.exadel.ehitchhiking.utils.ComareUtils;
+import com.exadel.ehitchhiking.config.ComareUtils;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Service;
-
 
 import javax.transaction.Transactional;
 import java.sql.Timestamp;
@@ -43,10 +41,10 @@ public class TripDriverService implements ITripDriverService {
                                  Instant startingTime, Instant endingTime, int idOfCar, int seats,
                                  Point coordStart, Point coordEnd, float distance){
 
-//        TripDriverVO tripDriver = new TripDriverVO(startingPoint, endingPoint,
-//                startingTime, endingTime, true,
-//                false, false, seats, carDAO.getCar(idOfCar), false, coordStart,coordEnd, distance);
-//        dao.save(tripDriver);
+        TripDriver tripDriver = new TripDriver(startingPoint, endingPoint,
+                Timestamp.from(startingTime), Timestamp.from(endingTime), true,
+                false, false, seats, carDAO.getCar(idOfCar), false, coordStart,coordEnd, distance);
+        dao.save(tripDriver);
     }
 
     @Override
@@ -103,6 +101,17 @@ public class TripDriverService implements ITripDriverService {
     }
 
     @Override
+    public List<PassengerVO> getPassengers(int id){
+        List<TripPass> tripPassList= dao.getTripPass(id);
+        List<PassengerVO> listPass = new ArrayList<PassengerVO>() {
+        };
+        for (TripPass tripPass: tripPassList){
+            listPass.add(PassengerVO.fromEntity(tripPass.getPassenger()));
+        }
+        return listPass;
+    }
+
+    @Override
     public void updateActive(int id, boolean isActive){
         TripDriver tripDriver = dao.getTripDriver(id);
         tripDriver.setActive(isActive);
@@ -124,16 +133,7 @@ public class TripDriverService implements ITripDriverService {
         dao.update(tripDriver);
     }
 
-    @Override
-    public List<PassengerVO> getPassengers(int id){
-        List<TripPass> tripPassList= dao.getTripPass(id);
-        List<PassengerVO> listPass = new ArrayList<PassengerVO>() {
-        };
-        for (TripPass tripPass: tripPassList){
-            listPass.add(PassengerVO.fromEntity(tripPass.getPassenger()));
-        }
-        return listPass;
-    }
+
 
     @Override
     public int getAvailableSeats(int id){
@@ -147,7 +147,7 @@ public class TripDriverService implements ITripDriverService {
 
 
     @Override
-    public List<TripDriverVO> getAll(Instant startingTime, Instant endingTime, int seats,
+    public List<TripDriverVO> getAll(int idEmp, Instant startingTime, Instant endingTime, int seats,
                                      Point coordStart, Point coordEnd) {
         List<TripDriverVO> list =  dao.getAll().stream().map(TripDriverVO::fromEntity).collect(Collectors.toList());
         return list.stream()
@@ -156,17 +156,5 @@ public class TripDriverService implements ITripDriverService {
                         && ComareUtils.distance(coordStart, trips.getCoordStart()) <= ONE_STEP
                         && ComareUtils.distance(coordEnd, trips.getCoordEnd()) <= ONE_STEP)
                 //.sorted()
-                .collect(Collectors.toList());
-
-//        for (TripDriverVO trip: list) {
-//            assert(trip.getSeats() >= seats);
-//        }
-/*        for (TripDriverVO trip: list){
-            if (trip.getSeats() >= seats){
-                if (startingTime.toLocalDateTime().minusHours(1).isBefore(Timestamp.from(trip.getStartingTime()).toLocalDateTime())
-                &  endingTime.toLocalDateTime().plusHours(1).isAfter(Timestamp.from(trip.getEndingTime()).toLocalDateTime())){
-                }
-            }
-        }*/
-    }
+                .collect(Collectors.toList());}
 }

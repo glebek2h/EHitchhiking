@@ -7,7 +7,7 @@ public class RequestCar {
 
     private String color;
     private String number;
-    private String carModel;
-    private String idOfDrive;
-    private String carId;
+    private String model;
+    private String idOfDriver;
+    private String id;
 }

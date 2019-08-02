@@ -1,18 +1,14 @@
 package com.exadel.ehitchhiking.controllers;
 
-
-import com.exadel.ehitchhiking.models.TripDriver;
 import com.exadel.ehitchhiking.models.vo.TripDriverVO;
 import com.exadel.ehitchhiking.requests.RequestTripPassenger;
 import com.exadel.ehitchhiking.responses.Response;
-import com.exadel.ehitchhiking.responses.ResponseMany;
 import com.exadel.ehitchhiking.services.ITripDriverService;
 import com.exadel.ehitchhiking.services.ITripPassengerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.geo.Point;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Timestamp;
+import java.util.List;
 
 @RestController
 @RequestMapping("/tripPassenger")
@@ -24,11 +20,10 @@ public class TripPassengerController {
     private ITripDriverService tripDriverService;
 
     @PostMapping("/createTrip")
-    public Response<String> createTrip(@RequestBody RequestTripPassenger tripPassenger) {
-        Response<String> response = new Response<>();
+    public Response createTrip(@RequestBody RequestTripPassenger tripPassenger) {
         try {
             // we are checking if the number of seats that the passenger wants to have is smaller or equal to the number of available seats on that trip
-            if (tripDriverService.getAvailableSeats(tripPassenger.getIdTripDriver()) >= tripPassenger.getSeats()){
+            if (tripDriverService.getAvailableSeats(tripPassenger.getIdTripDriver()) >= tripPassenger.getSeats()) {
 
                 // newSeats is the new number seats available o this trip
                 int newSeats = tripDriverService.getAvailableSeats(tripPassenger.getIdTripDriver()) - tripPassenger.getSeats();
@@ -40,185 +35,123 @@ public class TripPassengerController {
                         tripPassenger.getSeats(),
                         tripPassenger.getIdTripDriver(),
                         tripPassenger.getCoordStart(), tripPassenger.getCoordEnd(), tripPassenger.getDistance());
-                response.setStatus("200");
-                response.setData("true");
-                return response;}
-            else{
-                response.setStatus("500");
-                response.setData("false");
-                return response;
-            }
 
+            } else {
+                return Response.setError("no available seats");
+            }
         } catch (Exception e) {
-            response.setStatus("500");
-            response.setData("false");
-            return response;}
+            return Response.setError("error");
+        }
+        return Response.setSuccess("true");
     }
 
 
     @PutMapping("/updateTrip")
-    public Response<String> updateTrip(@RequestBody RequestTripPassenger tripPass){
-        Response<String> response = new Response<>();
+    public Response updateTrip(@RequestBody RequestTripPassenger tripPass) {
         try {
-            int tripId = tripPass.getId();
-            tripPassengerService.updateTrip(tripId, tripPass.getStartingTime(), tripPass.getEndingTime(),
+            tripPassengerService.updateTrip(tripPass.getId(), tripPass.getStartingTime(), tripPass.getEndingTime(),
                     tripPass.getStartingPoint(), tripPass.getEndingPoint(), tripPass.getSeats(),
                     tripPass.getCoordStart(), tripPass.getCoordEnd(), tripPass.getDistance());
-
-            response.setStatus("200");
-            response.setData("true");
-            return response;
+        } catch (Exception e) {
+            return Response.setError("error");
         }
-        catch (Exception e){
-            response.setStatus("500");
-            response.setData("false");
-            return response;}
+        return Response.setSuccess("true");
     }
 
 
-
     @PutMapping("/addToHistory")
-    public Response<String> addToHistory(@RequestBody RequestTripPassenger tripPass) {
-        Response<String> response = new Response<>();
+    public Response addToHistory(@RequestBody RequestTripPassenger tripPass) {
         try {
             tripPassengerService.updateHistory(tripPass.getId(), true);
-            response.setStatus("200");
-            response.setData("true");
-            return response;
+        } catch (Exception e) {
+            return Response.setError("error");
         }
-        catch (Exception e){
-            response.setStatus("500");
-            response.setData("false");
-            return response;}
+        return Response.setSuccess("true");
     }
 
 
     @PutMapping("/removeFromHistory")
-    public Response<String> removeFromHistory(@RequestBody RequestTripPassenger tripPass) {
-        Response<String> response = new Response<>();
+    public Response removeFromHistory(@RequestBody RequestTripPassenger tripPass) {
         try {
             tripPassengerService.updateHistory(tripPass.getId(), false);
-            response.setStatus("200");
-            response.setData("true");
-            return response;
+        } catch (Exception e) {
+            return Response.setError("error");
         }
-        catch (Exception e){
-            response.setStatus("500");
-            response.setData("false");
-            return response;}
+        return Response.setSuccess("true");
     }
 
     @PutMapping("/cancelledTrip")
-    public Response<String> addToCancelled(@RequestBody RequestTripPassenger tripPass) {
-        Response<String> response = new Response<>();
+    public Response addToCancelled(@RequestBody RequestTripPassenger tripPass) {
         try {
             tripPassengerService.updateFinished(tripPass.getId(), false);
-            response.setStatus("200");
-            response.setData("true");
-            return response;
+        } catch (Exception e) {
+            return Response.setError("error");
         }
-        catch (Exception e){
-            response.setStatus("500");
-            response.setData("false");
-            return response;}
+        return Response.setSuccess("true");
     }
 
     @PutMapping("/finishedTrip")
-    public Response<String> addToFinished(@RequestBody RequestTripPassenger tripPass) {
-        Response<String> response = new Response<>();
+    public Response addToFinished(@RequestBody RequestTripPassenger tripPass) {
         try {
             tripPassengerService.updateFinished(tripPass.getId(), true);
-            response.setStatus("200");
-            response.setData("true");
-            return response;
+        } catch (Exception e) {
+            return Response.setError("error");
         }
-        catch (Exception e){
-            response.setStatus("500");
-            response.setData("false");
-            return response;}
+        return Response.setSuccess("true");
     }
 
     @PutMapping("/addToSaved")
-    public Response<String> addToSaved( @RequestBody RequestTripPassenger tripPass) {
-        Response<String> response = new Response<>();
+    public Response addToSaved(@RequestBody RequestTripPassenger tripPass) {
         try {
             tripPassengerService.updateSave(tripPass.getId(), true);
-            response.setStatus("200");
-            response.setData("true");
-            return response;
+        } catch (Exception e) {
+            return Response.setError("error");
         }
-        catch (Exception e){
-            response.setStatus("500");
-            response.setData("false");
-            return response;}
+        return Response.setSuccess("true");
 
     }
 
     @PutMapping("/removeFromSaved")
-    public Response<String> removedFromSaved(@RequestBody RequestTripPassenger tripPass) {
-        Response<String> response = new Response<>();
+    public Response removedFromSaved(@RequestBody RequestTripPassenger tripPass) {
         try {
             tripPassengerService.updateSave(tripPass.getId(), false);
-            response.setStatus("200");
-            response.setData("true");
-            return response;
+        } catch (Exception e) {
+            return Response.setError("error");
         }
-        catch (Exception e){
-            response.setStatus("500");
-            response.setData("false");
-            return response;}
+        return Response.setSuccess("true");
     }
 
 
-    @PostMapping("/getAllDriverTrips")
-    public ResponseMany<TripDriverVO> getAllAvailableTrips(@RequestBody RequestTripPassenger tripPassenger){
-
-        ResponseMany<TripDriverVO> responseMany = new ResponseMany<>();
-        try{
-            responseMany.setStatus("success");
-            responseMany.setMsg("Successfully got all trips");
-            responseMany.setData(tripDriverService.getAll(tripPassenger.getStartingTime(), tripPassenger.getEndingTime(), tripPassenger.getSeats(),
-            tripPassenger.getCoordStart(), tripPassenger.getCoordEnd()));
-            return responseMany;
+    @GetMapping("/getAllDriverTrips")
+    public Response getAllAvailableTrips(@RequestBody RequestTripPassenger tripPassenger) {
+        List<TripDriverVO> tripDriverVOList;
+        try {
+            tripDriverVOList = tripDriverService.getAll(tripPassenger.getEmpId(), tripPassenger.getStartingTime(), tripPassenger.getEndingTime(), tripPassenger.getSeats(),
+                    tripPassenger.getCoordStart(), tripPassenger.getCoordEnd());
+        } catch (Exception e) {
+            return Response.setError("error");
         }
-        catch(Exception e){
-
-            responseMany.setStatus("error");
-            responseMany.setMsg("Failed getting all trips");
-            responseMany.setData(null);
-            return responseMany;
-
-        }
+        return Response.setSuccess(tripDriverVOList);
     }
 
     @PutMapping("/active")
-    public Response<String> addToActive(@RequestBody RequestTripPassenger tripPass) {
-        Response<String> response = new Response<>();
+    public Response addToActive(@RequestBody RequestTripPassenger tripPass) {
         try {
             tripDriverService.updateActive(tripPass.getId(), true);
-            response.setStatus("200");
-            response.setData("true");
-            return response;
+        } catch (Exception e) {
+            return Response.setError("error");
         }
-        catch (Exception e){
-            response.setStatus("500");
-            response.setData("false");
-            return response;}
+        return Response.setSuccess("true");
     }
 
 
     @PutMapping("/removeFromActive")
-    public Response<String> removeFromActive(@RequestBody RequestTripPassenger tripPass) {
-        Response<String> response = new Response<>();
+    public Response removeFromActive(@RequestBody RequestTripPassenger tripPass) {
         try {
-            tripDriverService.updateActive(tripPass.getId(),  false);
-            response.setStatus("200");
-            response.setData("true");
-            return response;
+            tripDriverService.updateActive(tripPass.getId(), false);
+        } catch (Exception e) {
+            return Response.setError("error");
         }
-        catch (Exception e){
-            response.setStatus("500");
-            response.setData("false");
-            return response;}
+        return Response.setSuccess("true");
     }
 }

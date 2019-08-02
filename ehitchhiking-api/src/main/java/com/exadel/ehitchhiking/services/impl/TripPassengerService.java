@@ -1,5 +1,4 @@
 package com.exadel.ehitchhiking.services.impl;
-
 import com.exadel.ehitchhiking.daos.IPassengerDAO;
 import com.exadel.ehitchhiking.daos.ITripDriverDAO;
 import com.exadel.ehitchhiking.daos.ITripPassDAO;
@@ -21,16 +20,12 @@ import java.time.Instant;
 @Transactional(rollbackOn = Exception.class)
 @NoArgsConstructor
 public class TripPassengerService implements ITripPassengerService {
-
     @Autowired
     private ITripPassDAO dao;
-
     @Autowired
     private IPassengerDAO passengerDAO;
-
     @Autowired
     private ITripDriverDAO tripDriverDAO;
-
     @Override
     public void createTripPassenger(int passId, String startingPoint,
                                     String endingPoint,
@@ -102,17 +97,15 @@ public class TripPassengerService implements ITripPassengerService {
     public void deletePassTrip(int id) {
         dao.delete(dao.getTripPass(id));
     }
-
-
     @Override
     public TripPassVO findTripPass(int id){
 
         return TripPassVO.fromEntity(dao.getTripPass(id));
     }
 
-
     @Override
     public DriverVO findIdDriver (int id){
-       return findTripPass(id).getDriver();
+        return findTripPass(id).getDriver();
     }
+
 }

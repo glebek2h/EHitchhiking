@@ -3,9 +3,11 @@ package com.exadel.ehitchhiking.requests;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class RequestList{
-    public RequestPassenger[] requestListPass;
+    public List<RequestPassenger> requestListPass;
 
     public RequestDriver[] requestListDriver;
 

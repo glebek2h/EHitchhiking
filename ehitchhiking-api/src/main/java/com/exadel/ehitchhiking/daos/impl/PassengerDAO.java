@@ -16,7 +16,6 @@ public class PassengerDAO extends AbstractDAO<Passenger> implements IPassengerDA
         super(Passenger.class);
     }
 
-
     @Override
     public Passenger getByEmail(String email) {
         Passenger passenger = (Passenger)  getCurrentSession().createQuery("from com.exadel.ehitchhiking.models.Passenger where Employee.email = '" + email + "'").uniqueResult();

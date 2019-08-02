@@ -7,6 +7,7 @@
     <mat-expansion-panel-header>Filters</mat-expansion-panel-header>
     <div class="expansion-panel-sm">
       <mat-form-field>
+
         <mat-label>Role</mat-label>
         <mat-select [(ngModel)]="selectedRole" name="selected">
           <mat-option (click)="filterByRole()" *ngFor="let role of roles" [value]="role.value">
@@ -25,7 +26,7 @@
                        (click)="showTripInfo(trip)"></app-active-trip>
     </div>
     <div class="scroll-marker" #sMarker></div>
-    <app-active-trip-additional-info [trip]="tripInfo" *ngIf="isShowTripInfo"
+    <app-active-trip-additional-info (closeDialog)="exit()"  [trip]="tripInfo" *ngIf="isShowTripInfo"
     ></app-active-trip-additional-info>
     <app-no-data *ngIf="!tripsArray.length"></app-no-data>
   </div>

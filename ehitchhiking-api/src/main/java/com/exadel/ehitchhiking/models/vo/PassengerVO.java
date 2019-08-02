@@ -2,6 +2,7 @@ package com.exadel.ehitchhiking.models.vo;
 
 
 import com.exadel.ehitchhiking.models.Passenger;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -15,6 +16,7 @@ public class PassengerVO {
     private String lastName;
     private String email;
     private float rate;
+    @JsonIgnore
     private int ratedPeoples;
 
     public static PassengerVO fromEntity(Passenger passenger) {

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+
 public abstract class AbstractDAO<T> implements IBasicDAO<T> {
 
     protected final Class<T> persistanceType;
@@ -17,8 +18,7 @@ public abstract class AbstractDAO<T> implements IBasicDAO<T> {
     private SessionFactory sessionFactory;
 
     public AbstractDAO(Class<T> persistanceType) {
-        this.persistanceType = persistanceType;
-    }
+        this.persistanceType = persistanceType;}
 
     protected Session getCurrentSession() {
         return sessionFactory.getCurrentSession();
@@ -44,6 +44,7 @@ public abstract class AbstractDAO<T> implements IBasicDAO<T> {
         Session session = getCurrentSession();
         session.delete(t);
     }
+
 
     public List<T> getAll() {
         return getCurrentSession().createQuery("from " + persistanceType.getName(), persistanceType).list();

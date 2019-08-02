@@ -1,5 +1,6 @@
 export interface User {
-  [idFieldName: string]: number;
+  idPass?: number;
+  idDriver?: number;
 	rate: number;
 }
 

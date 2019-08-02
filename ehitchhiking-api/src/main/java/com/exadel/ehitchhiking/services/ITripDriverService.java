@@ -5,14 +5,13 @@ import com.exadel.ehitchhiking.models.vo.PassengerVO;
 import com.exadel.ehitchhiking.models.vo.TripDriverVO;
 import org.springframework.data.geo.Point;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.List;
 
 public interface ITripDriverService {
     void createTripDriver(String startingPoint, String endingPoint,
-                          Instant startingTime, Instant endingTime, int idOfCar, int seats,
+                          Instant startingTime,  Instant  endingTime, int idOfCar, int seats,
                           Point coordStart, Point coordEnd, float distance);
 
 
@@ -24,14 +23,14 @@ public interface ITripDriverService {
 
     void deleteDriverTrip(int id);
 
-    List<TripDriverVO> getAll(Instant startingTime, Instant endingTime, int seats,
-                              Point coordStart, Point coordEnd);
 
     int getAvailableSeats(int id);
 
     TripDriverVO findTripDriver(int id);
 
-    void updateTrip(int id, Instant newStart, Instant newEnd, String start, String end,
+    List<PassengerVO> getPassengers(int id);
+
+    void updateTrip(int id,  Instant  newStart,  Instant  newEnd, String start, String end,
                int newSeats, int idNewCar, Point coordStart, Point coordEnd, float distance);
 
     void setToNotActive(int id);
@@ -40,5 +39,6 @@ public interface ITripDriverService {
 
     void updateActive(int id, boolean isActive);
 
-    List<PassengerVO> getPassengers(int id);
+    List<TripDriverVO> getAll(int idEmp, Instant startingTime, Instant endingTime, int seats,
+                                     Point coordStart, Point coordEnd);
 }

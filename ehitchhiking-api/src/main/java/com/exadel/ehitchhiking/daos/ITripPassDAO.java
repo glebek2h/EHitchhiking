@@ -1,14 +1,17 @@
 package com.exadel.ehitchhiking.daos;
 
-import com.exadel.ehitchhiking.models.Passenger;
-import com.exadel.ehitchhiking.models.TripDriver;
 import com.exadel.ehitchhiking.models.TripPass;
 
 import java.util.List;
 
 public interface ITripPassDAO extends IBasicDAO<TripPass> {
 
-    List<TripPass> getAll();
+    List<TripPass> getActive(int empId);
+
+    List<TripPass> getHistory(int empId);
+
+    List<TripPass> getAllPass(int idTrip);
+
     TripPass getTripPass(int id);
     int getAmountPass(int idTripDriver);
 }

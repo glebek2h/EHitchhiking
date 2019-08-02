@@ -40,16 +40,21 @@ export class RatePassengersModalComponent implements OnInit {
 
 	loadPassengersList():void {
 		this.loading = true;
-		this.apiRatePassengersService.getTripPassengers(this.idTripPassenger).then((data: RatedUser[]) => {
+		this.apiRatePassengersService.getTripPassengers(this.idTripDriver).then((data: RatedUser[]) => {
 			this.users = data;
-		}).finally(() => this.loading = false);
+			console.log(data);
+		}).finally(() => {
+      this.loading = false;
+    });
 	}
 
 	loadDriversList(): void {
 		this.loading = true;
-		this.apiRatePassengersService.getTripDriver(this.idTripDriver).then((data: RatedUser[]) => {
+		this.apiRatePassengersService.getTripDriver(this.idTripPassenger).then((data: RatedUser[]) => {
 			this.users = data;
-		}).finally(() => this.loading = false);
+		}).finally(() => {
+      this.loading = false;
+    });
 	}
 
 	rateUser(clickObj: StarClickMeta): void {
@@ -62,16 +67,17 @@ export class RatePassengersModalComponent implements OnInit {
 	exitTrip(): void {
 		const users = [];
 		const blockedUsers= [];
-		this.users.forEach((user) => {
-			users.push({
-				idDriver: user.id,
-				rate: user.rate,
-			});
-			blockedUsers.push({
-				idPass: user.id,
-				rate: user.rate,
-			});
-		});
+		const  idPropName = this.UserState.Passenger ? 'idPass' : 'idDriver';
+    this.users.forEach((user) => {
+      users.push({
+        [idPropName]: user.id,
+        rate: user.rate,
+      });
+      blockedUsers.push({
+        id: user.id,
+        isBlocked: user.isBlocked,
+      });
+    });
 		if (this.data.dataKey === UserState.Passenger) {
 			this.apiRatePassengersService.addRateDriver(users);
 			this.apiRatePassengersService.addBlacklistDriver(this.idTripDriver, blockedUsers)

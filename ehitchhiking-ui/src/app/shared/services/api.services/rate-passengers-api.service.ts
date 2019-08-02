@@ -8,7 +8,7 @@ export class RatePassengersApiService {
 	constructor(private apiService: ApiService) {}
 
 	addRatePassenger(users: User[]) {
-		this.apiService.doPut(URL_REGISTRY.RATE.ADD_RATE_PASSENGER, {requestListPass: users});
+		this.apiService.doPut(URL_REGISTRY.RATE.ADD_RATE_PASSENGER, {requestListPass: users}).then((data)=>console.log(data));
 	}
 
 	addRateDriver(users: User[]) {
@@ -48,13 +48,15 @@ export class RatePassengersApiService {
 		}));
 	}
 
-	getTripPassengers(id: number) {
+	getTripPassengers(id: number): Promise<RatedUser[]> {
 		return this.apiService
 			.doGet(URL_REGISTRY.RATE.GET_RATE_PASSENGERS, false, {tripId: id})
 			.then(this.mapTripPassengers);
 	}
 
-	getTripDriver(id: number) {
-		return this.apiService.doGet(URL_REGISTRY.RATE.GET_RATE_DRIVER, false, {tripId: id}).then(this.mapTripDrivers);
+	getTripDriver(id: number): Promise<RatedUser[]> {
+		return this.apiService
+      .doGet(URL_REGISTRY.RATE.GET_RATE_DRIVER, false, {tripId: id})
+      .then(this.mapTripDrivers);
 	}
 }
