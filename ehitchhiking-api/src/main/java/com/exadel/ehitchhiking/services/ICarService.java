@@ -16,7 +16,7 @@ public interface ICarService {
 
     void deleteCarId(int id);
 
-    List<CarVO> getListCars(int idDriver);
+    List<CarVO> getListCars(int empId);
 
     int getAmountCars(int idDriver);
 

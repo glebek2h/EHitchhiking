@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class RequestEmployee {
 
-    private String id;
+    private Integer id;
     private String isAdmin;
     private String firstName;
     private String lastName;

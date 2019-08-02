@@ -2,54 +2,79 @@
 	<app-menu></app-menu>
 </div>
 <yandex-map
-  [tripData]="tripFormData"
-  [userState]="userState"
-  [isSavedRoute]="isSavedRoute"
-  [routes]="routes"
-  [triggers]="mapTriggers"
-  [indexRouteToDisplay]="displayedRouteIndex"
-  [redraw]="redrawTriggers"
-  (passengerPlaceMark)="getPassengerPlaceMarkInfo($event)"
+	[tripData]="tripFormData"
+	[userState]="userState"
+	[isSavedRoute]="isSavedRoute"
+	[routes]="routes"
+	[triggers]="mapTriggers"
+	[indexRouteToDisplay]="displayedRouteIndex"
+	[redraw]="redrawTriggers"
+	[getCoordsData]="sendFormData"
+	(passengerPlaceMark)="getPassengerPlaceMarkInfo($event)"
+	(coordinates)="getStartEndCoords($event)"
 ></yandex-map>
 <app-trip-registration
-  [isShown]="isHiddenTripRegistration"
-  (formData)="getData($event)"
-  (isShownViewListButton)="setIsShownViewRoutesButtonFlag($event)"
-  (isShownSaveRouteButton)="setIsShownSaveRouteButtonFlag($event)"
-  [user]="user"
-  [userState]="userState"
+	[isShown]="isHiddenTripRegistration"
+	(formData)="getData($event)"
+	(isShownViewListButton)="setIsShownViewRoutesButtonFlag($event)"
+	(isShownSaveRouteButton)="setIsShownSaveRouteButtonFlag($event)"
+	(passengerFormData)="getPassengerTripData($event)"
+	[userState]="userState"
+  [currentUser]="currentUser"
 ></app-trip-registration>
 <app-routes-list
-  *ngIf="isShownRoutesList"
-  [activeRoutesCollection]="routes"
-  (routeToDisplay)="getIndexToDisplay($event)"
-  (formData)="getFilterData($event)"
-  [isDisabledSubmitRouteButton]="isDisabledSubmitRouteButton"
+	*ngIf="isShownRoutesList"
+	[activeRoutesCollection]="routes"
+  [tripData]="tripFormData"
+	[passengersCoords]="passengerCoordinates"
+	(routeToDisplay)="getIndexToDisplay($event)"
+	(formData)="getFilterData($event)"
+	[isDisabledSubmitRouteButton]="isDisabledSubmitRouteButton"
 ></app-routes-list>
-<mat-button-toggle-group [disabled]="isDisabledMatToggleGroup" class="btn-group" name="fontStyle" aria-label="Font Style">
+<mat-button-toggle-group
+	[disabled]="isDisabledMatToggleGroup"
+	class="btn-group"
+	name="fontStyle"
+	aria-label="Font Style"
+>
 	<mat-button-toggle class="role-chooser-btn" value="bold" (click)="toggleStateToPassenger()"
 		>Passenger</mat-button-toggle
 	>
-	<mat-button-toggle class="role-chooser-btn" value="italic" (click)="toggleStateToDriver()">Driver</mat-button-toggle>
+	<mat-button-toggle class="role-chooser-btn" value="italic" (click)="toggleStateToDriver()"
+		>Driver</mat-button-toggle
+	>
 </mat-button-toggle-group>
 <button
-  mat-fab color="primary"
-  matTooltip="save route"
-  class="main-screen-action-btn save-route-btn"
-  (click)="saveRoute()"
-  *ngIf="isShownSaveRouteButton"
+	mat-fab
+	color="primary"
+	matTooltip="save route"
+	class="main-screen-action-btn save-route-btn"
+	(click)="saveRoute()"
+	*ngIf="isShownSaveRouteButton"
 >
-  <i class="material-icons">
-    save_alt
-  </i>
+	<i class="material-icons">
+		save_alt
+	</i>
 </button>
-<button mat-fab color="primary" class="main-screen-action-btn view-routes-btn" matTooltip="view routes"
-        (click)="viewRoutes()" *ngIf="isShownViewRoutesButton">
-  <i class="material-icons md-36">
-    directions
-  </i>
+<button
+	mat-fab
+	color="primary"
+	class="main-screen-action-btn view-routes-btn"
+	matTooltip="view routes"
+	(click)="viewRoutes()"
+	*ngIf="isShownViewRoutesButton"
+>
+	<i class="material-icons md-36">
+		directions
+	</i>
 </button>
-<button *ngIf="isShownPlusButton" class="plus-btn" mat-fab matTooltip="create trip" (click)="openTripRegistrationForm()">
+<button
+	*ngIf="isShownPlusButton"
+	class="plus-btn"
+	mat-fab
+	matTooltip="create trip"
+	(click)="openTripRegistrationForm()"
+>
 	<i *ngIf="!editStatePlusButton" class="material-icons">
 		add
 	</i>
@@ -57,8 +82,14 @@
 		edit
 	</i>
 </button>
-<button *ngIf="!isShownPlusButton" class="plus-btn" mat-fab matTooltip="close trip" (click)="toggleMapInterfaceToDefault()">
-  <i class="material-icons">
-    close
-  </i>
+<button
+	*ngIf="!isShownPlusButton"
+	class="plus-btn"
+	mat-fab
+	matTooltip="close trip"
+	(click)="toggleMapInterfaceToDefault()"
+>
+	<i class="material-icons">
+		close
+	</i>
 </button>

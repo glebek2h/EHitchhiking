@@ -1,19 +1,22 @@
 package com.exadel.ehitchhiking.services.impl;
-
-import com.exadel.ehitchhiking.daos.ICarDAO;
-import com.exadel.ehitchhiking.daos.ITripDriverDAO;
-import com.exadel.ehitchhiking.daos.ITripPassDAO;
+import com.exadel.ehitchhiking.daos.*;
+import com.exadel.ehitchhiking.daos.impl.DriverDAO;
+import com.exadel.ehitchhiking.daos.impl.PassengerDAO;
 import com.exadel.ehitchhiking.models.TripDriver;
+import com.exadel.ehitchhiking.models.TripPass;
+import com.exadel.ehitchhiking.models.vo.PassengerVO;
 import com.exadel.ehitchhiking.models.vo.TripDriverVO;
 import com.exadel.ehitchhiking.services.ITripDriverService;
+import com.exadel.ehitchhiking.utils.ComareUtils;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Service;
 
-
 import javax.transaction.Transactional;
 import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,22 +25,28 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class TripDriverService implements ITripDriverService {
 
+
     @Autowired
     private ITripDriverDAO dao;
 
     @Autowired
     private ICarDAO carDAO;
-
     @Autowired
     private ITripPassDAO tripPassDAO;
 
+    @Autowired
+    private IDriverDAO driverDAO;
+
+    @Autowired
+    private IPassengerDAO passengerDAO;
+
     @Override
     public void createTripDriver(String startingPoint, String endingPoint,
-                                 Timestamp startingTime, Timestamp endingTime, int idOfCar, int seats,
+                                 Instant startingTime, Instant endingTime, int idOfCar, int seats,
                                  Point coordStart, Point coordEnd, float distance){
 
         TripDriver tripDriver = new TripDriver(startingPoint, endingPoint,
-                startingTime, endingTime, true,
+                Timestamp.from(startingTime), Timestamp.from(endingTime), true,
                 false, false, seats, carDAO.getCar(idOfCar), false, coordStart,coordEnd, distance);
         dao.save(tripDriver);
     }
@@ -49,11 +58,11 @@ public class TripDriverService implements ITripDriverService {
     }
 
     @Override
-    public void updateTrip(int id, Timestamp newStart, Timestamp newEnd, String start, String end,
+    public void updateTrip(int id, Instant newStart, Instant newEnd, String start, String end,
                            int newSeats, int idNewCar, Point coordStart, Point coordEnd, float distance){
         TripDriver tripDriver = dao.getTripDriver(id);
-        tripDriver.setStartTime(newStart);
-        tripDriver.setEndTime(newEnd);
+        tripDriver.setStartTime(java.sql.Timestamp.from(newStart));
+        tripDriver.setEndTime(Timestamp.from(newEnd));
         tripDriver.setStartPoint(start);
         tripDriver.setEndPoint(end);
         tripDriver.setAvailableSeats(newSeats);
@@ -85,7 +94,25 @@ public class TripDriverService implements ITripDriverService {
     public void updateFinished(int id, boolean isFinished){
         TripDriver tripDriver = dao.getTripDriver(id);
         tripDriver.setFinished(isFinished);
+        tripDriver.setActive(false);
+        if (isFinished) {
+            float dist = tripDriver.getDistance();
+            int seats = tripPassDAO.getAmountPass(id);
+            float amountOfPoints =  tripDriver.getCar().getDriver().getEmployee().getPoints();
+            tripDriver.getCar().getDriver().getEmployee().setPoints((dist*(seats/10))+amountOfPoints);
+        }
         dao.update(tripDriver);
+    }
+
+    @Override
+    public List<PassengerVO> getPassengers(int id){
+        List<TripPass> tripPassList= dao.getTripPass(id);
+        List<PassengerVO> listPass = new ArrayList<PassengerVO>() {
+        };
+        for (TripPass tripPass: tripPassList){
+            listPass.add(PassengerVO.fromEntity(tripPass.getPassenger()));
+        }
+        return listPass;
     }
 
     @Override
@@ -124,7 +151,13 @@ public class TripDriverService implements ITripDriverService {
 
 
     @Override
-    public List<TripDriverVO> getAll() {
-        return dao.getAll().stream().map(TripDriverVO::fromEntity).collect(Collectors.toList());
-    }
+    public List<TripDriverVO> getAll(int idEmp, Instant startingTime, Instant endingTime, int seats,
+                                     Point coordStart, Point coordEnd) {
+        List<TripDriverVO> list =  dao.getAll().stream().map(TripDriverVO::fromEntity).collect(Collectors.toList());
+        return list.stream()
+                .filter(trips -> trips.getSeats() >= seats
+                        && !driverDAO.getDriver(trips.getDriver().getId()).getPassengers().contains(passengerDAO.getByEmployeeId(idEmp))
+                        && ComareUtils.isTimeInRange(startingTime, endingTime, trips.getStartingTime()))
+                //.sorted()
+                .collect(Collectors.toList());}
 }

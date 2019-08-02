@@ -1,23 +1,22 @@
 package com.exadel.ehitchhiking.responses;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+@AllArgsConstructor
 @Data
-@NoArgsConstructor
-public class Response<T> {
+public class Response {
 
-    @Getter
-    @Setter
     private String status;
 
-    @Getter
-    @Setter
-    private T data;
+    private Object data;
 
-    @Getter
-    @Setter
     private String msg;
+
+    public static Response setError(String msg){
+        return new Response("error", null, msg);
+    }
+
+    public static Response setSuccess(Object data){
+        return new Response("success", data, null);
+    }
 }

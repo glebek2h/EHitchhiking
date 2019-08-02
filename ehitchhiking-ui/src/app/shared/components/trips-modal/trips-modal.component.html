@@ -61,7 +61,10 @@
 			class="trips-container items-hover"
 			*ngFor="
 				let trip of tripsArray
-					| filterByRole: tripService.roleFilterConfig.roleField:selectedRole:tripService.roleFilterConfig.isEnable
+					| filterByRole
+						: tripService.roleFilterConfig.roleField
+						: selectedRole
+						: tripService.roleFilterConfig.isEnable
 					| filterByFavorite: 'isFavorite':selectedFavorite
 					| filterByStatus
 						: tripService.statusFilterConfig.fieldName
@@ -84,7 +87,7 @@
 	</div>
 	<footer>
 		<div mat-dialog-actions class="trips-btn">
-			<button mat-button (click)="replaceAll()" *ngIf="tripsArray.length">Replase all</button>
+			<button mat-button (click)="replaceAll()" *ngIf="tripsArray.length">Remove all</button>
 		</div>
 	</footer>
 	<div class="modal-close-control">

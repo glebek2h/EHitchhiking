@@ -13,25 +13,19 @@ import java.util.List;
 public class CarDAO extends AbstractDAO<Car> implements ICarDAO {
 
 
-    public CarDAO(SessionFactory sessionFactory) {
-        super(sessionFactory);
+    public CarDAO() {
+        super(Car.class);
     }
 
     @Override
-    public List<Car> getAll() {
-        List<Car> cars = (List<Car>)  getCurrentSession().createQuery("From com.exadel.ehitchhiking.models.Car").list();
-        return cars;
-    }
-
-    @Override
-    public String getNumber(int id){
-        List<String> emps = (List<String>)  getCurrentSession().createQuery("select number From com.exadel.ehitchhiking.models.Car where id = '" + id + "'").list();
+    public String getNumber(int id) {
+        List<String> emps = (List<String>) getCurrentSession().createQuery("select number From com.exadel.ehitchhiking.models.Car where id = '" + id + "'").list();
         return emps.get(0);
     }
 
     @Override
-    public List<Car> getListCars(int idDriver){
-        List<Car> cars = (List<Car>)  getCurrentSession().createQuery("From com.exadel.ehitchhiking.models.Car where driver.id = '" + idDriver + "' and isDeleted = false").list();
+    public List<Car> getListCars(int empId) {
+        List<Car> cars = (List<Car>)  getCurrentSession().createQuery("From com.exadel.ehitchhiking.models.Car where driver.employee.id = '" + empId + "' and isDeleted = false").list();
         return cars;
     }
 

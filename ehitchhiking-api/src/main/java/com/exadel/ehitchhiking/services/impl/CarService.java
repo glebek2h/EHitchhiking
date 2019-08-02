@@ -65,8 +65,8 @@ public class CarService implements ICarService {
     }
 
     @Override
-    public List<CarVO> getListCars(int idDriver) {
-        return dao.getListCars(idDriver).stream().map(CarVO::fromEntity).collect(Collectors.toList());
+    public List<CarVO> getListCars(int empId) {
+        return dao.getListCars(empId).stream().map(CarVO::fromEntity).collect(Collectors.toList());
     }
 
     @Override

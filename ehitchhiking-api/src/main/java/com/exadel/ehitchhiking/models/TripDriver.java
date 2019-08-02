@@ -97,7 +97,7 @@ public class TripDriver {
     @Getter
     @Setter
     @Column(name = "\"RATING\"")
-    private double rating;
+    private float rating;
 
     @Getter
     @Setter

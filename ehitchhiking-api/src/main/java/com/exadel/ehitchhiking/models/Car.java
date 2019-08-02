@@ -45,7 +45,7 @@ public class Car {
 
     @Setter
     @Getter
-    @ManyToOne (fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "\"DRIVER_ID\"")
     private Driver driver;
 
