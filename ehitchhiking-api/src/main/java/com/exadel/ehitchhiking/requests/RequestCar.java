@@ -9,4 +9,5 @@ public class RequestCar {
     private String number;
     private String model;
     private Integer id;
+    private Integer idOfDriver;
 }
