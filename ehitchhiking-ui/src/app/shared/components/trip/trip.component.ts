@@ -1,10 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Trip} from '../trips-modal/trips';
-import { StarClickMeta } from "../rating/starClickMeta";
+import {StarClickMeta} from '../rating/starClickMeta';
 import {MatDialog} from '@angular/material';
-import {RatePassengersModalComponent} from "@shared/components/rate-passengers-modal/rate-passengers-modal.component";
-import {DEFAULT_MAT_DIALOG_CLASS, MAT_DIALOG_WIDTH_SM} from "@shared/constants/modal-constants";
-import {UserState} from "@shared/enums/UserState";
+import {RatePassengersModalComponent} from '@shared/components/rate-passengers-modal/rate-passengers-modal.component';
+import {DEFAULT_MAT_DIALOG_CLASS, MAT_DIALOG_WIDTH_SM} from '@shared/constants/modal-constants';
+import {UserState} from '@shared/enums/UserState';
 @Component({
 	selector: 'app-trip',
 	templateUrl: './trip.component.html',
@@ -15,11 +15,9 @@ export class TripComponent implements OnInit {
 	isRatingEditorVisible: boolean;
 	userState = UserState;
 
-  constructor(public dialog: MatDialog) {
-  }
+	constructor(public dialog: MatDialog) {}
 
-  ngOnInit() {
-  }
+	ngOnInit() {}
 
 	makeFavorite() {
 		this.trip.isFavorite = !this.trip.isFavorite;
@@ -37,15 +35,14 @@ export class TripComponent implements OnInit {
 		this.toggleRating();
 	}
 
-  openRatePassengersDialog() {
-    this.dialog.open(RatePassengersModalComponent, {
-      width: MAT_DIALOG_WIDTH_SM,
-      panelClass: DEFAULT_MAT_DIALOG_CLASS,
-      autoFocus: false,
-      data: {
-        dataKey: this.trip.role
-      }
-    });
-
-  }
+	openRatePassengersDialog() {
+		this.dialog.open(RatePassengersModalComponent, {
+			width: MAT_DIALOG_WIDTH_SM,
+			panelClass: DEFAULT_MAT_DIALOG_CLASS,
+			autoFocus: false,
+			data: {
+				dataKey: this.trip.role,
+			},
+		});
+	}
 }

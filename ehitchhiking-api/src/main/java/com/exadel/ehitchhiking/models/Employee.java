@@ -15,7 +15,7 @@ import java.util.Set;
 @Table(name = "\"EMPLOYEE\"", schema = "public")
 @EqualsAndHashCode
 @NoArgsConstructor
-public class Employee  {
+public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

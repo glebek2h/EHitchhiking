@@ -61,7 +61,10 @@
 			class="trips-container items-hover"
 			*ngFor="
 				let trip of tripsArray
-					| filterByRole: tripService.roleFilterConfig.roleField:selectedRole:tripService.roleFilterConfig.isEnable
+					| filterByRole
+						: tripService.roleFilterConfig.roleField
+						: selectedRole
+						: tripService.roleFilterConfig.isEnable
 					| filterByFavorite: 'isFavorite':selectedFavorite
 					| filterByStatus
 						: tripService.statusFilterConfig.fieldName

@@ -1,7 +1,6 @@
 package com.exadel.ehitchhiking.requests;
 import lombok.Data;
-import org.springframework.data.geo.Point;
-
+import com.exadel.ehitchhiking.requests.Point;
 import java.sql.Timestamp;
 import java.time.Instant;
 

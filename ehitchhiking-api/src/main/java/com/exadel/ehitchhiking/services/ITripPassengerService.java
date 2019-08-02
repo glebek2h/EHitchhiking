@@ -4,11 +4,12 @@ import com.exadel.ehitchhiking.models.vo.DriverVO;
 import com.exadel.ehitchhiking.models.vo.TripPassVO;
 import org.springframework.data.geo.Point;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.sql.Timestamp;
 import java.time.Instant;
 
 public interface ITripPassengerService {
-    void createTripPassenger(int passId, String startingPoint,
+    void createTripPassenger(int empId, String startingPoint,
                              String endingPoint,
                              Instant startingTime, Instant endingTime,
                              int seats, int idTripDriver, Point coordStart, Point coordEnd,
