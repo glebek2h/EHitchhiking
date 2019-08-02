@@ -9,13 +9,13 @@ export const URL_REGISTRY = {
 		GET: 'employee?id={{id}}',
 	},
 	MAP: {
-		GET_DRIVERS_ROUTES: 'tripPassenger/getAllDriverTrips',
-		POST_DRIVER_ROUTE: 'tripDriver/createTrip',
-		POST_PASSENGER_ROUTE: 'tripPassenger/createTrip',
+		GET_DRIVERS_ROUTES: 'trip_passenger/get_all_driver_trips',
+		POST_DRIVER_ROUTE: 'trip_driver',
+		POST_PASSENGER_ROUTE: 'trip_passenger',
 	},
 	CAR: {
 		ADD_CAR: 'car/addCar',
-		GET_ALL: 'car/getAll?id={{id}}',
+		GET_ALL: 'car/get_all?id={{id}}',
 		DELETE_CAR: 'car/deleteCar?id={{id}}',
 		UPDATE_CARS: 'car/updateCars',
 	},

@@ -10,7 +10,7 @@ public interface ICarDAO extends IBasicDAO<Car> {
 
     String getNumber(int id);
 
-    List<Car> getListCars(int idDriver);
+    List<Car> getListCars(int empId);
 
     Car getCar(int id);
 }

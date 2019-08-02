@@ -49,7 +49,7 @@ export class MainScreenService {
 				endingPoint: tripData.to,
 				startingTime: tripData.departureDate,
 				endingTime: tripData.departureDate,
-				idOfCar: 20, // TODO mock-data here because of empty cars data (need backend to fix this)
+				idOfCar: tripData.car.id, // TODO mock-data here because of empty cars data (need backend to fix this)
 				empId: this.userService.getCurrentUser().id,
 				coordStart: {x: tripData.coords[0][0], y: tripData.coords[0][1]},
 				coordEnd: {x: tripData.coords[1][0], y: tripData.coords[1][1]},

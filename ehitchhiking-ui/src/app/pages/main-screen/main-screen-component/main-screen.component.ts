@@ -56,7 +56,7 @@ export class MainScreenComponent implements OnInit {
 	routes: Partial<Route>[] = [];
 	copyRoutes: Partial<Route>[] = [];
 
-	currentUser;
+	currentUser: User;
 	// TODO mock-data here because of empty cars data (need backend to fix this)
 	user: User = new User('1', 'Yana', '', 'hello@gmail.com', '+375291234567', [
 		new Car('ferrari', 'pink', 'A3434B', '1'),
@@ -65,7 +65,7 @@ export class MainScreenComponent implements OnInit {
 		new Car('bmw', 'black', 'A3434B', '1'),
 	]);
 
-  private getCarsList(userId: string): Promise<CarInterface[]> {
+  private getCarsList(userId: string): Promise<any> {
     return this.apiService.doGet(URL_REGISTRY.CAR.GET_ALL, false, {id: userId});
   }
 
@@ -75,9 +75,9 @@ export class MainScreenComponent implements OnInit {
 		this.userState = UserState.Passenger;
 		this.routes = YandexMapService.getSomeRoutes();
 		this.copyRoutes = this.routes.slice();
-		this.getCarsList(this.userService.getCurrentUser().id)
-      .then((data) => console.log(data));
-
+		this.currentUser = this.userService.getCurrentUser();
+    this.getCarsList(this.userService.getCurrentUser().id)
+      .then((data) => {this.currentUser.cars = data;});
 	}
 
 	openTripRegistrationForm(): void {

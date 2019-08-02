@@ -12,6 +12,7 @@ import {UserService} from '@shared/services/user.service';
 })
 export class TripRegistrationComponent implements OnInit {
 	@Input() isShown: boolean;
+	@Input() currentUser: User;
 	@Input() userState: UserState;
 	@Output() formData = new EventEmitter<any>(); // TODO
 	@Output() passengerFormData = new EventEmitter<any>(); // TODO
@@ -20,12 +21,10 @@ export class TripRegistrationComponent implements OnInit {
 
 	coords;
 	nameFormGroup: FormGroup;
-	currentUser: User;
 
 	constructor(private userService: UserService) {}
 
 	ngOnInit() {
-		this.currentUser = this.userService.getCurrentUser();
 		this.nameFormGroup = new FormGroup({
 			from: new FormControl('Барановичи', [Validators.required]),
 			to: new FormControl('Пинск', [Validators.required]),
