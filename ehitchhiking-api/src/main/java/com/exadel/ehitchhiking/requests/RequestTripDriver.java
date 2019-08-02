@@ -1,12 +1,13 @@
 package com.exadel.ehitchhiking.requests;
 import lombok.Data;
-import org.springframework.data.geo.Point;
-
+import com.exadel.ehitchhiking.requests.Point;
 import java.sql.Timestamp;
 import java.time.Instant;
 
 @Data
 public class RequestTripDriver {
+
+    private Integer empId;
 
     private String startingPoint;
 
@@ -18,7 +19,7 @@ public class RequestTripDriver {
 
     private Integer idOfCar;
 
-    private Integer DriverId;
+    private Integer driverId;
 
     private Integer seats;
 
@@ -28,7 +29,7 @@ public class RequestTripDriver {
 
     private Point coordEnd;
 
-    private float distance;
+    private Float distance;
 
 }
 

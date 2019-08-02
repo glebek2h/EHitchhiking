@@ -7,7 +7,7 @@ import java.util.List;
 @Data
 public class RequestBlackList {
 
-    private int idTrip;
+    private Integer idTrip;
 
     private List<RequestId> data;
 }

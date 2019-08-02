@@ -8,6 +8,6 @@ public class RequestCar {
     private String color;
     private String number;
     private String model;
-    private String idOfDriver;
-    private String id;
+    private Integer id;
+    private Integer idOfDriver;
 }

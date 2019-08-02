@@ -25,7 +25,6 @@ public class DriverDAO extends AbstractDAO<Driver> implements IDriverDAO {
     @Override
     public Driver getByEmployeeId(int id) {
         return (Driver) getCurrentSession().createQuery("from Driver where employee.id = '" + id + "'").uniqueResult();
-
     }
 
     @Override

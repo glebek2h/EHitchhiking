@@ -27,7 +27,7 @@ public class TripPassengerService implements ITripPassengerService {
     @Autowired
     private ITripDriverDAO tripDriverDAO;
     @Override
-    public void createTripPassenger(int passId, String startingPoint,
+    public void createTripPassenger(int empId, String startingPoint,
                                     String endingPoint,
                                     Instant startingTime, Instant endingTime,
                                     int seats, int idTripDriver, Point coordStart, Point coordEnd,
@@ -35,7 +35,7 @@ public class TripPassengerService implements ITripPassengerService {
         TripPass tripPass = new TripPass(startingPoint, endingPoint,
                 Timestamp.from(startingTime), Timestamp.from(endingTime), true,
                 false, false, seats,
-                passengerDAO.getPassenger(passId), tripDriverDAO.getTripDriver(idTripDriver), false, coordStart,
+                passengerDAO.getByEmployeeId(empId), tripDriverDAO.getTripDriver(idTripDriver), false, coordStart,
                 coordEnd, distance);
         dao.save(tripPass);
     }
@@ -60,10 +60,11 @@ public class TripPassengerService implements ITripPassengerService {
 
 
     @Override
-    public void updateSave(int id, boolean isSaved) {
+    public TripPassVO updateSave(int id, boolean isSaved) {
         TripPass tripPass = dao.getTripPass(id);
         tripPass.setSaved(isSaved);
         dao.update(tripPass);
+        return TripPassVO.fromEntity( dao.getTripPass(id));
     }
 
     @Override

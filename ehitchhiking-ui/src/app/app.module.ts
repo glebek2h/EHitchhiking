@@ -15,6 +15,7 @@ import {AuthorizationService} from '@shared/services/authorization.service';
 import {NotificationService} from '@shared/services/notification.service';
 import {CachingInterceptor} from '@shared/services/interceptors/caching-interceptor';
 import {RequestCache} from '@shared/services/request.cache.service';
+import { ConfirmationModalComponent } from './shared/modals/confirmation-modal/confirmation-modal.component';
 
 @NgModule({
 	declarations: [AppComponent],

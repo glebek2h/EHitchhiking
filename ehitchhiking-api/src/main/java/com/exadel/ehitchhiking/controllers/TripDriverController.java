@@ -1,15 +1,18 @@
 package com.exadel.ehitchhiking.controllers;
 
 import com.exadel.ehitchhiking.daos.impl.CarDAO;
+import com.exadel.ehitchhiking.models.vo.TripDriverVO;
 import com.exadel.ehitchhiking.requests.RequestTripDriver;
 import com.exadel.ehitchhiking.responses.Response;
 import com.exadel.ehitchhiking.services.ITripDriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
+
 
 @RestController
-@RequestMapping("/tripDriver")
+@RequestMapping("/trip_driver")
 public class TripDriverController {
 
     @Autowired
@@ -17,7 +20,7 @@ public class TripDriverController {
     @Autowired
     CarDAO carDAO;
 
-    @PostMapping("/createTrip")
+    @PostMapping
     public Response addTripDriver(@RequestBody RequestTripDriver tripDriver) {
         try {
 
@@ -28,11 +31,11 @@ public class TripDriverController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Success");
     }
 
 
-    @PutMapping("/updateTrip")
+    @PutMapping("/update_trip")
     public Response updateTrip(@RequestBody RequestTripDriver tripDriver) {
         try {
             tripDriverService.updateTrip(tripDriver.getId(), tripDriver.getStartingTime(),
@@ -42,58 +45,61 @@ public class TripDriverController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Success");
     }
 
     @PutMapping("/save")
-    public Response addToSaved(@RequestBody RequestTripDriver tripDriver) {
+    public Response addToSaved(@RequestBody RequestTripDriver trip) {
+        TripDriverVO updatedTrip = null;
         try {
-            tripDriverService.updateSave(tripDriver.getId(), true);
+            updatedTrip = tripDriverService.updateSave(trip.getId(), true);
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess(updatedTrip, "Success");
 
     }
 
     @PutMapping("/removeFromSaved")
-    public Response removedFromSaved(@RequestBody RequestTripDriver tripDriver) {
+    public Response removeFromSaved(@RequestBody RequestTripDriver trip) {
+        TripDriverVO updatedTrip = null;
         try {
-            tripDriverService.updateSave(tripDriver.getId(), false);
+            updatedTrip = tripDriverService.updateSave(trip.getId(), false);
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess(updatedTrip, "Success");
+
     }
 
-    @PutMapping("/removeFromHistory")
+    @PutMapping("/remove_from_history")
     public Response deleteFromHistory(@RequestBody RequestTripDriver tripDriver) {
         try {
             tripDriverService.deleteFromHistory(tripDriver.getId(), false);
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Success");
     }
 
-    @PutMapping("/cancelledTrip")
+    @PutMapping("/cancelled_trip")
     public Response addToCancelled(@RequestBody RequestTripDriver tripDriver) {
         try {
             tripDriverService.updateFinished(tripDriver.getId(), false);
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Success");
     }
 
-    @PutMapping("/finishedTrip")
+    @PutMapping("/finished_trip")
     public Response addToFinished(@RequestBody RequestTripDriver tripDriver) {
         try {
             tripDriverService.updateFinished(tripDriver.getId(), true);
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Success");
     }
 
     @PutMapping("/active")
@@ -103,18 +109,18 @@ public class TripDriverController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Success");
     }
 
 
-    @PutMapping("/removeFromActive")
+    @PutMapping("/remove_from_active")
     public Response removeFromActive(@RequestBody RequestTripDriver tripDriver) {
         try {
             tripDriverService.updateActive(tripDriver.getId(), false);
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Success");
     }
 
 }

@@ -35,7 +35,7 @@ public class BlackListsController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Successfully added to the black list");
     }
 
     @PutMapping("/driver")
@@ -49,50 +49,50 @@ public class BlackListsController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Successfully added to the black list");
     }
 
     // deleting the passenger from the black list driver
-    @DeleteMapping("/driver")
-    public Response deletePassFromBlackListDriver(String idDriver, String idPass) {
+    @DeleteMapping("/passenger")
+    public Response deletePassFromBlackListDriver(int empId, int idPass) {
         try {
-            driverService.deletePassFromBL(Integer.parseInt(idDriver), Integer.parseInt(idPass));
+            driverService.deletePassFromBL(empId, idPass);
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Successfully deleted to the black list");
     }
 
     // deleting the driver from the blacklist pass
-    @DeleteMapping("/passenger")
-    public Response deleteDriverFromBlackListPass(String empId, String idDriver) {
+    @DeleteMapping("/driver")
+    public Response deleteDriverFromBlackListPass(int empId, int idDriver) {
         try {
-            passengerService.deleteDriverFromBL(Integer.parseInt(empId), Integer.parseInt(idDriver));
+            passengerService.deleteDriverFromBL(empId, idDriver);
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Successfully deleted to the black list");
     }
 
     @GetMapping("/driver")
-    public Response getListOfPassengers(String empId) {
+    public Response getListOfPassengers(int empId) {
         List<PassengerVO> passengers;
         try {
-            passengers = driverService.getPassengers(Integer.parseInt(empId));
+            passengers = driverService.getPassengers(empId);
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess(passengers);
+        return Response.setSuccess(passengers, "Successfully got black list");
     }
 
     @GetMapping("/passenger")
-    public Response getListOfDrivers(String empId) {
+    public Response getListOfDrivers(int empId) {
         List<DriverVO> drivers;
         try {
-            drivers = passengerService.getDrivers(Integer.parseInt(empId));
+            drivers = passengerService.getDrivers(empId);
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess(drivers);
+        return Response.setSuccess(drivers, "Successfully got black list");
     }
 }

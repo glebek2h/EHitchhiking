@@ -1,6 +1,7 @@
 package com.exadel.ehitchhiking.controllers;
 
 import com.exadel.ehitchhiking.models.vo.TripDriverVO;
+import com.exadel.ehitchhiking.models.vo.TripPassVO;
 import com.exadel.ehitchhiking.requests.RequestTripPassenger;
 import com.exadel.ehitchhiking.responses.Response;
 import com.exadel.ehitchhiking.services.ITripDriverService;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/tripPassenger")
+@RequestMapping("/trip_passenger")
 public class TripPassengerController {
 
     @Autowired
@@ -19,7 +20,7 @@ public class TripPassengerController {
     @Autowired
     private ITripDriverService tripDriverService;
 
-    @PostMapping("/createTrip")
+    @PostMapping
     public Response createTrip(@RequestBody RequestTripPassenger tripPassenger) {
         try {
             // we are checking if the number of seats that the passenger wants to have is smaller or equal to the number of available seats on that trip
@@ -28,7 +29,7 @@ public class TripPassengerController {
                 // newSeats is the new number seats available o this trip
                 int newSeats = tripDriverService.getAvailableSeats(tripPassenger.getIdTripDriver()) - tripPassenger.getSeats();
                 tripDriverService.updateSeats(tripPassenger.getIdTripDriver(), newSeats);
-                tripPassengerService.createTripPassenger(tripPassenger.getPassId(),
+                tripPassengerService.createTripPassenger(tripPassenger.getEmpId(),
                         tripPassenger.getStartingPoint(), tripPassenger.getEndingPoint(),
                         tripPassenger.getStartingTime(),
                         tripPassenger.getEndingTime(),
@@ -42,11 +43,11 @@ public class TripPassengerController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Successfully created the trip");
     }
 
 
-    @PutMapping("/updateTrip")
+    @PutMapping("/update_trip")
     public Response updateTrip(@RequestBody RequestTripPassenger tripPass) {
         try {
             tripPassengerService.updateTrip(tripPass.getId(), tripPass.getStartingTime(), tripPass.getEndingTime(),
@@ -55,74 +56,76 @@ public class TripPassengerController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Successfully updated trips");
     }
 
 
-    @PutMapping("/addToHistory")
+    @PutMapping("/add_to_history")
     public Response addToHistory(@RequestBody RequestTripPassenger tripPass) {
         try {
             tripPassengerService.updateHistory(tripPass.getId(), true);
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Successfully added to history");
     }
 
 
-    @PutMapping("/removeFromHistory")
+    @PutMapping("/remove_from_history")
     public Response removeFromHistory(@RequestBody RequestTripPassenger tripPass) {
         try {
             tripPassengerService.updateHistory(tripPass.getId(), false);
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Successfully removed from history");
     }
 
-    @PutMapping("/cancelledTrip")
+    @PutMapping("/cancelled_trip")
     public Response addToCancelled(@RequestBody RequestTripPassenger tripPass) {
         try {
             tripPassengerService.updateFinished(tripPass.getId(), false);
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Successfully cancelled the trip");
     }
 
-    @PutMapping("/finishedTrip")
+    @PutMapping("/finished_trip")
     public Response addToFinished(@RequestBody RequestTripPassenger tripPass) {
         try {
             tripPassengerService.updateFinished(tripPass.getId(), true);
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Successfully finished the trip");
     }
 
-    @PutMapping("/addToSaved")
-    public Response addToSaved(@RequestBody RequestTripPassenger tripPass) {
+    @PutMapping("/save")
+    public Response addToSaved(@RequestBody RequestTripPassenger trip) {
+        TripPassVO updatedTrip = null;
         try {
-            tripPassengerService.updateSave(tripPass.getId(), true);
+           updatedTrip = tripPassengerService.updateSave(trip.getId(), true);
         } catch (Exception e) {
-            return Response.setError("error");
+            return Response.setError("Failed adding to saved");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess(updatedTrip, "Successfully added to saved");
 
     }
 
     @PutMapping("/removeFromSaved")
-    public Response removedFromSaved(@RequestBody RequestTripPassenger tripPass) {
+    public Response removedFromSaved(@RequestBody RequestTripPassenger trip) {
+        TripPassVO updatedTrip = null;
         try {
-            tripPassengerService.updateSave(tripPass.getId(), false);
+            updatedTrip = tripPassengerService.updateSave(trip.getId(), false);
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess(updatedTrip, "Successfully removed from saved");
     }
 
 
-    @GetMapping("/getAllDriverTrips")
+    @PostMapping("/get_all_driver_trips")
     public Response getAllAvailableTrips(@RequestBody RequestTripPassenger tripPassenger) {
         List<TripDriverVO> tripDriverVOList;
         try {
@@ -131,7 +134,7 @@ public class TripPassengerController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess(tripDriverVOList);
+        return Response.setSuccess(tripDriverVOList, "Successfully got all driver trips");
     }
 
     @PutMapping("/active")
@@ -141,17 +144,17 @@ public class TripPassengerController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Successfully added to active");
     }
 
 
-    @PutMapping("/removeFromActive")
+    @PutMapping("/remove_from_active")
     public Response removeFromActive(@RequestBody RequestTripPassenger tripPass) {
         try {
             tripDriverService.updateActive(tripPass.getId(), false);
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Successfully removed from active");
     }
 }

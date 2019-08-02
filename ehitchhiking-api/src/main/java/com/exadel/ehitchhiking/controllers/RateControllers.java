@@ -35,12 +35,14 @@ public class RateControllers {
     public Response updateRatePass(@RequestBody List<RequestPassenger> passengerList) {
         try {
             for (RequestPassenger passenger : passengerList) {
-                passengerService.updateRatePass(Integer.parseInt(passenger.getIdPass()), Float.parseFloat(passenger.getRate()));
+                if (passenger.getRate() != 0) {
+                    passengerService.updateRatePass(passenger.getIdPass(), passenger.getRate());
+                }
             }
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Success");
     }
 
 
@@ -48,15 +50,17 @@ public class RateControllers {
     public Response updateRateDriver(@RequestBody List<RequestDriver> driverList) {
         try {
             for (RequestDriver driver : driverList) {
-                driverService.updateRateDriver(Integer.parseInt(driver.getIdDriver()), Float.parseFloat(driver.getRate()));
+                if (driver.getRate() != 0) {
+                    driverService.updateRateDriver(driver.getIdDriver(), driver.getRate());
+                }
             }
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Success");
     }
 
-    @GetMapping("/getDriver")
+    @GetMapping("/get_driver")
     public Response getDriver(int id) {
         DriverVO driver;
         try {
@@ -64,11 +68,11 @@ public class RateControllers {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess(driver);
+        return Response.setSuccess(driver, "Success");
 
     }
 
-    @GetMapping("/getPassengers")
+    @GetMapping("/get_passengers")
     public Response getPassengers(int id) {
         List<PassengerVO> passenger;
         try {
@@ -76,7 +80,7 @@ public class RateControllers {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess(passenger);
+        return Response.setSuccess(passenger, "Success");
     }
 
 }

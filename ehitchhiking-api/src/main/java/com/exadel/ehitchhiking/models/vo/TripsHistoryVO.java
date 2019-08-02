@@ -16,7 +16,7 @@ public class TripsHistoryVO {
     @JsonIgnore
     private int employeeId;
 
-    private int idTrip;
+    private int id;
 
     private String startPoint;
 

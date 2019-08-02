@@ -1,5 +1,5 @@
 <div class="modal-wrapper">
-	<app-pre-loading [isLoading]="loading" [size]="loaderSize"></app-pre-loading>
+	<app-pre-loading [isLoading]="isLoading" [size]="loaderSize"></app-pre-loading>
 	<header class="modal-header ">
 		<span mat-dialog-title class="trips-title">History</span>
 		<i class="material-icons icon-size">
@@ -13,7 +13,7 @@
 			<mat-form-field class="filter-width">
 				<mat-label>Role</mat-label>
 				<mat-select [(ngModel)]="selectedRole" name="selected">
-					<mat-option (click)="filterByRole()" *ngFor="let role of tripService.roles" [value]="role.value">
+					<mat-option (click)="filterByRole()" *ngFor="let role of tripsModalService.roles" [value]="role.value">
 						{{ role.viewValue }}
 					</mat-option>
 				</mat-select>
@@ -24,7 +24,7 @@
 				<mat-select [formControl]="statuses" multiple>
 					<mat-option
 						(click)="filterByStatus()"
-						*ngFor="let status of tripService.statusesTrip"
+						*ngFor="let status of tripsModalService.statusesTrip"
 						[value]="status.value"
 						>{{ status.viewValue }}</mat-option
 					>
@@ -36,7 +36,7 @@
 				<mat-select [formControl]="ratings" multiple>
 					<mat-option
 						(click)="filterByRating()"
-						*ngFor="let rate of tripService.ratesTrip"
+						*ngFor="let rate of tripsModalService.ratesTrip"
 						[value]="rate.value"
 						>{{ rate.viewValue }}</mat-option
 					>
@@ -61,30 +61,30 @@
 			class="trips-container items-hover"
 			*ngFor="
 				let trip of tripsArray
-					| filterByRole: tripService.roleFilterConfig.roleField:selectedRole:tripService.roleFilterConfig.isEnable
-					| filterByFavorite: 'isFavorite':selectedFavorite
+					| filterByRole: tripsModalService.roleFilterConfig.roleField:selectedRole:tripsModalService.roleFilterConfig.isEnable
+					| filterByFavorite: 'saved':selectedFavorite
 					| filterByStatus
-						: tripService.statusFilterConfig.fieldName
-						: tripService.statusFilterConfig.selected
-						: tripService.statusFilterConfig.isEnabled
+						: tripsModalService.statusFilterConfig.fieldName
+						: tripsModalService.statusFilterConfig.selected
+						: tripsModalService.statusFilterConfig.isEnabled
 					| filterByRating
-						: tripService.ratingFilterConfig.fieldName
-						: tripService.ratingFilterConfig.selected
-						: tripService.ratingFilterConfig.isEnabled
+						: tripsModalService.ratingFilterConfig.fieldName
+						: tripsModalService.ratingFilterConfig.selected
+						: tripsModalService.ratingFilterConfig.isEnabled
 					| sortTrips: 'rating':order
 					| slice: 0:limit;
 				trackBy: trackById
 			"
 		>
-			<app-trip class="trip" [trip]="trip"></app-trip>
+			<app-trip class="trip" [trip]="trip" (onLoadingToggle)="onLoadingToggle($event)"></app-trip>
 		</div>
 		<div class="scroll-marker" #sMarker></div>
 
-		<app-no-data *ngIf="!tripsArray.length" isEmpty="true"></app-no-data>
+		<app-no-data [isEmpty]="!isLoading && (!tripsArray || !tripsArray.length) "></app-no-data>
 	</div>
 	<footer>
 		<div mat-dialog-actions class="trips-btn">
-			<button mat-button (click)="replaceAll()" *ngIf="tripsArray.length">Replase all</button>
+			<button mat-button (click)="replaceAll()" *ngIf="tripsArray.length">Remove all</button>
 		</div>
 	</footer>
 	<div class="modal-close-control">

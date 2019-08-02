@@ -4,10 +4,14 @@ import com.exadel.ehitchhiking.models.TripDriver;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.geo.Point;
+import org.springframework.stereotype.Service;
 
+import javax.persistence.Id;
 import java.time.Instant;
-
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
