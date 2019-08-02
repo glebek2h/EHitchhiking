@@ -71,17 +71,17 @@ export class RatePassengersModalComponent implements OnInit {
 		});
 	}
 
-  submitChanges(users: User[],blockedUsers: BlacklistedUser[]):(void | Promise<any>)[] {
-    return this.data.dataKey === UserState.Passenger
-      ? [
-        this.apiRatePassengersService.addRateDriver(users),
-        this.apiRatePassengersService.addBlacklistDriver(this.idTripDriver, blockedUsers),
-      ]
-      : [
-        this.apiRatePassengersService.addRatePassenger(users),
-        this.apiRatePassengersService.addBlacklistPass(this.idTripPassenger, blockedUsers),
-      ];
-  }
+	submitChanges(users: User[], blockedUsers: BlacklistedUser[]): (void | Promise<any>)[] {
+		return this.data.dataKey === UserState.Passenger
+			? [
+					this.apiRatePassengersService.addRateDriver(users),
+					this.apiRatePassengersService.addBlacklistDriver(this.idTripDriver, blockedUsers),
+			  ]
+			: [
+					this.apiRatePassengersService.addRatePassenger(users),
+					this.apiRatePassengersService.addBlacklistPass(this.idTripPassenger, blockedUsers),
+			  ];
+	}
 
 	exitTrip(): void {
 		const users = [];
@@ -96,7 +96,7 @@ export class RatePassengersModalComponent implements OnInit {
 				isBlocked: user.isBlocked,
 			});
 		});
-    const requests = this.submitChanges(users,blockedUsers);
+		const requests = this.submitChanges(users, blockedUsers);
 		this.loading = true;
 		Promise.all(requests)
 			.then(() => {
