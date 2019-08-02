@@ -60,10 +60,11 @@ public class TripPassengerService implements ITripPassengerService {
 
 
     @Override
-    public void updateSave(int id, boolean isSaved) {
+    public TripPassVO updateSave(int id, boolean isSaved) {
         TripPass tripPass = dao.getTripPass(id);
         tripPass.setSaved(isSaved);
         dao.update(tripPass);
+        return TripPassVO.fromEntity( dao.getTripPass(id));
     }
 
     @Override

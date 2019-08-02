@@ -41,6 +41,20 @@ public class TripsService implements ITripsService {
         return history;
     }
 
+    @Override
+    public void refreshHistory(int id) {
+        List<TripDriver> driverTrips = tripDriver.getHistory(id);
+        List<TripPass> passTrips = tripPassenger.getHistory(id);
+        driverTrips.forEach((trip)->{
+            trip.setHistory(false);
+            tripDriver.update(trip);
+        });
+        passTrips.forEach((trip)->{
+            trip.setHistory(false);
+            tripPassenger.update(trip);
+        });
+    }
+
     public List<TripsActiveVO> getAllActive (int id){ // employee id
         List<TripsActiveVO> active = new ArrayList<>();
 

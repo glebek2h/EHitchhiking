@@ -1,5 +1,6 @@
 package com.exadel.ehitchhiking.services;
 
+import com.exadel.ehitchhiking.models.TripPass;
 import com.exadel.ehitchhiking.models.vo.DriverVO;
 import com.exadel.ehitchhiking.models.vo.TripPassVO;
 import org.springframework.data.geo.Point;
@@ -17,7 +18,7 @@ public interface ITripPassengerService {
 
 
 
-    void updateSave(int id, boolean isSaved);
+    TripPassVO updateSave(int id, boolean isSaved);
 
     void updateFinished(int id, boolean isFinished);
 

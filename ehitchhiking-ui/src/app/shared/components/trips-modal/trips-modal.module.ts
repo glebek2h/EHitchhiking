@@ -22,6 +22,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FilterByStatusPipe} from '../../pipes/filter-by-status.pipe';
 import {FilterByRatingPipe} from '@shared/pipes/filter-by-rating.pipe';
 import {FilterByRolePipe} from '@shared/pipes/filter-by-role.pipe';
+import {TripsModalService} from '@shared/services/trips-modal.service';
 
 @NgModule({
 	declarations: [
@@ -49,6 +50,7 @@ import {FilterByRolePipe} from '@shared/pipes/filter-by-role.pipe';
 		RatePassengersModalModule,
 		ReactiveFormsModule,
 	],
+	providers: [TripsModalService, PreLoadingModule],
 	entryComponents: [TripsModalComponent],
 	exports: [TripsModalComponent, SortTripsPipe, FilterByRolePipe],
 })

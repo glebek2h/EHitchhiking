@@ -5,9 +5,7 @@ import {RequestCar} from '@shared/models/request.car';
 import {CarInterface} from '@shared/interfaces/car-interface';
 import {Car} from '@shared/models/car';
 
-@Injectable({
-	providedIn: 'root',
-})
+@Injectable()
 export class ProfileModalApiService {
 	constructor(private apiService: ApiService) {}
 
