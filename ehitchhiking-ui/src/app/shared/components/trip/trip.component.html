@@ -18,16 +18,14 @@
 				event_busy
 			</i>
 		</button>
-		<button class="trip-btn" (click)="openRatePassengersDialog()">
-			<i class="material-icons">
-				stars
-			</i>
-		</button>
-		<button class="trip-btn" [class.active]="trip.isFavorite" (click)="makeFavorite()">
-			<i class="material-icons" *ngIf="!trip.isFavorite" title=" not favorite trip">
+    <button class="trip-btn" (click)="openRatePassengersDialog()"><i class="material-icons">
+      stars
+    </i></button>
+		<button class="trip-btn" [class.active]="trip.saved" (click)="makeFavorite()">
+			<i class="material-icons" *ngIf="!trip.saved" title=" not favorite trip">
 				favorite_border
 			</i>
-			<i class="btn-press-favorite material-icons" title="favorite trip" *ngIf="trip.isFavorite">
+			<i class="btn-press-favorite material-icons" title="favorite trip" *ngIf="trip.saved">
 				favorite
 			</i>
 		</button>

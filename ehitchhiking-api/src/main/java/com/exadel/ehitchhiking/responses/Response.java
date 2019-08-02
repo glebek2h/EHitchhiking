@@ -6,7 +6,7 @@ import lombok.*;
 @Data
 public class Response {
 
-    private String status;
+    private String msgType;
 
     private Object data;
 
@@ -16,7 +16,7 @@ public class Response {
         return new Response("error", null, msg);
     }
 
-    public static Response setSuccess(Object data){
-        return new Response("success", data, null);
+    public static Response setSuccess(Object data, String msg){
+        return new Response("success", data, msg);
     }
 }

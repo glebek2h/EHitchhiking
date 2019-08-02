@@ -84,10 +84,11 @@ public class TripDriverService implements ITripDriverService {
 
 
     @Override
-    public void updateSave(int id, boolean isSaved){
+    public TripDriverVO updateSave(int id, boolean isSaved){
         TripDriver tripDriver = dao.getTripDriver(id);
         tripDriver.setSaved(isSaved);
         dao.update(tripDriver);
+        return TripDriverVO.fromEntity(dao.getTripDriver(id));
     }
 
     @Override
