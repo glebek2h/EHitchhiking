@@ -8,6 +8,8 @@ import java.time.Instant;
 @Data
 public class RequestTripDriver {
 
+    private Integer empId;
+
     private String startingPoint;
 
     private String endingPoint;
@@ -18,7 +20,7 @@ public class RequestTripDriver {
 
     private Integer idOfCar;
 
-    private Integer DriverId;
+    private Integer driverId;
 
     private Integer seats;
 
@@ -28,7 +30,7 @@ public class RequestTripDriver {
 
     private Point coordEnd;
 
-    private float distance;
+    private Float distance;
 
 }
 
