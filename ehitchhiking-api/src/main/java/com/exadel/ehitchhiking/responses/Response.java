@@ -6,7 +6,7 @@ import lombok.*;
 @Data
 public class Response {
 
-    private String status;
+    private String msgType;
 
     private Object data;
 
