@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 import java.time.Instant;
 
 public interface ITripPassengerService {
-    void createTripPassenger(int passId, String startingPoint,
+    void createTripPassenger(int empId, String startingPoint,
                              String endingPoint,
                              Instant startingTime, Instant endingTime,
                              int seats, int idTripDriver, Point coordStart, Point coordEnd,

@@ -9,6 +9,8 @@ import {MainScreenService} from '@shared/services/api.services/main-screen.servi
 import {MapTripFormService} from '@shared/services/map-trip-form.service';
 import {ActiveTripsMapService} from '@shared/services/active-trips-map.service';
 import {UserService} from '@shared/services/user.service';
+import {CarInterface} from "@shared/interfaces/car-interface";
+import {URL_REGISTRY} from "@shared/constants/urlRegistry";
 
 @Component({
 	selector: 'app-main-screen',
@@ -21,7 +23,8 @@ export class MainScreenComponent implements OnInit {
 		private mainScreenService: MainScreenService,
 		private mapTripFormService: MapTripFormService,
 		private activeTripsMapService: ActiveTripsMapService,
-		private userService: UserService
+		private userService: UserService,
+    private apiService: ApiService
 	) {
 		this.activeTripsMapService.getMainScreenInfo().subscribe(() => {
 			this.toggleMapInterfaceToDefault();
@@ -62,12 +65,19 @@ export class MainScreenComponent implements OnInit {
 		new Car('bmw', 'black', 'A3434B', '1'),
 	]);
 
+  private getCarsList(userId: string): Promise<CarInterface[]> {
+    return this.apiService.doGet(URL_REGISTRY.CAR.GET_ALL, false, {id: userId});
+  }
+
 	ngOnInit() {
 		this.isHiddenTripRegistration = true;
 		this.isDisabledSubmitRouteButton = true;
 		this.userState = UserState.Passenger;
 		this.routes = YandexMapService.getSomeRoutes();
 		this.copyRoutes = this.routes.slice();
+		this.getCarsList(this.userService.getCurrentUser().id)
+      .then((data) => console.log(data));
+
 	}
 
 	openTripRegistrationForm(): void {

@@ -28,7 +28,7 @@ public class TripPassengerController {
                 // newSeats is the new number seats available o this trip
                 int newSeats = tripDriverService.getAvailableSeats(tripPassenger.getIdTripDriver()) - tripPassenger.getSeats();
                 tripDriverService.updateSeats(tripPassenger.getIdTripDriver(), newSeats);
-                tripPassengerService.createTripPassenger(tripPassenger.getPassId(),
+                tripPassengerService.createTripPassenger(tripPassenger.getEmpId(),
                         tripPassenger.getStartingPoint(), tripPassenger.getEndingPoint(),
                         tripPassenger.getStartingTime(),
                         tripPassenger.getEndingTime(),
