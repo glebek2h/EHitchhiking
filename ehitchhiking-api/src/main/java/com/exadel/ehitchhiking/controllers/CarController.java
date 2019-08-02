@@ -16,23 +16,23 @@ public class CarController {
     @Autowired
     private ICarService carService;
 
-    @GetMapping("/getAll")
-    public Response getAllUserCars(String id) {
+    @GetMapping("/get_all")
+    public Response getAllUserCars(int id) {
         List<CarVO> cars;
         try {
-            cars = carService.getListCars(Integer.parseInt(id));
+            cars = carService.getListCars(id);
         } catch (Exception e) {
             return Response.setError("Failed getting cars");
         }
         return Response.setSuccess(cars, "Successfully got cars");
     }
 
-    @PostMapping("/addCar")
+    @PostMapping("/add_car")
     public Response createCar(@RequestBody RequestCar car) {
         CarVO newCar;
         try {
             newCar = carService.createCar(car.getColor(), car.getNumber(), car.getModel(),
-                    Integer.parseInt(car.getIdOfDriver()));
+                    car.getId());
 
         } catch (Exception e) {
             return Response.setError("Failed adding the car");
@@ -40,25 +40,25 @@ public class CarController {
         return Response.setSuccess(newCar, "Successfully added the car");
     }
 
-    @DeleteMapping("/deleteCar")
-    public Response deleteCar(String id) {
+    @DeleteMapping("/delete_car")
+    public Response deleteCar(int id) {
         try {
-            carService.deletedCar(Integer.parseInt(id));
+            carService.deletedCar(id);
         } catch (Exception e) {
             return Response.setError("Failed deleting the car");
         }
         return Response.setSuccess("true", "Successfully deleted the car");
     }
 
-    @PutMapping("/updateCars")
+    @PutMapping("/update_cars")
     public Response updateColor(@RequestBody List<RequestCar> cars) {
         List<CarVO> updatedCars;
-        int driverID = Integer.parseInt(cars.get(0).getIdOfDriver());
+        int empId = cars.get(0).getId();
         try {
             cars.forEach(car ->carService.updateCar(
-                    new CarVO(Integer.parseInt(
-                            car.getId()), car.getColor(), car.getNumber(), car.getModel())));
-            updatedCars = carService.getListCars(driverID);
+                    new CarVO(
+                            car.getId(), car.getColor(), car.getNumber(), car.getModel())));
+            updatedCars = carService.getListCars(empId);
 
         } catch (Exception e) {
             return Response.setError("Failed updating cars");

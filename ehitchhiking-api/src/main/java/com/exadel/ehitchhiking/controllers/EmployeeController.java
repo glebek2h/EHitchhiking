@@ -29,10 +29,10 @@ public class EmployeeController {
     }
 
     @GetMapping
-    public Response getEmployee(String id) {
+    public Response getEmployee(int id) {
         EmployeeVO employee;
         try {
-            employee = employeeService.findUserById(Integer.parseInt(id));
+            employee = employeeService.findUserById(id);
         } catch (Exception e) {
             return Response.setError("error");
         }

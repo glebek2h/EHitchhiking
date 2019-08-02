@@ -12,7 +12,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 
 
 @RestController
-@RequestMapping("/tripDriver")
+@RequestMapping("/trip_driver")
 public class TripDriverController {
 
     @Autowired
@@ -20,7 +20,7 @@ public class TripDriverController {
     @Autowired
     CarDAO carDAO;
 
-    @PostMapping("/createTrip")
+    @PostMapping
     public Response addTripDriver(@RequestBody RequestTripDriver tripDriver) {
         try {
 
@@ -35,7 +35,7 @@ public class TripDriverController {
     }
 
 
-    @PutMapping("/updateTrip")
+    @PutMapping("/update_trip")
     public Response updateTrip(@RequestBody RequestTripDriver tripDriver) {
         try {
             tripDriverService.updateTrip(tripDriver.getId(), tripDriver.getStartingTime(),
@@ -60,18 +60,13 @@ public class TripDriverController {
 
     }
 
-    @PutMapping("/removeFromSaved")
     public Response removedFromSaved(@RequestBody Integer id) {
         TripDriverVO updatedTrip = null;
         try {
-            updatedTrip = tripDriverService.updateSave(id, false);
-        } catch (Exception e) {
-            return Response.setError("error");
-        }
         return Response.setSuccess(updatedTrip, "Success");
     }
 
-    @PutMapping("/removeFromHistory")
+    @PutMapping("/remove_from_history")
     public Response deleteFromHistory(@RequestBody RequestTripDriver tripDriver) {
         try {
             tripDriverService.deleteFromHistory(tripDriver.getId(), false);
@@ -81,7 +76,7 @@ public class TripDriverController {
         return Response.setSuccess("true", "Success");
     }
 
-    @PutMapping("/cancelledTrip")
+    @PutMapping("/cancelled_trip")
     public Response addToCancelled(@RequestBody RequestTripDriver tripDriver) {
         try {
             tripDriverService.updateFinished(tripDriver.getId(), false);
@@ -91,7 +86,7 @@ public class TripDriverController {
         return Response.setSuccess("true", "Success");
     }
 
-    @PutMapping("/finishedTrip")
+    @PutMapping("/finished_trip")
     public Response addToFinished(@RequestBody RequestTripDriver tripDriver) {
         try {
             tripDriverService.updateFinished(tripDriver.getId(), true);
@@ -112,7 +107,7 @@ public class TripDriverController {
     }
 
 
-    @PutMapping("/removeFromActive")
+    @PutMapping("/remove_from_active")
     public Response removeFromActive(@RequestBody RequestTripDriver tripDriver) {
         try {
             tripDriverService.updateActive(tripDriver.getId(), false);

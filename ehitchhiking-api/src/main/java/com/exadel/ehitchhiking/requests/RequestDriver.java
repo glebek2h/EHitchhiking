@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class RequestDriver {
 
-    private String idDriver;
+    private Integer idDriver;
 
-    private String rate;
+    private Float rate;
 }
