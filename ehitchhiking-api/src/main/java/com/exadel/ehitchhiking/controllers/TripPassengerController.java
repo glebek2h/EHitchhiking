@@ -122,7 +122,7 @@ public class TripPassengerController {
     }
 
 
-    @GetMapping("/get_all_driver_trips")
+    @PostMapping("/get_all_driver_trips")
     public Response getAllAvailableTrips(@RequestBody RequestTripPassenger tripPassenger) {
         List<TripDriverVO> tripDriverVOList;
         try {
