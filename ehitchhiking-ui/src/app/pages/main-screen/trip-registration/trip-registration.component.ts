@@ -27,10 +27,10 @@ export class TripRegistrationComponent implements OnInit {
 	ngOnInit() {
 		this.currentUser = this.userService.getCurrentUser();
 		this.nameFormGroup = new FormGroup({
-			from: new FormControl('', [Validators.required]),
-			to: new FormControl('', [Validators.required]),
+			from: new FormControl('Барановичи', [Validators.required]),
+			to: new FormControl('Пинск', [Validators.required]),
 			departureDate: new FormControl('', [Validators.required]),
-			placesSelect: new FormControl('', [Validators.required]),
+			placesSelect: new FormControl('1', [Validators.required]),
 			departureTime: new FormControl('', [Validators.required]),
 			car: new FormControl(''),
 		});

@@ -13,6 +13,7 @@ import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 })
 export class RoutesListComponent implements OnInit {
 	@Input() activeRoutesCollection: Partial<Route>[];
+  @Input() tripData: Partial<Route>;
 	@Input() isDisabledSubmitRouteButton: boolean;
 	@Input() passengersCoords: number[] = [];
 	@Output() routeToDisplay = new EventEmitter<any>(); // TODO
@@ -41,6 +42,7 @@ export class RoutesListComponent implements OnInit {
 
 	submitRoute(index: number) {
 		this.activeRoutesCollection[index].passengerCoordinate = this.passengersCoords;
+    this.activeRoutesCollection[index].placesSelect = this.tripData.placesSelect;
 		this.mainScreenService.savePassengerRoute(this.activeRoutesCollection[index]);
 	}
 

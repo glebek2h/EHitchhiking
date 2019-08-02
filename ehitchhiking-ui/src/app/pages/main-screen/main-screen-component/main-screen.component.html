@@ -24,6 +24,7 @@
 <app-routes-list
 	*ngIf="isShownRoutesList"
 	[activeRoutesCollection]="routes"
+  [tripData]="tripFormData"
 	[passengersCoords]="passengerCoordinates"
 	(routeToDisplay)="getIndexToDisplay($event)"
 	(formData)="getFilterData($event)"

@@ -1,15 +1,15 @@
-import {Component, OnInit, SimpleChanges} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserState} from '@shared/enums/UserState';
 import {YandexMapService} from '../yandex-map/yandex-map.service';
 import {User} from '@shared/models/user';
 import {Car} from '@shared/models/car';
 import {ApiService} from '@shared/services/api.services/api.service';
-import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 import {Route} from '../Route';
 import {MainScreenService} from '@shared/services/api.services/main-screen.service';
 import {MapTripFormService} from '@shared/services/map-trip-form.service';
 import {ActiveTripsMapService} from '@shared/services/active-trips-map.service';
 import {UserService} from '@shared/services/user.service';
+
 @Component({
 	selector: 'app-main-screen',
 	templateUrl: './main-screen.component.html',
@@ -76,20 +76,21 @@ export class MainScreenComponent implements OnInit {
 
 	getData(data) {
 		this.sendFormData = data;
-		/*  TODO: be careful with this, don't delete
     this.tripFormData = data;
-        this.isHiddenTripRegistration = true;
-        this.editStatePlusButton = true;
-        this.mapTriggers = {reset: true};*/
+    this.isHiddenTripRegistration = true;
+    this.editStatePlusButton = true;
+    //this.mapTriggers = {reset: true}// TODO: be careful with this, don't delete
 	}
 
 	getStartEndCoords(data) {
 		this.startEndCoordinates = data;
 		this.sendFormData.coords = this.startEndCoordinates;
-		this.mainScreenService.getDriversRoutes(this.sendFormData).then((routes) => {
-			this.routes = routes;
-			this.tripFormData = this.sendFormData;
-		});
+		if(this.userState === UserState.Passenger) {
+      this.mainScreenService.getDriversRoutes(this.sendFormData).then((routes) => {
+        this.routes = routes;
+        this.tripFormData = this.sendFormData;
+      });
+    }
 	}
 	getPassengerTripData(data) {
 		this.sendFormData = data;
