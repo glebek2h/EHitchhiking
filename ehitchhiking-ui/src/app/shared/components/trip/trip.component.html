@@ -1,8 +1,8 @@
 <i class="user-role-icon material-icons" *ngIf="trip.role === userState.Driver" title="driver">
-  directions_car
+	directions_car
 </i>
 <i class="user-role-icon material-icons" *ngIf="trip.role === userState.Passenger" title="passenger">
-  person
+	person
 </i>
 <p class="start-end-point truncated">{{ trip.startPoint }} -> {{ trip.endPoint }}</p>
 <div class="swap-btns-rating">
@@ -37,5 +37,4 @@
 		[itemId]="trip.id"
 		(ratingClick)="rateTrip($event)"
 	></app-rating>
-
 </div>
