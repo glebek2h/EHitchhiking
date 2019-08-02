@@ -15,7 +15,7 @@ public interface ITripDriverService {
                           Point coordStart, Point coordEnd, float distance);
 
 
-    void updateSave(int id, boolean isSaved);
+    TripDriverVO updateSave(int id, boolean isSaved);
 
     void updateFinished(int id, boolean isFinished);
 

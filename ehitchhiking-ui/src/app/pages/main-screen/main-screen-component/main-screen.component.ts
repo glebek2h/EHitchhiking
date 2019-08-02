@@ -4,16 +4,35 @@ import {YandexMapService} from '../yandex-map/yandex-map.service';
 import {User} from '@shared/models/user';
 import {Car} from '@shared/models/car';
 import {ApiService} from '@shared/services/api.services/api.service';
-import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 import {Route} from '../Route';
-import {ActiveTripsMapService} from "@shared/services/active-trips-map.service";
+import {MainScreenService} from '@shared/services/api.services/main-screen.service';
+import {MapTripFormService} from '@shared/services/map-trip-form.service';
+import {ActiveTripsMapService} from '@shared/services/active-trips-map.service';
+import {UserService} from '@shared/services/user.service';
+import {CarInterface} from "@shared/interfaces/car-interface";
+import {URL_REGISTRY} from "@shared/constants/urlRegistry";
+
 @Component({
 	selector: 'app-main-screen',
 	templateUrl: './main-screen.component.html',
 	styleUrls: ['./main-screen.component.sass'],
-	providers: [ApiService],
+	providers: [ApiService, MainScreenService],
 })
 export class MainScreenComponent implements OnInit {
+	constructor(
+		private mainScreenService: MainScreenService,
+		private mapTripFormService: MapTripFormService,
+		private activeTripsMapService: ActiveTripsMapService,
+		private userService: UserService,
+    private apiService: ApiService
+	) {
+		this.activeTripsMapService.getMainScreenInfo().subscribe(() => {
+			this.toggleMapInterfaceToDefault();
+			this.isDisabledMatToggleGroup = true;
+			this.isShownPlusButton = false;
+		});
+	}
+
 	tripFormData: any; // TODO
 	isHiddenTripRegistration: boolean;
 	userState: UserState;
@@ -22,39 +41,43 @@ export class MainScreenComponent implements OnInit {
 	isShownViewRoutesButton: boolean;
 	isShownSaveRouteButton: boolean;
 	isDisabledSubmitRouteButton: boolean;
-  isDisabledMatToggleGroup: boolean;
+	isDisabledMatToggleGroup: boolean;
 	editStatePlusButton: boolean;
-  isShownPlusButton = true;
+	isShownPlusButton = true;
 	displayedRouteIndex: number;
 	mapTriggers = {};
 	redrawTriggers: boolean;
 	filterData;
 
+	startEndCoordinates: number[] = [];
+	sendFormData;
+	passengerCoordinates: number[] = [];
+
 	routes: Partial<Route>[] = [];
 	copyRoutes: Partial<Route>[] = [];
 
+	currentUser: User;
+	// TODO mock-data here because of empty cars data (need backend to fix this)
 	user: User = new User('1', 'Yana', '', 'hello@gmail.com', '+375291234567', [
-		new Car('ferrari', 'pink', 'A3434B'),
-		new Car('lada', 'white', 'A3434B'),
-		new Car('tayota', 'yellow', 'A3434B'),
-		new Car('bmw', 'black', 'A3434B'),
+		new Car('ferrari', 'pink', 'A3434B', '1'),
+		new Car('lada', 'white', 'A3434B', '5'),
+		new Car('tayota', 'yellow', 'A3434B', '3'),
+		new Car('bmw', 'black', 'A3434B', '1'),
 	]);
 
-  constructor(private apiService: ApiService, private activeTripsMapService: ActiveTripsMapService) {
-    this.activeTripsMapService.getMainScreenInfo().subscribe(() => {
-      this.toggleMapInterfaceToDefault();
-      this.isDisabledMatToggleGroup = true;
-      this.isShownPlusButton = false;
-    });
+  private getCarsList(userId: string): Promise<any> {
+    return this.apiService.doGet(URL_REGISTRY.CAR.GET_ALL, false, {id: userId});
   }
 
 	ngOnInit() {
 		this.isHiddenTripRegistration = true;
 		this.isDisabledSubmitRouteButton = true;
 		this.userState = UserState.Passenger;
-		this.apiService.doGet(URL_REGISTRY.MAP.GET_ROUTES);
 		this.routes = YandexMapService.getSomeRoutes();
 		this.copyRoutes = this.routes.slice();
+		this.currentUser = this.userService.getCurrentUser();
+    this.getCarsList(this.userService.getCurrentUser().id)
+      .then((data) => {this.currentUser.cars = data;});
 	}
 
 	openTripRegistrationForm(): void {
@@ -62,15 +85,31 @@ export class MainScreenComponent implements OnInit {
 	}
 
 	getData(data) {
-		this.tripFormData = data;
-		this.isHiddenTripRegistration = true;
-		this.editStatePlusButton = true;
-		this.mapTriggers = {reset: true};
+		this.sendFormData = data;
+    this.tripFormData = data;
+    this.isHiddenTripRegistration = true;
+    this.editStatePlusButton = true;
+    //this.mapTriggers = {reset: true}// TODO: be careful with this, don't delete
+	}
+
+	getStartEndCoords(data) {
+		this.startEndCoordinates = data;
+		this.sendFormData.coords = this.startEndCoordinates;
+		if(this.userState === UserState.Passenger) {
+      this.mainScreenService.getDriversRoutes(this.sendFormData).then((routes) => {
+        this.routes = routes;
+        this.tripFormData = this.sendFormData;
+      });
+    }
+	}
+	getPassengerTripData(data) {
+		this.sendFormData = data;
 	}
 
 	saveRoute() {
 		this.isSavedRoute = !this.isSavedRoute;
 		this.isShownSaveRouteButton = false;
+		this.mainScreenService.saveDriverRoute(this.tripFormData);
 	}
 
 	viewRoutes() {
@@ -97,7 +136,6 @@ export class MainScreenComponent implements OnInit {
 	toggleStateToDriver() {
 		this.userState = UserState.Driver;
 		this.toggleMapInterfaceToDefault();
-
 	}
 
 	toggleMapInterfaceToDefault() {
@@ -126,6 +164,7 @@ export class MainScreenComponent implements OnInit {
 	}
 
 	getPassengerPlaceMarkInfo(data) {
-		this.isDisabledSubmitRouteButton = data;
+		this.isDisabledSubmitRouteButton = false;
+		this.passengerCoordinates = data;
 	}
 }

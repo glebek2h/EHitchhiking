@@ -7,7 +7,7 @@ export interface ActiveTrip {
 	id: number;
 	startPoint: string;
 	endPoint: string;
-	isFavorite: boolean;
+	isSaved: boolean;
 	status: TripStatus;
 	rating: number;
 	role: UserState;

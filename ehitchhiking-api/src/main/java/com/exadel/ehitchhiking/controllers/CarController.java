@@ -22,9 +22,9 @@ public class CarController {
         try {
             cars = carService.getListCars(id);
         } catch (Exception e) {
-            return Response.setError("error");
+            return Response.setError("Failed getting cars");
         }
-        return Response.setSuccess(cars);
+        return Response.setSuccess(cars, "Successfully got cars");
     }
 
     @PostMapping("/add_car")
@@ -35,9 +35,9 @@ public class CarController {
                     car.getId());
 
         } catch (Exception e) {
-            return Response.setError("error");
+            return Response.setError("Failed adding the car");
         }
-        return Response.setSuccess(newCar);
+        return Response.setSuccess(newCar, "Successfully added the car");
     }
 
     @DeleteMapping("/delete_car")
@@ -45,9 +45,9 @@ public class CarController {
         try {
             carService.deletedCar(id);
         } catch (Exception e) {
-            return Response.setError("error");
+            return Response.setError("Failed deleting the car");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Successfully deleted the car");
     }
 
     @PutMapping("/update_cars")
@@ -61,8 +61,8 @@ public class CarController {
             updatedCars = carService.getListCars(empId);
 
         } catch (Exception e) {
-            return Response.setError("error");
+            return Response.setError("Failed updating cars");
         }
-        return Response.setSuccess(updatedCars);
+        return Response.setSuccess(updatedCars, "Successfully updated cars");
     }
 }

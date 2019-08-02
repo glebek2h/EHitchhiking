@@ -1,13 +1,12 @@
 package com.exadel.ehitchhiking.services.impl;
+import com.exadel.ehitchhiking.config.ComareUtils;
 import com.exadel.ehitchhiking.daos.*;
-import com.exadel.ehitchhiking.daos.impl.DriverDAO;
-import com.exadel.ehitchhiking.daos.impl.PassengerDAO;
 import com.exadel.ehitchhiking.models.TripDriver;
 import com.exadel.ehitchhiking.models.TripPass;
 import com.exadel.ehitchhiking.models.vo.PassengerVO;
 import com.exadel.ehitchhiking.models.vo.TripDriverVO;
 import com.exadel.ehitchhiking.services.ITripDriverService;
-import com.exadel.ehitchhiking.config.ComareUtils;
+
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.Point;
@@ -31,7 +30,6 @@ public class TripDriverService implements ITripDriverService {
 
     @Autowired
     private ICarDAO carDAO;
-
     @Autowired
     private ITripPassDAO tripPassDAO;
 
@@ -62,7 +60,7 @@ public class TripDriverService implements ITripDriverService {
     public void updateTrip(int id, Instant newStart, Instant newEnd, String start, String end,
                            int newSeats, int idNewCar, Point coordStart, Point coordEnd, float distance){
         TripDriver tripDriver = dao.getTripDriver(id);
-        tripDriver.setStartTime(Timestamp.from(newStart));
+        tripDriver.setStartTime(java.sql.Timestamp.from(newStart));
         tripDriver.setEndTime(Timestamp.from(newEnd));
         tripDriver.setStartPoint(start);
         tripDriver.setEndPoint(end);
@@ -85,10 +83,11 @@ public class TripDriverService implements ITripDriverService {
 
 
     @Override
-    public void updateSave(int id, boolean isSaved){
+    public TripDriverVO updateSave(int id, boolean isSaved){
         TripDriver tripDriver = dao.getTripDriver(id);
         tripDriver.setSaved(isSaved);
         dao.update(tripDriver);
+        return TripDriverVO.fromEntity(dao.getTripDriver(id));
     }
 
     @Override
