@@ -28,7 +28,7 @@ public class CarService implements ICarService {
     @Override
     public CarVO createCar(String color, String number, String carModel,
                           int idOfDriver) {
-        Car newCar = new Car(color, number, carModel, driverDao.getDriver(idOfDriver));
+        Car newCar = new Car(color, number, carModel, driverDao.getByEmployeeId(idOfDriver));
         dao.save(newCar);
         return CarVO.fromEntity(newCar);
     }

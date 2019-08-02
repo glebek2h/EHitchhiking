@@ -32,7 +32,7 @@ public class CarController {
         CarVO newCar;
         try {
             newCar = carService.createCar(car.getColor(), car.getNumber(), car.getModel(),
-                    car.getId());
+                    car.getIdOfDriver());
 
         } catch (Exception e) {
             return Response.setError("Failed adding the car");
@@ -53,7 +53,7 @@ public class CarController {
     @PutMapping("/update")
     public Response updateColor(@RequestBody List<RequestCar> cars) {
         List<CarVO> updatedCars;
-        int empId = cars.get(0).getId();
+        int empId = cars.get(0).getIdOfDriver();
         try {
             cars.forEach(car ->carService.updateCar(
                     new CarVO(
