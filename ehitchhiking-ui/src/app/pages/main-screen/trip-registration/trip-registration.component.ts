@@ -40,8 +40,23 @@ export class TripRegistrationComponent implements OnInit {
 		this.nameFormGroup.controls[target].setValue(input.value);
 	}
 
+	setHoursToDate() {
+	  const date = this.nameFormGroup.value.departureDate;
+	  const time = this.nameFormGroup.value.departureTime;
+	  const arr = time.split(/:| /);
+	  let hours = +arr[0];
+	  const minutes = +arr[1];
+	  const midnight = arr[2];
+	  if(midnight === 'am'){
+	    hours += 12;
+    }
+	  date.setHours(hours);
+	  date.setMinutes(minutes);
+	  return date;
+  }
 
 	onSubmit() {
+	  this.nameFormGroup.value.departureDate = this.setHoursToDate();
 		if (this.userState === UserState.Driver) {
 			this.formData.emit(this.nameFormGroup.value);
 		} else {
