@@ -31,7 +31,6 @@ export class TripsModalService {
 		return this.apiService
 			.doGet(URL_REGISTRY.HISTORY, false, {id: this.userService.getCurrentUser().id})
 			.then((data) => {
-				console.log(data);
 				if (!data) {
 					return [];
 				}
