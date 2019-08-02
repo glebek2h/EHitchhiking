@@ -13,7 +13,7 @@ import {TripHistory} from '@shared/interfaces/trip-history-interface';
 })
 export class TripComponent implements OnInit {
 	@Input() trip: TripHistory;
-	@Output() onChangeSaved = new EventEmitter<boolean>();
+	@Output() onLoadingToggle = new EventEmitter<boolean>();
 	isRatingEditorVisible: boolean;
 	userState = UserState;
 
@@ -22,14 +22,14 @@ export class TripComponent implements OnInit {
 	ngOnInit() {}
 
 	makeFavorite() {
-		this.onChangeSaved.emit(true);
+		this.onLoadingToggle.emit(true);
 		this.tripsModalService
 			.updateSavedState(this.trip.id, this.trip.role, this.trip.saved)
 			.then((response) => {
 				this.trip.saved = response;
 			})
 			.finally(() => {
-				this.onChangeSaved.emit(false);
+				this.onLoadingToggle.emit(false);
 			});
 	}
 

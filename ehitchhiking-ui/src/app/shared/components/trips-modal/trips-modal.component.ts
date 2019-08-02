@@ -117,7 +117,7 @@ export class TripsModalComponent implements OnInit {
 		}
 	}
 
-	onChangeSaved(event) {
-		this.isLoading = event;
+	onLoadingToggle(loadingState) {
+		this.isLoading = loadingState;
 	}
 }
