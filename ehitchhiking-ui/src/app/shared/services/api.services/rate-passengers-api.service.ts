@@ -15,11 +15,11 @@ export class RatePassengersApiService {
     this.apiService.doPut(URL_REGISTRY.RATE.ADD_RATE_DRIVER, users);
   }
 
-  addBlacklistPass(id: number, params: BlacklistedUser[]) {
+  addBlacklistPass(id: number, params: BlacklistedUser[]): Promise<any>{
     return this.apiService.doPut(URL_REGISTRY.RATE.ADD_BLACKLIST_PASS, {idTrip: id, data: params});
   }
 
-  addBlacklistDriver(id: number, params: BlacklistedUser[]) {
+  addBlacklistDriver(id: number, params: BlacklistedUser[]): Promise<any> {
     return this.apiService.doPut(URL_REGISTRY.RATE.ADD_BLACKLIST_DRIVER, {idTrip: id, data: params});
   }
 
@@ -48,13 +48,13 @@ export class RatePassengersApiService {
     }));
   }
 
-  getTripPassengers(id: number) {
+  getTripPassengers(id: number):Promise<RatedUser|RatedUser[]> {
     return this.apiService
       .doGet(URL_REGISTRY.RATE.GET_RATE_PASSENGERS, false, {tripId: id})
       .then(this.mapTripPassengers);
   }
 
-  getTripDriver(id: number) {
+  getTripDriver(id: number):Promise<RatedUser|RatedUser[]> {
     return this.apiService.doGet(URL_REGISTRY.RATE.GET_RATE_DRIVER, false, {tripId: id}).then(this.mapTripDrivers);
   }
 }

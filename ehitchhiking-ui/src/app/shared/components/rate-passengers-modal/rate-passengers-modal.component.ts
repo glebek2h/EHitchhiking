@@ -43,7 +43,9 @@ export class RatePassengersModalComponent implements OnInit {
     this.apiRatePassengersService.getTripPassengers(this.idTripPassenger).then((data: RatedUser[]) => {
       this.users = data;
       console.log(data);
-    }).finally(() => this.loading = false);
+    }).finally(() => {
+      this.loading = false;
+    });
   }
 
   loadDriversList(): void {
@@ -51,7 +53,9 @@ export class RatePassengersModalComponent implements OnInit {
     this.apiRatePassengersService.getTripDriver(this.idTripDriver).then((data: RatedUser[]) => {
       this.users = data;
       console.log(data);
-    }).finally(() => this.loading = false);
+    }).finally(() => {
+      this.loading = false;
+    });
   }
 
   rateUser(clickObj: StarClickMeta): void {
@@ -75,13 +79,11 @@ export class RatePassengersModalComponent implements OnInit {
       });
     });
     if (this.data.dataKey === UserState.Passenger) {
-      this.apiRatePassengersService.addRateDriver(users);
-      this.apiRatePassengersService.addBlacklistDriver(this.idTripDriver, blockedUsers)
-        .then(() => this.dialogRef.close());
+      Promise.all([ this.apiRatePassengersService.addRateDriver(users),this.apiRatePassengersService.addBlacklistDriver(this.idTripDriver, blockedUsers)
+        .then(() => this.dialogRef.close())]);
     } else {
-      this.apiRatePassengersService.addRatePassenger(users);
-      this.apiRatePassengersService.addBlacklistPass(this.idTripPassenger, blockedUsers)
-        .then(() => this.dialogRef.close());
+      Promise.all([ this.apiRatePassengersService.addRatePassenger(users), this.apiRatePassengersService.addBlacklistPass(this.idTripPassenger, blockedUsers)
+        .then(() => this.dialogRef.close())]);
     }
   }
 
