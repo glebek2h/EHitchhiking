@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {Trip} from '../components/trips-modal/trips';
+import {TripHistory} from '@shared/interfaces/trip-history-interface';
 
 @Pipe({
 	name: 'sortTrips',
@@ -12,7 +12,7 @@ export class SortTripsPipe implements PipeTransform {
 			return array;
 		}
 		this.sortTrips = array.slice();
-		this.sortTrips.sort(function(a: Trip, b: Trip) {
+		this.sortTrips.sort(function(a: TripHistory, b: TripHistory) {
 			return (a[field] - b[field]) * order;
 		});
 		return this.sortTrips;

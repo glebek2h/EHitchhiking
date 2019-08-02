@@ -35,7 +35,7 @@ public class BlackListsController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Successfully added to the black list");
     }
 
     @PutMapping("/driver")
@@ -49,29 +49,29 @@ public class BlackListsController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Successfully added to the black list");
     }
 
     // deleting the passenger from the black list driver
-    @DeleteMapping("/driver")
-    public Response deletePassFromBlackListDriver(int idDriver, int idPass) {
+    @DeleteMapping("/passenger")
+    public Response deletePassFromBlackListDriver(int empId, int idPass) {
         try {
-            driverService.deletePassFromBL(idDriver, idPass);
+            driverService.deletePassFromBL(empId, idPass);
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Successfully deleted to the black list");
     }
 
     // deleting the driver from the blacklist pass
-    @DeleteMapping("/passenger")
+    @DeleteMapping("/driver")
     public Response deleteDriverFromBlackListPass(int empId, int idDriver) {
         try {
             passengerService.deleteDriverFromBL(empId, idDriver);
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Successfully deleted to the black list");
     }
 
     @GetMapping("/driver")
@@ -82,7 +82,7 @@ public class BlackListsController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess(passengers);
+        return Response.setSuccess(passengers, "Successfully got black list");
     }
 
     @GetMapping("/passenger")
@@ -93,6 +93,6 @@ public class BlackListsController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess(drivers);
+        return Response.setSuccess(drivers, "Successfully got black list");
     }
 }

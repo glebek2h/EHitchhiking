@@ -1,11 +1,16 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {Trip} from '@shared/components/trips-modal/trips';
+import {TripHistory} from '@shared/interfaces/trip-history-interface';
 
 @Pipe({
 	name: 'filterByRating',
 })
 export class FilterByRatingPipe implements PipeTransform {
-	transform(array: Trip[], fieldName: string, selectedRating: number[], isEnabled: boolean = false): Trip[] {
+	transform(
+		array: TripHistory[],
+		fieldName: string,
+		selectedRating: number[],
+		isEnabled: boolean = false
+	): TripHistory[] {
 		if (!array || !isEnabled) {
 			return array;
 		}

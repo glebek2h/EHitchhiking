@@ -1,6 +1,7 @@
 package com.exadel.ehitchhiking.controllers;
 
 import com.exadel.ehitchhiking.models.vo.TripDriverVO;
+import com.exadel.ehitchhiking.models.vo.TripPassVO;
 import com.exadel.ehitchhiking.requests.RequestTripPassenger;
 import com.exadel.ehitchhiking.responses.Response;
 import com.exadel.ehitchhiking.services.ITripDriverService;
@@ -42,7 +43,7 @@ public class TripPassengerController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Successfully created the trip");
     }
 
 
@@ -55,7 +56,7 @@ public class TripPassengerController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Successfully updated trips");
     }
 
 
@@ -66,7 +67,7 @@ public class TripPassengerController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Successfully added to history");
     }
 
 
@@ -77,7 +78,7 @@ public class TripPassengerController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Successfully removed from history");
     }
 
     @PutMapping("/cancelled_trip")
@@ -87,7 +88,7 @@ public class TripPassengerController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Successfully cancelled the trip");
     }
 
     @PutMapping("/finished_trip")
@@ -97,28 +98,30 @@ public class TripPassengerController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Successfully finished the trip");
     }
 
-    @PutMapping("/add_to_saved")
-    public Response addToSaved(@RequestBody RequestTripPassenger tripPass) {
+    @PutMapping("/save")
+    public Response addToSaved(@RequestBody RequestTripPassenger trip) {
+        TripPassVO updatedTrip = null;
         try {
-            tripPassengerService.updateSave(tripPass.getId(), true);
+           updatedTrip = tripPassengerService.updateSave(trip.getId(), true);
+        } catch (Exception e) {
+            return Response.setError("Failed adding to saved");
+        }
+        return Response.setSuccess(updatedTrip, "Successfully added to saved");
+
+    }
+
+    @PutMapping("/removeFromSaved")
+    public Response removedFromSaved(@RequestBody RequestTripPassenger trip) {
+        TripPassVO updatedTrip = null;
+        try {
+            updatedTrip = tripPassengerService.updateSave(trip.getId(), false);
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
-
-    }
-
-    @PutMapping("/remove_from_saved")
-    public Response removedFromSaved(@RequestBody RequestTripPassenger tripPass) {
-        try {
-            tripPassengerService.updateSave(tripPass.getId(), false);
-        } catch (Exception e) {
-            return Response.setError("error");
-        }
-        return Response.setSuccess("true");
+        return Response.setSuccess(updatedTrip, "Successfully removed from saved");
     }
 
 
@@ -131,7 +134,7 @@ public class TripPassengerController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess(tripDriverVOList);
+        return Response.setSuccess(tripDriverVOList, "Successfully got all driver trips");
     }
 
     @PutMapping("/active")
@@ -141,7 +144,7 @@ public class TripPassengerController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Successfully added to active");
     }
 
 
@@ -152,6 +155,6 @@ public class TripPassengerController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true");
+        return Response.setSuccess("true", "Successfully removed from active");
     }
 }
