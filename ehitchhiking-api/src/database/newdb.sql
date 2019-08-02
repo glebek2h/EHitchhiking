@@ -4,7 +4,8 @@ create schema public;
 
 alter schema public owner to postgres;
 
-create sequence hibernate_sequence;
+create sequence hibernate_sequence
+as integer minvalue 30;
 
 alter sequence hibernate_sequence owner to postgres;
 
