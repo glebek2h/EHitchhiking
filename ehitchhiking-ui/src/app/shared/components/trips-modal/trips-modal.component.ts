@@ -53,6 +53,7 @@ export class TripsModalComponent implements OnInit {
 				this.loading = false;
 			}, 1000);
 			this.tripsArray = data;
+			console.log(this.tripsArray);
 			this.tripsArrayLength = data.length;
 		});
 	}

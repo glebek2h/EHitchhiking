@@ -102,10 +102,10 @@ public class TripPassengerController {
     }
 
     @PutMapping("/save")
-    public Response addToSaved(@RequestBody Integer id) {
+    public Response addToSaved(@RequestBody RequestTripPassenger trip) {
         TripPassVO updatedTrip = null;
         try {
-           updatedTrip = tripPassengerService.updateSave(id, true);
+           updatedTrip = tripPassengerService.updateSave(trip.getId(), true);
         } catch (Exception e) {
             return Response.setError("Failed adding to saved");
         }
@@ -114,10 +114,10 @@ public class TripPassengerController {
     }
 
     @PutMapping("/removeFromSaved")
-    public Response removedFromSaved(@RequestBody Integer id) {
+    public Response removedFromSaved(@RequestBody RequestTripPassenger trip) {
         TripPassVO updatedTrip = null;
         try {
-            updatedTrip = tripPassengerService.updateSave(id, false);
+            updatedTrip = tripPassengerService.updateSave(trip.getId(), false);
         } catch (Exception e) {
             return Response.setError("error");
         }

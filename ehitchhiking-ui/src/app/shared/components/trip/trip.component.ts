@@ -21,8 +21,8 @@ export class TripComponent implements OnInit {
 	ngOnInit() {}
 
 	makeFavorite() {
-		this.tripsModalService.updateSavedState(this.trip.id, this.trip.role, this.trip.isSaved).then((response) => {
-			this.trip.isSaved = response;
+		this.tripsModalService.updateSavedState(this.trip.id, this.trip.role, this.trip.saved).then((response) => {
+			this.trip.saved = response;
 		});
 	}
 

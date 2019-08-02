@@ -19,14 +19,14 @@ export const URL_REGISTRY = {
 	},
 	PASSENGER: {
 		TRIP: {
-			SAVE: 'tripPassenger/save',
-			REMOVE_FROM_SAVED: 'tripPassenger/removeFromSaved',
+			SAVE: 'trip_passenger/save',
+			REMOVE_FROM_SAVED: 'trip_passenger/removeFromSaved',
 		},
 	},
 	DRIVER: {
 		TRIP: {
-			SAVE: 'tripDriver/save',
-			REMOVE_FROM_SAVED: 'tripDriver/removeFromSaved',
+			SAVE: 'trip_driver/save',
+			REMOVE_FROM_SAVED: 'trip_driver/removeFromSaved',
 		},
 	},
 	HISTORY: 'trips/history?id={{id}}',

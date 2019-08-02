@@ -49,10 +49,10 @@ public class TripDriverController {
     }
 
     @PutMapping("/save")
-    public Response addToSaved(@RequestBody Integer id) {
+    public Response addToSaved(@RequestBody RequestTripDriver trip) {
         TripDriverVO updatedTrip = null;
         try {
-            updatedTrip = tripDriverService.updateSave(id, true);
+            updatedTrip = tripDriverService.updateSave(trip.getId(), true);
         } catch (Exception e) {
             return Response.setError("error");
         }
@@ -60,10 +60,16 @@ public class TripDriverController {
 
     }
 
-    public Response removedFromSaved(@RequestBody Integer id) {
+    @PutMapping("/removeFromSaved")
+    public Response removeFromSaved(@RequestBody RequestTripDriver trip) {
         TripDriverVO updatedTrip = null;
         try {
+            updatedTrip = tripDriverService.updateSave(trip.getId(), false);
+        } catch (Exception e) {
+            return Response.setError("error");
+        }
         return Response.setSuccess(updatedTrip, "Success");
+
     }
 
     @PutMapping("/remove_from_history")
