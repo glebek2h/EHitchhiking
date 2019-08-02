@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/tripPassenger")
+@RequestMapping("/trip_passenger")
 public class TripPassengerController {
 
     @Autowired
@@ -19,7 +19,7 @@ public class TripPassengerController {
     @Autowired
     private ITripDriverService tripDriverService;
 
-    @PostMapping("/createTrip")
+    @PostMapping
     public Response createTrip(@RequestBody RequestTripPassenger tripPassenger) {
         try {
             // we are checking if the number of seats that the passenger wants to have is smaller or equal to the number of available seats on that trip
@@ -28,7 +28,7 @@ public class TripPassengerController {
                 // newSeats is the new number seats available o this trip
                 int newSeats = tripDriverService.getAvailableSeats(tripPassenger.getIdTripDriver()) - tripPassenger.getSeats();
                 tripDriverService.updateSeats(tripPassenger.getIdTripDriver(), newSeats);
-                tripPassengerService.createTripPassenger(tripPassenger.getPassId(),
+                tripPassengerService.createTripPassenger(tripPassenger.getEmpId(),
                         tripPassenger.getStartingPoint(), tripPassenger.getEndingPoint(),
                         tripPassenger.getStartingTime(),
                         tripPassenger.getEndingTime(),
@@ -46,7 +46,7 @@ public class TripPassengerController {
     }
 
 
-    @PutMapping("/updateTrip")
+    @PutMapping("/update_trip")
     public Response updateTrip(@RequestBody RequestTripPassenger tripPass) {
         try {
             tripPassengerService.updateTrip(tripPass.getId(), tripPass.getStartingTime(), tripPass.getEndingTime(),
@@ -59,7 +59,7 @@ public class TripPassengerController {
     }
 
 
-    @PutMapping("/addToHistory")
+    @PutMapping("/add_to_history")
     public Response addToHistory(@RequestBody RequestTripPassenger tripPass) {
         try {
             tripPassengerService.updateHistory(tripPass.getId(), true);
@@ -70,7 +70,7 @@ public class TripPassengerController {
     }
 
 
-    @PutMapping("/removeFromHistory")
+    @PutMapping("/remove_from_history")
     public Response removeFromHistory(@RequestBody RequestTripPassenger tripPass) {
         try {
             tripPassengerService.updateHistory(tripPass.getId(), false);
@@ -80,7 +80,7 @@ public class TripPassengerController {
         return Response.setSuccess("true");
     }
 
-    @PutMapping("/cancelledTrip")
+    @PutMapping("/cancelled_trip")
     public Response addToCancelled(@RequestBody RequestTripPassenger tripPass) {
         try {
             tripPassengerService.updateFinished(tripPass.getId(), false);
@@ -90,7 +90,7 @@ public class TripPassengerController {
         return Response.setSuccess("true");
     }
 
-    @PutMapping("/finishedTrip")
+    @PutMapping("/finished_trip")
     public Response addToFinished(@RequestBody RequestTripPassenger tripPass) {
         try {
             tripPassengerService.updateFinished(tripPass.getId(), true);
@@ -100,7 +100,7 @@ public class TripPassengerController {
         return Response.setSuccess("true");
     }
 
-    @PutMapping("/addToSaved")
+    @PutMapping("/add_to_saved")
     public Response addToSaved(@RequestBody RequestTripPassenger tripPass) {
         try {
             tripPassengerService.updateSave(tripPass.getId(), true);
@@ -111,7 +111,7 @@ public class TripPassengerController {
 
     }
 
-    @PutMapping("/removeFromSaved")
+    @PutMapping("/remove_from_saved")
     public Response removedFromSaved(@RequestBody RequestTripPassenger tripPass) {
         try {
             tripPassengerService.updateSave(tripPass.getId(), false);
@@ -122,7 +122,7 @@ public class TripPassengerController {
     }
 
 
-    @GetMapping("/getAllDriverTrips")
+    @GetMapping("/get_all_driver_trips")
     public Response getAllAvailableTrips(@RequestBody RequestTripPassenger tripPassenger) {
         List<TripDriverVO> tripDriverVOList;
         try {
@@ -145,7 +145,7 @@ public class TripPassengerController {
     }
 
 
-    @PutMapping("/removeFromActive")
+    @PutMapping("/remove_from_active")
     public Response removeFromActive(@RequestBody RequestTripPassenger tripPass) {
         try {
             tripDriverService.updateActive(tripPass.getId(), false);

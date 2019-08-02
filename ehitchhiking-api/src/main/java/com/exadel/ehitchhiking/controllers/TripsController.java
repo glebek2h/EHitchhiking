@@ -21,11 +21,11 @@ public class TripsController {
     private ITripsService trips;
 
     @GetMapping("/history")
-    public Response getHistory(String id) {
+    public Response getHistory(int id) {
         List<TripsHistoryVO> list;
         try {
 
-            list = trips.getAllHistory(Integer.parseInt(id));
+            list = trips.getAllHistory(id);
 
         } catch (Exception e) {
             return Response.setError("error");
@@ -34,10 +34,10 @@ public class TripsController {
     }
 
     @GetMapping("/active")
-    public Response getActive(String id) {
+    public Response getActive(int id) {
         List<TripsActiveVO> list;
         try {
-            list = trips.getAllActive(Integer.parseInt(id));
+            list = trips.getAllActive(id);
         } catch (Exception e) {
             return Response.setError("error");
         }
