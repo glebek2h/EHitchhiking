@@ -79,11 +79,19 @@ export class RatePassengersModalComponent implements OnInit {
       });
     });
     if (this.data.dataKey === UserState.Passenger) {
+      this.loading = true;
       Promise.all([ this.apiRatePassengersService.addRateDriver(users),this.apiRatePassengersService.addBlacklistDriver(this.idTripDriver, blockedUsers)
-        .then(() => this.dialogRef.close())]);
+        .then(() => {
+          this.dialogRef.close();
+          this.loading = false;
+        })]);
     } else {
+      this.loading = true;
       Promise.all([ this.apiRatePassengersService.addRatePassenger(users), this.apiRatePassengersService.addBlacklistPass(this.idTripPassenger, blockedUsers)
-        .then(() => this.dialogRef.close())]);
+        .then(() => {
+          this.dialogRef.close();
+          this.loading = false;
+        })]);
     }
   }
 
