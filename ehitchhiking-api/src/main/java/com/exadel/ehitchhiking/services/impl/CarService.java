@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -66,7 +67,11 @@ public class CarService implements ICarService {
 
     @Override
     public List<CarVO> getListCars(int empId) {
-        return dao.getListCars(empId).stream().map(CarVO::fromEntity).collect(Collectors.toList());
+        return dao.getListCars(empId)
+                .stream()
+                .map(CarVO::fromEntity)
+                .sorted(Comparator.comparingInt(CarVO::getId))//(car1, car2) -> car1.getId().compareTo(car2.getId())
+                .collect(Collectors.toList());
     }
 
     @Override
