@@ -5,7 +5,7 @@ import {MAT_DIALOG_DATA} from '@angular/material';
 import {UserState} from '@shared/enums/UserState';
 import {RatePassengersApiService} from '@shared/services/api.services/rate-passengers-api.service';
 import {LoaderSize} from '@shared/enums/pre-loader-sizes';
-import {BlacklistedUser} from '@shared/components/rate-passengers-modal/user';
+import {BlacklistedUser, User} from '@shared/components/rate-passengers-modal/user';
 
 @Component({
 	selector: 'rate-passengers-modal',
@@ -71,6 +71,18 @@ export class RatePassengersModalComponent implements OnInit {
 		});
 	}
 
+  submitChanges(users: User[],blockedUsers: BlacklistedUser[]):(void | Promise<any>)[] {
+    return this.data.dataKey === UserState.Passenger
+      ? [
+        this.apiRatePassengersService.addRateDriver(users),
+        this.apiRatePassengersService.addBlacklistDriver(this.idTripDriver, blockedUsers),
+      ]
+      : [
+        this.apiRatePassengersService.addRatePassenger(users),
+        this.apiRatePassengersService.addBlacklistPass(this.idTripPassenger, blockedUsers),
+      ];
+  }
+
 	exitTrip(): void {
 		const users = [];
 		const blockedUsers = [];
@@ -84,20 +96,9 @@ export class RatePassengersModalComponent implements OnInit {
 				isBlocked: user.isBlocked,
 			});
 		});
-		let arr = [];
-		arr =
-			this.data.dataKey === UserState.Passenger
-				? [
-						this.apiRatePassengersService.addRateDriver(users),
-						this.apiRatePassengersService.addBlacklistDriver(this.idTripDriver, blockedUsers),
-				  ]
-				: [
-						this.apiRatePassengersService.addRatePassenger(users),
-						this.apiRatePassengersService.addBlacklistPass(this.idTripPassenger, blockedUsers),
-				  ];
+    const requests = this.submitChanges(users,blockedUsers);
 		this.loading = true;
-
-		Promise.all(arr)
+		Promise.all(requests)
 			.then(() => {
 				this.dialogRef.close();
 			})

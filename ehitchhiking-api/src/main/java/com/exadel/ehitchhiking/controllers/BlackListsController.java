@@ -28,9 +28,7 @@ public class BlackListsController {
     public Response addPassToBL(@RequestBody RequestBlackList BL) {
         try {
             for (RequestId it : BL.getData()){
-                if (it.getIsBlocked()){
-                    driverService.addPassToBL(BL.getIdTrip(), it.getId());
-                }
+                    driverService.addPassToBL(BL.getIdTrip(), it.getId(), it.getIsBlocked() );
             }
         } catch (Exception e) {
             return Response.setError("error");
@@ -42,9 +40,8 @@ public class BlackListsController {
     public Response addDriverToBL(@RequestBody RequestBlackList BL) {
         try {
             for (RequestId it : BL.getData()){
-                if (it.getIsBlocked()){
-                    passengerService.addDriverToBL(BL.getIdTrip(), it.getId());
-                }
+                    passengerService.addDriverToBL(BL.getIdTrip(), it.getId(), it.getIsBlocked());
+
             }
         } catch (Exception e) {
             return Response.setError("error");

@@ -1,4 +1,4 @@
-drop schema public cascade;
+<--!drop schema public cascade;-->
 
 create schema public;
 
