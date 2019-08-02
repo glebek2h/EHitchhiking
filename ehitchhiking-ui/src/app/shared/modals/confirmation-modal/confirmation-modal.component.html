@@ -6,7 +6,7 @@
 		<span>{{ data.question }}</span>
 	</div>
 	<footer class="modal-footer">
-		<button mat-button (click)="confirm()">{{ data.confirmButtonText }}</button>
-		<button mat-button (click)="closeConfirmationDialog()">close</button>
+		<button mat-button class="confirm-button" (click)="confirm()">{{ data.confirmButtonText }}</button>
+		<button mat-button class="confirm-button" (click)="closeConfirmationDialog()">close</button>
 	</footer>
 </div>
