@@ -4,34 +4,39 @@ import {Car} from '@shared/models/car';
 import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 import {UserInfoTrip} from '@shared/models/user-info-trip';
 import {ActiveTrip} from '@shared/models/active-trip';
+import {UserService} from '@shared/services/user.service';
+import {promise} from 'selenium-webdriver';
 
 @Injectable()
 export class ActiveTripsApiService {
-	constructor(private apiService: ApiService) {}
+	constructor(private apiService: ApiService, private userService: UserService) {}
 
 	mapActiveTrips(data: any): ActiveTrip[] {
-		return data.map((obj) => {
+		if (!data) {
+			return [];
+		}
+
+		return data.map((trip) => {
 			return new ActiveTrip(
-				obj.id,
-				obj.startPoint,
-				obj.endPoint,
-				obj.isFavorite,
-				obj.status,
-				obj.rating,
-				obj.role,
-				obj.date,
-				obj.time,
-				obj.reservedSeats,
-				obj.showTripInfo,
-				new UserInfoTrip('1', 'name', 'phone', 'e-mail', new Car('2', 'model', 'color', 'number')),
-				[new UserInfoTrip('2', 'name2', 'phone2', 'email2')]
+				trip.idTrip,
+				trip.startPoint,
+				trip.endPoint,
+				trip.role,
+				trip.startTime,
+				trip.endTime,
+				trip.seats,
+				false,
+				new UserInfoTrip(trip.driver.id, trip.driver.firstName, trip.driver.phone, trip.driver.email),
+				new Car(trip.car.id, trip.car.model, trip.car.color, trip.car.number),
+				[new UserInfoTrip(trip.passList.id, trip.passList.firstName, trip.passList.phone, trip.passList.email)]
 			);
 		});
 	}
 
-	getActiveTrips(params: ActiveTrip) {
+	getActiveTrips(): Promise<ActiveTrip[]> {
 		return this.apiService
-			.doGet(URL_REGISTRY.ACTIVE_TRIPS.GET_ACTIVE_TRIPS, false, params)
-			.then(this.mapActiveTrips);
+			.doGet(URL_REGISTRY.ACTIVE_TRIPS.GET, false, {id: this.userService.getCurrentUser().id})
+			.then(this.mapActiveTrips)
+			.catch(() => []);
 	}
 }

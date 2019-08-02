@@ -1,49 +1,44 @@
-import {TripStatus} from '@shared/enums/TripStatus';
 import {UserState} from '@shared/enums/UserState';
 import {UserInfoTrip} from '@shared/models/user-info-trip';
+import {TripActiveInterface} from '@shared/interfaces/trip-active-interface';
+import { Car } from "@shared/models/car";
 
-export class ActiveTrip {
-	id: string;
-	startPoint: string;
-	endPoint: string;
-	isFavorite: boolean;
-	status: TripStatus;
-	rating: number;
-	role: UserState;
-	date: string;
-	time: string;
-	reservedSeats: number;
-	showTripInfo: boolean;
-	driver: UserInfoTrip;
-	passenger: UserInfoTrip[];
+export class ActiveTrip implements TripActiveInterface{
+  id: string;
+  startPoint: string;
+  endPoint: string;
+  role: UserState;
+  startTime: Date;
+  endTime: Date;
+  reservedSeats: number;
+  showTripInfo: boolean;
+  driver: UserInfoTrip;
+  car: Car;
+  passenger: UserInfoTrip[];
 
 	constructor(
 		id: string = '',
 		startPoint: string = '',
 		endPoint: string = '',
-		isFavorite: boolean = false,
-		status: TripStatus,
-		rating: number = 0,
 		role: UserState,
-		date: string = '',
-		time: string = '',
+		startTime: Date,
+		endTime: Date,
 		reservedSeats: number = 0,
 		showTripInfo: boolean = false,
 		driver: UserInfoTrip,
+		car: Car,
 		passenger: UserInfoTrip[]
 	) {
 		this.id = id;
 		this.startPoint = startPoint;
 		this.endPoint = endPoint;
-		this.isFavorite = isFavorite;
-		this.status = status;
-		this.rating = rating;
 		this.role = role;
-		this.date = date;
-		this.time = time;
+		this.startTime = startTime;
+		this.endTime = endTime;
 		this.reservedSeats = reservedSeats;
 		this.showTripInfo = showTripInfo;
 		this.driver = driver;
+		this.car = car;
 		this.passenger = passenger;
 	}
 }

@@ -1,10 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ActiveTrip} from './active-trip';
 import {UserState} from '@shared/enums/UserState';
 import {DEFAULT_MAT_DIALOG_CLASS, MAT_DIALOG_WIDTH_SM} from '@shared/constants/modal-constants';
 import {MatDialog} from '@angular/material';
 import {ConfirmationModalComponent} from '@shared/modals/confirmation-modal/confirmation-modal.component';
 import {ActiveTripsModalService} from '@shared/components/active-trips-modal/active-trips-modal.service';
+import { ActiveTrip } from "@shared/models/active-trip";
 
 @Component({
 	selector: 'app-active-trip',

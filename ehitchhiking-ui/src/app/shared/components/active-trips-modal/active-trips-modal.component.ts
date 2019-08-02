@@ -2,9 +2,9 @@ import {Component, ElementRef,OnInit, ViewChild} from '@angular/core';
 import {LoaderSize} from '../../enums/pre-loader-sizes';
 import {MatDialogRef} from '@angular/material';
 import {ActiveTripsModalService} from './active-trips-modal.service';
-import {ActiveTrip} from '../active-trip/active-trip';
 import {NUMBER_OF_TRIPS_VISIBLE_ON_PAGE} from '@shared/constants/modal-constants';
 import { ActiveTripsApiService } from "@shared/services/api.services/active-trips.api.service";
+import { ActiveTrip } from "@shared/models/active-trip";
 
 @Component({
 	selector: 'app-active-trips-modal',
@@ -17,7 +17,7 @@ export class ActiveTripsModalComponent implements OnInit {
 	tripsArray = [];
 	tripsArrayLenght = 0;
 	loaderSize: LoaderSize = LoaderSize.Large;
-	loading = true;
+	loading = false;
 	scrollObserver: IntersectionObserver;
 	role = {roleField: 'role', isEnable: false};
 	selectedRole: number;
@@ -49,16 +49,22 @@ export class ActiveTripsModalComponent implements OnInit {
 	}
 
 	ngOnInit() {
+
 		this.scrollObserver.observe(this.markerRef.nativeElement);
 		this.tripsArrayLenght = this.tripService.getTrips().length;
 		this.fetchTrips();
 	}
 
 	fetchTrips() {
-		this.tripsArray = this.tripService.getTrips();
-		setTimeout(() => {
-			this.loading = false;
-		}, 1000);
+		//this.tripsArray = this.tripService.getTrips();
+    this.apiActiveTripsApiService.getActiveTrips().then(
+      (data) => {
+        this.tripsArray = data;
+        console.log("data");
+        console.log(this.tripsArray);
+
+      }
+    );
 	}
 
 	filterByRole() {
