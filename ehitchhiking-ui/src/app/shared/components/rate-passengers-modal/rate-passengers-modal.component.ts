@@ -13,91 +13,108 @@ import {BlacklistedUser} from '@shared/components/rate-passengers-modal/user';
 	styleUrls: ['./rate-passengers-modal.component.sass'],
 })
 export class RatePassengersModalComponent implements OnInit {
-  users: RatedUser[] = [];
-  UserState = UserState;
-  idTripDriver = 12;
-  idTripPassenger = 4;
-  loading = true;
-  loaderSize: LoaderSize = LoaderSize.Large;
-  constructor(
-    public dialogRef: MatDialogRef<RatePassengersModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private apiRatePassengersService: RatePassengersApiService
-  ) {}
+	users: RatedUser[] = [];
+	UserState = UserState;
+	idTripDriver = 12;
+	idTripPassenger = 4;
+	loading = true;
+	loaderSize: LoaderSize = LoaderSize.Large;
+	constructor(
+		public dialogRef: MatDialogRef<RatePassengersModalComponent>,
+		@Inject(MAT_DIALOG_DATA) public data: any,
+		private apiRatePassengersService: RatePassengersApiService
+	) {}
 
-  ngOnInit(): void {
-    switch(this.data.dataKey) {
-      case UserState.Passenger:
-        this.loadDriversList();
-        break;
-      case UserState.Driver:
-        this.loadPassengersList();
-        break;
-      default:
-        break;
-    }
-  }
+	ngOnInit(): void {
+		switch (this.data.dataKey) {
+			case UserState.Passenger:
+				this.loadDriversList();
+				break;
+			case UserState.Driver:
+				this.loadPassengersList();
+				break;
+			default:
+				break;
+		}
+	}
 
-  loadPassengersList():void {
-    this.loading = true;
-    this.apiRatePassengersService.getTripPassengers(this.idTripPassenger).then((data: RatedUser[]) => {
-      this.users = data;
-      console.log(data);
-    }).finally(() => {
-      this.loading = false;
-    });
-  }
+	loadPassengersList(): void {
+		this.loading = true;
+		this.apiRatePassengersService
+			.getTripPassengers(this.idTripPassenger)
+			.then((data: RatedUser[]) => {
+				this.users = data;
+				console.log(data);
+			})
+			.finally(() => {
+				this.loading = false;
+			});
+	}
 
-  loadDriversList(): void {
-    this.loading = true;
-    this.apiRatePassengersService.getTripDriver(this.idTripDriver).then((data: RatedUser[]) => {
-      this.users = data;
-      console.log(data);
-    }).finally(() => {
-      this.loading = false;
-    });
-  }
+	loadDriversList(): void {
+		this.loading = true;
+		this.apiRatePassengersService
+			.getTripDriver(this.idTripDriver)
+			.then((data: RatedUser[]) => {
+				this.users = data;
+				console.log(data);
+			})
+			.finally(() => {
+				this.loading = false;
+			});
+	}
 
-  rateUser(clickObj: StarClickMeta): void {
-    this.users.forEach((i: RatedUser) => {
-      i.id === clickObj.itemId ? (i.rate = clickObj.rating) : '';
-      return i;
-    });
-  }
+	rateUser(clickObj: StarClickMeta): void {
+		this.users.forEach((i: RatedUser) => {
+			i.id === clickObj.itemId ? (i.rate = clickObj.rating) : '';
+			return i;
+		});
+	}
 
-  exitTrip(): void {
-    const users = [];
-    const blockedUsers= [];
-    this.users.forEach((user) => {
-      users.push({
-        id: user.id,
-        rate: user.rate,
-      });
-      blockedUsers.push({
-        id: user.id,
-        isBlocked: user.isBlocked,
-      });
-    });
-    let arr = [];
-    arr = this.data.dataKey === UserState.Passenger ? [this.apiRatePassengersService.addRateDriver(users),this.apiRatePassengersService.addBlacklistDriver(this.idTripDriver, blockedUsers)]:
-      [this.apiRatePassengersService.addRatePassenger(users), this.apiRatePassengersService.addBlacklistPass(this.idTripPassenger, blockedUsers)];
-    this.loading = true;
-    Promise.all(arr).then(() => {
-        this.dialogRef.close();
-      }).finally(() => {
-      this.loading = false;
-    });
-  }
+	exitTrip(): void {
+		const users = [];
+		const blockedUsers = [];
+		this.users.forEach((user) => {
+			users.push({
+				id: user.id,
+				rate: user.rate,
+			});
+			blockedUsers.push({
+				id: user.id,
+				isBlocked: user.isBlocked,
+			});
+		});
+		let arr = [];
+		arr =
+			this.data.dataKey === UserState.Passenger
+				? [
+						this.apiRatePassengersService.addRateDriver(users),
+						this.apiRatePassengersService.addBlacklistDriver(this.idTripDriver, blockedUsers),
+				  ]
+				: [
+						this.apiRatePassengersService.addRatePassenger(users),
+						this.apiRatePassengersService.addBlacklistPass(this.idTripPassenger, blockedUsers),
+				  ];
+		this.loading = true;
 
-  trackById(index, item) {
-    return item.id;
-  }
+		Promise.all(arr)
+			.then(() => {
+				this.dialogRef.close();
+			})
+			.finally(() => {
+				this.loading = false;
+			});
+	}
 
-  addToBlacklist(i) {
-    this.users[i].isBlocked = !this.users[i].isBlocked;
-  }
+	trackById(index, item) {
+		return item.id;
+	}
 
-  exit() {
-    this.dialogRef.close();
-  }
+	addToBlacklist(i) {
+		this.users[i].isBlocked = !this.users[i].isBlocked;
+	}
+
+	exit() {
+		this.dialogRef.close();
+	}
 }
