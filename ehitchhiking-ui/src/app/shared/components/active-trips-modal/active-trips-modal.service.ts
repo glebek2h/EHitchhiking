@@ -7,6 +7,7 @@ import {Car} from '../../models/car';
 
 export class ActiveTripsModalService {
 	constructor() {}
+
 	passengers: PassengerInfo[] = [
 		{
 			name: 'Alisa',

@@ -4,6 +4,7 @@ import {MatButtonModule, MatCardModule, MatDialogModule, MatListModule, MatTable
 
 import {RatingModule} from '../rating/rating.module';
 import {ActiveTripComponent} from './active-trip.component';
+import {ConfirmationModalModule} from '@shared/modals/confirmation-modal/confirmation-modal.module';
 @NgModule({
 	declarations: [ActiveTripComponent],
 	imports: [
@@ -14,6 +15,7 @@ import {ActiveTripComponent} from './active-trip.component';
 		RatingModule,
 		MatCardModule,
 		MatListModule,
+		ConfirmationModalModule,
 	],
 	entryComponents: [ActiveTripComponent],
 	exports: [ActiveTripComponent],
