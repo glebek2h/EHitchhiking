@@ -15,7 +15,6 @@ import {TripsModalService} from '../../services/trips-modal.service';
 export class TripsModalComponent implements OnInit {
 	limit = NUMBER_OF_TRIPS_VISIBLE_ON_PAGE;
 	tripsArray = null;
-	tripsArrayLength = 0;
 	loaderSize: LoaderSize = LoaderSize.Large;
 	isLoading: boolean;
 	scrollObserver: IntersectionObserver;
@@ -53,7 +52,6 @@ export class TripsModalComponent implements OnInit {
 			.then((data) => {
 				this.scrollObserver.observe(this.markerRef.nativeElement);
 				this.tripsArray = data;
-				this.tripsArrayLength = data.length;
 			})
 			.finally(() => {
 				this.isLoading = false;
@@ -73,7 +71,6 @@ export class TripsModalComponent implements OnInit {
 					return;
 				}
 				this.tripsArray = [];
-				this.tripsArrayLength = 0;
 			})
 			.finally(() => {
 				this.isLoading = false;
