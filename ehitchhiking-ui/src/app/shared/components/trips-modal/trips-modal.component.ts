@@ -14,7 +14,7 @@ import {TripsModalService} from '../../services/trips-modal.service';
 })
 export class TripsModalComponent implements OnInit {
 	limit = NUMBER_OF_TRIPS_VISIBLE_ON_PAGE;
-	tripsArray = [];
+	tripsArray = null;
 	tripsArrayLength = 0;
 	loaderSize: LoaderSize = LoaderSize.Large;
 	isLoading: boolean;
