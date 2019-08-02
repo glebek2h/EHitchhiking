@@ -24,7 +24,7 @@ public class CarDAO extends AbstractDAO<Car> implements ICarDAO {
     }
 
     @Override
-    public List<Car> getListCars(int empId){
+    public List<Car> getListCars(int empId) {
         List<Car> cars = (List<Car>)  getCurrentSession().createQuery("From com.exadel.ehitchhiking.models.Car where driver.employee.id = '" + empId + "' and isDeleted = false").list();
         return cars;
     }
