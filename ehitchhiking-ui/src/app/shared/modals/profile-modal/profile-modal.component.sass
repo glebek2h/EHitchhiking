@@ -78,12 +78,12 @@ $profile-user-info-height: 20%
             width: 100%
             @include flexbox()
             .profile-add-car-button, .profile-close-car-button
-                position: fixed
-                margin-top: -0.5rem
+                margin-top: -2rem
                 color: mat-color($primary)
                 background-color: mat-color($accent, 400)
                 &:hover
                     background-color: mat-color($accent, 50)
+                
         .cars-form-submit
             width: 100%
             @include flexbox()
@@ -106,3 +106,8 @@ $profile-user-info-height: 20%
                 font-size: $body-1
                 &-text
                     width: 45%
+        .add-car-form
+            width: 90%
+            position: absolute
+        .cars-form-submit
+            margin-bottom: 0 
