@@ -1,6 +1,9 @@
 export interface User {
 	id: number;
-	name: string;
-	rating: number;
-	isAddedToBlackList: boolean;
+	rate: number;
+}
+
+export interface BlacklistedUser {
+	id: number;
+	isBlocked: boolean;
 }

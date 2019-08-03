@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class RequestPassenger {
 
-    private Integer idPass;
+    private int idPass;
 
-    private Float rate;
+    private float rate;
 }

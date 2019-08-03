@@ -1,5 +1,6 @@
 package com.exadel.ehitchhiking.daos;
 
+import com.exadel.ehitchhiking.models.Car;
 import com.exadel.ehitchhiking.models.TripDriver;
 import com.exadel.ehitchhiking.models.TripPass;
 
