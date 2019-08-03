@@ -1,6 +1,6 @@
 <div class="modal-wrapper">
 	<div class="modal-header">
-		<span class="modal-title truncated">{{ currentUser ? currentUser.name : 'Anonymous' }}</span>
+		<span class="modal-title truncated">{{ currentUser ? (currentUser.name + ' ' + currentUser.surname) : 'Anonymous' }}</span>
 	</div>
 	<app-pre-loading [isLoading]="isLoading"></app-pre-loading>
 	<app-no-data [isEmpty]="!currentUser"></app-no-data>
@@ -43,14 +43,14 @@
 					*ngFor="let curCar of currentUser.cars; let index = index">
 					<mat-expansion-panel-header>
 						<mat-panel-title class="profile-car-info-title">
-							{{ curCar.model }}
+							<span class="truncated">{{ curCar.model }}</span>
 						</mat-panel-title>
 						<mat-panel-description class="profile-car-info-desc">
-							<span class="profile-car-info-desc-item">{{ curCar.number }}</span>
-							<span class="profile-car-info-desc-item">{{ curCar.color }} </span>
+							<span class="profile-car-info-desc-item truncated">{{ curCar.number }}</span>
+							<span class="profile-car-info-desc-item truncated">{{ curCar.color }} </span>
 							<button mat-icon-button class="car-info-delete profile-car-info-desc-item"
 								(click)="onCarDelete($event, index)">
-								<mat-icon class="car-info-delete-icon">delete</mat-icon>
+								<mat-icon class="car-info-delete-icon" [matTooltip]="'delete car'">delete</mat-icon>
 							</button>
 						</mat-panel-description>
 					</mat-expansion-panel-header>
