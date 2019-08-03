@@ -1,3 +1,4 @@
+import {UserService} from '@shared/services/user.service';
 import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 import {ApiService} from '@shared/services/api.services/api.service';
 import {AuthorizationService} from './../../services/authorization.service';
@@ -12,6 +13,7 @@ import {ChatComponent} from '@shared/components/chat-data/chat/chat.component';
 import {NotificationService} from '@shared/services/notification.service';
 import {ActiveTripsModalComponent} from '@shared/components/active-trips-modal/active-trips-modal.component';
 import {RatePassengersModalComponent} from '@shared/components/rate-passengers-modal/rate-passengers-modal.component';
+import {User} from '@shared/models/user';
 @Component({
 	selector: 'app-menu',
 	templateUrl: './menu.component.html',
@@ -21,10 +23,16 @@ import {RatePassengersModalComponent} from '@shared/components/rate-passengers-m
 export class MenuComponent implements OnInit {
 	opened: boolean;
 	buttonsArray = [];
+	currentUser: User;
 
-	constructor(public dialog: MatDialog, private authorizationService: AuthorizationService) {}
+	constructor(
+		public dialog: MatDialog,
+		private authorizationService: AuthorizationService,
+		private userService: UserService
+	) {}
 
 	ngOnInit() {
+		this.currentUser = this.userService.getCurrentUser();
 		this.buttonsArray = BUTTONS_NAMES;
 	}
 	openBlacklistDialog(): void {

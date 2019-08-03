@@ -1,3 +1,4 @@
+import {UserService} from '@shared/services/user.service';
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MenuComponent} from './menu.component';
@@ -48,6 +49,7 @@ import {BlacklistModule} from '@shared/components/blacklist/blacklist.module';
 		BlacklistModule,
 	],
 	exports: [MenuComponent],
+	providers: [UserService],
 	entryComponents: [NotificationComponent, TripsModalComponent],
 })
 export class MenuModule {}
