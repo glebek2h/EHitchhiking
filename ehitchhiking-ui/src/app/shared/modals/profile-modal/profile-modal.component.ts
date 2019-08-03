@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {MatDialogRef} from '@angular/material';
 import {User} from '@shared/models/user';
 import {FormGroup, FormBuilder} from '@angular/forms';
@@ -11,6 +11,7 @@ import {UserService} from '@shared/services/user.service';
 	templateUrl: './profile-modal.component.html',
 	styleUrls: ['./profile-modal.component.sass'],
 	providers: [CarsInfoService],
+	encapsulation: ViewEncapsulation.None,
 })
 export class ProfileModalComponent implements OnInit {
 	readonly maxNumOfCars: number = 5;

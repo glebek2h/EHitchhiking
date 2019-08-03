@@ -65,7 +65,12 @@ export class MenuComponent implements OnInit {
 	}
 
 	openProfileDialog(): void {
-		this.dialog.open(ProfileModalComponent, {panelClass: 'mat-dialog-no-padding', autoFocus: false});
+		this.dialog.open(ProfileModalComponent, {
+			panelClass: DEFAULT_MAT_DIALOG_CLASS,
+			autoFocus: false,
+			width: '40rem',
+			height: '60%',
+		});
 	}
 
 	openChatDialog(): void {
