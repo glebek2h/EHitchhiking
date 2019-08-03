@@ -7,8 +7,8 @@ export interface TripActiveInterface {
 	startPoint: string;
 	endPoint: string;
 	role: UserState;
-	startTime: Date;
-	endTime: Date;
+	startTime: string;
+	endTime: string;
 	reservedSeats: number;
 	showTripInfo: boolean;
 	driver: UserInfoTrip;

@@ -25,7 +25,7 @@ export class ActiveTripsModalComponent implements OnInit {
 	isShowTripInfo = false;
 	tripInfo: ActiveTrip;
 
-	roles = [{value: 0, viewValue: 'Passenger'}, {value: 1, viewValue: 'Driver'}, {value: 2, viewValue: 'All'}];
+	roles = [{value: 1, viewValue: 'Passenger'}, {value: 2, viewValue: 'Driver'}, {value: 3, viewValue: 'All'}];
 
 	constructor(
 		public dialogRef: MatDialogRef<ActiveTripsModalComponent>,

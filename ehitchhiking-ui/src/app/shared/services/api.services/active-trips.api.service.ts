@@ -5,7 +5,6 @@ import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 import {UserInfoTrip} from '@shared/models/user-info-trip';
 import {ActiveTrip} from '@shared/models/active-trip';
 import {UserService} from '@shared/services/user.service';
-import {promise} from 'selenium-webdriver';
 
 @Injectable()
 export class ActiveTripsApiService {
@@ -22,8 +21,8 @@ export class ActiveTripsApiService {
 				trip.startPoint,
 				trip.endPoint,
 				trip.role,
-				trip.startTime,
-				trip.endTime,
+        ActiveTripsApiService.parseDate(trip.startTime),
+				ActiveTripsApiService.parseTime(trip.startTime),
 				trip.seats,
 				false,
 				new UserInfoTrip(trip.driver.id, trip.driver.firstName, trip.driver.phone, trip.driver.email),
@@ -39,4 +38,12 @@ export class ActiveTripsApiService {
 			.then(this.mapActiveTrips)
 			.catch(() => []);
 	}
+
+  private static parseDate(date: any): string {
+    return new Date(date).toLocaleDateString();
+  }
+
+  private static parseTime(date: any): string {
+    return new Date(date).toLocaleTimeString();
+  }
 }

@@ -8,8 +8,8 @@ export class ActiveTrip implements TripActiveInterface{
   startPoint: string;
   endPoint: string;
   role: UserState;
-  startTime: Date;
-  endTime: Date;
+  startTime: string;
+  endTime: string;
   reservedSeats: number;
   showTripInfo: boolean;
   driver: UserInfoTrip;
@@ -21,8 +21,8 @@ export class ActiveTrip implements TripActiveInterface{
 		startPoint: string = '',
 		endPoint: string = '',
 		role: UserState,
-		startTime: Date,
-		endTime: Date,
+		startTime: string,
+		endTime: string,
 		reservedSeats: number = 0,
 		showTripInfo: boolean = false,
 		driver: UserInfoTrip,

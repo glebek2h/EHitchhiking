@@ -28,7 +28,7 @@ export class ActiveTripAdditionalInfoComponent implements OnInit {
 			departureDate: this.trip.startTime,
 			placesSelect: this.trip.reservedSeats,
 			passengers: this.trip.passenger,
-			car: this.trip.driver.car.model,
+			car: this.trip.car.model,
 		});
 	}
 }
