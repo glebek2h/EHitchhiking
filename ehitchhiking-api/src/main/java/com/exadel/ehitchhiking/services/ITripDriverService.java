@@ -10,14 +10,14 @@ import java.time.Instant;
 import java.util.List;
 
 public interface ITripDriverService {
-    void createTripDriver(String startingPoint, String endingPoint,
+    String createTripDriver(String startingPoint, String endingPoint,
                           Instant startingTime,  Instant  endingTime, int idOfCar, int seats,
                           Point coordStart, Point coordEnd, float distance);
 
 
     TripDriverVO updateSave(int id, boolean isSaved);
 
-    void updateFinished(int id, boolean isFinished);
+    List<String> updateFinished(int id, boolean isFinished);
 
     void deleteFromHistory(int id, boolean isHistory);
 

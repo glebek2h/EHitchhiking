@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional(rollbackOn = Exception.class)
@@ -27,17 +29,21 @@ public class TripPassengerService implements ITripPassengerService {
     @Autowired
     private ITripDriverDAO tripDriverDAO;
     @Override
-    public void createTripPassenger(int empId, String startingPoint,
-                                    String endingPoint,
-                                    Instant startingTime, Instant endingTime,
-                                    int seats, int idTripDriver, Point coordStart, Point coordEnd,
-                                    float distance) {
+    public List<String> createTripPassenger(int empId, String startingPoint,
+                             String endingPoint,
+                             Instant startingTime, Instant endingTime,
+                             int seats, int idTripDriver, Point coordStart, Point coordEnd,
+                             float distance) {
         TripPass tripPass = new TripPass(startingPoint, endingPoint,
                 Timestamp.from(startingTime), Timestamp.from(endingTime), true,
                 false, false, seats,
                 passengerDAO.getByEmployeeId(empId), tripDriverDAO.getTripDriver(idTripDriver), false, coordStart,
                 coordEnd, distance);
         dao.save(tripPass);
+        List<String> emailList =  new ArrayList<>();
+        emailList.add(tripPass.getPassenger().getEmployee().getEmail());
+        emailList.add(tripPass.getTripDriver().getCar().getDriver().getEmployee().getEmail());
+        return emailList;
     }
 
 
@@ -68,7 +74,7 @@ public class TripPassengerService implements ITripPassengerService {
     }
 
     @Override
-    public void updateFinished(int id, boolean isFinished) {
+    public List<String> updateFinished(int id, boolean isFinished) {
         TripPass tripPass = dao.getTripPass(id);
         tripPass.setFinished(isFinished);
         tripPass.setActive(false);
@@ -77,6 +83,10 @@ public class TripPassengerService implements ITripPassengerService {
             tripDriver.setAvailableSeats(tripDriver.getAvailableSeats() + tripPass.getBookedSeats());
         }
         dao.update(tripPass);
+        List<String> list = new ArrayList<>();
+        list.add(tripPass.getPassenger().getEmployee().getEmail());
+        list.add(tripPass.getTripDriver().getCar().getDriver().getEmployee().getEmail());
+        return list;
     }
 
 

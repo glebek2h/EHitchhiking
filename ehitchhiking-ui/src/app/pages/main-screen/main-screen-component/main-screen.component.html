@@ -15,7 +15,8 @@
 ></yandex-map>
 <app-pre-loading [isLoading]="loading" [size]="loaderSize"></app-pre-loading>
 <app-trip-registration
-	[isShown]="isHiddenTripRegistration"
+	*ngIf="isReset"
+  [hidden]="isHidden"
 	(formData)="getData($event)"
 	(isShownViewListButton)="setIsShownViewRoutesButtonFlag($event)"
 	(isShownSaveRouteButton)="setIsShownSaveRouteButtonFlag($event)"

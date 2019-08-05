@@ -21,13 +21,12 @@ import {NoDataModule} from '../no-data/no-data.module';
 import {TripsModalModule} from '../trips-modal/trips-modal.module';
 import {TripModule} from '../trip/trip.module';
 import {TripsModalComponent} from '../trips-modal/trips-modal.component';
-import {NotificationComponent} from '../notification/notification.component';
 import {ChatDataModule} from '@shared/components/chat-data/chat-data.module';
 import {ActiveTripsModalModule} from '@shared/components/active-trips-modal/active-trips-modal.module';
 import {BlacklistModule} from '@shared/components/blacklist/blacklist.module';
 
 @NgModule({
-	declarations: [MenuComponent, NotificationComponent],
+	declarations: [MenuComponent],
 	imports: [
 		CommonModule,
 		MatCheckboxModule,
@@ -52,6 +51,6 @@ import {BlacklistModule} from '@shared/components/blacklist/blacklist.module';
 	],
 	exports: [MenuComponent],
 	providers: [UserService],
-	entryComponents: [NotificationComponent, TripsModalComponent],
+	entryComponents: [TripsModalComponent],
 })
 export class MenuModule {}

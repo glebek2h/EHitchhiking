@@ -25,6 +25,7 @@ import {MapTripFormService} from '@shared/services/map-trip-form.service';
 import {UserService} from '@shared/services/user.service';
 import {ActiveTripsMapService} from '@shared/services/active-trips-map.service';
 import {PreLoadingModule} from "@shared/components/pre-loading/pre-loading.module";
+import {YandexMapService} from "@pages/main-screen/yandex-map/yandex-map.service";
 @NgModule({
 	declarations: [
 		MainScreenComponent,
@@ -51,7 +52,7 @@ import {PreLoadingModule} from "@shared/components/pre-loading/pre-loading.modul
     MatTooltipModule,
     PreLoadingModule,
   ],
-	providers: [ActiveTripsMapService, MapTripFormService, UserService],
+	providers: [ActiveTripsMapService, MapTripFormService, UserService, YandexMapService],
 	exports: [MainScreenComponent, TripRegistrationComponent],
 })
 export class MainScreenModule {}

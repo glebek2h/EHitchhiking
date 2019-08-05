@@ -11,3 +11,7 @@ export const DELETE_ROUTE_MARKER = -1;
 export const NUMBER_OF_TRIPS_VISIBLE_ON_PAGE = 4;
 export const MIDNIGHT = 'am';
 export const HALF_DAY = 12;
+export const NOTIFICATION_TEXT_COLOR = '#ffffff';
+export const NOTIFICATION_BACKGROUND_ERROR = '#f20026';
+export const NOTIFICATION_BACKGROUND_SUCCESS = '#00b358';
+export const NOTIFICATION_BACKGROUND_INFO = '#0b93f6';

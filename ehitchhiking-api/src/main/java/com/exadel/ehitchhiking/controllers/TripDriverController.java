@@ -5,15 +5,20 @@ import com.exadel.ehitchhiking.models.vo.TripDriverVO;
 import com.exadel.ehitchhiking.requests.RequestTripDriver;
 import com.exadel.ehitchhiking.responses.Response;
 import com.exadel.ehitchhiking.services.ITripDriverService;
+import com.exadel.ehitchhiking.services.mail.IEmailSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.criteria.CriteriaBuilder;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @RestController
 @RequestMapping("/trip_driver")
 public class TripDriverController {
+
+    @Autowired
+    private IEmailSender emailSender;
 
     @Autowired
     private ITripDriverService tripDriverService;
@@ -24,10 +29,13 @@ public class TripDriverController {
     public Response addTripDriver(@RequestBody RequestTripDriver tripDriver) {
         try {
 
-            tripDriverService.createTripDriver(tripDriver.getStartingPoint(), tripDriver.getEndingPoint(),
+            String email = tripDriverService.createTripDriver(tripDriver.getStartingPoint(), tripDriver.getEndingPoint(),
                     tripDriver.getStartingTime(), tripDriver.getEndingTime(),
                     tripDriver.getIdOfCar(),
                     tripDriver.getSeats(), tripDriver.getCoordStart(), tripDriver.getCoordEnd(), tripDriver.getDistance());
+            List<String> emailList = new ArrayList<>();
+            emailList.add(email);
+            emailSender.sendingEmail(emailList, "Created Trip", "The trip was created. To view the details, please, go to Ehitchhiking.com");
         } catch (Exception e) {
             return Response.setError("An error has occurred while creating the trip!");
         }
@@ -85,7 +93,8 @@ public class TripDriverController {
     @PutMapping("/cancelled_trip")
     public Response addToCancelled(@RequestBody RequestTripDriver tripDriver) {
         try {
-            tripDriverService.updateFinished(tripDriver.getId(), false);
+            List<String> emailList = tripDriverService.updateFinished(tripDriver.getId(), false);
+            emailSender.sendingEmail(emailList, "Cancelled Trip", "The trip was cancelled. To view the details, please, go to Ehitchhiking.com");
         } catch (Exception e) {
             return Response.setError("An error has occurred while cancelling trip!");
         }
