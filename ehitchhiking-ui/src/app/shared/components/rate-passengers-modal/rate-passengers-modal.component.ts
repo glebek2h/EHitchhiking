@@ -15,8 +15,6 @@ import {BlacklistedUser, User} from '@shared/components/rate-passengers-modal/us
 export class RatePassengersModalComponent implements OnInit {
 	users: RatedUser[] = [];
 	UserState = UserState;
-	idTripDriver = 12;
-	idTripPassenger = 4;
 	loading = true;
 	loaderSize: LoaderSize = LoaderSize.Large;
 	constructor(
