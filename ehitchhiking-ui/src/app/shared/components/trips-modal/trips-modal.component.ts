@@ -53,7 +53,6 @@ export class TripsModalComponent implements OnInit {
 			.getTrips()
 			.then((data) => {
 				this.scrollObserver.observe(this.markerRef.nativeElement);
-				console.log(data);
 				this.tripsArray = data.map((trip) => {
 					trip.status = trip.finished ? TripStatus.Completed : TripStatus.Declined;
 					return trip;
