@@ -9,6 +9,16 @@ import {ApiService} from '@shared/services/api.services/api.service';
 export class YandexMapService {
 	constructor() {}
 
+	private ymapsPromise;
+
+	setPromise(ymapsPromise) {
+	  this.ymapsPromise = ymapsPromise;
+  }
+
+  getPromise() {
+	  return this.ymapsPromise;
+  }
+
 	static COLORS: string[] = [
 		'#6da2e1',
 		'#f20026',

@@ -14,7 +14,7 @@
 	(coordinates)="getStartEndCoords($event)"
 ></yandex-map>
 <app-trip-registration
-	[isShown]="isHiddenTripRegistration"
+	*ngIf="isHiddenTripRegistration"
 	(formData)="getData($event)"
 	(isShownViewListButton)="setIsShownViewRoutesButtonFlag($event)"
 	(isShownSaveRouteButton)="setIsShownSaveRouteButtonFlag($event)"

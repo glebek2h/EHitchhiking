@@ -72,7 +72,6 @@ export class MainScreenComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.isHiddenTripRegistration = true;
 		this.isDisabledSubmitRouteButton = true;
 		this.userState = UserState.Passenger;
 		this.routes = YandexMapService.getSomeRoutes();
@@ -148,7 +147,7 @@ export class MainScreenComponent implements OnInit {
 	toggleMapInterfaceToDefault() {
 		this.editStatePlusButton = false;
 		this.isShownViewRoutesButton = false;
-		this.isHiddenTripRegistration = true;
+		this.isHiddenTripRegistration = false;
 		this.isSavedRoute = false;
 		this.isShownRoutesList = false;
 		this.isShownSaveRouteButton = false;
