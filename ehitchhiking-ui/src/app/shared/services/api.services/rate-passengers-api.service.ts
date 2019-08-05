@@ -8,19 +8,19 @@ export class RatePassengersApiService {
 	constructor(private apiService: ApiService) {}
 
 	addRatePassenger(users: User[]) {
-		this.apiService.doPut(URL_REGISTRY.RATE.ADD_RATE_PASSENGER, users,false);
+		this.apiService.doPut(URL_REGISTRY.RATE.ADD_RATE_PASSENGER, users, false);
 	}
 
 	addRateDriver(users: User[]) {
-		this.apiService.doPut(URL_REGISTRY.RATE.ADD_RATE_DRIVER, users,false);
+		this.apiService.doPut(URL_REGISTRY.RATE.ADD_RATE_DRIVER, users, false);
 	}
 
 	addBlacklistPass(id: number, params: BlacklistedUser[]): Promise<any> {
-		return this.apiService.doPut(URL_REGISTRY.RATE.ADD_BLACKLIST_PASS, {idTrip: id, data: params},false);
+		return this.apiService.doPut(URL_REGISTRY.RATE.ADD_BLACKLIST_PASS, {idTrip: id, data: params}, false);
 	}
 
 	addBlacklistDriver(id: number, params: BlacklistedUser[]): Promise<any> {
-		return this.apiService.doPut(URL_REGISTRY.RATE.ADD_BLACKLIST_DRIVER, {idTrip: id, data: params},false);
+		return this.apiService.doPut(URL_REGISTRY.RATE.ADD_BLACKLIST_DRIVER, {idTrip: id, data: params}, false);
 	}
 
 	mapTripPassengers(data: any): RatedUser[] {
@@ -50,11 +50,13 @@ export class RatePassengersApiService {
 
 	getTripPassengers(id: number): Promise<RatedUser | RatedUser[]> {
 		return this.apiService
-			.doGet(URL_REGISTRY.RATE.GET_RATE_PASSENGERS, false, {tripId: id},false)
+			.doGet(URL_REGISTRY.RATE.GET_RATE_PASSENGERS, false, {tripId: id}, false)
 			.then(this.mapTripPassengers);
 	}
 
 	getTripDriver(id: number): Promise<RatedUser | RatedUser[]> {
-		return this.apiService.doGet(URL_REGISTRY.RATE.GET_RATE_DRIVER, false, {tripId: id},false).then(this.mapTripDrivers);
+		return this.apiService
+			.doGet(URL_REGISTRY.RATE.GET_RATE_DRIVER, false, {tripId: id}, false)
+			.then(this.mapTripDrivers);
 	}
 }
