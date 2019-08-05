@@ -67,7 +67,7 @@ public class TripPassengerController {
         } catch (Exception e) {
             return Response.setError("An error has occurred while adding the trip to history!");
         }
-        return Response.setSuccess("true", "Successfully added to history");
+        return Response.setSuccess("true", "The trip was successfully added to history!");
     }
 
 
@@ -78,7 +78,7 @@ public class TripPassengerController {
         } catch (Exception e) {
             return Response.setError("An error has occurred while removing the trip from history!");
         }
-        return Response.setSuccess("true", "Successfully removed from history");
+        return Response.setSuccess("true", "The trip was successfully removed from history!");
     }
 
     @PutMapping("/cancelled_trip")
@@ -88,7 +88,7 @@ public class TripPassengerController {
         } catch (Exception e) {
             return Response.setError("An error has occurred while cancelling the trip!");
         }
-        return Response.setSuccess("true", "Successfully cancelled the trip");
+        return Response.setSuccess("true", "The trip was successfully cancelled!");
     }
 
     @PutMapping("/finished_trip")
@@ -96,9 +96,9 @@ public class TripPassengerController {
         try {
             tripPassengerService.updateFinished(tripPass.getId(), true);
         } catch (Exception e) {
-            return Response.setError("An error has occurred while removing the trip from finished!");
+            return Response.setError("An error has occurred while adding the trip to finished!");
         }
-        return Response.setSuccess("true", "Successfully finished the trip");
+        return Response.setSuccess("true", "The trip was successfully adding the trip to finished!");
     }
 
     @PutMapping("/save")
@@ -144,7 +144,7 @@ public class TripPassengerController {
         } catch (Exception e) {
             return Response.setError("An error has occurred while adding the trip to active!");
         }
-        return Response.setSuccess("true", "he trip was successfully added to saved!");
+        return Response.setSuccess("true", "the trip was successfully added to saved!");
     }
 
 

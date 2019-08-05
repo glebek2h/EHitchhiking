@@ -63,6 +63,6 @@ public class CarController {
         } catch (Exception e) {
             return Response.setError("An error has occurred while updating the cars!");
         }
-        return Response.setSuccess(updatedCars, "The cars were updated successfully!");
+        return Response.setSuccess(updatedCars, "The car was updated successfully!");
     }
 }
