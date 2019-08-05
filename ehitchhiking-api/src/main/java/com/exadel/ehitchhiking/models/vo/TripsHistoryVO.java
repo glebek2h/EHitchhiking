@@ -26,6 +26,8 @@ public class TripsHistoryVO {
 
     private boolean isSaved;
 
+    private boolean isActive;
+
     private int role;
 
     private float rate;
@@ -39,6 +41,7 @@ public class TripsHistoryVO {
                 tripPass.getEndPoint(),
                 tripPass.isFinished(),
                 tripPass.isSaved(),
+                tripPass.isActive(),
                 1, // Passenger role is 1
                 tripPass.getRating()
 
@@ -54,6 +57,7 @@ public class TripsHistoryVO {
                 tripDriver.getEndPoint(),
                 tripDriver.isFinished(),
                 tripDriver.isSaved(),
+                tripDriver.isActive(),
                 2,  // Driver's role is 2
                 tripDriver.getRating()
         );

@@ -32,15 +32,6 @@
 			</mat-form-field>
 
 			<mat-slide-toggle [(ngModel)]="selectedFavorite">Favorite trips</mat-slide-toggle>
-			<button [ngSwitch]="selectedBySort" (click)="ChangeSort()" class="modal-close-control-btn" mat-icon-button>
-				<mat-icon *ngSwitchCase="0" title="not sort">
-					call_split
-				</mat-icon>
-				<mat-icon *ngSwitchCase="1" title="ASC"> call_made</mat-icon>
-				<mat-icon *ngSwitchCase="2" title="DESC">
-					call_received
-				</mat-icon>
-			</button>
 		</div>
 	</mat-expansion-panel>
 
@@ -58,11 +49,6 @@
 						: tripsModalService.statusFilterConfig.fieldName
 						: tripsModalService.statusFilterConfig.selected
 						: tripsModalService.statusFilterConfig.isEnabled
-					| filterByRating
-						: tripsModalService.ratingFilterConfig.fieldName
-						: tripsModalService.ratingFilterConfig.selected
-						: tripsModalService.ratingFilterConfig.isEnabled
-					| sortTrips: 'rating':order
 					| slice: 0:limit;
 				trackBy: trackById
 			"

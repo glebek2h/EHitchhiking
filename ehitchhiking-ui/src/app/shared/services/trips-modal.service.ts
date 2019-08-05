@@ -10,11 +10,7 @@ export class TripsModalService {
 	constructor(private apiService: ApiService, private userService: UserService) {}
 
 	roles = [{value: 1, viewValue: 'Passenger'}, {value: 2, viewValue: 'Driver'}];
-	statusesTrip = [
-		{value: 0, viewValue: 'Active'},
-		{value: 1, viewValue: 'Completed'},
-		{value: 2, viewValue: 'Declined'},
-	];
+	statusesTrip = [{value: 1, viewValue: 'Completed'}, {value: 2, viewValue: 'Declined'}];
 	ratesTrip = [
 		{value: 5, viewValue: '5'},
 		{value: 4, viewValue: '4'},
