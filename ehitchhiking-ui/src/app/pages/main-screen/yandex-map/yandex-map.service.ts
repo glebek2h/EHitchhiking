@@ -62,7 +62,11 @@ export class YandexMapService {
 				'</p>' +
 				'<p>' +
 				'<span>Car: </span>' +
-				data.car.color + ' ' + data.car.model + ' ' + data.car.number +
+				data.car.color +
+				' ' +
+				data.car.model +
+				' ' +
+				data.car.number +
 				'</p>',
 		};
 	}
