@@ -4,6 +4,7 @@ import {MatDialogRef} from '@angular/material';
 import {NUMBER_OF_TRIPS_VISIBLE_ON_PAGE} from '@shared/constants/modal-constants';
 import {ActiveTripsApiService} from '@shared/services/api.services/active-trips.api.service';
 import {ActiveTrip} from '@shared/models/active-trip';
+import {UserState} from '@shared/enums/UserState';
 
 @Component({
 	selector: 'app-active-trips-modal',
@@ -61,12 +62,33 @@ export class ActiveTripsModalComponent implements OnInit {
 			});
 	}
 
-	refresh(status: boolean) {
-		if (!status) {
-			return;
-		}
-		this.fetchTrips();
+	removeTripPassenger(id: number) {
+		this.activeTripsApiService
+			.removeTripPassenger(id)
+			.then(() => {
+				this.fetchTrips();
+			})
+			.catch(() => {
+				this.loading = false;
+			});
 	}
+
+	removeTripDriver(id: number) {
+		this.activeTripsApiService
+			.removeTripDriver(id)
+			.then(() => {
+				this.fetchTrips();
+			})
+			.catch(() => {
+				this.loading = false;
+			});
+	}
+
+	onDelete($event) {
+		this.loading = true;
+		$event.role === UserState.Passenger ? this.removeTripPassenger($event.id) : this.removeTripDriver($event.id);
+	}
+
 	filterByRole() {
 		this.role.isEnable = true;
 	}
