@@ -41,7 +41,7 @@ export class RatePassengersModalComponent implements OnInit {
 	loadPassengersList(): void {
 		this.loading = true;
 		this.apiRatePassengersService
-			.getTripPassengers(this.idTripPassenger)
+			.getTripPassengers(this.data.tripId)
 			.then((data: RatedUser[]) => {
 				this.users = data;
 				console.log(data);
@@ -54,7 +54,7 @@ export class RatePassengersModalComponent implements OnInit {
 	loadDriversList(): void {
 		this.loading = true;
 		this.apiRatePassengersService
-			.getTripDriver(this.idTripDriver)
+			.getTripDriver(this.data.tripId)
 			.then((data: RatedUser[]) => {
 				this.users = data;
 				console.log(data);
@@ -75,11 +75,11 @@ export class RatePassengersModalComponent implements OnInit {
 		return this.data.dataKey === UserState.Passenger
 			? [
 					this.apiRatePassengersService.addRateDriver(users),
-					this.apiRatePassengersService.addBlacklistDriver(this.idTripDriver, blockedUsers),
+					this.apiRatePassengersService.addBlacklistDriver(this.data.tripId, blockedUsers),
 			  ]
 			: [
 					this.apiRatePassengersService.addRatePassenger(users),
-					this.apiRatePassengersService.addBlacklistPass(this.idTripPassenger, blockedUsers),
+					this.apiRatePassengersService.addBlacklistPass(this.data.tripId, blockedUsers),
 			  ];
 	}
 
