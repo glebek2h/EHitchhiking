@@ -38,12 +38,14 @@
 		"@angular/cli": "~8.1.2",
 		"@angular/compiler-cli": "~8.1.0",
 		"@angular/language-service": "~8.1.0",
+		"@stomp/stompjs": "^5.4.2",
 		"@types/jasmine": "~3.3.8",
 		"@types/jasminewd2": "~2.0.3",
 		"@types/node": "~8.9.4",
 		"codelyzer": "~5.0.0",
 		"jasmine-core": "~3.4.0",
 		"jasmine-spec-reporter": "~4.2.1",
+		"jquery": "^3.4.1",
 		"karma": "~4.1.0",
 		"karma-chrome-launcher": "~2.2.0",
 		"karma-coverage-istanbul-reporter": "~2.0.1",
@@ -54,11 +56,14 @@
 		"pretty-quick": "~1.11.1",
 		"protractor": "~5.4.0",
 		"rxjs-compat": "~6.5.2",
+		"sockjs-client": "~1.3.0",
+		"stompjs": "~2.3.3",
 		"ts-node": "~7.0.0",
 		"tslib": "~1.9.3",
 		"tslint": "~5.15.0",
 		"tslint-config-prettier": "~1.18.0",
-		"typescript": "~3.4.3"
+		"typescript": "~3.4.3",
+		"websocket": "^1.0.29"
 	},
 	"husky": {
 		"hooks": {

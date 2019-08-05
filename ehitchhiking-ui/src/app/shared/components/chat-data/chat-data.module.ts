@@ -1,3 +1,4 @@
+import {ChatApiService} from './../../services/api.services/chat.api.service';
 import {NoDataModule} from './../no-data/no-data.module';
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
@@ -24,6 +25,7 @@ import {ChatComponent} from '@shared/components/chat-data/chat/chat.component';
 		MatDialogModule,
 		NoDataModule,
 	],
+	providers: [ChatApiService],
 	exports: [DialogListComponent, ChatComponent],
 	entryComponents: [ChatComponent, DialogListComponent],
 })

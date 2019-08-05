@@ -42,4 +42,7 @@ export const URL_REGISTRY = {
 	HISTORY: 'trips/history?id={{id}}',
 	CURRENT_USER: 'currentUser',
 	LOG_OUT: '/logout',
+	CHAT: {
+		INIT: 'http://localhost:4200/api/socket',
+	},
 };
