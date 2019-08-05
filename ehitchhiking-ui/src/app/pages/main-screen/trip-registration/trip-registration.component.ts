@@ -1,10 +1,8 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {User} from '@shared/models/user';
 import {UserState} from '@shared/enums/UserState';
-import {MapTripFormService} from '@shared/services/map-trip-form.service';
 import {UserService} from '@shared/services/user.service';
-import {ActiveTripsMapService} from "@shared/services/active-trips-map.service";
 import {YandexMapService} from "@pages/main-screen/yandex-map/yandex-map.service";
 
 @Component({
@@ -12,7 +10,7 @@ import {YandexMapService} from "@pages/main-screen/yandex-map/yandex-map.service
 	templateUrl: './trip-registration.component.html',
 	styleUrls: ['./trip-registration.component.sass'],
 })
-export class TripRegistrationComponent implements OnInit {
+export class TripRegistrationComponent implements OnInit, AfterViewInit {
 	@Input() isShown: boolean;
 	@Input() currentUser: User;
 	@Input() userState: UserState;
@@ -33,11 +31,14 @@ export class TripRegistrationComponent implements OnInit {
 			departureDate: new FormControl('', [Validators.required]),
 			placesSelect: new FormControl('', [Validators.required]),
 			departureTime: new FormControl('', [Validators.required]),
-			car: new FormControl('', [Validators.required]),
+			car: new FormControl(''),
 		});
+		if(this.userState === UserState.Driver) {
+      this.nameFormGroup.controls.car.setValidators([Validators.required]);
+    }
 	}
 
-  addHints() {
+  ngAfterViewInit(): void {
     this.yandexMapService.getPromise().then((maps) => {
       // tslint:disable-next-line:no-unused-expression
       new maps.SuggestView('suggestions-to-input-from');
