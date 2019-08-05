@@ -18,13 +18,13 @@ export class BlackListApiService {
 
 	getDriverBlacklist(params: GetBlockedUsersParams) {
 		return this.apiService
-			.doGet(URL_REGISTRY.BLACKLIST.GET_DRIVER_BLACKLIST, false, params)
+			.doGet(URL_REGISTRY.BLACKLIST.GET_DRIVER_BLACKLIST, false, params, false)
 			.then(this.mapBlackListUser);
 	}
 
 	getPassengerBlacklist(params: GetBlockedUsersParams) {
 		return this.apiService
-			.doGet(URL_REGISTRY.BLACKLIST.GET_PASSENGER_BLACKLIST, false, params)
+			.doGet(URL_REGISTRY.BLACKLIST.GET_PASSENGER_BLACKLIST, false, params, false)
 			.then(this.mapBlackListUser);
 	}
 

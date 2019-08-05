@@ -50,11 +50,13 @@ export class RatePassengersApiService {
 
 	getTripPassengers(id: number): Promise<RatedUser | RatedUser[]> {
 		return this.apiService
-			.doGet(URL_REGISTRY.RATE.GET_RATE_PASSENGERS, false, {tripId: id})
+			.doGet(URL_REGISTRY.RATE.GET_RATE_PASSENGERS, false, {tripId: id}, false)
 			.then(this.mapTripPassengers);
 	}
 
 	getTripDriver(id: number): Promise<RatedUser | RatedUser[]> {
-		return this.apiService.doGet(URL_REGISTRY.RATE.GET_RATE_DRIVER, false, {tripId: id}).then(this.mapTripDrivers);
+		return this.apiService
+			.doGet(URL_REGISTRY.RATE.GET_RATE_DRIVER, false, {tripId: id}, false)
+			.then(this.mapTripDrivers);
 	}
 }
