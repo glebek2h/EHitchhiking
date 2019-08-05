@@ -23,7 +23,10 @@ export class TripsModalComponent implements OnInit {
 	selectedFavorite = false;
 	selectedBySort = SortState.None;
 	statuses = new FormControl();
+	roles = new FormControl();
 	ratings = new FormControl();
+	filterByPassenger: boolean;
+	filterByDriver: boolean;
 
 	@ViewChild('sMarker', {static: true}) markerRef: ElementRef;
 	rating: number;
@@ -82,7 +85,8 @@ export class TripsModalComponent implements OnInit {
 	}
 
 	filterByRole() {
-		this.tripsModalService.roleFilterConfig.isEnable = true;
+		this.tripsModalService.roleFilterConfig.selected = Object.values(this.roles.value);
+		this.tripsModalService.roleFilterConfig.isEnabled = !!this.tripsModalService.roleFilterConfig.selected.length;
 	}
 
 	filterByStatus() {

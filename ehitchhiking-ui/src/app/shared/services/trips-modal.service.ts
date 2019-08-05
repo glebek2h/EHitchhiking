@@ -9,7 +9,7 @@ import {UserState} from '@shared/enums/UserState';
 export class TripsModalService {
 	constructor(private apiService: ApiService, private userService: UserService) {}
 
-	roles = [{value: 1, viewValue: 'Passenger'}, {value: 2, viewValue: 'Driver'}, {value: 3, viewValue: 'All'}];
+	roles = [{value: 1, viewValue: 'Passenger'}, {value: 2, viewValue: 'Driver'}];
 	statusesTrip = [
 		{value: 0, viewValue: 'Active'},
 		{value: 1, viewValue: 'Completed'},
@@ -25,7 +25,7 @@ export class TripsModalService {
 	];
 	statusFilterConfig = {fieldName: 'status', isEnabled: false, selected: []};
 	ratingFilterConfig = {fieldName: 'rating', isEnabled: false, selected: []};
-	roleFilterConfig = {roleField: 'role', isEnable: false};
+	roleFilterConfig = {fieldName: 'role', isEnabled: false, selected: []};
 
 	getTrips(): Promise<TripHistory[]> {
 		return this.apiService

@@ -12,7 +12,7 @@
 		<div class="form-row expansion-panel-sm">
 			<mat-form-field class="filter-width">
 				<mat-label>Role</mat-label>
-				<mat-select [(ngModel)]="selectedRole" name="selected">
+				<mat-select [formControl]="roles" multiple>
 					<mat-option (click)="filterByRole()" *ngFor="let role of tripsModalService.roles" [value]="role.value">
 						{{ role.viewValue }}
 					</mat-option>
@@ -32,6 +32,15 @@
 			</mat-form-field>
 
 			<mat-slide-toggle [(ngModel)]="selectedFavorite">Favorite trips</mat-slide-toggle>
+			<button [ngSwitch]="selectedBySort" (click)="ChangeSort()" class="modal-close-control-btn" mat-icon-button>
+				<mat-icon *ngSwitchCase="0" title="not sort">
+					call_split
+				</mat-icon>
+				<mat-icon *ngSwitchCase="1" title="ASC"> call_made</mat-icon>
+				<mat-icon *ngSwitchCase="2" title="DESC">
+					call_received
+				</mat-icon>
+			</button>
 		</div>
 	</mat-expansion-panel>
 
@@ -40,7 +49,10 @@
 			class="trips-container items-hover"
 			*ngFor="
 				let trip of tripsArray
-					| filterByRole: tripsModalService.roleFilterConfig.roleField:selectedRole:tripsModalService.roleFilterConfig.isEnable
+					| filterByRole
+						: tripsModalService.roleFilterConfig.fieldName
+						: tripsModalService.roleFilterConfig.selected
+						: tripsModalService.roleFilterConfig.isEnabled
 					| filterByFavorite: 'saved':selectedFavorite
 					| filterByStatus
 						: tripsModalService.statusFilterConfig.fieldName
@@ -50,6 +62,7 @@
 						: tripsModalService.ratingFilterConfig.fieldName
 						: tripsModalService.ratingFilterConfig.selected
 						: tripsModalService.ratingFilterConfig.isEnabled
+					| sortTrips: 'rating':order
 					| slice: 0:limit;
 				trackBy: trackById
 			"
