@@ -49,7 +49,7 @@ export class NotificationService {
 		notificationType: NotificationTypes
 	): MatSnackBarConfig<any> {
 		const config = new MatSnackBarConfig<any>();
-		config.data = {message: notificationMessage, type: notificationType};
+		config.data = {message: notificationMessage, type: notificationType, notificationRef: this.notificationBar};
 		config.duration = NotificationService.notificationDuration;
 		config.horizontalPosition = MAT_SNACK_HORIZONTAL_POSITION;
 		config.verticalPosition = MAT_SNACK_VERTICAL_POSITION;
