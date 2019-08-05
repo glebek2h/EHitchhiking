@@ -13,6 +13,7 @@
 	(passengerPlaceMark)="getPassengerPlaceMarkInfo($event)"
 	(coordinates)="getStartEndCoords($event)"
 ></yandex-map>
+<app-pre-loading [isLoading]="loading" [size]="loaderSize"></app-pre-loading>
 <app-trip-registration
 	[isShown]="isHiddenTripRegistration"
 	(formData)="getData($event)"

@@ -24,6 +24,7 @@ import {FiltersComponent} from './filters/filters.component';
 import {MapTripFormService} from '@shared/services/map-trip-form.service';
 import {UserService} from '@shared/services/user.service';
 import {ActiveTripsMapService} from '@shared/services/active-trips-map.service';
+import {PreLoadingModule} from "@shared/components/pre-loading/pre-loading.module";
 @NgModule({
 	declarations: [
 		MainScreenComponent,
@@ -32,23 +33,24 @@ import {ActiveTripsMapService} from '@shared/services/active-trips-map.service';
 		RoutesListComponent,
 		FiltersComponent,
 	],
-	imports: [
-		CommonModule,
-		MatButtonToggleModule,
-		MatButtonModule,
-		MatFormFieldModule,
-		FormsModule,
-		ReactiveFormsModule,
-		MatCardModule,
-		MatInputModule,
-		MatDatepickerModule,
-		MatSelectModule,
-		NgxMaterialTimepickerModule,
-		MatExpansionModule,
-		MenuModule,
-		MatCheckboxModule,
-		MatTooltipModule,
-	],
+  imports: [
+    CommonModule,
+    MatButtonToggleModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatCardModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatSelectModule,
+    NgxMaterialTimepickerModule,
+    MatExpansionModule,
+    MenuModule,
+    MatCheckboxModule,
+    MatTooltipModule,
+    PreLoadingModule,
+  ],
 	providers: [ActiveTripsMapService, MapTripFormService, UserService],
 	exports: [MainScreenComponent, TripRegistrationComponent],
 })

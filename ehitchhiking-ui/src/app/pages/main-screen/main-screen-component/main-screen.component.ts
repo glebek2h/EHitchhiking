@@ -12,6 +12,7 @@ import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 import {ConfirmationModalComponent} from "@shared/modals/confirmation-modal/confirmation-modal.component";
 import {DEFAULT_MAT_DIALOG_CLASS, MAT_DIALOG_WIDTH_SM} from "@shared/constants/modal-constants";
 import {MatDialog} from "@angular/material";
+import {LoaderSize} from "@shared/enums/pre-loader-sizes";
 
 @Component({
 	selector: 'app-main-screen',
@@ -57,6 +58,8 @@ export class MainScreenComponent implements OnInit {
   activePassengerButton: boolean;
   activeDriverButton: boolean;
 	filterData;
+	loading: boolean;
+	loaderSize: LoaderSize = LoaderSize.Large;
 
 	startEndCoordinates: number[] = [];
 	sendFormData;
@@ -67,7 +70,7 @@ export class MainScreenComponent implements OnInit {
 
 	currentUser: User;
 
-  static readonly REMOVAL_CONFIRMATION_MESSAGE: string = 'Do you really want to complete this trip?';
+  static readonly CONFIRMATION_MESSAGE: string = 'Do you really want to complete this trip?';
 
 	private getCarsList(userId: string): Promise<any> {
 		return this.apiService.doGet(URL_REGISTRY.CAR.GET_ALL, false, {id: userId});
@@ -94,14 +97,17 @@ export class MainScreenComponent implements OnInit {
       autoFocus: false,
       width: MAT_DIALOG_WIDTH_SM,
       data: {
-        question: MainScreenComponent.REMOVAL_CONFIRMATION_MESSAGE,
+        question: MainScreenComponent.CONFIRMATION_MESSAGE,
         confirmButtonText: 'yes',
       },
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.toggleMapInterfaceToDefault();
-        this.mainScreenService.completeDriverTrip(this.idOfCompletedTrip).then((data)=>console.log(data));
+        this.loading = true;
+        this.mainScreenService.completeDriverTrip(this.idOfCompletedTrip).then(() => {
+          this.loading = false;
+        }).catch(() => this.loading = false);
       }
     });
   }
