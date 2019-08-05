@@ -11,6 +11,9 @@ import {ActiveTripsMapService} from '@shared/services/active-trips-map.service';
 import {UserService} from '@shared/services/user.service';
 import {CarInterface} from '@shared/interfaces/car-interface';
 import {URL_REGISTRY} from '@shared/constants/urlRegistry';
+import {ConfirmationModalComponent} from "@shared/modals/confirmation-modal/confirmation-modal.component";
+import {DEFAULT_MAT_DIALOG_CLASS, MAT_DIALOG_WIDTH_SM} from "@shared/constants/modal-constants";
+import {MatDialog} from "@angular/material";
 
 @Component({
 	selector: 'app-main-screen',
@@ -24,12 +27,14 @@ export class MainScreenComponent implements OnInit {
 		private mapTripFormService: MapTripFormService,
 		private activeTripsMapService: ActiveTripsMapService,
 		private userService: UserService,
-		private apiService: ApiService
+		private apiService: ApiService,
+    public dialog: MatDialog
 	) {
 		this.activeTripsMapService.getMainScreenInfo().subscribe(() => {
 			this.toggleMapInterfaceToDefault();
 			this.isDisabledMatToggleGroup = true;
 			this.isShownPlusButton = false;
+			this.isShownCompleteButton = true;
 		});
 	}
 
@@ -38,6 +43,7 @@ export class MainScreenComponent implements OnInit {
 	userState: UserState;
 	isSavedRoute: boolean;
 	isShownRoutesList: boolean;
+	isShownCompleteButton: boolean;
 	isShownViewRoutesButton: boolean;
 	isShownSaveRouteButton: boolean;
 	isDisabledSubmitRouteButton: boolean;
@@ -59,13 +65,8 @@ export class MainScreenComponent implements OnInit {
 	copyRoutes: Partial<Route>[] = [];
 
 	currentUser: User;
-	// TODO mock-data here because of empty cars data (need backend to fix this)
-	user: User = new User('1', 'Yana', 'Bernachkaya', '', 'hello@gmail.com', '+375291234567', [
-		new Car('ferrari', 'pink', 'A3434B', '1'),
-		new Car('lada', 'white', 'A3434B', '5'),
-		new Car('tayota', 'yellow', 'A3434B', '3'),
-		new Car('bmw', 'black', 'A3434B', '1'),
-	]);
+
+  static readonly REMOVAL_CONFIRMATION_MESSAGE: string = 'Do you really want to complete this trip?';
 
 	private getCarsList(userId: string): Promise<any> {
 		return this.apiService.doGet(URL_REGISTRY.CAR.GET_ALL, false, {id: userId});
@@ -86,6 +87,23 @@ export class MainScreenComponent implements OnInit {
 	openTripRegistrationForm(): void {
 		this.isHiddenTripRegistration = !this.isHiddenTripRegistration;
 	}
+  openConfirmationForm() {
+    const dialogRef = this.dialog.open(ConfirmationModalComponent, {
+      panelClass: DEFAULT_MAT_DIALOG_CLASS,
+      autoFocus: false,
+      width: MAT_DIALOG_WIDTH_SM,
+      data: {
+        question: MainScreenComponent.REMOVAL_CONFIRMATION_MESSAGE,
+        confirmButtonText: 'yes',
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.toggleMapInterfaceToDefault();
+
+      }
+    });
+  }
 
 	getData(data) {
 		this.sendFormData = data;
@@ -156,6 +174,7 @@ export class MainScreenComponent implements OnInit {
 		this.mapTriggers = {reset: true};
 		this.isDisabledMatToggleGroup = false;
 		this.isShownPlusButton = true;
+		this.isShownCompleteButton = false;
 	}
 
 	getIndexToDisplay(data) {

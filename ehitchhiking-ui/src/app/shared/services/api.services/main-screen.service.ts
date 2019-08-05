@@ -71,4 +71,5 @@ export class MainScreenService {
 			coordEnd: {x: route.coordEnd[0], y: route.coordEnd[1]}, // координата End водителя
 		});
 	}
+
 }

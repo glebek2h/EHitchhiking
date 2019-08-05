@@ -5,10 +5,11 @@
   z-index: 1
   background-color: $white
   height: 22.5rem
-  width: 26rem
+  width: $routes-list-width
   box-shadow: 0 0 9px rgba(0, 0, 0, 0.2)
   border-radius: 0.2rem
-  margin-left: calc(50% - 13rem)
+  text-align: center
+  margin-left: calc(50% - #{$routes-list-width / 2})
   bottom: 4rem
   position: fixed
   overflow-y: hidden
@@ -18,8 +19,6 @@
   .routes-list-p
     display: flex
     justify-content: space-between
-  .route-info
-    margin: $default-offset
     .material-icons
      font-size: $headline
   .right-span
