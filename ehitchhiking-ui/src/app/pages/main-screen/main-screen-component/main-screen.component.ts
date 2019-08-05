@@ -2,14 +2,12 @@ import {Component, OnInit} from '@angular/core';
 import {UserState} from '@shared/enums/UserState';
 import {YandexMapService} from '../yandex-map/yandex-map.service';
 import {User} from '@shared/models/user';
-import {Car} from '@shared/models/car';
 import {ApiService} from '@shared/services/api.services/api.service';
 import {Route} from '../Route';
 import {MainScreenService} from '@shared/services/api.services/main-screen.service';
 import {MapTripFormService} from '@shared/services/map-trip-form.service';
 import {ActiveTripsMapService} from '@shared/services/active-trips-map.service';
 import {UserService} from '@shared/services/user.service';
-import {CarInterface} from '@shared/interfaces/car-interface';
 import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 import {ConfirmationModalComponent} from "@shared/modals/confirmation-modal/confirmation-modal.component";
 import {DEFAULT_MAT_DIALOG_CLASS, MAT_DIALOG_WIDTH_SM} from "@shared/constants/modal-constants";
@@ -36,8 +34,11 @@ export class MainScreenComponent implements OnInit {
 			this.isShownPlusButton = false;
 			this.isShownCompleteButton = true;
 		});
+		this.activeTripsMapService.isDeleteCompleteButton().subscribe(() => this.isShownCompleteButton = false);
+		this.activeTripsMapService.getCompletedTrip().subscribe((id) => this.idOfCompletedTrip = id);
 	}
 
+	idOfCompletedTrip: number;
 	tripFormData: any; // TODO
 	isHiddenTripRegistration: boolean;
 	userState: UserState;
@@ -100,7 +101,7 @@ export class MainScreenComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.toggleMapInterfaceToDefault();
-
+        this.mainScreenService.completeDriverTrip(this.idOfCompletedTrip).then((data)=>console.log(data));
       }
     });
   }

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
 import {ActiveTrip} from './active-trip';
 import {UserState} from '@shared/enums/UserState';
 import {DEFAULT_MAT_DIALOG_CLASS, MAT_DIALOG_WIDTH_SM} from '@shared/constants/modal-constants';
@@ -15,10 +15,11 @@ export class ActiveTripComponent implements OnInit {
 	constructor(public dialog: MatDialog, public tripService: ActiveTripsModalService) {}
 	userState = UserState;
 
-	ngOnInit() {}
-
 	@Input() trip: ActiveTrip;
-	static readonly REMOVAL_CONFIRMATION_MESSAGE: string = 'Do you really want to decline this trip?';
+
+	ngOnInit(): void {}
+
+  static readonly REMOVAL_CONFIRMATION_MESSAGE: string = 'Do you really want to decline this trip?';
 
 	openConfirmationDialogRemoveActiveTrip(event: MouseEvent) {
 		const dialogRef = this.dialog.open(ConfirmationModalComponent, {
