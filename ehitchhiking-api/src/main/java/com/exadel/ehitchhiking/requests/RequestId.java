@@ -8,4 +8,6 @@ public class RequestId {
     private Integer id;
 
     private Boolean isBlocked;
+
+    private Float rate;
 }

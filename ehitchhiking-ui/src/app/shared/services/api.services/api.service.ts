@@ -98,15 +98,15 @@ export class ApiService {
 	): any {
 		return newResponse.pipe(
 			map((response: HttpResponse<any>) => {
-				const {msg, status, data} = response.body || response;
-				if (ResponseMessages.Error === status) {
-					if (isNotified) {
+				const {msg, msgType, data} = response.body || response;
+				if (ResponseMessages.Error === msgType) {
+					if (isNotified && msg) {
 						this.showResponseMessage(ResponseMessages.Error, msg);
 					}
 					return Promise.reject(msg);
 				}
-				if (ResponseMessages.Ok === status) {
-					if (isNotified) {
+				if (ResponseMessages.Ok === msgType) {
+					if (isNotified && msg) {
 						this.showResponseMessage(ResponseMessages.Ok, msg);
 					}
 					return data;

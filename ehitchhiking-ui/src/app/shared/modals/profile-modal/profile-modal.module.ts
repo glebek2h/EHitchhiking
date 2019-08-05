@@ -6,7 +6,7 @@ import {CommonModule} from '@angular/common';
 import {ProfileModalComponent} from './profile-modal.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatListModule} from '@angular/material/list';
-import {MatButtonModule, MatIconModule, MatInputModule} from '@angular/material';
+import {MatButtonModule, MatIconModule, MatInputModule, MatTooltipModule} from '@angular/material';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {NoDataModule} from '@shared/components/no-data/no-data.module';
@@ -26,6 +26,7 @@ import {UserService} from '@shared/services/user.service';
 		MatInputModule,
 		NoDataModule,
 		PreLoadingModule,
+		MatTooltipModule,
 	],
 	providers: [UserService, ProfileModalApiService],
 	entryComponents: [ProfileModalComponent],

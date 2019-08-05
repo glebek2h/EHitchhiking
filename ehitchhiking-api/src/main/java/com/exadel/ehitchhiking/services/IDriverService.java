@@ -18,7 +18,7 @@ public interface IDriverService {
 
     void deleteDriverId(int id);
 
-    void addPassToBL(int idTrip, int idPass);
+    void addPassToBL(int idTrip, int idPass, boolean isBlocked);
 
     void deletePassFromBL(int idEmp, int idPass);
 
