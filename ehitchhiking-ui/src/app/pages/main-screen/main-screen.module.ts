@@ -24,6 +24,7 @@ import {FiltersComponent} from './filters/filters.component';
 import {MapTripFormService} from '@shared/services/map-trip-form.service';
 import {UserService} from '@shared/services/user.service';
 import {ActiveTripsMapService} from '@shared/services/active-trips-map.service';
+import {YandexMapService} from "@pages/main-screen/yandex-map/yandex-map.service";
 @NgModule({
 	declarations: [
 		MainScreenComponent,
@@ -49,7 +50,7 @@ import {ActiveTripsMapService} from '@shared/services/active-trips-map.service';
 		MatCheckboxModule,
 		MatTooltipModule,
 	],
-	providers: [ActiveTripsMapService, MapTripFormService, UserService],
+	providers: [ActiveTripsMapService, MapTripFormService, UserService, YandexMapService],
 	exports: [MainScreenComponent, TripRegistrationComponent],
 })
 export class MainScreenModule {}

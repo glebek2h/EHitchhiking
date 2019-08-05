@@ -34,7 +34,8 @@ export class MainScreenComponent implements OnInit {
 	}
 
 	tripFormData: any; // TODO
-	isHiddenTripRegistration: boolean;
+	isReset: boolean;
+  isHidden: boolean;
 	userState: UserState;
 	isSavedRoute: boolean;
 	isShownRoutesList: boolean;
@@ -65,7 +66,6 @@ export class MainScreenComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.isHiddenTripRegistration = true;
 		this.isDisabledSubmitRouteButton = true;
 		this.userState = UserState.Passenger;
 		this.routes = YandexMapService.getSomeRoutes();
@@ -76,14 +76,15 @@ export class MainScreenComponent implements OnInit {
 		});
 	}
 
-	openTripRegistrationForm(): void {
-		this.isHiddenTripRegistration = !this.isHiddenTripRegistration;
+  openTripRegistrationForm(): void {
+	  this.isReset = true;
+		this.isHidden = !this.isHidden;
 	}
 
 	getData(data) {
 		this.sendFormData = data;
 		this.tripFormData = data;
-		this.isHiddenTripRegistration = true;
+		this.isHidden = true;
 		this.editStatePlusButton = true;
 		//this.mapTriggers = {reset: true}// TODO: be careful with this, don't delete
 	}
@@ -100,6 +101,7 @@ export class MainScreenComponent implements OnInit {
 	}
 	getPassengerTripData(data) {
 		this.sendFormData = data;
+    this.isHidden = true;
 	}
 
 	saveRoute() {
@@ -141,7 +143,8 @@ export class MainScreenComponent implements OnInit {
 	toggleMapInterfaceToDefault() {
 		this.editStatePlusButton = false;
 		this.isShownViewRoutesButton = false;
-		this.isHiddenTripRegistration = true;
+		this.isReset = false;
+		this.isHidden = true;
 		this.isSavedRoute = false;
 		this.isShownRoutesList = false;
 		this.isShownSaveRouteButton = false;
