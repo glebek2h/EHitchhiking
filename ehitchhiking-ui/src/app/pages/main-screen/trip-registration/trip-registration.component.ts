@@ -4,6 +4,7 @@ import {User} from '@shared/models/user';
 import {UserState} from '@shared/enums/UserState';
 import {MapTripFormService} from '@shared/services/map-trip-form.service';
 import {UserService} from '@shared/services/user.service';
+import {UtilsService} from '@shared/services/utils.service';
 
 @Component({
 	selector: 'app-trip-registration',
@@ -41,6 +42,8 @@ export class TripRegistrationComponent implements OnInit {
 	}
 
 	onSubmit() {
+		this.nameFormGroup.value.departureDate = UtilsService.setHoursToDate(this.nameFormGroup.value);
+
 		if (this.userState === UserState.Driver) {
 			this.formData.emit(this.nameFormGroup.value);
 		} else {

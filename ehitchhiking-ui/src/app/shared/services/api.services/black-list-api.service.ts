@@ -10,7 +10,7 @@ export class BlackListApiService {
 
 	mapBlackListUser(data: any): User[] {
 		return data.map((obj) => {
-			return new User(obj.id, obj.firstName, obj.lastName, '', obj.email, '', [
+			return new User(obj.id, `${obj.firstName}  ${obj.lastName}`, obj.lastName, '', obj.email, '', [
 				new Car('ferrari', 'pink', 'A3434B'),
 			]);
 		});
@@ -18,13 +18,13 @@ export class BlackListApiService {
 
 	getDriverBlacklist(params: GetBlockedUsersParams) {
 		return this.apiService
-			.doGet(URL_REGISTRY.BLACKLIST.GET_DRIVER_BLACKLIST, false, params)
+			.doGet(URL_REGISTRY.BLACKLIST.GET_DRIVER_BLACKLIST, false, params, false)
 			.then(this.mapBlackListUser);
 	}
 
 	getPassengerBlacklist(params: GetBlockedUsersParams) {
 		return this.apiService
-			.doGet(URL_REGISTRY.BLACKLIST.GET_PASSENGER_BLACKLIST, false, params)
+			.doGet(URL_REGISTRY.BLACKLIST.GET_PASSENGER_BLACKLIST, false, params, false)
 			.then(this.mapBlackListUser);
 	}
 

@@ -33,7 +33,7 @@ export class ActiveTripComponent implements OnInit {
 		});
 		dialogRef.afterClosed().subscribe((result) => {
 			if (result) {
-        const start = this.tripService.trips.findIndex((trip) => trip.id === this.trip.id);
+				const start = this.tripService.trips.findIndex((trip) => trip.id === this.trip.id);
 				this.tripService.trips.splice(start, 1);
 			}
 		});
