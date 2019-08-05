@@ -7,8 +7,8 @@ export const URL_REGISTRY = {
 	},
   ACTIVE_TRIPS: {
 	  GET: 'trips/active?id={{id}}',
-    DELETE_TRIP_DRIVER: 'trip_driver/remove_from_active',
-    DELETE_TRIP_PASSENGER: 'trip_passenger/remove_from_active'
+    DELETE_TRIP_DRIVER: 'trip_driver/cancelled_trip',
+    DELETE_TRIP_PASSENGER: 'trip_passenger/cancelled_trip'
   },
 	EMPLOYEE: {
 		GET: 'employee?id={{id}}',

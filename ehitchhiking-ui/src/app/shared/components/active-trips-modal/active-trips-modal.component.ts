@@ -4,7 +4,6 @@ import {MatDialogRef} from '@angular/material';
 import {NUMBER_OF_TRIPS_VISIBLE_ON_PAGE} from '@shared/constants/modal-constants';
 import {ActiveTripsApiService} from '@shared/services/api.services/active-trips.api.service';
 import {ActiveTrip} from '@shared/models/active-trip';
-import {_finally} from 'rxjs-compat/operator/finally';
 
 @Component({
 	selector: 'app-active-trips-modal',
@@ -14,9 +13,8 @@ import {_finally} from 'rxjs-compat/operator/finally';
 export class ActiveTripsModalComponent implements OnInit {
 	limit = NUMBER_OF_TRIPS_VISIBLE_ON_PAGE;
 	tripsArray = [];
-	tripsArrayLenght = 0;
 	loaderSize: LoaderSize = LoaderSize.Large;
-	loading = false;
+	loading = true;
 	scrollObserver: IntersectionObserver;
 	role = {roleField: 'role', isEnable: false};
 	selectedRole: number;
@@ -28,7 +26,7 @@ export class ActiveTripsModalComponent implements OnInit {
 
 	constructor(
 		public dialogRef: MatDialogRef<ActiveTripsModalComponent>,
-		private apiActiveTripsApiService: ActiveTripsApiService
+		private activeTripsApiService: ActiveTripsApiService
 	) {
 		this.scrollObserver = new IntersectionObserver(this.onScroll.bind(this), {
 			threshold: 1,
@@ -49,15 +47,13 @@ export class ActiveTripsModalComponent implements OnInit {
 	ngOnInit() {
 		this.scrollObserver.observe(this.markerRef.nativeElement);
 		this.fetchTrips();
-		this.tripsArrayLenght = this.tripsArray.length;
 	}
 
 	fetchTrips() {
 		this.loading = true;
-		this.apiActiveTripsApiService
+		this.activeTripsApiService
 			.getActiveTrips()
 			.then((data) => {
-				console.log(data);
 				this.tripsArray = data;
 			})
 			.finally(() => {

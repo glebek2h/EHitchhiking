@@ -5,10 +5,11 @@ import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 import {UserInfoTrip} from '@shared/models/user-info-trip';
 import {ActiveTrip} from '@shared/models/active-trip';
 import {UserService} from '@shared/services/user.service';
+import {UtilsService} from '@shared/services/utils.service';
 
 @Injectable()
 export class ActiveTripsApiService {
-	constructor(private apiService: ApiService, private userService: UserService) {}
+	constructor(private apiService: ApiService, private userService: UserService, private utilService: UtilsService) {}
 
 	mapActiveTrips(data: any): ActiveTrip[] {
 		if (!data) {
@@ -21,8 +22,8 @@ export class ActiveTripsApiService {
 				trip.startPoint,
 				trip.endPoint,
 				trip.role,
-				ActiveTripsApiService.parseDate(trip.startTime),
-				ActiveTripsApiService.parseTime(trip.startTime),
+				UtilsService.parseDate(trip.startTime),
+				UtilsService.parseTime(trip.startTime),
 				trip.seats,
 				false,
 				new UserInfoTrip(trip.driver.id, trip.driver.firstName, trip.driver.phone, trip.driver.email),
@@ -39,32 +40,24 @@ export class ActiveTripsApiService {
 			.catch(() => []);
 	}
 
-	removeTripPassenger(tripId: any): Promise<boolean> {
-		return this.sendRemoveRequestPassenger({id: tripId})
+	removeTripPassenger(tripId: number): Promise<boolean> {
+		return this.sendRemoveRequestPassenger(tripId)
 			.then((data) => data)
 			.catch(() => false);
 	}
 
-	private sendRemoveRequestPassenger(tripId: any): Promise<boolean> {
-		return this.apiService.doPut(URL_REGISTRY.ACTIVE_TRIPS.DELETE_TRIP_PASSENGER, tripId);
+	private sendRemoveRequestPassenger(tripId: number): Promise<boolean> {
+		return this.apiService.doPut(URL_REGISTRY.ACTIVE_TRIPS.DELETE_TRIP_PASSENGER, {id: tripId});
 	}
 
-	removeTripDriver(tripId: any): Promise<boolean> {
-		return this.sendRemoveRequestDriver({id: tripId})
+	removeTripDriver(tripId: number): Promise<boolean> {
+		return this.sendRemoveRequestDriver(tripId)
 			.then((data) => data)
 			.catch(() => false);
 	}
 
-	private sendRemoveRequestDriver(tripId: any): Promise<boolean> {
-		return this.apiService.doPut(URL_REGISTRY.ACTIVE_TRIPS.DELETE_TRIP_DRIVER, tripId);
-	}
-
-	private static parseDate(date: any): string {
-		return new Date(date * 1000).toLocaleDateString();
-	}
-
-	private static parseTime(date: any): string {
-		return new Date(date * 1000).toLocaleTimeString();
+	private sendRemoveRequestDriver(tripId: number): Promise<boolean> {
+		return this.apiService.doPut(URL_REGISTRY.ACTIVE_TRIPS.DELETE_TRIP_DRIVER, {id: tripId});
 	}
 
 	private static mapTripPassengers(data: any): UserInfoTrip[] {
