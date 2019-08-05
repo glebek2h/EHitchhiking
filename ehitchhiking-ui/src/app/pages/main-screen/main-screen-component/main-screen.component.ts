@@ -70,7 +70,7 @@ export class MainScreenComponent implements OnInit {
 
 	currentUser: User;
 
-  static readonly CONFIRMATION_MESSAGE: string = 'Do you really want to complete this trip?';
+  static readonly COMPLETE_CONFIRMATION_MESSAGE: string = 'Do you really want to complete this trip?';
 
 	private getCarsList(userId: string): Promise<any> {
 		return this.apiService.doGet(URL_REGISTRY.CAR.GET_ALL, false, {id: userId});
@@ -97,7 +97,7 @@ export class MainScreenComponent implements OnInit {
       autoFocus: false,
       width: MAT_DIALOG_WIDTH_SM,
       data: {
-        question: MainScreenComponent.CONFIRMATION_MESSAGE,
+        question: MainScreenComponent.COMPLETE_CONFIRMATION_MESSAGE,
         confirmButtonText: 'yes',
       },
     });
