@@ -59,13 +59,6 @@ export class MainScreenComponent implements OnInit {
 	copyRoutes: Partial<Route>[] = [];
 
 	currentUser: User;
-	// TODO mock-data here because of empty cars data (need backend to fix this)
-	user: User = new User('1', 'Yana', 'Bernachkaya', '', 'hello@gmail.com', '+375291234567', [
-		new Car('ferrari', 'pink', 'A3434B', '1'),
-		new Car('lada', 'white', 'A3434B', '5'),
-		new Car('tayota', 'yellow', 'A3434B', '3'),
-		new Car('bmw', 'black', 'A3434B', '1'),
-	]);
 
 	private getCarsList(userId: string): Promise<any> {
 		return this.apiService.doGet(URL_REGISTRY.CAR.GET_ALL, false, {id: userId});
