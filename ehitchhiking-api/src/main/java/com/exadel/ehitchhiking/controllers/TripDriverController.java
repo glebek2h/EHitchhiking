@@ -109,7 +109,7 @@ public class TripDriverController {
         } catch (Exception e) {
             return Response.setError("An error has occurred while adding the trip to active!");
         }
-        return Response.setSuccess("true", "The trip was successfully added to active!");
+        return Response.setSuccess("true", "The trip was successfully activated!");
     }
 
 

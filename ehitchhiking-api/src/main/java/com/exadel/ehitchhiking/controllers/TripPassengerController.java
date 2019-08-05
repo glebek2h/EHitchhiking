@@ -98,7 +98,7 @@ public class TripPassengerController {
         } catch (Exception e) {
             return Response.setError("An error has occurred while adding the trip to finished!");
         }
-        return Response.setSuccess("true", "The trip was successfully adding the trip to finished!");
+        return Response.setSuccess("true", "The trip was successfully added to finished!");
     }
 
     @PutMapping("/save")
@@ -144,7 +144,7 @@ public class TripPassengerController {
         } catch (Exception e) {
             return Response.setError("An error has occurred while adding the trip to active!");
         }
-        return Response.setSuccess("true", "The trip was successfully added to active!");
+        return Response.setSuccess("true", "The trip was successfully activated!");
     }
 
 
