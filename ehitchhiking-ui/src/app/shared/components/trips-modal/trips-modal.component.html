@@ -31,28 +31,7 @@
 				</mat-select>
 			</mat-form-field>
 
-			<mat-form-field class="filter-width">
-				<mat-label>Rating</mat-label>
-				<mat-select [formControl]="ratings" multiple>
-					<mat-option
-						(click)="filterByRating()"
-						*ngFor="let rate of tripsModalService.ratesTrip"
-						[value]="rate.value"
-						>{{ rate.viewValue }}</mat-option
-					>
-				</mat-select>
-			</mat-form-field>
-
 			<mat-slide-toggle [(ngModel)]="selectedFavorite">Favorite trips</mat-slide-toggle>
-			<button [ngSwitch]="selectedBySort" (click)="ChangeSort()" class="modal-close-control-btn" mat-icon-button>
-				<mat-icon *ngSwitchCase="0" title="not sort">
-					call_split
-				</mat-icon>
-				<mat-icon *ngSwitchCase="1" title="ASC"> call_made</mat-icon>
-				<mat-icon *ngSwitchCase="2" title="DESC">
-					call_received
-				</mat-icon>
-			</button>
 		</div>
 	</mat-expansion-panel>
 
@@ -71,7 +50,6 @@
 						: tripsModalService.ratingFilterConfig.fieldName
 						: tripsModalService.ratingFilterConfig.selected
 						: tripsModalService.ratingFilterConfig.isEnabled
-					| sortTrips: 'rating':order
 					| slice: 0:limit;
 				trackBy: trackById
 			"
