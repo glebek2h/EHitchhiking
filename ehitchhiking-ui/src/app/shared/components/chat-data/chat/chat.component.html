@@ -4,12 +4,6 @@
 	</header>
 
 	<div class="chat" *ngIf="showChat">
-		<app-no-data
-			[isEmpty]="!loading && msgList && !msgList.length"
-			[size]="noDataSize"
-			[message]="noDataMessage"
-			[icon]="noDataIconName"
-		></app-no-data>
 		<div class="message-zone" #scrollMe [scrollTop]="scrollMe.scrollHeight">
 			<app-no-data
 				[isEmpty]="!loading && msgList && !msgList.length"
@@ -49,7 +43,6 @@
 	<div class="modal-back" (click)="showContent()" *ngIf="showChat">
 		<button class="modal-back-btn" mat-icon-button>
 			<mat-icon>arrow_back_ios</mat-icon>
-			<p class="btn-text">Back</p>
 		</button>
 	</div>
 	<div class="modal-close-control">
