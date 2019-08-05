@@ -28,9 +28,7 @@ public class BlackListsController {
     public Response addPassToBL(@RequestBody RequestBlackList BL) {
         try {
             for (RequestId it : BL.getData()){
-                if (it.getIsBlocked()){
-                    driverService.addPassToBL(BL.getIdTrip(), it.getId());
-                }
+                    driverService.addPassToBL(BL.getIdTrip(), it.getId(), it.getIsBlocked() );
             }
         } catch (Exception e) {
             return Response.setError("error");
@@ -42,15 +40,15 @@ public class BlackListsController {
     public Response addDriverToBL(@RequestBody RequestBlackList BL) {
         try {
             for (RequestId it : BL.getData()){
-                if (it.getIsBlocked()){
-                    passengerService.addDriverToBL(BL.getIdTrip(), it.getId());
-                }
+                    passengerService.addDriverToBL(BL.getIdTrip(), it.getId(), it.getIsBlocked());
+
             }
         } catch (Exception e) {
             return Response.setError("error");
         }
         return Response.setSuccess("true", "Successfully added to the black list");
     }
+
 
     // deleting the passenger from the black list driver
     @DeleteMapping("/passenger")
@@ -96,3 +94,39 @@ public class BlackListsController {
         return Response.setSuccess(drivers, "Successfully got black list");
     }
 }
+
+/*
+
+
+    @PostMapping("/driver")
+    public Response<String> addPassToBlackListDriver(String idDriver, String idPass) {
+        Response<String> response = new Response<>();
+        try {
+            driverService.addPassToBL(Integer.parseInt(idDriver), Integer.parseInt(idPass));
+        } catch (Exception e) {
+            response.setStatus("500");
+            response.setData("false");
+            return response;
+        }
+        response.setStatus("200");
+        response.setData("true");
+        return response;
+    }
+
+
+    @PostMapping("/passenger")
+    public Response<String> addDriverToBlackListPass(String idPass, String idDriver) {
+        Response<String> response = new Response<>();
+        try {
+            passengerService.addDriverToBL(Integer.parseInt(idPass), Integer.parseInt(idDriver));
+        } catch (Exception e) {
+            response.setStatus("500");
+            response.setData("false");
+            return response;
+        }
+        response.setStatus("200");
+        response.setData("true");
+        return response;}
+
+
+*/

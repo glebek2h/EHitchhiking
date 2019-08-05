@@ -1,7 +1,11 @@
 import {Injectable} from '@angular/core';
 import {NotificationComponent} from '@shared/components/notification/notification.component';
 import {NotificationTypes} from '@shared/enums/notification-types.enum';
-import {MAT_SNACK_HORIZONTAL_POSITION, DEFAULT_MAT_SNACK_CLASS} from '@shared/constants/modal-constants';
+import {
+	MAT_SNACK_HORIZONTAL_POSITION,
+	DEFAULT_MAT_SNACK_CLASS,
+	MAT_SNACK_VERTICAL_POSITION,
+} from '@shared/constants/modal-constants';
 import {MatSnackBarConfig, MatSnackBar} from '@angular/material';
 
 @Injectable()
@@ -48,6 +52,7 @@ export class NotificationService {
 		config.data = {message: notificationMessage, type: notificationType};
 		config.duration = NotificationService.notificationDuration;
 		config.horizontalPosition = MAT_SNACK_HORIZONTAL_POSITION;
+		config.verticalPosition = MAT_SNACK_VERTICAL_POSITION;
 		config.panelClass = [this.returnClass(notificationType), DEFAULT_MAT_SNACK_CLASS];
 		return config;
 	}

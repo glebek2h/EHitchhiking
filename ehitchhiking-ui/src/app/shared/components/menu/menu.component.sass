@@ -8,32 +8,32 @@
   position: fixed
   top: 0
   background-color: $white
-
+  &-opened
+    width: 20rem
+  .menu-opened
+    width: 100%
   .header
-    display: flex
-    align-content: center
-    justify-content: space-between
-    margin-top: $default-offset
-    padding-right: $default-offset * 0.5
+    @include flexbox(space-between)
+    position: relative
+    padding:
+      right: $default-offset
+      top: $default-offset
+      bottom: $default-offset
     &-span 
-      flex-grow: 2
+      flex: 1
       text-align: center
-      font-size: $headline
-      margin: 0
+      display: inline-block
+      font-size: $subheading-1
+      padding:
+        left: $default-offset
     &-button
-      position: relative
-      @include flexbox()
-      &-icon
-        height: 100%
-        width: 100%
-        font-size: $display-3
+      @include flexbox()   
     .account-icon
-      padding-left:  $default-offset * 0.5
-    > *
-      display: flex
-      align-items: center
-      justify-content: center
-      
+      font-size: $display-3 
+      margin-right: $default-offset
+    .close-icon
+      margin-top: $default-offset / 2
+      font-size: $title
   .buttons
     .li-buttons
       display: block
@@ -49,12 +49,8 @@
       width: 80%
       color: mat-color($accent)
   .footer-meta
-    .footer-p
-      margin:  $default-offset * 0.5
-      .footer-a
-        display: block
-    .footer-date
-      margin: 25%
+    width: 100%
+    @include flexbox()
   .toggle-button
     margin-top:  $default-offset * 3.5
     padding: 0

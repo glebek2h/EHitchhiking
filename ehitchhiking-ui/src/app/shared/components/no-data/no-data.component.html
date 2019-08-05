@@ -1,5 +1,5 @@
 <div class="no-data-wrapper" *ngIf="isEmpty">
-	<div class="no-data-block" [ngClass]="defineSize(size)">
+	<div class="no-data-block" [ngClass]="defineSize(size, isBackgroud)">
 		<i class="material-icons">
 			{{ this.icon || this.defaultIcon }}
 		</i>
