@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {User} from '@shared/models/user';
 import {UserState} from '@shared/enums/UserState';
 import {UserService} from '@shared/services/user.service';
+import {UtilsService} from '@shared/services/utils.service';
 import {YandexMapService} from "@pages/main-screen/yandex-map/yandex-map.service";
 
 @Component({
@@ -53,7 +54,7 @@ export class TripRegistrationComponent implements OnInit, AfterViewInit {
 	}
 
 	onSubmit() {
-    this.nameFormGroup.reset();
+		this.nameFormGroup.value.departureDate = UtilsService.setHoursToDate(this.nameFormGroup.value);
 		if (this.userState === UserState.Driver) {
 			this.formData.emit(this.nameFormGroup.value);
 		} else {

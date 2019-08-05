@@ -59,12 +59,8 @@ export class YandexMapService {
 			contentHeader: 'Info about route',
 			contentBody:
 				'<p>' +
-				'<span>Departure time: </span>' +
-				data.departureTime +
-				'</p>' +
-				'<p>' +
 				'<span>Departure date: </span>' +
-				UtilsService.formatDate(data.departureDate) +
+				UtilsService.formatDate(new Date(data.departureDate)) +
 				'</p>' +
 				'<p>' +
 				'<span>Places: </span>' +
@@ -76,7 +72,11 @@ export class YandexMapService {
 				'</p>' +
 				'<p>' +
 				'<span>Car: </span>' +
+				data.car.color +
+				' ' +
 				data.car.model +
+				' ' +
+				data.car.number +
 				'</p>',
 		};
 	}

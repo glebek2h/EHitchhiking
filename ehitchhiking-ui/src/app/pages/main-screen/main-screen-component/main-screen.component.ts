@@ -82,7 +82,7 @@ export class MainScreenComponent implements OnInit {
 	getData(data) {
 		this.sendFormData = data;
 		this.tripFormData = data;
-		this.isHiddenTripRegistration = true;
+		this.isHiddenTripRegistration = false;
 		this.editStatePlusButton = true;
 		//this.mapTriggers = {reset: true}// TODO: be careful with this, don't delete
 	}
@@ -99,6 +99,7 @@ export class MainScreenComponent implements OnInit {
 	}
 	getPassengerTripData(data) {
 		this.sendFormData = data;
+    this.isHiddenTripRegistration = false;
 	}
 
 	saveRoute() {

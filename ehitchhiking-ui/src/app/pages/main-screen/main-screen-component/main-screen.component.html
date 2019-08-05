@@ -20,12 +20,12 @@
 	(isShownSaveRouteButton)="setIsShownSaveRouteButtonFlag($event)"
 	(passengerFormData)="getPassengerTripData($event)"
 	[userState]="userState"
-  [currentUser]="currentUser"
+	[currentUser]="currentUser"
 ></app-trip-registration>
 <app-routes-list
 	*ngIf="isShownRoutesList"
 	[activeRoutesCollection]="routes"
-  [tripData]="tripFormData"
+	[tripData]="tripFormData"
 	[passengersCoords]="passengerCoordinates"
 	(routeToDisplay)="getIndexToDisplay($event)"
 	(formData)="getFilterData($event)"

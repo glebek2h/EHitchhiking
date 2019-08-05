@@ -212,10 +212,25 @@ export class YandexMapComponent implements OnInit, OnChanges {
 			.catch((error) => console.log('Failed to load Yandex Maps', error));
 	}
 
+	updateTripPoints(multiRoute, data) {
+		const coordinates = multiRoute.model.getReferencePoints();
+		this.ymapsPromise.then((maps) => {
+			maps.geocode(coordinates[0]).then((res) => {
+				const firstGeoObject = res.geoObjects.get(0);
+				data.from = firstGeoObject.getAddressLine();
+			});
+			maps.geocode(coordinates[1]).then((res) => {
+				const firstGeoObject = res.geoObjects.get(0);
+				data.to = firstGeoObject.getAddressLine();
+			});
+		});
+	}
+
 	setInfoAboutRoute(multiRoute, data: Partial<Route>) {
 		multiRoute.events.add('update', (e) => {
 			const activeRoute = multiRoute.getActiveRoute();
 			data.tripDuration = activeRoute.properties.get('duration').text;
+			this.updateTripPoints(multiRoute, data);
 			const arr = activeRoute.properties.get('distance').text.split(' ');
 			data.distance = +arr[0];
 

@@ -9,3 +9,5 @@ export const MAT_DIALOG_WIDTH_LG = '55rem';
 export const MAT_DIALOG_HEIGHT_SM = '16rem';
 export const DELETE_ROUTE_MARKER = -1;
 export const NUMBER_OF_TRIPS_VISIBLE_ON_PAGE = 4;
+export const MIDNIGHT = 'am';
+export const HALF_DAY = 12;
