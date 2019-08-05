@@ -105,9 +105,9 @@ export class MainScreenComponent implements OnInit {
       if (result) {
         this.toggleMapInterfaceToDefault();
         this.loading = true;
-        this.mainScreenService.completeDriverTrip(this.idOfCompletedTrip).then(() => {
+        this.mainScreenService.completeDriverTrip(this.idOfCompletedTrip).finally(() => {
           this.loading = false;
-        }).catch(() => this.loading = false);
+        });
       }
     });
   }
