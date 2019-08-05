@@ -5,8 +5,7 @@ import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 import {UserInfoTrip} from '@shared/models/user-info-trip';
 import {ActiveTrip} from '@shared/models/active-trip';
 import {UserService} from '@shared/services/user.service';
-import { RequestCar } from "@shared/models/request.car";
-import { CarInterface } from "@shared/interfaces/car-interface";
+
 
 @Injectable()
 export class ActiveTripsApiService {
@@ -18,6 +17,7 @@ export class ActiveTripsApiService {
 		}
 
 		return data.map((trip) => {
+
 			return new ActiveTrip(
 				trip.idTrip,
 				trip.startPoint,
@@ -29,7 +29,7 @@ export class ActiveTripsApiService {
 				false,
 				new UserInfoTrip(trip.driver.id, trip.driver.firstName, trip.driver.phone, trip.driver.email),
 				new Car(trip.car.id, trip.car.model, trip.car.color, trip.car.number),
-				[new UserInfoTrip(trip.passList.id, trip.passList.firstName, trip.passList.phone, trip.passList.email)]
+        ActiveTripsApiService.mapTripPassengers(trip.passList),
 			);
 		});
 	}
@@ -62,10 +62,19 @@ export class ActiveTripsApiService {
   }
 
   private static parseDate(date: any): string {
-    return new Date(date ).toLocaleDateString();
+    return new Date(date *1000).toLocaleDateString();
   }
 
   private static parseTime(date: any): string {
-    return new Date(date ).toLocaleTimeString();
+    return new Date(date *1000).toLocaleTimeString();
+  }
+
+  private static mapTripPassengers(data: any): UserInfoTrip[]{
+    if(!data){
+      return [];
+    }
+    return data.map((passenger)=>{
+      return new UserInfoTrip(passenger.id, passenger.firstName, passenger.phone, passenger.email);
+    });
   }
 }

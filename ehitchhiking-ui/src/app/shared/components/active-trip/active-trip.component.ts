@@ -3,7 +3,6 @@ import { UserState } from "@shared/enums/UserState";
 import { DEFAULT_MAT_DIALOG_CLASS, MAT_DIALOG_WIDTH_SM } from "@shared/constants/modal-constants";
 import { MatDialog } from "@angular/material";
 import { ConfirmationModalComponent } from "@shared/modals/confirmation-modal/confirmation-modal.component";
-import { ActiveTripsModalService } from "@shared/components/active-trips-modal/active-trips-modal.service";
 import { ActiveTrip } from "@shared/models/active-trip";
 import { ActiveTripsApiService } from "@shared/services/api.services/active-trips.api.service";
 
@@ -13,7 +12,7 @@ import { ActiveTripsApiService } from "@shared/services/api.services/active-trip
 	styleUrls: ['./active-trip.component.sass'],
 })
 export class ActiveTripComponent implements OnInit {
-	constructor(public dialog: MatDialog, public tripService: ActiveTripsModalService, public apiService: ActiveTripsApiService) {}
+	constructor(public dialog: MatDialog, public apiService: ActiveTripsApiService) {}
 	userState = UserState;
 
 	ngOnInit() {}

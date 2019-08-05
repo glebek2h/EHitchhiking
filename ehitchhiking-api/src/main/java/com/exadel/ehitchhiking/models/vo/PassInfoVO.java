@@ -14,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class PassInfoVO {
 
+    private int id;
     private String firstName;
     private String lastName;
     private String email;
@@ -25,6 +26,7 @@ public class PassInfoVO {
 
     public static PassInfoVO fromEntity(TripPass tripPass) {
         return new PassInfoVO(
+                EmployeeVO.fromEntity(tripPass.getPassenger().getEmployee()).getId(),
                 EmployeeVO.fromEntity(tripPass.getPassenger().getEmployee()).getFirstName(),
                 EmployeeVO.fromEntity(tripPass.getPassenger().getEmployee()).getLastName(),
                 EmployeeVO.fromEntity(tripPass.getPassenger().getEmployee()).getEmail(),

@@ -1,7 +1,6 @@
 import {Component, ElementRef,OnInit, ViewChild} from '@angular/core';
 import {LoaderSize} from '../../enums/pre-loader-sizes';
 import {MatDialogRef} from '@angular/material';
-import {ActiveTripsModalService} from './active-trips-modal.service';
 import {NUMBER_OF_TRIPS_VISIBLE_ON_PAGE} from '@shared/constants/modal-constants';
 import { ActiveTripsApiService } from "@shared/services/api.services/active-trips.api.service";
 import { ActiveTrip } from "@shared/models/active-trip";
@@ -10,7 +9,6 @@ import { ActiveTrip } from "@shared/models/active-trip";
 	selector: 'app-active-trips-modal',
 	templateUrl: './active-trips-modal.component.html',
 	styleUrls: ['./active-trips-modal.component.sass'],
-	providers: [ActiveTripsModalService],
 })
 export class ActiveTripsModalComponent implements OnInit {
 	limit = NUMBER_OF_TRIPS_VISIBLE_ON_PAGE;
@@ -29,7 +27,6 @@ export class ActiveTripsModalComponent implements OnInit {
 
 	constructor(
 		public dialogRef: MatDialogRef<ActiveTripsModalComponent>,
-		private tripService: ActiveTripsModalService,
     private apiActiveTripsApiService: ActiveTripsApiService
 	) {
 		this.scrollObserver = new IntersectionObserver(this.onScroll.bind(this), {
@@ -49,20 +46,16 @@ export class ActiveTripsModalComponent implements OnInit {
 	}
 
 	ngOnInit() {
-
 		this.scrollObserver.observe(this.markerRef.nativeElement);
-		this.tripsArrayLenght = this.tripService.getTrips().length;
 		this.fetchTrips();
+    this.tripsArrayLenght = this.tripsArray.length;
 	}
 
 	fetchTrips() {
-		//this.tripsArray = this.tripService.getTrips();
     this.apiActiveTripsApiService.getActiveTrips().then(
       (data) => {
+        console.log(data);
         this.tripsArray = data;
-        console.log("data");
-        console.log(this.tripsArray);
-
       }
     );
 	}
