@@ -1,6 +1,4 @@
 import {UserService} from '@shared/services/user.service';
-import {URL_REGISTRY} from '@shared/constants/urlRegistry';
-import {ApiService} from '@shared/services/api.services/api.service';
 import {AuthorizationService} from './../../services/authorization.service';
 import {Component, OnInit} from '@angular/core';
 import {BUTTONS_NAMES} from './buttons-names';
@@ -12,7 +10,6 @@ import {TripsModalComponent} from '../trips-modal/trips-modal.component';
 import {ChatComponent} from '@shared/components/chat-data/chat/chat.component';
 import {NotificationService} from '@shared/services/notification.service';
 import {ActiveTripsModalComponent} from '@shared/components/active-trips-modal/active-trips-modal.component';
-import {RatePassengersModalComponent} from '@shared/components/rate-passengers-modal/rate-passengers-modal.component';
 import {User} from '@shared/models/user';
 @Component({
 	selector: 'app-menu',
