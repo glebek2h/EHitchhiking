@@ -38,9 +38,6 @@ public class EmployeeController {
         EmployeeVO employee;
         try {
             employee = employeeService.findUserById(id);
-            List<String> emailList = new ArrayList<>();
-            emailList.add("alexey.chernyakov00@gmail.com");
-            emailSender.sendingEmail(emailList, "Employee retrieved", "Employee was retrieved. To view the details, please, go to Ehitchhiking.com");
         } catch (Exception e) {
             System.out.println(e);
             return Response.setError("An error has occurred while retrieving the employee's info!");
