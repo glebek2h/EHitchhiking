@@ -14,7 +14,7 @@ import {ApiService} from '@shared/services/api.services/api.service';
 	styleUrls: ['./blacklist.component.sass'],
 })
 export class BlacklistComponent implements OnInit {
-	empId = this.userService.getCurrentUser().id;
+	private empId = this.userService.getCurrentUser().id;
 	loaderSize: LoaderSize = LoaderSize.Large;
 	noDataSize: NoDataSize = NoDataSize.Small;
 	noDataMessage = 'No users!';
