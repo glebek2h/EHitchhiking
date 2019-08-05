@@ -7,7 +7,9 @@ import com.exadel.ehitchhiking.daos.IPassengerDAO;
 import com.exadel.ehitchhiking.daos.ITripDriverDAO;
 import com.exadel.ehitchhiking.models.Driver;
 
+import com.exadel.ehitchhiking.models.Passenger;
 import com.exadel.ehitchhiking.models.vo.PassengerVO;
+import com.exadel.ehitchhiking.requests.RequestId;
 import com.exadel.ehitchhiking.services.IDriverService;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,11 +71,22 @@ public class DriverService implements IDriverService {
     }
 
     @Override
-    public void addPassToBL(int idTrip, int idPass, boolean isBlocked) {
-        if (isBlocked){
+    public void addPassToBL(int idTrip, List<RequestId> list) {
+//        if (isBlocked) {
+//            Driver driver = tripDriverDAO.getTripDriver(idTrip).getCar().getDriver();
+//            driver.getPassengers().add(passengerDAO.getPassenger(idPass));
+//            dao.saveOrUpdate(driver);
+//        }
         Driver driver = tripDriverDAO.getTripDriver(idTrip).getCar().getDriver();
-        driver.getPassengers().add(passengerDAO.getPassenger(idPass));
-        dao.saveOrUpdate(driver);}
+        for (RequestId it : list){
+            if (it.getIsBlocked()){
+                Passenger passenger = passengerDAO.getPassenger(it.getId());
+                if (!driver.getPassengers().contains(passenger)) {
+                    driver.getPassengers().add(passenger);
+                    dao.saveOrUpdate(driver);
+                }
+            }
+        }
     }
 
     @Override
