@@ -49,7 +49,6 @@ export class TripComponent implements OnInit {
   openRatePassengersDialog() {
     this.dialog.open(RatePassengersModalComponent, {
       width: MAT_DIALOG_WIDTH_SM,
-      height: MAT_DIALOG_HEIGHT_SM,
       panelClass: DEFAULT_MAT_DIALOG_CLASS,
       autoFocus: false,
       data: {
