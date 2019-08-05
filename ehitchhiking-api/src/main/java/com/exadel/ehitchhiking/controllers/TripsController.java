@@ -31,7 +31,7 @@ public class TripsController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess(list, "Successfully  history");
+        return Response.setSuccess(list, "The history was successfully retrieved!");
     }
 
     @DeleteMapping("/history")
@@ -41,7 +41,7 @@ public class TripsController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true", "Successfully refresh history");
+        return Response.setSuccess("true", "The history was successfully refreshed!");
 
     }
 
@@ -53,6 +53,6 @@ public class TripsController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess(list, "Successfully got active");
+        return Response.setSuccess(list, "Active trips were successfully retrieved!");
     }
 }

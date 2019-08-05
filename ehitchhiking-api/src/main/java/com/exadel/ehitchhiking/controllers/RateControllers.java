@@ -42,7 +42,7 @@ public class RateControllers {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true", "Success");
+        return Response.setSuccess("true", "The passenger was successfully rated!");
     }
 
 
