@@ -40,7 +40,7 @@ public class RateControllers {
                 }
             }
         } catch (Exception e) {
-            return Response.setError("error");
+            return Response.setError("An error has occurred while rating the passenger!");
         }
         return Response.setSuccess("true", "The passenger was successfully rated!");
     }
@@ -55,9 +55,9 @@ public class RateControllers {
                 }
             }
         } catch (Exception e) {
-            return Response.setError("error");
+            return Response.setError("An error has occurred while rating the driver!");
         }
-        return Response.setSuccess("true", "Success");
+        return Response.setSuccess("true", "The driver was successfully rated!");
     }
 
     @GetMapping("/get_driver")
@@ -66,9 +66,9 @@ public class RateControllers {
         try {
             driver = tripPassengerService.findIdDriver(id);
         } catch (Exception e) {
-            return Response.setError("error");
+            return Response.setError("An error has occurred while retrieving the driver!");
         }
-        return Response.setSuccess(driver, "Success");
+        return Response.setSuccess(driver, "The driver info was successfully retrieved!");
 
     }
 
@@ -78,9 +78,9 @@ public class RateControllers {
         try {
             passenger = tripDriverService.getPassengers(id);
         } catch (Exception e) {
-            return Response.setError("error");
+            return Response.setError("An error has occurred while retrieving the passenger!");
         }
-        return Response.setSuccess(passenger, "Success");
+        return Response.setSuccess(passenger, "The passengers info was successfully retrieved!");
     }
 
 }

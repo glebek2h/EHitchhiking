@@ -29,7 +29,7 @@ public class TripDriverController {
                     tripDriver.getIdOfCar(),
                     tripDriver.getSeats(), tripDriver.getCoordStart(), tripDriver.getCoordEnd(), tripDriver.getDistance());
         } catch (Exception e) {
-            return Response.setError("error");
+            return Response.setError("An error has occurred while creating the trip!");
         }
         return Response.setSuccess("true", "The trip was successfully created!");
     }
@@ -43,7 +43,7 @@ public class TripDriverController {
                     tripDriver.getSeats(), tripDriver.getIdOfCar(), tripDriver.getCoordStart(), tripDriver.getCoordEnd(),
                     tripDriver.getDistance());
         } catch (Exception e) {
-            return Response.setError("error");
+            return Response.setError("An error has occurred while updating the trip!");
         }
         return Response.setSuccess("true", "The trip was successfully updated!");
     }
@@ -54,7 +54,7 @@ public class TripDriverController {
         try {
             updatedTrip = tripDriverService.updateSave(trip.getId(), true);
         } catch (Exception e) {
-            return Response.setError("error");
+            return Response.setError("An error has occurred while adding the trip to favorite!");
         }
         return Response.setSuccess(updatedTrip, "The trip was successfully added to favorite!");
 
@@ -66,7 +66,7 @@ public class TripDriverController {
         try {
             updatedTrip = tripDriverService.updateSave(trip.getId(), false);
         } catch (Exception e) {
-            return Response.setError("error");
+            return Response.setError("An error has occurred while removing the trip from favorite!");
         }
         return Response.setSuccess(updatedTrip, "The trip was successfully removed from favorite!");
 
@@ -77,7 +77,7 @@ public class TripDriverController {
         try {
             tripDriverService.deleteFromHistory(tripDriver.getId(), false);
         } catch (Exception e) {
-            return Response.setError("error");
+            return Response.setError("An error has occurred while removing the trip from history!");
         }
         return Response.setSuccess("true", "The trip was successfully removed from history!");
     }
@@ -87,7 +87,7 @@ public class TripDriverController {
         try {
             tripDriverService.updateFinished(tripDriver.getId(), false);
         } catch (Exception e) {
-            return Response.setError("error");
+            return Response.setError("An error has occurred while cancelling trip!");
         }
         return Response.setSuccess("true", "The trip was successfully cancelled!");
     }
@@ -97,7 +97,7 @@ public class TripDriverController {
         try {
             tripDriverService.updateFinished(tripDriver.getId(), true);
         } catch (Exception e) {
-            return Response.setError("error");
+            return Response.setError("An error has occurred while adding trips from finished!");
         }
         return Response.setSuccess("true", "The trip was successfully finished!");
     }
@@ -107,9 +107,9 @@ public class TripDriverController {
         try {
             tripDriverService.updateActive(tripDriver.getId(), true);
         } catch (Exception e) {
-            return Response.setError("error");
+            return Response.setError("An error has occurred while adding the trip to active!");
         }
-        return Response.setSuccess("true", "Success");
+        return Response.setSuccess("true", "The trip was successfully added to active!");
     }
 
 
@@ -118,9 +118,9 @@ public class TripDriverController {
         try {
             tripDriverService.updateActive(tripDriver.getId(), false);
         } catch (Exception e) {
-            return Response.setError("error");
+            return Response.setError("An error has occurred while removing the trip from active!");
         }
-        return Response.setSuccess("true", "Success");
+        return Response.setSuccess("true", "The trip was successfully removed from active!");
     }
 
 }

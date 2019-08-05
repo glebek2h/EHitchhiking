@@ -29,7 +29,7 @@ public class TripsController {
             list = trips.getAllHistory(id);
 
         } catch (Exception e) {
-            return Response.setError("error");
+            return Response.setError("An error has occurred while retrieving the history!");
         }
         return Response.setSuccess(list, "The history was successfully retrieved!");
     }
@@ -39,7 +39,7 @@ public class TripsController {
         try {
             trips.refreshHistory(Integer.parseInt(id));
         } catch (Exception e) {
-            return Response.setError("error");
+            return Response.setError("An error has occurred while refreshing the history!");
         }
         return Response.setSuccess("true", "The history was successfully refreshed!");
 
@@ -51,7 +51,7 @@ public class TripsController {
         try {
             list = trips.getAllActive(id);
         } catch (Exception e) {
-            return Response.setError("error");
+            return Response.setError("An error has occurred while retrieving the active!");
         }
         return Response.setSuccess(list, "Active trips were successfully retrieved!");
     }

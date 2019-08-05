@@ -41,7 +41,7 @@ public class TripPassengerController {
                 return Response.setError("no available seats");
             }
         } catch (Exception e) {
-            return Response.setError("error");
+            return Response.setError("An error has occurred while creating the trip!");
         }
         return Response.setSuccess("true", "The trip was successfully created!");
     }
@@ -54,7 +54,7 @@ public class TripPassengerController {
                     tripPass.getStartingPoint(), tripPass.getEndingPoint(), tripPass.getSeats(),
                     tripPass.getCoordStart(), tripPass.getCoordEnd(), tripPass.getDistance());
         } catch (Exception e) {
-            return Response.setError("error");
+            return Response.setError("An error has occurred while updating the trip!");
         }
         return Response.setSuccess("true", "The trip was successfully updated!");
     }
@@ -65,7 +65,7 @@ public class TripPassengerController {
         try {
             tripPassengerService.updateHistory(tripPass.getId(), true);
         } catch (Exception e) {
-            return Response.setError("error");
+            return Response.setError("An error has occurred while adding the trip to history!");
         }
         return Response.setSuccess("true", "Successfully added to history");
     }
@@ -76,7 +76,7 @@ public class TripPassengerController {
         try {
             tripPassengerService.updateHistory(tripPass.getId(), false);
         } catch (Exception e) {
-            return Response.setError("error");
+            return Response.setError("An error has occurred while removing the trip from history!");
         }
         return Response.setSuccess("true", "Successfully removed from history");
     }
@@ -86,7 +86,7 @@ public class TripPassengerController {
         try {
             tripPassengerService.updateFinished(tripPass.getId(), false);
         } catch (Exception e) {
-            return Response.setError("error");
+            return Response.setError("An error has occurred while cancelling the trip!");
         }
         return Response.setSuccess("true", "Successfully cancelled the trip");
     }
@@ -96,7 +96,7 @@ public class TripPassengerController {
         try {
             tripPassengerService.updateFinished(tripPass.getId(), true);
         } catch (Exception e) {
-            return Response.setError("error");
+            return Response.setError("An error has occurred while removing the trip from finished!");
         }
         return Response.setSuccess("true", "Successfully finished the trip");
     }
@@ -107,7 +107,7 @@ public class TripPassengerController {
         try {
            updatedTrip = tripPassengerService.updateSave(trip.getId(), true);
         } catch (Exception e) {
-            return Response.setError("Failed adding to saved");
+            return Response.setError("An error has occurred while adding the trip to favorite!");
         }
         return Response.setSuccess(updatedTrip, "The trip was successfully added to favorite!");
 
@@ -119,7 +119,7 @@ public class TripPassengerController {
         try {
             updatedTrip = tripPassengerService.updateSave(trip.getId(), false);
         } catch (Exception e) {
-            return Response.setError("error");
+            return Response.setError("An error has occurred while removing the trip from favorite");
         }
         return Response.setSuccess(updatedTrip, "The trip was successfully removed from favorite!");
     }
@@ -132,7 +132,7 @@ public class TripPassengerController {
             tripDriverVOList = tripDriverService.getAll(tripPassenger.getEmpId(), tripPassenger.getStartingTime(), tripPassenger.getEndingTime(), tripPassenger.getSeats(),
                     tripPassenger.getCoordStart(), tripPassenger.getCoordEnd());
         } catch (Exception e) {
-            return Response.setError("error");
+            return Response.setError("An error has occurred while retrieving all trips!");
         }
         return Response.setSuccess(tripDriverVOList, "All trips were successfully retrieved!");
     }
@@ -142,9 +142,9 @@ public class TripPassengerController {
         try {
             tripDriverService.updateActive(tripPass.getId(), true);
         } catch (Exception e) {
-            return Response.setError("error");
+            return Response.setError("An error has occurred while adding the trip to active!");
         }
-        return Response.setSuccess("true", "Successfully added to active");
+        return Response.setSuccess("true", "he trip was successfully added to saved!");
     }
 
 
@@ -153,8 +153,8 @@ public class TripPassengerController {
         try {
             tripDriverService.updateActive(tripPass.getId(), false);
         } catch (Exception e) {
-            return Response.setError("error");
+            return Response.setError("An error has occurred while removing the trip from active!");
         }
-        return Response.setSuccess("true", "Successfully removed from active");
+        return Response.setSuccess("true", "Successfully removed from active!");
     }
 }
