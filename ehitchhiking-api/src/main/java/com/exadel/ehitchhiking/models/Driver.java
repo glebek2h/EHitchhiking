@@ -40,7 +40,8 @@ public class Driver {
     @Getter
     @Setter
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "\"BLACKLIST_DRIVER\"", joinColumns = @JoinColumn(name = "\"DRIVER_ID\""),
+    @JoinTable(name = "\"BLACKLIST_DRIVER\"",
+            joinColumns = @JoinColumn(name = "\"DRIVER_ID\""),
             inverseJoinColumns = @JoinColumn(name = "\"PASS_ID\""))
     private List<Passenger> passengers = new ArrayList<>();
 

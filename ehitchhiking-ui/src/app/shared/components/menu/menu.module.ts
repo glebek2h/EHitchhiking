@@ -1,3 +1,4 @@
+import {UserService} from '@shared/services/user.service';
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MenuComponent} from './menu.component';
@@ -11,6 +12,7 @@ import {
 	MatCardModule,
 	MatSnackBarModule,
 	MatTabsModule,
+	MatTooltipModule,
 } from '@angular/material';
 import {ProfileModalModule} from '@shared/modals/profile-modal/profile-modal.module';
 import {FormsModule} from '@angular/forms';
@@ -46,8 +48,10 @@ import {BlacklistModule} from '@shared/components/blacklist/blacklist.module';
 		MatTabsModule,
 		ActiveTripsModalModule,
 		BlacklistModule,
+		MatTooltipModule,
 	],
 	exports: [MenuComponent],
+	providers: [UserService],
 	entryComponents: [NotificationComponent, TripsModalComponent],
 })
 export class MenuModule {}

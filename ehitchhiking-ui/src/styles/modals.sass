@@ -5,10 +5,11 @@
 
 .modal-wrapper
   overflow: hidden
+  height: 100%
   position: relative
   .modal-header
     width: 100%
-    height: 4rem
+    height: $modal-header-height
     font-size: $headline
     @include flexbox()
     background-color: mat-color($accent, 300)
@@ -17,6 +18,7 @@
       text-transform: capitalize
   .modal-content
     position: relative
+    height: calc(100% - #{$modal-header-height} - #{$default-offset * 2})
     margin: $default-offset
     overflow-y: scroll
     overflow-x: hidden

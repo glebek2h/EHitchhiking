@@ -23,7 +23,14 @@ export class UserService {
 
 	private parseResponse(user: any): User | null {
 		if (user) {
-			return (this.currentUser = new User(user.id, user.username, '', user.email, user.phoneNumber));
+			return (this.currentUser = new User(
+				user.id,
+				user.firstName,
+				user.lastName,
+				'',
+				user.email,
+				user.phoneNumber
+			));
 		}
 		this.currentUser = null;
 		return null;
