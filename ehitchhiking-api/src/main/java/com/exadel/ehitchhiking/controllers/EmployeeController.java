@@ -23,9 +23,9 @@ public class EmployeeController {
             employeeService.updateEmployee(employee.getEmail(), employee.getLastName(),
                     employee.getFirstName(), employee.getPhoneNum());
         } catch (Exception e) {
-            return Response.setError("error");
+            return Response.setError("An error has occurred while updating the trip!");
         }
-        return Response.setSuccess("true", "Success");
+        return Response.setSuccess("true", "The trip was successfully updated!");
     }
 
     @GetMapping
@@ -34,9 +34,9 @@ public class EmployeeController {
         try {
             employee = employeeService.findUserById(id);
         } catch (Exception e) {
-            return Response.setError("error");
+            return Response.setError("An error has occurred while retrieving the employee's info!");
         }
-        return Response.setSuccess(employee, "Success");
+        return Response.setSuccess(employee, "The employee info was successfully retrieved!");
     }
 
     @GetMapping("/list")
@@ -45,8 +45,8 @@ public class EmployeeController {
         try {
             employeeVOS = employeeService.getAll();
         } catch (Exception e) {
-            return Response.setError("error");
+            return Response.setError("An error has occurred while retrieving the employees' info!");
         }
-        return Response.setSuccess(employeeVOS, "Success");
+        return Response.setSuccess(employeeVOS, "All employees' info was successfully retrieved!");
     }
 }

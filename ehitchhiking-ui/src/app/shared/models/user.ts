@@ -2,6 +2,7 @@ import {Car} from './car';
 export class User {
 	id: string;
 	name: string;
+	surname: string;
 	photoPath: string;
 	email: string;
 	phone: string;
@@ -10,6 +11,7 @@ export class User {
 	constructor(
 		id: string = '',
 		name: string = '',
+		surname: string,
 		photoPath: string = '',
 		email: string = '',
 		phone: string = '',
@@ -17,6 +19,7 @@ export class User {
 	) {
 		this.id = id;
 		this.name = name;
+		this.surname = surname;
 		this.email = email;
 		this.phone = phone;
 		this.cars = cars;
@@ -34,5 +37,9 @@ export class User {
 
 	isEmpty(): boolean {
 		return !!this.id;
+	}
+
+	getFullName(): string {
+		return `${this.name} ${this.surname}`;
 	}
 }

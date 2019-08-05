@@ -63,10 +63,11 @@ public class PassengerService implements IPassengerService {
     }
 
     @Override
-    public void addDriverToBL(int idTrip, int idDriver) {
+    public void addDriverToBL(int idTrip, int idDriver, boolean isBlocked) {
+        if (isBlocked){
         Passenger passenger = tripPassDAO.getTripPass(idTrip).getPassenger();
         passenger.getDrivers().add(driverDAO.getDriver(idDriver));
-        dao.saveOrUpdate(passenger);
+        dao.saveOrUpdate(passenger);}
     }
 
     @Override

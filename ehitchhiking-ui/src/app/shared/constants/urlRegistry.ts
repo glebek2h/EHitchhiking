@@ -18,6 +18,14 @@ export const URL_REGISTRY = {
 		POST_DRIVER_ROUTE: 'trip_driver',
 		POST_PASSENGER_ROUTE: 'trip_passenger',
 	},
+	RATE: {
+		ADD_RATE_PASSENGER: 'rate/passenger',
+		ADD_RATE_DRIVER: 'rate/driver',
+		GET_RATE_PASSENGERS: 'rate/get_passengers?id={{tripId}}',
+		GET_RATE_DRIVER: 'rate/get_driver?id={{tripId}}',
+		ADD_BLACKLIST_PASS: 'blackList/passenger',
+		ADD_BLACKLIST_DRIVER: 'blackList/driver',
+	},
 	CAR: {
 		ADD_CAR: 'car/add',
 		GET_ALL: 'car/all?id={{id}}',

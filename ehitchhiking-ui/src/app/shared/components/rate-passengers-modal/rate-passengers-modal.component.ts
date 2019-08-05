@@ -2,8 +2,10 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material';
 import {StarClickMeta} from '../rating/starClickMeta';
 import {MAT_DIALOG_DATA} from '@angular/material';
-import {User} from '@shared/components/rate-passengers-modal/user';
 import {UserState} from '@shared/enums/UserState';
+import {RatePassengersApiService} from '@shared/services/api.services/rate-passengers-api.service';
+import {LoaderSize} from '@shared/enums/pre-loader-sizes';
+import {BlacklistedUser, User} from '@shared/components/rate-passengers-modal/user';
 
 @Component({
 	selector: 'rate-passengers-modal',
@@ -11,37 +13,98 @@ import {UserState} from '@shared/enums/UserState';
 	styleUrls: ['./rate-passengers-modal.component.sass'],
 })
 export class RatePassengersModalComponent implements OnInit {
-	users: User[] = [];
+	users: RatedUser[] = [];
 	UserState = UserState;
-
+	idTripDriver = 12;
+	idTripPassenger = 4;
+	loading = true;
+	loaderSize: LoaderSize = LoaderSize.Large;
 	constructor(
 		public dialogRef: MatDialogRef<RatePassengersModalComponent>,
-		@Inject(MAT_DIALOG_DATA) public data: any
+		@Inject(MAT_DIALOG_DATA) public data: any,
+		private apiRatePassengersService: RatePassengersApiService
 	) {}
 
 	ngOnInit(): void {
-		// here should be just GET 'info' about trip
-		if (this.data.dataKey === UserState.Driver) {
-			this.users = [
-				{id: 0, name: 'Ivan', rating: 0, isAddedToBlackList: false},
-				{id: 1, name: 'Egor', rating: 0, isAddedToBlackList: false},
-				{id: 2, name: 'Semen', rating: 0, isAddedToBlackList: false},
-				{id: 3, name: 'Fedor', rating: 0, isAddedToBlackList: false},
-			];
-		} else {
-			this.users = [{id: 0, name: 'Ivan', rating: 0, isAddedToBlackList: false}];
+		switch (this.data.dataKey) {
+			case UserState.Passenger:
+				this.loadDriversList();
+				break;
+			case UserState.Driver:
+				this.loadPassengersList();
+				break;
+			default:
+				break;
 		}
+	}
+
+	loadPassengersList(): void {
+		this.loading = true;
+		this.apiRatePassengersService
+			.getTripPassengers(this.idTripPassenger)
+			.then((data: RatedUser[]) => {
+				this.users = data;
+				console.log(data);
+			})
+			.finally(() => {
+				this.loading = false;
+			});
+	}
+
+	loadDriversList(): void {
+		this.loading = true;
+		this.apiRatePassengersService
+			.getTripDriver(this.idTripDriver)
+			.then((data: RatedUser[]) => {
+				this.users = data;
+				console.log(data);
+			})
+			.finally(() => {
+				this.loading = false;
+			});
 	}
 
 	rateUser(clickObj: StarClickMeta): void {
-		const user = this.users.find((i: User) => i.id === clickObj.itemId);
-		if (!!user) {
-			user.rating = clickObj.rating;
-		}
+		this.users.forEach((i: RatedUser) => {
+			i.id === clickObj.itemId ? (i.rate = clickObj.rating) : '';
+			return i;
+		});
+	}
+
+	submitChanges(users: User[], blockedUsers: BlacklistedUser[]): (void | Promise<any>)[] {
+		return this.data.dataKey === UserState.Passenger
+			? [
+					this.apiRatePassengersService.addRateDriver(users),
+					this.apiRatePassengersService.addBlacklistDriver(this.idTripDriver, blockedUsers),
+			  ]
+			: [
+					this.apiRatePassengersService.addRatePassenger(users),
+					this.apiRatePassengersService.addBlacklistPass(this.idTripPassenger, blockedUsers),
+			  ];
 	}
 
 	exitTrip(): void {
-		this.dialogRef.close();
+		const users = [];
+		const blockedUsers = [];
+		this.users.forEach((user) => {
+			users.push({
+				id: user.id,
+				rate: user.rate,
+			});
+			blockedUsers.push({
+				id: user.id,
+				isBlocked: user.isBlocked,
+			});
+		});
+		const requests = this.submitChanges(users, blockedUsers);
+		this.loading = true;
+		Promise.all(requests)
+			.then(() => {
+				this.dialogRef.close();
+			})
+			.finally(() => {
+				this.loading = false;
+			});
 	}
 
 	trackById(index, item) {
@@ -49,7 +112,7 @@ export class RatePassengersModalComponent implements OnInit {
 	}
 
 	addToBlacklist(i) {
-		this.users[i].isAddedToBlackList = !this.users[i].isAddedToBlackList;
+		this.users[i].isBlocked = !this.users[i].isBlocked;
 	}
 
 	exit() {

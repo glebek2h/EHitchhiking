@@ -9,8 +9,8 @@ import {MainScreenService} from '@shared/services/api.services/main-screen.servi
 import {MapTripFormService} from '@shared/services/map-trip-form.service';
 import {ActiveTripsMapService} from '@shared/services/active-trips-map.service';
 import {UserService} from '@shared/services/user.service';
-import {CarInterface} from "@shared/interfaces/car-interface";
-import {URL_REGISTRY} from "@shared/constants/urlRegistry";
+import {CarInterface} from '@shared/interfaces/car-interface';
+import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 
 @Component({
 	selector: 'app-main-screen',
@@ -24,7 +24,7 @@ export class MainScreenComponent implements OnInit {
 		private mapTripFormService: MapTripFormService,
 		private activeTripsMapService: ActiveTripsMapService,
 		private userService: UserService,
-    private apiService: ApiService
+		private apiService: ApiService
 	) {
 		this.activeTripsMapService.getMainScreenInfo().subscribe(() => {
 			this.toggleMapInterfaceToDefault();
@@ -47,6 +47,8 @@ export class MainScreenComponent implements OnInit {
 	displayedRouteIndex: number;
 	mapTriggers = {};
 	redrawTriggers: boolean;
+  activePassengerButton: boolean;
+  activeDriverButton: boolean;
 	filterData;
 
 	startEndCoordinates: number[] = [];
@@ -58,16 +60,16 @@ export class MainScreenComponent implements OnInit {
 
 	currentUser: User;
 	// TODO mock-data here because of empty cars data (need backend to fix this)
-	user: User = new User('1', 'Yana', '', 'hello@gmail.com', '+375291234567', [
+	user: User = new User('1', 'Yana', 'Bernachkaya', '', 'hello@gmail.com', '+375291234567', [
 		new Car('ferrari', 'pink', 'A3434B', '1'),
 		new Car('lada', 'white', 'A3434B', '5'),
 		new Car('tayota', 'yellow', 'A3434B', '3'),
 		new Car('bmw', 'black', 'A3434B', '1'),
 	]);
 
-  private getCarsList(userId: string): Promise<any> {
-    return this.apiService.doGet(URL_REGISTRY.CAR.GET_ALL, false, {id: userId});
-  }
+	private getCarsList(userId: string): Promise<any> {
+		return this.apiService.doGet(URL_REGISTRY.CAR.GET_ALL, false, {id: userId});
+	}
 
 	ngOnInit() {
 		this.isHiddenTripRegistration = true;
@@ -76,8 +78,9 @@ export class MainScreenComponent implements OnInit {
 		this.routes = YandexMapService.getSomeRoutes();
 		this.copyRoutes = this.routes.slice();
 		this.currentUser = this.userService.getCurrentUser();
-    this.getCarsList(this.userService.getCurrentUser().id)
-      .then((data) => {this.currentUser.cars = data;});
+		this.getCarsList(this.userService.getCurrentUser().id).then((data) => {
+			this.currentUser.cars = data;
+		});
 	}
 
 	openTripRegistrationForm(): void {
@@ -86,21 +89,21 @@ export class MainScreenComponent implements OnInit {
 
 	getData(data) {
 		this.sendFormData = data;
-    this.tripFormData = data;
-    this.isHiddenTripRegistration = true;
-    this.editStatePlusButton = true;
-    //this.mapTriggers = {reset: true}// TODO: be careful with this, don't delete
+		this.tripFormData = data;
+		this.isHiddenTripRegistration = true;
+		this.editStatePlusButton = true;
+		//this.mapTriggers = {reset: true}// TODO: be careful with this, don't delete
 	}
 
 	getStartEndCoords(data) {
 		this.startEndCoordinates = data;
 		this.sendFormData.coords = this.startEndCoordinates;
-		if(this.userState === UserState.Passenger) {
-      this.mainScreenService.getDriversRoutes(this.sendFormData).then((routes) => {
-        this.routes = routes;
-        this.tripFormData = this.sendFormData;
-      });
-    }
+		if (this.userState === UserState.Passenger) {
+			this.mainScreenService.getDriversRoutes(this.sendFormData).then((routes) => {
+				this.routes = routes;
+				this.tripFormData = this.sendFormData;
+			});
+		}
 	}
 	getPassengerTripData(data) {
 		this.sendFormData = data;
@@ -129,11 +132,15 @@ export class MainScreenComponent implements OnInit {
 	}
 
 	toggleStateToPassenger() {
-		this.userState = UserState.Passenger;
+    this.activePassengerButton = true;
+    this.activeDriverButton = false;
+    this.userState = UserState.Passenger;
 		this.toggleMapInterfaceToDefault();
 	}
 
 	toggleStateToDriver() {
+    this.activeDriverButton = true;
+    this.activePassengerButton = false;
 		this.userState = UserState.Driver;
 		this.toggleMapInterfaceToDefault();
 	}
@@ -167,4 +174,5 @@ export class MainScreenComponent implements OnInit {
 		this.isDisabledSubmitRouteButton = false;
 		this.passengerCoordinates = data;
 	}
+
 }

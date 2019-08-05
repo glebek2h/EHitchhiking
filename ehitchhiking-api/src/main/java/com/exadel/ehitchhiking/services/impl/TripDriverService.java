@@ -1,13 +1,12 @@
 package com.exadel.ehitchhiking.services.impl;
+import com.exadel.ehitchhiking.config.ComareUtils;
 import com.exadel.ehitchhiking.daos.*;
-import com.exadel.ehitchhiking.daos.impl.DriverDAO;
-import com.exadel.ehitchhiking.daos.impl.PassengerDAO;
 import com.exadel.ehitchhiking.models.TripDriver;
 import com.exadel.ehitchhiking.models.TripPass;
 import com.exadel.ehitchhiking.models.vo.PassengerVO;
 import com.exadel.ehitchhiking.models.vo.TripDriverVO;
 import com.exadel.ehitchhiking.services.ITripDriverService;
-import com.exadel.ehitchhiking.utils.ComareUtils;
+
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.Point;

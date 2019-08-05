@@ -1,4 +1,4 @@
-package com.exadel.ehitchhiking.utils;
+package com.exadel.ehitchhiking.config;
 
 import org.springframework.data.geo.Point;
 
@@ -6,7 +6,8 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
 public final class ComareUtils {
-    private ComareUtils() {}
+    private ComareUtils() {
+    }
 
     public static double distance(Point a, Point b) {
         double dX = a.getX() - b.getX();

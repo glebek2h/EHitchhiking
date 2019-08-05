@@ -17,7 +17,7 @@ export class AuthorizationApiService {
 
 	private parseData(data: any): User | null {
 		if (data) {
-			return new User(data.id, data.username, '', data.email, data.phoneNumber);
+			return new User(data.id, data.firstName, data.lastName, '', data.email, data.phoneNumber);
 		}
 		return null;
 	}
