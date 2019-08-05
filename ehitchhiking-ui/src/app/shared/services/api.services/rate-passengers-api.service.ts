@@ -8,19 +8,19 @@ export class RatePassengersApiService {
 	constructor(private apiService: ApiService) {}
 
 	addRatePassenger(users: User[]) {
-		this.apiService.doPut(URL_REGISTRY.RATE.ADD_RATE_PASSENGER, users, false);
+		this.apiService.doPut(URL_REGISTRY.RATE.ADD_RATE_PASSENGER, users);
 	}
 
 	addRateDriver(users: User[]) {
-		this.apiService.doPut(URL_REGISTRY.RATE.ADD_RATE_DRIVER, users, false);
+		this.apiService.doPut(URL_REGISTRY.RATE.ADD_RATE_DRIVER, users);
 	}
 
 	addBlacklistPass(id: number, params: BlacklistedUser[]): Promise<any> {
-		return this.apiService.doPut(URL_REGISTRY.RATE.ADD_BLACKLIST_PASS, {idTrip: id, data: params}, false);
+		return this.apiService.doPut(URL_REGISTRY.RATE.ADD_BLACKLIST_PASS, {idTrip: id, data: params});
 	}
 
 	addBlacklistDriver(id: number, params: BlacklistedUser[]): Promise<any> {
-		return this.apiService.doPut(URL_REGISTRY.RATE.ADD_BLACKLIST_DRIVER, {idTrip: id, data: params}, false);
+		return this.apiService.doPut(URL_REGISTRY.RATE.ADD_BLACKLIST_DRIVER, {idTrip: id, data: params});
 	}
 
 	mapTripPassengers(data: any): RatedUser[] {
