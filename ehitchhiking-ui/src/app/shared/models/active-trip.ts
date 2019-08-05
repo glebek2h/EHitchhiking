@@ -4,7 +4,7 @@ import {TripActiveInterface} from '@shared/interfaces/trip-active-interface';
 import { Car } from "@shared/models/car";
 
 export class ActiveTrip implements TripActiveInterface{
-  id: string;
+  id: number;
   startPoint: string;
   endPoint: string;
   role: UserState;
@@ -17,7 +17,7 @@ export class ActiveTrip implements TripActiveInterface{
   passenger: UserInfoTrip[];
 
 	constructor(
-		id: string = '',
+		id: number,
 		startPoint: string = '',
 		endPoint: string = '',
 		role: UserState,

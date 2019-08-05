@@ -67,6 +67,12 @@ export class ActiveTripsModalComponent implements OnInit {
     );
 	}
 
+	refresh(status: boolean){
+	  if(!status){
+	    return;
+    }
+	  this.fetchTrips();
+  }
 	filterByRole() {
 		this.role.isEnable = true;
 	}

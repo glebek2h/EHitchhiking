@@ -5,6 +5,8 @@ import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 import {UserInfoTrip} from '@shared/models/user-info-trip';
 import {ActiveTrip} from '@shared/models/active-trip';
 import {UserService} from '@shared/services/user.service';
+import { RequestCar } from "@shared/models/request.car";
+import { CarInterface } from "@shared/interfaces/car-interface";
 
 @Injectable()
 export class ActiveTripsApiService {
@@ -39,11 +41,21 @@ export class ActiveTripsApiService {
 			.catch(() => []);
 	}
 
+  removeTripForPassenger(tripId: any): Promise<boolean> {
+    return this.sendRemoveRequest({id: tripId})
+      .then((data) => data)
+      .catch(() => false);
+  }
+
+  private sendRemoveRequest(tripId: any): Promise<boolean> {
+    return this.apiService.doPut(URL_REGISTRY.ACTIVE_TRIPS.DELETE_TRIP_PASSENGER, tripId );
+  }
+
   private static parseDate(date: any): string {
-    return new Date(date).toLocaleDateString();
+    return new Date(date ).toLocaleDateString();
   }
 
   private static parseTime(date: any): string {
-    return new Date(date).toLocaleTimeString();
+    return new Date(date ).toLocaleTimeString();
   }
 }

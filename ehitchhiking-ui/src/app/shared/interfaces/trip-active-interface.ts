@@ -3,7 +3,7 @@ import {UserInfoTrip} from '@shared/models/user-info-trip';
 import { Car } from "@shared/models/car";
 
 export interface TripActiveInterface {
-	id: string;
+	id: number;
 	startPoint: string;
 	endPoint: string;
 	role: UserState;
