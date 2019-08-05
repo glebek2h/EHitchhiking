@@ -1,12 +1,14 @@
 import {Injectable} from '@angular/core';
-import {NotificationComponent} from '@shared/components/notification/notification.component';
 import {NotificationTypes} from '@shared/enums/notification-types.enum';
 import {
-	MAT_SNACK_HORIZONTAL_POSITION,
 	DEFAULT_MAT_SNACK_CLASS,
-	MAT_SNACK_VERTICAL_POSITION,
+	NOTIFICATION_BACKGROUND_SUCCESS,
+	NOTIFICATION_BACKGROUND_INFO,
+	NOTIFICATION_BACKGROUND_ERROR,
+	NOTIFICATION_TEXT_COLOR,
 } from '@shared/constants/modal-constants';
-import {MatSnackBarConfig, MatSnackBar} from '@angular/material';
+import {IziToastSettings} from 'izitoast';
+import iziToast from 'izitoast';
 
 @Injectable()
 export class NotificationService {
@@ -16,44 +18,48 @@ export class NotificationService {
 		[NotificationTypes.Info]: 'info',
 		[NotificationTypes.Error]: 'error',
 	};
+	static readonly notificationBackgroundMap = {
+		[NotificationTypes.Success]: NOTIFICATION_BACKGROUND_SUCCESS,
+		[NotificationTypes.Info]: NOTIFICATION_BACKGROUND_INFO,
+		[NotificationTypes.Error]: NOTIFICATION_BACKGROUND_ERROR,
+	};
 
-	constructor(private notificationBar: MatSnackBar) {}
+	constructor() {}
 
 	showErrorNotification(notificationMessage: string) {
-		this.notificationBar.openFromComponent(
-			NotificationComponent,
-			this.generateNotificationConfig(notificationMessage, NotificationTypes.Error)
-		);
+		iziToast.error(this.generateNotificationConfig(notificationMessage, NotificationTypes.Error));
 	}
 
 	showSuccessNotification(notificationMessage: string) {
-		this.notificationBar.openFromComponent(
-			NotificationComponent,
-			this.generateNotificationConfig(notificationMessage, NotificationTypes.Success)
-		);
+		iziToast.success(this.generateNotificationConfig(notificationMessage, NotificationTypes.Success));
 	}
 
 	showInfoNotification(notificationMessage: string) {
-		this.notificationBar.openFromComponent(
-			NotificationComponent,
-			this.generateNotificationConfig(notificationMessage, NotificationTypes.Info)
-		);
+		iziToast.info(this.generateNotificationConfig(notificationMessage, NotificationTypes.Info));
 	}
 
 	private returnClass(type: NotificationTypes): string {
 		return NotificationService.notificationClassMap[type];
 	}
 
+	private returnBackgroundColor(type: NotificationTypes): string {
+		return NotificationService.notificationBackgroundMap[type];
+	}
+
 	private generateNotificationConfig(
 		notificationMessage: string,
 		notificationType: NotificationTypes
-	): MatSnackBarConfig<any> {
-		const config = new MatSnackBarConfig<any>();
-		config.data = {message: notificationMessage, type: notificationType, notificationRef: this.notificationBar};
-		config.duration = NotificationService.notificationDuration;
-		config.horizontalPosition = MAT_SNACK_HORIZONTAL_POSITION;
-		config.verticalPosition = MAT_SNACK_VERTICAL_POSITION;
-		config.panelClass = [this.returnClass(notificationType), DEFAULT_MAT_SNACK_CLASS];
-		return config;
+	): IziToastSettings {
+		return {
+			class: `${this.returnClass(notificationType)} ${DEFAULT_MAT_SNACK_CLASS}`,
+			title: notificationType,
+			message: notificationMessage,
+			position: 'topRight',
+			closeOnClick: true,
+			timeout: NotificationService.notificationDuration,
+			backgroundColor: this.returnBackgroundColor(notificationType),
+			messageColor: NOTIFICATION_TEXT_COLOR,
+			titleColor: NOTIFICATION_TEXT_COLOR,
+		};
 	}
 }
