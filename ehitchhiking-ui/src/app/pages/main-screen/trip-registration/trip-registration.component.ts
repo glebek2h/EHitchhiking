@@ -27,18 +27,17 @@ export class TripRegistrationComponent implements OnInit {
 	constructor(private userService: UserService, private yandexMapService: YandexMapService ) {}
 
 	ngOnInit() {
-	  console.log('ng');
 		this.nameFormGroup = new FormGroup({
 			from: new FormControl('', [Validators.required]),
 			to: new FormControl('', [Validators.required]),
 			departureDate: new FormControl('', [Validators.required]),
 			placesSelect: new FormControl('', [Validators.required]),
 			departureTime: new FormControl('', [Validators.required]),
-			car: new FormControl(''),
+			car: new FormControl('', [Validators.required]),
 		});
 	}
 
-	func() {
+  addHints() {
     this.yandexMapService.getPromise().then((maps) => {
       // tslint:disable-next-line:no-unused-expression
       new maps.SuggestView('suggestions-to-input-from');
