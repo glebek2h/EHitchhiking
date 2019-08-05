@@ -40,7 +40,7 @@ public class TripDriverService implements ITripDriverService {
     private IPassengerDAO passengerDAO;
 
     @Override
-    public void createTripDriver(String startingPoint, String endingPoint,
+    public String createTripDriver(String startingPoint, String endingPoint,
                                  Instant startingTime, Instant endingTime, int idOfCar, int seats,
                                  Point coordStart, Point coordEnd, float distance){
 
@@ -48,6 +48,7 @@ public class TripDriverService implements ITripDriverService {
                 Timestamp.from(startingTime), Timestamp.from(endingTime), true,
                 false, false, seats, carDAO.getCar(idOfCar), false, coordStart,coordEnd, distance);
         dao.save(tripDriver);
+        return tripDriver.getCar().getDriver().getEmployee().getEmail();
     }
 
     @Override
@@ -91,7 +92,7 @@ public class TripDriverService implements ITripDriverService {
     }
 
     @Override
-    public void updateFinished(int id, boolean isFinished){
+    public List<String> updateFinished(int id, boolean isFinished){
         TripDriver tripDriver = dao.getTripDriver(id);
         tripDriver.setFinished(isFinished);
         tripDriver.setActive(false);
@@ -101,7 +102,15 @@ public class TripDriverService implements ITripDriverService {
             float amountOfPoints =  tripDriver.getCar().getDriver().getEmployee().getPoints();
             tripDriver.getCar().getDriver().getEmployee().setPoints((dist*(seats/10))+amountOfPoints);
         }
+
         dao.update(tripDriver);
+        List<String> list = new ArrayList<>();
+        list.add(tripDriver.getCar().getDriver().getEmployee().getEmail());
+        List<TripPass> listTrips= tripPassDAO.getAllPass(id);
+        for (TripPass tripPass: listTrips){
+            list.add(tripPass.getPassenger().getEmployee().getEmail());
+        }
+        return list;
     }
 
     @Override
