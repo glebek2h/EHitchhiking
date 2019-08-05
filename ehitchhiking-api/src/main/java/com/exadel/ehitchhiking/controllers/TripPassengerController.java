@@ -43,7 +43,7 @@ public class TripPassengerController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true", "Successfully created the trip");
+        return Response.setSuccess("true", "The trip was successfully created!");
     }
 
 
@@ -56,7 +56,7 @@ public class TripPassengerController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess("true", "Successfully updated trips");
+        return Response.setSuccess("true", "The trip was successfully updated!");
     }
 
 
@@ -109,7 +109,7 @@ public class TripPassengerController {
         } catch (Exception e) {
             return Response.setError("Failed adding to saved");
         }
-        return Response.setSuccess(updatedTrip, "Successfully added to saved");
+        return Response.setSuccess(updatedTrip, "The trip was successfully added to favorite!");
 
     }
 
@@ -121,7 +121,7 @@ public class TripPassengerController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess(updatedTrip, "Successfully removed from saved");
+        return Response.setSuccess(updatedTrip, "The trip was successfully removed from favorite!");
     }
 
 
@@ -134,7 +134,7 @@ public class TripPassengerController {
         } catch (Exception e) {
             return Response.setError("error");
         }
-        return Response.setSuccess(tripDriverVOList, "Successfully got all driver trips");
+        return Response.setSuccess(tripDriverVOList, "All trips were successfully retrieved!");
     }
 
     @PutMapping("/active")
