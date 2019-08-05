@@ -1,5 +1,6 @@
 @import "../../../../styles/constants"
 @import "../../../../styles/colors"
+@import '../../../../styles/fonts-constants'
 .modal-wrapper
   .modal-content
     overflow-y: auto
@@ -24,4 +25,20 @@
 
   .passenger-row-active
     background-color: $light-red
+
+@media screen and (max-width: 550px)
+.modal-wrapper
+  .modal-title
+    font-size: $subheading-2
+  .modal-content
+    overflow-y: auto
+    font-size: $default-offset*0.5
+    margin: 0rem
+    .table-tr
+      text-align: center
+    .table-passenger-name
+      width: 3.2rem
+
+
+
 
