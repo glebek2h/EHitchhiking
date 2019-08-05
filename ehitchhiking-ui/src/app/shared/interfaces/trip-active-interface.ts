@@ -1,6 +1,6 @@
 import {UserState} from '@shared/enums/UserState';
 import {UserInfoTrip} from '@shared/models/user-info-trip';
-import { Car } from "@shared/models/car";
+import {Car} from '@shared/models/car';
 
 export interface TripActiveInterface {
 	id: number;
