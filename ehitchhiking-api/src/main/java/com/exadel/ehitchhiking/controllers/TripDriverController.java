@@ -118,6 +118,7 @@ public class TripDriverController {
         try {
             tripDriverService.updateActive(tripDriver.getId(), false);
         } catch (Exception e) {
+            System.out.println(e);
             return Response.setError("error");
         }
         return Response.setSuccess("true", "Success");

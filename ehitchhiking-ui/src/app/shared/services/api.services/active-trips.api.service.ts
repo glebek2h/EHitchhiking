@@ -41,14 +41,24 @@ export class ActiveTripsApiService {
 			.catch(() => []);
 	}
 
-  removeTripForPassenger(tripId: any): Promise<boolean> {
-    return this.sendRemoveRequest({id: tripId})
+  removeTripPassenger(tripId: any): Promise<boolean> {
+    return this.sendRemoveRequestPassenger({id: tripId})
       .then((data) => data)
       .catch(() => false);
   }
 
-  private sendRemoveRequest(tripId: any): Promise<boolean> {
+  private sendRemoveRequestPassenger(tripId: any): Promise<boolean> {
     return this.apiService.doPut(URL_REGISTRY.ACTIVE_TRIPS.DELETE_TRIP_PASSENGER, tripId );
+  }
+
+  removeTripDriver(tripId: any): Promise<boolean> {
+    return this.sendRemoveRequestDriver({id: tripId})
+      .then((data) => data)
+      .catch(() => false);
+  }
+
+  private sendRemoveRequestDriver(tripId: any): Promise<boolean> {
+    return this.apiService.doPut(URL_REGISTRY.ACTIVE_TRIPS.DELETE_TRIP_DRIVER, tripId );
   }
 
   private static parseDate(date: any): string {

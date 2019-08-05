@@ -22,13 +22,6 @@ export class ActiveTripComponent implements OnInit {
 	@Output() onDelete: EventEmitter<boolean> = new EventEmitter();
 	static readonly REMOVAL_CONFIRMATION_MESSAGE: string = 'Do you really want to decline this trip?';
 
-	getActiveTrips(){
-    this.apiService.getActiveTrips().then(
-      (data) => {
-        return data;
-      }
-    );
-  }
 
 	openConfirmationDialogRemoveActiveTrip(event: MouseEvent) {
 		const dialogRef = this.dialog.open(ConfirmationModalComponent, {
@@ -43,19 +36,20 @@ export class ActiveTripComponent implements OnInit {
 		});
 		dialogRef.afterClosed().subscribe((result) => {
 			if (result) {
-			  this.apiService.removeTripForPassenger(this.trip.id).then((response) => {
-			    console.log(response);
+			  this.apiService.removeTripPassenger(this.trip.id).then((response) => {
           if (!response || this.trip.role!=UserState.Passenger) {
             this.onDelete.emit(false);
             return;
           }
           this.onDelete.emit(true);
-
-          //  const start = this.tripService.trips.findIndex((trip) => trip.id === this.trip.id);
-          // this.tripService.trips.splice(start, 1);
+        });
+			  this.apiService.removeTripDriver(this.trip.id).then((response)=>{
+          if (!response || this.trip.role!=UserState.Driver) {
+            this.onDelete.emit(false);
+            return;
+          }
+          this.onDelete.emit(true);
         })
-        // const start = this.tripService.trips.findIndex((trip) => trip.id === this.trip.id);
-				// this.tripService.trips.splice(start, 1);
 			}
 		});
 		event.stopPropagation();
