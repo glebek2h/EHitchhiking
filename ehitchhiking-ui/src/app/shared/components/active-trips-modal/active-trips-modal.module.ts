@@ -18,7 +18,7 @@ import {ActiveTripsModalComponent} from './active-trips-modal.component';
 import {ActiveTripModule} from '../active-trip/active-trip.module';
 import {TripsModalModule} from '../trips-modal/trips-modal.module';
 import {ActiveTripAdditionalInfoModule} from '../active-trip-additional-info/active-trip-additional-info.module';
-import { ActiveTripsApiService } from "@shared/services/api.services/active-trips.api.service";
+import {ActiveTripsApiService} from '@shared/services/api.services/active-trips.api.service';
 
 @NgModule({
 	declarations: [ActiveTripsModalComponent],
@@ -39,7 +39,7 @@ import { ActiveTripsApiService } from "@shared/services/api.services/active-trip
 		ActiveTripAdditionalInfoModule,
 		TripsModalModule,
 	],
-  providers: [ActiveTripsApiService],
+	providers: [ActiveTripsApiService],
 	entryComponents: [ActiveTripsModalComponent],
 	exports: [ActiveTripsModalComponent],
 })

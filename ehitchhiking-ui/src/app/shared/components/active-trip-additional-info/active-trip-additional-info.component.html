@@ -39,9 +39,7 @@
 					<span matTooltip="Model" matTooltipPosition="right">Model:</span>
 				</div>
 				<div class="field-note-value truncated">
-					<span [matTooltip]="trip.car.model" matTooltipPosition="left">{{
-						trip.car.model
-					}}</span>
+					<span [matTooltip]="trip.car.model" matTooltipPosition="left">{{ trip.car.model }}</span>
 				</div>
 			</div>
 			<div class="height-item-info form-row">
@@ -84,3 +82,4 @@
 		<mat-divider></mat-divider>
 	</mat-list>
 </div>
+<app-no-data [isEmpty]="trip.passenger.length === 0"></app-no-data>

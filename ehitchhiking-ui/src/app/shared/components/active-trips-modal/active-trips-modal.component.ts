@@ -1,9 +1,10 @@
-import {Component, ElementRef,OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {LoaderSize} from '../../enums/pre-loader-sizes';
 import {MatDialogRef} from '@angular/material';
 import {NUMBER_OF_TRIPS_VISIBLE_ON_PAGE} from '@shared/constants/modal-constants';
-import { ActiveTripsApiService } from "@shared/services/api.services/active-trips.api.service";
-import { ActiveTrip } from "@shared/models/active-trip";
+import {ActiveTripsApiService} from '@shared/services/api.services/active-trips.api.service';
+import {ActiveTrip} from '@shared/models/active-trip';
+import {_finally} from 'rxjs-compat/operator/finally';
 
 @Component({
 	selector: 'app-active-trips-modal',
@@ -27,7 +28,7 @@ export class ActiveTripsModalComponent implements OnInit {
 
 	constructor(
 		public dialogRef: MatDialogRef<ActiveTripsModalComponent>,
-    private apiActiveTripsApiService: ActiveTripsApiService
+		private apiActiveTripsApiService: ActiveTripsApiService
 	) {
 		this.scrollObserver = new IntersectionObserver(this.onScroll.bind(this), {
 			threshold: 1,
@@ -48,24 +49,28 @@ export class ActiveTripsModalComponent implements OnInit {
 	ngOnInit() {
 		this.scrollObserver.observe(this.markerRef.nativeElement);
 		this.fetchTrips();
-    this.tripsArrayLenght = this.tripsArray.length;
+		this.tripsArrayLenght = this.tripsArray.length;
 	}
 
 	fetchTrips() {
-    this.apiActiveTripsApiService.getActiveTrips().then(
-      (data) => {
-        console.log(data);
-        this.tripsArray = data;
-      }
-    );
+		this.loading = true;
+		this.apiActiveTripsApiService
+			.getActiveTrips()
+			.then((data) => {
+				console.log(data);
+				this.tripsArray = data;
+			})
+			.finally(() => {
+				this.loading = false;
+			});
 	}
 
-	refresh(status: boolean){
-	  if(!status){
-	    return;
-    }
-	  this.fetchTrips();
-  }
+	refresh(status: boolean) {
+		if (!status) {
+			return;
+		}
+		this.fetchTrips();
+	}
 	filterByRole() {
 		this.role.isEnable = true;
 	}
@@ -86,5 +91,4 @@ export class ActiveTripsModalComponent implements OnInit {
 	closeInfo() {
 		this.isShowTripInfo = !this.isShowTripInfo;
 	}
-
 }

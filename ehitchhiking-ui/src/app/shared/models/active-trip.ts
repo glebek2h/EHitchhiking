@@ -1,20 +1,20 @@
 import {UserState} from '@shared/enums/UserState';
 import {UserInfoTrip} from '@shared/models/user-info-trip';
 import {TripActiveInterface} from '@shared/interfaces/trip-active-interface';
-import { Car } from "@shared/models/car";
+import {Car} from '@shared/models/car';
 
-export class ActiveTrip implements TripActiveInterface{
-  id: number;
-  startPoint: string;
-  endPoint: string;
-  role: UserState;
-  startTime: string;
-  endTime: string;
-  reservedSeats: number;
-  showTripInfo: boolean;
-  driver: UserInfoTrip;
-  car: Car;
-  passenger: UserInfoTrip[];
+export class ActiveTrip implements TripActiveInterface {
+	id: number;
+	startPoint: string;
+	endPoint: string;
+	role: UserState;
+	startTime: string;
+	endTime: string;
+	reservedSeats: number;
+	showTripInfo: boolean;
+	driver: UserInfoTrip;
+	car: Car;
+	passenger: UserInfoTrip[];
 
 	constructor(
 		id: number,

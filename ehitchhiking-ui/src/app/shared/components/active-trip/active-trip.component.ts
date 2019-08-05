@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { UserState } from "@shared/enums/UserState";
-import { DEFAULT_MAT_DIALOG_CLASS, MAT_DIALOG_WIDTH_SM } from "@shared/constants/modal-constants";
-import { MatDialog } from "@angular/material";
-import { ConfirmationModalComponent } from "@shared/modals/confirmation-modal/confirmation-modal.component";
-import { ActiveTrip } from "@shared/models/active-trip";
-import { ActiveTripsApiService } from "@shared/services/api.services/active-trips.api.service";
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {UserState} from '@shared/enums/UserState';
+import {DEFAULT_MAT_DIALOG_CLASS, MAT_DIALOG_WIDTH_SM} from '@shared/constants/modal-constants';
+import {MatDialog} from '@angular/material';
+import {ConfirmationModalComponent} from '@shared/modals/confirmation-modal/confirmation-modal.component';
+import {ActiveTrip} from '@shared/models/active-trip';
+import {ActiveTripsApiService} from '@shared/services/api.services/active-trips.api.service';
+import {LoaderSize} from '@shared/enums/pre-loader-sizes';
 
 @Component({
 	selector: 'app-active-trip',
@@ -21,6 +22,25 @@ export class ActiveTripComponent implements OnInit {
 	@Output() onDelete: EventEmitter<boolean> = new EventEmitter();
 	static readonly REMOVAL_CONFIRMATION_MESSAGE: string = 'Do you really want to decline this trip?';
 
+	removeTripPassenger() {
+		this.apiService.removeTripPassenger(this.trip.id).then((response) => {
+			if (!response) {
+				this.onDelete.emit(false);
+				return;
+			}
+			this.onDelete.emit(true);
+		});
+	}
+
+	removeTripDriver() {
+		this.apiService.removeTripDriver(this.trip.id).then((response) => {
+			if (!response) {
+				this.onDelete.emit(false);
+				return;
+			}
+			this.onDelete.emit(true);
+		});
+	}
 
 	openConfirmationDialogRemoveActiveTrip(event: MouseEvent) {
 		const dialogRef = this.dialog.open(ConfirmationModalComponent, {
@@ -30,25 +50,14 @@ export class ActiveTripComponent implements OnInit {
 			data: {
 				question: ActiveTripComponent.REMOVAL_CONFIRMATION_MESSAGE,
 				confirmButtonText: 'yes',
-
 			},
 		});
 		dialogRef.afterClosed().subscribe((result) => {
 			if (result) {
-			  this.apiService.removeTripPassenger(this.trip.id).then((response) => {
-          if (!response || this.trip.role!=UserState.Passenger) {
-            this.onDelete.emit(false);
-            return;
-          }
-          this.onDelete.emit(true);
-        });
-			  this.apiService.removeTripDriver(this.trip.id).then((response)=>{
-          if (!response || this.trip.role!=UserState.Driver) {
-            this.onDelete.emit(false);
-            return;
-          }
-          this.onDelete.emit(true);
-        })
+				if (this.trip.role != UserState.Passenger) {
+					this.removeTripPassenger();
+				}
+				this.removeTripDriver();
 			}
 		});
 		event.stopPropagation();
