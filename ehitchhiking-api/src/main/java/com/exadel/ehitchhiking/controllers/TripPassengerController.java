@@ -144,7 +144,7 @@ public class TripPassengerController {
         } catch (Exception e) {
             return Response.setError("An error has occurred while adding the trip to active!");
         }
-        return Response.setSuccess("true", "the trip was successfully added to saved!");
+        return Response.setSuccess("true", "The trip was successfully added to active!");
     }
 
 

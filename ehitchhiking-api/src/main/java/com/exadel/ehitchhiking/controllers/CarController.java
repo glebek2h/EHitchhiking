@@ -47,7 +47,7 @@ public class CarController {
         } catch (Exception e) {
             return Response.setError("An error has occurred while deleting the car!");
         }
-        return Response.setSuccess("true", "The cars were deleted successfully!");
+        return Response.setSuccess("true", "The car were deleted successfully!");
     }
 
     @PutMapping("/update")

@@ -94,39 +94,3 @@ public class BlackListsController {
         return Response.setSuccess(drivers, "All drivers' info was successfully retrieved!");
     }
 }
-
-/*
-
-
-    @PostMapping("/driver")
-    public Response<String> addPassToBlackListDriver(String idDriver, String idPass) {
-        Response<String> response = new Response<>();
-        try {
-            driverService.addPassToBL(Integer.parseInt(idDriver), Integer.parseInt(idPass));
-        } catch (Exception e) {
-            response.setStatus("500");
-            response.setData("false");
-            return response;
-        }
-        response.setStatus("200");
-        response.setData("true");
-        return response;
-    }
-
-
-    @PostMapping("/passenger")
-    public Response<String> addDriverToBlackListPass(String idPass, String idDriver) {
-        Response<String> response = new Response<>();
-        try {
-            passengerService.addDriverToBL(Integer.parseInt(idPass), Integer.parseInt(idDriver));
-        } catch (Exception e) {
-            response.setStatus("500");
-            response.setData("false");
-            return response;
-        }
-        response.setStatus("200");
-        response.setData("true");
-        return response;}
-
-
-*/
