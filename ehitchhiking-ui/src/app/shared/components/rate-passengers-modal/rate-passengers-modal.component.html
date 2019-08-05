@@ -5,6 +5,7 @@
 	</header>
 
 	<table class="modal-content">
+		<app-pre-loading [isLoading]="loading" [size]="loaderSize"></app-pre-loading>
 		<thead>
 			<tr class="table-tr">
 				<th class="table-th">Passenger</th>
@@ -15,16 +16,16 @@
 		</thead>
 		<tbody>
 			<tr
-				[ngClass]="{'passenger-row-active': user.isAddedToBlackList}"
+				[ngClass]="{'passenger-row-active': user.isBlocked}"
 				*ngFor="let user of users; let i = index; trackBy: trackById"
 			>
-				<td class="table-passenger-name">
-					{{ user.name }}
+				<td class="table-passenger-name-block">
+					<p class="table-passenger-name truncated">{{ user.name }}</p>
 				</td>
 				<td class="rating-td">
-					<app-rating [rating]="user.rating" [itemId]="user.id" (ratingClick)="rateUser($event)"></app-rating>
+					<app-rating [rating]="user.rate" [itemId]="user.id" (ratingClick)="rateUser($event)"></app-rating>
 				</td>
-				<td class="table-count-stars">{{ user.rating }} Stars</td>
+				<td class="table-count-stars">{{ user.rate }} Stars</td>
 				<td class="blacklist">
 					<button mat-icon-button (click)="addToBlacklist(i)">
 						<i class="material-icons">

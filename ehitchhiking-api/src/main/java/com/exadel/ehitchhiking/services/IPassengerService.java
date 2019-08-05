@@ -13,7 +13,7 @@ public interface IPassengerService {
     void updateRatePass(int idPass, float addedRate);
     void deletePassenger(String email);
     void deletePassengerId(int id);
-    void addDriverToBL(int idTrip, int idDriver);
+    void addDriverToBL(int idTrip, int idDriver, boolean isBlocked);
     void deleteDriverFromBL(int idEmp, int idDriver);
     List<DriverVO> getDrivers(int idPass);
     Passenger findByEmployeeId(int id);

@@ -69,10 +69,11 @@ public class DriverService implements IDriverService {
     }
 
     @Override
-    public void addPassToBL(int idTrip, int idPass) {
+    public void addPassToBL(int idTrip, int idPass, boolean isBlocked) {
+        if (isBlocked){
         Driver driver = tripDriverDAO.getTripDriver(idTrip).getCar().getDriver();
         driver.getPassengers().add(passengerDAO.getPassenger(idPass));
-        dao.saveOrUpdate(driver);
+        dao.saveOrUpdate(driver);}
     }
 
     @Override

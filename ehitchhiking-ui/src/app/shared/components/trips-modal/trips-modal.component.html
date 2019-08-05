@@ -79,14 +79,8 @@
 			<app-trip class="trip" [trip]="trip" (onLoadingToggle)="onLoadingToggle($event)"></app-trip>
 		</div>
 		<div class="scroll-marker" #sMarker></div>
-
 		<app-no-data [isEmpty]="!isLoading && (!tripsArray || !tripsArray.length) "></app-no-data>
 	</div>
-	<footer>
-		<div mat-dialog-actions class="trips-btn">
-			<button mat-button (click)="replaceAll()" *ngIf="tripsArray.length">Remove all</button>
-		</div>
-	</footer>
 	<div class="modal-close-control">
 		<button class="modal-close-control-btn" mat-icon-button (click)="exit()">
 			<mat-icon>close</mat-icon>

@@ -4,7 +4,7 @@
 .notification
   &-container
     color: $white
-
+    margin-top: 3rem
     &.error
       background: mat-color($warn)
 
@@ -12,10 +12,10 @@
         background-image: linear-gradient(to right, $white, mat-color($warn, 50), $white)
 
     &.success
-      background: mat-color($accent)
+      background: $green
 
       .notification-line
-        background-image: linear-gradient(to right, $white, mat-color($accent, 50), $white)
+        background-image: linear-gradient(to right, $white, $light-green, $white)
 
     &.info
       background: mat-color($primary, A100)
