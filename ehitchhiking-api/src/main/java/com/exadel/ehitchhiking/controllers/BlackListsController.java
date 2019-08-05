@@ -31,9 +31,9 @@ public class BlackListsController {
                     driverService.addPassToBL(BL.getIdTrip(), it.getId(), it.getIsBlocked() );
             }
         } catch (Exception e) {
-            return Response.setError("error");
+            return Response.setError("An error has occurred while adding the passenger to the blacklist!");
         }
-        return Response.setSuccess("true", "Successfully added to the black list");
+        return Response.setSuccess("true", "The passenger was successfully added to the blacklist!");
     }
 
     @PutMapping("/driver")
@@ -44,9 +44,9 @@ public class BlackListsController {
 
             }
         } catch (Exception e) {
-            return Response.setError("error");
+            return Response.setError("An error has occurred while adding the driver to the blacklist!");
         }
-        return Response.setSuccess("true", "Successfully added to the black list");
+        return Response.setSuccess("true", "The driver was successfully added to the blacklist!");
     }
 
 
@@ -56,9 +56,9 @@ public class BlackListsController {
         try {
             driverService.deletePassFromBL(empId, idPass);
         } catch (Exception e) {
-            return Response.setError("error");
+            return Response.setError("An error has occurred while deleting the passenger from the blacklist!");
         }
-        return Response.setSuccess("true", "Successfully deleted to the black list");
+        return Response.setSuccess("true", "The passenger was successfully deleted from the blacklist!");
     }
 
     // deleting the driver from the blacklist pass
@@ -67,9 +67,9 @@ public class BlackListsController {
         try {
             passengerService.deleteDriverFromBL(empId, idDriver);
         } catch (Exception e) {
-            return Response.setError("error");
+            return Response.setError("An error has occurred while deleting the driver from the blacklist!");
         }
-        return Response.setSuccess("true", "Successfully deleted to the black list");
+        return Response.setSuccess("true", "The driver was successfully deleted from the blacklist!");
     }
 
     @GetMapping("/driver")
@@ -78,9 +78,9 @@ public class BlackListsController {
         try {
             passengers = driverService.getPassengers(empId);
         } catch (Exception e) {
-            return Response.setError("error");
+            return Response.setError("An error has occurred while retrieving all passengers!");
         }
-        return Response.setSuccess(passengers, "Successfully got black list");
+        return Response.setSuccess(passengers, "All passengers' info was successfully retrieved!");
     }
 
     @GetMapping("/passenger")
@@ -89,44 +89,8 @@ public class BlackListsController {
         try {
             drivers = passengerService.getDrivers(empId);
         } catch (Exception e) {
-            return Response.setError("error");
+            return Response.setError("An error has occurred while retrieving all drivers!");
         }
-        return Response.setSuccess(drivers, "Successfully got black list");
+        return Response.setSuccess(drivers, "All drivers' info was successfully retrieved!");
     }
 }
-
-/*
-
-
-    @PostMapping("/driver")
-    public Response<String> addPassToBlackListDriver(String idDriver, String idPass) {
-        Response<String> response = new Response<>();
-        try {
-            driverService.addPassToBL(Integer.parseInt(idDriver), Integer.parseInt(idPass));
-        } catch (Exception e) {
-            response.setStatus("500");
-            response.setData("false");
-            return response;
-        }
-        response.setStatus("200");
-        response.setData("true");
-        return response;
-    }
-
-
-    @PostMapping("/passenger")
-    public Response<String> addDriverToBlackListPass(String idPass, String idDriver) {
-        Response<String> response = new Response<>();
-        try {
-            passengerService.addDriverToBL(Integer.parseInt(idPass), Integer.parseInt(idDriver));
-        } catch (Exception e) {
-            response.setStatus("500");
-            response.setData("false");
-            return response;
-        }
-        response.setStatus("200");
-        response.setData("true");
-        return response;}
-
-
-*/
