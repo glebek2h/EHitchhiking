@@ -10,6 +10,7 @@ import {
 	MatSelectModule,
 	MatSlideToggleModule,
 	MatTableModule,
+	MatCheckboxModule,
 } from '@angular/material';
 import {TripModule} from '../trip/trip.module';
 import {NoDataModule} from '../no-data/no-data.module';
@@ -49,6 +50,7 @@ import {TripsModalService} from '@shared/services/trips-modal.service';
 		MatExpansionModule,
 		RatePassengersModalModule,
 		ReactiveFormsModule,
+		MatCheckboxModule,
 	],
 	providers: [TripsModalService, PreLoadingModule],
 	entryComponents: [TripsModalComponent],

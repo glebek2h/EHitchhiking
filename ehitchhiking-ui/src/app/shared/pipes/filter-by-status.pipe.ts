@@ -1,3 +1,4 @@
+import {TripStatus} from './../enums/TripStatus';
 import {Pipe, PipeTransform} from '@angular/core';
 import {TripHistory} from '@shared/interfaces/trip-history-interface';
 
@@ -8,7 +9,7 @@ export class FilterByStatusPipe implements PipeTransform {
 	transform(
 		array: TripHistory[],
 		fieldName: string,
-		selectedStatus: number[],
+		selectedStatus: TripStatus[],
 		isEnabled: boolean = false
 	): TripHistory[] {
 		if (!array || !isEnabled) {

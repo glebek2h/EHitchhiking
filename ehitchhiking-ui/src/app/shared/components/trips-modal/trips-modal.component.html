@@ -7,17 +7,17 @@
     </i>
   </header>
 
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>Filters</mat-expansion-panel-header>
-    <div class="form-row expansion-panel-sm">
-      <mat-form-field class="filter-width">
-        <mat-label>Role</mat-label>
-        <mat-select [(ngModel)]="selectedRole" name="selected">
-          <mat-option (click)="filterByRole()" *ngFor="let role of tripsModalService.roles" [value]="role.value">
-            {{ role.viewValue }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+	<mat-expansion-panel>
+		<mat-expansion-panel-header>Filters</mat-expansion-panel-header>
+		<div class="form-row expansion-panel-sm">
+			<mat-form-field class="filter-width">
+				<mat-label>Role</mat-label>
+				<mat-select [formControl]="roles" multiple>
+					<mat-option (click)="filterByRole()" *ngFor="let role of tripsModalService.roles" [value]="role.value">
+						{{ role.viewValue }}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
 
       <mat-form-field class="filter-width">
         <mat-label>Status of trip</mat-label>
@@ -31,47 +31,24 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field class="filter-width">
-        <mat-label>Rating</mat-label>
-        <mat-select [formControl]="ratings" multiple>
-          <mat-option
-            (click)="filterByRating()"
-            *ngFor="let rate of tripsModalService.ratesTrip"
-            [value]="rate.value"
-          >{{ rate.viewValue }}</mat-option
-          >
-        </mat-select>
-      </mat-form-field>
-
-      <mat-slide-toggle [(ngModel)]="selectedFavorite">Favorite trips</mat-slide-toggle>
-      <button [ngSwitch]="selectedBySort" (click)="ChangeSort()" class="modal-close-control-btn" mat-icon-button>
-        <mat-icon *ngSwitchCase="0" title="not sort">
-          call_split
-        </mat-icon>
-        <mat-icon *ngSwitchCase="1" title="ASC"> call_made</mat-icon>
-        <mat-icon *ngSwitchCase="2" title="DESC">
-          call_received
-        </mat-icon>
-      </button>
-    </div>
-  </mat-expansion-panel>
+			<mat-slide-toggle [(ngModel)]="selectedFavorite">Favorite trips</mat-slide-toggle>
+		</div>
+	</mat-expansion-panel>
 
   <div mat-dialog-content class="trips">
     <div
       class="trips-container items-hover"
       *ngFor="
 				let trip of tripsArray
-					| filterByRole: tripsModalService.roleFilterConfig.roleField:selectedRole:tripsModalService.roleFilterConfig.isEnable
+					| filterByRole
+						: tripsModalService.roleFilterConfig.fieldName
+						: tripsModalService.roleFilterConfig.selected
+						: tripsModalService.roleFilterConfig.isEnabled
 					| filterByFavorite: 'saved':selectedFavorite
 					| filterByStatus
 						: tripsModalService.statusFilterConfig.fieldName
 						: tripsModalService.statusFilterConfig.selected
 						: tripsModalService.statusFilterConfig.isEnabled
-					| filterByRating
-						: tripsModalService.ratingFilterConfig.fieldName
-						: tripsModalService.ratingFilterConfig.selected
-						: tripsModalService.ratingFilterConfig.isEnabled
-					| sortTrips: 'rating':order
 					| slice: 0:limit;
 				trackBy: trackById
 			"
