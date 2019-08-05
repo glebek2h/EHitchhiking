@@ -37,10 +37,10 @@
 	name="fontStyle"
 	aria-label="Font Style"
 >
-	<mat-button-toggle class="role-chooser-btn" value="bold" (click)="toggleStateToPassenger()"
+	<mat-button-toggle [ngClass]="{'active': activePassengerButton}" class="role-chooser-btn" value="bold" (click)="toggleStateToPassenger()"
 		>Passenger</mat-button-toggle
 	>
-	<mat-button-toggle class="role-chooser-btn" value="italic" (click)="toggleStateToDriver()"
+	<mat-button-toggle [ngClass]="{'active': activeDriverButton}" class="role-chooser-btn" value="italic" (click)="toggleStateToDriver()"
 		>Driver</mat-button-toggle
 	>
 </mat-button-toggle-group>

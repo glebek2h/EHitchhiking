@@ -47,6 +47,8 @@ export class MainScreenComponent implements OnInit {
 	displayedRouteIndex: number;
 	mapTriggers = {};
 	redrawTriggers: boolean;
+  activePassengerButton: boolean;
+  activeDriverButton: boolean;
 	filterData;
 
 	startEndCoordinates: number[] = [];
@@ -130,11 +132,15 @@ export class MainScreenComponent implements OnInit {
 	}
 
 	toggleStateToPassenger() {
-		this.userState = UserState.Passenger;
+    this.activePassengerButton = true;
+    this.activeDriverButton = false;
+    this.userState = UserState.Passenger;
 		this.toggleMapInterfaceToDefault();
 	}
 
 	toggleStateToDriver() {
+    this.activeDriverButton = true;
+    this.activePassengerButton = false;
 		this.userState = UserState.Driver;
 		this.toggleMapInterfaceToDefault();
 	}
@@ -168,4 +174,5 @@ export class MainScreenComponent implements OnInit {
 		this.isDisabledSubmitRouteButton = false;
 		this.passengerCoordinates = data;
 	}
+
 }
