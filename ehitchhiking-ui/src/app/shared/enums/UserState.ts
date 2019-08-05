@@ -1,5 +1,5 @@
 export enum UserState {
-  Passenger = 0,
-  Driver = 1,
-  All = 2,
+	Passenger = 1,
+	Driver = 2,
+	All = 3,
 }

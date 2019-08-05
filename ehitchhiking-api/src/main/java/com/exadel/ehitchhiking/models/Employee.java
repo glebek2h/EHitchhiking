@@ -15,7 +15,7 @@ import java.util.Set;
 @Table(name = "\"EMPLOYEE\"", schema = "public")
 @EqualsAndHashCode
 @NoArgsConstructor
-public class Employee implements UserDetails {
+public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,10 +29,13 @@ public class Employee implements UserDetails {
     @Column(name = "\"IS_ADMIN\"")
     private boolean isAdmin;
 
+
+    //Email of the user is their username
     @Getter
     @Setter
-    @Column(name = "\"USER_NAME\"")
-    private String username;
+    @Column(name = "\"EMAIL\"")
+    private String email;
+
 
     @Getter
     @Setter
@@ -44,10 +47,6 @@ public class Employee implements UserDetails {
     @Column(name = "\"LAST_NAME\"")
     private String lastName;
 
-    @Getter
-    @Setter
-    @Column(name = "\"EMAIL\"")
-    private String email;
 
     @Getter
     @Setter
@@ -59,44 +58,21 @@ public class Employee implements UserDetails {
     @Column(name = "\"PHONE_NUMBER\"")
     private String phoneNumber;
 
-    public Employee(boolean isAdmin, String username, String firstName, String lastName, String email, String password, String phoneNumber) {
+    @Setter
+    @Getter
+    @Column(name = "\"POINTS\"")
+    private float points;
+
+
+    public Employee(boolean isAdmin, String firstName, String lastName, String email, String password, String phoneNumber) {
         this.isAdmin = isAdmin;
-        this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.phoneNumber = phoneNumber;
+        this.points = 0.0f;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        grantedAuthorities.add(new SimpleGrantedAuthority("Admin"));
-        grantedAuthorities.add(new SimpleGrantedAuthority("Employee"));
-
-        return null;
-    }
-
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
 }
 

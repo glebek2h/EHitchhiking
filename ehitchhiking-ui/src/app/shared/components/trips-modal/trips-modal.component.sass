@@ -1,24 +1,9 @@
-@import '../../../../styles/fonts-constants'
 @import '../../../../styles/colors'
-@import '../../../../styles/mixins'
 @import '../../../../styles/modals'
-@import  '../../../../styles/constants'
+@import '../../../../styles/trips'
 
-.form
-  height: 100%
-  display: flex
-.center
-  margin: auto
-  text-align: center
-.trips-modal-container
-  position: relative
-.trips-title
-  text-align: center
-  margin-bottom: 0
-  font-size: $title
-
-.filter-sort
-  height: 5rem
+.filter-width
+  width: 7rem
 .form-row
   display: flex
   justify-content: center
@@ -29,6 +14,7 @@
 .scroll-marker
   min-height: $height-empty-block
 .trips
+  padding: $default-offset
   height: calc(#{$trip-card-height} * #{$number-of-trips-in-list} + #{$height-empty-block})
   overflow-Y: scroll
   overflow-x: hidden

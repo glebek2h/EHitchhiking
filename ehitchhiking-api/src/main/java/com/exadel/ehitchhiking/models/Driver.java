@@ -23,7 +23,7 @@ public class Driver {
 
     @Getter
     @Setter
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "\"EMPLOYEE_ID\"")
     private Employee employee;
 
@@ -39,8 +39,9 @@ public class Driver {
 
     @Getter
     @Setter
-    @ManyToMany
-    @JoinTable(name = "\"BLACKLIST_DRIVER\"", joinColumns = @JoinColumn(name = "\"DRIVER_ID\""),
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "\"BLACKLIST_DRIVER\"",
+            joinColumns = @JoinColumn(name = "\"DRIVER_ID\""),
             inverseJoinColumns = @JoinColumn(name = "\"PASS_ID\""))
     private List<Passenger> passengers = new ArrayList<>();
 

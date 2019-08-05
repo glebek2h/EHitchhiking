@@ -1,16 +1,13 @@
 package com.exadel.ehitchhiking.controllers;
 
-
-import com.exadel.ehitchhiking.models.Employee;
+import com.exadel.ehitchhiking.models.vo.EmployeeVO;
+import com.exadel.ehitchhiking.requests.RequestEmployee;
 import com.exadel.ehitchhiking.responses.Response;
-import com.exadel.ehitchhiking.responses.ResponseMany;
 import com.exadel.ehitchhiking.services.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/employee")
@@ -19,74 +16,37 @@ public class EmployeeController {
     @Autowired
     private IEmployeeService employeeService;
 
-    @Autowired
-    private PasswordEncoder encoder;
 
-    @PutMapping("/updatePassword")
-    public void updatePassword(String username, String password){
-        try{
-            employeeService.updatePassword(username, encoder.encode(password));
-            //TODO: return
-        }
-        catch(Exception
-
-                e){
-            //TODO: figure out the return
-        }
-    }
-    @PutMapping("/updatePhone")
-    public void updatePhone(String username, String cell) {
+    @PutMapping
+    public Response updateTrip(@RequestBody RequestEmployee employee) {
         try {
-            employeeService.updatePhone(username, cell);
-            //TODO: return
+            employeeService.updateEmployee(employee.getEmail(), employee.getLastName(),
+                    employee.getFirstName(), employee.getPhoneNum());
         } catch (Exception e) {
-            //TODO: figure out the return
+            return Response.setError("error");
         }
+        return Response.setSuccess("true", "Success");
     }
 
-    @PutMapping("/updateEmail")
-    public void updateEmail(String username, String email) {
+    @GetMapping
+    public Response getEmployee(int id) {
+        EmployeeVO employee;
         try {
-            employeeService.updateEmail(username, email);
-            //TODO: return
+            employee = employeeService.findUserById(id);
         } catch (Exception e) {
-            //TODO: figure out the return
+            return Response.setError("error");
         }
+        return Response.setSuccess(employee, "Success");
     }
 
-    @PutMapping("/updateFirstName")
-    public void updateFirstName(String username, String firstName) {
+    @GetMapping("/list")
+    public Response getAll() {
+        List<EmployeeVO> employeeVOS;
         try {
-            employeeService.updateFirstName(username, firstName);
-            //TODO: return
+            employeeVOS = employeeService.getAll();
         } catch (Exception e) {
-            //TODO: figure out the return
+            return Response.setError("error");
         }
-    }
-
-    @PutMapping("/updateLastName")
-    public void updateLastName(String username, String lastName) {
-        try {
-            employeeService.updateLastName(username, lastName);
-            //TODO: return
-        } catch (Exception e) {
-            //TODO: figure out the return
-        }
-    }
-
-    @GetMapping("/getEmployee")
-    public Response<Employee> getEmployee(String id){
-        Response<Employee> response = new Response<>();
-        response.setStatus("200");
-        response.setData(employeeService.findUserId(Integer.parseInt(id)));
-        return response;
-    }
-
-    @GetMapping("/getAll")
-    public ResponseMany<Employee> getAll(){
-        ResponseMany<Employee> responseMany = new ResponseMany<>();
-        responseMany.setStatus("200");
-        responseMany.setData(employeeService.getAll());
-        return responseMany;
+        return Response.setSuccess(employeeVOS, "Success");
     }
 }

@@ -1,18 +1,21 @@
 package com.exadel.ehitchhiking.services.impl;
-
-import com.exadel.ehitchhiking.daos.ICarDAO;
-import com.exadel.ehitchhiking.daos.ITripDriverDAO;
-import com.exadel.ehitchhiking.daos.ITripPassDAO;
+import com.exadel.ehitchhiking.config.ComareUtils;
+import com.exadel.ehitchhiking.daos.*;
 import com.exadel.ehitchhiking.models.TripDriver;
+import com.exadel.ehitchhiking.models.TripPass;
+import com.exadel.ehitchhiking.models.vo.PassengerVO;
 import com.exadel.ehitchhiking.models.vo.TripDriverVO;
 import com.exadel.ehitchhiking.services.ITripDriverService;
+
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Service;
-
 
 import javax.transaction.Transactional;
 import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,99 +24,124 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class TripDriverService implements ITripDriverService {
 
+
     @Autowired
     private ITripDriverDAO dao;
 
     @Autowired
     private ICarDAO carDAO;
-
     @Autowired
     private ITripPassDAO tripPassDAO;
 
+    @Autowired
+    private IDriverDAO driverDAO;
+
+    @Autowired
+    private IPassengerDAO passengerDAO;
+
     @Override
     public void createTripDriver(String startingPoint, String endingPoint,
-                                 Timestamp startingTime, Timestamp endingTime, int idOfCar, int seats){
+                                 Instant startingTime, Instant endingTime, int idOfCar, int seats,
+                                 Point coordStart, Point coordEnd, float distance){
+
         TripDriver tripDriver = new TripDriver(startingPoint, endingPoint,
-                startingTime, endingTime, true,
-                false, false, seats, carDAO.getCar(idOfCar));
+                Timestamp.from(startingTime), Timestamp.from(endingTime), true,
+                false, false, seats, carDAO.getCar(idOfCar), false, coordStart,coordEnd, distance);
         dao.save(tripDriver);
     }
 
     @Override
-    public void updateTimeStart(int id, Timestamp newStart){
-        TripDriver trip_driver = dao.getTripDriver(id);
-        trip_driver.setStartTime(newStart);
-        dao.update(trip_driver);
+    public TripDriverVO findTripDriver(int id){
+
+        return TripDriverVO.fromEntity(dao.getTripDriver(id));
     }
 
     @Override
-    public void updateTimeEnd(int id, Timestamp newEnd){
-        TripDriver trip_driver = dao.getTripDriver(id);
-        trip_driver.setEndTime(newEnd);
-        dao.update(trip_driver);
-    }
-
-    @Override
-    public void updatePointStart(int id, String start){
-        TripDriver trip_driver = dao.getTripDriver(id);
-        trip_driver.setStartPoint(start);
-        dao.update(trip_driver);
-    }
-
-    @Override
-    public void updatePointEnd(int id, String end){
+    public void updateTrip(int id, Instant newStart, Instant newEnd, String start, String end,
+                           int newSeats, int idNewCar, Point coordStart, Point coordEnd, float distance){
         TripDriver tripDriver = dao.getTripDriver(id);
+        tripDriver.setStartTime(java.sql.Timestamp.from(newStart));
+        tripDriver.setEndTime(Timestamp.from(newEnd));
+        tripDriver.setStartPoint(start);
         tripDriver.setEndPoint(end);
+        tripDriver.setAvailableSeats(newSeats);
+        tripDriver.setCar(carDAO.getCar(idNewCar));
+        tripDriver.setCoordStart(coordStart);
+        tripDriver.setCoordEnd(coordEnd);
+        tripDriver.setDistance(distance);
+
+        dao.update(tripDriver);
+
+    }
+
+    @Override
+    public void updateSeats(int id, int seats){
+        TripDriver tripDriver = dao.getTripDriver(id);
+        tripDriver.setAvailableSeats(seats);
         dao.update(tripDriver);
     }
 
+
     @Override
-    public void updateSave(int id, boolean isSaved){
+    public TripDriverVO updateSave(int id, boolean isSaved){
         TripDriver tripDriver = dao.getTripDriver(id);
         tripDriver.setSaved(isSaved);
         dao.update(tripDriver);
+        return TripDriverVO.fromEntity(dao.getTripDriver(id));
     }
 
     @Override
     public void updateFinished(int id, boolean isFinished){
         TripDriver tripDriver = dao.getTripDriver(id);
-        tripDriver.setSaved(isFinished);
+        tripDriver.setFinished(isFinished);
+        tripDriver.setActive(false);
+        if (isFinished) {
+            float dist = tripDriver.getDistance();
+            int seats = tripPassDAO.getAmountPass(id);
+            float amountOfPoints =  tripDriver.getCar().getDriver().getEmployee().getPoints();
+            tripDriver.getCar().getDriver().getEmployee().setPoints((dist*(seats/10))+amountOfPoints);
+        }
         dao.update(tripDriver);
     }
 
     @Override
-    public void updateHistory(int id, boolean isHistory){
+    public List<PassengerVO> getPassengers(int id){
+        List<TripPass> tripPassList= dao.getTripPass(id);
+        List<PassengerVO> listPass = new ArrayList<PassengerVO>() {
+        };
+        for (TripPass tripPass: tripPassList){
+            listPass.add(PassengerVO.fromEntity(tripPass.getPassenger()));
+        }
+        return listPass;
+    }
+
+    @Override
+    public void updateActive(int id, boolean isActive){
         TripDriver tripDriver = dao.getTripDriver(id);
-        tripDriver.setSaved(isHistory);
+        tripDriver.setActive(isActive);
+        dao.update(tripDriver);
+    }
+
+
+    @Override
+    public void setToNotActive(int id){
+        TripDriver tripDriver = dao.getTripDriver(id);
+        tripDriver.setActive(false);
         dao.update(tripDriver);
     }
 
     @Override
-    public void updateSeats(int id, int newSeats){
+    public void deleteFromHistory(int id, boolean isHistory){
         TripDriver tripDriver = dao.getTripDriver(id);
-        tripDriver.setAvailableSeats(newSeats);
-        dao.update(tripDriver);
-    }
-/*
-    @Override
-    public void addPassenger(int idTripPass, int id){
-        TripDriver tripDriver = dao.getTripDriver(id);
-        tripDriver.getTripPassSet().add(tripPassDAO.getTripPass(idTripPass));
+        tripDriver.setHistory(false);
         dao.update(tripDriver);
     }
 
-    @Override
-    public void deletePassenger(int idTripPass, int id){
-        TripDriver tripDriver = dao.getTripDriver(id);
-        tripDriver.getTripPassSet().remove(tripPassDAO.getTripPass(idTripPass));
-        dao.update(tripDriver);*/
-    //}
+
 
     @Override
-    public void updateCar(int id, int idNewCar){
-        TripDriver tripDriver = dao.getTripDriver(id);
-        //tripDriver.setCar(carDAO.getCar(idNewCar));
-        dao.update(tripDriver);
+    public int getAvailableSeats(int id){
+        return dao.getAvailableSeats(id);
     }
 
     @Override
@@ -123,7 +151,13 @@ public class TripDriverService implements ITripDriverService {
 
 
     @Override
-    public List<TripDriverVO> getAll() {
-        return dao.getAll().stream().map(TripDriverVO::fromEntity).collect(Collectors.toList());
-    }
+    public List<TripDriverVO> getAll(int idEmp, Instant startingTime, Instant endingTime, int seats,
+                                     Point coordStart, Point coordEnd) {
+        List<TripDriverVO> list =  dao.getAll().stream().map(TripDriverVO::fromEntity).collect(Collectors.toList());
+        return list.stream()
+                .filter(trips -> trips.getSeats() >= seats
+                        && !driverDAO.getDriver(trips.getDriver().getId()).getPassengers().contains(passengerDAO.getByEmployeeId(idEmp))
+                        && ComareUtils.isTimeInRange(startingTime, endingTime, trips.getStartingTime()))
+                //.sorted()
+                .collect(Collectors.toList());}
 }

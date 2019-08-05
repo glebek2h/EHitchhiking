@@ -3,13 +3,16 @@ package com.exadel.ehitchhiking.services.impl;
 import com.exadel.ehitchhiking.daos.ICarDAO;
 import com.exadel.ehitchhiking.daos.IDriverDAO;
 import com.exadel.ehitchhiking.models.Car;
+import com.exadel.ehitchhiking.models.vo.CarVO;
 import com.exadel.ehitchhiking.services.ICarService;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(rollbackOn = Exception.class)
@@ -23,9 +26,11 @@ public class CarService implements ICarService {
     private IDriverDAO driverDao;
 
     @Override
-    public void createCar(String color, String number, String carModel,
+    public CarVO createCar(String color, String number, String carModel,
                           int idOfDriver) {
-        dao.save(new Car(color, number, carModel, driverDao.getDriver(idOfDriver)));
+        Car newCar = new Car(color, number, carModel, driverDao.getByEmployeeId(idOfDriver));
+        dao.save(newCar);
+        return CarVO.fromEntity(newCar);
     }
 
     @Override
@@ -39,16 +44,19 @@ public class CarService implements ICarService {
     }
 
     @Override
-    public void updateNumber(int carId, String newNumber) {
-        Car car = dao.getCar(carId);
-        car.setNumber(newNumber);
-        dao.update(car);
+    public void updateCar(CarVO newCar) {
+        int carId = newCar.getId();
+        Car oldCar = dao.getCar(carId);
+        oldCar.setColor(newCar.getColor());
+        oldCar.setModel(newCar.getModel());
+        oldCar.setNumber(newCar.getNumber());
+        dao.update(oldCar);
     }
 
     @Override
-    public void updateColor(int carId, String color) {
+    public void deletedCar(int carId) {
         Car car = dao.getCar(carId);
-        car.setColor(color);
+        car.setDeleted(true);
         dao.update(car);
     }
 
@@ -58,8 +66,12 @@ public class CarService implements ICarService {
     }
 
     @Override
-    public List<Car> getListCars(int idDriver) {
-        return dao.getListCars(idDriver);
+    public List<CarVO> getListCars(int empId) {
+        return dao.getListCars(empId)
+                .stream()
+                .map(CarVO::fromEntity)
+                .sorted(Comparator.comparingInt(CarVO::getId))//(car1, car2) -> car1.getId().compareTo(car2.getId())
+                .collect(Collectors.toList());
     }
 
     @Override

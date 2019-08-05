@@ -1,9 +1,17 @@
 package com.exadel.ehitchhiking.models.vo;
 
+import com.exadel.ehitchhiking.models.Car;
+import com.exadel.ehitchhiking.models.Driver;
 import com.exadel.ehitchhiking.models.TripDriver;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.data.geo.Point;
+import org.springframework.stereotype.Service;
 
+import javax.persistence.Id;
 import java.time.Instant;
 import java.util.Date;
 
@@ -13,23 +21,40 @@ public class TripDriverVO {
 
     private Integer id;
 
-    private String startPoint;
+    private String startingPoint;
 
-    private String endPoint;
+    private String endingPoint;
 
-    private Instant startTime;
+    private Instant startingTime;
 
-    private Instant endTime;
+    private Instant endingTime;
+
 
     private CarVO car;
 
+    @JsonIgnore
+    private Integer idOfCar;
+
+    private DriverVO driver;
+
+    @JsonIgnore
     private boolean isActive;
 
+    @JsonIgnore
     private boolean isFinished;
 
+    @JsonIgnore
     private boolean isSaved;
 
-    private int availableSeats;
+    private int seats;
+
+    private Point coordStart;
+
+    private Point coordEnd;
+
+    private float distance;
+
+    private boolean isHistory;
 
     public static TripDriverVO fromEntity(TripDriver tripDriver) {
         return new TripDriverVO(
@@ -39,10 +64,16 @@ public class TripDriverVO {
                 tripDriver.getStartTime().toInstant(),
                 tripDriver.getEndTime().toInstant(),
                 CarVO.fromEntity(tripDriver.getCar()),
+                tripDriver.getCar().getId(),
+                DriverVO.fromEntity(tripDriver.getCar().getDriver()),
                 tripDriver.isActive(),
                 tripDriver.isFinished(),
                 tripDriver.isSaved(),
-                tripDriver.getAvailableSeats()
+                tripDriver.getAvailableSeats(),
+                tripDriver.getCoordStart(),
+                tripDriver.getCoordEnd(),
+                tripDriver.getDistance(),
+                tripDriver.isHistory()
         );
     }
 }

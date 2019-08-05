@@ -1,24 +1,24 @@
 package com.exadel.ehitchhiking.services;
 
-import com.exadel.ehitchhiking.models.Car;
+import com.exadel.ehitchhiking.models.vo.CarVO;
 
 import java.util.List;
 
 public interface ICarService {
-    void createCar(String color, String number, String car_model,
-                   int id_of_driver);
+    CarVO createCar(String color, String number, String carModel,
+                   int idOfDriver);
 
-    void findCarNumber(int car_id);
+    void findCarNumber(int carId);
 
     void findId(int id);
 
-    void updateNumber(int car_id, String newNumber);
-
-    void updateColor(int car_id, String color);
+    void updateCar(CarVO newCar);
 
     void deleteCarId(int id);
 
-    List<Car> getListCars(int idDriver);
+    List<CarVO> getListCars(int empId);
 
     int getAmountCars(int idDriver);
+
+    void deletedCar(int carId);
 }

@@ -12,21 +12,22 @@ import java.util.List;
 @Repository
 public class PassengerDAO extends AbstractDAO<Passenger> implements IPassengerDAO {
 
-    public PassengerDAO(SessionFactory sessionFactory) {
-        super(sessionFactory);
+    public PassengerDAO() {
+        super(Passenger.class);
     }
 
     @Override
-    public List<Passenger> getAll() {
-        List<Passenger> passs = (List<Passenger>)  getCurrentSession().createQuery("From com.exadel.ehitchhiking.models.Passenger").list();
-        return passs;
-    }
-
-    @Override
-    public Passenger getByName(String username) {
-        Passenger passenger = (Passenger)  getCurrentSession().createQuery("from Passenger where employee = (from Employee where username = '" + username + "')").uniqueResult();
+    public Passenger getByEmail(String email) {
+        Passenger passenger = (Passenger)  getCurrentSession().createQuery("from com.exadel.ehitchhiking.models.Passenger where Employee.email = '" + email + "'").uniqueResult();
         return passenger;
     }
+
+    @Override
+    public Passenger getByEmployeeId(int id) {
+        return (Passenger) getCurrentSession().createQuery("from Passenger where employee.id = '" + id + "'").uniqueResult();
+
+    }
+
 
     @Override
     public Passenger getPassenger(int id) {

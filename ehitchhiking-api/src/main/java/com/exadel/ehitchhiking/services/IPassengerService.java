@@ -2,16 +2,19 @@ package com.exadel.ehitchhiking.services;
 
 import com.exadel.ehitchhiking.models.Driver;
 import com.exadel.ehitchhiking.models.Employee;
+import com.exadel.ehitchhiking.models.Passenger;
+import com.exadel.ehitchhiking.models.vo.DriverVO;
 
 import java.util.List;
 
 public interface IPassengerService {
-    void createPassenger(Employee employee);
-    int findPassIdByUsername(String username);
-    void updateRatePass(String username, float addedRate);
-    void deletePassenger(String username);
+    void createPassenger(Integer id);
+    int findPassIdByEmail(String email);
+    void updateRatePass(int idPass, float addedRate);
+    void deletePassenger(String email);
     void deletePassengerId(int id);
-    void addDriverToBL(int idPass, int idDriver);
-    void deleteDriverToBL(int idPass, int idDriver);
-    List<Driver> getDrivers(int idPass);
+    void addDriverToBL(int idTrip, int idDriver, boolean isBlocked);
+    void deleteDriverFromBL(int idEmp, int idDriver);
+    List<DriverVO> getDrivers(int idPass);
+    Passenger findByEmployeeId(int id);
 }

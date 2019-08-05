@@ -1,10 +1,6 @@
-export const BLACKLIST_DRIVERS: string[] = ['Pavel Sygako', 'Aleksey Spypenev', 'Alina Syponenko'];
+import {User} from '@shared/models/user';
+import {Car} from '@shared/models/car';
 
-export const BLACKLIST_PASSENGERS: string[] = [
-	'Anastasia Harostjhbvhgv',
-	'Gleb Kazachinsky',
-	'Julia Romanova',
-	'Yana ',
-	'Aleksey',
-	'Eliza',
-];
+export const CUR_USER: User = new User('1', 'Anastasia', 'Harost', '', 'hello@gmail.com', '+375291234567', [
+	new Car('ferrari', 'pink', 'A3434B'),
+]);

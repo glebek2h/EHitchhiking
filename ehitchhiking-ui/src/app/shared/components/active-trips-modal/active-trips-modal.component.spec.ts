@@ -1,19 +1,19 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {TripComponent} from './trip.component';
+import {ActiveTripsModalComponent} from './active-trips-modal.component';
 
-describe('TripComponent', () => {
-	let component: TripComponent;
-	let fixture: ComponentFixture<TripComponent>;
+describe('ActiveTripsModalComponent', () => {
+	let component: ActiveTripsModalComponent;
+	let fixture: ComponentFixture<ActiveTripsModalComponent>;
 
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
-			declarations: [TripComponent],
+			declarations: [ActiveTripsModalComponent],
 		}).compileComponents();
 	}));
 
 	beforeEach(() => {
-		fixture = TestBed.createComponent(TripComponent);
+		fixture = TestBed.createComponent(ActiveTripsModalComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

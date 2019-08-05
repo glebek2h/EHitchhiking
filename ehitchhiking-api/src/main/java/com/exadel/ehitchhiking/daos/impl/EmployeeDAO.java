@@ -12,24 +12,18 @@ import java.util.List;
 @Repository
 public class EmployeeDAO extends AbstractDAO<Employee> implements IEmployeeDAO {
 
-    public EmployeeDAO(SessionFactory sessionFactory) {
-        super(sessionFactory);
+    public EmployeeDAO() {
+        super(Employee.class);
     }
 
     @Override
-    public List<Employee> getAll() {
-        List<Employee> emps = (List<Employee>) getCurrentSession().createQuery("From com.exadel.ehitchhiking.models.Employee").list();
-        return emps;
+    public Employee getByEmail(String email){
+        return (Employee) getCurrentSession().createQuery("from Employee where email = '" + email + "'").uniqueResult();
     }
 
     @Override
-    public Employee getByName(String name){
-        return (Employee) getCurrentSession().createQuery("from Employee where username = '" + name + "'").uniqueResult();
-    }
-
-    @Override
-    public String getPassword(String username) {
-        String password = (String) getCurrentSession().createQuery("select password From com.exadel.ehitchhiking.models.Employee where username = '" + username + "'").uniqueResult();
+    public String getPassword(String email) {
+        String password = (String) getCurrentSession().createQuery("select password From com.exadel.ehitchhiking.models.Employee where email = '" + email + "'").uniqueResult();
         return password;
     }
 

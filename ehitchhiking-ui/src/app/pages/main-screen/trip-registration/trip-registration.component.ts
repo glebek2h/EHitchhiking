@@ -1,7 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {User} from "@shared/models/user";
-import {UserState} from "@shared/enums/UserState";
+import {User} from '@shared/models/user';
+import {UserState} from '@shared/enums/UserState';
+import {MapTripFormService} from '@shared/services/map-trip-form.service';
+import {UserService} from '@shared/services/user.service';
 
 @Component({
 	selector: 'app-trip-registration',
@@ -10,24 +12,26 @@ import {UserState} from "@shared/enums/UserState";
 })
 export class TripRegistrationComponent implements OnInit {
 	@Input() isShown: boolean;
-  @Input() user: User;
-  @Input() userState: UserState;
+	@Input() currentUser: User;
+	@Input() userState: UserState;
 	@Output() formData = new EventEmitter<any>(); // TODO
+	@Output() passengerFormData = new EventEmitter<any>(); // TODO
 	@Output() isShownViewListButton = new EventEmitter<boolean>();
 	@Output() isShownSaveRouteButton = new EventEmitter<boolean>();
 
+	coords;
 	nameFormGroup: FormGroup;
 
-	constructor() {}
+	constructor(private userService: UserService) {}
 
 	ngOnInit() {
 		this.nameFormGroup = new FormGroup({
-      from: new FormControl('', [Validators.required]),
-      to: new FormControl('', [Validators.required]),
-      departureDate: new FormControl('', [Validators.required]),
-      placesSelect: new FormControl('', [Validators.required]),
-      departureTime: new FormControl('', [Validators.required]),
-      car: new FormControl(''),
+			from: new FormControl('Барановичи', [Validators.required]),
+			to: new FormControl('Пинск', [Validators.required]),
+			departureDate: new FormControl('', [Validators.required]),
+			placesSelect: new FormControl('1', [Validators.required]),
+			departureTime: new FormControl('', [Validators.required]),
+			car: new FormControl(''),
 		});
 	}
 
@@ -37,16 +41,20 @@ export class TripRegistrationComponent implements OnInit {
 	}
 
 	onSubmit() {
-		this.formData.emit(this.nameFormGroup.value);
+		if (this.userState === UserState.Driver) {
+			this.formData.emit(this.nameFormGroup.value);
+		} else {
+			this.passengerFormData.emit(this.nameFormGroup.value);
+		}
 		this.isShownViewListButton.emit(true);
 		this.isShownSaveRouteButton.emit(true);
 	}
 
-  isDriver() {
-    return this.userState === UserState.Driver;
-  }
+	isDriver() {
+		return this.userState === UserState.Driver;
+	}
 
-  isPassenger() {
-    return this.userState === UserState.Passenger;
-  }
+	isPassenger() {
+		return this.userState === UserState.Passenger;
+	}
 }

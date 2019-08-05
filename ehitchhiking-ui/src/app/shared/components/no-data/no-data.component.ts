@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {NoDataSize} from '@shared/enums/no-data-sizes';
 
 @Component({
@@ -6,9 +6,10 @@ import {NoDataSize} from '@shared/enums/no-data-sizes';
 	templateUrl: './no-data.component.html',
 	styleUrls: ['./no-data.component.sass'],
 })
-export class NoDataComponent implements OnInit {
+export class NoDataComponent {
 	@Input() isEmpty: boolean;
 	@Input() size: NoDataSize = NoDataSize.Middle;
+	@Input() blurredBackground: boolean = true;
 	@Input() message;
 	@Input() icon;
 	defaultIcon = 'block';
@@ -16,9 +17,8 @@ export class NoDataComponent implements OnInit {
 
 	constructor() {}
 
-	ngOnInit() {}
-
-	defineSize(size: NoDataSize) {
-		return `no-data-block-${size}`;
+	defineSize(size: NoDataSize, blurredBackground: boolean): string {
+		const customClass = `no-data-block-${size}`;
+		return blurredBackground ? `${customClass} background` : customClass;
 	}
 }

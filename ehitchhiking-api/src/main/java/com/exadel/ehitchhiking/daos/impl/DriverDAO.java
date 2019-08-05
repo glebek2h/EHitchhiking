@@ -13,24 +13,22 @@ import java.util.List;
 public class DriverDAO extends AbstractDAO<Driver> implements IDriverDAO {
 
 
-    public DriverDAO(SessionFactory sessionFactory) {
-        super(sessionFactory);
+    public DriverDAO() {
+        super(Driver.class);
     }
 
     @Override
-    public List<Driver> getAll() {
-        List<Driver> drivers = (List<Driver>)  getCurrentSession().createQuery("From com.exadel.ehitchhiking.models.Driver").list();
-        return drivers;
+    public Driver getByEmail(String email) {
+        return (Driver) getCurrentSession().createQuery("from Driver where employee.email = '" + email + "'").uniqueResult();
     }
 
     @Override
-    public Driver getByName(String username) {
-        List<Driver> drivers = (List<Driver>)  getCurrentSession().createQuery("from Driver where employee = (from Employee where username = '" + username + "')").list();
-        return drivers.get(0);
+    public Driver getByEmployeeId(int id) {
+        return (Driver) getCurrentSession().createQuery("from Driver where employee.id = '" + id + "'").uniqueResult();
     }
 
     @Override
     public Driver getDriver(int id) {
-        return (Driver) getCurrentSession().get(Driver.class, id);
+        return getCurrentSession().get(Driver.class, id);
     }
 }

@@ -1,0 +1,21 @@
+<div class="form-row">
+	<i class="user-role-icon material-icons" *ngIf="trip.role === userState.Driver" title="driver">
+		directions_car
+	</i>
+	<i class="user-role-icon material-icons" *ngIf="trip.role === userState.Passenger" title="passenger">
+		person
+	</i>
+	<p class="trip-points truncated">
+		<span class="start-end-point " title="from: {{ trip.startPoint }}">{{ trip.startPoint }}</span>
+		<span class="start-end-point " title="to: {{ trip.endPoint }}">-> {{ trip.endPoint }}</span>
+	</p>
+	<span class="date truncated" title="date:  {{ trip.date }}">{{ trip.date }}</span>
+	<span class="time truncated" title="time: {{ trip.time }}">{{ trip.time }} </span>
+	<span title="reserved seats: {{ trip.reservedSeats }}" class="position-seats">{{ trip.reservedSeats }}</span>
+
+	<button class="trip-btn" title="declined trip" (click)="openConfirmationDialogRemoveActiveTrip($event)">
+		<i class="material-icons">
+			highlight_off
+		</i>
+	</button>
+</div>

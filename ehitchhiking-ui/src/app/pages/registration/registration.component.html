@@ -1,35 +1,48 @@
 <div class="page">
 	<div id="login-form">
 		<div class="exadel-login">
-      <img src="../../../assets/images/exadel-logo-horizon.png" alt="exadel-logo" class="exadel-login-img"/>
+			<img src="../../../assets/images/exadel-logo-horizon.png" alt="exadel-logo" class="exadel-login-img" />
 		</div>
 
 		<fieldset class="user-info">
-      <form novalidate [formGroup]="registrationForm" (ngSubmit)="onSubmit($event)">
-        <div class="authorization-inputs-container">
-          <mat-form-field class="form-row">
-            <input matInput formControlName="login" class="registration-input" name="login" placeholder="Login"/>
-            <mat-icon matSuffix>person</mat-icon>
-            <mat-error *ngIf="hasError('login')">Login is required</mat-error>
-          </mat-form-field>
-          <mat-form-field class="form-row">
-            <input matInput formControlName="password" type="password" class="registration-input" name="password"
-                   placeholder="Password"/>
-            <mat-icon matSuffix>lock</mat-icon>
-            <mat-error *ngIf="hasError('password')">Password is required</mat-error>
-          </mat-form-field>
-        </div>
-        <div class="center">
-          <button [disabled]="registrationForm.invalid" type="submit" class="btn" mat-raised-button
-                  color="primary">
-            Login
-          </button>
-        </div>
-      </form>
-      <footer class="clearfix">
-        <p><span class="info">?</span><a class="hover-info" href="#">Forget password?</a></p>
-      </footer>
-
-    </fieldset>
+			<form novalidate [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+				<div class="authorization-inputs-container">
+					<mat-form-field class="form-row">
+						<input
+							matInput
+							formControlName="login"
+							class="registration-input"
+							name="login"
+							placeholder="Login"
+						/>
+						<mat-icon matSuffix>person </mat-icon>
+						<mat-error *ngIf="hasError('login')">Login is required</mat-error>
+					</mat-form-field>
+					<mat-form-field class="form-row">
+						<input
+							matInput
+							formControlName="password"
+							type="password"
+							class="registration-input"
+							name="password"
+							placeholder="Password"
+						/>
+						<mat-icon matSuffix>lock</mat-icon>
+						<mat-error *ngIf="hasError('password')">Password is required</mat-error>
+					</mat-form-field>
+				</div>
+				<div class="center">
+					<button
+						[disabled]="registrationForm.invalid"
+						type="submit"
+						class="btn"
+						mat-raised-button
+						color="primary"
+					>
+						Login
+					</button>
+				</div>
+			</form>
+		</fieldset>
 	</div>
 </div>

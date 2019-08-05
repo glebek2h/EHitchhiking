@@ -2,9 +2,9 @@ package com.exadel.ehitchhiking.models;
 
 
 import lombok.*;
+import org.springframework.data.geo.Point;
 
 import java.sql.*;
-import java.util.Set;
 
 import javax.persistence.*;
 
@@ -68,9 +68,46 @@ public class TripDriver {
     @Column(name = "\"AVAILABLE_SEATS\"")
     private int availableSeats;
 
+    @Getter
+    @Setter
+    @Column (name = "\"COORD_START\"")
+    private Point coordStart;
+
+    @Getter
+    @Setter
+    @Column (name = "\"COORD_END\"")
+    private Point coordEnd;
+
+    @Getter
+    @Setter
+    @Column (name = "\"DISTANCE\"")
+    private float distance;
+
+    @Getter
+    @Setter
+    @Column(name = "\"IS_HISTORY\"")
+    private boolean isHistory;
+
+    @Getter
+    @Setter
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "\"CHAT\"")
+    private Chat chat;
+
+    @Getter
+    @Setter
+    @Column(name = "\"RATING\"")
+    private float rating;
+
+    @Getter
+    @Setter
+    @Column(name = "\"RATED_PEOPLE\"")
+    private int ratedPeople;
+
     public TripDriver(String startPoint, String endPoint,
                       Timestamp startTime, Timestamp endTime, boolean isActive,
-                      boolean isFinished, boolean isSaved, int seats, Car car){
+                      boolean isFinished, boolean isSaved, int seats, Car car, boolean isHistory,
+                      Point coordStart, Point coordEnd, float distance){
         this.startPoint = startPoint;
         this.endPoint = endPoint;
         this.startTime = startTime;
@@ -80,5 +117,13 @@ public class TripDriver {
         this.isSaved = isSaved;
         this.availableSeats = seats;
         this.car = car;
+        this.isHistory = isHistory;
+        this.coordStart = coordStart;
+        this.coordEnd = coordEnd;
+        this.distance = distance;
+        this.ratedPeople = 0;
+        this.rating = 0;
+        this.chat = null;
     }
+
 }

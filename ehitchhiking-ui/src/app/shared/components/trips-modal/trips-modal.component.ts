@@ -1,35 +1,34 @@
-import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
-import {LoaderSize} from "../../enums/pre-loader-sizes";
-import {MatDialogRef} from "@angular/material";
-import {TripsModalService} from "./trips-modal.service";
-import {SortState} from "../../enums/SortState";
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {LoaderSize} from '../../enums/pre-loader-sizes';
+import {MatDialogRef} from '@angular/material';
+import {SortState} from '../../enums/SortState';
+import {NUMBER_OF_TRIPS_VISIBLE_ON_PAGE} from '@shared/constants/modal-constants';
+import {FormControl} from '@angular/forms';
+import {UserState} from '@shared/enums/UserState';
+import {TripsModalService} from '../../services/trips-modal.service';
 
 @Component({
 	selector: 'app-trips',
 	templateUrl: './trips-modal.component.html',
 	styleUrls: ['./trips-modal.component.sass'],
-	providers: [TripsModalService],
 })
 export class TripsModalComponent implements OnInit {
-  limit = 4;
-	tripsArray = [];
-	tripsArrayLenght = 0;
+	limit = NUMBER_OF_TRIPS_VISIBLE_ON_PAGE;
+	tripsArray = null;
 	loaderSize: LoaderSize = LoaderSize.Large;
-	loading = true;
+	isLoading: boolean;
 	scrollObserver: IntersectionObserver;
-  order = 0;
-  role = {roleField: 'role', isEnable: false};
-  selectedRole: number;
-  selectedFavorite = false;
-  selectedSortByRating = false;
-  selectedBySort = SortState.None;
-
-  roles = [{value: 0, viewValue: 'Passenger'}, {value: 1, viewValue: 'Driver'}, {value: 2, viewValue: 'All'}];
+	order = 0;
+	selectedRole: UserState;
+	selectedFavorite = false;
+	selectedBySort = SortState.None;
+	statuses = new FormControl();
+	ratings = new FormControl();
 
 	@ViewChild('sMarker', {static: true}) markerRef: ElementRef;
-  rating: number;
+	rating: number;
 
-	constructor(public dialogRef: MatDialogRef<TripsModalComponent>, private tripService: TripsModalService) {
+	constructor(public dialogRef: MatDialogRef<TripsModalComponent>, public tripsModalService: TripsModalService) {
 		this.scrollObserver = new IntersectionObserver(this.onScroll.bind(this), {
 			threshold: 1,
 		});
@@ -37,58 +36,85 @@ export class TripsModalComponent implements OnInit {
 
 	onScroll(entries: IntersectionObserverEntry[]) {
 		for (let entry of entries) {
-      if (entry.isIntersecting) this.limit += 4;
+			if (entry.isIntersecting) {
+				this.limit += NUMBER_OF_TRIPS_VISIBLE_ON_PAGE;
+			}
 		}
-		if (this.limit >= this.tripsArray.length) this.scrollObserver.unobserve(this.markerRef.nativeElement);
-		console.log(`Limit increased ${this.limit}`);
+		if (this.limit >= this.tripsArray.length) {
+			this.scrollObserver.unobserve(this.markerRef.nativeElement);
+		}
 	}
+
 	ngOnInit() {
-		this.scrollObserver.observe(this.markerRef.nativeElement);
-		console.log(this.tripService.getTrips());
-		this.tripsArrayLenght = this.tripService.getTrips().length;
-		this.fetchTrips();
+		this.isLoading = true;
+		this.tripsModalService
+			.getTrips()
+			.then((data) => {
+				this.scrollObserver.observe(this.markerRef.nativeElement);
+				this.tripsArray = data;
+			})
+			.finally(() => {
+				this.isLoading = false;
+			});
 	}
-	fetchTrips() {
-		this.tripsArray = this.tripService.getTrips();
-		setTimeout(() => {
-			this.loading = false;
-		}, 1000);
-	}
+
 	exit(): void {
 		this.dialogRef.close();
 	}
+
 	replaceAll(): void {
-		this.tripService.resetTripsList();
-		this.fetchTrips();
+		this.isLoading = true;
+		this.tripsModalService
+			.resetTripsList()
+			.then((response) => {
+				if (!response) {
+					return;
+				}
+				this.tripsArray = [];
+			})
+			.finally(() => {
+				this.isLoading = false;
+			});
 	}
 
-	trackById(index, trip) {
+	trackById(trip) {
 		return trip.id;
 	}
 
-  filterByRole() {
-    this.role.isEnable = true;
-    console.log(this.role.isEnable);
-  }
+	filterByRole() {
+		this.tripsModalService.roleFilterConfig.isEnable = true;
+	}
 
-  changedFavorite() {
-    console.log('selectedFavorite' + ' ' + this.selectedSortByRating);
-  }
+	filterByStatus() {
+		this.tripsModalService.statusFilterConfig.selected = Object.values(this.statuses.value);
+		this.tripsModalService.statusFilterConfig.isEnabled = !!this.tripsModalService.statusFilterConfig.selected
+			.length;
+	}
 
-  ChangeSort() {
-    switch (this.selectedBySort) {
-      case SortState.None:
-        this.selectedBySort = SortState.ASC;
-        this.order = 1;
-        break;
-      case SortState.ASC:
-        this.selectedBySort = SortState.DESC;
-        this.order = -1;
-        break;
-      case SortState.DESC:
-        this.selectedBySort = SortState.None;
-        this.order = 0;
-        break;
-    }
-  }
+	filterByRating() {
+		this.tripsModalService.ratingFilterConfig.selected = Object.values(this.ratings.value);
+		this.tripsModalService.ratingFilterConfig.isEnabled = !!this.tripsModalService.ratingFilterConfig.selected
+			.length;
+	}
+
+	ChangeSort() {
+		switch (this.selectedBySort) {
+			case SortState.None:
+				this.selectedBySort = SortState.ASC;
+				this.order = 1;
+				break;
+			case SortState.ASC:
+				this.selectedBySort = SortState.DESC;
+				this.order = -1;
+				break;
+			case SortState.DESC:
+				this.selectedBySort = SortState.None;
+				this.order = 0;
+				break;
+		}
+	}
+
+	onLoadingToggle(loadingState) {
+		this.isLoading = loadingState;
+	}
 }

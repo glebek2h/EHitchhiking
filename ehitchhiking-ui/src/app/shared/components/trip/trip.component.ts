@@ -1,25 +1,37 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Trip} from '../trips-modal/trips';
+import {TripsModalService} from './../../services/trips-modal.service';
+import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {StarClickMeta} from '../rating/starClickMeta';
-import {UserState} from '../../enums/UserState';
-import {Passenger} from '../rate-passengers-modal/passenger';
-
+import {MatDialog} from '@angular/material';
+import {RatePassengersModalComponent} from '@shared/components/rate-passengers-modal/rate-passengers-modal.component';
+import {DEFAULT_MAT_DIALOG_CLASS, MAT_DIALOG_WIDTH_SM,MAT_DIALOG_HEIGHT_SM,
+  MAT_DIALOG_WIDTH_MD} from '@shared/constants/modal-constants';
+import {UserState} from '@shared/enums/UserState';
+import {TripHistory} from '@shared/interfaces/trip-history-interface';
 @Component({
 	selector: 'app-trip',
 	templateUrl: './trip.component.html',
 	styleUrls: ['./trip.component.sass'],
 })
 export class TripComponent implements OnInit {
-	@Input() trip: Trip;
+	@Input() trip: TripHistory;
+	@Output() onLoadingToggle = new EventEmitter<boolean>();
 	isRatingEditorVisible: boolean;
 	userState = UserState;
 
-	constructor() {}
+	constructor(public dialog: MatDialog, public tripsModalService: TripsModalService) {}
 
 	ngOnInit() {}
 
 	makeFavorite() {
-		this.trip.isFavorite = !this.trip.isFavorite;
+		this.onLoadingToggle.emit(true);
+		this.tripsModalService
+			.updateSavedState(this.trip.id, this.trip.role, this.trip.saved)
+			.then((response) => {
+				this.trip.saved = response;
+			})
+			.finally(() => {
+				this.onLoadingToggle.emit(false);
+			});
 	}
 
 	toggleRating() {
@@ -33,4 +45,18 @@ export class TripComponent implements OnInit {
 		this.trip.rating = clickObj.rating;
 		this.toggleRating();
 	}
+
+  openRatePassengersDialog() {
+    this.dialog.open(RatePassengersModalComponent, {
+      width: MAT_DIALOG_WIDTH_SM,
+      height: MAT_DIALOG_HEIGHT_SM,
+      panelClass: DEFAULT_MAT_DIALOG_CLASS,
+      autoFocus: false,
+      data: {
+        dataKey: this.trip.role,
+        tripId: this.trip.id
+      }
+    });
+
+  }
 }

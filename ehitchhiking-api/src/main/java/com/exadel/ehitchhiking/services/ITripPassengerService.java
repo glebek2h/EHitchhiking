@@ -1,26 +1,37 @@
 package com.exadel.ehitchhiking.services;
 
+import com.exadel.ehitchhiking.models.TripPass;
+import com.exadel.ehitchhiking.models.vo.DriverVO;
+import com.exadel.ehitchhiking.models.vo.TripPassVO;
+import org.springframework.data.geo.Point;
+
 import java.sql.Timestamp;
+import java.time.Instant;
 
 public interface ITripPassengerService {
-    void createTripPassenger(int pass, String startingPoint,
+    void createTripPassenger(int empId, String startingPoint,
                              String endingPoint,
-                             Timestamp startingTime, Timestamp endingTime,
-                             int seats, int idTripDriver);
+                             Instant startingTime, Instant endingTime,
+                             int seats, int idTripDriver, Point coordStart, Point coordEnd,
+                             float distance);
 
-    void updateTimeStart(int id, Timestamp newStart);
 
-    void updateTimeEnd(int id, Timestamp newEnd);
 
-    void updatePointStart(int id, String start);
-
-    void updatePointEnd(int id, String end);
-
-    void updateSave(int id, boolean isSaved);
+    TripPassVO updateSave(int id, boolean isSaved);
 
     void updateFinished(int id, boolean isFinished);
 
-    void updateSeats(int id, int newSeats);
+    void deletePassTrip(int id);
 
-    void deleteDriverTrip(int id);
+    void updateHistory(int id, boolean isHistory);
+
+    void updateTrip(int id, Instant newStart, Instant newEnd, String start, String end,
+                    int newSeats, Point coordStart, Point coordEnd, float distance);
+
+    void updateActive(int id, boolean isActive);
+
+
+    TripPassVO findTripPass(int id);
+
+    DriverVO findIdDriver (int id);
 }

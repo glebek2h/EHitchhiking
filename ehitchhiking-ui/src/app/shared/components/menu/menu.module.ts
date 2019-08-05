@@ -10,11 +10,9 @@ import {
 	MatButtonModule,
 	MatCardModule,
 	MatSnackBarModule,
-  MatTabsModule,
+	MatTabsModule,
 } from '@angular/material';
-import {RatePassengersModalModule} from '@shared/components/rate-passengers-modal/rate-passengers-modal.module';
 import {ProfileModalModule} from '@shared/modals/profile-modal/profile-modal.module';
-import {BlacklistComponent} from '@shared/components/blacklist/blacklist.component';
 import {FormsModule} from '@angular/forms';
 import {PreLoadingModule} from '../pre-loading/pre-loading.module';
 import {NoDataModule} from '../no-data/no-data.module';
@@ -23,9 +21,11 @@ import {TripModule} from '../trip/trip.module';
 import {TripsModalComponent} from '../trips-modal/trips-modal.component';
 import {NotificationComponent} from '../notification/notification.component';
 import {ChatDataModule} from '@shared/components/chat-data/chat-data.module';
+import {ActiveTripsModalModule} from '@shared/components/active-trips-modal/active-trips-modal.module';
+import {BlacklistModule} from '@shared/components/blacklist/blacklist.module';
 
 @NgModule({
-  declarations: [MenuComponent, BlacklistComponent, NotificationComponent],
+	declarations: [MenuComponent, NotificationComponent],
 	imports: [
 		CommonModule,
 		MatCheckboxModule,
@@ -34,7 +34,6 @@ import {ChatDataModule} from '@shared/components/chat-data/chat-data.module';
 		MatDialogModule,
 		MatIconModule,
 		MatButtonModule,
-		RatePassengersModalModule,
 		ProfileModalModule,
 		FormsModule,
 		PreLoadingModule,
@@ -44,9 +43,11 @@ import {ChatDataModule} from '@shared/components/chat-data/chat-data.module';
 		MatCardModule,
 		MatSnackBarModule,
 		ChatDataModule,
-    MatTabsModule,
+		MatTabsModule,
+		ActiveTripsModalModule,
+		BlacklistModule,
 	],
-	exports: [MenuComponent, BlacklistComponent],
-	entryComponents: [BlacklistComponent, NotificationComponent, TripsModalComponent],
+	exports: [MenuComponent],
+	entryComponents: [NotificationComponent, TripsModalComponent],
 })
 export class MenuModule {}

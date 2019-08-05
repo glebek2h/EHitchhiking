@@ -1,6 +1,6 @@
+import {CarInterface} from '@shared/interfaces/car-interface';
 import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
-import {Car} from '@shared/models/car';
 @Component({
 	selector: 'app-car-info-form',
 	templateUrl: './car-info-form.component.html',
@@ -10,7 +10,7 @@ export class CarInfoFormComponent implements OnInit {
 	@Input() carInfoForm: FormGroup;
 	@Input() addCarMod: boolean;
 	@Input() carIndex: number;
-	@Output() onChangeCarInfo = new EventEmitter<Car>();
+	@Output() onChangeCarInfo = new EventEmitter<CarInterface>();
 	addCarForm: FormGroup;
 
 	constructor(private formBuilder: FormBuilder) {}
@@ -23,8 +23,7 @@ export class CarInfoFormComponent implements OnInit {
 		this.addCarForm = this.formBuilder.group({
 			model: ['', [Validators.required, Validators.pattern('^[0-9a-zA-Z-]{3,50}$')]],
 			color: ['', [Validators.required, Validators.pattern('^[a-zA-Z-]{3,20}$')]],
-			carNumber: ['', [Validators.required, Validators.pattern('^[0-9a-zA-Z-]{6,8}$')]],
-			experience: ['', [Validators.required, Validators.pattern('^[0-9]{1,2}$'), Validators.max(80)]],
+			number: ['', [Validators.required, Validators.pattern('^[0-9a-zA-Z-]{6,8}$')]],
 		});
 	}
 
@@ -40,7 +39,11 @@ export class CarInfoFormComponent implements OnInit {
 			return;
 		}
 		const data = ifSubmit ? this.addCarForm.value : this.carInfoForm.value;
-		const newCar = new Car(data.model, data.color, data.carNumber, data.experience);
+		const newCar: CarInterface = {
+			model: data.model,
+			color: data.color,
+			number: data.number,
+		};
 		this.onChangeCarInfo.emit(newCar);
 	}
 }
