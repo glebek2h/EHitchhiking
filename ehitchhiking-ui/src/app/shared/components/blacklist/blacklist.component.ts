@@ -12,7 +12,7 @@ import {UserService} from '@shared/services/user.service';
 	styleUrls: ['./blacklist.component.sass'],
 })
 export class BlacklistComponent implements OnInit {
-	private empId = this.userService.getCurrentUser().id;
+  private empId;
 	loaderSize: LoaderSize = LoaderSize.Large;
 	noDataSize: NoDataSize = NoDataSize.Small;
 	noDataMessage = 'No users!';
@@ -28,6 +28,7 @@ export class BlacklistComponent implements OnInit {
 	) {}
 
 	ngOnInit() {
+    this.empId = this.userService.getCurrentUser().id;
 		this.loadPassengersList();
 		this.loadDriversList();
 	}
