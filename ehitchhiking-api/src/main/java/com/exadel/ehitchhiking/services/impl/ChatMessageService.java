@@ -45,20 +45,31 @@ public class ChatMessageService implements IChatMessageService {
     }
 
     @Override
-    public List<Integer> getChatInfo(int id){
+    public List<List<Object>> getChatInfo(int id){
 
-        List<Integer> IDs = new ArrayList<>();
+        List<List<Object>> IDs = new ArrayList<>();
 
         List<TripPass> listPass = tripPassDAO.getActive(id);
 
         for (TripPass trip: listPass){
-            IDs.add(trip.getTripDriver().getChat().getId());
+            List<Object> list = new ArrayList<>();
+            list.add(trip.getTripDriver().getChat().getId());
+            list.add(trip.getTripDriver().getCoordStart());
+            list.add(trip.getTripDriver().getCoordEnd());
+            list.add(trip.getPassenger().getEmployee().getFirstName());
+            IDs.add(list);
+
         }
 
         List<TripDriver> listDriver = tripDriverDAO.getActive(id);
 
         for (TripDriver trip: listDriver){
-            IDs.add(trip.getChat().getId());
+            List<Object> list = new ArrayList<>();
+            list.add(trip.getChat().getId());
+            list.add(trip.getCoordStart());
+            list.add(trip.getCoordEnd());
+            list.add(trip.getCar().getDriver().getEmployee().getFirstName());
+            IDs.add(list);
         }
         return IDs;
     }
