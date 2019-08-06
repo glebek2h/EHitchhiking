@@ -1,3 +1,4 @@
+import {DialogListApiService} from './../../services/api.services/dialog-list.api.service';
 import {ChatApiService} from './../../services/api.services/chat.api.service';
 import {NoDataModule} from './../no-data/no-data.module';
 import {NgModule} from '@angular/core';
@@ -28,7 +29,7 @@ import {StompService} from 'ng2-stomp-service';
 		NoDataModule,
 		PreLoadingModule,
 	],
-	providers: [ChatApiService, StompService],
+	providers: [ChatApiService, DialogListApiService, StompService],
 	exports: [DialogListComponent, ChatComponent],
 	entryComponents: [ChatComponent, DialogListComponent],
 })

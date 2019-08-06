@@ -1,13 +1,8 @@
-import {ChatMessage} from '@shared/interfaces/chat-interface';
-import {ChatEvents} from '@shared/enums/chat-events.enum';
-import {UserService} from '@shared/services/user.service';
+import {ChatApiService} from './../../../services/api.services/chat.api.service';
 import {Component, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material';
 import {NoDataSize} from '@shared/enums/no-data-sizes';
-import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 import {User} from '@shared/models/user';
-import {NotificationService} from '@shared/services/notification.service';
-import {StompService} from 'ng2-stomp-service';
 import {Dialog} from '@shared/interfaces/dialog-interface';
 
 @Component({
@@ -19,86 +14,23 @@ export class ChatComponent implements OnInit {
 	readonly MAX_MESSAGE_LENGTH = 256;
 	showChat = false;
 	showDialogs = true;
-	currentDialog: Dialog;
 	noDataSize: NoDataSize = NoDataSize.Small;
 	noDataMessage = 'No messages!';
 	noDataIconName = 'accessibility';
 	isLoading = false;
+	isDialogInitialized = false;
 	currentUser: User;
-	subscription = null;
+	currentDialog: Dialog;
 
-	constructor(
-		public dialogRef: MatDialogRef<ChatComponent>,
-		private userService: UserService,
-		private notificationService: NotificationService,
-		private stompService: StompService
-	) {
-		this.stompService.configure({
-			host: '/api/socket',
-			queue: {init: false},
-		});
-	}
+	constructor(public dialogRef: MatDialogRef<ChatComponent>, private chatApiService: ChatApiService) {}
 
 	ngOnInit() {
-		this.currentUser = this.userService.getCurrentUser();
-	}
-
-	initializeWebSocketConnection(): Promise<any> {
 		this.isLoading = true;
-		return this.stompService
-			.startConnect()
-			.then(() => {
-				this.stompService.done('init');
-				this.subscription = this.stompService.subscribe(
-					URL_REGISTRY.CHAT.CONNECT,
-					this.onMessageReceived.bind(this)
-				);
-				this.stompService.send(URL_REGISTRY.CHAT.ADD_USER, {
-					sender: this.currentUser.email,
-					type: ChatEvents.Join,
-				});
-			})
-			.catch(this.onError.bind(this))
-			.finally(() => {
-				this.isLoading = false;
-			});
-	}
-
-	private onError() {
-		this.notificationService.showErrorNotification(
-			'Could not connect to WebSocket server. Please refresh this page to try again!'
-		);
-	}
-
-	private onMessageReceived(response: any) {
-		console.log('received!');
-		const {type} = response;
-		if (type === ChatEvents.Chat) {
-			this.currentDialog.msgList.push(this.getMessageData(response));
-		}
-	}
-
-	private getMessageData(response: any): ChatMessage {
-		const {email, name, content, date} = response;
-		return {
-			text: content,
-			person: name,
-			email: email,
-			avaSrc: 'http://mtdata.ru/u28/photoC908/20046445797-0/original.jpeg',
-			time: date,
-			isMy: this.currentUser.email === email,
-		};
+		this.currentUser = this.chatApiService.initCurrentUser();
 	}
 
 	sendMessage(message: HTMLInputElement) {
-		const messageRequest = {
-			sender: this.currentUser.email,
-			content: message.value.trim(),
-			id: this.currentDialog.id,
-			type: ChatEvents.Chat,
-		};
-		this.stompService.send(URL_REGISTRY.CHAT.SEND_MESSAGE, messageRequest);
-		message.value = '';
+		this.chatApiService.sendMessage(message);
 	}
 
 	getChat(dialog: Dialog) {
@@ -108,6 +40,7 @@ export class ChatComponent implements OnInit {
 			}
 			return message;
 		});
+		this.chatApiService.setCurrentDialog(dialog);
 		this.currentDialog = dialog;
 	}
 
@@ -117,17 +50,21 @@ export class ChatComponent implements OnInit {
 	}
 
 	close(): void {
-		this.subscription.unsubscribe();
-		this.stompService.disconnect();
+		this.chatApiService.closeConnection();
 		this.dialogRef.close();
 	}
 
 	dialogsInitialization(dialogPromise: Promise<boolean>) {
-		dialogPromise.then((dialogsStatus) => {
-			if (!dialogsStatus || this.subscription || !this.currentUser) {
-				return;
-			}
-			this.initializeWebSocketConnection();
-		});
+		dialogPromise
+			.then((dialogsStatus) => {
+				if (!dialogsStatus || this.chatApiService.checkSubscribtion() || !this.currentUser) {
+					return;
+				}
+				this.isDialogInitialized = true;
+				this.chatApiService.initializeWebSocketConnection();
+			})
+			.finally(() => {
+				this.isLoading = false;
+			});
 	}
 }
