@@ -72,6 +72,7 @@ export class ChatComponent implements OnInit {
 	}
 
 	private onMessageReceived(response: any) {
+		console.log(response);
 		const {type, sender, content, date} = response;
 		if (type === ChatEvents.Chat) {
 			this.currentDialog.msgList.push(this.getMessageData(sender, content, date));
