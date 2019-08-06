@@ -162,7 +162,7 @@ public class TripPassengerController {
     @PutMapping("/remove_from_active")
     public Response removeFromActive(@RequestBody RequestTripPassenger tripPass) {
         try {
-            tripDriverService.updateActive(tripPass.getId(), false);
+            tripPassengerService.updateActive(tripPass.getId(), false);
         } catch (Exception e) {
             return Response.setError("An error has occurred while removing the trip from active!");
         }
