@@ -46,7 +46,7 @@ export const URL_REGISTRY = {
 		INIT: '/api/socket',
 		CONNECT: '/socket/chat',
 		SEND_MESSAGE: '/app/send/message',
-		ADD_USER: '/app/chat/addUser',
+		ADD_USER: '/app/chat/add/user',
 		GET_DIALOGS: 'chat?id={{id}}',
 	},
 };

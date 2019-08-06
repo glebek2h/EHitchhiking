@@ -26,7 +26,6 @@ export class DialogListComponent implements OnInit {
 		if (this.userId) {
 			this.chatApiService.getDialogList(this.userId).then((data) => {
 				this.onDialogInitialization.emit(Promise.resolve(!!data.length));
-				console.log(data);
 				this.dialogList = this.parseResponse(data);
 			});
 		}
@@ -45,7 +44,13 @@ export class DialogListComponent implements OnInit {
 
 	private parseMessages(messages: any): ChatMessage[] {
 		return messages.map((message) => {
-			return {text: message.content, person: message.name, email: message.email, time: message.date};
+			return {
+				text: message.content,
+				person: message.name,
+				email: message.email,
+				time: message.date,
+				avaSrc: this.defaultImg,
+			};
 		});
 	}
 

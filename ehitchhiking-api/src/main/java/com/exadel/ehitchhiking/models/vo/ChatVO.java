@@ -1,18 +1,15 @@
 package com.exadel.ehitchhiking.models.vo;
 
 
-import com.exadel.ehitchhiking.models.ChatMessage;
 import com.exadel.ehitchhiking.models.TripDriver;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.boot.json.GsonJsonParser;
-import org.springframework.boot.json.JsonParser;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.lang.reflect.Type;
 import java.util.List;
 
 @Data
@@ -36,13 +33,9 @@ public class ChatVO {
     }
 
     private static List<ChatMessageVO> getListOfMsg(String history) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            return objectMapper.readValue(history, ArrayList.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return Collections.emptyList();
+        Gson gson = new GsonBuilder().create();
+        Type listType = new TypeToken<List<ChatMessageVO>>(){}.getType();
+        return gson.fromJson(history, listType);
     }
 
 

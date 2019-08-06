@@ -71,21 +71,22 @@ export class ChatComponent implements OnInit {
 	}
 
 	private onMessageReceived(response: any) {
-		console.log(response);
-		const {type, sender, content, date} = response;
+		console.log('received!');
+		const {type} = response;
 		if (type === ChatEvents.Chat) {
-			this.currentDialog.msgList.push(this.getMessageData(sender, content, date));
+			this.currentDialog.msgList.push(this.getMessageData(response));
 		}
 	}
 
-	private getMessageData(sender: string, content: string, date: number): ChatMessage {
+	private getMessageData(response: any): ChatMessage {
+		const {email, name, content, date} = response;
 		return {
 			text: content,
-			person: sender,
-			email: this.currentUser.email,
+			person: name,
+			email: email,
 			avaSrc: 'http://mtdata.ru/u28/photoC908/20046445797-0/original.jpeg',
-			time: Date.now(),
-			isMy: this.currentUser.email === sender,
+			time: date,
+			isMy: this.currentUser.email === email,
 		};
 	}
 

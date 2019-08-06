@@ -14,12 +14,14 @@ import com.exadel.ehitchhiking.services.ITripsService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,17 +46,16 @@ public class ChatMessageService implements IChatMessageService {
     @Override
     public void saveChatMessage(int id, ChatMessage message) {
         Gson gson = new GsonBuilder().create();
+        Type listType = new TypeToken<List<ChatMessageVO>>(){}.getType();
         Chat chat = dao.getChat(id);
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            List<ChatMessageVO> oldHistory = gson.fromJson(chat.getHistory(), ArrayList.class);
-            String name = employeeDAO.getByEmail(message.getSender()).getFirstName();
-            oldHistory.add(ChatMessageVO.getNewMsgVO(message, name));
-            String newHistory = objectMapper.writeValueAsString(oldHistory);
-            chat.setHistory(newHistory);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        List<ChatMessageVO> history = gson.fromJson(chat.getHistory(), listType);
+        String name = employeeDAO.getByEmail(message.getSender()).getFirstName();
+        history.add(ChatMessageVO.getNewMsgVO(message, name));
+
+        String newHistory = gson.toJson(history);
+        chat.setHistory(newHistory);
+
         dao.update(chat);
     }
 
@@ -63,6 +64,11 @@ public class ChatMessageService implements IChatMessageService {
         Chat chat = new Chat();
         dao.save(chat);
         return chat;
+    }
+
+    @Override
+    public String getMemberName(String email) {
+        return employeeDAO.getByEmail(email).getFirstName();
     }
 
     @Override

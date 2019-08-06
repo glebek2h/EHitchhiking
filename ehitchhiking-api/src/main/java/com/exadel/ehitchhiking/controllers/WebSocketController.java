@@ -1,7 +1,9 @@
 package com.exadel.ehitchhiking.controllers;
 
 import com.exadel.ehitchhiking.models.ChatMessage;
+import com.exadel.ehitchhiking.models.vo.ChatMessageVO;
 import com.exadel.ehitchhiking.requests.RequestChatMessage;
+import com.exadel.ehitchhiking.responses.ResponseChatMessage;
 import com.exadel.ehitchhiking.services.IChatMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.json.JsonParser;
@@ -32,16 +34,22 @@ public class WebSocketController {
 
     @MessageMapping("/send/message")
     @SendTo("/topic/public")
-    public void onReseivedMessage(@RequestBody RequestChatMessage message){ //ChatMessage
-        System.out.println(message);
+    public void onReseivedMessage(@RequestBody RequestChatMessage message){
         ChatMessage chatMessage = new ChatMessage(message.getContent(), message.getId(), message.getSender(),
                 message.getType(), (new Date()).getTime());
 
-        this.template.convertAndSend("/chat",message);
+        String userEmail = message.getSender();
+        ResponseChatMessage responseMessage = new ResponseChatMessage(
+                userEmail,
+                service.getMemberName(userEmail),
+                message.getContent(),
+                (new Date()).getTime(),
+                message.getType());
+        this.template.convertAndSend("/socket/chat", responseMessage);
         service.saveChatMessage(chatMessage.getId(), chatMessage);
     }
 
-    @MessageMapping("/chat/addUser")
+    @MessageMapping("/chat/add/user")
     @SendTo("/topic/public")
     public ChatMessage addUser(@Payload ChatMessage chatMessage,
                                SimpMessageHeaderAccessor headerAccessor) {

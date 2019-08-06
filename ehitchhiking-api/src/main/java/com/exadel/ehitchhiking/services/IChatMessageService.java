@@ -9,5 +9,6 @@ import java.util.List;
 public interface IChatMessageService {
     void saveChatMessage(int id, ChatMessage message);
     Chat createChat();
+    String getMemberName(String email);
     List<ChatVO> getChatInfo(int id);
 }
