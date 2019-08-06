@@ -10,6 +10,8 @@ import javax.annotation.PostConstruct;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
+
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
@@ -51,7 +53,7 @@ public class EmailSender implements IEmailSender {
     }
 
     private Session createSession() {
-        return Session.getDefaultInstance(properties, new javax.mail.Authenticator() {
+        return javax.mail.Session.getDefaultInstance(properties, new javax.mail.Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(sender, password);
