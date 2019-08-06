@@ -1,14 +1,13 @@
 import {ChatMessage} from '@shared/interfaces/chat-interface';
 import {ChatEvents} from '@shared/enums/chat-events.enum';
 import {UserService} from '@shared/services/user.service';
-import {Component, OnInit, ɵConsole} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material';
 import {NoDataSize} from '@shared/enums/no-data-sizes';
-import SockJS from 'sockjs-client';
-import {Stomp, CompatClient} from '@stomp/stompjs';
 import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 import {User} from '@shared/models/user';
 import {NotificationService} from '@shared/services/notification.service';
+import {StompService} from 'ng2-stomp-service';
 
 @Component({
 	selector: 'app-chat',
@@ -23,33 +22,48 @@ export class ChatComponent implements OnInit {
 	noDataSize: NoDataSize = NoDataSize.Small;
 	noDataMessage = 'No messages!';
 	noDataIconName = 'accessibility';
-	loading = false;
-	stompClient: CompatClient;
+	isLoading = false;
 	currentUser: User;
+	subscription = null;
 
 	constructor(
 		public dialogRef: MatDialogRef<ChatComponent>,
 		private userService: UserService,
-		private notificationService: NotificationService
-	) {}
+		private notificationService: NotificationService,
+		private stompService: StompService
+	) {
+		this.stompService.configure({
+			host: '/api/socket',
+			queue: {init: false},
+		});
+	}
 
 	ngOnInit() {
 		this.currentUser = this.userService.getCurrentUser();
+		if (this.currentUser && !this.subscription) {
+			this.initializeWebSocketConnection();
+		}
 	}
 
-	initializeWebSocketConnection(): void {
-		const webSocket = new SockJS(URL_REGISTRY.CHAT.INIT);
-		this.stompClient = Stomp.over(webSocket);
-		this.stompClient.connect({}, this.onConnected.bind(this), this.onError.bind(this));
-	}
-
-	private onConnected() {
-		this.stompClient.subscribe(URL_REGISTRY.CHAT.CONNECT, this.onMessageReceived.bind(this));
-		this.stompClient.send(
-			URL_REGISTRY.CHAT.ADD_USER,
-			{},
-			JSON.stringify({sender: this.currentUser.email, type: ChatEvents.Join})
-		);
+	initializeWebSocketConnection(): Promise<any> {
+		this.isLoading = true;
+		return this.stompService
+			.startConnect()
+			.then(() => {
+				this.stompService.done('init');
+				this.subscription = this.stompService.subscribe(
+					URL_REGISTRY.CHAT.CONNECT,
+					this.onMessageReceived.bind(this)
+				);
+				this.stompService.send(URL_REGISTRY.CHAT.SEND_MESSAGE, {
+					sender: this.currentUser.email,
+					type: ChatEvents.Join,
+				});
+			})
+			.catch(this.onError.bind(this))
+			.finally(() => {
+				this.isLoading = false;
+			});
 	}
 
 	private onError() {
@@ -59,14 +73,8 @@ export class ChatComponent implements OnInit {
 	}
 
 	private onMessageReceived(response: any) {
-		console.log(response);
-		const {type, sender, content, date} = response.body || response;
-		if (type === ChatEvents.Join) {
-			this.notificationService.showInfoNotification(`${sender} has joined!`);
-		}
-		if (type === ChatEvents.Leave) {
-			this.notificationService.showInfoNotification(`${sender} has left!`);
-		} else {
+		const {type, sender, content, date} = response;
+		if (type === ChatEvents.Chat) {
 			this.msgList.push(this.getMessageData(sender, content, date));
 		}
 	}
@@ -75,7 +83,7 @@ export class ChatComponent implements OnInit {
 		return {
 			text: content,
 			person: sender,
-			avaSrc: '',
+			avaSrc: 'http://mtdata.ru/u28/photoC908/20046445797-0/original.jpeg',
 			time: date,
 			isMy: this.currentUser.email === sender,
 		};
@@ -87,14 +95,11 @@ export class ChatComponent implements OnInit {
 			content: message.value.trim(),
 			type: ChatEvents.Chat,
 		};
-		this.stompClient.send(URL_REGISTRY.CHAT.SEND_MESSAGE, {}, JSON.stringify(messageRequest));
+		this.stompService.send(URL_REGISTRY.CHAT.SEND_MESSAGE, messageRequest);
 		message.value = '';
 	}
 
 	getChat(chatInfo: any) {
-		if (this.currentUser) {
-			this.initializeWebSocketConnection();
-		}
 		this.msgList = chatInfo;
 	}
 
@@ -104,6 +109,8 @@ export class ChatComponent implements OnInit {
 	}
 
 	close(): void {
+		this.subscription.unsubscribe();
+		this.stompService.disconnect();
 		this.dialogRef.close();
 	}
 }
