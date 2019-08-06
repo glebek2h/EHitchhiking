@@ -21,11 +21,19 @@ public class WebSocketController {
     WebSocketController(SimpMessagingTemplate template){
         this.template = template;
     }
+
+    @MessageMapping("/chat.sendMessage")
+    @SendTo("/topic/public")
+    public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
+        return chatMessage;
+    }
+
+/*
     @MessageMapping("/send/message")
-    @SendTo("/chat/public")
+    @SendTo("/topic/public")
     public void onReseivedMessage(String message){
         this.template.convertAndSend("/chat", new SimpleDateFormat("HH:mm:ss").format(new Date())+"-"+message);
-    }
+    }*/
 
     @MessageMapping("/chat/addUser")
     @SendTo("/topic/public")
