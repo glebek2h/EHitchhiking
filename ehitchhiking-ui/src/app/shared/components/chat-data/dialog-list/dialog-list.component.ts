@@ -1,8 +1,9 @@
+import {map} from 'rxjs/operators';
 import {Dialog} from '@shared/interfaces/dialog-interface';
 import {ChatApiService} from './../../../services/api.services/chat.api.service';
-import {ChatMessage} from '@shared/interfaces/chat-interface';
 import {Component, EventEmitter, OnInit, Output, Input} from '@angular/core';
 import {NoDataSize} from '@shared/enums/no-data-sizes';
+import {ChatMessage} from '@shared/interfaces/chat-interface';
 
 @Component({
 	selector: 'app-dialog',
@@ -25,11 +26,26 @@ export class DialogListComponent implements OnInit {
 		if (this.userId) {
 			this.chatApiService.getDialogList(this.userId).then((data) => {
 				this.onDialogInitialization.emit(Promise.resolve(!!data.length));
-				this.dialogList = data.map((curId) => {
-					return {id: curId, title: curId, msgList: []};
-				});
+				this.dialogList = this.parseResponse(data);
 			});
 		}
+	}
+
+	private parseResponse(data: any): Dialog[] {
+		return data.map((chat) => {
+			return {
+				id: chat.id,
+				startPoint: chat.startPoint,
+				endPoint: chat.endPoint,
+				msgList: this.parseMessages(chat.messages),
+			};
+		});
+	}
+
+	private parseMessages(messages: any): ChatMessage[] {
+		return messages.map((message) => {
+			return {text: message.content, person: message.name, email: message.email, time: message.date};
+		});
 	}
 
 	showChat(index) {

@@ -20,7 +20,7 @@ public class ChatController {
 
     @GetMapping
     public Response getEmployee(Integer id) {
-        List<Integer> list;
+        List<List<Object>> list;
         try {
              list = chatMessageService.getChatInfo(id);
         } catch (Exception e) {

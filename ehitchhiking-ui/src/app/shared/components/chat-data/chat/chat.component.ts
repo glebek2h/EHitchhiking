@@ -1,4 +1,3 @@
-import {ChatApiService} from './../../../services/api.services/chat.api.service';
 import {ChatMessage} from '@shared/interfaces/chat-interface';
 import {ChatEvents} from '@shared/enums/chat-events.enum';
 import {UserService} from '@shared/services/user.service';
@@ -83,8 +82,9 @@ export class ChatComponent implements OnInit {
 		return {
 			text: content,
 			person: sender,
+			email: this.currentUser.email,
 			avaSrc: 'http://mtdata.ru/u28/photoC908/20046445797-0/original.jpeg',
-			time: date,
+			time: Date.now(),
 			isMy: this.currentUser.email === sender,
 		};
 	}
@@ -101,6 +101,12 @@ export class ChatComponent implements OnInit {
 	}
 
 	getChat(dialog: Dialog) {
+		dialog.msgList = dialog.msgList.map((message) => {
+			if (message.email === this.currentUser.email) {
+				message.isMy = true;
+			}
+			return message;
+		});
 		this.currentDialog = dialog;
 	}
 
