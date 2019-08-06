@@ -17,7 +17,6 @@ export class ActiveTripsApiService {
 		}
 
 		return data.map((trip) => {
-		  debugger;
 			return new ActiveTrip(
 				trip.idTrip,
 				trip.startPoint,
@@ -66,7 +65,7 @@ export class ActiveTripsApiService {
 			return [];
 		}
 		return data.map((passenger) => {
-			return new UserInfoTrip(passenger.id, passenger.firstName, passenger.phone, passenger.email);
+			return new UserInfoTrip(passenger.id, passenger.firstName, passenger.phone, passenger.email,null, passenger.startingPosition);
 		});
 	}
 }
