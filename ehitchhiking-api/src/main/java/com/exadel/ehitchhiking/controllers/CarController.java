@@ -1,10 +1,12 @@
 package com.exadel.ehitchhiking.controllers;
 
 import com.exadel.ehitchhiking.models.vo.CarVO;
+import com.exadel.ehitchhiking.models.vo.EmployeeVO;
 import com.exadel.ehitchhiking.requests.RequestCar;
 import com.exadel.ehitchhiking.responses.*;
 import com.exadel.ehitchhiking.services.ICarService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -54,6 +56,10 @@ public class CarController {
     public Response updateColor(@RequestBody List<RequestCar> cars) {
         List<CarVO> updatedCars;
         int empId = cars.get(0).getIdOfDriver();
+        Object pr = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (!((EmployeeVO) pr).getId().equals(Integer.valueOf(empId))){
+            return Response.setError("An error has occurred while updating the cars!");
+        }
         try {
             cars.forEach(car ->carService.updateCar(
                     new CarVO(

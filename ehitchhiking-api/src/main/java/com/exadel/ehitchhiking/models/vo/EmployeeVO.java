@@ -41,9 +41,10 @@ public class EmployeeVO implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        grantedAuthorities.add(new SimpleGrantedAuthority("ADMIN"));
         grantedAuthorities.add(new SimpleGrantedAuthority("EMPLOYEE"));
-
+        if (isAdmin) {
+            grantedAuthorities.add(new SimpleGrantedAuthority("ADMIN"));
+        }
         return grantedAuthorities;
     }
 

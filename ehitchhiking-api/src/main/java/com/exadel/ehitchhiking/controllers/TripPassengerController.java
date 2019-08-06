@@ -41,7 +41,7 @@ public class TripPassengerController {
                         tripPassenger.getCoordStart(), tripPassenger.getCoordEnd(), tripPassenger.getDistance());
 
 
-                emailSender.sendingEmail(emailList, "Cancelled Trip", "The trip was created. To view the details, please, go to Ehitchhiking.com");
+                emailSender.sendingEmail(emailList, "Created Trip", "The trip was created. To view the details, please, go to Ehitchhiking.com");
             }
 
             else {
