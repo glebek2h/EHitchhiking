@@ -166,10 +166,12 @@ export class MainScreenComponent implements OnInit {
 	}
 
 	toggleStateToDriver() {
-		this.activeDriverButton = true;
-		this.activePassengerButton = false;
-		this.userState = UserState.Driver;
-		this.toggleMapInterfaceToDefault();
+	  if (this.currentUser.cars.length !== 0) {
+      this.activeDriverButton = true;
+      this.activePassengerButton = false;
+      this.userState = UserState.Driver;
+      this.toggleMapInterfaceToDefault();
+    }
 	}
 
 	toggleMapInterfaceToDefault() {
@@ -212,4 +214,5 @@ export class MainScreenComponent implements OnInit {
 	closeRoutes(data) {
 		this.isShownRoutesList = false;
 	}
+
 }
