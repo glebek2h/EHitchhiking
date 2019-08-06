@@ -15,4 +15,9 @@ public class ChatDAO extends AbstractDAO<Chat> implements IChatDAO {
 
             return (String) getCurrentSession().createQuery("select history From Chat where id = '" + id + "'").uniqueResult();
         }
+
+    @Override
+    public Chat getChat(int id) {
+        return getCurrentSession().get(Chat.class, id);
+    }
 }

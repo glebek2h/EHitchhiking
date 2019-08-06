@@ -20,5 +20,4 @@ public class CarVO {
                 car.getModel()
         );
     }
-    //TODO: is deleted
 }

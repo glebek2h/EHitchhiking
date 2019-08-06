@@ -5,4 +5,5 @@ import com.exadel.ehitchhiking.models.ChatMessage;
 
 public interface IChatDAO extends IBasicDAO<Chat> {
     String getHistory(int id);
+    Chat getChat(int id);
 }

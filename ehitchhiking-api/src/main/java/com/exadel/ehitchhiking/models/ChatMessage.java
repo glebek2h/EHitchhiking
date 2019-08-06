@@ -2,7 +2,6 @@ package com.exadel.ehitchhiking.models;
 
 import lombok.*;
 
-import java.util.Date;
 
 @EqualsAndHashCode
 @NoArgsConstructor
@@ -30,6 +29,7 @@ public class ChatMessage {
     @Setter
     private Long date;
 
+    @ToString
     public enum MessageType{
       CHAT, LEAVE, JOIN
     }
