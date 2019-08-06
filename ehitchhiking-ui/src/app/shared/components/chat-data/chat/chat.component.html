@@ -7,7 +7,7 @@
 	<div class="chat" *ngIf="showChat">
 		<div class="message-zone" #scrollMe [scrollTop]="scrollMe.scrollHeight">
 			<app-no-data
-				[isEmpty]="!loading && msgList && !msgList.length"
+				[isEmpty]="!isLoading && msgList && !msgList.length"
 				[size]="noDataSize"
 				[message]="noDataMessage"
 				[icon]="noDataIconName"
@@ -38,7 +38,7 @@
 	</div>
 
 	<div mat-dialog-content class="modal-content" *ngIf="showDialogs" (click)="showContent()">
-		<app-dialog (chatMessages)="getChat($event)"> </app-dialog>
+		<app-dialog (chatMessages)="getChat($event)" (noDialogs)="dialogsInitialization($event)" [userId]="currentUser.id"> </app-dialog>
 	</div>
 
 	<div class="modal-back" (click)="showContent()" *ngIf="showChat">

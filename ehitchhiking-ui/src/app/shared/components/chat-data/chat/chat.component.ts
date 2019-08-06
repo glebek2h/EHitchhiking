@@ -1,3 +1,4 @@
+import {ChatApiService} from './../../../services/api.services/chat.api.service';
 import {ChatMessage} from '@shared/interfaces/chat-interface';
 import {ChatEvents} from '@shared/enums/chat-events.enum';
 import {UserService} from '@shared/services/user.service';
@@ -19,12 +20,14 @@ export class ChatComponent implements OnInit {
 	showChat = false;
 	showDialogs = true;
 	msgList: ChatMessage[] = [];
+	isSocketConnection: boolean;
 	noDataSize: NoDataSize = NoDataSize.Small;
 	noDataMessage = 'No messages!';
 	noDataIconName = 'accessibility';
 	isLoading = false;
 	currentUser: User;
 	subscription = null;
+	isDialogsInitialized = false;
 
 	constructor(
 		public dialogRef: MatDialogRef<ChatComponent>,
@@ -40,7 +43,8 @@ export class ChatComponent implements OnInit {
 
 	ngOnInit() {
 		this.currentUser = this.userService.getCurrentUser();
-		if (this.currentUser && !this.subscription) {
+		this.isSocketConnection = this.currentUser && !this.subscription;
+		if (this.isSocketConnection && this.isDialogsInitialized) {
 			this.initializeWebSocketConnection();
 		}
 	}
@@ -112,5 +116,10 @@ export class ChatComponent implements OnInit {
 		this.subscription.unsubscribe();
 		this.stompService.disconnect();
 		this.dialogRef.close();
+	}
+
+	dialogsInitialization(status: boolean) {
+		this.isDialogsInitialized = true;
+		this.isSocketConnection = status;
 	}
 }
