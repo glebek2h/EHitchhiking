@@ -86,7 +86,8 @@ export class ActiveTripsModalComponent implements OnInit {
 
 	onDelete($event) {
 		this.loading = true;
-		$event.role === UserState.Passenger ? this.removeTripPassenger($event.id) : this.removeTripDriver($event.id);
+		const request = $event.role === UserState.Passenger ? this.removeTripPassenger : this.removeTripDriver;
+		request($event.id);
 	}
 
 	filterByRole() {
