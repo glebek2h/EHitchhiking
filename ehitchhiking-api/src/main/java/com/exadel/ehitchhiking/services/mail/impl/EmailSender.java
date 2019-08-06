@@ -4,11 +4,10 @@ import com.exadel.ehitchhiking.services.mail.IEmailSender;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
-
+import sun.jvm.hotspot.debugger.AddressException;
 
 import javax.annotation.PostConstruct;
 import javax.mail.*;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Date;
@@ -77,10 +76,7 @@ public class EmailSender implements IEmailSender {
 
             Transport.send(message);
             return true;
-        } catch (AddressException a){
-            a.printStackTrace();
-            return false;
-        } catch (MessagingException e){
+        } catch (AddressException | MessagingException e){
             e.printStackTrace();
             return false;
         }
