@@ -79,6 +79,7 @@ public class TripPassengerService implements ITripPassengerService {
     public List<String> updateFinished(int id, boolean isFinished) {
         TripPass tripPass = dao.getTripPass(id);
         tripPass.setFinished(isFinished);
+        tripPass.setHistory(true);
         tripPass.setActive(false);
         if (!isFinished) {
             TripDriver tripDriver = tripPass.getTripDriver();

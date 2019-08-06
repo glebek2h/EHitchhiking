@@ -97,6 +97,7 @@ public class TripDriverService implements ITripDriverService {
         TripDriver tripDriver = dao.getTripDriver(id);
         tripDriver.setFinished(isFinished);
         tripDriver.setActive(false);
+        tripDriver.setHistory(true);
         if (isFinished) {
             float dist = tripDriver.getDistance();
             int seats = tripPassDAO.getAmountPass(id);
@@ -112,6 +113,7 @@ public class TripDriverService implements ITripDriverService {
             list.add(tripPass.getPassenger().getEmployee().getEmail());
             tripPass.setActive(false);
             tripPass.setFinished(isFinished);
+            tripPass.setHistory(true);
             tripPassDAO.update(tripPass);
         }
         return list;
@@ -170,7 +172,7 @@ public class TripDriverService implements ITripDriverService {
                 .filter(trips -> trips.getSeats() >= seats
                         && !driverDAO.getDriver(trips.getDriver().getId()).getPassengers().contains(passengerDAO.getByEmployeeId(idEmp))
                         && ComareUtils.isTimeInRange(startingTime, endingTime, trips.getStartingTime())
-                        && trips.getDriver().getId() != idEmp)
+                        && !trips.getDriver().getId().equals(driverDAO.getByEmployeeId(idEmp).getId()))
                 //.sorted()
                 .collect(Collectors.toList());
     }
