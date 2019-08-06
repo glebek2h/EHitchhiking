@@ -1,5 +1,7 @@
 package com.exadel.ehitchhiking.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import lombok.*;
 import org.apache.tomcat.util.json.JSONParser;
 
@@ -10,6 +12,7 @@ import javax.persistence.*;
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
+@JsonPOJOBuilder(withPrefix = "")
 public class Chat {
 
     @Id
@@ -22,6 +25,7 @@ public class Chat {
 
     @Setter
     @Getter
+    @JsonProperty("history")
     @Column(name = "\"HISTORY\"")
     private String history;
 

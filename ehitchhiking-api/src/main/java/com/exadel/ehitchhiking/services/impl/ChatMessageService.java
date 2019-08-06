@@ -12,6 +12,8 @@ import com.exadel.ehitchhiking.models.vo.TripsActiveVO;
 import com.exadel.ehitchhiking.services.IChatMessageService;
 import com.exadel.ehitchhiking.services.ITripsService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,12 +43,11 @@ public class ChatMessageService implements IChatMessageService {
 
     @Override
     public void saveChatMessage(int id, ChatMessage message) {
+        Gson gson = new GsonBuilder().create();
         Chat chat = dao.getChat(id);
-        String history = dao.getHistory(id);
         ObjectMapper objectMapper = new ObjectMapper();
-
         try {
-            List<ChatMessageVO> oldHistory = objectMapper.readValue(history, ArrayList.class);
+            List<ChatMessageVO> oldHistory = gson.fromJson(chat.getHistory(), ArrayList.class);
             String name = employeeDAO.getByEmail(message.getSender()).getFirstName();
             oldHistory.add(ChatMessageVO.getNewMsgVO(message, name));
             String newHistory = objectMapper.writeValueAsString(oldHistory);

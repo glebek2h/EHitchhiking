@@ -53,7 +53,7 @@ export class ChatComponent implements OnInit {
 					URL_REGISTRY.CHAT.CONNECT,
 					this.onMessageReceived.bind(this)
 				);
-				this.stompService.send(URL_REGISTRY.CHAT.SEND_MESSAGE, {
+				this.stompService.send(URL_REGISTRY.CHAT.ADD_USER, {
 					sender: this.currentUser.email,
 					type: ChatEvents.Join,
 				});
