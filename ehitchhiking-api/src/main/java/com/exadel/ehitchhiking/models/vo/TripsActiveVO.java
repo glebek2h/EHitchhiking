@@ -3,7 +3,7 @@ package com.exadel.ehitchhiking.models.vo;
 
 import com.exadel.ehitchhiking.models.TripDriver;
 import com.exadel.ehitchhiking.models.TripPass;
-import com.exadel.ehitchhiking.requests.Point;
+import org.springframework.data.geo.Point;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;

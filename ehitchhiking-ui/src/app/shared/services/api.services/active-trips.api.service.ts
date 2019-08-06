@@ -17,6 +17,7 @@ export class ActiveTripsApiService {
 		}
 
 		return data.map((trip) => {
+		  debugger;
 			return new ActiveTrip(
 				trip.idTrip,
 				trip.startPoint,

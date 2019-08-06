@@ -1,7 +1,7 @@
 package com.exadel.ehitchhiking.models;
 
 
-import com.exadel.ehitchhiking.requests.Point;
+import org.springframework.data.geo.Point;
 import lombok.*;
 
 
