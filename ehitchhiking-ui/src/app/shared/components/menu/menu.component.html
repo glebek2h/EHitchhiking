@@ -11,7 +11,7 @@
 				<button
 					mat-icon-button
 					class="modal-close-control-btn header-button"
-					matTooltip="close"
+					matTooltip="close left panel"
 					(click)="sidenav.toggle()"
 				>
 					<mat-icon class="header-button-icon close-icon">close</mat-icon>
@@ -20,12 +20,12 @@
 		</div>
 		<div class="buttons">
 			<li class="li-buttons">
-				<button mat-raised-button matTooltip="open history" class="li-button" (click)="openHistoryDialog()">
+				<button mat-raised-button class="li-button" (click)="openHistoryDialog()">
 					history
 				</button>
 			</li>
 			<li class="li-buttons">
-				<button mat-raised-button matTooltip="open active trips" class="li-button" (click)="openActiveDialog()">
+				<button mat-raised-button class="li-button" (click)="openActiveDialog()">
 					active trips
 				</button>
 			</li>
