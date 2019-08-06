@@ -27,9 +27,7 @@ public class BlackListsController {
     @PutMapping("/passenger")
     public Response addPassToBL(@RequestBody RequestBlackList BL) {
         try {
-            for (RequestId it : BL.getData()){
-                    driverService.addPassToBL(BL.getIdTrip(), it.getId(), it.getIsBlocked() );
-            }
+            driverService.addPassToBL(BL.getIdTrip(), BL.getData());
         } catch (Exception e) {
             return Response.setError("An error has occurred while adding the passenger to the blacklist!");
         }
@@ -39,10 +37,7 @@ public class BlackListsController {
     @PutMapping("/driver")
     public Response addDriverToBL(@RequestBody RequestBlackList BL) {
         try {
-            for (RequestId it : BL.getData()){
-                    passengerService.addDriverToBL(BL.getIdTrip(), it.getId(), it.getIsBlocked());
-
-            }
+            passengerService.addDriverToBL(BL.getIdTrip(), BL.getData());
         } catch (Exception e) {
             return Response.setError("An error has occurred while adding the driver to the blacklist!");
         }

@@ -40,7 +40,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
 	@Input() indexRouteToDisplay: any;
 	@Input() getCoordsData: any;
 
-	constructor(private activeTripsMapService: ActiveTripsMapService) {
+	constructor(private activeTripsMapService: ActiveTripsMapService, private yandexMapService: YandexMapService) {
 		this.activeTripsMapService.getMessage().subscribe((route) => {
 			this.routeFromActiveModalToDisplay = route;
 		});
@@ -48,6 +48,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
 
 	ngOnInit() {
 		this.ymapsPromise = ymaps.load(YandexMapComponent.API_URL);
+		this.yandexMapService.setPromise(this.ymapsPromise);
 		this.createMap();
 		this.userState = UserState.Passenger;
 		this.routes.forEach((route, i) => {
@@ -183,10 +184,6 @@ export class YandexMapComponent implements OnInit, OnChanges {
 						result.geoObjects.options.set('preset', 'islands#redPersonCircleIcon');
 						this.myMap.geoObjects.add(this.currentGeoPosition);
 					});
-				// tslint:disable-next-line:no-unused-expression
-				new maps.SuggestView('suggestions-to-input-from');
-				// tslint:disable-next-line:no-unused-expression
-				new maps.SuggestView('suggestions-to-input-to');
 			})
 			.catch((error) => console.log('Failed to load Yandex Maps', error));
 	}
@@ -215,10 +212,25 @@ export class YandexMapComponent implements OnInit, OnChanges {
 			.catch((error) => console.log('Failed to load Yandex Maps', error));
 	}
 
+	updateTripPoints(multiRoute, data) {
+		const coordinates = multiRoute.model.getReferencePoints();
+		this.ymapsPromise.then((maps) => {
+			maps.geocode(coordinates[0]).then((res) => {
+				const firstGeoObject = res.geoObjects.get(0);
+				data.from = firstGeoObject.getAddressLine();
+			});
+			maps.geocode(coordinates[1]).then((res) => {
+				const firstGeoObject = res.geoObjects.get(0);
+				data.to = firstGeoObject.getAddressLine();
+			});
+		});
+	}
+
 	setInfoAboutRoute(multiRoute, data: Partial<Route>) {
 		multiRoute.events.add('update', (e) => {
 			const activeRoute = multiRoute.getActiveRoute();
 			data.tripDuration = activeRoute.properties.get('duration').text;
+			this.updateTripPoints(multiRoute, data);
 			const arr = activeRoute.properties.get('distance').text.split(' ');
 			data.distance = +arr[0];
 

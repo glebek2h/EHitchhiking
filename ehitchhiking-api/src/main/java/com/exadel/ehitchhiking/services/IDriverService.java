@@ -4,6 +4,7 @@ import com.exadel.ehitchhiking.models.Driver;
 import com.exadel.ehitchhiking.models.Employee;
 import com.exadel.ehitchhiking.models.Passenger;
 import com.exadel.ehitchhiking.models.vo.PassengerVO;
+import com.exadel.ehitchhiking.requests.RequestId;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public interface IDriverService {
 
     void deleteDriverId(int id);
 
-    void addPassToBL(int idTrip, int idPass, boolean isBlocked);
+    void addPassToBL(int idTrip, List<RequestId> list);
 
     void deletePassFromBL(int idEmp, int idPass);
 

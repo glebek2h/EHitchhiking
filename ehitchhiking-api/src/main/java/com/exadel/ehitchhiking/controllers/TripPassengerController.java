@@ -6,6 +6,7 @@ import com.exadel.ehitchhiking.requests.RequestTripPassenger;
 import com.exadel.ehitchhiking.responses.Response;
 import com.exadel.ehitchhiking.services.ITripDriverService;
 import com.exadel.ehitchhiking.services.ITripPassengerService;
+import com.exadel.ehitchhiking.services.mail.IEmailSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +20,8 @@ public class TripPassengerController {
     private ITripPassengerService tripPassengerService;
     @Autowired
     private ITripDriverService tripDriverService;
+    @Autowired
+    private IEmailSender emailSender;
 
     @PostMapping
     public Response createTrip(@RequestBody RequestTripPassenger tripPassenger) {
@@ -29,7 +32,7 @@ public class TripPassengerController {
                 // newSeats is the new number seats available o this trip
                 int newSeats = tripDriverService.getAvailableSeats(tripPassenger.getIdTripDriver()) - tripPassenger.getSeats();
                 tripDriverService.updateSeats(tripPassenger.getIdTripDriver(), newSeats);
-                tripPassengerService.createTripPassenger(tripPassenger.getEmpId(),
+                List<String> emailList = tripPassengerService.createTripPassenger(tripPassenger.getEmpId(),
                         tripPassenger.getStartingPoint(), tripPassenger.getEndingPoint(),
                         tripPassenger.getStartingTime(),
                         tripPassenger.getEndingTime(),
@@ -37,9 +40,15 @@ public class TripPassengerController {
                         tripPassenger.getIdTripDriver(),
                         tripPassenger.getCoordStart(), tripPassenger.getCoordEnd(), tripPassenger.getDistance());
 
-            } else {
+
+                emailSender.sendingEmail(emailList, "Cancelled Trip", "The trip was created. To view the details, please, go to Ehitchhiking.com");
+            }
+
+            else {
                 return Response.setError("no available seats");
             }
+
+
         } catch (Exception e) {
             return Response.setError("An error has occurred while creating the trip!");
         }
@@ -84,7 +93,8 @@ public class TripPassengerController {
     @PutMapping("/cancelled_trip")
     public Response addToCancelled(@RequestBody RequestTripPassenger tripPass) {
         try {
-            tripPassengerService.updateFinished(tripPass.getId(), false);
+            List<String> emailList = tripPassengerService.updateFinished(tripPass.getId(), false);
+            emailSender.sendingEmail(emailList, "Cancelled Trip", "The trip was cancelled. To view the details, please, go to Ehitchhiking.com");
         } catch (Exception e) {
             return Response.setError("An error has occurred while cancelling the trip!");
         }
@@ -94,7 +104,8 @@ public class TripPassengerController {
     @PutMapping("/finished_trip")
     public Response addToFinished(@RequestBody RequestTripPassenger tripPass) {
         try {
-            tripPassengerService.updateFinished(tripPass.getId(), true);
+            List<String> emailList = tripPassengerService.updateFinished(tripPass.getId(), true);
+            emailSender.sendingEmail(emailList, "Finished Trip", "The trip was finished. To view the details, please, go to Ehitchhiking.com");
         } catch (Exception e) {
             return Response.setError("An error has occurred while adding the trip to finished!");
         }

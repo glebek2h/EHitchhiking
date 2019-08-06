@@ -1,4 +1,6 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
+import { EventEmitter, Output} from '@angular/core';
+import {ActiveTrip} from './active-trip';
 import {UserState} from '@shared/enums/UserState';
 import {DEFAULT_MAT_DIALOG_CLASS, MAT_DIALOG_WIDTH_SM} from '@shared/constants/modal-constants';
 import {MatDialog} from '@angular/material';
@@ -16,9 +18,10 @@ export class ActiveTripComponent implements OnInit {
 	constructor(public dialog: MatDialog, private activeTripsApiService: ActiveTripsApiService) {}
 	userState = UserState;
 
-	ngOnInit() {}
-
 	@Input() trip: ActiveTrip;
+
+	ngOnInit(): void {}
+
 	@Output() onDelete: EventEmitter<{id: number, role: UserState}> = new EventEmitter();
 	static readonly REMOVAL_CONFIRMATION_MESSAGE: string = 'Do you really want to decline this trip?';
 
