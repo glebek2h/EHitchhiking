@@ -9,7 +9,7 @@
 		<img [src]="getImage(dialog.msgList)" alt="photo" class="image" />
 		<div class="dlg-content">
 			<div class="dlg-title">
-				<p class="dlg-title-text">{{ dialog.title }}</p>
+				<p class="dlg-title-text"><span class="truncated">{{dialog.startPoint}}</span> - <span class="truncated">{{dialog.endPoint}}</span></p>
 			</div>
 			<div class="dlg-text truncated">{{ getText(dialog.msgList) }}</div>
 		</div>
