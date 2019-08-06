@@ -47,7 +47,6 @@ export class ActiveTripsModalComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.scrollObserver.observe(this.markerRef.nativeElement);
 		this.fetchTrips();
 	}
 
@@ -57,6 +56,8 @@ export class ActiveTripsModalComponent implements OnInit {
 			.getActiveTrips()
 			.then((data) => {
 				this.tripsArray = data;
+				this.scrollObserver.observe(this.markerRef.nativeElement);
+				console.log(this.tripsArray);
 			})
 			.finally(() => {
 				this.loading = false;

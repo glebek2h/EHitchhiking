@@ -32,13 +32,13 @@
 				(onDelete)="onDelete($event)"
 			></app-active-trip>
 		</div>
-		<div class="scroll-marker" #sMarker></div>
+		<div class="scroll-marker" #sMarker [hidden]="!tripsArray.length"></div>
 		<app-active-trip-additional-info
 			(closeDialog)="exit()"
 			[trip]="tripInfo"
 			*ngIf="isShowTripInfo"
 		></app-active-trip-additional-info>
-		<app-no-data [isEmpty]="!tripsArray.length"></app-no-data>
+		<app-no-data [isEmpty]="!tripsArray.length && !loading"></app-no-data>
 	</div>
 
 	<div class="modal-close-control">
