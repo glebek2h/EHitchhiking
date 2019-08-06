@@ -16,7 +16,7 @@
 <app-pre-loading [isLoading]="loading" [size]="loaderSize"></app-pre-loading>
 <app-trip-registration
 	*ngIf="isReset"
-  [hidden]="isHidden"
+	[hidden]="isHidden"
 	(formData)="getData($event)"
 	(isShownViewListButton)="setIsShownViewRoutesButtonFlag($event)"
 	(isShownSaveRouteButton)="setIsShownSaveRouteButtonFlag($event)"
@@ -39,10 +39,18 @@
 	name="fontStyle"
 	aria-label="Font Style"
 >
-	<mat-button-toggle [ngClass]="{'active': activePassengerButton}" class="role-chooser-btn" value="bold" (click)="toggleStateToPassenger()"
+	<mat-button-toggle
+		[ngClass]="{active: activePassengerButton}"
+		class="role-chooser-btn"
+		value="bold"
+		(click)="toggleStateToPassenger()"
 		>Passenger</mat-button-toggle
 	>
-	<mat-button-toggle [ngClass]="{'active': activeDriverButton}" class="role-chooser-btn" value="italic" (click)="toggleStateToDriver()"
+	<mat-button-toggle
+		[ngClass]="{active: activeDriverButton}"
+		class="role-chooser-btn"
+		value="italic"
+		(click)="toggleStateToDriver()"
 		>Driver</mat-button-toggle
 	>
 </mat-button-toggle-group>
@@ -85,24 +93,24 @@
 	</i>
 </button>
 <button
-  *ngIf="!isShownPlusButton"
-  class="plus-btn"
-  mat-fab
-  matTooltip="close trip"
-  (click)="toggleMapInterfaceToDefault()"
+	*ngIf="!isShownPlusButton"
+	class="plus-btn"
+	mat-fab
+	matTooltip="close trip"
+	(click)="toggleMapInterfaceToDefault()"
 >
-  <i class="material-icons">
-    close
-  </i>
+	<i class="material-icons">
+		close
+	</i>
 </button>
 <button
-  *ngIf="isShownCompleteButton"
-  class="plus-btn complete"
-  mat-fab
-  matTooltip="complete trip"
-  (click)="openConfirmationForm()"
+	*ngIf="isShownCompleteButton"
+	class="plus-btn complete"
+	mat-fab
+	matTooltip="complete trip"
+	(click)="openConfirmationForm()"
 >
-  <i class="material-icons">
-    done
-  </i>
+	<i class="material-icons">
+		done
+	</i>
 </button>

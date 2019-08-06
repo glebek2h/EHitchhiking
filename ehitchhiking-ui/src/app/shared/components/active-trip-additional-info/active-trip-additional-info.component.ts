@@ -20,9 +20,9 @@ export class ActiveTripAdditionalInfoComponent implements OnInit {
 	showTrip() {
 		this.closeDialog.emit(true);
 		this.activeTripsMapService.blockMainScreen(true);
-		if(this.trip.role === UserState.Passenger) {
-      this.activeTripsMapService.deleteCompleteButton(true);
-    }
+		if (this.trip.role === UserState.Passenger) {
+			this.activeTripsMapService.deleteCompleteButton(true);
+		}
 		this.activeTripsMapService.saveCompletedTrip(this.trip.id);
 		this.activeTripsMapService.sendMessage({
 			from: this.trip.startPoint,

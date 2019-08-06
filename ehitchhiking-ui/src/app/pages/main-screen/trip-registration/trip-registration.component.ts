@@ -4,7 +4,7 @@ import {User} from '@shared/models/user';
 import {UserState} from '@shared/enums/UserState';
 import {UserService} from '@shared/services/user.service';
 import {UtilsService} from '@shared/services/utils.service';
-import {YandexMapService} from "@pages/main-screen/yandex-map/yandex-map.service";
+import {YandexMapService} from '@pages/main-screen/yandex-map/yandex-map.service';
 
 @Component({
 	selector: 'app-trip-registration',
@@ -23,7 +23,7 @@ export class TripRegistrationComponent implements OnInit, AfterViewInit {
 	coords;
 	nameFormGroup: FormGroup;
 
-	constructor(private userService: UserService, private yandexMapService: YandexMapService ) {}
+	constructor(private userService: UserService, private yandexMapService: YandexMapService) {}
 
 	ngOnInit() {
 		this.nameFormGroup = new FormGroup({
@@ -34,19 +34,19 @@ export class TripRegistrationComponent implements OnInit, AfterViewInit {
 			departureTime: new FormControl('', [Validators.required]),
 			car: new FormControl(''),
 		});
-		if(this.userState === UserState.Driver) {
-      this.nameFormGroup.controls.car.setValidators([Validators.required]);
-    }
+		if (this.userState === UserState.Driver) {
+			this.nameFormGroup.controls.car.setValidators([Validators.required]);
+		}
 	}
 
-  ngAfterViewInit(): void {
-    this.yandexMapService.getPromise().then((maps) => {
-      // tslint:disable-next-line:no-unused-expression
-      new maps.SuggestView('suggestions-to-input-from');
-      // tslint:disable-next-line:no-unused-expression
-      new maps.SuggestView('suggestions-to-input-to');
-    });
-  }
+	ngAfterViewInit(): void {
+		this.yandexMapService.getPromise().then((maps) => {
+			// tslint:disable-next-line:no-unused-expression
+			new maps.SuggestView('suggestions-to-input-from');
+			// tslint:disable-next-line:no-unused-expression
+			new maps.SuggestView('suggestions-to-input-to');
+		});
+	}
 
 	onChangeFix(event: Event, target) {
 		const input = event.target as HTMLInputElement;

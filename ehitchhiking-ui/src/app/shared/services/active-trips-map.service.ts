@@ -8,8 +8,8 @@ import {Observable, Subject} from 'rxjs';
 export class ActiveTripsMapService {
 	private drawRouteSubject = new Subject<any>();
 	private blockMainSubject = new Subject<any>();
-  private deleteCompleteButtonSubject = new Subject<any>();
-  private completedTripSubject = new Subject<any>();
+	private deleteCompleteButtonSubject = new Subject<any>();
+	private completedTripSubject = new Subject<any>();
 
 	constructor() {}
 
@@ -29,20 +29,19 @@ export class ActiveTripsMapService {
 		return this.blockMainSubject.asObservable();
 	}
 
-  deleteCompleteButton(message) {
-    this.deleteCompleteButtonSubject.next(message);
-  }
+	deleteCompleteButton(message) {
+		this.deleteCompleteButtonSubject.next(message);
+	}
 
-  isDeleteCompleteButton(): Observable<any> {
-    return this.deleteCompleteButtonSubject.asObservable();
-  }
+	isDeleteCompleteButton(): Observable<any> {
+		return this.deleteCompleteButtonSubject.asObservable();
+	}
 
-  saveCompletedTrip(message) {
-    this.completedTripSubject.next(message);
-  }
+	saveCompletedTrip(message) {
+		this.completedTripSubject.next(message);
+	}
 
-  getCompletedTrip(): Observable<any> {
-    return this.completedTripSubject.asObservable();
-  }
-
+	getCompletedTrip(): Observable<any> {
+		return this.completedTripSubject.asObservable();
+	}
 }

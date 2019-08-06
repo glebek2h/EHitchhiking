@@ -72,8 +72,7 @@ export class MainScreenService {
 		});
 	}
 
-	completeDriverTrip(idTrip: number){
-	  return this.apiService.doPut(URL_REGISTRY.DRIVER.TRIP.COMPLETE, {id: idTrip});
-  }
-
+	completeDriverTrip(idTrip: number) {
+		return this.apiService.doPut(URL_REGISTRY.DRIVER.TRIP.COMPLETE, {id: idTrip});
+	}
 }
