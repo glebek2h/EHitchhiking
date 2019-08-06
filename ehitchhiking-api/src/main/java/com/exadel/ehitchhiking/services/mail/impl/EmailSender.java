@@ -4,10 +4,10 @@ import com.exadel.ehitchhiking.services.mail.IEmailSender;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
-import sun.jvm.hotspot.debugger.AddressException;
 
 import javax.annotation.PostConstruct;
 import javax.mail.*;
+import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
@@ -62,7 +62,7 @@ public class EmailSender implements IEmailSender {
     }
 
     @Override
-    public boolean sendingEmail(List<String> recepients, String topic, String content)  {
+    public boolean sendingEmail(List<String> recepients, String topic, String content) {
         try {
             Session session = this.createSession();
             MimeMessage message = new MimeMessage(session);
@@ -78,7 +78,10 @@ public class EmailSender implements IEmailSender {
 
             Transport.send(message);
             return true;
-        } catch (AddressException | MessagingException e){
+        } catch (AddressException a) {
+            a.printStackTrace();
+            return false;
+        } catch (MessagingException e) {
             e.printStackTrace();
             return false;
         }

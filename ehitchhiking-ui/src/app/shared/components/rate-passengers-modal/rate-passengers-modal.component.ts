@@ -42,7 +42,6 @@ export class RatePassengersModalComponent implements OnInit {
 			.getTripPassengers(this.data.tripId)
 			.then((data: RatedUser[]) => {
 				this.users = data;
-				console.log(data);
 			})
 			.finally(() => {
 				this.loading = false;
