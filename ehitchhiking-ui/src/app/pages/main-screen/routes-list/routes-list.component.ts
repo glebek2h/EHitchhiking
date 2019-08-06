@@ -21,6 +21,7 @@ export class RoutesListComponent implements OnInit {
 	@Output() routeToDisplay = new EventEmitter<any>(); // TODO
 	@Output() formData = new EventEmitter<any>();
 	@Output() closeRoutesList = new EventEmitter<any>();
+  @Output() cleanMap = new EventEmitter<any>();
 	noDataSize: NoDataSize = NoDataSize.Small;
 	noDataMessage = 'No routes!';
 	noDataIconName: string;
@@ -52,6 +53,8 @@ export class RoutesListComponent implements OnInit {
 		this.activeRoutesCollection[index].passengerCoordinate = this.passengersCoords;
 		this.activeRoutesCollection[index].placesSelect = this.tripData.placesSelect;
 		this.mainScreenService.savePassengerRoute(this.activeRoutesCollection[index]);
+		this.cleanMap.emit(true);
+		this.exit();
 	}
 
 	getData(data: any) {
