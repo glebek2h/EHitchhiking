@@ -166,12 +166,12 @@ export class MainScreenComponent implements OnInit {
 	}
 
 	toggleStateToDriver() {
-	  if (this.currentUser.cars.length !== 0) {
-      this.activeDriverButton = true;
-      this.activePassengerButton = false;
-      this.userState = UserState.Driver;
-      this.toggleMapInterfaceToDefault();
-    }
+		if (this.currentUser.cars.length !== 0) {
+			this.activeDriverButton = true;
+			this.activePassengerButton = false;
+			this.userState = UserState.Driver;
+			this.toggleMapInterfaceToDefault();
+		}
 	}
 
 	toggleMapInterfaceToDefault() {
