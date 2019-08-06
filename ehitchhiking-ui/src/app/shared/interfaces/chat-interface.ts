@@ -1,4 +1,4 @@
-interface ChatMessage {
+export interface ChatMessage {
 	text: string;
 	person: string;
 	avaSrc: string;

@@ -1,3 +1,4 @@
+import {ChatMessage} from '@shared/interfaces/chat-interface';
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {DialogListService} from './dialog-list.service';
 import {NoDataSize} from '@shared/enums/no-data-sizes';
