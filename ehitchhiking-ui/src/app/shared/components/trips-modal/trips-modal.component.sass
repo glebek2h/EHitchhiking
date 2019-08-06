@@ -40,9 +40,14 @@
   @include flexbox(space-between)
   height: $trip-card-height
   box-sizing: border-box
+
 .trips-container:hover
   box-shadow: 0 0 0.5rem 0.1rem rgba(221, 221, 221, 1)
 
 @media screen and (max-width: 550px)
   .form-row
     @include flexbox(center, center, column)
+
+@media screen and (max-width: $small-screen-max-width)
+  .trip
+    height: 6rem
