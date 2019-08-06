@@ -85,10 +85,9 @@
 	*ngIf="isShownPlusButton"
 	class="plus-btn"
 	mat-fab
-	matTooltip="create trip"
 	(click)="openTripRegistrationForm()"
 >
-	<i *ngIf="!editStatePlusButton" class="material-icons">
+	<i *ngIf="!editStatePlusButton" matTooltip="create trip" class="material-icons">
 		add
 	</i>
 	<i *ngIf="editStatePlusButton" matTooltip="edit trip" class="material-icons">
