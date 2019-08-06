@@ -6,7 +6,7 @@ import {Injectable} from '@angular/core';
 export class RatePassengersTripsService {
 	private tripsId: number[] = [];
 
-	addId(id: number) {
+	addIdToTripsId(id: number) {
 		this.tripsId.push(id);
 	}
 

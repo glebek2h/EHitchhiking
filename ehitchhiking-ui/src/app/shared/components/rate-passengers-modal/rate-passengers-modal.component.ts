@@ -105,7 +105,7 @@ export class RatePassengersModalComponent implements OnInit {
 			.finally(() => {
 				this.loading = false;
 			});
-		this.ratePassengersTripsService.addId(this.data.tripId);
+		this.ratePassengersTripsService.addIdToTripsId(this.data.tripId);
 	}
 
 	trackById(index, item) {
