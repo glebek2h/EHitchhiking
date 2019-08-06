@@ -4,6 +4,8 @@ import {DELETE_ROUTE_MARKER} from '../../../shared/constants/modal-constants';
 import {Route} from '@pages/main-screen/Route';
 import {MainScreenService} from '@shared/services/api.services/main-screen.service';
 import {URL_REGISTRY} from '@shared/constants/urlRegistry';
+import {NoDataSize} from "@shared/enums/no-data-sizes";
+import {LoaderSize} from "@shared/enums/pre-loader-sizes";
 
 @Component({
 	selector: 'app-routes-list',
@@ -19,6 +21,11 @@ export class RoutesListComponent implements OnInit {
 	@Output() routeToDisplay = new EventEmitter<any>(); // TODO
 	@Output() formData = new EventEmitter<any>();
 	@Output() closeRoutesList = new EventEmitter<any>();
+  noDataSize: NoDataSize = NoDataSize.Small;
+  noDataMessage = 'No routes!';
+  noDataIconName: string;
+  loaderSize: LoaderSize = LoaderSize.Large;
+  loading = false;
 
 	isChecked: boolean;
 	ROUTES_ON_MAP_COUNT = 3;
