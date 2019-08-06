@@ -38,7 +38,7 @@
 			[trip]="tripInfo"
 			*ngIf="isShowTripInfo"
 		></app-active-trip-additional-info>
-		<app-no-data *ngIf="!tripsArray.length"></app-no-data>
+		<app-no-data [isEmpty]="!tripsArray.length"></app-no-data>
 	</div>
 
 	<div class="modal-close-control">
