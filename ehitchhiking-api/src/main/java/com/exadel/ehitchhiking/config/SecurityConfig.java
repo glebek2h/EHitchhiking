@@ -2,7 +2,10 @@ package com.exadel.ehitchhiking.config;
 
 import com.exadel.ehitchhiking.services.IEmployeeService;
 
+import com.exadel.ehitchhiking.utils.FilterCar;
+import com.exadel.ehitchhiking.utils.FilterEmployee;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -47,7 +50,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 csrf().disable().
                 authorizeRequests().
                 antMatchers(HttpMethod.OPTIONS, "/**").permitAll().
-                antMatchers(HttpMethod.GET, "/**").permitAll().
+                antMatchers(HttpMethod.GET, "/currentUser").permitAll().
+                antMatchers("/login").permitAll().
+                antMatchers("/**").hasAuthority("EMPLOYEE").
                 anyRequest().authenticated().
                 and().
                 httpBasic().
@@ -60,6 +65,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
 
         return new BCryptPasswordEncoder(11);
+    }
+
+    @Bean
+    public FilterRegistrationBean<FilterEmployee> loggingFilterEmployee(){
+        FilterRegistrationBean<FilterEmployee> registrationBean
+                = new FilterRegistrationBean<>();
+        registrationBean.setFilter(new FilterEmployee());
+        registrationBean.addUrlPatterns("/employee/*");
+        return registrationBean;
+    }
+
+    @Bean
+    public FilterRegistrationBean<FilterCar> loggingFilterCar(){
+        FilterRegistrationBean<FilterCar> registrationBean
+                = new FilterRegistrationBean<>();
+        registrationBean.setFilter(new FilterCar());
+        registrationBean.addUrlPatterns("/car/*");
+        return registrationBean;
     }
 
     @Override
