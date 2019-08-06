@@ -22,6 +22,8 @@ public class PassInfoVO {
     private float rate;
     private String startingPoint;
     private String endingPoint;
+    private Point startingPosition;
+    private Point endingPosition;
     private int seats;
 
     public static PassInfoVO fromEntity(TripPass tripPass) {
@@ -34,6 +36,8 @@ public class PassInfoVO {
                 tripPass.getPassenger().getRate(),
                 tripPass.getStartPoint(),
                 tripPass.getEndPoint(),
+                tripPass.getCoordStart(),
+                tripPass.getCoordEnd(),
                 tripPass.getBookedSeats()
 
 
