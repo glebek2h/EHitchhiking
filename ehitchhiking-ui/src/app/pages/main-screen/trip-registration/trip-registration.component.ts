@@ -5,6 +5,7 @@ import {UserState} from '@shared/enums/UserState';
 import {UserService} from '@shared/services/user.service';
 import {UtilsService} from '@shared/services/utils.service';
 import {YandexMapService} from '@pages/main-screen/yandex-map/yandex-map.service';
+import {VALID} from '@shared/constants/modal-constants';
 
 @Component({
 	selector: 'app-trip-registration',
@@ -19,6 +20,7 @@ export class TripRegistrationComponent implements OnInit, AfterViewInit {
 	@Output() passengerFormData = new EventEmitter<any>(); // TODO
 	@Output() isShownViewListButton = new EventEmitter<boolean>();
 	@Output() isShownSaveRouteButton = new EventEmitter<boolean>();
+	@Output() isShownRegistationForm = new EventEmitter<boolean>();
 
 	coords;
 	nameFormGroup: FormGroup;
@@ -54,14 +56,16 @@ export class TripRegistrationComponent implements OnInit, AfterViewInit {
 	}
 
 	onSubmit() {
-		this.nameFormGroup.value.departureDate = UtilsService.setHoursToDate(this.nameFormGroup.value);
-		if (this.userState === UserState.Driver) {
-			this.formData.emit(this.nameFormGroup.value);
-		} else {
-			this.passengerFormData.emit(this.nameFormGroup.value);
+		if (this.nameFormGroup.status === VALID) {
+			this.nameFormGroup.value.departureDate = UtilsService.setHoursToDate(this.nameFormGroup.value);
+			if (this.userState === UserState.Driver) {
+				this.formData.emit(this.nameFormGroup.value);
+			} else {
+				this.passengerFormData.emit(this.nameFormGroup.value);
+			}
+			this.isShownViewListButton.emit(true);
+			this.isShownSaveRouteButton.emit(true);
 		}
-		this.isShownViewListButton.emit(true);
-		this.isShownSaveRouteButton.emit(true);
 	}
 
 	isDriver() {
@@ -70,5 +74,9 @@ export class TripRegistrationComponent implements OnInit, AfterViewInit {
 
 	isPassenger() {
 		return this.userState === UserState.Passenger;
+	}
+
+	exit() {
+		this.isShownRegistationForm.emit(false);
 	}
 }

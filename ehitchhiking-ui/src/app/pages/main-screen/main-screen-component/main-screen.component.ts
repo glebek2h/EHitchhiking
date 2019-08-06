@@ -203,4 +203,13 @@ export class MainScreenComponent implements OnInit {
 		this.isDisabledSubmitRouteButton = false;
 		this.passengerCoordinates = data;
 	}
+
+	setIsShownRegistrationFromFlag(data) {
+		this.isReset = false;
+		this.isHidden = !this.isHidden;
+	}
+
+	closeRoutes(data) {
+		this.isShownRoutesList = false;
+	}
 }

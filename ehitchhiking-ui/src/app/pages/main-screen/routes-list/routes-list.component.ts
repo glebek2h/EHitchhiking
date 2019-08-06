@@ -20,6 +20,7 @@ export class RoutesListComponent implements OnInit {
 	@Input() passengersCoords: number[] = [];
 	@Output() routeToDisplay = new EventEmitter<any>(); // TODO
 	@Output() formData = new EventEmitter<any>();
+	@Output() closeRoutesList = new EventEmitter<any>();
   noDataSize: NoDataSize = NoDataSize.Small;
   noDataMessage = 'No routes!';
   noDataIconName: string;
@@ -63,5 +64,9 @@ export class RoutesListComponent implements OnInit {
 			return true;
 		}
 		return false;
+	}
+
+	exit() {
+		this.closeRoutesList.emit(true);
 	}
 }
