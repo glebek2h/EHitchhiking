@@ -14,18 +14,19 @@
 	(coordinates)="getStartEndCoords($event)"
 ></yandex-map>
 <app-trip-registration
-	[isShown]="isHiddenTripRegistration"
+	*ngIf="isReset"
+  [hidden]="isHidden"
 	(formData)="getData($event)"
 	(isShownViewListButton)="setIsShownViewRoutesButtonFlag($event)"
 	(isShownSaveRouteButton)="setIsShownSaveRouteButtonFlag($event)"
 	(passengerFormData)="getPassengerTripData($event)"
 	[userState]="userState"
-  [currentUser]="currentUser"
+	[currentUser]="currentUser"
 ></app-trip-registration>
 <app-routes-list
 	*ngIf="isShownRoutesList"
 	[activeRoutesCollection]="routes"
-  [tripData]="tripFormData"
+	[tripData]="tripFormData"
 	[passengersCoords]="passengerCoordinates"
 	(routeToDisplay)="getIndexToDisplay($event)"
 	(formData)="getFilterData($event)"
@@ -37,10 +38,10 @@
 	name="fontStyle"
 	aria-label="Font Style"
 >
-	<mat-button-toggle class="role-chooser-btn" value="bold" (click)="toggleStateToPassenger()"
+	<mat-button-toggle [ngClass]="{'active': activePassengerButton}" class="role-chooser-btn" value="bold" (click)="toggleStateToPassenger()"
 		>Passenger</mat-button-toggle
 	>
-	<mat-button-toggle class="role-chooser-btn" value="italic" (click)="toggleStateToDriver()"
+	<mat-button-toggle [ngClass]="{'active': activeDriverButton}" class="role-chooser-btn" value="italic" (click)="toggleStateToDriver()"
 		>Driver</mat-button-toggle
 	>
 </mat-button-toggle-group>

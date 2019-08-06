@@ -1,3 +1,4 @@
+import {TripStatus} from './../../enums/TripStatus';
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {LoaderSize} from '../../enums/pre-loader-sizes';
 import {MatDialogRef} from '@angular/material';
@@ -23,6 +24,7 @@ export class TripsModalComponent implements OnInit {
 	selectedFavorite = false;
 	selectedBySort = SortState.None;
 	statuses = new FormControl();
+	roles = new FormControl();
 	ratings = new FormControl();
 
 	@ViewChild('sMarker', {static: true}) markerRef: ElementRef;
@@ -51,7 +53,10 @@ export class TripsModalComponent implements OnInit {
 			.getTrips()
 			.then((data) => {
 				this.scrollObserver.observe(this.markerRef.nativeElement);
-				this.tripsArray = data;
+				this.tripsArray = data.map((trip) => {
+					trip.status = trip.finished ? TripStatus.Completed : TripStatus.Declined;
+					return trip;
+				});
 			})
 			.finally(() => {
 				this.isLoading = false;
@@ -82,7 +87,8 @@ export class TripsModalComponent implements OnInit {
 	}
 
 	filterByRole() {
-		this.tripsModalService.roleFilterConfig.isEnable = true;
+		this.tripsModalService.roleFilterConfig.selected = Object.values(this.roles.value);
+		this.tripsModalService.roleFilterConfig.isEnabled = !!this.tripsModalService.roleFilterConfig.selected.length;
 	}
 
 	filterByStatus() {

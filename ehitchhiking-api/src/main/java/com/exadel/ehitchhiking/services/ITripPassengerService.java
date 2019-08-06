@@ -7,19 +7,20 @@ import org.springframework.data.geo.Point;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.List;
 
 public interface ITripPassengerService {
-    void createTripPassenger(int empId, String startingPoint,
-                             String endingPoint,
-                             Instant startingTime, Instant endingTime,
-                             int seats, int idTripDriver, Point coordStart, Point coordEnd,
-                             float distance);
+    List<String> createTripPassenger(int empId, String startingPoint,
+                                     String endingPoint,
+                                     Instant startingTime, Instant endingTime,
+                                     int seats, int idTripDriver, Point coordStart, Point coordEnd,
+                                     float distance);
 
 
 
     TripPassVO updateSave(int id, boolean isSaved);
 
-    void updateFinished(int id, boolean isFinished);
+    List<String> updateFinished(int id, boolean isFinished);
 
     void deletePassTrip(int id);
 
