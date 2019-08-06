@@ -71,11 +71,13 @@
 			show trip
 		</button>
 	</mat-card-title>
-	<div class="table-header" *ngIf="trip.passenger.length">
-		<span>Name:</span>
-		<span>Phone:</span>
-		<span>E-mail:</span>
-	</div>
+  <thead *ngIf="trip.passenger.length">
+    <tr class="table-header">
+      <th class="table-th">Name</th>
+      <th class="table-th">Phone</th>
+      <th class="table-th">E-mail</th>
+    </tr>
+  </thead>
 	<mat-list *ngFor="let passenger of trip.passenger">
 		<mat-list-item class="form-row">
 			<mat-list-item class="truncated">

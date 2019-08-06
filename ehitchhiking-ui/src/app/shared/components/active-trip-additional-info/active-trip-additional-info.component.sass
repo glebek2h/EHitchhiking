@@ -6,6 +6,7 @@
 
 .form-row
   @include flexbox(space-between)
+  margin-top: 1rem
 .show-trip-button
   color: $white!important // because of mat styles
 .title
@@ -23,6 +24,7 @@
   height: 2rem
 .center
   text-align: center
+  margin-bottom: 1rem
 .title
   font-size: $input
 .field-note-name,
@@ -31,10 +33,14 @@
 .field-note-value
   text-align: end
 .table-header
-  display: flex
-  justify-content: space-between
+  margin-top: 2rem
+.table-th
+  width: 10rem
 .form-row-content
   display: flex
   justify-content: space-between
 .mat-list-item
   width: 8rem
+::ng-deep .mat-list-base .mat-list-item .mat-list-item-content
+  align-items: normal
+
