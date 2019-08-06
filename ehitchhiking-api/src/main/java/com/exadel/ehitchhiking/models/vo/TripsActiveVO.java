@@ -3,6 +3,7 @@ package com.exadel.ehitchhiking.models.vo;
 
 import com.exadel.ehitchhiking.models.TripDriver;
 import com.exadel.ehitchhiking.models.TripPass;
+import com.exadel.ehitchhiking.requests.Point;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,6 +24,10 @@ public class TripsActiveVO {
     private String startPoint;
 
     private String endPoint;
+
+    private Point startPosition;
+
+    private Point endPosition;
 
     private int role;
 
@@ -45,6 +50,8 @@ public class TripsActiveVO {
                 tripPass.getId(),
                 tripPass.getStartPoint(),
                 tripPass.getEndPoint(),
+                tripPass.getCoordStart(),
+                tripPass.getCoordEnd(),
                 1, // Passenger is 1
                 tripPass.getTripDriver().getStartTime().toInstant(),
                 tripPass.getTripDriver().getEndTime().toInstant(),
@@ -63,6 +70,8 @@ public class TripsActiveVO {
                 tripDriver.getId(),
                 tripDriver.getStartPoint(),
                 tripDriver.getEndPoint(),
+                tripDriver.getCoordStart(),
+                tripDriver.getCoordEnd(),
                 2, // Driver is 2
                 tripDriver.getStartTime().toInstant(),
                 tripDriver.getEndTime().toInstant(),
