@@ -6,7 +6,6 @@
 
 .form-row
   @include flexbox(space-between)
-  margin-top: 1rem
 .show-trip-button
   color: $white!important // because of mat styles
 .title
@@ -41,6 +40,8 @@
   justify-content: space-between
 .mat-list-item
   width: 8rem
-::ng-deep .mat-list-base .mat-list-item .mat-list-item-content
+.form-row.mat-list-item ::ng-deep .mat-list-item-content
   align-items: normal
-
+.for-driver .mat-list-item ::ng-deep .mat-list-item-content
+  padding-left: 0
+  padding-right: 0
