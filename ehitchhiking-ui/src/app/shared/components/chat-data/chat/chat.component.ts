@@ -33,15 +33,17 @@ export class ChatComponent implements OnInit {
 		this.chatApiService.sendMessage(message);
 	}
 
-	getChat(dialog: Dialog) {
-		dialog.msgList = dialog.msgList.map((message) => {
-			if (message.email === this.currentUser.email) {
-				message.isMy = true;
-			}
-			return message;
+	getChat(dialogPromise: Promise<Dialog>) {
+		dialogPromise.then((dialog) => {
+			dialog.msgList = dialog.msgList.map((message) => {
+				if (message.email === this.currentUser.email) {
+					message.isMy = true;
+				}
+				return message;
+			});
+			this.chatApiService.setCurrentDialog(dialog);
+			this.currentDialog = dialog;
 		});
-		this.chatApiService.setCurrentDialog(dialog);
-		this.currentDialog = dialog;
 	}
 
 	showContent() {
@@ -55,16 +57,14 @@ export class ChatComponent implements OnInit {
 	}
 
 	dialogsInitialization(dialogPromise: Promise<boolean>) {
-		dialogPromise
-			.then((dialogsStatus) => {
-				if (!dialogsStatus || this.chatApiService.checkSubscribtion() || !this.currentUser) {
-					return;
-				}
-				this.isDialogInitialized = true;
-				this.chatApiService.initializeWebSocketConnection();
-			})
-			.finally(() => {
+		dialogPromise.then((dialogsStatus) => {
+			if (!dialogsStatus || this.chatApiService.checkSubscribtion() || !this.currentUser) {
+				return;
+			}
+			this.isDialogInitialized = true;
+			this.chatApiService.initializeWebSocketConnection().finally(() => {
 				this.isLoading = false;
 			});
+		});
 	}
 }

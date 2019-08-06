@@ -13,5 +13,6 @@ public class ResponseChatMessage {
     private String content;
     private Long date;
     private ChatMessage.MessageType type;
+    private Integer chatId;
 
 }

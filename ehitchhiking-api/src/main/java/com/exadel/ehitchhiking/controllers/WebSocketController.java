@@ -44,7 +44,9 @@ public class WebSocketController {
                 service.getMemberName(userEmail),
                 message.getContent(),
                 (new Date()).getTime(),
-                message.getType());
+                message.getType(),
+                message.getId()
+        );
         this.template.convertAndSend("/socket/chat", responseMessage);
         service.saveChatMessage(chatMessage.getId(), chatMessage);
     }

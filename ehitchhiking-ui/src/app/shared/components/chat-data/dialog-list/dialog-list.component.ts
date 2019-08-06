@@ -11,7 +11,7 @@ import {NoDataSize} from '@shared/enums/no-data-sizes';
 export class DialogListComponent implements OnInit {
 	dialogList: Dialog[] = [];
 	@Input() userId: string;
-	@Output() onDialogReceiving = new EventEmitter<Dialog>();
+	@Output() onDialogReceiving = new EventEmitter<Promise<Dialog>>();
 	@Output() onDialogInitialization = new EventEmitter<Promise<boolean>>();
 	noDataSize: NoDataSize = NoDataSize.Small;
 	noDataMessage = 'No dialogs!';
@@ -29,7 +29,7 @@ export class DialogListComponent implements OnInit {
 	}
 
 	showChat(index) {
-		this.onDialogReceiving.emit(this.dialogList[index]);
+		this.onDialogReceiving.emit(Promise.resolve(this.dialogList[index]));
 	}
 
 	getImage(msgList): string {
