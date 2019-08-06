@@ -20,7 +20,6 @@ export class TripsModalComponent implements OnInit {
 	isLoading: boolean;
 	scrollObserver: IntersectionObserver;
 	order = 0;
-	selectedRole: UserState;
 	selectedFavorite = false;
 	selectedBySort = SortState.None;
 	statuses = new FormControl();
@@ -65,21 +64,6 @@ export class TripsModalComponent implements OnInit {
 
 	exit(): void {
 		this.dialogRef.close();
-	}
-
-	replaceAll(): void {
-		this.isLoading = true;
-		this.tripsModalService
-			.resetTripsList()
-			.then((response) => {
-				if (!response) {
-					return;
-				}
-				this.tripsArray = [];
-			})
-			.finally(() => {
-				this.isLoading = false;
-			});
 	}
 
 	trackById(trip) {
