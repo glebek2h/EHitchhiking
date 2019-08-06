@@ -110,6 +110,9 @@ public class TripDriverService implements ITripDriverService {
         List<TripPass> listTrips = tripPassDAO.getAllPass(id);
         for (TripPass tripPass : listTrips) {
             list.add(tripPass.getPassenger().getEmployee().getEmail());
+            tripPass.setActive(false);
+            tripPass.setFinished(isFinished);
+            tripPassDAO.update(tripPass);
         }
         return list;
     }
