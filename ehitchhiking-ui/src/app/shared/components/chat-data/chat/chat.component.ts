@@ -48,7 +48,6 @@ export class ChatComponent implements OnInit {
 
 	private onConnected() {
 		this.stompClient.subscribe(URL_REGISTRY.CHAT.CONNECT, this.onMessageReceived);
-
 		this.stompClient.send(
 			URL_REGISTRY.CHAT.ADD_USER,
 			{},
@@ -83,6 +82,17 @@ export class ChatComponent implements OnInit {
 			isMy: this.currentUser.email === sender,
 		};
 	}
+
+	sendMessage(message: HTMLInputElement) {
+		const messageRequest = {
+			sender: this.currentUser.email,
+			content: message.value.trim(),
+			type: ChatEvents.Chat,
+		};
+		this.stompClient.send(URL_REGISTRY.CHAT.SEND_MESSAGE, {}, JSON.stringify(messageRequest));
+		message.value = '';
+	}
+
 	getChat(chatInfo: any) {
 		this.msgList = chatInfo;
 	}
@@ -90,11 +100,6 @@ export class ChatComponent implements OnInit {
 	showContent() {
 		this.showChat = !this.showChat;
 		this.showDialogs = !this.showDialogs;
-	}
-
-	sendMessage(message: HTMLInputElement) {
-		this.stompClient.send(URL_REGISTRY.CHAT.SEND_MESSAGE, {}, message.value);
-		message.value = '';
 	}
 
 	close(): void {
