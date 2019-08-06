@@ -9,6 +9,7 @@ import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 import {User} from '@shared/models/user';
 import {NotificationService} from '@shared/services/notification.service';
 import {StompService} from 'ng2-stomp-service';
+import {Dialog} from '@shared/interfaces/dialog-interface';
 
 @Component({
 	selector: 'app-chat',
@@ -19,15 +20,13 @@ export class ChatComponent implements OnInit {
 	readonly MAX_MESSAGE_LENGTH = 256;
 	showChat = false;
 	showDialogs = true;
-	msgList: ChatMessage[] = [];
-	isSocketConnection: boolean;
+	currentDialog: Dialog;
 	noDataSize: NoDataSize = NoDataSize.Small;
 	noDataMessage = 'No messages!';
 	noDataIconName = 'accessibility';
 	isLoading = false;
 	currentUser: User;
 	subscription = null;
-	isDialogsInitialized = false;
 
 	constructor(
 		public dialogRef: MatDialogRef<ChatComponent>,
@@ -43,10 +42,6 @@ export class ChatComponent implements OnInit {
 
 	ngOnInit() {
 		this.currentUser = this.userService.getCurrentUser();
-		this.isSocketConnection = this.currentUser && !this.subscription;
-		if (this.isSocketConnection && this.isDialogsInitialized) {
-			this.initializeWebSocketConnection();
-		}
 	}
 
 	initializeWebSocketConnection(): Promise<any> {
@@ -79,7 +74,7 @@ export class ChatComponent implements OnInit {
 	private onMessageReceived(response: any) {
 		const {type, sender, content, date} = response;
 		if (type === ChatEvents.Chat) {
-			this.msgList.push(this.getMessageData(sender, content, date));
+			this.currentDialog.msgList.push(this.getMessageData(sender, content, date));
 		}
 	}
 
@@ -97,14 +92,15 @@ export class ChatComponent implements OnInit {
 		const messageRequest = {
 			sender: this.currentUser.email,
 			content: message.value.trim(),
+			id: this.currentDialog.id,
 			type: ChatEvents.Chat,
 		};
 		this.stompService.send(URL_REGISTRY.CHAT.SEND_MESSAGE, messageRequest);
 		message.value = '';
 	}
 
-	getChat(chatInfo: any) {
-		this.msgList = chatInfo;
+	getChat(dialog: Dialog) {
+		this.currentDialog = dialog;
 	}
 
 	showContent() {
@@ -118,8 +114,12 @@ export class ChatComponent implements OnInit {
 		this.dialogRef.close();
 	}
 
-	dialogsInitialization(status: boolean) {
-		this.isDialogsInitialized = true;
-		this.isSocketConnection = status;
+	dialogsInitialization(dialogPromise: Promise<boolean>) {
+		dialogPromise.then((dialogsStatus) => {
+			if (!dialogsStatus || this.subscription || !this.currentUser) {
+				return;
+			}
+			this.initializeWebSocketConnection();
+		});
 	}
 }

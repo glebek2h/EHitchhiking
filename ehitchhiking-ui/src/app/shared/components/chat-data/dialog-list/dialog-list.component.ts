@@ -12,8 +12,8 @@ import {NoDataSize} from '@shared/enums/no-data-sizes';
 export class DialogListComponent implements OnInit {
 	dialogList: Dialog[] = [];
 	@Input() userId: string;
-	@Output() chatMessages = new EventEmitter<ChatMessage[]>();
-	@Output() noDialogs = new EventEmitter<boolean>();
+	@Output() dialog = new EventEmitter<Dialog>();
+	@Output() onDialogInitialization = new EventEmitter<Promise<boolean>>();
 	noDataSize: NoDataSize = NoDataSize.Small;
 	noDataMessage = 'No dialogs!';
 	noDataIconName = 'accessibility';
@@ -24,7 +24,7 @@ export class DialogListComponent implements OnInit {
 	ngOnInit() {
 		if (this.userId) {
 			this.chatApiService.getDialogList(this.userId).then((data) => {
-				this.noDialogs.emit(!!data.length);
+				this.onDialogInitialization.emit(Promise.resolve(!!data.length));
 				this.dialogList = data.map((curId) => {
 					return {id: curId, title: curId, msgList: []};
 				});
@@ -33,7 +33,7 @@ export class DialogListComponent implements OnInit {
 	}
 
 	showChat(index) {
-		this.chatMessages.emit(this.dialogList[index].msgList);
+		this.dialog.emit(this.dialogList[index]);
 	}
 
 	getImage(msgList): string {

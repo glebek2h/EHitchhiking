@@ -7,12 +7,12 @@
 	<div class="chat" *ngIf="showChat">
 		<div class="message-zone" #scrollMe [scrollTop]="scrollMe.scrollHeight">
 			<app-no-data
-				[isEmpty]="!isLoading && msgList && !msgList.length"
+				[isEmpty]="!isLoading && currentDialog && !currentDialog.msgList.length"
 				[size]="noDataSize"
 				[message]="noDataMessage"
 				[icon]="noDataIconName"
 			></app-no-data>
-			<div *ngFor="let msg of msgList" class="message-wrapper" [class.my-message]="msg.isMy">
+			<div *ngFor="let msg of currentDialog.msgList" class="message-wrapper" [class.my-message]="msg.isMy">
 				<div class="person-info">
 					<img [src]="msg.avaSrc" alt="photo" class="image" />
 					<div class="date">{{ msg.time | date: 'h:mm a' }}</div>
@@ -37,8 +37,8 @@
 		</div>
 	</div>
 
-	<div mat-dialog-content class="modal-content" *ngIf="showDialogs" (click)="showContent()">
-		<app-dialog (chatMessages)="getChat($event)" (noDialogs)="dialogsInitialization($event)" [userId]="currentUser.id"> </app-dialog>
+	<div mat-dialog-content class="modal-content" *ngIf="showDialogs && !isLoading" (click)="showContent()">
+		<app-dialog (dialog)="getChat($event)" (onDialogInitialization)="dialogsInitialization($event)" [userId]="currentUser.id"> </app-dialog>
 	</div>
 
 	<div class="modal-back" (click)="showContent()" *ngIf="showChat">

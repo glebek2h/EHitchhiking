@@ -32,6 +32,7 @@ public class WebSocketController {
     @MessageMapping("/send/message")
     @SendTo("/topic/public")
     public void onReseivedMessage(ChatMessage message){
+        System.out.println(message);
         message.setDate((new Date()).getTime());
         this.template.convertAndSend("/chat",message);
         service.saveChatMessage(message.getId(), message);
