@@ -1,10 +1,14 @@
+import {ChatMessage} from '@shared/interfaces/chat-interface';
+import {ChatEvents} from '@shared/enums/chat-events.enum';
+import {UserService} from '@shared/services/user.service';
 import {Component, OnInit} from '@angular/core';
-import {ChatService} from './chat.service';
 import {MatDialogRef} from '@angular/material';
 import {NoDataSize} from '@shared/enums/no-data-sizes';
 import SockJS from 'sockjs-client';
 import {Stomp, CompatClient} from '@stomp/stompjs';
 import {URL_REGISTRY} from '@shared/constants/urlRegistry';
+import {User} from '@shared/models/user';
+import {NotificationService} from '@shared/services/notification.service';
 
 @Component({
 	selector: 'app-chat',
@@ -12,40 +16,81 @@ import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 	styleUrls: ['./chat.component.sass'],
 })
 export class ChatComponent implements OnInit {
+	readonly MAX_MESSAGE_LENGTH = 256;
 	showChat = false;
 	showDialogs = true;
-	readonly MAX_MESSAGE_LENGTH = 256;
 	msgList: ChatMessage[] = [];
 	noDataSize: NoDataSize = NoDataSize.Small;
 	noDataMessage = 'No messages!';
 	noDataIconName = 'accessibility';
 	loading = false;
 	stompClient: CompatClient;
+	currentUser: User;
 
-	constructor(public dialogRef: MatDialogRef<ChatComponent>) {}
+	constructor(
+		public dialogRef: MatDialogRef<ChatComponent>,
+		private userService: UserService,
+		private notificationService: NotificationService
+	) {}
 
 	ngOnInit() {
-		this.initializeWebSocketConnection();
+		this.currentUser = this.userService.getCurrentUser();
+		if (this.currentUser) {
+			this.initializeWebSocketConnection();
+		}
 	}
 
 	initializeWebSocketConnection(): void {
 		const webSocket = new SockJS(URL_REGISTRY.CHAT.INIT);
 		this.stompClient = Stomp.over(webSocket);
-		const stompClient = this.stompClient;
-		this.stompClient.connect(
+		this.stompClient.connect({}, this.onConnected, this.onError);
+	}
+
+	private onConnected() {
+		this.stompClient.subscribe(URL_REGISTRY.CHAT.CONNECT, this.onMessageReceived);
+		this.stompClient.send(
+			URL_REGISTRY.CHAT.ADD_USER,
 			{},
-			() => {
-				stompClient.subscribe('/chat', (response) => {
-					console.log(response);
-					const {body: data} = response;
-					const message = data.match(/(?<date>[0-9:]+)-(?<message>.*)/).groups.message;
-					this.msgList.push(ChatService.messageData(message));
-				});
-			},
-			(error) => {
-				console.log(error);
-			}
+			JSON.stringify({sender: this.currentUser.email, type: ChatEvents.Join})
 		);
+	}
+
+	private onError() {
+		this.notificationService.showErrorNotification(
+			'Could not connect to WebSocket server. Please refresh this page to try again!'
+		);
+	}
+
+	private onMessageReceived(response: any) {
+		const {type, sender, content, date} = response.body || response;
+		if (type === ChatEvents.Join) {
+			this.notificationService.showInfoNotification(`${sender} has joined!`);
+		}
+		if (type === ChatEvents.Leave) {
+			this.notificationService.showInfoNotification(`${sender} has left!`);
+		} else {
+			this.msgList.push(this.getMessageData(sender, content, date));
+		}
+	}
+
+	private getMessageData(sender: string, content: string, date: number): ChatMessage {
+		return {
+			text: content,
+			person: sender,
+			avaSrc: '',
+			time: date,
+			isMy: this.currentUser.email === sender,
+		};
+	}
+
+	sendMessage(message: HTMLInputElement) {
+		const messageRequest = {
+			sender: this.currentUser.email,
+			content: message.value.trim(),
+			type: ChatEvents.Chat,
+		};
+		this.stompClient.send(URL_REGISTRY.CHAT.SEND_MESSAGE, {}, JSON.stringify(messageRequest));
+		message.value = '';
 	}
 
 	getChat(chatInfo: any) {
@@ -55,11 +100,6 @@ export class ChatComponent implements OnInit {
 	showContent() {
 		this.showChat = !this.showChat;
 		this.showDialogs = !this.showDialogs;
-	}
-
-	sendMessage(message: HTMLInputElement) {
-		this.stompClient.send('/app/send/message', {}, message.value);
-		message.value = '';
 	}
 
 	close(): void {

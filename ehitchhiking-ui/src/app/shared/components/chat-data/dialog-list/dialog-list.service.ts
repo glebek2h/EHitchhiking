@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {Dialog} from '@shared/interfaces/dialog-interface';
 
 @Injectable({
 	providedIn: 'root',

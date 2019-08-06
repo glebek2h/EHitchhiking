@@ -44,5 +44,8 @@ export const URL_REGISTRY = {
 	LOG_OUT: '/logout',
 	CHAT: {
 		INIT: 'http://localhost:4200/api/socket',
+		CONNECT: '/chat',
+		SEND_MESSAGE: '/app/send/message',
+		ADD_USER: '/app/chat/addUser',
 	},
 };
