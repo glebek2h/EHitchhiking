@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
-import { EventEmitter, Output} from '@angular/core';
+import {EventEmitter, Output} from '@angular/core';
 import {UserState} from '@shared/enums/UserState';
 import {DEFAULT_MAT_DIALOG_CLASS, MAT_DIALOG_WIDTH_SM} from '@shared/constants/modal-constants';
 import {MatDialog} from '@angular/material';
@@ -20,12 +20,12 @@ export class ActiveTripComponent implements OnInit {
 
 	ngOnInit(): void {}
 
-	@Output() onDelete: EventEmitter<{id: number, role: UserState}> = new EventEmitter();
+	@Output() onDelete: EventEmitter<{id: number; role: UserState}> = new EventEmitter();
 	static readonly REMOVAL_CONFIRMATION_MESSAGE: string = 'Do you really want to decline this trip?';
 
-	removeTrip(){
-	  this.onDelete.emit({id: this.trip.id, role: this.trip.role});
-  }
+	removeTrip() {
+		this.onDelete.emit({id: this.trip.id, role: this.trip.role});
+	}
 
 	openConfirmationDialogRemoveActiveTrip(event: MouseEvent) {
 		const dialogRef = this.dialog.open(ConfirmationModalComponent, {
@@ -38,9 +38,9 @@ export class ActiveTripComponent implements OnInit {
 			},
 		});
 		dialogRef.afterClosed().subscribe((result) => {
-			if (result){
-			  this.removeTrip();
-      }
+			if (result) {
+				this.removeTrip();
+			}
 		});
 		event.stopPropagation();
 	}

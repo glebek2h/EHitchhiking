@@ -27,7 +27,7 @@ import {UserService} from '@shared/services/user.service';
 import {ActiveTripsMapService} from '@shared/services/active-trips-map.service';
 import {PreLoadingModule} from '@shared/components/pre-loading/pre-loading.module';
 import {YandexMapService} from '@pages/main-screen/yandex-map/yandex-map.service';
-import {NoDataModule} from "@shared/components/no-data/no-data.module";
+import {NoDataModule} from '@shared/components/no-data/no-data.module';
 @NgModule({
 	declarations: [
 		MainScreenComponent,
@@ -53,8 +53,8 @@ import {NoDataModule} from "@shared/components/no-data/no-data.module";
 		MatCheckboxModule,
 		MatTooltipModule,
 		PreLoadingModule,
-    NoDataModule,
-    MatIconModule,
+		NoDataModule,
+		MatIconModule,
 	],
 	providers: [ActiveTripsMapService, MapTripFormService, UserService, YandexMapService],
 	exports: [MainScreenComponent, TripRegistrationComponent],
