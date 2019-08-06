@@ -12,12 +12,12 @@ export class YandexMapService {
 	private ymapsPromise;
 
 	setPromise(ymapsPromise) {
-	  this.ymapsPromise = ymapsPromise;
-  }
+		this.ymapsPromise = ymapsPromise;
+	}
 
-  getPromise() {
-	  return this.ymapsPromise;
-  }
+	getPromise() {
+		return this.ymapsPromise;
+	}
 
 	static COLORS: string[] = [
 		'#6da2e1',

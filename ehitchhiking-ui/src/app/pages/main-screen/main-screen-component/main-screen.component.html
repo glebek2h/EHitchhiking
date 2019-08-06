@@ -13,9 +13,10 @@
 	(passengerPlaceMark)="getPassengerPlaceMarkInfo($event)"
 	(coordinates)="getStartEndCoords($event)"
 ></yandex-map>
+<app-pre-loading [isLoading]="loading" [size]="loaderSize"></app-pre-loading>
 <app-trip-registration
 	*ngIf="isReset"
-  [hidden]="isHidden"
+	[hidden]="isHidden"
 	(formData)="getData($event)"
 	(isShownViewListButton)="setIsShownViewRoutesButtonFlag($event)"
 	(isShownSaveRouteButton)="setIsShownSaveRouteButtonFlag($event)"
@@ -38,10 +39,18 @@
 	name="fontStyle"
 	aria-label="Font Style"
 >
-	<mat-button-toggle [ngClass]="{'active': activePassengerButton}" class="role-chooser-btn" value="bold" (click)="toggleStateToPassenger()"
+	<mat-button-toggle
+		[ngClass]="{active: activePassengerButton}"
+		class="role-chooser-btn"
+		value="bold"
+		(click)="toggleStateToPassenger()"
 		>Passenger</mat-button-toggle
 	>
-	<mat-button-toggle [ngClass]="{'active': activeDriverButton}" class="role-chooser-btn" value="italic" (click)="toggleStateToDriver()"
+	<mat-button-toggle
+		[ngClass]="{active: activeDriverButton}"
+		class="role-chooser-btn"
+		value="italic"
+		(click)="toggleStateToDriver()"
 		>Driver</mat-button-toggle
 	>
 </mat-button-toggle-group>
@@ -92,5 +101,16 @@
 >
 	<i class="material-icons">
 		close
+	</i>
+</button>
+<button
+	*ngIf="isShownCompleteButton"
+	class="plus-btn complete"
+	mat-fab
+	matTooltip="complete trip"
+	(click)="openConfirmationForm()"
+>
+	<i class="material-icons">
+		done
 	</i>
 </button>

@@ -2,15 +2,17 @@ import {Component, OnInit} from '@angular/core';
 import {UserState} from '@shared/enums/UserState';
 import {YandexMapService} from '../yandex-map/yandex-map.service';
 import {User} from '@shared/models/user';
-import {Car} from '@shared/models/car';
 import {ApiService} from '@shared/services/api.services/api.service';
 import {Route} from '../Route';
 import {MainScreenService} from '@shared/services/api.services/main-screen.service';
 import {MapTripFormService} from '@shared/services/map-trip-form.service';
 import {ActiveTripsMapService} from '@shared/services/active-trips-map.service';
 import {UserService} from '@shared/services/user.service';
-import {CarInterface} from '@shared/interfaces/car-interface';
 import {URL_REGISTRY} from '@shared/constants/urlRegistry';
+import {ConfirmationModalComponent} from '@shared/modals/confirmation-modal/confirmation-modal.component';
+import {DEFAULT_MAT_DIALOG_CLASS, MAT_DIALOG_WIDTH_SM} from '@shared/constants/modal-constants';
+import {MatDialog} from '@angular/material';
+import {LoaderSize} from '@shared/enums/pre-loader-sizes';
 
 @Component({
 	selector: 'app-main-screen',
@@ -24,21 +26,27 @@ export class MainScreenComponent implements OnInit {
 		private mapTripFormService: MapTripFormService,
 		private activeTripsMapService: ActiveTripsMapService,
 		private userService: UserService,
-		private apiService: ApiService
+		private apiService: ApiService,
+		public dialog: MatDialog
 	) {
 		this.activeTripsMapService.getMainScreenInfo().subscribe(() => {
 			this.toggleMapInterfaceToDefault();
 			this.isDisabledMatToggleGroup = true;
 			this.isShownPlusButton = false;
+			this.isShownCompleteButton = true;
 		});
+		this.activeTripsMapService.isDeleteCompleteButton().subscribe(() => (this.isShownCompleteButton = false));
+		this.activeTripsMapService.getCompletedTrip().subscribe((id) => (this.idOfCompletedTrip = id));
 	}
 
+	idOfCompletedTrip: number;
 	tripFormData: any; // TODO
 	isReset: boolean;
-  isHidden: boolean;
+	isHidden: boolean;
 	userState: UserState;
 	isSavedRoute: boolean;
 	isShownRoutesList: boolean;
+	isShownCompleteButton: boolean;
 	isShownViewRoutesButton: boolean;
 	isShownSaveRouteButton: boolean;
 	isDisabledSubmitRouteButton: boolean;
@@ -48,9 +56,11 @@ export class MainScreenComponent implements OnInit {
 	displayedRouteIndex: number;
 	mapTriggers = {};
 	redrawTriggers: boolean;
-  activePassengerButton: boolean;
-  activeDriverButton: boolean;
+	activePassengerButton: boolean;
+	activeDriverButton: boolean;
 	filterData;
+	loading: boolean;
+	loaderSize: LoaderSize = LoaderSize.Large;
 
 	startEndCoordinates: number[] = [];
 	sendFormData;
@@ -60,6 +70,8 @@ export class MainScreenComponent implements OnInit {
 	copyRoutes: Partial<Route>[] = [];
 
 	currentUser: User;
+
+	static readonly COMPLETE_CONFIRMATION_MESSAGE: string = 'Do you really want to complete this trip?';
 
 	private getCarsList(userId: string): Promise<any> {
 		return this.apiService.doGet(URL_REGISTRY.CAR.GET_ALL, false, {id: userId});
@@ -76,9 +88,29 @@ export class MainScreenComponent implements OnInit {
 		});
 	}
 
-  openTripRegistrationForm(): void {
-	  this.isReset = true;
+	openTripRegistrationForm(): void {
+		this.isReset = true;
 		this.isHidden = !this.isHidden;
+	}
+	openConfirmationForm() {
+		const dialogRef = this.dialog.open(ConfirmationModalComponent, {
+			panelClass: DEFAULT_MAT_DIALOG_CLASS,
+			autoFocus: false,
+			width: MAT_DIALOG_WIDTH_SM,
+			data: {
+				question: MainScreenComponent.COMPLETE_CONFIRMATION_MESSAGE,
+				confirmButtonText: 'yes',
+			},
+		});
+		dialogRef.afterClosed().subscribe((result) => {
+			if (result) {
+				this.toggleMapInterfaceToDefault();
+				this.loading = true;
+				this.mainScreenService.completeDriverTrip(this.idOfCompletedTrip).finally(() => {
+					this.loading = false;
+				});
+			}
+		});
 	}
 
 	getData(data) {
@@ -101,7 +133,7 @@ export class MainScreenComponent implements OnInit {
 	}
 	getPassengerTripData(data) {
 		this.sendFormData = data;
-    this.isHidden = true;
+		this.isHidden = true;
 	}
 
 	saveRoute() {
@@ -127,15 +159,15 @@ export class MainScreenComponent implements OnInit {
 	}
 
 	toggleStateToPassenger() {
-    this.activePassengerButton = true;
-    this.activeDriverButton = false;
-    this.userState = UserState.Passenger;
+		this.activePassengerButton = true;
+		this.activeDriverButton = false;
+		this.userState = UserState.Passenger;
 		this.toggleMapInterfaceToDefault();
 	}
 
 	toggleStateToDriver() {
-    this.activeDriverButton = true;
-    this.activePassengerButton = false;
+		this.activeDriverButton = true;
+		this.activePassengerButton = false;
 		this.userState = UserState.Driver;
 		this.toggleMapInterfaceToDefault();
 	}
@@ -152,6 +184,7 @@ export class MainScreenComponent implements OnInit {
 		this.mapTriggers = {reset: true};
 		this.isDisabledMatToggleGroup = false;
 		this.isShownPlusButton = true;
+		this.isShownCompleteButton = false;
 	}
 
 	getIndexToDisplay(data) {
@@ -170,5 +203,4 @@ export class MainScreenComponent implements OnInit {
 		this.isDisabledSubmitRouteButton = false;
 		this.passengerCoordinates = data;
 	}
-
 }
