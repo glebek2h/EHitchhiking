@@ -18,12 +18,22 @@
 				event_busy
 			</i>
 		</button>
-		<button class="trip-btn trip-btn-responsive" matTooltip="rate trip" (click)="openRatePassengersDialog()">
+		<button
+			class="trip-btn trip-btn-responsive"
+			matTooltip="rate trip"
+			*ngIf="isRatePassengersShown()"
+			(click)="openRatePassengersDialog()"
+		>
 			<i class="material-icons">
 				stars
 			</i>
 		</button>
-		<button class="trip-btn trip-btn-responsive" matTooltip="add to favourite" [class.active]="trip.saved" (click)="makeFavorite()">
+		<button
+			class="trip-btn trip-btn-responsive"
+			matTooltip="add to favourite"
+			[class.active]="trip.saved"
+			(click)="makeFavorite()"
+		>
 			<i class="material-icons" *ngIf="!trip.saved" title=" not favorite trip">
 				favorite_border
 			</i>
@@ -32,7 +42,7 @@
 			</i>
 		</button>
 	</div>
-	<app-rating (isShownBtn)="$event"
+	<app-rating
 		class="rating"
 		[class.active]="isRatingEditorVisible"
 		[rating]="trip.rating"

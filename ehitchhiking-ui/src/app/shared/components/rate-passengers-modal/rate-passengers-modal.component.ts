@@ -6,6 +6,7 @@ import {UserState} from '@shared/enums/UserState';
 import {RatePassengersApiService} from '@shared/services/api.services/rate-passengers-api.service';
 import {LoaderSize} from '@shared/enums/pre-loader-sizes';
 import {BlacklistedUser, User} from '@shared/components/rate-passengers-modal/user';
+import {RatePassengersTripsService} from '@shared/services/rate-passengers-trips.service';
 
 @Component({
 	selector: 'rate-passengers-modal',
@@ -17,12 +18,12 @@ export class RatePassengersModalComponent implements OnInit {
 	UserState = UserState;
 	loading = true;
 	loaderSize: LoaderSize = LoaderSize.Large;
-  showRateModal = true;
 
 	constructor(
 		public dialogRef: MatDialogRef<RatePassengersModalComponent>,
 		@Inject(MAT_DIALOG_DATA) public data: any,
-		private apiRatePassengersService: RatePassengersApiService
+		private apiRatePassengersService: RatePassengersApiService,
+		private ratePassengersTripsService: RatePassengersTripsService
 	) {}
 
 	ngOnInit(): void {
@@ -104,7 +105,7 @@ export class RatePassengersModalComponent implements OnInit {
 			.finally(() => {
 				this.loading = false;
 			});
-		this.showRateModal=false;
+		this.ratePassengersTripsService.setFalse(this.data.tripId);
 	}
 
 	trackById(index, item) {

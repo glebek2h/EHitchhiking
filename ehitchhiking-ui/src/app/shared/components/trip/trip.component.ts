@@ -6,6 +6,7 @@ import {DEFAULT_MAT_DIALOG_CLASS, MAT_DIALOG_HEIGHT_SM, MAT_DIALOG_WIDTH_SMD} fr
 import {UserState} from '@shared/enums/UserState';
 import {TripHistory} from '@shared/interfaces/trip-history-interface';
 import {TripsModalService} from '@shared/services/trips-modal.service';
+import {RatePassengersTripsService} from '@shared/services/rate-passengers-trips.service';
 @Component({
 	selector: 'app-trip',
 	templateUrl: './trip.component.html',
@@ -14,12 +15,14 @@ import {TripsModalService} from '@shared/services/trips-modal.service';
 export class TripComponent implements OnInit {
 	@Input() trip: TripHistory;
 	@Output() onLoadingToggle = new EventEmitter<boolean>();
-  @Output() isShownBtn = new EventEmitter<ChatMessage[]>();
 	isRatingEditorVisible: boolean;
 	userState = UserState;
 
-
-	constructor(public dialog: MatDialog, public tripsModalService: TripsModalService) {}
+	constructor(
+		public dialog: MatDialog,
+		public tripsModalService: TripsModalService,
+		private ratePassengersTripsService: RatePassengersTripsService
+	) {}
 
 	ngOnInit() {}
 
@@ -57,5 +60,9 @@ export class TripComponent implements OnInit {
 				tripId: this.trip.id,
 			},
 		});
+	}
+
+	isRatePassengersShown() {
+		return this.ratePassengersTripsService.getisShown(this.trip.id);
 	}
 }
