@@ -7,8 +7,8 @@
 <p class="start-end-point truncated">{{ trip.startPoint }} -> {{ trip.endPoint }}</p>
 <div class="swap-btns-rating">
 	<div class="action-btns-container" [class.active]="isRatingEditorVisible">
-		<button class="trip-btn" [ngSwitch]="trip.status">
-			<i class="material-icons media" *ngSwitchCase="0" title="active trip">
+		<button class="trip-btn trip-btn-responsive" [ngSwitch]="trip.status">
+			<i class="material-icons" *ngSwitchCase="0" title="active trip">
 				event_note
 			</i>
 			<i class="material-icons" *ngSwitchCase="1" title="completed trip">
@@ -18,12 +18,12 @@
 				event_busy
 			</i>
 		</button>
-		<button class="trip-btn media" (click)="openRatePassengersDialog()">
+		<button class="trip-btn trip-btn-responsive" (click)="openRatePassengersDialog()">
 			<i class="material-icons">
 				stars
 			</i>
 		</button>
-		<button class="trip-btn media" [class.active]="trip.saved" (click)="makeFavorite()">
+		<button class="trip-btn trip-btn-responsive" [class.active]="trip.saved" (click)="makeFavorite()">
 			<i class="material-icons" *ngIf="!trip.saved" title=" not favorite trip">
 				favorite_border
 			</i>
