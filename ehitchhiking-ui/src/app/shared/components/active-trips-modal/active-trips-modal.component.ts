@@ -57,7 +57,6 @@ export class ActiveTripsModalComponent implements OnInit {
 			.then((data) => {
 				this.tripsArray = data;
 				this.scrollObserver.observe(this.markerRef.nativeElement);
-				console.log(this.tripsArray);
 			})
 			.finally(() => {
 				this.loading = false;
