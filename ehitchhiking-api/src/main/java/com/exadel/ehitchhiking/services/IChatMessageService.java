@@ -8,5 +8,5 @@ import java.util.List;
 public interface IChatMessageService {
     void saveChatMessage(int id, ChatMessage message);
     Chat createChat();
-    List<Integer> getChatInfo(int id);
+    List<List<Object>> getChatInfo(int id);
 }
