@@ -277,7 +277,6 @@ export class YandexMapComponent implements OnInit, OnChanges {
 	}
 
 	placeStaticMark(passenger) {
-	  console.log(passenger);
 		this.ymapsPromise.then((maps) => {
 			const myGeoObject = new maps.GeoObject(
 				{
