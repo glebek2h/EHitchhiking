@@ -4,8 +4,9 @@
 			<button mat-icon-button (click)="openProfileDialog()" class="header-button">
 				<mat-icon class="header-button-icon account-icon">account_circle</mat-icon>
 			</button>
-			<span class="header-span truncated"
-				[matTooltip]="currentUser ? currentUser.getFullName() : 'Anonymous'">{{currentUser ? currentUser.getFullName() : 'Anonymous'}}</span>
+			<span class="header-span truncated" [matTooltip]="currentUser ? currentUser.getFullName() : 'Anonymous'">{{
+				currentUser ? currentUser.getFullName() : 'Anonymous'
+			}}</span>
 			<div class="modal-close-control">
 				<button mat-icon-button class="modal-close-control-btn header-button" (click)="sidenav.toggle()">
 					<mat-icon class="header-button-icon close-icon">close</mat-icon>

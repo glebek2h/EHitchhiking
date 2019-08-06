@@ -9,6 +9,7 @@ import {
 	MatDatepickerModule,
 	MatExpansionModule,
 	MatFormFieldModule,
+	MatIconModule,
 	MatInputModule,
 	MatSelectModule,
 	MatTooltipModule,
@@ -24,7 +25,8 @@ import {FiltersComponent} from './filters/filters.component';
 import {MapTripFormService} from '@shared/services/map-trip-form.service';
 import {UserService} from '@shared/services/user.service';
 import {ActiveTripsMapService} from '@shared/services/active-trips-map.service';
-import {YandexMapService} from "@pages/main-screen/yandex-map/yandex-map.service";
+import {PreLoadingModule} from '@shared/components/pre-loading/pre-loading.module';
+import {YandexMapService} from '@pages/main-screen/yandex-map/yandex-map.service';
 @NgModule({
 	declarations: [
 		MainScreenComponent,
@@ -49,6 +51,8 @@ import {YandexMapService} from "@pages/main-screen/yandex-map/yandex-map.service
 		MenuModule,
 		MatCheckboxModule,
 		MatTooltipModule,
+		PreLoadingModule,
+		MatIconModule,
 	],
 	providers: [ActiveTripsMapService, MapTripFormService, UserService, YandexMapService],
 	exports: [MainScreenComponent, TripRegistrationComponent],

@@ -3,7 +3,8 @@
 	[formGroup]="addCarMod ? addCarForm : carInfoForm.controls[carIndex]"
 	class="car-form"
 	(ngSubmit)="sendCarData(true)"
-	(change)="sendCarData(false)">
+	(change)="sendCarData(false)"
+>
 	<mat-form-field class="car-form-field">
 		<input matInput formControlName="model" placeholder="Model" class="car-form-input" />
 	</mat-form-field>

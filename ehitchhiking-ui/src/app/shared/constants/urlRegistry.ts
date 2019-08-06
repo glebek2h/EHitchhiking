@@ -37,6 +37,7 @@ export const URL_REGISTRY = {
 		TRIP: {
 			SAVE: 'trip_driver/save',
 			REMOVE_FROM_SAVED: 'trip_driver/removeFromSaved',
+			COMPLETE: 'trip_driver/finished_trip',
 		},
 	},
 	HISTORY: 'trips/history?id={{id}}',
