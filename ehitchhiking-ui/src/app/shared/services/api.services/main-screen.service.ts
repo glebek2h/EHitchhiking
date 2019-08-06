@@ -30,11 +30,14 @@ export class MainScreenService {
 	}
 
 	getDriversRoutes(tripData) {
+
+    const endTime = new Date(tripData.departureDate);
+    endTime.setHours(tripData.departureDate.getHours() + 1);
 		return this.apiService
 			.doPost(URL_REGISTRY.MAP.GET_DRIVERS_ROUTES, {
 				empId: this.userService.getCurrentUser().id,
 				startingTime: tripData.departureDate,
-				endingTime: tripData.departureDate,
+        endingTime: endTime,
 				seats: tripData.placesSelect,
 				coordStart: {x: tripData.coords[0][0], y: tripData.coords[0][1]},
 				coordEnd: {x: tripData.coords[1][0], y: tripData.coords[1][1]},
