@@ -2,8 +2,7 @@ package com.exadel.ehitchhiking.config;
 
 import com.exadel.ehitchhiking.services.IEmployeeService;
 
-import com.exadel.ehitchhiking.utils.FilterCar;
-import com.exadel.ehitchhiking.utils.FilterEmployee;
+import com.exadel.ehitchhiking.utils.FilterId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -68,20 +67,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public FilterRegistrationBean<FilterEmployee> loggingFilterEmployee(){
-        FilterRegistrationBean<FilterEmployee> registrationBean
+    public FilterRegistrationBean<FilterId> loggingFilterId(){
+        FilterRegistrationBean<FilterId> registrationBean
                 = new FilterRegistrationBean<>();
-        registrationBean.setFilter(new FilterEmployee());
-        registrationBean.addUrlPatterns("/employee/*");
-        return registrationBean;
-    }
-
-    @Bean
-    public FilterRegistrationBean<FilterCar> loggingFilterCar(){
-        FilterRegistrationBean<FilterCar> registrationBean
-                = new FilterRegistrationBean<>();
-        registrationBean.setFilter(new FilterCar());
-        registrationBean.addUrlPatterns("/car/*");
+        registrationBean.setFilter(new FilterId());
+        registrationBean.addUrlPatterns("/employee/*", "/car/all", "/trips/*");
         return registrationBean;
     }
 

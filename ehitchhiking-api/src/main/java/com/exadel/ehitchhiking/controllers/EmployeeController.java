@@ -22,18 +22,6 @@ public class EmployeeController {
     @Autowired
     private IEmailSender emailSender;
 
-
-    @PutMapping
-    public Response updateTrip(@RequestBody RequestEmployee employee) {
-        try {
-            employeeService.updateEmployee(employee.getEmail(), employee.getLastName(),
-                    employee.getFirstName(), employee.getPhoneNum());
-        } catch (Exception e) {
-            return Response.setError("An error has occurred while updating the trip!");
-        }
-        return Response.setSuccess("true", "The trip was successfully updated!");
-    }
-
     @GetMapping
     public Response getEmployee(Integer id) {
         EmployeeVO employee;
@@ -44,16 +32,5 @@ public class EmployeeController {
             return Response.setError("An error has occurred while retrieving the employee's info!");
         }
         return Response.setSuccess(employee, "The employee info was successfully retrieved!");
-    }
-
-    @GetMapping("/list")
-    public Response getAll() {
-        List<EmployeeVO> employeeVOS;
-        try {
-            employeeVOS = employeeService.getAll();
-        } catch (Exception e) {
-            return Response.setError("An error has occurred while retrieving the employees' info!");
-        }
-        return Response.setSuccess(employeeVOS, "All employees' info was successfully retrieved!");
     }
 }
