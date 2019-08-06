@@ -132,6 +132,7 @@ export class MainScreenComponent implements OnInit {
 		}
 	}
 	getPassengerTripData(data) {
+    this.editStatePlusButton = true;
 		this.sendFormData = data;
 		this.isHidden = true;
 	}
