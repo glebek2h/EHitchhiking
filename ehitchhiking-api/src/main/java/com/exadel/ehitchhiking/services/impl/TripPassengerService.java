@@ -10,7 +10,7 @@ import com.exadel.ehitchhiking.models.vo.TripPassVO;
 import com.exadel.ehitchhiking.services.ITripPassengerService;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.geo.Point;
+import com.exadel.ehitchhiking.requests.Point;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
