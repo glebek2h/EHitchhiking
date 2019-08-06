@@ -33,15 +33,12 @@ export class TripsModalComponent implements OnInit {
 	}
 
 	onScroll(entries: IntersectionObserverEntry[]) {
-    debugger
 		for (let entry of entries) {
 			if (entry.isIntersecting) {
-			  console.log("here");
 				this.limit += NUMBER_OF_TRIPS_VISIBLE_ON_PAGE;
 			}
 		}
 		if (this.limit >= this.tripsArray.length) {
-		  console.log("Julia, this is bad!");
 			this.scrollObserver.unobserve(this.markerRef.nativeElement);
 		}
 	}
