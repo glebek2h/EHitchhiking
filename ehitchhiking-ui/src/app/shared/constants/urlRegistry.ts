@@ -5,11 +5,11 @@ export const URL_REGISTRY = {
 		GET_DRIVER_BLACKLIST: 'blackList/passenger?empId={{empId}}',
 		GET_PASSENGER_BLACKLIST: 'blackList/driver?empId={{empId}}',
 	},
-  ACTIVE_TRIPS: {
-	  GET: 'trips/active?id={{id}}',
-    DELETE_TRIP_DRIVER: 'trip_driver/cancelled_trip',
-    DELETE_TRIP_PASSENGER: 'trip_passenger/cancelled_trip'
-  },
+	ACTIVE_TRIPS: {
+		GET: 'trips/active?id={{id}}',
+		DELETE_TRIP_DRIVER: 'trip_driver/cancelled_trip',
+		DELETE_TRIP_PASSENGER: 'trip_passenger/cancelled_trip',
+	},
 	EMPLOYEE: {
 		GET: 'employee?id={{id}}',
 	},

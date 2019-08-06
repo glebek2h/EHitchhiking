@@ -15,7 +15,12 @@
 				<mat-card class="blacklist-user" *ngFor="let blacklistUser of driversBlacklist; let i = index">
 					<i class="material-icons profile-photo">account_circle</i>
 					<p class="blacklist-user-name truncated">{{ blacklistUser.name }}</p>
-					<i class="material-icons remove-icon" (click)="removePersonFromDriverBlacklist(i)">remove_circle</i>
+					<i
+						class="material-icons remove-icon"
+						matTooltip="remove from blacklist"
+						(click)="removePersonFromDriverBlacklist(i)"
+						>remove_circle</i
+					>
 				</mat-card>
 			</div>
 		</mat-tab>
@@ -31,7 +36,10 @@
 				<mat-card class="blacklist-user" *ngFor="let user of passengersBlacklist; let i = index">
 					<i class="material-icons profile-photo">account_circle</i>
 					<p class="blacklist-user-name truncated">{{ user.name }}</p>
-					<i class="material-icons remove-icon" (click)="removePersonFromPassengerBlacklist(i)"
+					<i
+						class="material-icons remove-icon"
+						matTooltip="remove from blacklist"
+						(click)="removePersonFromPassengerBlacklist(i)"
 						>remove_circle</i
 					>
 				</mat-card>
@@ -40,7 +48,7 @@
 	</mat-tab-group>
 
 	<div class="modal-close-control">
-		<button class="modal-close-control-btn" mat-icon-button (click)="close()">
+		<button class="modal-close-control-btn" matTooltip="close" mat-icon-button (click)="close()">
 			<mat-icon>close</mat-icon>
 		</button>
 	</div>
