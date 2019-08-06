@@ -55,6 +55,7 @@ export class MainScreenComponent implements OnInit {
 	isShownPlusButton = true;
 	displayedRouteIndex: number;
 	mapTriggers = {};
+  redrawPassengerDriverIconTriggers = {};
 	redrawTriggers: boolean;
 	activePassengerButton: boolean;
 	activeDriverButton: boolean;
@@ -162,6 +163,7 @@ export class MainScreenComponent implements OnInit {
 		this.activePassengerButton = true;
 		this.activeDriverButton = false;
 		this.userState = UserState.Passenger;
+    this.redrawPassengerDriverIconTriggers = {reset: true};
 		this.toggleMapInterfaceToDefault();
 	}
 
@@ -170,6 +172,7 @@ export class MainScreenComponent implements OnInit {
 			this.activeDriverButton = true;
 			this.activePassengerButton = false;
 			this.userState = UserState.Driver;
+			this.redrawPassengerDriverIconTriggers = {reset: true};
 			this.toggleMapInterfaceToDefault();
 		}
 	}

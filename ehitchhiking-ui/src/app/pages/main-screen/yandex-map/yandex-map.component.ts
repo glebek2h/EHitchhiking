@@ -36,6 +36,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
 	@Input() tripData: Route;
 	@Input() isSavedRoute: boolean;
 	@Input() triggers: any;
+  @Input() iconTriggers: any;
 	@Input() redraw: any;
 	@Input() indexRouteToDisplay: any;
 	@Input() getCoordsData: any;
@@ -152,7 +153,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
 				this.placeMarkForPassenger();
 			}
 		}
-		if (changes.userState && changes.userState.currentValue) {
+		if (changes.userState && changes.userState.currentValue || changes.iconTriggers) {
 			this.setUserIconToMapAccordingUserState();
 		}
 		if (changes.isSavedRoute && this.currentMultiRoute) {
