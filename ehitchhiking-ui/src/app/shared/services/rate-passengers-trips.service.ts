@@ -6,7 +6,7 @@ import {Injectable} from '@angular/core';
 export class RatePassengersTripsService {
 	private tripsId: number[] = [];
 
-	setFalse(id: number) {
+	addId(id: number) {
 		this.tripsId.push(id);
 	}
 

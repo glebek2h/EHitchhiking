@@ -62,7 +62,7 @@ export class TripComponent implements OnInit {
 		});
 	}
 
-	isRatePassengersShown() {
+	showRate() {
 		return this.ratePassengersTripsService.getisShown(this.trip.id);
 	}
 }

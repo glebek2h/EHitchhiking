@@ -21,7 +21,7 @@
 		<button
 			class="trip-btn trip-btn-responsive"
 			matTooltip="rate trip"
-			*ngIf="isRatePassengersShown()"
+			*ngIf="showRate()"
 			(click)="openRatePassengersDialog()"
 		>
 			<i class="material-icons">

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material';
 import {StarClickMeta} from '../rating/starClickMeta';
 import {MAT_DIALOG_DATA} from '@angular/material';
@@ -105,7 +105,7 @@ export class RatePassengersModalComponent implements OnInit {
 			.finally(() => {
 				this.loading = false;
 			});
-		this.ratePassengersTripsService.setFalse(this.data.tripId);
+		this.ratePassengersTripsService.addId(this.data.tripId);
 	}
 
 	trackById(index, item) {
