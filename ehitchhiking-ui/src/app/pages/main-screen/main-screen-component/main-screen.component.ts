@@ -204,12 +204,12 @@ export class MainScreenComponent implements OnInit {
 		this.passengerCoordinates = data;
 	}
 
-  setIsShownRegistrationFromFlag(data) {
-    this.isReset = false;
-    this.isHidden = !this.isHidden;
-  }
+	setIsShownRegistrationFromFlag(data) {
+		this.isReset = false;
+		this.isHidden = !this.isHidden;
+	}
 
-  closeRoutes(data) {
-    this.isShownRoutesList = false;
-  }
+	closeRoutes(data) {
+		this.isShownRoutesList = false;
+	}
 }

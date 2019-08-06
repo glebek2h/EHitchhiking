@@ -18,7 +18,7 @@ export class RoutesListComponent implements OnInit {
 	@Input() passengersCoords: number[] = [];
 	@Output() routeToDisplay = new EventEmitter<any>(); // TODO
 	@Output() formData = new EventEmitter<any>();
-  @Output() closeRoutesList = new EventEmitter<any>();
+	@Output() closeRoutesList = new EventEmitter<any>();
 
 	isChecked: boolean;
 	ROUTES_ON_MAP_COUNT = 3;
@@ -59,7 +59,7 @@ export class RoutesListComponent implements OnInit {
 		return false;
 	}
 
-  exit() {
-    this.closeRoutesList.emit(true);
-  }
+	exit() {
+		this.closeRoutesList.emit(true);
+	}
 }
