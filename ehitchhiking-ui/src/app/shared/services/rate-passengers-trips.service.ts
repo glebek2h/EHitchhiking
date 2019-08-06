@@ -10,7 +10,7 @@ export class RatePassengersTripsService {
 		this.tripsId.push(id);
 	}
 
-	getisShown(id) {
+	getIsShown(id) {
 		if (this.tripsId.find((i) => i === id)) {
 			return false;
 		}
