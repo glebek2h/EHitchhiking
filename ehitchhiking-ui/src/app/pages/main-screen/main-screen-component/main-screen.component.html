@@ -20,6 +20,7 @@
 	(formData)="getData($event)"
 	(isShownViewListButton)="setIsShownViewRoutesButtonFlag($event)"
 	(isShownSaveRouteButton)="setIsShownSaveRouteButtonFlag($event)"
+  (isShownRegistationForm)="setIsShownRegistrationFromFlag($event)"
 	(passengerFormData)="getPassengerTripData($event)"
 	[userState]="userState"
 	[currentUser]="currentUser"
@@ -31,6 +32,7 @@
 	[passengersCoords]="passengerCoordinates"
 	(routeToDisplay)="getIndexToDisplay($event)"
 	(formData)="getFilterData($event)"
+  (closeRoutesList)="closeRoutes($event)"
 	[isDisabledSubmitRouteButton]="isDisabledSubmitRouteButton"
 ></app-routes-list>
 <mat-button-toggle-group
