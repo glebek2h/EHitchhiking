@@ -5,7 +5,7 @@ import {NUMBER_OF_TRIPS_VISIBLE_ON_PAGE} from '@shared/constants/modal-constants
 import {ActiveTripsApiService} from '@shared/services/api.services/active-trips.api.service';
 import {ActiveTrip} from '@shared/models/active-trip';
 import {UserState} from '@shared/enums/UserState';
-import { FormControl } from "@angular/forms";
+import {FormControl} from '@angular/forms';
 
 @Component({
 	selector: 'app-active-trips-modal',
@@ -18,14 +18,13 @@ export class ActiveTripsModalComponent implements OnInit {
 	loaderSize: LoaderSize = LoaderSize.Large;
 	loading = true;
 	scrollObserver: IntersectionObserver;
-	role = {roleField: 'role', isEnable: false};
+	role = {roleField: 'role', selected: [], isEnabled: false};
 	rolesFormControl = new FormControl();
-	selectedRole: [];
 	@ViewChild('sMarker', {static: true}) markerRef: ElementRef;
 	isShowTripInfo = false;
 	tripInfo: ActiveTrip;
 
-  roles = [{value: 1, viewValue: 'Passenger'}, {value: 2, viewValue: 'Driver'}];
+	roles = [{value: 1, viewValue: 'Passenger'}, {value: 2, viewValue: 'Driver'}];
 
 	constructor(
 		public dialogRef: MatDialogRef<ActiveTripsModalComponent>,
@@ -96,7 +95,8 @@ export class ActiveTripsModalComponent implements OnInit {
 	}
 
 	filterByRole() {
-		this.role.isEnable = true;
+		this.role.selected = Object.values(this.rolesFormControl.value);
+		this.role.isEnabled = !!this.role.selected.length;
 	}
 
 	trackById(trip: ActiveTrip) {

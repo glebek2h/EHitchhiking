@@ -6,10 +6,11 @@ import {TripHistory} from '@shared/interfaces/trip-history-interface';
 	name: 'filterByRole',
 })
 export class FilterByRolePipe implements PipeTransform {
-	transform(array: TripHistory[], fieldName: string, selectedRole: UserState[], isEnabled: boolean = false): any[] {
+	transform(array: any, fieldName: string, selectedRole: UserState[], isEnabled: boolean = false): any[] {
 		if (!array || !isEnabled) {
 			return array;
 		}
+		console.log(selectedRole);
 		return array.filter((trip) => selectedRole.includes(trip.role));
 	}
 }
