@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
 import {MatDialogRef} from '@angular/material';
 import {StarClickMeta} from '../rating/starClickMeta';
 import {MAT_DIALOG_DATA} from '@angular/material';
@@ -17,6 +17,7 @@ export class RatePassengersModalComponent implements OnInit {
 	UserState = UserState;
 	loading = true;
 	loaderSize: LoaderSize = LoaderSize.Large;
+  @Output() isShownBtn = new EventEmitter<ChatMessage[]>();
 	constructor(
 		public dialogRef: MatDialogRef<RatePassengersModalComponent>,
 		@Inject(MAT_DIALOG_DATA) public data: any,
