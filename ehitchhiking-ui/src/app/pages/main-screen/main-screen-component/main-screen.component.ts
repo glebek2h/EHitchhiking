@@ -80,6 +80,7 @@ export class MainScreenComponent implements OnInit {
 
 	ngOnInit() {
 		this.isDisabledSubmitRouteButton = true;
+		this.isHidden = true;
 		this.userState = UserState.Passenger;
 		this.routes = YandexMapService.getSomeRoutes();
 		this.copyRoutes = this.routes.slice();

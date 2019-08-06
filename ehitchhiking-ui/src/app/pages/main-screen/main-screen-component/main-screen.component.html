@@ -33,6 +33,7 @@
 	[passengersCoords]="passengerCoordinates"
 	(routeToDisplay)="getIndexToDisplay($event)"
 	(formData)="getFilterData($event)"
+  (cleanMap)="toggleMapInterfaceToDefault()"
 	(closeRoutesList)="closeRoutes($event)"
 	[isDisabledSubmitRouteButton]="isDisabledSubmitRouteButton"
 ></app-routes-list>
