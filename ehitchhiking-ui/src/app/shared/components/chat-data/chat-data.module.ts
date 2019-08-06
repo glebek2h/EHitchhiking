@@ -12,6 +12,8 @@ import {
 	MatInputModule,
 } from '@angular/material';
 import {ChatComponent} from '@shared/components/chat-data/chat/chat.component';
+import {PreLoadingModule} from '../pre-loading/pre-loading.module';
+import {StompService} from 'ng2-stomp-service';
 
 @NgModule({
 	declarations: [DialogListComponent, ChatComponent],
@@ -24,8 +26,9 @@ import {ChatComponent} from '@shared/components/chat-data/chat/chat.component';
 		MatButtonModule,
 		MatDialogModule,
 		NoDataModule,
+		PreLoadingModule,
 	],
-	providers: [ChatApiService],
+	providers: [ChatApiService, StompService],
 	exports: [DialogListComponent, ChatComponent],
 	entryComponents: [ChatComponent, DialogListComponent],
 })

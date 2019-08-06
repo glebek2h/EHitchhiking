@@ -1,29 +1,20 @@
-import SockJS from 'sockjs-client';
-import {Stomp} from '@stomp/stompjs';
-import {URL_REGISTRY} from './../../constants/urlRegistry';
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
+import {ApiService} from './api.service';
+import {URL_REGISTRY} from '@shared/constants/urlRegistry';
 
 @Injectable()
 export class ChatApiService {
-	private stompClient;
+	constructor(private apiService: ApiService) {}
 
-	constructor() {}
-
-	initializeWebSocketConnection(): Observable<any> {
-		const webSocket = new SockJS(URL_REGISTRY.CHAT.INIT);
-		this.stompClient = Stomp.over(webSocket);
-		let stompClient = this.stompClient;
-		return this.stompClient.connect({}, () => {
-			stompClient.subscribe('/chat', (message) => {
-				const {body: data} = message;
-				console.log(data);
-				return data;
-			});
-		});
-	}
-
-	sendMessage(message) {
-		this.stompClient.send('/app/send/message', {}, message);
+	getDialogList(userId: string): Promise<[]> {
+		return this.apiService
+			.doGet(URL_REGISTRY.CHAT.GET_DIALOGS, false, {id: +userId}, false)
+			.then((response) => {
+				if (!response) {
+					return [];
+				}
+				return response;
+			})
+			.catch(() => []);
 	}
 }

@@ -1,14 +1,14 @@
+import {ChatApiService} from './../../../services/api.services/chat.api.service';
 import {Injectable} from '@angular/core';
 import {Dialog} from '@shared/interfaces/dialog-interface';
 
-@Injectable({
-	providedIn: 'root',
-})
+@Injectable()
 export class DialogListService {
 	constructor() {}
 
 	static dlgList: Dialog[] = [
 		{
+			id: 25,
 			title: 'Secret chat 1',
 			msgList: [
 				{
@@ -21,10 +21,12 @@ export class DialogListService {
 			],
 		},
 		{
+			id: 25,
 			title: 'Secret chat 2',
 			msgList: [],
 		},
 		{
+			id: 25,
 			title: 'Secret chat 3',
 			msgList: [
 				{
@@ -45,8 +47,11 @@ export class DialogListService {
 			],
 		},
 		{
+			id: 25,
 			title: 'Secret chat 4',
 			msgList: [],
 		},
 	];
+
+	static initDialogList(userId: string) {}
 }

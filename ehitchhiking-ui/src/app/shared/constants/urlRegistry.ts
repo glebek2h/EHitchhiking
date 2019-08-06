@@ -44,8 +44,9 @@ export const URL_REGISTRY = {
 	LOG_OUT: '/logout',
 	CHAT: {
 		INIT: '/api/socket',
-		CONNECT: '/chat',
+		CONNECT: '/socket/chat',
 		SEND_MESSAGE: '/app/send/message',
 		ADD_USER: '/app/chat/addUser',
+		GET_DIALOGS: 'chat?id={{id}}',
 	},
 };
