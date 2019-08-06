@@ -10,6 +10,8 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Date;
 
 @Controller
@@ -22,25 +24,20 @@ public class WebSocketController {
         this.template = template;
     }
 
-    @MessageMapping("/chat.sendMessage")
-    @SendTo("/topic/public")
-    public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
-        return chatMessage;
-    }
-
-/*
     @MessageMapping("/send/message")
     @SendTo("/topic/public")
-    public void onReseivedMessage(String message){
-        this.template.convertAndSend("/chat", new SimpleDateFormat("HH:mm:ss").format(new Date())+"-"+message);
-    }*/
+    public void onReseivedMessage(ChatMessage message){
+        message.setDate((new Date()).getTime());
+        this.template.convertAndSend("/chat",message);
+    }
 
     @MessageMapping("/chat/addUser")
     @SendTo("/topic/public")
     public ChatMessage addUser(@Payload ChatMessage chatMessage,
                                SimpMessageHeaderAccessor headerAccessor) {
         // Add username in web socket session
-        headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
+        headerAccessor.getSessionAttributes().put("sender", chatMessage.getSender());
+        headerAccessor.getSessionAttributes().put("type", chatMessage.getType());
         return chatMessage;
     }
 }

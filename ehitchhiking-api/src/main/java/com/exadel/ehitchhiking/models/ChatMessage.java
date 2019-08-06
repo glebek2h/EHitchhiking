@@ -1,8 +1,12 @@
 package com.exadel.ehitchhiking.models;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
+import java.util.Date;
+
+@EqualsAndHashCode
+@NoArgsConstructor
+@ToString
 public class ChatMessage {
 
     @Getter
@@ -16,6 +20,10 @@ public class ChatMessage {
     @Getter
     @Setter
     private MessageType type;
+
+    @Getter
+    @Setter
+    private Long date;
 
     public enum MessageType{
       CHAT, LEAVE, JOIN

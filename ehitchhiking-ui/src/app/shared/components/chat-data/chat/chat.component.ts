@@ -1,7 +1,7 @@
 import {ChatMessage} from '@shared/interfaces/chat-interface';
 import {ChatEvents} from '@shared/enums/chat-events.enum';
 import {UserService} from '@shared/services/user.service';
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ɵConsole} from '@angular/core';
 import {MatDialogRef} from '@angular/material';
 import {NoDataSize} from '@shared/enums/no-data-sizes';
 import SockJS from 'sockjs-client';
@@ -35,19 +35,16 @@ export class ChatComponent implements OnInit {
 
 	ngOnInit() {
 		this.currentUser = this.userService.getCurrentUser();
-		if (this.currentUser) {
-			this.initializeWebSocketConnection();
-		}
 	}
 
 	initializeWebSocketConnection(): void {
 		const webSocket = new SockJS(URL_REGISTRY.CHAT.INIT);
 		this.stompClient = Stomp.over(webSocket);
-		this.stompClient.connect({}, this.onConnected, this.onError);
+		this.stompClient.connect({}, this.onConnected.bind(this), this.onError.bind(this));
 	}
 
 	private onConnected() {
-		this.stompClient.subscribe(URL_REGISTRY.CHAT.CONNECT, this.onMessageReceived);
+		this.stompClient.subscribe(URL_REGISTRY.CHAT.CONNECT, this.onMessageReceived.bind(this));
 		this.stompClient.send(
 			URL_REGISTRY.CHAT.ADD_USER,
 			{},
@@ -62,6 +59,7 @@ export class ChatComponent implements OnInit {
 	}
 
 	private onMessageReceived(response: any) {
+		console.log(response);
 		const {type, sender, content, date} = response.body || response;
 		if (type === ChatEvents.Join) {
 			this.notificationService.showInfoNotification(`${sender} has joined!`);
@@ -94,6 +92,9 @@ export class ChatComponent implements OnInit {
 	}
 
 	getChat(chatInfo: any) {
+		if (this.currentUser) {
+			this.initializeWebSocketConnection();
+		}
 		this.msgList = chatInfo;
 	}
 

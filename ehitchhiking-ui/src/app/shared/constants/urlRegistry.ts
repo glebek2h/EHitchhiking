@@ -43,7 +43,7 @@ export const URL_REGISTRY = {
 	CURRENT_USER: 'currentUser',
 	LOG_OUT: '/logout',
 	CHAT: {
-		INIT: 'http://localhost:4200/api/socket',
+		INIT: '/api/socket',
 		CONNECT: '/chat',
 		SEND_MESSAGE: '/app/send/message',
 		ADD_USER: '/app/chat/addUser',
