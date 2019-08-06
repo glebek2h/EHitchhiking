@@ -1,6 +1,7 @@
 package com.exadel.ehitchhiking.controllers;
 
 import com.exadel.ehitchhiking.models.ChatMessage;
+import com.exadel.ehitchhiking.services.IChatMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -24,11 +25,16 @@ public class WebSocketController {
         this.template = template;
     }
 
+    @Autowired
+    IChatMessageService service;
+
+
     @MessageMapping("/send/message")
     @SendTo("/topic/public")
     public void onReseivedMessage(ChatMessage message){
         message.setDate((new Date()).getTime());
         this.template.convertAndSend("/chat",message);
+        service.saveChatMessage(message.getId(), message);
     }
 
     @MessageMapping("/chat/addUser")
