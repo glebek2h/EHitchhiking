@@ -14,8 +14,10 @@ import {TripsModalService} from '@shared/services/trips-modal.service';
 export class TripComponent implements OnInit {
 	@Input() trip: TripHistory;
 	@Output() onLoadingToggle = new EventEmitter<boolean>();
+  @Output() isShownBtn = new EventEmitter<ChatMessage[]>();
 	isRatingEditorVisible: boolean;
 	userState = UserState;
+
 
 	constructor(public dialog: MatDialog, public tripsModalService: TripsModalService) {}
 

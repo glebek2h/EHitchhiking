@@ -17,7 +17,8 @@ export class RatePassengersModalComponent implements OnInit {
 	UserState = UserState;
 	loading = true;
 	loaderSize: LoaderSize = LoaderSize.Large;
-  @Output() isShownBtn = new EventEmitter<ChatMessage[]>();
+  showRateModal = true;
+
 	constructor(
 		public dialogRef: MatDialogRef<RatePassengersModalComponent>,
 		@Inject(MAT_DIALOG_DATA) public data: any,
@@ -103,6 +104,7 @@ export class RatePassengersModalComponent implements OnInit {
 			.finally(() => {
 				this.loading = false;
 			});
+		this.showRateModal=false;
 	}
 
 	trackById(index, item) {

@@ -32,7 +32,7 @@
 			</i>
 		</button>
 	</div>
-	<app-rating
+	<app-rating (isShownBtn)="$event"
 		class="rating"
 		[class.active]="isRatingEditorVisible"
 		[rating]="trip.rating"
