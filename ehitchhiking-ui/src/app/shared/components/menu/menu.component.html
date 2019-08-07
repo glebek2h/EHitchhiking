@@ -21,22 +21,24 @@
 		<div class="buttons">
 			<li class="li-buttons">
 				<button mat-raised-button class="li-button" (click)="openHistoryDialog()">
-					history
+					History
 				</button>
 			</li>
 			<li class="li-buttons">
 				<button mat-raised-button class="li-button" (click)="openActiveDialog()">
-					active trips
+					Active trips
 				</button>
 			</li>
 			<li class="li-buttons">
 				<button (click)="openBlacklistDialog()" mat-raised-button class="li-button">
-					blacklist
+					Blacklist
 				</button>
 			</li>
-			<button mat-stroked-button class="log-out" (click)="logOut()" routerLink="/login">
-				log out
-			</button>
+      <li class="li-buttons">
+        <button mat-stroked-button class="log-out li-button" (click)="logOut()" routerLink="/login">
+          Log out
+        </button>
+      </li>
 		</div>
 		<footer class="footer-meta">
 			<img src="assets/images/footer.png" alt="exadel-logo" />
