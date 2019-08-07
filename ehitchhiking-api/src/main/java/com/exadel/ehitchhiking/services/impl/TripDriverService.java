@@ -174,7 +174,7 @@ public class TripDriverService implements ITripDriverService {
     @Override
     public List<TripDriverVO> getAll(int idEmp, Instant startingTime, Instant endingTime, int seats,
                                      Point coordStart, Point coordEnd) {
-        List<TripDriverVO> list = dao.getAll().stream().map(TripDriverVO::fromEntity).collect(Collectors.toList());
+        List<TripDriverVO> list = dao.getAllActive().stream().map(TripDriverVO::fromEntity).collect(Collectors.toList());
         return list.stream()
                 .filter(trips -> trips.getSeats() >= seats
                         && !driverDAO.getDriver(trips.getDriver().getId()).getPassengers().contains(passengerDAO.getByEmployeeId(idEmp))

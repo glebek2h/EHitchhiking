@@ -27,7 +27,7 @@ public class AutoService implements IAutoService {
     private ITripPassDAO tripPassDAO;
 
     @Override
-    @Scheduled(fixedDelay = 1000*60*60)
+    @Scheduled(fixedDelay = 1000*60*10)
     public void updateTripsState() {
         List<TripDriver> tripDrivers = tripDriverDAO.getAll();
         List<TripPass> tripPasses = tripPassDAO.getAll();
