@@ -171,7 +171,7 @@ export class MainScreenComponent implements OnInit {
 	}
 
 	toggleStateToDriver(): void {
-		if (this.currentUser.cars.length === 0) {
+		if (!this.currentUser || !this.currentUser.cars || !this.currentUser.cars.length) {
 			this.notificationService.showInfoNotification('Please add a car to become a driver.');
 			return;
 		}
