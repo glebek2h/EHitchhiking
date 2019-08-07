@@ -48,4 +48,11 @@ export const URL_REGISTRY = {
 	HISTORY: 'trips/history?id={{id}}',
 	CURRENT_USER: 'currentUser',
 	LOG_OUT: '/logout',
+	CHAT: {
+		INIT: '/api/socket',
+		CONNECT: '/socket/chat',
+		SEND_MESSAGE: '/app/send/message',
+		ADD_USER: '/app/chat/add/user',
+		GET_DIALOGS: 'chat?id={{id}}',
+	},
 };

@@ -21,5 +21,7 @@
 	"angularCompilerOptions": {
 		"fullTemplateTypeCheck": true,
 		"strictInjectionParameters": true
-	}
+	},
+	"files": ["node_modules/ng2-stomp-service/dist/stomp.service.ts"],
+	"include": ["src/**/*", "node_modules/ng2-stomp-service/dist/stomp.service.ts"]
 }

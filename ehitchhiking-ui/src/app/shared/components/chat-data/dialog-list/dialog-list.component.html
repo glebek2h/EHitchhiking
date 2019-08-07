@@ -1,17 +1,19 @@
 <div>
 	<app-no-data
-		[isEmpty]="!loading && dialogList && !dialogList.length"
+		[isEmpty]="dialogList && !dialogList.length"
 		[size]="noDataSize"
 		[message]="noDataMessage"
 		[icon]="noDataIconName"
 	></app-no-data>
 	<mat-card class="modal-dialog" *ngFor="let dialog of dialogList; let i = index" (click)="showChat(i)">
-		<img [src]="getImage(dialog.msgList)" alt="photo" class="image" />
-		<div class="dlg-content">
-			<div class="dlg-title">
-				<p class="dlg-title-text">{{ dialog.title }}</p>
+		<div class="dialog-info-container">
+			<img [src]="getImage(dialog.msgList)" alt="photo" class="image" />
+			<div class="dlg-content">
+				<div class="dlg-title" [matTooltip]="dialog.startPoint + ' ' + dialog.endPoint">
+					<span class="truncated dlg-title-span">{{dialog.startPoint}}</span><span class="dlg-title-span-separator">-</span><span class="truncated dlg-title-span">{{dialog.endPoint}}</span>
+				</div>
+				<div class="dlg-text truncated">{{getText(dialog.msgList)}}</div>
 			</div>
-			<div class="dlg-text truncated">{{ getText(dialog.msgList) }}</div>
 		</div>
 	</mat-card>
 </div>

@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {UtilsService} from '../../../shared/services/utils.service';
 import {Car} from '@shared/models/car';
 import {Route} from '@pages/main-screen/Route';
-import {ApiService} from '@shared/services/api.services/api.service';
 @Injectable({
 	providedIn: 'root',
 })

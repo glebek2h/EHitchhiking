@@ -108,7 +108,7 @@ public class TripDriver {
     public TripDriver(String startPoint, String endPoint,
                       Timestamp startTime, Timestamp endTime, boolean isActive,
                       boolean isFinished, boolean isSaved, int seats, Car car, boolean isHistory,
-                      Point coordStart, Point coordEnd, float distance){
+                      Point coordStart, Point coordEnd, float distance, Chat chat){
         this.startPoint = startPoint;
         this.endPoint = endPoint;
         this.startTime = startTime;
@@ -124,7 +124,7 @@ public class TripDriver {
         this.distance = distance;
         this.ratedPeople = 0;
         this.rating = 0;
-        this.chat = null;
+        this.chat = chat;
     }
 
 }
