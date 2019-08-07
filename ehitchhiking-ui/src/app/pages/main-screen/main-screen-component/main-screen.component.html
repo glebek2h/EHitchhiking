@@ -52,10 +52,14 @@
 		>Passenger</mat-button-toggle
 	>
 	<mat-button-toggle
-		[ngClass]="{active: activeDriverButton}"
+		[ngClass]="{
+			active: activeDriverButton,
+			disabled: !currentUser.cars.length
+		}"
 		class="role-chooser-btn"
 		value="italic"
 		(click)="toggleStateToDriver()"
+		[disabled]="!currentUser.cars.length"
 		>Driver</mat-button-toggle
 	>
 </mat-button-toggle-group>
