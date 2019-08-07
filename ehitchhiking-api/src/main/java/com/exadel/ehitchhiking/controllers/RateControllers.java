@@ -2,9 +2,7 @@ package com.exadel.ehitchhiking.controllers;
 
 import com.exadel.ehitchhiking.models.vo.DriverVO;
 import com.exadel.ehitchhiking.models.vo.PassengerVO;
-import com.exadel.ehitchhiking.requests.RequestDriver;
 import com.exadel.ehitchhiking.requests.RequestId;
-import com.exadel.ehitchhiking.requests.RequestPassenger;
 import com.exadel.ehitchhiking.responses.Response;
 import com.exadel.ehitchhiking.services.IDriverService;
 import com.exadel.ehitchhiking.services.IPassengerService;

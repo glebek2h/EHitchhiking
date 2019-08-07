@@ -1,16 +1,11 @@
 package com.exadel.ehitchhiking.controllers;
 
 import com.exadel.ehitchhiking.models.vo.EmployeeVO;
-import com.exadel.ehitchhiking.requests.RequestEmployee;
 import com.exadel.ehitchhiking.responses.Response;
 import com.exadel.ehitchhiking.services.IEmployeeService;
 import com.exadel.ehitchhiking.services.mail.IEmailSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping("/employee")
