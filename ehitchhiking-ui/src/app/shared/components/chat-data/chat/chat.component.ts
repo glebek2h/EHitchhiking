@@ -35,6 +35,7 @@ export class ChatComponent implements OnInit {
 
 	getChat(dialogPromise: Promise<Dialog>) {
 		dialogPromise.then((dialog) => {
+			console.log(`opening chat: ${dialog.id}`);
 			dialog.msgList = dialog.msgList.map((message) => {
 				if (message.email === this.currentUser.email) {
 					message.isMy = true;
@@ -59,6 +60,7 @@ export class ChatComponent implements OnInit {
 	dialogsInitialization(dialogPromise: Promise<boolean>) {
 		dialogPromise.then((dialogsStatus) => {
 			if (!dialogsStatus || this.chatApiService.checkSubscribtion() || !this.currentUser) {
+				this.isLoading = false;
 				return;
 			}
 			this.isDialogInitialized = true;

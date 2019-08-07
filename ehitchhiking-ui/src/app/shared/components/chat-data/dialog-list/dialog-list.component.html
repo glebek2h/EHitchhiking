@@ -1,6 +1,6 @@
 <div>
 	<app-no-data
-		[isEmpty]="!loading && dialogList && !dialogList.length"
+		[isEmpty]="dialogList && !dialogList.length"
 		[size]="noDataSize"
 		[message]="noDataMessage"
 		[icon]="noDataIconName"
