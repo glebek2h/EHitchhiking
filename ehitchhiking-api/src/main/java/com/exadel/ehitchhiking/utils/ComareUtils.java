@@ -1,4 +1,4 @@
-package com.exadel.ehitchhiking.config;
+package com.exadel.ehitchhiking.utils;
 
 import org.springframework.data.geo.Point;
 
@@ -15,12 +15,12 @@ public final class ComareUtils {
         return Math.sqrt(Math.pow(dX, 2) + Math.pow(dY, 2));
     }
 
-    public static boolean isTimeInRange(Instant rangeStart, Instant rangeEnd, Instant time) {
-        return ComareUtils.isTimeInRange(rangeStart, rangeEnd, time, 1);
+    public static boolean isTimeInRange(Instant rangeStart, Instant time) {
+        return ComareUtils.isTimeInRange(rangeStart, time, 1);
     }
 
-    public static boolean isTimeInRange(Instant rangeStart, Instant rangeEnd, Instant time, int hourTollerance) {
+    public static boolean isTimeInRange(Instant rangeStart, Instant time, int hourTollerance) {
         return rangeStart.minus(hourTollerance, ChronoUnit.HOURS).isBefore(time) &&
-                rangeEnd.plus(hourTollerance, ChronoUnit.HOURS).isAfter(time);
+                rangeStart.plus(hourTollerance, ChronoUnit.HOURS).isAfter(time);
     }
 }
