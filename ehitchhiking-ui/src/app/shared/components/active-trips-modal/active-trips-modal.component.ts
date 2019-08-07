@@ -1,34 +1,34 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {LoaderSize} from '../../enums/pre-loader-sizes';
 import {MatDialogRef} from '@angular/material';
-import {ActiveTripsModalService} from './active-trips-modal.service';
-import {ActiveTrip} from '../active-trip/active-trip';
 import {NUMBER_OF_TRIPS_VISIBLE_ON_PAGE} from '@shared/constants/modal-constants';
+import {ActiveTripsApiService} from '@shared/services/api.services/active-trips.api.service';
+import {ActiveTrip} from '@shared/models/active-trip';
+import {UserState} from '@shared/enums/UserState';
+import {FormControl} from '@angular/forms';
 
 @Component({
 	selector: 'app-active-trips-modal',
 	templateUrl: './active-trips-modal.component.html',
 	styleUrls: ['./active-trips-modal.component.sass'],
-	providers: [ActiveTripsModalService],
 })
 export class ActiveTripsModalComponent implements OnInit {
 	limit = NUMBER_OF_TRIPS_VISIBLE_ON_PAGE;
 	tripsArray = [];
-	tripsArrayLenght = 0;
 	loaderSize: LoaderSize = LoaderSize.Large;
 	loading = true;
 	scrollObserver: IntersectionObserver;
-	role = {roleField: 'role', isEnable: false};
-	selectedRole: number;
+	role = {roleField: 'role', selected: [], isEnabled: false};
+	rolesFormControl = new FormControl();
 	@ViewChild('sMarker', {static: true}) markerRef: ElementRef;
 	isShowTripInfo = false;
 	tripInfo: ActiveTrip;
 
-	roles = [{value: 0, viewValue: 'Passenger'}, {value: 1, viewValue: 'Driver'}, {value: 2, viewValue: 'All'}];
+	roles = [{value: UserState.Passenger, viewValue: 'Passenger'}, {value: UserState.Driver, viewValue: 'Driver'}];
 
 	constructor(
 		public dialogRef: MatDialogRef<ActiveTripsModalComponent>,
-		private tripService: ActiveTripsModalService
+		private activeTripsApiService: ActiveTripsApiService
 	) {
 		this.scrollObserver = new IntersectionObserver(this.onScroll.bind(this), {
 			threshold: 1,
@@ -47,20 +47,56 @@ export class ActiveTripsModalComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.scrollObserver.observe(this.markerRef.nativeElement);
-		this.tripsArrayLenght = this.tripService.getTrips().length;
 		this.fetchTrips();
 	}
 
 	fetchTrips() {
-		this.tripsArray = this.tripService.getTrips();
-		setTimeout(() => {
-			this.loading = false;
-		}, 1000);
+		this.loading = true;
+		this.activeTripsApiService
+			.getActiveTrips()
+			.then((data) => {
+				this.tripsArray = data;
+				this.scrollObserver.observe(this.markerRef.nativeElement);
+			})
+			.finally(() => {
+				this.loading = false;
+			});
+	}
+
+	removeTripPassenger(id: number) {
+		this.activeTripsApiService
+			.removeTripPassenger(id)
+			.then(() => {
+				this.fetchTrips();
+			})
+			.catch(() => {
+				this.loading = false;
+			});
+	}
+
+	removeTripDriver(id: number) {
+		this.activeTripsApiService
+			.removeTripDriver(id)
+			.then(() => {
+				this.fetchTrips();
+			})
+			.catch(() => {
+				this.loading = false;
+			});
+	}
+
+	onDelete($event) {
+		this.loading = true;
+		if ($event.role === UserState.Passenger) {
+			this.removeTripPassenger($event.id);
+			return;
+		}
+		this.removeTripDriver($event.id);
 	}
 
 	filterByRole() {
-		this.role.isEnable = true;
+		this.role.selected = Object.values(this.rolesFormControl.value);
+		this.role.isEnabled = !!this.role.selected.length;
 	}
 
 	trackById(trip: ActiveTrip) {

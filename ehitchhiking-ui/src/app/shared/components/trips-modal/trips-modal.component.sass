@@ -15,11 +15,10 @@
   min-height: $height-empty-block
 .trips
   padding: $default-offset
-  height: calc(#{$trip-card-height} * #{$number-of-trips-in-list} + #{$height-empty-block})
+  height: calc(#{$trip-card-height} * #{$number-of-trips-in-list})
   overflow-Y: scroll
   overflow-x: hidden
-  margin: $default-offset
-  margin-bottom: 0
+  margin: $default-offset $default-offset $default-offset*2 $default-offset
   display: flex
   flex-direction: column
   position: relative
@@ -32,7 +31,7 @@
 .trips-btn
   display: flex
   justify-content: center
-  padding-bottom: $default-padding
+  padding-bottom: $default-offset
 .trip
   padding: 0
   margin: 0
@@ -46,3 +45,7 @@
 @media screen and (max-width: 550px)
   .form-row
     @include flexbox(center, center, column)
+
+@media screen and (max-width: $small-screen-max-width)
+  .trip
+    height: 6rem

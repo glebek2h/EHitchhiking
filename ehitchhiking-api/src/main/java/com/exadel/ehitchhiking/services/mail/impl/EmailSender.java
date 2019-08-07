@@ -60,7 +60,7 @@ public class EmailSender implements IEmailSender {
     }
 
     @Override
-    public boolean sendingEmail(List<String> recepients, String topic, String content)  {
+    public boolean sendingEmail(List<String> recepients, String topic, String content) {
         try {
             Session session = this.createSession();
             MimeMessage message = new MimeMessage(session);
@@ -76,11 +76,10 @@ public class EmailSender implements IEmailSender {
 
             Transport.send(message);
             return true;
-
-        } catch (AddressException e) {
-            e.printStackTrace();
+        } catch (AddressException a) {
+            a.printStackTrace();
             return false;
-        } catch ( MessagingException e){
+        } catch (MessagingException e) {
             e.printStackTrace();
             return false;
         }

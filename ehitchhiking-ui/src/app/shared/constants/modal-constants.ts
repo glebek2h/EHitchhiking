@@ -15,3 +15,4 @@ export const NOTIFICATION_TEXT_COLOR = '#ffffff';
 export const NOTIFICATION_BACKGROUND_ERROR = '#f20026';
 export const NOTIFICATION_BACKGROUND_SUCCESS = '#00b358';
 export const NOTIFICATION_BACKGROUND_INFO = '#0b93f6';
+export const VALID = 'VALID';

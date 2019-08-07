@@ -1,7 +1,12 @@
 <div class="for-passenger" *ngIf="trip.role === userState.Passenger">
 	<mat-card class="size">
 		<mat-card-title class="center title">
-			Driver<button mat-raised-button color="accent" class="show-trip-button" (click)="showTrip()">
+			Driver<button
+				mat-raised-button
+				color="accent"
+				class="show-trip-button"
+				(click)="showTrip()"
+			>
 				show trip
 			</button>
 		</mat-card-title>
@@ -39,9 +44,7 @@
 					<span matTooltip="Model" matTooltipPosition="right">Model:</span>
 				</div>
 				<div class="field-note-value truncated">
-					<span [matTooltip]="trip.driver.car.model" matTooltipPosition="left">{{
-						trip.driver.car.model
-					}}</span>
+					<span [matTooltip]="trip.car.model" matTooltipPosition="left">{{ trip.car.model }}</span>
 				</div>
 			</div>
 			<div class="height-item-info form-row">
@@ -49,8 +52,8 @@
 					<span matTooltip="Car Number:" matTooltipPosition="right">Car Number:</span>
 				</div>
 				<div class="field-note-value truncated">
-					<span [matTooltip]="trip.driver.car.number" matTooltipPosition="left">
-						{{ trip.driver.car.number }}
+					<span [matTooltip]="trip.car.number" matTooltipPosition="left">
+						{{ trip.car.number }}
 					</span>
 				</div>
 			</div>
@@ -59,8 +62,8 @@
 					<span matTooltip="Color:" matTooltipPosition="right">Color:</span>
 				</div>
 				<div class="field-note-value truncated">
-					<span [matTooltip]="trip.driver.car.color" matTooltipPosition="left">
-						{{ trip.driver.car.color }}
+					<span [matTooltip]="trip.car.color" matTooltipPosition="left">
+						{{ trip.car.color }}
 					</span>
 				</div>
 			</div>
@@ -68,19 +71,36 @@
 	</mat-card>
 </div>
 <div class="for-driver" *ngIf="trip.role === userState.Driver">
-	<mat-card-title>
-		Passengers<button mat-raised-button color="accent" class="show-trip-button" (click)="showTrip()">
+	<mat-card-title class="center title">
+		Passengers<button
+			mat-raised-button
+			color="accent"
+			class="show-trip-button"
+			(click)="showTrip()"
+		>
 			show trip
 		</button>
 	</mat-card-title>
+  <thead *ngIf="trip.passenger.length">
+    <tr class="table-header">
+      <th class="table-th">Name</th>
+      <th class="table-th">Phone</th>
+      <th class="table-th">E-mail</th>
+    </tr>
+  </thead>
 	<mat-list *ngFor="let passenger of trip.passenger">
-		<mat-list-item>
-			<mat-list class="form-row">
-				<mat-list-item>Name: {{ passenger.name }} </mat-list-item>
-				<mat-list-item>Phone: {{ passenger.phone }} </mat-list-item>
-				<mat-list-item>E-mail: {{ passenger.email }} </mat-list-item>
-			</mat-list>
+		<mat-list-item class="form-row">
+			<mat-list-item class="truncated">
+				<p class="mat-list-item truncated">{{ passenger.name }}</p>
+			</mat-list-item>
+			<mat-list-item class="truncated">
+				<p class="mat-list-item truncated">{{ passenger.phone }}</p>
+			</mat-list-item>
+			<mat-list-item class="truncated">
+				<p class="mat-list-item truncated">{{ passenger.email }}</p>
+			</mat-list-item>
 		</mat-list-item>
 		<mat-divider></mat-divider>
 	</mat-list>
 </div>
+<app-no-data [isEmpty]="trip.passenger.length === 0"></app-no-data>

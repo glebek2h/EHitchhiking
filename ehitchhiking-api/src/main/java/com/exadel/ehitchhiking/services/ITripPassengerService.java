@@ -3,7 +3,7 @@ package com.exadel.ehitchhiking.services;
 import com.exadel.ehitchhiking.models.TripPass;
 import com.exadel.ehitchhiking.models.vo.DriverVO;
 import com.exadel.ehitchhiking.models.vo.TripPassVO;
-import org.springframework.data.geo.Point;
+import com.exadel.ehitchhiking.requests.Point;
 
 import java.sql.Timestamp;
 import java.time.Instant;

@@ -16,7 +16,7 @@ public class Driver {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Setter
+    @Setter(AccessLevel.PRIVATE)
     @Getter
     @Column(name = "\"ID\"")
     private Integer id;

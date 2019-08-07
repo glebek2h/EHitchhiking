@@ -14,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class PassInfoVO {
 
+    private int id;
     private String firstName;
     private String lastName;
     private String email;
@@ -21,10 +22,13 @@ public class PassInfoVO {
     private float rate;
     private String startingPoint;
     private String endingPoint;
+    private Point startingPosition;
+    private Point endingPosition;
     private int seats;
 
     public static PassInfoVO fromEntity(TripPass tripPass) {
         return new PassInfoVO(
+                EmployeeVO.fromEntity(tripPass.getPassenger().getEmployee()).getId(),
                 EmployeeVO.fromEntity(tripPass.getPassenger().getEmployee()).getFirstName(),
                 EmployeeVO.fromEntity(tripPass.getPassenger().getEmployee()).getLastName(),
                 EmployeeVO.fromEntity(tripPass.getPassenger().getEmployee()).getEmail(),
@@ -32,6 +36,8 @@ public class PassInfoVO {
                 tripPass.getPassenger().getRate(),
                 tripPass.getStartPoint(),
                 tripPass.getEndPoint(),
+                tripPass.getCoordStart(),
+                tripPass.getCoordEnd(),
                 tripPass.getBookedSeats()
 
 

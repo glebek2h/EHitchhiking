@@ -1,6 +1,13 @@
 <div class="routes-list">
 	<app-filters (data)="getData($event)"></app-filters>
 	<div class="routes">
+		<app-pre-loading [isLoading]="loading" [size]="loaderSize"></app-pre-loading>
+		<app-no-data
+			[isEmpty]="!loading && activeRoutesCollection && !activeRoutesCollection.length"
+			[size]="noDataSize"
+			[message]="noDataMessage"
+			[icon]="noDataIconName"
+		></app-no-data>
 		<mat-accordion *ngFor="let route of activeRoutesCollection; let i = index" class="route-info">
 			<mat-expansion-panel>
 				<mat-expansion-panel-header class="header">
@@ -51,5 +58,10 @@
 				</div>
 			</mat-expansion-panel>
 		</mat-accordion>
+	</div>
+	<div class="modal-close-control">
+		<button class="modal-close-control-btn"  mat-icon-button (click)="exit()">
+			<mat-icon>close</mat-icon>
+		</button>
 	</div>
 </div>

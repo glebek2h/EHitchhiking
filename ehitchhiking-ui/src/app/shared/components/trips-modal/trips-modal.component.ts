@@ -19,13 +19,9 @@ export class TripsModalComponent implements OnInit {
 	loaderSize: LoaderSize = LoaderSize.Large;
 	isLoading: boolean;
 	scrollObserver: IntersectionObserver;
-	order = 0;
-	selectedRole: UserState;
 	selectedFavorite = false;
-	selectedBySort = SortState.None;
 	statuses = new FormControl();
 	roles = new FormControl();
-	ratings = new FormControl();
 
 	@ViewChild('sMarker', {static: true}) markerRef: ElementRef;
 	rating: number;
@@ -52,34 +48,20 @@ export class TripsModalComponent implements OnInit {
 		this.tripsModalService
 			.getTrips()
 			.then((data) => {
-				this.scrollObserver.observe(this.markerRef.nativeElement);
 				this.tripsArray = data.map((trip) => {
 					trip.status = trip.finished ? TripStatus.Completed : TripStatus.Declined;
 					return trip;
 				});
+        this.scrollObserver.observe(this.markerRef.nativeElement);
 			})
 			.finally(() => {
 				this.isLoading = false;
 			});
+
 	}
 
 	exit(): void {
 		this.dialogRef.close();
-	}
-
-	replaceAll(): void {
-		this.isLoading = true;
-		this.tripsModalService
-			.resetTripsList()
-			.then((response) => {
-				if (!response) {
-					return;
-				}
-				this.tripsArray = [];
-			})
-			.finally(() => {
-				this.isLoading = false;
-			});
 	}
 
 	trackById(trip) {
@@ -95,29 +77,6 @@ export class TripsModalComponent implements OnInit {
 		this.tripsModalService.statusFilterConfig.selected = Object.values(this.statuses.value);
 		this.tripsModalService.statusFilterConfig.isEnabled = !!this.tripsModalService.statusFilterConfig.selected
 			.length;
-	}
-
-	filterByRating() {
-		this.tripsModalService.ratingFilterConfig.selected = Object.values(this.ratings.value);
-		this.tripsModalService.ratingFilterConfig.isEnabled = !!this.tripsModalService.ratingFilterConfig.selected
-			.length;
-	}
-
-	ChangeSort() {
-		switch (this.selectedBySort) {
-			case SortState.None:
-				this.selectedBySort = SortState.ASC;
-				this.order = 1;
-				break;
-			case SortState.ASC:
-				this.selectedBySort = SortState.DESC;
-				this.order = -1;
-				break;
-			case SortState.DESC:
-				this.selectedBySort = SortState.None;
-				this.order = 0;
-				break;
-		}
 	}
 
 	onLoadingToggle(loadingState) {

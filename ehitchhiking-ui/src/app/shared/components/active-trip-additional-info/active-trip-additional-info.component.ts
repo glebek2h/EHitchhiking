@@ -1,9 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {ActiveTrip} from '../active-trip/active-trip';
 import {UserState} from '@shared/enums/UserState';
 import {ActiveTripsMapService} from '@shared/services/active-trips-map.service';
-import {Route} from '@pages/main-screen/Route';
-import {Car} from '@shared/models/car';
+import {ActiveTrip} from '@shared/models/active-trip';
 
 @Component({
 	selector: 'app-active-trip-additional-info',
@@ -22,15 +20,17 @@ export class ActiveTripAdditionalInfoComponent implements OnInit {
 	showTrip() {
 		this.closeDialog.emit(true);
 		this.activeTripsMapService.blockMainScreen(true);
-
+		if (this.trip.role === UserState.Passenger) {
+			this.activeTripsMapService.deleteCompleteButton(true);
+		}
+		this.activeTripsMapService.saveCompletedTrip(this.trip.id);
 		this.activeTripsMapService.sendMessage({
 			from: this.trip.startPoint,
 			to: this.trip.endPoint,
-			departureDate: this.trip.date,
+			departureDate: this.trip.startTime,
 			placesSelect: this.trip.reservedSeats,
 			passengers: this.trip.passenger,
-			driverRating: this.trip.rating,
-			car: this.trip.driver.car.model,
+			car: this.trip.car.model,
 		});
 	}
 }

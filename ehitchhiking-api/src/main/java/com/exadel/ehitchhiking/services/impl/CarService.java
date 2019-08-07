@@ -4,9 +4,11 @@ import com.exadel.ehitchhiking.daos.ICarDAO;
 import com.exadel.ehitchhiking.daos.IDriverDAO;
 import com.exadel.ehitchhiking.models.Car;
 import com.exadel.ehitchhiking.models.vo.CarVO;
+import com.exadel.ehitchhiking.models.vo.EmployeeVO;
 import com.exadel.ehitchhiking.services.ICarService;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -27,7 +29,11 @@ public class CarService implements ICarService {
 
     @Override
     public CarVO createCar(String color, String number, String carModel,
-                          int idOfDriver) {
+                           int idOfDriver) throws Exception {
+        Object pr = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (!((EmployeeVO) pr).getId().equals(Integer.valueOf(idOfDriver))) {
+            throw new Exception();
+        }
         Car newCar = new Car(color, number, carModel, driverDao.getByEmployeeId(idOfDriver));
         dao.save(newCar);
         return CarVO.fromEntity(newCar);
@@ -54,8 +60,12 @@ public class CarService implements ICarService {
     }
 
     @Override
-    public void deletedCar(int carId) {
+    public void deletedCar(int carId) throws Exception{
+        Object pr = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Car car = dao.getCar(carId);
+        if (!((EmployeeVO) pr).getId().equals(car.getDriver().getEmployee().getId())) {
+            throw new Exception();
+        }
         car.setDeleted(true);
         dao.update(car);
     }

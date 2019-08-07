@@ -28,5 +28,13 @@ export class UtilsService {
 		date.setMinutes(minutes);
 		return date;
 	}
+
+	static parseDate(date: any): string {
+		return new Date(date * 1000).toLocaleDateString();
+	}
+
+	static parseTime(date: any): string {
+		return new Date(date * 1000).toLocaleTimeString();
+	}
 	constructor() {}
 }

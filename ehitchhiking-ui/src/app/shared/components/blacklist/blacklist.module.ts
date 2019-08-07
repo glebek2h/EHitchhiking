@@ -4,7 +4,14 @@ import {BlacklistComponent} from '@shared/components/blacklist/blacklist.compone
 import {BlackListApiService} from '@shared/services/api.services/black-list-api.service';
 import {PreLoadingModule} from '@shared/components/pre-loading/pre-loading.module';
 import {NoDataModule} from '@shared/components/no-data/no-data.module';
-import {MatButtonModule, MatCardModule, MatDialogModule, MatIconModule, MatTabsModule} from '@angular/material';
+import {
+	MatButtonModule,
+	MatCardModule,
+	MatDialogModule,
+	MatIconModule,
+	MatTabsModule,
+	MatTooltipModule,
+} from '@angular/material';
 
 @NgModule({
 	declarations: [BlacklistComponent],
@@ -17,6 +24,7 @@ import {MatButtonModule, MatCardModule, MatDialogModule, MatIconModule, MatTabsM
 		MatIconModule,
 		MatButtonModule,
 		MatDialogModule,
+		MatTooltipModule,
 	],
 	exports: [BlacklistComponent],
 	entryComponents: [BlacklistComponent],

@@ -41,7 +41,7 @@
   align-items: center
 
 .exadel-login
-  background-color: mat-color($accent, 50)
+  background-color: $exadel-logo
   border-radius: 2% 2% 0 0
   padding: 5%
 
@@ -58,10 +58,13 @@
   background: mat-color($primary, 50)
   border-radius: 50%
   display: inline-block
-  margin: 0 5% 0 0
   text-align: center
   width: 1.2rem
 
 .clearfix
   font-size: $button
   margin-top: 5%
+
+@media screen and (max-width: $small-screen-max-width)
+  #login-form,.exadel-login,.user-info
+    width: $small-registration-width
