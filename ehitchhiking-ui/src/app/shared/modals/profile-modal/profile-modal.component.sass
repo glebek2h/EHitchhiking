@@ -13,12 +13,15 @@ $profile-user-info-height: 20%
         margin-right: $default-offset
     .modal-content
         @include flexbox(space-around, center, column)
+        padding-top: 1rem
+        display: block
         .profile-user-info
             width: 100%
             height: $profile-user-info-height
             position: relative
             @include flexbox(space-beetween)
             font-size: $subheading-2
+            padding-bottom: 1rem
             .profile-user-photo
                 flex-grow: 1
                 padding-right: $default-offset
@@ -29,7 +32,6 @@ $profile-user-info-height: 20%
                 margin-right: $default-offset*2
                 font-size: $display-1
             .profile-user-contacts
-                height: 100%
                 padding:
                     top: $default-offset 
                     bottom: $default-offset 
@@ -105,9 +107,14 @@ $profile-user-info-height: 20%
             .profile-user-contacts
                 font-size: $body-1
                 &-text
-                    width: 45%
+                    width: 4rem
         .add-car-form
             width: 90%
             position: absolute
         .cars-form-submit
-            margin-bottom: 0 
+            margin-bottom: 0
+    .cars-info-form
+      margin-top: -1.5rem
+      padding-bottom: $default-offset
+    .profile-user-contacts-title
+      margin: 0

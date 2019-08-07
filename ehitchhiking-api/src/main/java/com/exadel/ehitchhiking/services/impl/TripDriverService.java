@@ -178,9 +178,8 @@ public class TripDriverService implements ITripDriverService {
         return list.stream()
                 .filter(trips -> trips.getSeats() >= seats
                         && !driverDAO.getDriver(trips.getDriver().getId()).getPassengers().contains(passengerDAO.getByEmployeeId(idEmp))
-                        && ComareUtils.isTimeInRange(startingTime, endingTime, trips.getStartingTime())
+                        && ComareUtils.isTimeInRange(startingTime, trips.getStartingTime())
                         && !trips.getDriver().getId().equals(driverDAO.getByEmployeeId(idEmp).getId()))
-                //.sorted()
                 .collect(Collectors.toList());
     }
 }
