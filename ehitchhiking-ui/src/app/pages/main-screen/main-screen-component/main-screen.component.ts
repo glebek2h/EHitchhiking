@@ -59,7 +59,7 @@ export class MainScreenComponent implements OnInit {
 	mapTriggers = {};
 	redrawPassengerDriverIconTriggers = {};
 	redrawTriggers: boolean;
-	activePassengerButton: boolean;
+	activePassengerButton : boolean;
 	activeDriverButton: boolean;
 	filterData;
 	loading: boolean;
@@ -84,6 +84,7 @@ export class MainScreenComponent implements OnInit {
 		this.isDisabledSubmitRouteButton = true;
 		this.isHidden = true;
 		this.userState = UserState.Passenger;
+		this.activePassengerButton = true;
 		this.copyRoutes = this.routes.slice();
 		this.currentUser = this.userService.getCurrentUser();
 		this.getCarsList(this.userService.getCurrentUser().id).then((data) => {
