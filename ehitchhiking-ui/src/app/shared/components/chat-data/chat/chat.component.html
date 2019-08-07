@@ -6,7 +6,7 @@
 
 	<div class="chat" *ngIf="showChat">
 		<div class="message-zone" #scrollMe [scrollTop]="scrollMe.scrollHeight">
-			<app-no-data [isEmpty]="isDialogInitialized && !isLoading && currentDialog && !currentDialog.msgList.length"
+			<app-no-data [isEmpty]="isDialogInitialized && !isLoading && currentDialog && currentDialog.msgList &&  !currentDialog.msgList.length"
 				[size]="noDataSize" [message]="noDataMessage" [icon]="noDataIconName"></app-no-data>
 			<div *ngFor="let msg of currentDialog.msgList" class="message-wrapper" [class.my-message]="msg.isMy">
 				<div class="person-info">
