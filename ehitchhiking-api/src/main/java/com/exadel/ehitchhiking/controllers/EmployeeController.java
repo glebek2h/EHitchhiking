@@ -23,7 +23,6 @@ public class EmployeeController {
         try {
             employee = employeeService.findUserById(id);
         } catch (Exception e) {
-            System.out.println(e);
             return Response.setError("An error has occurred while retrieving the employee's info!");
         }
         return Response.setSuccess(employee, "The employee info was successfully retrieved!");

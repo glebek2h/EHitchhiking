@@ -51,7 +51,6 @@ public class TripsController {
         try {
             list = trips.getAllActive(id);
         } catch (Exception e) {
-            System.out.println(e);
             return Response.setError("An error has occurred while retrieving the active trips!");
         }
         return Response.setSuccess(list, "Active trips were successfully retrieved!");
