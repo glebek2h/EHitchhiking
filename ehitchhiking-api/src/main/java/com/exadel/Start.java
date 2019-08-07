@@ -1,6 +1,7 @@
 package com.exadel;
 
 import com.exadel.ehitchhiking.services.IAutoService;
+import com.exadel.ehitchhiking.services.impl.AutoService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -20,4 +21,8 @@ public class Start {
         SpringApplication.run(Start.class, args);
     }
 
+    @Bean(name = "autoService")
+    public IAutoService autoService(){
+        return new AutoService();
+    }
 }
