@@ -86,8 +86,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
 				this.currentRoute.passengerCoordinate = myGeoObject.geometry.getCoordinates();
 				this.passengerPlaceMark.emit(myGeoObject.geometry.getCoordinates());
 			});
-		})
-      .catch(() => {});
+		});
 	}
 
 	setCoordinates(data) {
@@ -106,8 +105,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
 			})
 			.then(() => {
 				this.coordinates.emit(this.coordsToReturn);
-			})
-      .catch(() => {});
+			});
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
@@ -189,7 +187,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
 						this.myMap.geoObjects.add(this.currentGeoPosition);
 					});
 			})
-      .catch(() => {});
+			.catch((error) => console.log('Failed to load Yandex Maps', error));
 	}
 
 	addMultiRoute(index: number, pointDraggable: boolean) {
@@ -213,7 +211,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
 				this.currentRoute.passengerCoordinate = [];
 				this.routes[index].yandexRoute = multiRoute;
 			})
-      .catch(() => {});
+			.catch((error) => console.log('Failed to load Yandex Maps', error));
 	}
 
 	updateTripPoints(multiRoute, data) {
@@ -227,36 +225,32 @@ export class YandexMapComponent implements OnInit, OnChanges {
 				const firstGeoObject = res.geoObjects.get(0);
 				data.to = firstGeoObject.getAddressLine();
 			});
-		})
-      .catch(() => {});
+		});
 	}
 
 	setInfoAboutRoute(multiRoute, data: Partial<Route>) {
-      multiRoute.events.add('update', (e) => {
-        try {
-          const activeRoute = multiRoute.getActiveRoute();
-          data.tripDuration = activeRoute.properties.get('duration').text;
-          this.updateTripPoints(multiRoute, data);
-          const arr = activeRoute.properties.get('distance').text.split(' ');
-          data.distance = +arr[0];
+		multiRoute.events.add('update', (e) => {
+			const activeRoute = multiRoute.getActiveRoute();
+			data.tripDuration = activeRoute.properties.get('duration').text;
+			this.updateTripPoints(multiRoute, data);
+			const arr = activeRoute.properties.get('distance').text.split(' ');
+			data.distance = +arr[0];
 
-          activeRoute.events.add('mouseenter', () => {
-            activeRoute.options.set('strokeWidth', 5);
-            activeRoute.options.set('strokeColor', YandexMapService.ACTIVE_ROUTE_COLOR);
-          });
-          activeRoute.events.add('mouseleave', () => {
-            activeRoute.options.unset('strokeColor');
-          });
-          activeRoute.events.add('click', (event) => {
-            if (!this.myMap.balloon.isOpen()) {
-              const coords = event.get('coords');
-              this.myMap.balloon.open(coords, YandexMapService.baloonInfo(data));
-              return;
-            }
-          });
-        } catch (e) {}
-      });
-
+			activeRoute.events.add('mouseenter', () => {
+				activeRoute.options.set('strokeWidth', 5);
+				activeRoute.options.set('strokeColor', YandexMapService.ACTIVE_ROUTE_COLOR);
+			});
+			activeRoute.events.add('mouseleave', () => {
+				activeRoute.options.unset('strokeColor');
+			});
+			activeRoute.events.add('click', (event) => {
+				if (!this.myMap.balloon.isOpen()) {
+					const coords = event.get('coords');
+					this.myMap.balloon.open(coords, YandexMapService.baloonInfo(data));
+					return;
+				}
+			});
+		});
 	}
 
 	setUserIconToMapAccordingUserState() {
@@ -279,8 +273,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
 					this.currentGeoPosition = result.geoObjects;
 					this.myMap.geoObjects.add(this.currentGeoPosition);
 				});
-		})
-      .catch(() => {});
+		});
 	}
 
 	placeStaticMark(passenger) {
@@ -304,8 +297,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
         myGeoObject.options.set('preset', 'islands#yellowDotIconWithCaption');
       }
 			this.myMap.geoObjects.add(myGeoObject);
-		})
-      .catch(() => {});
+		});
 	}
 
 	drawMultiRoute(data, pointDraggable: boolean) {
@@ -328,6 +320,6 @@ export class YandexMapComponent implements OnInit, OnChanges {
 					this.placeStaticMark(passenger);
 				});
 			})
-      .catch(() => {});
+			.catch((error) => console.log('Failed to load Yandex Maps', error));
 	}
 }
