@@ -82,7 +82,6 @@ export class MainScreenComponent implements OnInit {
 		this.isDisabledSubmitRouteButton = true;
 		this.isHidden = true;
 		this.userState = UserState.Passenger;
-		this.routes = YandexMapService.getSomeRoutes();
 		this.copyRoutes = this.routes.slice();
 		this.currentUser = this.userService.getCurrentUser();
 		this.getCarsList(this.userService.getCurrentUser().id).then((data) => {
