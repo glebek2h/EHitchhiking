@@ -4,13 +4,16 @@
 .routes-list
   z-index: 1
   background-color: $white
-  height: 22.5rem
+  height: 20.5rem
   width: $routes-list-width
+  @media screen and (max-width: 550px)
+    width: 24rem
+    margin-left: 0.7rem
   box-shadow: 0 0 9px rgba(0, 0, 0, 0.2)
   border-radius: 0.2rem
   text-align: center
-  margin-left: calc(50% - #{$routes-list-width / 2})
-  bottom: 4rem
+  margin-left: calc(50% - 15.23rem)
+  bottom: 3.5rem
   position: fixed
   overflow-y: hidden
   .routes

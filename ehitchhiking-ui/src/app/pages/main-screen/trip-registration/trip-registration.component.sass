@@ -1,45 +1,59 @@
 @import "../../../../styles/colors"
 @import "../../../../styles/constants"
 @import "../../../../styles/fonts-constants"
-$trip-registration-form-height: 20rem
-$trip-registration-form-width: 20rem
+$trip-registration-form-height: 15.5rem
+$trip-registration-form-width: 29rem
 .trip-registration-form
+  padding: 0.5rem
   position: relative
+  top: 0.4rem
   z-index: 2 // more than map z-index, and menu z-index
   background-color: $white
   height: $trip-registration-form-height
   width: $trip-registration-form-width
+  @media screen and (max-width: 550px)
+    width: 18rem
   margin-left: auto
   margin-right: auto
   box-shadow: 0 0 9px rgba(0, 0, 0, 0.2)
   border-radius: 0.2rem
+  .inputs-container
+    display: flex
+    justify-content: center
   .form-control
     margin-top: 0.2rem
   .input-from,.input-to
     display: block
-    width: 18rem
+    width: 28rem
+    @media screen and (max-width: 550px)
+      width: 16rem
     margin-left: auto
     margin-right: auto
   .date-picker,.time-picker
-    width: 8.5rem
-    margin-left: $default-offset
+    width: 6.5rem
+    @media screen and (max-width: 550px)
+      width: 3.5rem
   .registration-form-bottom-content
-    width: 18rem
-    margin-left: $default-offset
+    margin-left: auto
+    margin-right: auto
+    @media screen and (max-width: 550px)
+      width: 16rem
     display: flex
     justify-content: space-between
-    align-items: center
   .submit-button
     background-color: $yellow
     margin-left: auto
     margin-right: auto
   .places-select
-    width: 8.5rem
-    margin-right: $default-offset
-
+    width: 6.5rem
+    @media screen and (max-width: 550px)
+      width: 3.5rem
+    margin-top: 0.2rem
   .cars-select
-    width: 8.5rem
-
+    margin-top: 0.2rem
+    width: 6.5rem
+    @media screen and (max-width: 550px)
+      width: 3.5rem
   .button-div
     display: flex
     justify-content: center
