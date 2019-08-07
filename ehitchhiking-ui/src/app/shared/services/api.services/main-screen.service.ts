@@ -30,11 +30,13 @@ export class MainScreenService {
 	}
 
 	getDriversRoutes(tripData) {
+    const endTime = new Date(tripData.departureDate);
+    endTime.setHours(tripData.departureDate.getHours() + 1);
 		return this.apiService
 			.doPost(URL_REGISTRY.MAP.GET_DRIVERS_ROUTES, {
 				empId: this.userService.getCurrentUser().id,
 				startingTime: tripData.departureDate,
-				endingTime: tripData.departureDate,
+        endingTime: endTime,
 				seats: tripData.placesSelect,
 				coordStart: {x: tripData.coords[0][0], y: tripData.coords[0][1]},
 				coordEnd: {x: tripData.coords[1][0], y: tripData.coords[1][1]},
@@ -43,16 +45,18 @@ export class MainScreenService {
 	}
 
 	saveDriverRoute(tripData) {
+    const endTime = new Date(tripData.departureDate);
+    endTime.setHours(tripData.departureDate.getHours() + 1);
 		return this.apiService.doPost(URL_REGISTRY.MAP.POST_DRIVER_ROUTE, {
 			startingPoint: tripData.from,
 			endingPoint: tripData.to,
 			startingTime: tripData.departureDate,
-			endingTime: tripData.departureDate,
-			idOfCar: tripData.car.id, // TODO mock-data here because of empty cars data (need backend to fix this)
+			endingTime: endTime,
+			idOfCar: tripData.car.id,
 			empId: this.userService.getCurrentUser().id,
 			coordStart: {x: tripData.coords[0][0], y: tripData.coords[0][1]},
 			coordEnd: {x: tripData.coords[1][0], y: tripData.coords[1][1]},
-			distance: tripData.distance,
+			distance: 100,
 			seats: tripData.placesSelect,
 		});
 	}
@@ -70,5 +74,9 @@ export class MainScreenService {
 			coordStart: {x: route.passengerCoordinate[0], y: route.passengerCoordinate[1]}, // координата метки пассажира
 			coordEnd: {x: route.coordEnd[0], y: route.coordEnd[1]}, // координата End водителя
 		});
+	}
+
+	completeDriverTrip(idTrip: number) {
+		return this.apiService.doPut(URL_REGISTRY.DRIVER.TRIP.COMPLETE, {id: idTrip});
 	}
 }

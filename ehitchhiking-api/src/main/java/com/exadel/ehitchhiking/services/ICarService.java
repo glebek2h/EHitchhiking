@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ICarService {
     CarVO createCar(String color, String number, String carModel,
-                   int idOfDriver);
+                   int idOfDriver) throws Exception;
 
     void findCarNumber(int carId);
 
@@ -20,5 +20,5 @@ public interface ICarService {
 
     int getAmountCars(int idDriver);
 
-    void deletedCar(int carId);
+    void deletedCar(int carId) throws Exception;
 }

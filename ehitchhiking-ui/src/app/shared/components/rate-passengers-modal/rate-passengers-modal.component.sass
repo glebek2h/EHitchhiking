@@ -1,8 +1,10 @@
 @import "../../../../styles/constants"
 @import "../../../../styles/colors"
+@import '../../../../styles/fonts-constants'
 .modal-wrapper
   .modal-content
-    width: 22rem
+    overflow-y: auto
+    width: 100%
     font-size: $default-offset*0.9
     .table-tr
       text-align: center
@@ -11,16 +13,27 @@
       width: 2rem
     .table-passenger-name
       width: 5.2rem
-  .table-th
-    width: 4rem
 
   .blacklist
     display: flex
     justify-content: center
 
   .rating-td
-    width: 8rem
+    display: flex
+    justify-content: center
 
   .passenger-row-active
     background-color: $light-red
 
+@media screen and (max-width: $small-screen-max-width)
+  .modal-wrapper
+    .modal-title
+      font-size: $subheading-2
+    .modal-content
+      overflow-y: auto
+      font-size: $body-1*0.5
+      margin: 0
+      .table-tr
+        text-align: center
+      .table-passenger-name
+        width: 3.2rem

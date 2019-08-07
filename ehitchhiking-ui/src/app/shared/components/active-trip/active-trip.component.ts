@@ -1,10 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {ActiveTrip} from './active-trip';
+import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
+import {EventEmitter, Output} from '@angular/core';
 import {UserState} from '@shared/enums/UserState';
 import {DEFAULT_MAT_DIALOG_CLASS, MAT_DIALOG_WIDTH_SM} from '@shared/constants/modal-constants';
 import {MatDialog} from '@angular/material';
 import {ConfirmationModalComponent} from '@shared/modals/confirmation-modal/confirmation-modal.component';
-import {ActiveTripsModalService} from '@shared/components/active-trips-modal/active-trips-modal.service';
+import {ActiveTrip} from '@shared/models/active-trip';
+import {ActiveTripsApiService} from '@shared/services/api.services/active-trips.api.service';
 
 @Component({
 	selector: 'app-active-trip',
@@ -12,13 +13,19 @@ import {ActiveTripsModalService} from '@shared/components/active-trips-modal/act
 	styleUrls: ['./active-trip.component.sass'],
 })
 export class ActiveTripComponent implements OnInit {
-	constructor(public dialog: MatDialog, public tripService: ActiveTripsModalService) {}
+	constructor(public dialog: MatDialog) {}
 	userState = UserState;
 
-	ngOnInit() {}
-
 	@Input() trip: ActiveTrip;
+
+	ngOnInit(): void {}
+
+	@Output() onDelete: EventEmitter<{id: number; role: UserState}> = new EventEmitter();
 	static readonly REMOVAL_CONFIRMATION_MESSAGE: string = 'Do you really want to decline this trip?';
+
+	removeTrip() {
+		this.onDelete.emit({id: this.trip.id, role: this.trip.role});
+	}
 
 	openConfirmationDialogRemoveActiveTrip(event: MouseEvent) {
 		const dialogRef = this.dialog.open(ConfirmationModalComponent, {
@@ -28,13 +35,11 @@ export class ActiveTripComponent implements OnInit {
 			data: {
 				question: ActiveTripComponent.REMOVAL_CONFIRMATION_MESSAGE,
 				confirmButtonText: 'yes',
-				trips: this.tripService.trips,
 			},
 		});
 		dialogRef.afterClosed().subscribe((result) => {
 			if (result) {
-        const start = this.tripService.trips.findIndex((trip) => trip.id === this.trip.id);
-				this.tripService.trips.splice(start, 1);
+				this.removeTrip();
 			}
 		});
 		event.stopPropagation();

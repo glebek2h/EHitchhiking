@@ -1,11 +1,10 @@
-<form [hidden]="isShown" [formGroup]="nameFormGroup" (ngSubmit)="onSubmit()" class="trip-registration-form">
+<form [formGroup]="nameFormGroup" (ngSubmit)="onSubmit()" class="trip-registration-form">
 	<mat-form-field class="input-from form-control">
 		<input
 			matInput
 			placeholder="from"
 			formControlName="from"
 			id="suggestions-to-input-from"
-			#inp
 			(change)="onChangeFix($event, 'from')"
 		/>
 	</mat-form-field>
@@ -56,6 +55,11 @@
 			(click)="isShown = !isShown"
 		>
 			Apply
+		</button>
+	</div>
+	<div class="modal-close-control">
+		<button class="modal-close-control-btn"  mat-icon-button (click)="exit()">
+			<mat-icon>close</mat-icon>
 		</button>
 	</div>
 </form>

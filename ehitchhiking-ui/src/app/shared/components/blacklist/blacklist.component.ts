@@ -3,8 +3,8 @@ import {MatDialogRef} from '@angular/material';
 import {LoaderSize} from '@shared/enums/pre-loader-sizes';
 import {NoDataSize} from '@shared/enums/no-data-sizes';
 import {User} from '@shared/models/user';
-import {CUR_USER} from '@shared/components/blacklist/blacklist-users';
 import {BlackListApiService} from '@shared/services/api.services/black-list-api.service';
+import {UserService} from '@shared/services/user.service';
 
 @Component({
 	selector: 'app-blacklist',
@@ -12,7 +12,7 @@ import {BlackListApiService} from '@shared/services/api.services/black-list-api.
 	styleUrls: ['./blacklist.component.sass'],
 })
 export class BlacklistComponent implements OnInit {
-	curUser: User = CUR_USER;
+	private empId;
 	loaderSize: LoaderSize = LoaderSize.Large;
 	noDataSize: NoDataSize = NoDataSize.Small;
 	noDataMessage = 'No users!';
@@ -21,9 +21,14 @@ export class BlacklistComponent implements OnInit {
 	driversBlacklist: User[];
 	passengersBlacklist: User[];
 
-	constructor(public dialogRef: MatDialogRef<BlacklistComponent>, private apiBlacklistService: BlackListApiService) {}
+	constructor(
+		public dialogRef: MatDialogRef<BlacklistComponent>,
+		private apiBlacklistService: BlackListApiService,
+		private userService: UserService
+	) {}
 
 	ngOnInit() {
+		this.empId = this.userService.getCurrentUser().id;
 		this.loadPassengersList();
 		this.loadDriversList();
 	}
@@ -33,7 +38,7 @@ export class BlacklistComponent implements OnInit {
 
 	loadDriversList(): void {
 		this.loading = true;
-		this.apiBlacklistService.getDriverBlacklist({empId: this.curUser.id}).then((data) => {
+		this.apiBlacklistService.getDriverBlacklist({empId: this.empId}).then((data) => {
 			this.driversBlacklist = data;
 			this.loading = false;
 		});
@@ -41,7 +46,7 @@ export class BlacklistComponent implements OnInit {
 
 	loadPassengersList(): void {
 		this.loading = true;
-		this.apiBlacklistService.getPassengerBlacklist({empId: this.curUser.id}).then((data) => {
+		this.apiBlacklistService.getPassengerBlacklist({empId: this.empId}).then((data) => {
 			this.passengersBlacklist = data;
 			this.loading = false;
 		});
@@ -49,13 +54,13 @@ export class BlacklistComponent implements OnInit {
 
 	removePersonFromDriverBlacklist(index): void {
 		this.apiBlacklistService
-			.deleteBlockedDriver({empId: this.curUser.id, idDel: this.driversBlacklist[index].id})
+			.deleteBlockedDriver({empId: this.empId, idDel: this.driversBlacklist[index].id})
 			.then(() => this.loadDriversList());
 	}
 
 	removePersonFromPassengerBlacklist(index): void {
 		this.apiBlacklistService
-			.deleteBlockedPassenger({idDel: this.passengersBlacklist[index].id, empId: this.curUser.id})
+			.deleteBlockedPassenger({idDel: this.passengersBlacklist[index].id, empId: this.empId})
 			.then(() => this.loadPassengersList());
 	}
 }

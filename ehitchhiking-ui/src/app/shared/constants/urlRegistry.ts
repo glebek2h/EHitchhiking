@@ -5,6 +5,11 @@ export const URL_REGISTRY = {
 		GET_DRIVER_BLACKLIST: 'blackList/passenger?empId={{empId}}',
 		GET_PASSENGER_BLACKLIST: 'blackList/driver?empId={{empId}}',
 	},
+	ACTIVE_TRIPS: {
+		GET: 'trips/active?id={{id}}',
+		DELETE_TRIP_DRIVER: 'trip_driver/cancelled_trip',
+		DELETE_TRIP_PASSENGER: 'trip_passenger/cancelled_trip',
+	},
 	EMPLOYEE: {
 		GET: 'employee?id={{id}}',
 	},
@@ -37,9 +42,17 @@ export const URL_REGISTRY = {
 		TRIP: {
 			SAVE: 'trip_driver/save',
 			REMOVE_FROM_SAVED: 'trip_driver/removeFromSaved',
+			COMPLETE: 'trip_driver/finished_trip',
 		},
 	},
 	HISTORY: 'trips/history?id={{id}}',
 	CURRENT_USER: 'currentUser',
 	LOG_OUT: '/logout',
+	CHAT: {
+		INIT: '/api/socket',
+		CONNECT: '/socket/chat',
+		SEND_MESSAGE: '/app/send/message',
+		ADD_USER: '/app/chat/add/user',
+		GET_DIALOGS: 'chat?id={{id}}',
+	},
 };

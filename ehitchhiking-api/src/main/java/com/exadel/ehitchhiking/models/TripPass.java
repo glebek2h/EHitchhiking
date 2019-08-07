@@ -1,7 +1,7 @@
 package com.exadel.ehitchhiking.models;
 
-import lombok.*;
 import org.springframework.data.geo.Point;
+import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;

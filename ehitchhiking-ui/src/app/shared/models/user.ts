@@ -38,4 +38,8 @@ export class User {
 	isEmpty(): boolean {
 		return !!this.id;
 	}
+
+	getFullName(): string {
+		return `${this.name} ${this.surname}`;
+	}
 }

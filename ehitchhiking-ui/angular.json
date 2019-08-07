@@ -24,7 +24,11 @@
 						"tsConfig": "tsconfig.app.json",
 						"aot": false,
 						"assets": ["src/favicon.ico", "src/assets"],
-						"styles": ["src/assets/css/fonts.css", "src/styles.sass"],
+						"styles": [
+							"src/assets/css/fonts.css",
+							"src/styles.sass",
+							"node_modules/izitoast/dist/css/iziToast.min.css"
+						],
 						"scripts": []
 					},
 					"configurations": {
@@ -80,7 +84,11 @@
 						"tsConfig": "tsconfig.spec.json",
 						"karmaConfig": "karma.conf.js",
 						"assets": ["src/favicon.ico", "src/assets"],
-						"styles": ["src/assets/css/fonts.css", "src/styles.sass"],
+						"styles": [
+							"src/assets/css/fonts.css",
+							"src/styles.sass",
+							"node_modules/izitoast/dist/css/iziToast.min.css"
+						],
 						"scripts": []
 					}
 				},

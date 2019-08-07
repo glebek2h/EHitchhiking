@@ -36,11 +36,13 @@ export class YandexMapComponent implements OnInit, OnChanges {
 	@Input() tripData: Route;
 	@Input() isSavedRoute: boolean;
 	@Input() triggers: any;
+  @Input() iconTriggers: any;
 	@Input() redraw: any;
 	@Input() indexRouteToDisplay: any;
 	@Input() getCoordsData: any;
+  @Input() currentUser;
 
-	constructor(private activeTripsMapService: ActiveTripsMapService) {
+	constructor(private activeTripsMapService: ActiveTripsMapService, private yandexMapService: YandexMapService) {
 		this.activeTripsMapService.getMessage().subscribe((route) => {
 			this.routeFromActiveModalToDisplay = route;
 		});
@@ -48,6 +50,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
 
 	ngOnInit() {
 		this.ymapsPromise = ymaps.load(YandexMapComponent.API_URL);
+		this.yandexMapService.setPromise(this.ymapsPromise);
 		this.createMap();
 		this.userState = UserState.Passenger;
 		this.routes.forEach((route, i) => {
@@ -151,7 +154,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
 				this.placeMarkForPassenger();
 			}
 		}
-		if (changes.userState && changes.userState.currentValue) {
+		if (changes.userState && changes.userState.currentValue || changes.iconTriggers) {
 			this.setUserIconToMapAccordingUserState();
 		}
 		if (changes.isSavedRoute && this.currentMultiRoute) {
@@ -183,10 +186,6 @@ export class YandexMapComponent implements OnInit, OnChanges {
 						result.geoObjects.options.set('preset', 'islands#redPersonCircleIcon');
 						this.myMap.geoObjects.add(this.currentGeoPosition);
 					});
-				// tslint:disable-next-line:no-unused-expression
-				new maps.SuggestView('suggestions-to-input-from');
-				// tslint:disable-next-line:no-unused-expression
-				new maps.SuggestView('suggestions-to-input-to');
 			})
 			.catch((error) => console.log('Failed to load Yandex Maps', error));
 	}
@@ -215,10 +214,25 @@ export class YandexMapComponent implements OnInit, OnChanges {
 			.catch((error) => console.log('Failed to load Yandex Maps', error));
 	}
 
+	updateTripPoints(multiRoute, data) {
+		const coordinates = multiRoute.model.getReferencePoints();
+		this.ymapsPromise.then((maps) => {
+			maps.geocode(coordinates[0]).then((res) => {
+				const firstGeoObject = res.geoObjects.get(0);
+				data.from = firstGeoObject.getAddressLine();
+			});
+			maps.geocode(coordinates[1]).then((res) => {
+				const firstGeoObject = res.geoObjects.get(0);
+				data.to = firstGeoObject.getAddressLine();
+			});
+		});
+	}
+
 	setInfoAboutRoute(multiRoute, data: Partial<Route>) {
 		multiRoute.events.add('update', (e) => {
 			const activeRoute = multiRoute.getActiveRoute();
 			data.tripDuration = activeRoute.properties.get('duration').text;
+			this.updateTripPoints(multiRoute, data);
 			const arr = activeRoute.properties.get('distance').text.split(' ');
 			data.distance = +arr[0];
 
@@ -262,20 +276,26 @@ export class YandexMapComponent implements OnInit, OnChanges {
 		});
 	}
 
-	placeStaticMark(coords) {
+	placeStaticMark(passenger) {
 		this.ymapsPromise.then((maps) => {
 			const myGeoObject = new maps.GeoObject(
 				{
 					geometry: {
 						type: 'Point',
-						coordinates: [coords[0], coords[1]],
+						coordinates: [passenger.markCoordinates.x, passenger.markCoordinates.y],
 					},
+          properties: {
+            hintContent: passenger.email,
+            iconCaption: passenger.name + ' ' + passenger.phone
+          }
 				},
-				{
-					preset: 'islands#yellowPersonIcon',
-					draggable: true,
-				}
 			);
+			if(this.currentUser.id === passenger.id){
+        myGeoObject.options.set('preset', 'islands#redDotIconWithCaption');
+      }
+			else {
+        myGeoObject.options.set('preset', 'islands#yellowDotIconWithCaption');
+      }
 			this.myMap.geoObjects.add(myGeoObject);
 		});
 	}
@@ -297,7 +317,7 @@ export class YandexMapComponent implements OnInit, OnChanges {
 				this.setInfoAboutRoute(multiRoute, data);
 				this.myMap.geoObjects.add(multiRoute);
 				data.passengers.forEach((passenger) => {
-					this.placeStaticMark(passenger.markCoordinate);
+					this.placeStaticMark(passenger);
 				});
 			})
 			.catch((error) => console.log('Failed to load Yandex Maps', error));

@@ -1,4 +1,4 @@
-<--!drop schema public cascade;-->
+drop schema public cascade;
 
 create schema if not exists public;
 
@@ -117,7 +117,7 @@ create table if not exists "CHAT"
     "ID" serial not null
         constraint chat_pk
             primary key,
-    "HISTORY" json
+    "HISTORY" varchar(1000000)
 );
 
 alter table "CHAT" owner to postgres;

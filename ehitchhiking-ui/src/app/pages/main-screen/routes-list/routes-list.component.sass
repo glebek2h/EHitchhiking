@@ -5,13 +5,12 @@
   z-index: 1
   background-color: $white
   height: 22.5rem
-  width: 26rem
+  width: $routes-list-width
   box-shadow: 0 0 9px rgba(0, 0, 0, 0.2)
   border-radius: 0.2rem
-  position: absolute
-  margin-left: -200px
+  text-align: center
+  margin-left: calc(50% - #{$routes-list-width / 2})
   bottom: 4rem
-  left: 50%
   position: fixed
   overflow-y: hidden
   .routes
@@ -20,8 +19,6 @@
   .routes-list-p
     display: flex
     justify-content: space-between
-  .route-info
-    margin: $default-offset
     .material-icons
      font-size: $headline
   .right-span
@@ -32,6 +29,10 @@
   .routes-interface
     display: flex
     justify-content: space-between
+  .modal-close-control
+    position: absolute
+    top: 0
+    right: 0
 .header
   height: 5rem!important // default <mat-expansion-panel-header> height = 48px
   padding: $default-offset/2

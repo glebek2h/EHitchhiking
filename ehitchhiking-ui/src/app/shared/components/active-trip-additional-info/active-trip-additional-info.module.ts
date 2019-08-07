@@ -12,6 +12,7 @@ import {
 
 import {RatingModule} from '../rating/rating.module';
 import {ActiveTripAdditionalInfoComponent} from './active-trip-additional-info.component';
+import {NoDataModule} from '@shared/components/no-data/no-data.module';
 @NgModule({
 	declarations: [ActiveTripAdditionalInfoComponent],
 	imports: [
@@ -24,6 +25,7 @@ import {ActiveTripAdditionalInfoComponent} from './active-trip-additional-info.c
 		MatListModule,
 		MatGridListModule,
 		MatTooltipModule,
+		NoDataModule,
 	],
 	entryComponents: [ActiveTripAdditionalInfoComponent],
 	exports: [ActiveTripAdditionalInfoComponent],

@@ -1,10 +1,22 @@
-<mat-sidenav-container class="sidenav-container">
-	<mat-sidenav class="menu" #sidenav mode="side" [(opened)]="opened">
+<mat-sidenav-container class="sidenav-container" [ngClass]="{'sidenav-container-opened': opened}">
+	<mat-sidenav class="menu" #sidenav mode="side" [(opened)]="opened" [ngClass]="{'menu-opened': opened}">
 		<div class="header">
-			<button mat-icon-button (click)="openProfileDialog()" class="header-button">
+			<button mat-icon-button (click)="openProfileDialog()" matTooltip="open profile" class="header-button">
 				<mat-icon class="header-button-icon account-icon">account_circle</mat-icon>
 			</button>
-			<span class="header-span">name</span>
+			<span class="header-span truncated" [matTooltip]="currentUser ? currentUser.getFullName() : 'Anonymous'">{{
+				currentUser ? currentUser.getFullName() : 'Anonymous'
+			}}</span>
+			<div class="modal-close-control">
+				<button
+					mat-icon-button
+					class="modal-close-control-btn header-button"
+					matTooltip="close left panel"
+					(click)="sidenav.toggle()"
+				>
+					<mat-icon class="header-button-icon close-icon">close</mat-icon>
+				</button>
+			</div>
 		</div>
 		<div class="buttons">
 			<li class="li-buttons">
@@ -32,12 +44,12 @@
 	</mat-sidenav>
 
 	<mat-sidenav-content>
-		<button mat-button (click)="sidenav.toggle()" class="toggle-button">
+		<button *ngIf="!opened" mat-button (click)="sidenav.toggle()" class="toggle-button">
 			<i class="material-icons">
 				reorder
 			</i>
 		</button>
-		<button mat-icon-button class="chat-btn" (click)="openChatDialog()">
+		<button mat-icon-button class="chat-btn" matTooltip="chats" (click)="openChatDialog()">
 			<i class="material-icons">
 				forum
 			</i>

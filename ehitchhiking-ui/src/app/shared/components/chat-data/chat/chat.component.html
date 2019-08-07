@@ -1,30 +1,21 @@
 <div class="modal-wrapper" data-backdrop="static" keyboard="false">
+	<app-pre-loading [isLoading]="isLoading"></app-pre-loading>
 	<header class="modal-header">
 		<span class="modal-title">Chat</span>
 	</header>
 
 	<div class="chat" *ngIf="showChat">
-		<app-no-data
-			[isEmpty]="!loading && msgList && !msgList.length"
-			[size]="noDataSize"
-			[message]="noDataMessage"
-			[icon]="noDataIconName"
-		></app-no-data>
 		<div class="message-zone" #scrollMe [scrollTop]="scrollMe.scrollHeight">
-			<app-no-data
-				[isEmpty]="!loading && msgList && !msgList.length"
-				[size]="noDataSize"
-				[message]="noDataMessage"
-				[icon]="noDataIconName"
-			></app-no-data>
-			<div *ngFor="let msg of msgList" class="message-wrapper" [class.my-message]="msg.isMy">
+			<app-no-data [isEmpty]="isDialogInitialized && !isLoading && currentDialog && currentDialog.msgList &&  !currentDialog.msgList.length"
+				[size]="noDataSize" [message]="noDataMessage" [icon]="noDataIconName"></app-no-data>
+			<div *ngFor="let msg of currentDialog.msgList" class="message-wrapper" [class.my-message]="msg.isMy">
 				<div class="person-info">
 					<img [src]="msg.avaSrc" alt="photo" class="image" />
 					<div class="date">{{ msg.time | date: 'h:mm a' }}</div>
 				</div>
 				<div class="message">
 					<div class="person-name-wrapper">
-						<p class="person-name">{{ msg.person || 'you' }}</p>
+						<p class="person-name">{{ msg.isMy ? 'you' : msg.person }}</p>
 					</div>
 					<div class="text">{{ msg.text }}</div>
 				</div>
@@ -33,7 +24,7 @@
 
 		<div class="input-zone">
 			<mat-form-field class="input">
-				<input matInput #message [maxLength]="MAX_MESSAGE_LENGTH" placeholder="Message" id="message-text" />
+				<input matInput #message [maxLength]="MAX_MESSAGE_LENGTH" placeholder="Message" id="message-text" (keyup.enter)="sendMessage(message)" />
 				<mat-hint align="end">{{ message.value.length }} / {{ MAX_MESSAGE_LENGTH }}</mat-hint>
 			</mat-form-field>
 			<button class="send-btn" mat-raised-button (click)="sendMessage(message)">
@@ -43,13 +34,13 @@
 	</div>
 
 	<div mat-dialog-content class="modal-content" *ngIf="showDialogs" (click)="showContent()">
-		<app-dialog (chatMessages)="getChat($event)"> </app-dialog>
+		<app-dialog (onDialogReceiving)="getChat($event)" (onDialogInitialization)="dialogsInitialization($event)"
+			[userId]="currentUser.id"> </app-dialog>
 	</div>
 
 	<div class="modal-back" (click)="showContent()" *ngIf="showChat">
 		<button class="modal-back-btn" mat-icon-button>
 			<mat-icon>arrow_back_ios</mat-icon>
-			<p class="btn-text">Back</p>
 		</button>
 	</div>
 	<div class="modal-close-control">

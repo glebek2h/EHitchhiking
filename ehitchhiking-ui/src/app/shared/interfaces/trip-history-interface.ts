@@ -6,6 +6,9 @@ export interface TripHistory {
 	startPoint: string;
 	endPoint: string;
 	saved: boolean;
+	finished: boolean;
+	declined: boolean;
+	active: boolean;
 	status: TripStatus;
 	rating: number;
 	role: UserState;

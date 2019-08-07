@@ -3,21 +3,21 @@ package com.exadel.ehitchhiking.services;
 import com.exadel.ehitchhiking.models.TripDriver;
 import com.exadel.ehitchhiking.models.vo.PassengerVO;
 import com.exadel.ehitchhiking.models.vo.TripDriverVO;
-import org.springframework.data.geo.Point;
+import com.exadel.ehitchhiking.requests.Point;
 
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.List;
 
 public interface ITripDriverService {
-    void createTripDriver(String startingPoint, String endingPoint,
+    String createTripDriver(String startingPoint, String endingPoint,
                           Instant startingTime,  Instant  endingTime, int idOfCar, int seats,
                           Point coordStart, Point coordEnd, float distance);
 
 
     TripDriverVO updateSave(int id, boolean isSaved);
 
-    void updateFinished(int id, boolean isFinished);
+    List<String> updateFinished(int id, boolean isFinished);
 
     void deleteFromHistory(int id, boolean isHistory);
 
