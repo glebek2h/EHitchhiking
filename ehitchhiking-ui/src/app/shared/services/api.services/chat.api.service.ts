@@ -70,7 +70,6 @@ export class ChatApiService {
 
 	private onMessageReceived(response: any) {
 		const {type, chatId} = response;
-		console.log(chatId);
 		if (type === ChatEvents.Chat && chatId === this.currentDialog.id) {
 			this.currentDialog.msgList.push(this.getMessageData(response));
 		}

@@ -1,4 +1,4 @@
-package com.exadel.ehitchhiking.config;
+package com.exadel.ehitchhiking.utils;
 
 import org.springframework.data.geo.Point;
 

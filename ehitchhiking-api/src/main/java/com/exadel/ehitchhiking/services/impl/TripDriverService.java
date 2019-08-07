@@ -1,6 +1,6 @@
 package com.exadel.ehitchhiking.services.impl;
 
-import com.exadel.ehitchhiking.config.ComareUtils;
+import com.exadel.ehitchhiking.utils.ComareUtils;
 import com.exadel.ehitchhiking.daos.*;
 import com.exadel.ehitchhiking.models.Chat;
 import com.exadel.ehitchhiking.models.TripDriver;
@@ -50,10 +50,10 @@ public class TripDriverService implements ITripDriverService {
                                    Instant startingTime, Instant endingTime, int idOfCar, int seats,
                                    Point coordStart, Point coordEnd, float distance) {
 
-        Chat getChat = chat.createChat();
+        Chat tripChat = chat.createChat();
         TripDriver tripDriver = new TripDriver(startingPoint, endingPoint,
                 Timestamp.from(startingTime), Timestamp.from(endingTime), true,
-                false, false, seats, carDAO.getCar(idOfCar), false, coordStart, coordEnd, distance);
+                false, false, seats, carDAO.getCar(idOfCar), false, coordStart, coordEnd, distance, tripChat);
         dao.save(tripDriver);
 
         return tripDriver.getCar().getDriver().getEmployee().getEmail();

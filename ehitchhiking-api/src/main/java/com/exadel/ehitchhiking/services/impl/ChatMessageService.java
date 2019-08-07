@@ -62,6 +62,7 @@ public class ChatMessageService implements IChatMessageService {
     @Override
     public Chat createChat(){
         Chat chat = new Chat();
+        chat.setHistory("[]");
         dao.save(chat);
         return chat;
     }

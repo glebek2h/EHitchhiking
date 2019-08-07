@@ -35,7 +35,6 @@ export class ChatComponent implements OnInit {
 
 	getChat(dialogPromise: Promise<Dialog>) {
 		dialogPromise.then((dialog) => {
-			console.log(`opening chat: ${dialog.id}`);
 			dialog.msgList = dialog.msgList.map((message) => {
 				if (message.email === this.currentUser.email) {
 					message.isMy = true;
