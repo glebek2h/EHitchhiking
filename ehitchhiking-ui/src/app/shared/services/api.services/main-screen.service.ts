@@ -30,7 +30,6 @@ export class MainScreenService {
 	}
 
 	getDriversRoutes(tripData) {
-
     const endTime = new Date(tripData.departureDate);
     endTime.setHours(tripData.departureDate.getHours() + 1);
 		return this.apiService
@@ -46,16 +45,18 @@ export class MainScreenService {
 	}
 
 	saveDriverRoute(tripData) {
+    const endTime = new Date(tripData.departureDate);
+    endTime.setHours(tripData.departureDate.getHours() + 1);
 		return this.apiService.doPost(URL_REGISTRY.MAP.POST_DRIVER_ROUTE, {
 			startingPoint: tripData.from,
 			endingPoint: tripData.to,
 			startingTime: tripData.departureDate,
-			endingTime: tripData.departureDate,
+			endingTime: endTime,
 			idOfCar: tripData.car.id,
 			empId: this.userService.getCurrentUser().id,
 			coordStart: {x: tripData.coords[0][0], y: tripData.coords[0][1]},
 			coordEnd: {x: tripData.coords[1][0], y: tripData.coords[1][1]},
-			distance: tripData.distance,
+			distance: 100,
 			seats: tripData.placesSelect,
 		});
 	}
