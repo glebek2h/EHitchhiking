@@ -70,7 +70,7 @@ export class MainScreenService {
 			endingTime: route.departureDate,
 			seats: route.placesSelect,
 			idTripDriver: route.idTripDriver,
-			distance: route.distance,
+			distance: 100,
 			coordStart: {x: route.passengerCoordinate[0], y: route.passengerCoordinate[1]}, // координата метки пассажира
 			coordEnd: {x: route.coordEnd[0], y: route.coordEnd[1]}, // координата End водителя
 		});
