@@ -11,7 +11,7 @@ $trip-registration-form-width: 29rem
   background-color: $white
   height: $trip-registration-form-height
   width: $trip-registration-form-width
-  @media screen and (max-width: 550px)
+  @media screen and (max-width: $small-screen-max-width)
     width: 18rem
   margin-left: auto
   margin-right: auto
@@ -25,18 +25,18 @@ $trip-registration-form-width: 29rem
   .input-from,.input-to
     display: block
     width: 28rem
-    @media screen and (max-width: 550px)
+    @media screen and (max-width: $small-screen-max-width)
       width: 16rem
     margin-left: auto
     margin-right: auto
   .date-picker,.time-picker
     width: 6.5rem
-    @media screen and (max-width: 550px)
+    @media screen and (max-width: $small-screen-max-width)
       width: 3.5rem
   .registration-form-bottom-content
     margin-left: auto
     margin-right: auto
-    @media screen and (max-width: 550px)
+    @media screen and (max-width: $small-screen-max-width)
       width: 16rem
     display: flex
     justify-content: space-between
@@ -46,13 +46,13 @@ $trip-registration-form-width: 29rem
     margin-right: auto
   .places-select
     width: 6.5rem
-    @media screen and (max-width: 550px)
+    @media screen and (max-width: $small-screen-max-width)
       width: 3.5rem
     margin-top: 0.2rem
   .cars-select
     margin-top: 0.2rem
     width: 6.5rem
-    @media screen and (max-width: 550px)
+    @media screen and (max-width: $small-screen-max-width)
       width: 3.5rem
   .button-div
     display: flex
