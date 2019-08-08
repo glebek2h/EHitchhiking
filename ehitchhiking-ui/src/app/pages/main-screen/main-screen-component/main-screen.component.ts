@@ -13,6 +13,7 @@ import {ConfirmationModalComponent} from '@shared/modals/confirmation-modal/conf
 import {DEFAULT_MAT_DIALOG_CLASS, MAT_DIALOG_WIDTH_SM} from '@shared/constants/modal-constants';
 import {MatDialog} from '@angular/material';
 import {LoaderSize} from '@shared/enums/pre-loader-sizes';
+import {NotificationService} from '@shared/services/notification.service';
 
 @Component({
 	selector: 'app-main-screen',
@@ -27,7 +28,8 @@ export class MainScreenComponent implements OnInit {
 		private activeTripsMapService: ActiveTripsMapService,
 		private userService: UserService,
 		private apiService: ApiService,
-		public dialog: MatDialog
+		public dialog: MatDialog,
+		public notificationService: NotificationService
 	) {
 		this.activeTripsMapService.getMainScreenInfo().subscribe(() => {
 			this.toggleMapInterfaceToDefault();
@@ -55,9 +57,9 @@ export class MainScreenComponent implements OnInit {
 	isShownPlusButton = true;
 	displayedRouteIndex: number;
 	mapTriggers = {};
-  redrawPassengerDriverIconTriggers = {};
+	redrawPassengerDriverIconTriggers = {};
 	redrawTriggers: boolean;
-	activePassengerButton: boolean;
+	activePassengerButton : boolean;
 	activeDriverButton: boolean;
 	filterData;
 	loading: boolean;
@@ -75,13 +77,14 @@ export class MainScreenComponent implements OnInit {
 	static readonly COMPLETE_CONFIRMATION_MESSAGE: string = 'Do you really want to complete this trip?';
 
 	private getCarsList(userId: string): Promise<any> {
-		return this.apiService.doGet(URL_REGISTRY.CAR.GET_ALL, false, {id: userId});
+		return this.apiService.doGet(URL_REGISTRY.CAR.GET_ALL, false, {id: userId}, false);
 	}
 
 	ngOnInit() {
 		this.isDisabledSubmitRouteButton = true;
 		this.isHidden = true;
 		this.userState = UserState.Passenger;
+		this.activePassengerButton = true;
 		this.copyRoutes = this.routes.slice();
 		this.currentUser = this.userService.getCurrentUser();
 		this.getCarsList(this.userService.getCurrentUser().id).then((data) => {
@@ -133,7 +136,7 @@ export class MainScreenComponent implements OnInit {
 		}
 	}
 	getPassengerTripData(data) {
-    this.editStatePlusButton = true;
+		this.editStatePlusButton = true;
 		this.sendFormData = data;
 		this.isHidden = true;
 	}
@@ -164,18 +167,20 @@ export class MainScreenComponent implements OnInit {
 		this.activePassengerButton = true;
 		this.activeDriverButton = false;
 		this.userState = UserState.Passenger;
-    this.redrawPassengerDriverIconTriggers = {reset: true};
+		this.redrawPassengerDriverIconTriggers = {reset: true};
 		this.toggleMapInterfaceToDefault();
 	}
 
-	toggleStateToDriver() {
-		if (this.currentUser.cars.length !== 0) {
-			this.activeDriverButton = true;
-			this.activePassengerButton = false;
-			this.userState = UserState.Driver;
-			this.redrawPassengerDriverIconTriggers = {reset: true};
-			this.toggleMapInterfaceToDefault();
+	toggleStateToDriver(): void {
+		if (!this.currentUser || !this.currentUser.cars || !this.currentUser.cars.length) {
+			this.notificationService.showInfoNotification('Please add a car to become a driver.');
+			return;
 		}
+		this.activeDriverButton = true;
+		this.activePassengerButton = false;
+		this.userState = UserState.Driver;
+		this.redrawPassengerDriverIconTriggers = {reset: true};
+		this.toggleMapInterfaceToDefault();
 	}
 
 	toggleMapInterfaceToDefault() {

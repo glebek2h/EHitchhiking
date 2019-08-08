@@ -53,7 +53,7 @@ export class ProfileModalApiService {
 	}
 
 	private sendCarsListRequest(userId: string): Promise<CarInterface[]> {
-		return this.apiService.doGet(URL_REGISTRY.CAR.GET_ALL, false, {id: userId});
+		return this.apiService.doGet(URL_REGISTRY.CAR.GET_ALL, false, {id: userId}, false);
 	}
 
 	private sendNewCarRequest(car: RequestCar): Promise<CarInterface> {
