@@ -17,33 +17,33 @@
 			(change)="onChangeFix($event, 'to')"
 		/>
 	</mat-form-field>
-	<mat-form-field class="date-picker form-control">
-		<input matInput [matDatepicker]="picker" formControlName="departureDate" placeholder="Choose a date" />
-		<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-		<mat-datepicker #picker></mat-datepicker>
-	</mat-form-field>
-	<mat-form-field class="time-picker form-control">
-		<input matInput [ngxTimepicker]="picker1" formControlName="departureTime" placeholder="Choose a time" />
-		<ngx-material-timepicker #picker1></ngx-material-timepicker>
-	</mat-form-field>
-	<div class="registration-form-bottom-content form-control">
-		<mat-form-field class="places-select">
-			<mat-label>Number of seats</mat-label>
-			<mat-select formControlName="placesSelect">
-				<mat-option [value]="1">1</mat-option>
-				<mat-option [value]="2">2</mat-option>
-				<mat-option [value]="3">3</mat-option>
-				<mat-option [value]="4">4</mat-option>
-			</mat-select>
-		</mat-form-field>
-		<mat-form-field class="cars-select" *ngIf="isDriver()">
-			<mat-label>Car</mat-label>
-			<mat-select formControlName="car">
-				<mat-option *ngFor="let car of currentUser.cars; let i = index" [value]="car">{{
-					car.model
-				}}</mat-option>
-			</mat-select>
-		</mat-form-field>
+  <div class="registration-form-bottom-content form-control">
+    <mat-form-field class="date-picker form-control">
+      <input matInput [matDatepicker]="picker" formControlName="departureDate" placeholder="date" />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="time-picker form-control">
+      <input matInput [ngxTimepicker]="picker1" formControlName="departureTime" placeholder="time" />
+      <ngx-material-timepicker #picker1></ngx-material-timepicker>
+    </mat-form-field>
+      <mat-form-field class="places-select">
+        <mat-label>seats</mat-label>
+        <mat-select formControlName="placesSelect">
+          <mat-option [value]="1">1</mat-option>
+          <mat-option [value]="2">2</mat-option>
+          <mat-option [value]="3">3</mat-option>
+          <mat-option [value]="4">4</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="cars-select" *ngIf="isDriver()">
+        <mat-label>car</mat-label>
+        <mat-select formControlName="car">
+          <mat-option *ngFor="let car of currentUser.cars; let i = index" [value]="car">{{
+            car.model
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
 	</div>
 	<div class="button-div">
 		<button
