@@ -1,0 +1,20 @@
+<div class="form-row">
+	<i class="user-role-icon material-icons" *ngIf="trip.role === userState.Driver" matTooltip="driver">
+		directions_car
+	</i>
+	<i class="user-role-icon material-icons" *ngIf="trip.role === userState.Passenger" matTooltip="passenger">
+		person
+	</i>
+	<p class="trip-points ">
+		<span class="start-end-point truncated" [matTooltip]="trip.startPoint">{{ trip.startPoint }}</span>
+		<span class="start-end-point truncated" [matTooltip]="trip.endPoint">-> {{ trip.endPoint }}</span>
+	</p>
+	<span class="date truncated" [matTooltip]="trip.startTime">{{ trip.startTime }}</span>
+	<span class="time truncated" [matTooltip]="trip.endTime">{{ trip.endTime }} </span>
+	<span matTooltip="reserved seats" class="position-seats">{{ trip.reservedSeats }}</span>
+	<button class="trip-btn" matTooltip="declined trip" (click)="openConfirmationDialogRemoveActiveTrip($event)">
+		<i class="material-icons">
+			highlight_off
+		</i>
+	</button>
+</div>

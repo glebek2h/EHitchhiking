@@ -1,0 +1,3 @@
+interface GetBlockedUsersParams {
+	empId: string;
+}

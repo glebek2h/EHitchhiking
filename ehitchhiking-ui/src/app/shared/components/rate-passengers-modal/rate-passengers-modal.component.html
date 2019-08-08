@@ -1,0 +1,51 @@
+<div class="modal-wrapper">
+	<header class="modal-header">
+		<span *ngIf="data.dataKey === UserState.Driver" class="modal-title">Rate Passengers</span>
+		<span *ngIf="data.dataKey === UserState.Passenger" class="modal-title">Rate Driver</span>
+	</header>
+
+	<table class="modal-content">
+		<app-pre-loading [isLoading]="loading" [size]="loaderSize"></app-pre-loading>
+		<thead>
+			<tr class="table-tr">
+				<th class="table-th">Passenger</th>
+				<th class="table-th">Stars</th>
+				<th class="table-th">Rating</th>
+				<th class="table-th">Blacklist</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr
+				[ngClass]="{'passenger-row-active': user.isBlocked}"
+				*ngFor="let user of users; let i = index; trackBy: trackById"
+			>
+				<td class="table-passenger-name-block">
+					<p class="table-passenger-name truncated">{{ user.name }}</p>
+				</td>
+				<td class="rating-td">
+					<app-rating [rating]="user.rate" [itemId]="user.id" (ratingClick)="rateUser($event)"></app-rating>
+				</td>
+				<td class="table-count-stars">{{ user.rate }} Stars</td>
+				<td class="blacklist">
+					<button mat-icon-button (click)="addToBlacklist(i)">
+						<i class="material-icons">
+							thumb_down
+						</i>
+					</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<div class="modal-footer">
+		<button class="modal-action-btn" mat-raised-button (click)="exitTrip()">
+			submit
+		</button>
+	</div>
+
+	<div class="modal-close-control">
+		<button class="modal-close-control-btn" mat-icon-button (click)="exit()">
+			<mat-icon>close</mat-icon>
+		</button>
+	</div>
+</div>

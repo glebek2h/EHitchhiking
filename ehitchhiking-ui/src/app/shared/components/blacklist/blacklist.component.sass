@@ -1,0 +1,31 @@
+@import '../../../../styles/colors'
+@import '../../../../styles/fonts-constants'
+@import '../../../../styles/constants'
+
+.modal-wrapper
+  .modal-content
+    height: 20rem
+    .blacklist-user
+      border: 1px solid $gray
+      display: flex
+      justify-content: space-around
+      align-items: center
+      padding: 0
+      .profile-photo
+        font-size: $display-2
+        color: $gray
+      .remove-icon
+        font-size: $title
+        display: table
+        vertical-align: middle
+        color: mat-color($warn, 700)
+      .remove-icon:hover
+        color: mat-color($warn,400)
+      .remove-icon:active
+        color: $light-red
+      .blacklist-user-name
+        font-size: $button
+        margin-top: $default-offset
+        width: 10rem
+
+

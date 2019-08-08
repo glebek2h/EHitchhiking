@@ -1,0 +1,41 @@
+@import "../../../../../styles/colors"
+@import "../../../../../styles/mixins"
+@import "../../../../../styles/fonts-constants"
+@import "../../../../../styles/constants"
+
+
+.modal-dialog
+  border: 1px solid $gray
+  display: flex
+  padding: 0
+  .dialog-info-container
+    @include flexbox()
+    .image
+      margin:
+        left: $default-offset / 5
+        right: $default-offset / 5
+      border-radius: 50%
+      height: 3rem
+      flex: 0.9
+    .dlg-content
+      @include flexbox(space-around,flex-start,column)
+      margin: $default-offset/2
+      flex: 5
+      .dlg-title
+        @include flexbox(space-around)
+        position: relative
+        color: $light-black
+        font-size: $body-1
+        font-weight: bold
+        &-span
+          width: 45%
+          &-separator
+            width: 10%
+
+@media screen and (max-width: $small-screen-max-width)
+  .modal-dialog
+    .dialog-info-container
+      .image
+        flex: 2
+      .dlg-content
+        flex: 4

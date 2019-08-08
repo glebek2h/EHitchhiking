@@ -1,0 +1,42 @@
+@import "../../../../styles/colors"
+@import "../../../../styles/constants"
+@import "../../../../styles/fonts-constants"
+.routes-list
+  z-index: 1
+  background-color: $white
+  height: 22.5rem
+  width: $routes-list-width
+  box-shadow: 0 0 9px rgba(0, 0, 0, 0.2)
+  border-radius: 0.2rem
+  text-align: center
+  margin-left: calc(50% - #{$routes-list-width / 2})
+  bottom: 4rem
+  position: fixed
+  overflow-y: hidden
+  .routes
+    overflow-y: scroll
+    height: 18rem
+  .routes-list-p
+    display: flex
+    justify-content: space-between
+    .material-icons
+     font-size: $headline
+  .right-span
+    text-align: center
+    display: flex
+    align-items: center
+    justify-content: center
+  .routes-interface
+    display: flex
+    justify-content: space-between
+  .modal-close-control
+    position: absolute
+    top: 0
+    right: 0
+.header
+  height: 5rem!important // default <mat-expansion-panel-header> height = 48px
+  padding: $default-offset/2
+.title
+  display: flex
+  align-items: center
+  justify-content: center

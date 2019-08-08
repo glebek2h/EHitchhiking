@@ -1,0 +1,65 @@
+@import '../../../../styles/colors'
+@import '../../../../styles/fonts-constants'
+@import '../../../../styles/constants'
+@import '../../../../styles/mixins'
+
+.sidenav-container
+  height: 100%
+  position: fixed
+  top: 0
+  background-color: $white
+  &-opened
+    width: 20rem
+  .menu-opened
+    width: 100%
+  .header
+    @include flexbox(space-between)
+    position: relative
+    padding:
+      right: $default-offset
+      top: $default-offset
+      bottom: $default-offset
+    &-span 
+      flex: 1
+      text-align: center
+      display: inline-block
+      font-size: $subheading-1
+      padding:
+        left: $default-offset
+    &-button
+      @include flexbox()   
+    .account-icon
+      font-size: $display-3 
+      margin-right: $default-offset
+    .close-icon
+      margin-top: $default-offset / 2
+      font-size: $title
+  .buttons
+    .li-buttons
+      display: block
+      margin:  $default-offset * 0.5
+      .li-button
+        width: 100%
+        height: 3rem
+        font-size: $button
+        color: $white
+        background-color: mat-color($accent)
+    .log-out
+      margin-left: 10%
+      width: 80%
+      color: mat-color($accent)
+  .footer-meta
+    width: 100%
+    @include flexbox()
+  .toggle-button
+    margin-top:  $default-offset * 3.5
+    padding: 0
+    min-width:  1.5rem
+    position: fixed
+    .material-icons
+      font-size: $display-3
+  .chat-btn
+    position: fixed
+    bottom: 5rem
+    .material-icons
+      font-size: $headline

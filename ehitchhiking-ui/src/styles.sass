@@ -1,1 +1,38 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'styles/colors'
+@import 'styles/fonts-constants'
+@import 'styles/constants'
+@import 'styles/mixins'
+@import 'styles/modals'
+@import 'styles/notifications.styles'
+
+::-webkit-scrollbar
+  width: $default-offset
+::-webkit-scrollbar-thumb
+  border-width: 1px 1px 1px 2px
+  border-color: $dark-gray
+  background-color: $gray
+::-webkit-scrollbar-thumb:hover
+  border-width: 1px 1px 1px 2px
+  border-color: $darkest-gray
+  background-color: $dark-gray
+::-webkit-scrollbar-track
+  border-width: 0
+::-webkit-scrollbar-track:hover
+  border-left: solid 1px $gray
+  background-color: $white
+
+.truncated
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
+
+html
+  font: 16px $app-font
+
+html
+  margin-left: -0.5rem
+  margin-top: -0.5rem
+
+body
+  font-size: $body-1
+

@@ -1,0 +1,50 @@
+<i class="user-role-icon material-icons" *ngIf="trip.role === userState.Driver" matTooltip="driver">
+	directions_car
+</i>
+<i class="user-role-icon material-icons" *ngIf="trip.role === userState.Passenger" matTooltip="passenger">
+	person
+</i>
+<p class="trip-points ">
+	<span class="start-end-point truncated" [matTooltip]="trip.startPoint">{{ trip.startPoint }}</span>
+	<span class="start-end-point truncated" [matTooltip]="trip.endPoint">-> {{ trip.endPoint }}</span>
+</p>
+<div class="swap-btns-rating">
+	<div class="action-btns-container" [class.active]="isRatingEditorVisible">
+		<button class="trip-btn trip-btn-responsive" [ngSwitch]="trip.status">
+			<i class="material-icons" *ngSwitchCase="0" matTooltip="active trip">
+				event_note
+			</i>
+			<i class="material-icons" *ngSwitchCase="1" matTooltip="completed trip">
+				event_available
+			</i>
+			<i class="material-icons" *ngSwitchCase="2" matTooltip="declined trip">
+				event_busy
+			</i>
+		</button>
+		<button class="trip-btn trip-btn-responsive" matTooltip="rate trip" (click)="openRatePassengersDialog()">
+			<i class="material-icons">
+				stars
+			</i>
+		</button>
+		<button
+			class="trip-btn trip-btn-responsive"
+			matTooltip="add to favourite"
+			[class.active]="trip.saved"
+			(click)="makeFavorite()"
+		>
+			<i class="material-icons" *ngIf="!trip.saved" title=" not favorite trip">
+				favorite_border
+			</i>
+			<i class="btn-press-favorite material-icons" title="favorite trip" *ngIf="trip.saved">
+				favorite
+			</i>
+		</button>
+	</div>
+	<app-rating
+		class="rating"
+		[class.active]="isRatingEditorVisible"
+		[rating]="trip.rating"
+		[itemId]="trip.id"
+		(ratingClick)="rateTrip($event)"
+	></app-rating>
+</div>

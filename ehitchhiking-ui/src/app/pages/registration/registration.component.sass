@@ -1,0 +1,70 @@
+@import '../../../styles/colors'
+@import '../../../styles/fonts-constants'
+@import '../../../styles/constants'
+@import '../../../styles/mixins'
+
+.user-info
+  background: $mat-badge-font-weight
+  border-radius: 0 0 2% 2%
+  padding: 5%
+  position: relative
+  border: none
+  margin: 0
+  box-shadow:  0 0 0.5rem 0.1rem rgba(221, 221, 221, 1)
+
+  .authorization-inputs-container
+    @include flexbox(center, center, column)
+    position: relative
+
+    .form-row
+      width: 60%
+
+.hover-info
+  color: mat-color($primary, 900)
+  text-decoration: none
+.forg-pass:hover
+ color: mat-color($primary, 100)
+
+.center
+  display: flex
+  justify-content: center
+
+#login-form
+  margin: auto
+  width: 40%
+  padding: 5%
+
+.page
+  display: flex
+  height: 100%
+  background: mat-color($mat-blue-gray)
+  align-items: center
+
+.exadel-login
+  background-color: $exadel-logo
+  border-radius: 2% 2% 0 0
+  padding: 5%
+
+  &-img
+    width: 50%
+    margin-left: 25%
+
+.btn
+  margin-top: 5%
+.btn:hover
+  box-shadow: 0 0 0.5rem 0.1rem rgba(221, 221, 221, 1)
+
+.info
+  background: mat-color($primary, 50)
+  border-radius: 50%
+  display: inline-block
+  text-align: center
+  width: 1.2rem
+
+.clearfix
+  font-size: $button
+  margin-top: 5%
+
+@media screen and (max-width: $small-screen-max-width)
+  #login-form,.exadel-login,.user-info
+    width: $small-registration-width

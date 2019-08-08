@@ -1,0 +1,12 @@
+<div class="no-data-wrapper" *ngIf="isEmpty">
+	<div class="no-data-block" [ngClass]="defineSize(size, isBackgroud)">
+		<div class="icon-wrapper">
+			<i class="material-icons">
+				{{ this.icon || this.defaultIcon }}
+			</i>
+		</div>
+		<p class="no-data-text">
+			{{ this.message || this.defaultMessage }}
+		</p>
+	</div>
+</div>

@@ -1,0 +1,47 @@
+@import '../../../../styles/colors'
+@import '../../../../styles/constants'
+@import '../../../../styles/mixins'
+@import '../../../../styles/fonts-constants'
+@import '../../../../styles'
+
+.form-row
+  @include flexbox(space-between)
+.show-trip-button
+  color: $white!important // because of mat styles
+.title
+  display: flex
+  width: 100%
+  justify-content: space-around
+.info-container
+  margin: auto
+  margin-bottom: $default-offset
+  max-width: 75%
+  background: mat-color($accent, 100)
+  opacity: 0.9
+  color: $white
+.height-item-info
+  height: 2rem
+.center
+  text-align: center
+  margin-bottom: 1rem
+.title
+  font-size: $input
+.field-note-name,
+.field-note-value
+  width: 50%
+.field-note-value
+  text-align: end
+.table-header
+  margin-top: 2rem
+.table-th
+  width: 10rem
+.form-row-content
+  display: flex
+  justify-content: space-between
+.mat-list-item
+  width: 8rem
+.form-row.mat-list-item ::ng-deep .mat-list-item-content
+  align-items: normal
+.for-driver .mat-list-item ::ng-deep .mat-list-item-content
+  padding-left: 0
+  padding-right: 0

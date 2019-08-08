@@ -1,0 +1,23 @@
+<form
+	novalidate
+	[formGroup]="addCarMod ? addCarForm : carInfoForm.controls[carIndex]"
+	class="car-form"
+	(ngSubmit)="sendCarData(true)"
+	(change)="sendCarData(false)"
+>
+	<mat-form-field class="car-form-field">
+		<input matInput formControlName="model" placeholder="Model" class="car-form-input" />
+	</mat-form-field>
+	<mat-error *ngIf="hasError('model', 'pattern')">Car model must contain 0-9, a-z, A-Z,- 3-50 symbols</mat-error>
+	<mat-form-field class="car-form-field">
+		<input matInput formControlName="color" placeholder="Color" class="car-form-input" />
+	</mat-form-field>
+	<mat-error *ngIf="hasError('color', 'pattern')">Car color must contain a-z, A-Z,- 3-20 symbols</mat-error>
+	<mat-form-field class="car-form-field">
+		<input matInput formControlName="number" placeholder="Number" class="car-form-input" />
+	</mat-form-field>
+	<mat-error *ngIf="hasError('number', 'pattern')">Car number must contain 0-9, a-z, A-Z,- 6-8 symbols</mat-error>
+	<button mat-raised-button type="submit" [disabled]="addCarForm.invalid" class="car-form-submit" *ngIf="addCarMod">
+		Submit
+	</button>
+</form>
